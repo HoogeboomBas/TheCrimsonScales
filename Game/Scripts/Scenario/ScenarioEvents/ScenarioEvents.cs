@@ -332,6 +332,10 @@ public class ScenarioEvents
 				}
 
 				CalculatedCurrentDamage = finalDamage;
+				if (CalculatedCurrentDamage == 0)
+				{
+					DamagePrevented = true;
+				}
 			}
 		}
 	}

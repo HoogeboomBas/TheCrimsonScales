@@ -15,7 +15,10 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 				async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.SufferDamageParameters.Figure == state.Performer && !state.Performer.IsDead,
+						canApplyParameters =>
+							canApplyParameters.SufferDamageParameters.Figure == state.Performer
+							&& !state.Performer.IsDead
+							&& !canApplyParameters.SufferDamageParameters.DamagePrevented,
 						async applyParameters =>
 						{
 							ActionState actionState = new ActionState(state.Performer, [new HealAbility(3, target: Target.Self)]);
