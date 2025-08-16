@@ -18,6 +18,7 @@ public abstract class AbilityState
 	public Figure Performer => ActionState.Performer;
 	public Figure Authority => ActionState.Authority;
 
+	public bool PerformWhileStunned { get; set; } = false;
 	public bool Blocked => _blocked || Performer.IsDead;
 
 	public void SetPerformed()

@@ -42,7 +42,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 	public HealAbility(DynamicInt<State> value, int targets = 1, int? range = null, RangeType? rangeType = null,
 		Target target = Target.SelfOrAllies,
-		bool requiresLineOfSight = true, bool mandatory = false,
+		bool requiresLineOfSight = true, bool mandatory = false, bool performWhileStunned = false,
 		Hex targetHex = null,
 		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
 		Action<State, List<Figure>> customGetTargets = null,
@@ -64,6 +64,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		DuringHealSubscriptions = duringHealSubscriptions;
 		AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
 		AfterHealPerformedSubscriptions = afterHealPerformedSubscriptions;
+		PerformWhileStunned = performWhileStunned;
 	}
 
 	protected override void InitializeState(State abilityState)

@@ -363,7 +363,8 @@ public partial class Character : Figure
 			}
 		}
 
-		ActionState actionState = new ActionState(this, [new HealAbility(2, target: Target.Self)]);
+		HealAbility healAbility = new HealAbility(2, target: Target.Self, performWhileStunned: true);
+		ActionState actionState = new ActionState(this, [healAbility]);
 		await actionState.Perform();
 	}
 

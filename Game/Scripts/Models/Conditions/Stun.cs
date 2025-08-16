@@ -11,7 +11,7 @@ public class Stun : ConditionModel
 		await base.Add(target, node);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
-			parameters => parameters.Performer == Owner,
+			parameters => parameters.Performer == Owner && !parameters.AbilityState.PerformWhileStunned,
 			parameters =>
 			{
 				Node.Flash();
