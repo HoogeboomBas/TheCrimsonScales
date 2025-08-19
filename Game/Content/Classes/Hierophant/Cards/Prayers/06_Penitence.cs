@@ -50,9 +50,9 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
-							state.Performer.EnemiesWith(canApplyParameters.AbilityState.Performer)
-							&& canApplyParameters.Value > 0
-							&& !canApplyParameters.AMDCard.IsCrit,
+							state.Performer.EnemiesWith(canApplyParameters.AbilityState.Performer) &&
+							canApplyParameters.Value > 0 &&
+							!canApplyParameters.AMDCard.IsCrit,
 						async applyParameters =>
 						{
 							applyParameters.SetValue(0);
