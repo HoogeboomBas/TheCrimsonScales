@@ -90,13 +90,12 @@ public class ScenarioEvents
 		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard, int value)
 			: ParametersBase<AttackAbility.State>(abilityState)
 		{
-			public AMDCard AMDCard { get; } = amdCard;
+			public AMDCard AMDCard { get; private set; } = amdCard;
 
-			public int Value { get; private set; } = value;
-
-			public void SetValue(int value)
+			public int Value { get; } = value;
+			public void SetCard(AMDCard amdCard)
 			{
-				Value = value;
+				AMDCard = amdCard;
 			}
 		}
 	}
@@ -116,6 +115,24 @@ public class ScenarioEvents
 	private readonly AMDTerminalDrawn _amdTerminalDrawn = new AMDTerminalDrawn();
 	public static AMDTerminalDrawn AMDTerminalDrawnEvent => GameController.Instance.ScenarioEvents._amdTerminalDrawn;
 
+	public class AMDCardApplied : ScenarioEvent<AMDCardApplied.Parameters>
+	{
+		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard, int value)
+			: ParametersBase<AttackAbility.State>(abilityState)
+		{
+			public AMDCard AMDCard { get; } = amdCard;
+
+			public int Value { get; private set; } = value;
+
+			public void SetValue(int value)
+			{
+				Value = value;
+			}
+		}
+	}
+
+	private readonly AMDCardApplied _amdCardApplied = new AMDCardApplied();
+	public static AMDCardApplied AMDCardAppliedEvent => GameController.Instance.ScenarioEvents._amdCardApplied;
 	public class DuringHeal : ScenarioEvent<DuringHeal.Parameters>
 	{
 		public class Parameters(HealAbility.State abilityState) : ParametersBase<HealAbility.State>(abilityState)
