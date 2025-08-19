@@ -178,7 +178,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 		await ScenarioEvents.AttackAfterTargetConfirmedEvent.CreatePrompt(
 			new ScenarioEvents.AttackAfterTargetConfirmed.Parameters(abilityState), abilityState);
 
-		int finalTerminalScore = await GameController.Instance.AMDDrawView.DrawCards(abilityState);
+		AMDCard terminal = await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 
 		int finalDamage = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
 
@@ -231,6 +231,9 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 			await GDTask.DelayFastForwardable(0.6f);
 		}
+
+		await ScenarioEvents.AMDTerminalDrawnEvent.CreatePrompt(
+			new ScenarioEvents.AMDTerminalDrawn.Parameters(abilityState, terminal), abilityState);
 
 		if(target.IsDead)
 		{
