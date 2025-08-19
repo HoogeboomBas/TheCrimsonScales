@@ -24,15 +24,31 @@ public abstract class AMDCard : IDeckCard
 		_textureAtlasColumnCount = textureAtlasColumnCount;
 		_textureAtlasRowsCount = textureAtlasRowsCount;
 	}
+	protected AMDCard(AMDCard card)
+	{
+		_atlasIndex = card._atlasIndex;
+		_textureAtlasPath = card._textureAtlasPath;
+		_textureAtlasColumnCount = card._textureAtlasColumnCount;
+		_textureAtlasRowsCount = card._textureAtlasRowsCount;
+	}
 
-	public async GDTask Apply(AttackAbility.State attackAbilityState)
+	public async GDTask<AMDCard> Draw(AttackAbility.State attackAbilityState)
 	{
 		int value = GetValue(attackAbilityState);
 		ScenarioEvents.AMDCardDrawn.Parameters amdCardDrawnParameters =
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
 				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this, value), attackAbilityState);
-
-		attackAbilityState.SingleTargetAdjustAttackValue(amdCardDrawnParameters.Value);
+		return amdCardDrawnParameters.AMDCard;
+	}
+	
+	public async GDTask Apply(AttackAbility.State attackAbilityState)
+	{
+		int value = GetValue(attackAbilityState);
+		ScenarioEvents.AMDCardApplied.Parameters amdCardAppliedParameters =
+			await ScenarioEvents.AMDCardAppliedEvent.CreatePrompt(
+				new ScenarioEvents.AMDCardApplied.Parameters(attackAbilityState, this, value), attackAbilityState);
+		
+		attackAbilityState.SingleTargetAdjustAttackValue(amdCardAppliedParameters.Value);
 	}
 
 	protected abstract int GetValue(AttackAbility.State attackAbilityState);

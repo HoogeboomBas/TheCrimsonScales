@@ -7,6 +7,12 @@
 	{
 		_value = value;
 	}
+	
+	public BasicAMDCard(AMDCard card, int value)
+		: base(card)
+	{
+		_value = value;
+	}
 
 	protected override int GetValue(AttackAbility.State attackAbilityState)
 	{

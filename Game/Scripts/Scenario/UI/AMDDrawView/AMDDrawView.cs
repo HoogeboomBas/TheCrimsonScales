@@ -61,6 +61,9 @@ public partial class AMDDrawView : Control
 
 			_discardContainer.Visible = true;
 			_discardTopCardTextureRect.Texture = newCard.GetTexture();
+			
+			// A drawn card can be overridden by an item or ability
+			newCard = await newCard.Draw(attackAbilityState);
 
 			if(terminal == null)
 			{

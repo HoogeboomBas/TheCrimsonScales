@@ -21,7 +21,7 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 							!canApplyParameters.AMDCard.IsNull,
 						async applyParameters =>
 						{
-							applyParameters.SetValue(0);
+							applyParameters.SetCard(new BasicAMDCard(applyParameters.AMDCard, 0));
 
 							await state.AdvanceUseSlot();
 						}
@@ -55,7 +55,7 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 							!canApplyParameters.AMDCard.IsCrit,
 						async applyParameters =>
 						{
-							applyParameters.SetValue(0);
+							applyParameters.SetCard(new BasicAMDCard(applyParameters.AMDCard, 0));
 
 							await state.AdvanceUseSlot();
 						}
