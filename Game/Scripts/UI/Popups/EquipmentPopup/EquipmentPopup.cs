@@ -37,7 +37,8 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 
 		SavedCharacter savedCharacter = PopupRequest.SavedCharacter;
 
-		int smallItemSlotCount = (savedCharacter.Level + 1) / 2;
+		int smallItemSlotCount = savedCharacter.GetSmallItemSlotCount();
+
 		for(int i = 0; i < smallItemSlotCount; i++)
 		{
 			EquipmentSlot equipmentSlot = _equipmentSlotScene.Instantiate<EquipmentSlot>();
@@ -146,6 +147,32 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 		}
 
 		savedCharacter.SetEquippedBaseSlotItem((ItemType)slotIndex, itemModel);
+
+		int newSmallItemSlotCount = savedCharacter.GetSmallItemSlotCount();
+
+		if(_smallItemSlots.Count != newSmallItemSlotCount) {
+			// Remove excess small item slots
+			for(int i = _smallItemSlots.Count - 1; i >= newSmallItemSlotCount; i--)
+			{
+				savedCharacter.SetEquippedSmallSlotItem(i, null);
+
+				EquipmentSlot equipmentSlotToRemove = _smallItemSlots[i];
+				_smallItemSlots.Remove(equipmentSlotToRemove);
+				_smallItemsParent.RemoveChild(equipmentSlotToRemove);
+				equipmentSlotToRemove.QueueFree();
+			}
+			// Add missing small item slots
+			for(int i = _smallItemSlots.Count; i < newSmallItemSlotCount; i++)
+			{
+				EquipmentSlot equipmentSlot = _equipmentSlotScene.Instantiate<EquipmentSlot>();
+				_smallItemsParent.AddChild(equipmentSlot);
+				equipmentSlot.Init(ItemType.Small, i);
+				equipmentSlot.PressedEvent += OnSmallItemSlotPressed;
+				_smallItemSlots.Add(equipmentSlot);
+
+				savedCharacter.SetEquippedSmallSlotItem(i, null);
+			}
+		}
 	}
 
 	private void OnSmallItemSelected(int slotIndex, ItemModel itemModel)

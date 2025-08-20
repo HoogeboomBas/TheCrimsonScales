@@ -199,4 +199,18 @@ public class SavedCharacter
 	{
 		return $"{Name}[img={{{iconSize}}}, color=#{ClassModel.PrimaryColor.ToHtml()}]{ClassModel.IconPath}[/img]";
 	}
+
+	public int GetSmallItemSlotCount()
+	{
+		int smallItemSlotCount = (Level + 1) / 2;
+		foreach(string baseSlotItem in EquippedBaseSlotItems)
+		{
+			if(baseSlotItem != null)
+			{
+				smallItemSlotCount += ModelDB.GetById<ItemModel>(baseSlotItem).SmallItemSlotCount;
+			}
+		}
+
+		return smallItemSlotCount;
+	}
 }
