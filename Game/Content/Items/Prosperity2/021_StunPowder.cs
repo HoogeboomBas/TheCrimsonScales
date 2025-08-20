@@ -1,3 +1,5 @@
+using Fractural.Tasks;
+
 public class StunPowder : Prosperity2Item
 {
 	public override string Name => "Stun Powder";
@@ -8,4 +10,22 @@ public class StunPowder : Prosperity2Item
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
 	protected override int AtlasIndex => 14;
+
+	protected override void Subscribe()
+	{
+		base.Subscribe();
+
+		SubscribeDuringAttack(
+			canApply: state => state.Performer == Owner && state.SingleTargetRangeType == RangeType.Range,
+			apply: async state =>
+			{
+				await Use(async user =>
+				{
+					state.SingleTargetAddCondition(Conditions.Stun);
+
+					await GDTask.CompletedTask;
+				});
+			}
+		);
+	}
 }
