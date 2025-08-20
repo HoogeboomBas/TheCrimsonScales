@@ -65,15 +65,15 @@ public class ScenarioEvents
 	private readonly DuringAttack _duringAttack = new DuringAttack();
 	public static DuringAttack DuringAttackEvent => GameController.Instance.ScenarioEvents._duringAttack;
 
+	private readonly AttackAfterTargetConfirmed _attackAfterTargetConfirmed = new AttackAfterTargetConfirmed();
+	public static AttackAfterTargetConfirmed AttackAfterTargetConfirmedEvent => GameController.Instance.ScenarioEvents._attackAfterTargetConfirmed;
+
 	public class AttackAfterTargetConfirmed : ScenarioEvent<AttackAfterTargetConfirmed.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState) : ParametersBase<AttackAbility.State>(abilityState)
 		{
 		}
 	}
-
-	private readonly AttackAfterTargetConfirmed _attackAfterTargetConfirmed = new AttackAfterTargetConfirmed();
-	public static AttackAfterTargetConfirmed AttackAfterTargetConfirmedEvent => GameController.Instance.ScenarioEvents._attackAfterTargetConfirmed;
 
 	public class AfterAttackPerformed : ScenarioEvent<AfterAttackPerformed.Parameters>
 	{
@@ -133,6 +133,7 @@ public class ScenarioEvents
 
 	private readonly AMDCardApplied _amdCardApplied = new AMDCardApplied();
 	public static AMDCardApplied AMDCardAppliedEvent => GameController.Instance.ScenarioEvents._amdCardApplied;
+	
 	public class DuringHeal : ScenarioEvent<DuringHeal.Parameters>
 	{
 		public class Parameters(HealAbility.State abilityState) : ParametersBase<HealAbility.State>(abilityState)
