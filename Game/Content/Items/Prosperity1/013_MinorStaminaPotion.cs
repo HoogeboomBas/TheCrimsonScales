@@ -22,7 +22,7 @@ public class MinorStaminaPotion : Prosperity1Item
 				await Use(async user =>
 				{
 					AbilityCard selectedAbilityCard =
-						await AbilityCmd.SelectAbilityCard(character as Character, CardState.Discarded, mandatory: true, hintText: $"Select a discarded card to recover");
+						await AbilityCmd.SelectAbilityCard(user, CardState.Discarded, mandatory: true, hintText: $"Select a discarded card to recover");
 
 					await AbilityCmd.ReturnToHand(selectedAbilityCard);
 				});
