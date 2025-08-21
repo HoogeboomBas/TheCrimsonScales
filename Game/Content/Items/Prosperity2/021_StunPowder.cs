@@ -16,7 +16,7 @@ public class StunPowder : Prosperity2Item
 		base.Subscribe();
 
 		SubscribeDuringAttack(
-			canApply: state => state.Performer == Owner && state.SingleTargetRangeType == RangeType.Range,
+			canApply: state => state.Performer == Owner,
 			apply: async state =>
 			{
 				await Use(async user =>
