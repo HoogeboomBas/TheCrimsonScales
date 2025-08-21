@@ -150,7 +150,8 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 
 		int newSmallItemSlotCount = savedCharacter.GetSmallItemSlotCount();
 
-		if(_smallItemSlots.Count != newSmallItemSlotCount) {
+		if(_smallItemSlots.Count != newSmallItemSlotCount) 
+		{
 			// Remove excess small item slots
 			for(int i = _smallItemSlots.Count - 1; i >= newSmallItemSlotCount; i--)
 			{
