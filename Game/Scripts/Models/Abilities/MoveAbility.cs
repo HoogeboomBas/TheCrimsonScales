@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
@@ -97,30 +96,12 @@ public class MoveAbility : Ability<MoveAbility.State>
 	/// A convenience method that returns an instance of MoveBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static MoveBuilder.IDistanceStep Builder()
+	public static AbstractBuilder<MoveBuilder, MoveAbility>.IDistanceStep Builder()
 	{
 		return new MoveBuilder();
 	}
 
 	public MoveAbility() { }
-
-	public MoveAbility(int distance, MoveType moveType = MoveType.Regular,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null,
-		Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> duringMovementSubscriptions = null,
-		//List<ScenarioEvents.FigureEnteredHex.Subscription> figureEnteredHexSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck,
-			abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		Distance = distance;
-		MoveType = moveType;
-		DuringMovementSubscriptions = duringMovementSubscriptions;
-		//FigureEnteredHexSubscriptions = figureEnteredHexSubscriptions;
-	}
 
 	protected override void InitializeState(State abilityState)
 	{

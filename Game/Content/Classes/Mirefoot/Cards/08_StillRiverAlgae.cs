@@ -39,7 +39,7 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 				})
 				.Build()),
 
-			new AbilityCardAbility(new MoveAbility(3))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build())
 		];
 	}
 }

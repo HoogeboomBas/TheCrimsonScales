@@ -62,7 +62,7 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(new OtherActiveAbility(
 				abilityState =>

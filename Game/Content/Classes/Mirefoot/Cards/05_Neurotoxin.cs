@@ -20,7 +20,7 @@ public class Neurotoxin : MirefootCardModel<Neurotoxin.CardTop, Neurotoxin.CardB
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 			new AbilityCardAbility(new HealAbility(3, conditions: [Conditions.Poison1],
 				onAbilityEnded: async abilityState =>
 				{

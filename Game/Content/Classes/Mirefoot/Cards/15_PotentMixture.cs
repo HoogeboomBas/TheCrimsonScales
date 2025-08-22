@@ -47,7 +47,7 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
 			new AbilityCardAbility(new UseSlotAbility([new UseSlot(null)],
 				async state =>

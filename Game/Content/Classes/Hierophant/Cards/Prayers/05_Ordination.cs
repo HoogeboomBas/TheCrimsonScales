@@ -18,7 +18,7 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [new MoveAbility(2)]);
+							ActionState actionState = new ActionState(state.Performer, [MoveAbility.Builder().WithDistance(2).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();
@@ -49,7 +49,7 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [new MoveAbility(2)]);
+							ActionState actionState = new ActionState(state.Performer, [MoveAbility.Builder().WithDistance(2).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();

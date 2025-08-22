@@ -24,14 +24,14 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
-					{
-						SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
-						ActionState actionState = new ActionState(summonAbilityState.Summon,
-						[
-							new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
-						], state.ActionState);
-						await actionState.Perform();
-					})
+				{
+					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
+					ActionState actionState = new ActionState(summonAbilityState.Summon,
+					[
+						new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
+					], state.ActionState);
+					await actionState.Perform();
+				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
@@ -45,9 +45,9 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4,
-				abilityStartedSubscriptions:
-				[
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4)
+				.WithAbilityStartedSubscription(
 					ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -58,8 +58,8 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

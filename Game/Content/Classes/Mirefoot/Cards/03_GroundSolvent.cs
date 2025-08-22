@@ -87,8 +87,9 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Subscribe(state.Performer, this,
 						parameters => parameters.AbilityState == state && !parameters.Hex.HasHexObjectOfType<DifficultTerrain>(),
@@ -99,14 +100,15 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
-				{
-					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
+				})
+				.WithOnAbilityEnded(async state =>
+					{
+						ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
 			new AbilityCardAbility(new AttackAbility(2))
 		];

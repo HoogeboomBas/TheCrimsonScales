@@ -109,8 +109,9 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
@@ -126,14 +127,15 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
+				})
+				.WithOnAbilityEnded(async abilityState =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 }

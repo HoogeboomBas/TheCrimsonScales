@@ -24,7 +24,10 @@ public class GrapplingHook : BombardCardModel<GrapplingHook.CardTop, GrapplingHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3, MoveType.Jump))
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithMoveType(MoveType.Jump)
+				.Build())
 		];
 	}
 }

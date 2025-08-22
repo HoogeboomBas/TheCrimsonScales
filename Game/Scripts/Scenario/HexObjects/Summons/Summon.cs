@@ -69,7 +69,7 @@ public partial class Summon : Figure
 
 		if(Stats.Move.HasValue)
 		{
-			MoveAbility moveAbility = new MoveAbility(Stats.Move.Value);
+			MoveAbility moveAbility = MoveAbility.Builder().WithDistance(Stats.Move.Value).Build();
 			_abilities.Add(moveAbility);
 		}
 

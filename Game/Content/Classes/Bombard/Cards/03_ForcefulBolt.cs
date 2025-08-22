@@ -20,7 +20,7 @@ public class ForcefulBolt : BombardCardModel<ForcefulBolt.CardTop, ForcefulBolt.
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
-			new AbilityCardAbility(new MoveAbility(1))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build())
 		];
 	}
 }

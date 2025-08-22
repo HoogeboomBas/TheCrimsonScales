@@ -24,7 +24,7 @@ public class ForcibleEntry : FireKnightCardModel<ForcibleEntry.CardTop, Forcible
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(new OtherActiveAbility(
 				async state =>

@@ -88,7 +88,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<PikeHook>(), ModelDB.Item<FireproofHelm>()]))
 		];

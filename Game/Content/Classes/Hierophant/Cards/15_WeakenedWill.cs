@@ -42,7 +42,7 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(1)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 
 			new AbilityCardAbility(new OtherActiveAbility(
 				state =>

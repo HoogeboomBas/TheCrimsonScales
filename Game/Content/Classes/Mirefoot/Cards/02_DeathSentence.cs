@@ -23,8 +23,9 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(5,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(5)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -37,13 +38,14 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 						});
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
+				})
+				.WithOnAbilityEnded(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 	}
 }

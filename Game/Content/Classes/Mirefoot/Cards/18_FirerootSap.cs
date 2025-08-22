@@ -45,7 +45,7 @@ public class FirerootSap : MirefootCardModel<FirerootSap.CardTop, FirerootSap.Ca
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
 			new AbilityCardAbility(new AttackAbility(1, conditions: [Conditions.Wound1]))
 		];

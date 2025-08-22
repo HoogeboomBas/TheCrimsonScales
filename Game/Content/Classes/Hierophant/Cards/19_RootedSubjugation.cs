@@ -67,7 +67,7 @@ public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(new GrantAbility(figure => [new RetaliateAbility(1, range: 2)]))
 		];

@@ -47,7 +47,7 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(new ConditionAbility([Conditions.Bless], target: Target.Allies, range: 1))
 		];

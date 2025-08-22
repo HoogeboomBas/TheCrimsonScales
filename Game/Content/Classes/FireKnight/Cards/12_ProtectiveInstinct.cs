@@ -24,9 +24,9 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new GrantAbility(figure => [new MoveAbility(3)], range: 2,
+			new AbilityCardAbility(new GrantAbility(figure => [MoveAbility.Builder().WithDistance(3).Build()], range: 2,
 				conditionalAbilityCheck: async state =>
 				{
 					await GDTask.CompletedTask;

@@ -11,7 +11,7 @@ public class RollingIntoPosition : BombardCardModel<RollingIntoPosition.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(1)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 			new AbilityCardAbility(new ShieldAbility(1))
 		];
 
@@ -23,7 +23,7 @@ public class RollingIntoPosition : BombardCardModel<RollingIntoPosition.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 			new AbilityCardAbility(new ConditionAbility([Conditions.Immobilize], target: Target.Self, mandatory: true))
 		];
 	}

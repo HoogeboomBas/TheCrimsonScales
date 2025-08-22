@@ -20,7 +20,7 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build())
 		];
 	}
 }

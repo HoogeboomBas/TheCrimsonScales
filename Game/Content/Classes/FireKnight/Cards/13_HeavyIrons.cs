@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
-using Godot;
 
 public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIrons.CardBottom>
 {
@@ -16,7 +15,8 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 		[
 			new AbilityCardAbility(new AttackAbility(3, conditions: [Conditions.Immobilize])),
 
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<RescueAxe>(), ModelDB.Item<EmberCladding>(), ModelDB.Item<ScrollOfCharisma>()],
+			new AbilityCardAbility(GiveFireKnightItemAbility(
+				[ModelDB.Item<RescueAxe>(), ModelDB.Item<EmberCladding>(), ModelDB.Item<ScrollOfCharisma>()],
 				onItemGiven: async (state, item) =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
@@ -29,9 +29,9 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2,
-				duringMovementSubscriptions:
-				[
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2)
+				.WithDuringMovementSubscription(
 					ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async applyParameters =>
 						{
@@ -41,8 +41,8 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Move)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(new UseSlotAbility([new UseSlot(null)],
 				async state =>

@@ -70,7 +70,7 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 				}
 			)),
 
-			new AbilityCardAbility(new MoveAbility(6))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(6).Build())
 		];
 
 		protected override int XP => 2;

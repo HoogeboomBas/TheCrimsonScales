@@ -22,7 +22,7 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(new HealAbility(1, target: Target.Allies | Target.TargetAll,
 				customGetTargets: (state, list) =>

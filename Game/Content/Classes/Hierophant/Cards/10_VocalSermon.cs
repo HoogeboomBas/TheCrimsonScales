@@ -47,46 +47,49 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3, MoveType.Jump,
-				duringMovementSubscriptions:
-				[
-					// ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Light,
-					// 	canApplyFunction: canApplyParameters =>
-					// 	{
-					// 		MoveAbility.State moveAbilityState = canApplyParameters.AbilityState;
-					// 		foreach(Hex hex in moveAbilityState.Hexes)
-					// 		{
-					// 			foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-					// 			{
-					// 				if(figure != parameters.Performer && parameters.Performer.AlliedWith(figure))
-					// 				{
-					// 					return true;
-					// 				}
-					// 			}
-					// 		}
-					//
-					// 		return false;
-					// 	},
-					// 	applyFunction: async applyParameters =>
-					// 	{
-					// 		MoveAbilityState moveAbilityState = (MoveAbilityState)applyParameters.AbilityState;
-					// 		await GivePrayerCard(applyParameters.AbilityState,
-					// 			customGetTargets: list =>
-					// 			{
-					// 				foreach(Hex hex in moveAbilityState.Hexes)
-					// 				{
-					// 					foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-					// 					{
-					// 						if(figure != parameters.Performer && parameters.Performer.AlliedWith(figure))
-					// 						{
-					// 							list.Add(figure);
-					// 						}
-					// 					}
-					// 				}
-					// 			});
-					// 	})
-				]
-			)),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithMoveType(MoveType.Jump)
+				.WithDuringMovementSubscriptions(
+					[
+						// ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Light,
+						// 	canApplyFunction: canApplyParameters =>
+						// 	{
+						// 		MoveAbility.State moveAbilityState = canApplyParameters.AbilityState;
+						// 		foreach(Hex hex in moveAbilityState.Hexes)
+						// 		{
+						// 			foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+						// 			{
+						// 				if(figure != parameters.Performer && parameters.Performer.AlliedWith(figure))
+						// 				{
+						// 					return true;
+						// 				}
+						// 			}
+						// 		}
+						//
+						// 		return false;
+						// 	},
+						// 	applyFunction: async applyParameters =>
+						// 	{
+						// 		MoveAbilityState moveAbilityState = (MoveAbilityState)applyParameters.AbilityState;
+						// 		await GivePrayerCard(applyParameters.AbilityState,
+						// 			customGetTargets: list =>
+						// 			{
+						// 				foreach(Hex hex in moveAbilityState.Hexes)
+						// 				{
+						// 					foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+						// 					{
+						// 						if(figure != parameters.Performer && parameters.Performer.AlliedWith(figure))
+						// 						{
+						// 							list.Add(figure);
+						// 						}
+						// 					}
+						// 				}
+						// 			});
+						// 	})
+					]
+				)
+				.Build()),
 
 			new AbilityCardAbility(GivePrayerCardAbility(
 				conditionalAbilityCheck: async state =>

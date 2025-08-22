@@ -51,7 +51,7 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(5)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
 
 			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5560003f, 0.8259989f), GainXP)],
 				async state =>
