@@ -57,20 +57,22 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 				)
 				.Build()),
 
-			new AbilityCardAbility(new ShieldAbility(1,
-				conditionalAbilityCheck: async state =>
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(1)
+				.WithConditionalAbilityCheck(async state =>
 				{
 					await GDTask.CompletedTask;
 
 					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "EarthConsumed");
-				},
-				onAbilityEndedPerformed: async state =>
-				{
-					state.ActionState.SetOverrideRound();
+				})
+				.WithOnAbilityEndedPerformed(async state =>
+					{
+						state.ActionState.SetOverrideRound();
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
 			new AbilityCardAbility(new HealAbility(1, range: 3,
 				conditionalAbilityCheck: async state =>

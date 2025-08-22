@@ -43,7 +43,10 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ShieldAbility(2, requiredRangeType: RangeType.Melee))
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(2)
+				.WithRequiredRangeType(RangeType.Melee)
+				.Build())
 		];
 
 		protected override bool Round => true;

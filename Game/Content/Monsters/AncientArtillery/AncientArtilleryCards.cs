@@ -156,7 +156,7 @@ public class AncientArtilleryAbilityCard6 : AncientArtilleryAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(new PushAbility(2, range: 1, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(new ShieldAbility(2)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -2))
 	];
 }

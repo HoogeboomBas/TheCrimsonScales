@@ -105,7 +105,7 @@ public class GiantViperAbilityCard2 : GiantViperAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(1)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
 }

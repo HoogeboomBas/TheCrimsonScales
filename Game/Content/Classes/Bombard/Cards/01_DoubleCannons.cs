@@ -24,7 +24,10 @@ public class DoubleCannons : BombardCardModel<DoubleCannons.CardTop, DoubleCanno
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ShieldAbility(2, requiredRangeType: RangeType.Range))
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(2)
+				.WithRequiredRangeType(RangeType.Range)
+				.Build())
 		];
 
 		protected override bool Round => true;

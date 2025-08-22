@@ -53,7 +53,7 @@ public class Salvation : HierophantPrayerCardModel<Salvation.CardTop, Salvation.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ShieldAbility(1))
+			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];

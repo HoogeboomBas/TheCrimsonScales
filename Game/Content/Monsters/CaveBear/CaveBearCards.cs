@@ -112,7 +112,7 @@ public class CaveBearAbilityCard7 : CaveBearAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(1)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build()),
 		new MonsterAbilityCardAbility(new HealAbility(2, target: Target.Self)),
 	];

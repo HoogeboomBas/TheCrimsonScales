@@ -24,7 +24,7 @@ public class ImpAbilityCard0 : ImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(5)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(5).Build()),
 		new MonsterAbilityCardAbility(new HealAbility(1, target: Target.Self))
 	];
 }

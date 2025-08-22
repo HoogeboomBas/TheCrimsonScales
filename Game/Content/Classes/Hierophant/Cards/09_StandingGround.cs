@@ -14,7 +14,10 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 		[
 			new AbilityCardAbility(new GrantAbility(figure =>
 				[
-					new ShieldAbility(2, pierceable: false)
+					ShieldAbility.Builder()
+						.WithShieldValue(2)
+						.WithPierceable(false)
+						.Build()
 				]
 			))
 		];
@@ -47,14 +50,16 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 			new AbilityCardAbility(new GrantAbility(
 				figure =>
 				[
-					new ShieldAbility(1,
-						conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth),
-						onAbilityEndedPerformed: async state =>
+					ShieldAbility.Builder()
+						.WithShieldValue(1)
+						.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+						.WithOnAbilityEndedPerformed(async state =>
 						{
 							await GDTask.CompletedTask;
 
 							state.ActionState.SetOverrideRound();
 						})
+						.Build()
 				],
 				customGetTargets: (state, list) =>
 				{

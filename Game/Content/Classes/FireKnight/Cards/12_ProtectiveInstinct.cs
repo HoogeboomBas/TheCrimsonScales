@@ -14,7 +14,7 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 
-			new AbilityCardAbility(new GrantAbility(figure => [new ShieldAbility(1)], target: Target.SelfOrAllies))
+			new AbilityCardAbility(new GrantAbility(figure => [ShieldAbility.Builder().WithShieldValue(1).Build()], target: Target.SelfOrAllies))
 		];
 
 		protected override bool Round => true;

@@ -15,7 +15,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 			new AbilityCardAbility(new GrantAbility(
 				figure =>
 				[
-					new ShieldAbility(1)
+					ShieldAbility.Builder().WithShieldValue(1).Build()
 				], target: Target.Allies | Target.TargetAll, range: 2
 			)),
 

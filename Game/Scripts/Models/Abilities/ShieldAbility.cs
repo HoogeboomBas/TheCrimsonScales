@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Fractural.Tasks;
 
 /// <summary>
@@ -86,24 +85,6 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 	}
 
 	public ShieldAbility() { }
-
-	public ShieldAbility(DynamicInt<State> shieldValue, RangeType? requiredRangeType = null, bool pierceable = true,
-		Func<ScenarioEvents.SufferDamage.Parameters, bool> customCanApply = null, bool customCanApplyReplaceFully = false,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		ShieldValue = shieldValue;
-		RequiredRangeType = requiredRangeType;
-		Pierceable = pierceable;
-		_customCanApply = customCanApply;
-		_customCanApplyReplaceFully = customCanApplyReplaceFully;
-	}
 
 	protected override async GDTask Perform(State abilityState)
 	{

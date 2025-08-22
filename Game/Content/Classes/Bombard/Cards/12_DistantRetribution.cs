@@ -24,7 +24,7 @@ public class DistantRetribution : BombardCardModel<DistantRetribution.CardTop, D
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 
-			new AbilityCardAbility(new ShieldAbility(1))
+			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build())
 		];
 
 		protected override bool Round => true;

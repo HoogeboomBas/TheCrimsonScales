@@ -15,7 +15,7 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 			new AbilityCardAbility(new GrantAbility(figure =>
 				[
 					new HealAbility(2, target: Target.Self),
-					new ShieldAbility(1),
+					ShieldAbility.Builder().WithShieldValue(1).Build(),
 					RetaliateAbility.Builder()
 						.WithRetaliateValue(1)
 						.WithAbilityStartedSubscription(

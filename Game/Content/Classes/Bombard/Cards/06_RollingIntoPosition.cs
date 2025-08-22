@@ -12,7 +12,7 @@ public class RollingIntoPosition : BombardCardModel<RollingIntoPosition.CardTop,
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
-			new AbilityCardAbility(new ShieldAbility(1))
+			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build())
 		];
 
 		protected override int XP => 1;
