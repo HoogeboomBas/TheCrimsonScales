@@ -20,8 +20,6 @@ public abstract class Ability<T> : Ability
 	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; protected set; } = [];
 	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; protected set; } = [];
 
-	private bool CanPerformWhileStunned { get; set; }
-
 	/// <summary>
 	/// A builder utilizing generics, which enables inheritors to extend the builder as well.
 	/// Simplifies adding new properties, which will automatically be propagated to inheritor builders.
@@ -96,12 +94,6 @@ public abstract class Ability<T> : Ability
 			List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions)
 		{
 			Obj.AbilityPerformedSubscriptions = abilityPerformedSubscriptions;
-			return (TBuilder)this;
-		}
-
-		public TBuilder WithCanPerformWhileStunned()
-		{
-			Obj.CanPerformWhileStunned = true;
 			return (TBuilder)this;
 		}
 
