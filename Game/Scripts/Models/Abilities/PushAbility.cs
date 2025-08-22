@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Fractural.Tasks;
-
-/// <summary>
+﻿/// <summary>
 /// A forced movement <see cref="TargetedAbility{T, TSingleTargetState}"/> that moves the enemy away from the acting figure,
 /// ignoring most movement rules.
 /// </summary>
@@ -48,23 +44,4 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 	}
 
 	public PushAbility() { }
-
-	public PushAbility(int push, int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Enemies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int pull = 0, ConditionModel[] conditions = null,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-	}
 }

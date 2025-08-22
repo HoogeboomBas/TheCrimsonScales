@@ -102,7 +102,11 @@ public class AncientArtilleryAbilityCard3 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(1, range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(1)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
 			aoePattern: new AOEPattern(
 				[
@@ -122,7 +126,11 @@ public class AncientArtilleryAbilityCard4 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(1, range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(1)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
 			aoePattern: new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
@@ -155,7 +163,11 @@ public class AncientArtilleryAbilityCard6 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(2, range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(2)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -2))
 	];
