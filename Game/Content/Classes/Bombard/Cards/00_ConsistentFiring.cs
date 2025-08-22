@@ -13,15 +13,17 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(3,
-				hex =>
-				[
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex),
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 1),
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 2),
-				],
-				this
-			))
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
+					[
+						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex),
+						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 1),
+						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 2),
+					]
+				)
+				.WithAbilityCardSide(this)
+				.WithRange(3)
+				.Build())
 		];
 
 		protected override int XP => 1;

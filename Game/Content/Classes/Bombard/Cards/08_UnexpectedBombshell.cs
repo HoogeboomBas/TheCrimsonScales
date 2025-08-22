@@ -11,8 +11,8 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(4,
-				hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
 					new AttackAbility(2, conditions: [Conditions.Stun], rangeType: RangeType.Range, targetHex: hex,
 						afterAttackPerformedSubscriptions:
@@ -27,7 +27,8 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 									{
 										foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
 										{
-											if(figure != applyParameters.AbilityState.Target && applyParameters.AbilityState.Performer.EnemiesWith(figure))
+											if(figure != applyParameters.AbilityState.Target &&
+											   applyParameters.AbilityState.Performer.EnemiesWith(figure))
 											{
 												enemies.Add(figure);
 											}
@@ -40,9 +41,10 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 									}
 								})
 						]),
-				],
-				this)
-			)
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.Build())
 		];
 
 		protected override int XP => 1;

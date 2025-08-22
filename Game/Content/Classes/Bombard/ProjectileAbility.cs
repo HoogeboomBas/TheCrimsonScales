@@ -97,22 +97,6 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 
 	public ProjectileAbility() { }
 
-	public ProjectileAbility(int range, Func<Hex, List<Ability>> getAbilities, AbilityCardSide abilityCardSide, int targets = 1,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		_getAbilities = getAbilities;
-		Range = range;
-		AbilityCardSide = abilityCardSide;
-		Targets = targets;
-	}
-
 	protected override async GDTask Perform(State abilityState)
 	{
 		for(int i = 0; i < Targets; i++)

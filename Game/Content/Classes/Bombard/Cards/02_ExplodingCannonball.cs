@@ -13,8 +13,8 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(4,
-				hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
 					new AttackAbility(3, rangeType: RangeType.Range, pierce: 1, targetHex: hex, aoePattern: new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Red),
@@ -25,8 +25,10 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 						new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red)
 					]))
-				], this
-			))
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];

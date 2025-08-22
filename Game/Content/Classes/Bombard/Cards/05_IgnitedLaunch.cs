@@ -12,12 +12,14 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(4,
-				hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
 					new AttackAbility(5, rangeType: RangeType.Range, targetHex: hex)
-				], this
-			))
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

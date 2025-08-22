@@ -14,12 +14,14 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(targets: 2, range: 4,
-				getAbilities: hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder().WithGetAbilities(hex =>
 				[
 					new AttackAbility(3, pierce: 2, rangeType: RangeType.Range, targetHex: hex)
-				], abilityCardSide: this
-			))
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.WithTargets(2)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -39,7 +41,8 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 						parameters =>
 							parameters.Performer == state.Performer &&
 							parameters.AbilityState.ActionState.ParentActionState != null &&
-							parameters.AbilityState.ActionState.ParentActionState.AbilityStates.Any(parentAbilityState => parentAbilityState is ProjectileAbility.State),
+							parameters.AbilityState.ActionState.ParentActionState.AbilityStates.Any(parentAbilityState =>
+								parentAbilityState is ProjectileAbility.State),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetSetHasAdvantage();
