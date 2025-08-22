@@ -12,15 +12,18 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new SummonAbility(new SummonStats()
+			new AbilityCardAbility(SummonAbility.Builder()
+				.WithSummonStats(new SummonStats()
 				{
 					Health = 4,
 					Move = 2,
 					Attack = 1,
 					Traits = [new AdjacentAlliesGainAdvantageTrait()]
-				},
-				"Spotted Hound", "res://Content/Classes/FireKnight/SpottedHound.jpg"
-			)),
+				})
+				.WithName("Spotted Hound")
+				.WithTexturePath("res://Content/Classes/FireKnight/SpottedHound.jpg")
+				.Build()
+			),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>

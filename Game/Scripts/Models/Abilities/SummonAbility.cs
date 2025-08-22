@@ -98,22 +98,6 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 
 	public SummonAbility() { }
 
-	public SummonAbility(SummonStats summonStats, string name, string texturePath, Action<State, List<Hex>> getValidHexes = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		_summonStats = summonStats;
-		_name = name;
-		_texturePath = texturePath;
-		_getValidHexes = getValidHexes;
-	}
-
 	protected override async GDTask Perform(State abilityState)
 	{
 		// Target a hex within range
