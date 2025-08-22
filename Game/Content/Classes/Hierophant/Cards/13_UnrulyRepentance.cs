@@ -51,8 +51,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherTargetedAbility(
-				async (state, target) =>
+			new AbilityCardAbility(OtherTargetedAbility.Builder()
+				.WithOnAfterConditionsApplied(async (state, target) =>
 				{
 					int conditionCount = 0;
 
@@ -69,8 +69,11 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 					}
 
 					state.SetCustomValue(this, "ConditionCount", conditionCount);
-				}, range: 3, target: Target.Allies
-			)),
+				})
+				.WithRange(3)
+				.WithTarget(Target.Allies)
+				.Build()
+			),
 
 			new AbilityCardAbility(new HealAbility(
 				new DynamicInt<HealAbility.State>(state =>
