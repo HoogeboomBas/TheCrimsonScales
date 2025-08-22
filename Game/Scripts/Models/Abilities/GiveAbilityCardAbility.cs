@@ -2,18 +2,97 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
+/// <summary>
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that gives an ability card to another character.
+/// </summary>
 public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
 	{
 	}
 
-	private readonly Action<AbilityState, List<AbilityCard>> _getAbilityCards;
-	private readonly Func<AbilityState, AbilityCard, GDTask> _onCardGiven;
-	private readonly Func<AbilityCard, GDTask> _onCardDiscarded;
-	private readonly Func<AbilityCard, GDTask> _onCardLost;
+	protected Action<AbilityState, List<AbilityCard>> _getAbilityCards { get; set; }
+	protected Func<AbilityState, AbilityCard, GDTask> _onCardGiven { get; set; }
+	protected Func<AbilityCard, GDTask> _onCardDiscarded { get; set; }
+	protected Func<AbilityCard, GDTask> _onCardLost { get; set; }
 
-	private readonly bool _selectAutomatically;
+	protected bool _selectAutomatically { get; set; }
+
+	/// <summary>
+	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in GiveAbilityCardAbility. Enables inheritors of GiveAbilityCardAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending GiveAbilityCardAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, SingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IGetAbilityCardsStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : GiveAbilityCardAbility, new()
+	{
+		public interface IGetAbilityCardsStep
+		{
+			TBuilder WithGetAbilityCards(Action<AbilityState, List<AbilityCard>> getAbilityCards);
+		}
+
+		public TBuilder WithGetAbilityCards(Action<AbilityState, List<AbilityCard>> getAbilityCards)
+		{
+			Obj._getAbilityCards = getAbilityCards;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardGiven(Func<AbilityState, AbilityCard, GDTask> onCardGiven)
+		{
+			Obj._onCardGiven = onCardGiven;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardDiscarded(Func<AbilityCard, GDTask> onCardDiscarded)
+		{
+			Obj._onCardDiscarded = onCardDiscarded;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardLost(Func<AbilityCard, GDTask> onCardLost)
+		{
+			Obj._onCardLost = onCardLost;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithSelectAutomatically(bool selectAutomatically)
+		{
+			Obj._selectAutomatically = selectAutomatically;
+			return (TBuilder)this;
+		}
+
+		/// <summary>
+		/// Overriding so we can set default values.
+		/// </summary>
+		public override TAbility Build()
+		{
+			Obj.Target = _target ?? Target.Allies;
+			return base.Build();
+		}
+	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class GiveAbilityCardBuilder : AbstractBuilder<GiveAbilityCardBuilder, GiveAbilityCardAbility>
+	{
+		internal GiveAbilityCardBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of GiveAbilityCardBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static GiveAbilityCardBuilder.IGetAbilityCardsStep Builder()
+	{
+		return new GiveAbilityCardBuilder();
+	}
+
+	public GiveAbilityCardAbility() { }
 
 	public GiveAbilityCardAbility(Action<AbilityState, List<AbilityCard>> getAbilityCards,
 		Func<AbilityState, AbilityCard, GDTask> onCardGiven = null,
@@ -53,7 +132,8 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 	}
 
 	public static async GDTask GiveAbilityCard(AbilityState abilityState, Figure target, Action<AbilityState, List<AbilityCard>> getAbilityCards,
-		Func<AbilityState, AbilityCard, GDTask> onCardGiven, Func<AbilityCard, GDTask> onCardDiscarded, Func<AbilityCard, GDTask> onCardLost, bool selectAutomatically = false)
+		Func<AbilityState, AbilityCard, GDTask> onCardGiven, Func<AbilityCard, GDTask> onCardDiscarded, Func<AbilityCard, GDTask> onCardLost,
+		bool selectAutomatically = false)
 	{
 		AbilityCard abilityCard;
 		if(selectAutomatically)
