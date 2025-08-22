@@ -11,7 +11,7 @@ public class DistantRetribution : BombardCardModel<DistantRetribution.CardTop, D
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new RetaliateAbility(2, range: 3))
+			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).WithRange(3).Build())
 		];
 
 		protected override int XP => 1;

@@ -73,7 +73,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 			new AbilityCardAbility(new GrantAbility(
 				figure =>
 				[
-					new RetaliateAbility(1)
+					RetaliateAbility.Builder().WithRetaliateValue(1).Build()
 				],
 				customGetTargets: (state, list) =>
 				{

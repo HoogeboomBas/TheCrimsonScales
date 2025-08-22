@@ -24,7 +24,7 @@ public class StoneGolemAbilityCard0 : StoneGolemAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new RetaliateAbility(3, 3)),
+		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(3).WithRange(3).Build()),
 	];
 }
 

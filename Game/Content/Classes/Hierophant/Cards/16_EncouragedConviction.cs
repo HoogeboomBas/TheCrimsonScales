@@ -16,9 +16,9 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 				[
 					new HealAbility(2, target: Target.Self),
 					new ShieldAbility(1),
-					new RetaliateAbility(1,
-						abilityStartedSubscriptions:
-						[
+					RetaliateAbility.Builder()
+						.WithRetaliateValue(1)
+						.WithAbilityStartedSubscription(
 							ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.ConsumeElement(Element.Earth,
 								parameters => true,
 								async parameters =>
@@ -29,8 +29,8 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 										1); //TODO: This actually grants the granted figure the xp, but I guess that's also implied on the card art currently
 								}
 							)
-						]
-					)
+						)
+						.Build()
 				],
 				range: 3
 			))

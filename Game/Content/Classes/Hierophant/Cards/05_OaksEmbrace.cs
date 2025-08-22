@@ -51,14 +51,16 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 			new AbilityCardAbility(new GrantAbility(figure =>
 				[
-					new RetaliateAbility(1,
-						conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth),
-						onAbilityEndedPerformed: async state =>
+					RetaliateAbility.Builder()
+						.WithRetaliateValue(1)
+						.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+						.WithOnAbilityEndedPerformed(async state =>
 						{
 							state.ActionState.SetOverrideRound();
 
 							await GDTask.CompletedTask;
 						})
+						.Build()
 				]
 			))
 		];

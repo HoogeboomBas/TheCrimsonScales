@@ -26,7 +26,7 @@ public class GuardAbilityCard0 : GuardAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(new ShieldAbility(1)),
-		new MonsterAbilityCardAbility(new RetaliateAbility(2)),
+		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build()),
 	];
 }
 

@@ -62,7 +62,7 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new RetaliateAbility(1))
+			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(1).Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];
