@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-/// <summary>
-/// A forced movement <see cref="TargetedAbility{T, TSingleTargetState}"/> that moves the enemy away from the acting figure,
-/// ignoring most movement rules.
-/// </summary>
 public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
@@ -58,8 +54,8 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
 		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
 		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
+		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
+		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
 		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
 		: base(targets, range, rangeType, target,
 			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
