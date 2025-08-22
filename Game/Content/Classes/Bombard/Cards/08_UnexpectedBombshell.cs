@@ -55,7 +55,10 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new PullSelfAbility(4, range: 5))
+			new AbilityCardAbility(PullSelfAbility.Builder()
+				.WithPullSelfValue(4)
+				.WithRange(5)
+				.Build())
 		];
 	}
 }

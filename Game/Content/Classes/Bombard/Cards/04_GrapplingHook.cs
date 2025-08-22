@@ -12,11 +12,14 @@ public class GrapplingHook : BombardCardModel<GrapplingHook.CardTop, GrapplingHo
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(new AttackAbility(2, range: 4)),
-			new AbilityCardAbility(new PullSelfAbility(4, customGetTargets: (state, targets) =>
-			{
-				AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-				targets.AddRange(attackAbilityState.UniqueTargetedFigures);
-			}))
+			new AbilityCardAbility(PullSelfAbility.Builder()
+				.WithPullSelfValue(4)
+				.WithCustomGetTargets((state, targets) =>
+				{
+					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+					targets.AddRange(attackAbilityState.UniqueTargetedFigures);
+				})
+				.Build())
 		];
 	}
 
