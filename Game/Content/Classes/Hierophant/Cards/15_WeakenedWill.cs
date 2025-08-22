@@ -44,8 +44,8 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.AbilityState.Target),
@@ -64,20 +64,22 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Figure),
-						parameters => parameters.Add(new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+						parameters => parameters.Add(
+							new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 					);
 
 					return GDTask.CompletedTask;
-				},
-				state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
-					return GDTask.CompletedTask;
-				}
-			))
+						return GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override bool Round => true;

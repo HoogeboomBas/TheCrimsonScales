@@ -42,8 +42,8 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Subscribe(state, this,
 						canApply: canApplyParameters =>
@@ -61,13 +61,14 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				})),
+				})
+				.Build()),
 
 			new AbilityCardAbility(new GrantAbility(
 				figure =>

@@ -31,13 +31,14 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(state =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(state, this,
 						canApplyParameters =>
 							canApplyParameters.Performer == state.Performer &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -60,15 +61,16 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 						});
 
 					return GDTask.CompletedTask;
-				},
-				state =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(state, this);
-					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(state =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(state, this);
+						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(state, this);
 
-					return GDTask.CompletedTask;
-				}
-			)),
+						return GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(6).Build())
 		];

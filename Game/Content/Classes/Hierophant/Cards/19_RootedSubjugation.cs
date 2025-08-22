@@ -15,8 +15,8 @@ public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, 
 		[
 			new AbilityCardAbility(new AttackAbility(3, range: 3, pierce: 3)),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -36,27 +36,29 @@ public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, 
 						parameters => parameters.Figure == target,
 						parameters =>
 						{
-							parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Attacks targeting this figure are unaffected by {Icons.Inline(Icons.Retaliate)} this round."));
+							parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+								$"Attacks targeting this figure are unaffected by {Icons.Inline(Icons.Retaliate)} this round."));
 						}
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+				})
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					return attackAbilityState.Performed && !attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => figure.IsDead);
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						return attackAbilityState.Performed && !attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => figure.IsDead);
+					}
+				)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];

@@ -14,8 +14,8 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 		[
 			new AbilityCardAbility(new AttackAbility(2, range: 3)),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					//TODO: Add visual (character token) to target(?)
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
@@ -34,15 +34,15 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];
@@ -69,7 +69,8 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 							await GDTask.CompletedTask;
 						},
 						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Strengthen)),
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"-2{Icons.Inline(Icons.Heal)}, {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}"),
+						effectInfoViewParameters: new TextEffectInfoView.Parameters(
+							$"-2{Icons.Inline(Icons.Heal)}, {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}"),
 						effectType: EffectType.Selectable
 					),
 

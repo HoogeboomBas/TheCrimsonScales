@@ -64,8 +64,8 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				abilityState =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
@@ -80,13 +80,14 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 						});
 
 					return GDTask.CompletedTask;
-				},
-				abilityState =>
+				})
+				.WithOnDeactivate(abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
 
 					return GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 
 		protected override int XP => 2;

@@ -43,8 +43,8 @@ public static class AbilityCmd
 	{
 		object subscriber = new object();
 
-		return new OtherActiveAbility(
-			state =>
+		return OtherActiveAbility.Builder()
+			.WithOnActivate(state =>
 			{
 				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, subscriber,
 					parameters => parameters.AbilityState.Target == state.Performer,
@@ -63,25 +63,28 @@ public static class AbilityCmd
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
 					parameters => state.Performer == parameters.Figure,
-					parameters => parameters.Add(new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+					parameters => parameters.Add(
+						new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 				);
 
 				return GDTask.CompletedTask;
-			},
-			state =>
-			{
-				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, subscriber);
-				ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, subscriber);
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, subscriber);
+			})
+			.WithOnDeactivate(state =>
+				{
+					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, subscriber);
+					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, subscriber);
+					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, subscriber);
 
-				return GDTask.CompletedTask;
-			}
-		);
+					return GDTask.CompletedTask;
+				}
+			)
+			.Build();
 	}
 
 	public static async GDTask<int> SufferDamage(AttackAbility.State potentialAttackAbilityState, Figure target, int damage)
 	{
-		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters = new ScenarioEvents.SufferDamage.Parameters(potentialAttackAbilityState, target, damage);
+		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters =
+			new ScenarioEvents.SufferDamage.Parameters(potentialAttackAbilityState, target, damage);
 		EffectCollection sufferDamageCollection = ScenarioEvents.SufferDamageEvent.CreateEffectCollection(sufferDamageParameters);
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
@@ -97,7 +100,8 @@ public static class AbilityCmd
 
 		ScenarioEvents.JustBeforeSufferDamage.Parameters justBeforeSufferDamageParameters =
 			await ScenarioEvents.JustBeforeSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters), potentialAttackAbilityState?.Authority ?? target);
+				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters),
+				potentialAttackAbilityState?.Authority ?? target);
 
 		if(justBeforeSufferDamageParameters.Prevented)
 		{
@@ -116,7 +120,8 @@ public static class AbilityCmd
 		if (finalDamage > 0)
 		{
 			await ScenarioEvents.AfterSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters), potentialAttackAbilityState?.Authority ?? target);
+				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters),
+				potentialAttackAbilityState?.Authority ?? target);
 		}
 
 		return finalDamage;
@@ -150,13 +155,15 @@ public static class AbilityCmd
 
 			ScenarioEvents.InflictCondition.Parameters inflictConditionParameters =
 				await ScenarioEvents.InflictConditionEvent.CreatePrompt(
-					new ScenarioEvents.InflictCondition.Parameters(potentialAbilityState, target, condition), potentialAbilityState?.Authority ?? target);
+					new ScenarioEvents.InflictCondition.Parameters(potentialAbilityState, target, condition),
+					potentialAbilityState?.Authority ?? target);
 
 			if(!inflictConditionParameters.Prevented)
 			{
 				ScenarioEvents.InflictConditionDuplicatesCheck.Parameters inflictConditionDuplicatesCheckParameters =
 					await ScenarioEvents.InflictConditionDuplicatesCheckEvent.CreatePrompt(
-						new ScenarioEvents.InflictConditionDuplicatesCheck.Parameters(potentialAbilityState, target, condition), potentialAbilityState?.Authority ?? target);
+						new ScenarioEvents.InflictConditionDuplicatesCheck.Parameters(potentialAbilityState, target, condition),
+						potentialAbilityState?.Authority ?? target);
 
 				if(!inflictConditionDuplicatesCheckParameters.Prevented)
 				{
@@ -284,15 +291,18 @@ public static class AbilityCmd
 		return trap;
 	}
 
-	public static GDTask<List<Hex>> SelectHexes(AbilityState state, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount, bool autoSelectIfMaxCountIsValidCount, string hintText)
+	public static GDTask<List<Hex>> SelectHexes(AbilityState state, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount,
+		bool autoSelectIfMaxCountIsValidCount, string hintText)
 	{
 		return SelectHexes(state.Authority, getValidHexes, minSelectionCount, maxSelectionCount, autoSelectIfMaxCountIsValidCount, hintText);
 	}
 
-	public static async GDTask<List<Hex>> SelectHexes(Figure authority, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount, bool autoSelectIfMaxCountIsValidCount, string hintText)
+	public static async GDTask<List<Hex>> SelectHexes(Figure authority, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount,
+		bool autoSelectIfMaxCountIsValidCount, string hintText)
 	{
 		HexSelectionPrompt.Answer answer = await PromptManager.Prompt(
-			new HexSelectionPrompt(getValidHexes, autoSelectIfMaxCountIsValidCount, null, () => hintText, minSelectionCount, maxSelectionCount), authority);
+			new HexSelectionPrompt(getValidHexes, autoSelectIfMaxCountIsValidCount, null, () => hintText, minSelectionCount, maxSelectionCount),
+			authority);
 
 		return answer.Skipped ? [] : answer.CoordSets.Select(coords => GameController.Instance.Map.GetHex(coords)).ToList();
 	}
@@ -302,7 +312,8 @@ public static class AbilityCmd
 		return SelectHex(state.Authority, getValidHexes, mandatory, hintText);
 	}
 
-	public static async GDTask<Hex> SelectHex(Figure authority, Action<List<Hex>> getValidHexes, bool mandatory = false, string hintText = "Select a hex")
+	public static async GDTask<Hex> SelectHex(Figure authority, Action<List<Hex>> getValidHexes, bool mandatory = false,
+		string hintText = "Select a hex")
 	{
 		HexSelectionPrompt.Answer answer = await PromptManager.Prompt(
 			new HexSelectionPrompt(getValidHexes, false, null, () => hintText, mandatory ? 1 : 0, 1), authority);
@@ -310,12 +321,14 @@ public static class AbilityCmd
 		return answer.Skipped ? null : answer.CoordSets.Select(coords => GameController.Instance.Map.GetHex(coords)).FirstOrDefault();
 	}
 
-	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false, bool autoSelectIfOne = true, string hintText = "Select a target")
+	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
+		bool autoSelectIfOne = true, string hintText = "Select a target")
 	{
 		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, hintText);
 	}
 
-	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false, bool autoSelectIfOne = true, string hintText = "Select a target")
+	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
+		bool autoSelectIfOne = true, string hintText = "Select a target")
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, mandatory, null, () => hintText), authority);
@@ -328,21 +341,26 @@ public static class AbilityCmd
 		return GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);
 	}
 
-	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card")
+	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false,
+		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card")
 	{
-		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText)).FirstOrDefault();
+		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText))
+			.FirstOrDefault();
 	}
 
-	public static async GDTask<AbilityCard> SelectAbilityCard(Figure authority, Action<List<AbilityCard>> getAllCards, CardState? requiredCardState, bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card")
+	public static async GDTask<AbilityCard> SelectAbilityCard(Figure authority, Action<List<AbilityCard>> getAllCards, CardState? requiredCardState,
+		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card")
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(getAllCards,
 			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText), authority);
 
-		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0 ? null : GameController.Instance.ReferenceManager.Get<AbilityCard>(answer.CardReferenceIds[0]);
+		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0 ? null
+			: GameController.Instance.ReferenceManager.Get<AbilityCard>(answer.CardReferenceIds[0]);
 	}
 
 	public static async GDTask<List<AbilityCard>> SelectAbilityCards(Character character, CardState? requiredCardState,
-		int minSelectionCount, int maxSelectionCount, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select cards")
+		int minSelectionCount, int maxSelectionCount, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null,
+		string hintText = "Select cards")
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(
 			cards =>
@@ -359,7 +377,8 @@ public static class AbilityCmd
 			},
 			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText), character);
 
-		return answer.CardReferenceIds == null ? [] : answer.CardReferenceIds.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)).ToList();
+		return answer.CardReferenceIds == null ? [] : answer.CardReferenceIds
+			.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)).ToList();
 	}
 
 	public static async GDTask EnterHex(AbilityState state, Figure figure, Figure authority, Hex hex, bool triggerHexEffects)
@@ -440,7 +459,8 @@ public static class AbilityCmd
 			ScenarioEvents.GenericChoice.Subscription newSubscription =
 				ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(
 					newCanApplyFunction, newApplyFunction, subscription.EffectType, subscription.Order,
-					subscription.CanApplyMultipleTimesDuringSubscription, subscription.CanApplyMultipleTimesInEffectCollection, subscription.EffectButtonParameters, subscription.EffectInfoViewParameters);
+					subscription.CanApplyMultipleTimesDuringSubscription, subscription.CanApplyMultipleTimesInEffectCollection,
+					subscription.EffectButtonParameters, subscription.EffectInfoViewParameters);
 
 			ScenarioEvents.GenericChoiceEvent.Subscribe(authority, subscriber, newSubscription, false);
 		}
@@ -510,11 +530,13 @@ public static class AbilityCmd
 					await TryConsumeElement(possibleElement);
 				},
 				mandatory ? EffectType.SelectableMandatory : EffectType.Selectable, 0, false, false,
-				new ConsumeElementEffectButton.Parameters(possibleElement), new TextEffectInfoView.Parameters($"Consume {Icons.Inline(Icons.GetElement(possibleElement))}"), checkDuplicates: false);
+				new ConsumeElementEffectButton.Parameters(possibleElement),
+				new TextEffectInfoView.Parameters($"Consume {Icons.Inline(Icons.GetElement(possibleElement))}"), checkDuplicates: false);
 		}
 
 		ScenarioEvents.ConsumeElement.Parameters consumeEventParameters =
-			await ScenarioEvents.ConsumeElementElement.CreatePrompt(new ScenarioEvents.ConsumeElement.Parameters(possibleElements), authority, "Select element to consume");
+			await ScenarioEvents.ConsumeElementElement.CreatePrompt(new ScenarioEvents.ConsumeElement.Parameters(possibleElements), authority,
+				"Select element to consume");
 
 		ScenarioEvents.ConsumeElementElement.Unsubscribe(authority, subscriber);
 
@@ -525,7 +547,8 @@ public static class AbilityCmd
 	{
 		object subscriber = new object();
 		ScenarioEvents.ConsumeElementElement.Subscribe(authority, subscriber,
-			canApplyParameters => canApplyParameters.Elements.Contains(element) && GameController.Instance.ElementManager.GetState(element) > ElementState.Inert,
+			canApplyParameters => canApplyParameters.Elements.Contains(element) &&
+			                      GameController.Instance.ElementManager.GetState(element) > ElementState.Inert,
 			async applyParameters =>
 			{
 				applyParameters.SetConsumed(element);
@@ -536,7 +559,8 @@ public static class AbilityCmd
 
 		ScenarioEvents.ConsumeElement.Parameters consumeEventParameters =
 			await ScenarioEvents.ConsumeElementElement.CreatePrompt(
-				new ScenarioEvents.ConsumeElement.Parameters([element]), authority, hintText ?? $"Consume {Icons.HintText(Icons.GetElement(element))}?");
+				new ScenarioEvents.ConsumeElement.Parameters([element]), authority,
+				hintText ?? $"Consume {Icons.HintText(Icons.GetElement(element))}?");
 
 		ScenarioEvents.ConsumeElementElement.Unsubscribe(authority, subscriber);
 
@@ -566,7 +590,8 @@ public static class AbilityCmd
 
 	public static async GDTask<ItemModel> SelectItem(Character characterAndAuthority, ItemState requiredItemState, ItemType? requiredItemType = null, string hintText = "Select an item")
 	{
-		List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
+		List<ScenarioEvents.GenericChoice.Subscription> subscriptions
+			= new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 
 		ItemModel selectedItem = null;
 
@@ -602,7 +627,8 @@ public static class AbilityCmd
 
 	public static async GDTask<ItemModel> SelectItem(Figure authority, List<ItemModel> items, string hintText = "Select an item")
 	{
-		List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
+		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
+			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 
 		ItemModel selectedItem = null;
 

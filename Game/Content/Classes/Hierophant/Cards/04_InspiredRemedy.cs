@@ -54,8 +54,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
@@ -66,14 +66,15 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 2;

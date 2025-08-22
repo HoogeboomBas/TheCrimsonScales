@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
 public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaunch.CardBottom>
 {
@@ -31,8 +30,8 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
@@ -89,22 +88,23 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 
-					ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
 
-					//state.Performer.UpdateRetaliate();
+						//state.Performer.UpdateRetaliate();
 
-					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+						ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
-					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
+						ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 2;

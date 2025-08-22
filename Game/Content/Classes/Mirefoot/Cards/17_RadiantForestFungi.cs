@@ -39,8 +39,8 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 				)
 				.Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.ShieldCheckEvent.Subscribe(state, this,
 						parameters =>
@@ -88,17 +88,18 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.Shield, delay: 0f);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
-					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
-					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
+						ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
+						ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 1;
