@@ -19,10 +19,17 @@ public class OtherAbility : Ability<OtherAbility.State>
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
 	/// <typeparam name="TAbility"></typeparam> Any ability extending OtherAbility.
-	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IPerformAbilityStep
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : OtherAbility, new()
 	{
+
+		public interface IPerformAbilityStep
+		{
+			TBuilder WithPerformAbility(Func<State, GDTask> performAbility);
+		}
+
 		public TBuilder WithPerformAbility(Func<State, GDTask> performAbility)
 		{
 			Obj._performAbility = performAbility;
@@ -43,7 +50,7 @@ public class OtherAbility : Ability<OtherAbility.State>
 	/// A convenience method that returns an instance of OtherAbilityBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static OtherBuilder Builder()
+	public static OtherBuilder.IPerformAbilityStep Builder()
 	{
 		return new OtherBuilder();
 	}
