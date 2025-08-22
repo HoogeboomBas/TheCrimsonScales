@@ -23,32 +23,35 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 				new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
 			]))),
 
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-			{
-				AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
-				if(!attackAbilityState.Performed)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 				{
-					return;
-				}
-
-				List<Hex> possibleHexes = new List<Hex>();
-				foreach(Hex aoeHex in attackAbilityState.GetRedAOEHexes())
-				{
-					if(aoeHex.IsFeatureless())
+					AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
+					if(!attackAbilityState.Performed)
 					{
-						possibleHexes.Add(aoeHex);
+						return;
 					}
-				}
 
-				List<Hex> selectedHexes =
-					await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(possibleHexes), 0, possibleHexes.Count, true, "Place difficult terrain?");
+					List<Hex> possibleHexes = new List<Hex>();
+					foreach(Hex aoeHex in attackAbilityState.GetRedAOEHexes())
+					{
+						if(aoeHex.IsFeatureless())
+						{
+							possibleHexes.Add(aoeHex);
+						}
+					}
 
-				foreach(Hex selectedHex in selectedHexes)
-				{
-					await CreateDifficultTerrain(selectedHex);
-					abilityState.SetPerformed();
-				}
-			}))
+					List<Hex> selectedHexes =
+						await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(possibleHexes), 0, possibleHexes.Count, true,
+							"Place difficult terrain?");
+
+					foreach(Hex selectedHex in selectedHexes)
+					{
+						await CreateDifficultTerrain(selectedHex);
+						abilityState.SetPerformed();
+					}
+				})
+				.Build())
 		];
 
 		protected override int XP => 2;

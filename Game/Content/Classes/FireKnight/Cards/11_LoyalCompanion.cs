@@ -22,17 +22,18 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 				"Spotted Hound", "res://Content/Classes/FireKnight/SpottedHound.jpg"
 			)),
 
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
-					ActionState actionState = new ActionState(summonAbilityState.Summon,
-					[
-						new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
-					], state.ActionState);
-					await actionState.Perform();
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+					{
+						SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
+						ActionState actionState = new ActionState(summonAbilityState.Summon,
+						[
+							new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
+						], state.ActionState);
+						await actionState.Perform();
+					})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -47,7 +48,7 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 			new AbilityCardAbility(new MoveAbility(4,
 				abilityStartedSubscriptions:
 				[
-					ScenarioEvents.AbilityStarted.Subscription.New(
+					ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{

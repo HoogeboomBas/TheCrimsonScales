@@ -23,7 +23,8 @@ public abstract class WaterSpiritAbilityCard : MonsterAbilityCardModel
 	{
 		if(hex.IsFeatureless())
 		{
-			await AbilityCmd.CreateDifficultTerrain(hex, ResourceLoader.Load<PackedScene>("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn"));
+			await AbilityCmd.CreateDifficultTerrain(hex,
+				ResourceLoader.Load<PackedScene>("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn"));
 		}
 	}
 }
@@ -86,23 +87,25 @@ public class WaterSpiritAbilityCard2 : WaterSpiritAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = new List<Figure>();
-				foreach(Figure figure in GameController.Instance.Map.Figures)
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					if(state.Authority.EnemiesWith(figure) && figure.Hex.HasHexObjectOfType<Water>())
+					List<Figure> sufferDamageTargets = new List<Figure>();
+					foreach(Figure figure in GameController.Instance.Map.Figures)
 					{
-						sufferDamageTargets.Add(figure);
+						if(state.Authority.EnemiesWith(figure) && figure.Hex.HasHexObjectOfType<Water>())
+						{
+							sufferDamageTargets.Add(figure);
+						}
+					}
+
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 1);
 					}
 				}
-
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(null, target, 1);
-				}
-			}
-		))
+			)
+			.Build())
 	];
 }
 
@@ -175,44 +178,46 @@ public class WaterSpiritAbilityCard6 : WaterSpiritAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +2)),
 		new MonsterAbilityCardAbility(new HealAbility(3, target: Target.Self)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				Hex hex = await AbilityCmd.SelectHex(state, list =>
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					int closestRange = int.MaxValue;
-					foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
+					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
-						if(!neighbourHex.IsFeatureless())
+						int closestRange = int.MaxValue;
+						foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
 						{
-							continue;
-						}
-
-						foreach(Figure figure in GameController.Instance.Map.Figures)
-						{
-							if(state.Performer.EnemiesWith(figure))
+							if(!neighbourHex.IsFeatureless())
 							{
-								int range = RangeHelper.Distance(neighbourHex, figure.Hex);
-								if(range == closestRange)
+								continue;
+							}
+
+							foreach(Figure figure in GameController.Instance.Map.Figures)
+							{
+								if(state.Performer.EnemiesWith(figure))
 								{
-									list.Add(neighbourHex);
-								}
-								else if(range < closestRange)
-								{
-									closestRange = range;
-									list.Clear();
-									list.Add(neighbourHex);
+									int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+									if(range == closestRange)
+									{
+										list.Add(neighbourHex);
+									}
+									else if(range < closestRange)
+									{
+										closestRange = range;
+										list.Clear();
+										list.Add(neighbourHex);
+									}
 								}
 							}
 						}
-					}
-				});
+					});
 
-				if(hex != null)
-				{
-					await TryCreateWaterTile(hex);
+					if(hex != null)
+					{
+						await TryCreateWaterTile(hex);
+					}
 				}
-			}
-		))
+			)
+			.Build())
 	];
 }
 

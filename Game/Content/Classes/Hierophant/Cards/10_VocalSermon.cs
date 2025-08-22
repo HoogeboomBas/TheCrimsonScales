@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.CardBottom>
 {
@@ -12,29 +11,31 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					int remainingRecoverCount = 6;
-
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 					{
-						if(remainingRecoverCount > 0 && figure is Character character && state.Performer.AlliedWith(figure, true))
+						int remainingRecoverCount = 6;
+
+						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
 						{
-							IEnumerable<AbilityCard> selectedAbilityCards =
-								await AbilityCmd.SelectAbilityCards(character, CardState.Discarded, 0, remainingRecoverCount,
-									hintText: $"Select up to {remainingRecoverCount} cards to recover");
-
-							foreach(AbilityCard selectedAbilityCard in selectedAbilityCards)
+							if(remainingRecoverCount > 0 && figure is Character character && state.Performer.AlliedWith(figure, true))
 							{
-								await AbilityCmd.ReturnToHand(selectedAbilityCard);
-								remainingRecoverCount--;
+								IEnumerable<AbilityCard> selectedAbilityCards =
+									await AbilityCmd.SelectAbilityCards(character, CardState.Discarded, 0, remainingRecoverCount,
+										hintText: $"Select up to {remainingRecoverCount} cards to recover");
 
-								state.SetPerformed();
+								foreach(AbilityCard selectedAbilityCard in selectedAbilityCards)
+								{
+									await AbilityCmd.ReturnToHand(selectedAbilityCard);
+									remainingRecoverCount--;
+
+									state.SetPerformed();
+								}
 							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth, Element.Light];

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public abstract class AncientArtilleryAbilityCard : MonsterAbilityCardModel
@@ -39,25 +38,27 @@ public class AncientArtilleryAbilityCard1 : AncientArtilleryAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = new List<Figure>();
-				foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					if(state.Authority.EnemiesWith(figure))
+					List<Figure> sufferDamageTargets = new List<Figure>();
+					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
 					{
-						sufferDamageTargets.Add(figure);
+						if(state.Authority.EnemiesWith(figure))
+						{
+							sufferDamageTargets.Add(figure);
+						}
 					}
-				}
 
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(null, target, 2);
-				}
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 2);
+					}
 
-				state.SetPerformed();
-			}
-		))
+					state.SetPerformed();
+				}
+			)
+			.Build())
 	];
 }
 
@@ -70,25 +71,27 @@ public class AncientArtilleryAbilityCard2 : AncientArtilleryAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = new List<Figure>();
-				foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					if(state.Authority.EnemiesWith(figure))
+					List<Figure> sufferDamageTargets = new List<Figure>();
+					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
 					{
-						sufferDamageTargets.Add(figure);
+						if(state.Authority.EnemiesWith(figure))
+						{
+							sufferDamageTargets.Add(figure);
+						}
 					}
-				}
 
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(null, target, 2);
-				}
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 2);
+					}
 
-				state.SetPerformed();
-			}
-		))
+					state.SetPerformed();
+				}
+			)
+			.Build())
 	];
 }
 

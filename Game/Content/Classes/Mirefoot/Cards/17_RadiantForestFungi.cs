@@ -12,30 +12,32 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-				{
-					List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
-						list =>
-						{
-							foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 1, true))
-							{
-								if(possibleHex != null && possibleHex.IsFeatureless())
-								{
-									list.Add(possibleHex);
-								}
-							}
-						},
-						0, 2, false, "Place difficult terrain in up to two adjacent hexes"
-					);
-
-					foreach(Hex selectedHex in selectedHexes)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 					{
-						await CreateDifficultTerrain(selectedHex);
+						List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
+							list =>
+							{
+								foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 1, true))
+								{
+									if(possibleHex != null && possibleHex.IsFeatureless())
+									{
+										list.Add(possibleHex);
+									}
+								}
+							},
+							0, 2, false, "Place difficult terrain in up to two adjacent hexes"
+						);
 
-						abilityState.SetPerformed();
+						foreach(Hex selectedHex in selectedHexes)
+						{
+							await CreateDifficultTerrain(selectedHex);
+
+							abilityState.SetPerformed();
+						}
 					}
-				}
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(new OtherActiveAbility(
 				async state =>
@@ -77,7 +79,9 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 						parameters => state.Performer.AlliedWith(parameters.Figure, true),
 						parameters =>
 						{
-							parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
+							parameters.Add(
+								new FigureInfoTextExtraEffect.Parameters(
+									$"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
 						}
 					);
 

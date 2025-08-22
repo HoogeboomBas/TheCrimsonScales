@@ -22,8 +22,8 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 				)
 			)),
 
-			new AbilityCardAbility(new OtherAbility(
-				async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -34,9 +34,9 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 							await AbilityCmd.SufferDamage(null, targetedFigure, 1);
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];

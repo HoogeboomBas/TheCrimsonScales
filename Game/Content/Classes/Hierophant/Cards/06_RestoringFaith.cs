@@ -39,65 +39,67 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 		[
 			new AbilityCardAbility(new MoveAbility(3)),
 
-			new AbilityCardAbility(new OtherAbility(async state =>
-			{
-				Character character = await AbilityCmd.SelectFigure(state, list =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
-					foreach(Character character in GameController.Instance.CharacterManager.Characters)
+					Character character = await AbilityCmd.SelectFigure(state, list =>
 					{
-						if(character != state.Performer && !character.IsDead)
+						foreach(Character character in GameController.Instance.CharacterManager.Characters)
 						{
-							list.Add(character);
+							if(character != state.Performer && !character.IsDead)
+							{
+								list.Add(character);
+							}
 						}
-					}
-				}) as Character;
+					}) as Character;
 
-				if(character != null)
-				{
-					AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Persistent, false, card =>
+					if(character != null)
 					{
-						if(card.Top is not HierophantPrayerCardSide)
+						AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Persistent, false, card =>
 						{
+							if(card.Top is not HierophantPrayerCardSide)
+							{
+								return false;
+							}
+
+							foreach(ActionState activeActionState in card.ActiveActionStates)
+							{
+								foreach(AbilityState abilityState in activeActionState.AbilityStates)
+								{
+									if(abilityState is UseSlotAbility.State useSlotAbilityState)
+									{
+										if(useSlotAbilityState.UseSlotIndex > 0)
+										{
+											// This card has a prayer ability active
+											return true;
+										}
+									}
+								}
+							}
+
 							return false;
-						}
+						}, hintText: "Select a prayer card to move the character token back on");
 
-						foreach(ActionState activeActionState in card.ActiveActionStates)
+						if(abilityCard != null)
 						{
-							foreach(AbilityState abilityState in activeActionState.AbilityStates)
+							foreach(ActionState activeActionState in abilityCard.ActiveActionStates)
 							{
-								if(abilityState is UseSlotAbility.State useSlotAbilityState)
+								foreach(AbilityState abilityState in activeActionState.AbilityStates)
 								{
-									if(useSlotAbilityState.UseSlotIndex > 0)
+									if(abilityState is UseSlotAbility.State useSlotAbilityState)
 									{
-										// This card has a prayer ability active
-										return true;
-									}
-								}
-							}
-						}
-
-						return false;
-					}, hintText: "Select a prayer card to move the character token back on");
-
-					if(abilityCard != null)
-					{
-						foreach(ActionState activeActionState in abilityCard.ActiveActionStates)
-						{
-							foreach(AbilityState abilityState in activeActionState.AbilityStates)
-							{
-								if(abilityState is UseSlotAbility.State useSlotAbilityState)
-								{
-									if(useSlotAbilityState.UseSlotIndex > 0)
-									{
-										// This card has a prayer ability active
-										await useSlotAbilityState.MoveBackUseSlot();
+										if(useSlotAbilityState.UseSlotIndex > 0)
+										{
+											// This card has a prayer ability active
+											await useSlotAbilityState.MoveBackUseSlot();
+										}
 									}
 								}
 							}
 						}
 					}
-				}
-			}))
+				})
+				.Build())
 		];
 	}
 }

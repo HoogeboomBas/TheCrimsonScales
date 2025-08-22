@@ -22,38 +22,41 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				)
 			)),
 
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-			{
-				ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
-
-				if(conditionAbilityState.Performed)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 				{
-					List<Hex> hexes = new List<Hex>();
-					foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
+					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
+
+					if(conditionAbilityState.Performed)
 					{
-						Hex hex = GameController.Instance.Map.GetHex(coords);
-						if(hex != null && hex.IsFeatureless())
+						List<Hex> hexes = new List<Hex>();
+						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
 						{
-							hexes.Add(hex);
+							Hex hex = GameController.Instance.Map.GetHex(coords);
+							if(hex != null && hex.IsFeatureless())
+							{
+								hexes.Add(hex);
+							}
+						}
+
+						List<Hex> selectedHexes =
+							await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count, true,
+								"Select hexes to place difficult terrain in");
+
+						foreach(Hex selectedHex in selectedHexes)
+						{
+							await CreateDifficultTerrain(selectedHex);
+						}
+
+						if(selectedHexes.Count > 0)
+						{
+							abilityState.SetPerformed();
 						}
 					}
 
-					List<Hex> selectedHexes =
-						await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count, true, "Select hexes to place difficult terrain in");
-
-					foreach(Hex selectedHex in selectedHexes)
-					{
-						await CreateDifficultTerrain(selectedHex);
-					}
-
-					if(selectedHexes.Count > 0)
-					{
-						abilityState.SetPerformed();
-					}
-				}
-
-				await GDTask.CompletedTask;
-			})),
+					await GDTask.CompletedTask;
+				})
+				.Build()),
 
 			new AbilityCardAbility(new AttackAbility(0, target: Target.Enemies | Target.TargetAll,
 				customGetTargets: (abilityState, list) =>
