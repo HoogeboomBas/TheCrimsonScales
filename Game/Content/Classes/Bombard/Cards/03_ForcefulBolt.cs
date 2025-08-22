@@ -19,7 +19,7 @@ public class ForcefulBolt : BombardCardModel<ForcefulBolt.CardTop, ForcefulBolt.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new LootAbility(1)),
+			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 			new AbilityCardAbility(new MoveAbility(1))
 		];
 	}

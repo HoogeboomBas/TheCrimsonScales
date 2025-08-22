@@ -37,8 +37,9 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 				}
 			)),
 
-			new AbilityCardAbility(new LootAbility(1,
-				onAbilityEnded: async state =>
+			new AbilityCardAbility(LootAbility.Builder()
+				.WithRange(1)
+				.WithOnAbilityEnded(async state =>
 				{
 					List<Hex> selectedHexes = await AbilityCmd.SelectHexes(state,
 						list =>
@@ -63,8 +64,8 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 					{
 						await AbilityCmd.GainXP(state.Performer, 1);
 					}
-				}
-			))
+				})
+				.Build())
 		];
 	}
 

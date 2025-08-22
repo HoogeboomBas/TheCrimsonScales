@@ -16,7 +16,10 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 
 			new AbilityCardAbility(new GrantAbility(figure =>
 				[
-					new LootAbility(1, customGetLootObtainer: state => state.ActionState.ParentActionState.Performer)
+					LootAbility.Builder()
+						.WithRange(1)
+						.WithCustomGetLootObtainer(state => state.ActionState.ParentActionState.Performer)
+						.Build()
 				],
 				customGetTargets: (state, list) => list.Add(state.ActionState.GetAbilityState<HealAbility.State>(0).UniqueTargetedFigures[0]),
 				target: Target.SelfOrAllies,
