@@ -22,7 +22,7 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 							{
 								applyParameters.SetPrevented(true);
 
-								ActionState actionState = new ActionState(state.Performer, [new HealAbility(1, target: Target.Self)]);
+								ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
 								await actionState.Perform();
 
 								await state.AdvanceUseSlot();
@@ -67,7 +67,7 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 							{
 								applyParameters.SetPrevented(true);
 
-								ActionState actionState = new ActionState(state.Performer, [new HealAbility(2, target: Target.Self)]);
+								ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 								await actionState.Perform();
 
 								await state.AdvanceUseSlot();

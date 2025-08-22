@@ -13,9 +13,11 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, targets: 2, range: 2,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithTargets(2)
+				.WithRange(2)
+				.WithDuringHealSubscription(
 					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						parameters => true,
 						async parameters =>
@@ -25,10 +27,8 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.GetCondition(Conditions.Bless))}")
-					)
-				],
-				afterHealPerformedSubscriptions:
-				[
+					))
+				.WithAfterHealPerformedSubscription(
 					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
 						parameters => parameters.AbilityState.SingleTargetState.RemovedConditions.Count > 0,
 						async parameters =>
@@ -37,8 +37,8 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 								Conditions.Strengthen);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 

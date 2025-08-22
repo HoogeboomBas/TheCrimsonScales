@@ -13,7 +13,10 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 3)),
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(new AttackAbility(2,
 				customGetTargets: (state, list) =>
@@ -52,7 +55,8 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 							parameters.AMDCard is BlessAMDCard,
 						async parameters =>
 						{
-							ActionState actionState = new ActionState(parameters.Performer, [new HealAbility(6, target: Target.Self)]);
+							ActionState actionState = new ActionState(parameters.Performer,
+								[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();

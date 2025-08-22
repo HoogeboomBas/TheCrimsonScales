@@ -12,9 +12,10 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 2,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithRange(2)
+				.WithDuringHealSubscription(
 					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async applyParameters =>
 						{
@@ -24,9 +25,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 							await GDTask.CompletedTask;
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Heal)}, +1{Icons.Inline(Icons.Range)}"))
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				)
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
 						applyFunction: async applyParameters =>
 						{
@@ -35,9 +35,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 
 							await GDTask.CompletedTask;
 						})
-				],
-				afterHealPerformedSubscriptions:
-				[
+				)
+				.WithAfterHealPerformedSubscription(
 					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
 						canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "UnderHalfHP"),
 						applyFunction: async applyParameters =>
@@ -45,8 +44,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 							await GivePrayerCard(applyParameters.AbilityState, applyParameters.AbilityState.Target);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -61,7 +60,13 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [new HealAbility(1, range: 1, target: Target.Allies)]);
+							ActionState actionState = new ActionState(state.Performer, [
+								HealAbility.Builder()
+									.WithHealValue(1)
+									.WithRange(1)
+									.WithTarget(Target.Allies)
+									.Build()
+							]);
 							await actionState.Perform();
 						});
 

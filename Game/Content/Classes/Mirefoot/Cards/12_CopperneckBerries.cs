@@ -11,7 +11,10 @@ public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, Co
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(4, range: 1))
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(4)
+				.WithRange(1)
+				.Build())
 		];
 	}
 

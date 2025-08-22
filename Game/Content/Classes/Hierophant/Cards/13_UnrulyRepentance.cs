@@ -75,15 +75,17 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.Build()
 			),
 
-			new AbilityCardAbility(new HealAbility(
-				new DynamicInt<HealAbility.State>(state =>
-					state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount")),
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0),
-				customGetTargets: (state, list) =>
-				{
-					list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);
-				}
-			))
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(
+					new DynamicInt<HealAbility.State>(state =>
+						state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount"))
+				).WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithCustomGetTargets((state, list) =>
+					{
+						list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);
+					}
+				)
+				.Build())
 		];
 	}
 }

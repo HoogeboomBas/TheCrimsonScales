@@ -74,14 +74,17 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 				)
 				.Build()),
 
-			new AbilityCardAbility(new HealAbility(1, range: 3,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(1)
+				.WithRange(3)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "LightConsumed");
-				}
-			))
+						return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "LightConsumed");
+					}
+				)
+				.Build())
 		];
 	}
 }

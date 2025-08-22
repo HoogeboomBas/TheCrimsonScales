@@ -18,7 +18,7 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 						canApplyParameters => canApplyParameters.SufferDamageParameters.Figure == state.Performer && !state.Performer.IsDead,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [new HealAbility(3, target: Target.Self)]);
+							ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();
@@ -44,7 +44,7 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, target: Target.Self))
+			new AbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];

@@ -114,7 +114,7 @@ public class Scenario007 : ScenarioModel
 						{
 							if(character.EnemiesWith(figure))
 							{
-								ActionState actionState = new ActionState(figure, [new HealAbility(3, target: Target.Self)]);
+								ActionState actionState = new ActionState(figure, [HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
 								await actionState.Perform();
 							}
 						}
@@ -142,7 +142,7 @@ public class Scenario007 : ScenarioModel
 					}
 					else
 					{
-						ActionState actionState = new ActionState(character, [new HealAbility(3, target: Target.Self)]);
+						ActionState actionState = new ActionState(character, [HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
 						await actionState.Perform();
 
 						if(character.Cards.Any(card => card.CardState == CardState.Discarded && card.OriginalOwner == character))
@@ -393,7 +393,7 @@ public class Scenario007 : ScenarioModel
 			}
 			case 7: // 9A
 			{
-				ActionState actionState = new ActionState(character, [new HealAbility(2, target: Target.Self)]);
+				ActionState actionState = new ActionState(character, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 				await actionState.Perform();
 
 				switch(GameController.Instance.CharacterManager.Characters.Count)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class Neurotoxin : MirefootCardModel<Neurotoxin.CardTop, Neurotoxin.CardBottom>
 {
@@ -12,7 +11,8 @@ public class Neurotoxin : MirefootCardModel<Neurotoxin.CardTop, Neurotoxin.CardB
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, targets: 2, range: 3, rangeType: RangeType.Range, conditions: [Conditions.Poison1, Conditions.Muddle]))
+			new AbilityCardAbility(new AttackAbility(1, targets: 2, range: 3, rangeType: RangeType.Range,
+				conditions: [Conditions.Poison1, Conditions.Muddle]))
 		];
 	}
 
@@ -21,14 +21,17 @@ public class Neurotoxin : MirefootCardModel<Neurotoxin.CardTop, Neurotoxin.CardB
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
-			new AbilityCardAbility(new HealAbility(3, conditions: [Conditions.Poison1],
-				onAbilityEnded: async abilityState =>
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithConditions([Conditions.Poison1])
+				.WithOnAbilityEnded(async abilityState =>
 				{
 					if(abilityState.Performed)
 					{
 						await AbilityCmd.GainXP(abilityState.Performer, 1);
 					}
-				}))
+				})
+				.Build())
 		];
 	}
 }

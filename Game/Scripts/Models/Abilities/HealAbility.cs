@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -53,8 +52,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
 	/// <typeparam name="TAbility"></typeparam> Any ability extending HealAbility.
-	public new abstract class AbstractBuilder<TBuilder, TAbility> :
-		TargetedAbility<State, HealAbilitySingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, HealAbilitySingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
 		AbstractBuilder<TBuilder, TAbility>.IHealValueStep
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : HealAbility, new()
@@ -139,32 +137,6 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	}
 
 	public HealAbility() { }
-
-	public HealAbility(DynamicInt<State> value, int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.SelfOrAllies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvents.DuringHeal.Subscription> duringHealSubscriptions = null,
-		List<ScenarioEvents.HealAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
-		List<ScenarioEvents.AfterHealPerformed.Subscription> afterHealPerformedSubscriptions = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		HealValue = value;
-		DuringHealSubscriptions = duringHealSubscriptions;
-		AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
-		AfterHealPerformedSubscriptions = afterHealPerformedSubscriptions;
-	}
 
 	protected override void InitializeState(State abilityState)
 	{

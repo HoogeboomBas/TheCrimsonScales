@@ -115,7 +115,7 @@ public class RendingDrakeAbilityCard7 : RendingDrakeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
-		new MonsterAbilityCardAbility(new HealAbility(2, target: Target.Self)),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
 		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen]))
 	];
 }

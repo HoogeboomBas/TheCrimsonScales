@@ -377,7 +377,7 @@ public partial class Character : Figure
 			}
 		}
 
-		ActionState actionState = new ActionState(this, [new HealAbility(2, target: Target.Self)]);
+		ActionState actionState = new ActionState(this, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 		await actionState.Perform();
 	}
 

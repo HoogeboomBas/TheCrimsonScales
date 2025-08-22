@@ -114,6 +114,6 @@ public class CaveBearAbilityCard7 : CaveBearAbilityCard
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build()),
-		new MonsterAbilityCardAbility(new HealAbility(2, target: Target.Self)),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
 	];
 }

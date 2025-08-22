@@ -24,23 +24,26 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new HealAbility(1, target: Target.Allies | Target.TargetAll,
-				customGetTargets: (state, list) =>
-				{
-					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
-					foreach(Hex hex in moveAbilityState.Hexes)
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(1)
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithCustomGetTargets((state, list) =>
 					{
-						foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+						MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
+
+						foreach(Hex hex in moveAbilityState.Hexes)
 						{
-							if(state.Performer.AlliedWith(figure))
+							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
 							{
-								list.Add(figure);
+								if(state.Performer.AlliedWith(figure))
+								{
+									list.Add(figure);
+								}
 							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

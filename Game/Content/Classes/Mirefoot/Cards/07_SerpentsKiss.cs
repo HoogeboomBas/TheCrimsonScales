@@ -39,7 +39,7 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 						{
 							parameters.SetPrevented(true);
 
-							ActionState actionState = new ActionState(target, [new HealAbility(2, target: Target.Self)]);
+							ActionState actionState = new ActionState(target, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await GDTask.CompletedTask;

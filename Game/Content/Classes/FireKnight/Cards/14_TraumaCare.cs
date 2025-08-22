@@ -12,9 +12,10 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(4, range: 1,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(4)
+				.WithRange(1)
+				.WithDuringHealSubscription(
 					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -24,9 +25,7 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 							await GDTask.CompletedTask;
 						}
 					)
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				).WithAfterTargetConfirmedSubscription(
 					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
 						parameters => parameters.AbilityState.Target.HasWound(),
 						async parameters =>
@@ -36,8 +35,8 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 

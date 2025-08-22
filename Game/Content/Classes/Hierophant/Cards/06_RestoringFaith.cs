@@ -12,7 +12,10 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(1, range: 3)),
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(1)
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(new GrantAbility(figure =>
 				[

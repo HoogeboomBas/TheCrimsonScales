@@ -53,7 +53,13 @@
 							async subscriptionParameters =>
 							{
 								ActionState actionState = new ActionState(user,
-									[new HealAbility(2, conditions: [Conditions.Bless], target: Target.Self)]);
+								[
+									HealAbility.Builder()
+										.WithHealValue(2)
+										.WithConditions([Conditions.Bless])
+										.WithTarget(Target.Self)
+										.Build()
+								]);
 								await actionState.Perform();
 							},
 							effectType: EffectType.SelectableMandatory,

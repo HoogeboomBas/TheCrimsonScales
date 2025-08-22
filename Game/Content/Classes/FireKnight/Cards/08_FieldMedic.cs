@@ -11,19 +11,20 @@ public class FieldMedic : FireKnightCardModel<FieldMedic.CardTop, FieldMedic.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 2,
-				afterHealPerformedSubscriptions:
-				[
-					ScenarioEvents.AfterHealPerformed.Subscription.New(
+			new AbilityCardAbility(HealAbility.Builder().WithHealValue(3)
+				.WithRange(2)
+				.WithAfterHealPerformedSubscription(
+					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
 						parameters => parameters.AbilityState.SingleTargetState.RemovedConditions.Count > 0,
 						async parameters =>
 						{
-							await AbilityCmd.AddCondition(parameters.AbilityState, parameters.AbilityState.SingleTargetState.Target, Conditions.Strengthen);
+							await AbilityCmd.AddCondition(parameters.AbilityState, parameters.AbilityState.SingleTargetState.Target,
+								Conditions.Strengthen);
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 

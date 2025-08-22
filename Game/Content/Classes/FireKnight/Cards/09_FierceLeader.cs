@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLeader.CardBottom>
 {
@@ -27,9 +26,10 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(2, range: 3,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(2)
+				.WithRange(3)
+				.WithDuringHealSubscription(
 					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async applyParameters =>
 						{
@@ -39,8 +39,8 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}")
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

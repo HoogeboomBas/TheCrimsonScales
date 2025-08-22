@@ -177,7 +177,7 @@ public class WaterSpiritAbilityCard6 : WaterSpiritAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +2)),
-		new MonsterAbilityCardAbility(new HealAbility(3, target: Target.Self)),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()),
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 				{
