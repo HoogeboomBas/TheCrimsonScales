@@ -12,7 +12,7 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new LootAbility(1)),
+			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 
 			new AbilityCardAbility(new GrantAbility(figure => [new ShieldAbility(1)], target: Target.SelfOrAllies))
 		];

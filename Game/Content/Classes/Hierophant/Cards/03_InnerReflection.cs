@@ -21,8 +21,9 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new LootAbility(2,
-				onAbilityEnded: async state =>
+			new AbilityCardAbility(LootAbility.Builder()
+				.WithRange(2)
+				.WithOnAbilityEnded(async state =>
 				{
 					List<Figure> targetedFigures = new List<Figure>();
 					for(int i = 0; i < state.LootedCoinCount; i++)
@@ -53,8 +54,8 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 					{
 						await GivePrayerCard(state, targetedFigures[0]);
 					}
-				}
-			))
+				})
+				.Build())
 		];
 
 		protected override int XP => 2;

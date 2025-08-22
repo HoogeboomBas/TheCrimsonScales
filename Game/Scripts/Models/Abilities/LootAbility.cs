@@ -64,23 +64,7 @@ public class LootAbility : Ability<LootAbility.State>
 	{
 		return new LootBuilder();
 	}
-
-
 	public LootAbility() { }
-
-	public LootAbility(int range, Func<State, Figure> customGetLootObtainer = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null,
-		Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck,
-			abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		_customGetLootObtainer = customGetLootObtainer;
-		Range = range;
-	}
 
 	protected override async GDTask Perform(State abilityState)
 	{
