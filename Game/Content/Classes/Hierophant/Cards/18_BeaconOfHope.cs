@@ -43,8 +43,8 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 		[
 			new AbilityCardAbility(new ConditionAbility([Conditions.Bless, Conditions.Bless], range: 3)),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.9f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDTerminalDrawnEvent.Subscribe(state, this,
 						parameters =>
@@ -60,14 +60,16 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.9f)))
+				.Build())
 		];
 
 		protected override int XP => 1;

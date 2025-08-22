@@ -11,8 +11,8 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.308f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.SufferDamageParameters.Figure == state.Performer && !state.Performer.IsDead,
@@ -25,14 +25,16 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.308f)))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

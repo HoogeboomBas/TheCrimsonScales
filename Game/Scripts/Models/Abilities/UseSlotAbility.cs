@@ -120,22 +120,6 @@ public class UseSlotAbility : ActiveAbility<UseSlotAbility.State>
 
 	public UseSlotAbility() { }
 
-	public UseSlotAbility(List<UseSlot> useSlots,
-		Func<State, GDTask> onActivate, Func<State, GDTask> onDeactivate,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		UseSlots = useSlots;
-		OnActivate = onActivate;
-		OnDeactivate = onDeactivate;
-	}
-
 	protected override async GDTask Perform(State abilityState)
 	{
 		await AskConfirmAndActivate(abilityState);

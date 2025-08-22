@@ -15,8 +15,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 		[
 			new AbilityCardAbility(new ConditionAbility([Conditions.Curse, Conditions.Curse], range: 3)),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.4f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDTerminalDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -30,14 +30,16 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.4f)))
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -71,7 +73,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 			)),
 
 			new AbilityCardAbility(new HealAbility(
-				new DynamicInt<HealAbility.State>(state => state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount")),
+				new DynamicInt<HealAbility.State>(state =>
+					state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount")),
 				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0),
 				customGetTargets: (state, list) =>
 				{

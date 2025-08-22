@@ -11,8 +11,8 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.314f)), new UseSlot(new Vector2(0.603f, 0.314f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.Condition.IsNegative,
@@ -32,14 +32,21 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.314f)),
+						new UseSlot(new Vector2(0.603f, 0.314f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -49,8 +56,8 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.764f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.Condition.IsNegative,
@@ -70,14 +77,16 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.764f)))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

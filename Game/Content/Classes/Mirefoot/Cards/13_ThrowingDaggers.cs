@@ -13,12 +13,8 @@ public class ThrowingDaggers : MirefootCardModel<ThrowingDaggers.CardTop, Throwi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility(
-				[
-					new UseSlot(new Vector2(0.2869934f, 0.28600082f)), new UseSlot(new Vector2(0.5f, 0.28600082f)),
-					new UseSlot(new Vector2(0.7025001f, 0.28600082f), GainXP)
-				],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						parameters =>
@@ -38,14 +34,22 @@ public class ThrowingDaggers : MirefootCardModel<ThrowingDaggers.CardTop, Throwi
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.2869934f, 0.28600082f)),
+						new UseSlot(new Vector2(0.5f, 0.28600082f)),
+						new UseSlot(new Vector2(0.7025001f, 0.28600082f), GainXP)
+					]
+				)
+				.Build()),
 
 			new AbilityCardAbility(new AttackAbility(2))
 		];

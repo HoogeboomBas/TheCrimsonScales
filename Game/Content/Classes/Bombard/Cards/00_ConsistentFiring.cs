@@ -36,8 +36,8 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.85f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Performer == state.Performer,
@@ -49,13 +49,15 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.85f), GainXP))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

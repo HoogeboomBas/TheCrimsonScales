@@ -50,8 +50,8 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(null)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state,
 						this,
@@ -83,14 +83,16 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(null))
+				.Build())
 		];
 
 		protected override bool Round => true;

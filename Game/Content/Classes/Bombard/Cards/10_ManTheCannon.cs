@@ -13,14 +13,8 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility(
-				[
-					new UseSlot(new Vector2(0.16650043f, 0.3549993f)),
-					new UseSlot(new Vector2(0.36999783f, 0.3549993f), GainXP),
-					new UseSlot(new Vector2(0.57749975f, 0.3549993f)),
-					new UseSlot(new Vector2(0.78700954f, 0.3549993f), GainXP)
-				],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
@@ -39,14 +33,22 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+				[
+					new UseSlot(new Vector2(0.16650043f, 0.3549993f)),
+					new UseSlot(new Vector2(0.36999783f, 0.3549993f), GainXP),
+					new UseSlot(new Vector2(0.57749975f, 0.3549993f)),
+					new UseSlot(new Vector2(0.78700954f, 0.3549993f), GainXP)
+				])
+				.Build())
 		];
 
 		protected override bool Persistent => true;

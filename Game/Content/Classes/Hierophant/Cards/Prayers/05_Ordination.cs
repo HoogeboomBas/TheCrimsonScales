@@ -11,8 +11,8 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.306f)), new UseSlot(new Vector2(0.603f, 0.306f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
@@ -25,14 +25,21 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.306f)),
+						new UseSlot(new Vector2(0.603f, 0.306f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -42,8 +49,8 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.772f)), new UseSlot(new Vector2(0.603f, 0.772f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
@@ -56,14 +63,21 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.772f)),
+						new UseSlot(new Vector2(0.603f, 0.772f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;

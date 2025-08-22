@@ -17,7 +17,7 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 			new AbilityCardAbility(new AttackAbility(3,
 				duringAttackSubscriptions:
 				[
-					ScenarioEvents.DuringAttack.Subscription.New(
+					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
@@ -53,8 +53,8 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5560003f, 0.8259989f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters =>
@@ -69,14 +69,16 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5560003f, 0.8259989f), GainXP))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

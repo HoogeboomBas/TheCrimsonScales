@@ -25,7 +25,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 				),
 				duringAttackSubscriptions:
 				[
-					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
@@ -79,14 +79,16 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.83799946f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters =>
 							parameters.Performer == state.Performer &&
-							RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure)) &&
-							RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure)),
+							RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure)) &&
+							RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure)),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAddCondition(Conditions.Stun);
@@ -96,14 +98,16 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.83799946f), GainXP))
+				.Build())
 		];
 
 		protected override bool Persistent => true;
