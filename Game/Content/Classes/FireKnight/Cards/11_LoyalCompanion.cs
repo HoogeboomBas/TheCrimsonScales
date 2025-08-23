@@ -31,7 +31,11 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
 					ActionState actionState = new ActionState(summonAbilityState.Summon,
 					[
-						new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
+						ConditionAbility.Builder()
+							.WithConditions([Conditions.Bless])
+							.WithTarget(Target.Allies | Target.TargetAll)
+							.WithRange(2)
+							.Build()
 					], state.ActionState);
 					await actionState.Perform();
 				})

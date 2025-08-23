@@ -14,8 +14,9 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 		[
 			new AbilityCardAbility(new AttackAbility(2, range: 3, conditions: [Conditions.Muddle])),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen],
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen])
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -32,9 +33,9 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 	}
 

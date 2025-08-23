@@ -151,7 +151,10 @@ public class EarthDemonAbilityCard7 : EarthDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Wound1, Conditions.Poison1], target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions([Conditions.Wound1, Conditions.Poison1])
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),
 	];
 }

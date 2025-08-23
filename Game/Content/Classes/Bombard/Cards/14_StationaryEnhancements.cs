@@ -13,7 +13,11 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Disarm])
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -67,7 +71,11 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Immobilize], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Immobilize])
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>

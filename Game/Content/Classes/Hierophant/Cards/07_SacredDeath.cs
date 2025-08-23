@@ -15,16 +15,19 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 		[
 			new AbilityCardAbility(new AttackAbility(3, range: 3)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless], range: 2,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Bless])
+				.WithRange(2)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackAbilityState.Performed && attackAbilityState.KilledTargets.Count > 0;
-				}
-			))
+						return attackAbilityState.Performed && attackAbilityState.KilledTargets.Count > 0;
+					}
+				)
+				.Build())
 		];
 	}
 

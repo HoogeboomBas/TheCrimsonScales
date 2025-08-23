@@ -12,29 +12,32 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], range: 3, afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription.New(
-					canApplyFunction: canApplyParameters =>
-					{
-						foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Disarm])
+				.WithRange(3)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription.New(
+						canApplyFunction: canApplyParameters =>
 						{
-							if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
+							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
 							{
-								return true;
+								if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
+								{
+									return true;
+								}
 							}
-						}
 
-						return false;
-					},
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
-						await AbilityCmd.GainXP(parameters.Performer, 1);
+							return false;
+						},
+						applyFunction: async parameters =>
+						{
+							parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
+							await AbilityCmd.GainXP(parameters.Performer, 1);
 
-						await GDTask.CompletedTask;
-					})
-			]))
+							await GDTask.CompletedTask;
+						})
+				)
+				.Build())
 		];
 	}
 

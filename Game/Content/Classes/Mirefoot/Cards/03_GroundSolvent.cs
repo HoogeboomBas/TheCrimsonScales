@@ -13,14 +13,17 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Poison1], range: 3,
-				aoePattern: new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
-					]
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Poison1])
+				.WithRange(3)
+				.WithAOEPattern(new AOEPattern(
+						[
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
+						]
+					)
 				)
-			)),
+				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>

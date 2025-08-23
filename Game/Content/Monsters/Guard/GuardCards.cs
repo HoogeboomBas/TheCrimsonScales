@@ -99,7 +99,10 @@ public class GuardAbilityCard6 : GuardAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen], target: Target.Self))
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions([Conditions.Strengthen])
+			.WithTarget(Target.Self)
+			.Build())
 	];
 }
 

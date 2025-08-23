@@ -12,7 +12,10 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
-			new AbilityCardAbility(new ConditionAbility(range: 1, conditions: [Conditions.Strengthen]))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen])
+				.WithRange(1)
+				.Build())
 		];
 	}
 

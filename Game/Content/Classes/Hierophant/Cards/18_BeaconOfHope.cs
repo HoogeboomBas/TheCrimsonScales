@@ -44,7 +44,10 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless, Conditions.Bless], range: 3)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Bless, Conditions.Bless])
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>

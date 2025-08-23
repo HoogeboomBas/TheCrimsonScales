@@ -38,11 +38,16 @@ public class VolatileTonic : MirefootCardModel<VolatileTonic.CardTop, VolatileTo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Wound2], range: 2, aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			])))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Wound2])
+				.WithRange(2)
+				.WithAOEPattern(new AOEPattern([
+						new AOEHex(Vector2I.Zero, AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+					]
+				))
+				.Build())
 		];
 
 		protected override int XP => 2;

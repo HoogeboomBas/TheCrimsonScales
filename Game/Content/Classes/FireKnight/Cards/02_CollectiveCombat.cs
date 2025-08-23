@@ -37,9 +37,10 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 				]
 			)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen],
-				target: Target.Allies | Target.TargetAll,
-				customGetTargets: (abilityState, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen])
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithCustomGetTargets((abilityState, list) =>
 				{
 					AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -57,21 +58,22 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
-
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-
-					if(attackAbilityState.AOEHexes == null || attackAbilityState.AOEHexes.Count == 0)
+				})
+				.WithConditionalAbilityCheck(async state =>
 					{
-						return false;
-					}
+						await GDTask.CompletedTask;
 
-					return true;
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+
+						if(attackAbilityState.AOEHexes == null || attackAbilityState.AOEHexes.Count == 0)
+						{
+							return false;
+						}
+
+						return true;
+					}
+				)
+				.Build())
 		];
 	}
 

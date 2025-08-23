@@ -113,7 +113,15 @@ public class ImpAbilityCard7 : ImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen], range: 2, target: Target.Allies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Muddle], range: 2, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions([Conditions.Strengthen])
+			.WithRange(2)
+			.WithTarget(Target.Allies | Target.TargetAll)
+			.Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions([Conditions.Muddle])
+			.WithRange(2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 	];
 }

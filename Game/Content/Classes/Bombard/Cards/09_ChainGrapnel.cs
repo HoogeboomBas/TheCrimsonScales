@@ -30,12 +30,17 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
-					new ConditionAbility([Conditions.Immobilize], aoePattern: new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red)
-					]), targetHex: hex)
+					ConditionAbility.Builder()
+						.WithConditions([Conditions.Immobilize])
+						.WithAOEPattern(new AOEPattern(
+							[
+								new AOEHex(Vector2I.Zero, AOEHexType.Red),
+								new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+								new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red)
+							]
+						))
+						.WithTargetHex(hex)
+						.Build()
 				])
 				.WithAbilityCardSide(this)
 				.WithRange(4)

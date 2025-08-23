@@ -35,15 +35,18 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 				]
 			)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen], target: Target.Allies,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen])
+				.WithTarget(Target.Allies)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					return attackAbilityState.Performed && attackAbilityState.GetCustomValue<bool>(this, "AddedRange");
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						return attackAbilityState.Performed && attackAbilityState.GetCustomValue<bool>(this, "AddedRange");
+					}
+				)
+				.Build())
 		];
 	}
 

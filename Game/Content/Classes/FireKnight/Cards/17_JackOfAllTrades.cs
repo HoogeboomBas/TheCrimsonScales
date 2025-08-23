@@ -56,13 +56,16 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 				}
 			)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen], range: 1, target: Target.Allies,
-				onAbilityEndedPerformed: async state =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen])
+				.WithRange(1)
+				.WithTarget(Target.Allies)
+				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
-				},
-				conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Fire)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Fire))
+				.Build())
 		];
 	}
 }

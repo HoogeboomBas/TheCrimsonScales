@@ -12,7 +12,11 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Disarm])
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>

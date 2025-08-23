@@ -39,8 +39,11 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 				]
 			)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Wound1], target: Target.TargetAll | Target.Any, mandatory: true,
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Wound1])
+				.WithTarget(Target.TargetAll | Target.Any)
+				.WithMandatory(true)
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -58,9 +61,9 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire, Element.Air];

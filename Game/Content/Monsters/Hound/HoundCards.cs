@@ -38,7 +38,11 @@ public class HoundAbilityCard1 : HoundAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Muddle], range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions([Conditions.Muddle])
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 	];
 }
 

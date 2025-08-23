@@ -23,15 +23,17 @@ public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, Co
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen, Conditions.Poison1],
-				onAbilityEnded: async abilityState =>
-				{
-					if(abilityState.Performed)
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Strengthen, Conditions.Poison1])
+				.WithOnAbilityEnded(async abilityState =>
 					{
-						await AbilityCmd.GainXP(abilityState.Performer, 1);
+						if(abilityState.Performed)
+						{
+							await AbilityCmd.GainXP(abilityState.Performer, 1);
+						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

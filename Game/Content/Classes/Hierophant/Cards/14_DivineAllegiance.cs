@@ -49,7 +49,11 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless], target: Target.Allies, range: 1))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Bless])
+				.WithTarget(Target.Allies)
+				.WithRange(1)
+				.Build())
 		];
 	}
 }

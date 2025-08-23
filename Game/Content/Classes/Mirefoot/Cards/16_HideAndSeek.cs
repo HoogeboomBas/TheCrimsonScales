@@ -97,14 +97,17 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Invisible], target: Target.Self,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Invisible])
+				.WithTarget(Target.Self)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					return state.Performer.Hex.HasHexObjectOfType<DifficultTerrain>();
-				}
-			))
+						return state.Performer.Hex.HasHexObjectOfType<DifficultTerrain>();
+					}
+				)
+				.Build())
 		];
 	}
 }

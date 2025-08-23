@@ -13,7 +13,10 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Curse, Conditions.Curse], range: 3)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions([Conditions.Curse, Conditions.Curse])
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
