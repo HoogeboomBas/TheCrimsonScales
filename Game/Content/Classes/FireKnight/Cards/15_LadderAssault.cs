@@ -12,8 +12,10 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, push: 2,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithPush(2)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						parameters =>
@@ -27,14 +29,15 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
-				{
-					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+				})
+				.WithOnAbilityEnded(async state =>
+					{
+						ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 

@@ -13,15 +13,20 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3, conditions: [Conditions.Immobilize], aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
-			]))),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithConditions([Conditions.Immobilize])
+				.WithAOEPattern(new AOEPattern([
+					new AOEHex(Vector2I.Zero, AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
+				]))
+				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>

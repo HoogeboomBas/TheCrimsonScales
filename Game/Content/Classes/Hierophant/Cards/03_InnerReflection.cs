@@ -11,7 +11,12 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3, pierce: 3, conditions: [Conditions.Wound1]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithPierce(3)
+				.WithConditions([Conditions.Wound1])
+				.Build())
 		];
 
 		protected override int XP => 1;

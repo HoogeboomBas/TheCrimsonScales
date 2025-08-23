@@ -32,22 +32,25 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, rangeType: RangeType.Range,
-				customGetTargets: (state, list) =>
-				{
-					foreach(Figure figure in GameController.Instance.Map.Figures)
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithRangeType(RangeType.Range)
+				.WithCustomGetTargets((state, list) =>
 					{
-						foreach(Figure potentialAlly in RangeHelper.GetFiguresInRange(figure.Hex, 1))
+						foreach(Figure figure in GameController.Instance.Map.Figures)
 						{
-							if(state.Performer.AlliedWith(potentialAlly))
+							foreach(Figure potentialAlly in RangeHelper.GetFiguresInRange(figure.Hex, 1))
 							{
-								list.Add(figure);
-								break;
+								if(state.Performer.AlliedWith(potentialAlly))
+								{
+									list.Add(figure);
+									break;
+								}
 							}
 						}
 					}
-				}
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(figure =>

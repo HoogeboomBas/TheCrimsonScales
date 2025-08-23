@@ -14,9 +14,12 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
-					new AttackAbility(2, conditions: [Conditions.Stun], rangeType: RangeType.Range, targetHex: hex,
-						afterAttackPerformedSubscriptions:
-						[
+					AttackAbility.Builder()
+						.WithDamage(2)
+						.WithConditions([Conditions.Stun])
+						.WithRangeType(RangeType.Range)
+						.WithTargetHex(hex)
+						.WithAfterAttackPerformedSubscription(
 							ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
 								applyFunction: async applyParameters =>
 								{
@@ -40,7 +43,8 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 										await AbilityCmd.SufferDamage(null, enemy, 1);
 									}
 								})
-						]),
+						)
+						.Build(),
 				])
 				.WithAbilityCardSide(this)
 				.WithRange(4)

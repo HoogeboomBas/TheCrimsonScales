@@ -11,7 +11,12 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(4, range: 3, pierce: 3, conditions: [Conditions.Wound1]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithRange(3)
+				.WithPierce(3)
+				.WithConditions([Conditions.Wound1])
+				.Build())
 		];
 
 		protected override int XP => 2;

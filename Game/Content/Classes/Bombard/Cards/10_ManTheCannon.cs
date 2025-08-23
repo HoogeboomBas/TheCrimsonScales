@@ -22,7 +22,7 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 						{
 							ActionState actionState = new ActionState(state.Performer, [
 								GrantAbility.Builder()
-									.WithGetAbilities(figure => [new AttackAbility(3, range: 3)])
+									.WithGetAbilities(figure => [AttackAbility.Builder().WithDamage(3).WithRange(3).Build()])
 									.WithGetTargetingHintText(grantState =>
 										$"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
 									)
@@ -78,7 +78,7 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 
 							parameters.ForgoAction();
 
-							ActionState actionState = new ActionState(state.Performer, [new AttackAbility(4, range: 3)]);
+							ActionState actionState = new ActionState(state.Performer, [AttackAbility.Builder().WithDamage(4).WithRange(3).Build()]);
 							await actionState.Perform();
 						},
 						EffectType.Selectable,

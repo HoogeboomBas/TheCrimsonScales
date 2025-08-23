@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Builders;
@@ -194,43 +193,12 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 	/// A convenience method that returns an instance of AttackBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<AttackBuilder, AttackAbility>.IDamageStep Builder()
+	public static AttackBuilder.IDamageStep Builder()
 	{
 		return new AttackBuilder();
 	}
 
 	public AttackAbility() { }
-
-	public AttackAbility(DynamicInt<State> value, int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Enemies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, DynamicInt<State> pierce = null, ConditionModel[] conditions = null,
-		bool hasAdvantage = false, bool hasDisadvantage = false,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription> duringAttackSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription> afterAttackPerformedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		Damage = value;
-		Pierce = pierce ?? 0;
-		HasAdvantage = hasAdvantage;
-		HasDisadvantage = hasDisadvantage;
-
-		DuringAttackSubscriptions = duringAttackSubscriptions;
-		AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
-		AfterAttackPerformedSubscriptions = afterAttackPerformedSubscriptions;
-	}
 
 	protected override void InitializeState(State abilityState)
 	{

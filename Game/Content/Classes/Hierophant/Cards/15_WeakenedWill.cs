@@ -12,7 +12,11 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 3, conditions: [Conditions.Muddle])),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithRange(3)
+				.WithConditions([Conditions.Muddle])
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Strengthen])

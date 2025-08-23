@@ -12,7 +12,11 @@ public class ForcibleEntry : FireKnightCardModel<ForcibleEntry.CardTop, Forcible
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(5, pierce: 2, conditions: [Conditions.Wound1])),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(5)
+				.WithPierce(2)
+				.WithConditions([Conditions.Wound1])
+				.Build()),
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

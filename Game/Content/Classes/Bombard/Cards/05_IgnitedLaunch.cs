@@ -15,7 +15,11 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
-					new AttackAbility(5, rangeType: RangeType.Range, targetHex: hex)
+					AttackAbility.Builder()
+						.WithDamage(5)
+						.WithRangeType(RangeType.Range)
+						.WithTargetHex(hex)
+						.Build()
 				])
 				.WithAbilityCardSide(this)
 				.WithRange(4)

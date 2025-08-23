@@ -16,9 +16,23 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 					[
-						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex),
-						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 1),
-						new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 2),
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.Build(),
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.WithPierce(1)
+							.Build(),
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.WithPierce(2)
+							.Build(),
 					]
 				)
 				.WithAbilityCardSide(this)

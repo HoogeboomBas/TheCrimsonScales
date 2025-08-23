@@ -38,9 +38,9 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 				)
 				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithDuringAttackSubscription(
 					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -52,8 +52,8 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 						effectInfoViewParameters: new TextEffectInfoView.Parameters(
 							$"+1{Icons.Inline(Icons.Attack)}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 

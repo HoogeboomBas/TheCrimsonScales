@@ -14,17 +14,17 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2,
-				aoePattern: new AOEPattern(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 					]
-				),
-				duringAttackSubscriptions:
-				[
+				))
+				.WithDuringAttackSubscription(
 					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -34,8 +34,8 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Strengthen])

@@ -12,7 +12,11 @@ public class VitalBond : HierophantCardModel<VitalBond.CardTop, VitalBond.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, targets: 2, range: 4)),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithTargets(2)
+				.WithRange(4)
+				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>

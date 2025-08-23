@@ -13,7 +13,11 @@ public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 3, pierce: 3)),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithRange(3)
+				.WithPierce(3)
+				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>

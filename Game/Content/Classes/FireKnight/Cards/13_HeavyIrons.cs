@@ -13,7 +13,10 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, conditions: [Conditions.Immobilize])),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithConditions([Conditions.Immobilize])
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility(
 				[ModelDB.Item<RescueAxe>(), ModelDB.Item<EmberCladding>(), ModelDB.Item<ScrollOfCharisma>()],

@@ -13,8 +13,10 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 2,
-				aoePattern: new AOEPattern(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(2)
+				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
@@ -24,9 +26,8 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 						new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
 					]
-				),
-				duringAttackSubscriptions:
-				[
+				))
+				.WithDuringAttackSubscription(
 					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -36,8 +37,8 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Wound1])

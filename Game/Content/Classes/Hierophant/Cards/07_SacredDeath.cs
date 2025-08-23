@@ -13,7 +13,7 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 3)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(3).Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Bless])

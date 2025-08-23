@@ -12,7 +12,7 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 3)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(3).Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>

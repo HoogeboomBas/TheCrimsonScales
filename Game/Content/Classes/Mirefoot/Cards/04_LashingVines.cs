@@ -11,9 +11,9 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(0)),
-			new AbilityCardAbility(new AttackAbility(0)),
-			new AbilityCardAbility(new AttackAbility(0))
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build())
 		];
 	}
 

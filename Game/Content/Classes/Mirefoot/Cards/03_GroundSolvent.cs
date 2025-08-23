@@ -61,8 +61,10 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				})
 				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(0, target: Target.Enemies | Target.TargetAll,
-				customGetTargets: (abilityState, list) =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithCustomGetTargets((abilityState, list) =>
 				{
 					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
 
@@ -80,9 +82,9 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 	}
 
@@ -113,7 +115,7 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				)
 				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2))
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build())
 		];
 	}
 }

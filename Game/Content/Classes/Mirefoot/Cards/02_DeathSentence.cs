@@ -12,7 +12,10 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, conditions: [Conditions.Poison3, Conditions.Stun]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithConditions([Conditions.Poison3, Conditions.Stun])
+				.Build())
 		];
 
 		protected override int XP => 2;

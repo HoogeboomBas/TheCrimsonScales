@@ -46,12 +46,23 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		//Monster monster = (Monster)parameters.Performer;
 		int finalRange = range ?? ((monster.Stats.Range ?? 1) + extraRange);
 		RangeType finalRangeType = rangeType ?? (finalRange > 1 ? RangeType.Range : monster.Stats.RangeType);
-		return new AttackAbility(dynamicAttackValue, //extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, getValue: getValue,
-			targets: targets, range: finalRange, rangeType: finalRangeType,
-			target: target, targetHex: targetHex, requiresLineOfSight: requiresLineOfSight, aoePattern: aoePattern,
-			push: push, pull: pull, pierce: pierce, conditions: conditions, customGetTargets: customGetTargets,
-			afterTargetConfirmedSubscriptions: afterTargetConfirmedSubscriptions,
-			afterAttackPerformedSubscriptions: afterAttackPerformedSubscriptions);
+		return global::AttackAbility.Builder()
+			.WithDamage(dynamicAttackValue) //extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, getValue: getValue,
+			.WithTargets(targets)
+			.WithRange(finalRange)
+			.WithRangeType(finalRangeType)
+			.WithTarget(target)
+			.WithTargetHex(targetHex)
+			.WithRequiresLineOfSight(requiresLineOfSight)
+			.WithAOEPattern(aoePattern)
+			.WithPush(push)
+			.WithPull(pull)
+			.WithPierce(pierce)
+			.WithConditions(conditions)
+			.WithCustomGetTargets(customGetTargets)
+			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions)
+			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions)
+			.Build();
 	}
 
 	protected DynamicInt<TState> ConsumeElementDynamicValue<TState>(IReadOnlyCollection<Element> possibleElements, int normalValue, int consumedValue)

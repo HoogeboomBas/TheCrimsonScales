@@ -11,7 +11,7 @@ public class GrapplingHook : BombardCardModel<GrapplingHook.CardTop, GrapplingHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 4)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(4).Build()),
 			new AbilityCardAbility(PullSelfAbility.Builder()
 				.WithPullSelfValue(4)
 				.WithCustomGetTargets((state, targets) =>

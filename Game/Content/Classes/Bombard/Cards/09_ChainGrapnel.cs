@@ -13,11 +13,12 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			//new AbilityCardAbility(new AttackAbility(2, range: 3, pull: 2, conditions: [Conditions.Immobilize]))
-			new AbilityCardAbility(new AttackAbility(2, range: 3, push: 2,
-				conditions:
-				[
-					Conditions.Immobilize
-				])) //TODO: Card art is wrong, it's supposed to be a pull. Leaving it like this for now or it will cause confusion.
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithRange(3)
+				.WithPush(2)
+				.WithConditions([Conditions.Immobilize])
+				.Build()) //TODO: Card art is wrong, it's supposed to be a pull. Leaving it like this for now or it will cause confusion.
 		];
 
 		protected override int XP => 1;

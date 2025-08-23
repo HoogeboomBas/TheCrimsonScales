@@ -12,17 +12,20 @@ public class Mudslide : MirefootCardModel<Mudslide.CardTop, Mudslide.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, targets: 2, afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
-					parameters => parameters.AbilityState.Target.Hex.HasHexObjectOfType<DifficultTerrain>(),
-					async parameters =>
-					{
-						parameters.AbilityState.SingleTargetAdjustAttackValue(1);
-						parameters.AbilityState.SingleTargetAddCondition(Conditions.Muddle);
-						await GDTask.CompletedTask;
-					})
-			]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithTargets(2)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+						parameters => parameters.AbilityState.Target.Hex.HasHexObjectOfType<DifficultTerrain>(),
+						async parameters =>
+						{
+							parameters.AbilityState.SingleTargetAdjustAttackValue(1);
+							parameters.AbilityState.SingleTargetAddCondition(Conditions.Muddle);
+							await GDTask.CompletedTask;
+						})
+				)
+				.Build())
 		];
 
 		protected override int XP => 1;

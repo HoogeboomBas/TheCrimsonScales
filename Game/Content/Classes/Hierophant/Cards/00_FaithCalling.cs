@@ -49,9 +49,10 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3,
-				afterTargetConfirmedSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
 						canApplyFunction: canApplyParameters =>
 						{
@@ -72,8 +73,8 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

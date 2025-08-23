@@ -14,9 +14,9 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithDuringAttackSubscription(
 					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -32,8 +32,8 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Strengthen])

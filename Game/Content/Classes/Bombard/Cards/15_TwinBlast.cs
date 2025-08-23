@@ -16,7 +16,12 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 		[
 			new AbilityCardAbility(ProjectileAbility.Builder().WithGetAbilities(hex =>
 				[
-					new AttackAbility(3, pierce: 2, rangeType: RangeType.Range, targetHex: hex)
+					AttackAbility.Builder()
+						.WithDamage(3)
+						.WithPierce(2)
+						.WithRangeType(RangeType.Range)
+						.WithTargetHex(hex)
+						.Build()
 				])
 				.WithAbilityCardSide(this)
 				.WithRange(4)
@@ -32,7 +37,7 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 3)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(3).Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>

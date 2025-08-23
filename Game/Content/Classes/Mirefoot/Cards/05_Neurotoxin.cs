@@ -11,8 +11,13 @@ public class Neurotoxin : MirefootCardModel<Neurotoxin.CardTop, Neurotoxin.CardB
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, targets: 2, range: 3, rangeType: RangeType.Range,
-				conditions: [Conditions.Poison1, Conditions.Muddle]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithTargets(2)
+				.WithRange(3)
+				.WithRangeType(RangeType.Range)
+				.WithConditions([Conditions.Poison1, Conditions.Muddle])
+				.Build())
 		];
 	}
 

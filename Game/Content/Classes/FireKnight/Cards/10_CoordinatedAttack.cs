@@ -13,9 +13,9 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithDuringAttackSubscription(
 					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -30,9 +30,8 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				)
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
 						parameters => true,
 						async parameters =>
@@ -57,8 +56,8 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 							}
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -91,7 +90,7 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 								ActionState actionState = new ActionState(state.Performer,
 									[
 										GrantAbility.Builder()
-											.WithGetAbilities(figure => [new AttackAbility(2)])
+											.WithGetAbilities(figure => [AttackAbility.Builder().WithDamage(2).Build()])
 											.WithCustomGetTargets((grantState, list) =>
 												{
 													foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))

@@ -47,18 +47,21 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(0, conditions: [Conditions.Muddle],
-				customGetTargets: (state, list) =>
-				{
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.WithConditions([Conditions.Muddle])
+				.WithCustomGetTargets((state, list) =>
 					{
-						if(figure.HasPoison())
+						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
 						{
-							list.Add(figure);
+							if(figure.HasPoison())
+							{
+								list.Add(figure);
+							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

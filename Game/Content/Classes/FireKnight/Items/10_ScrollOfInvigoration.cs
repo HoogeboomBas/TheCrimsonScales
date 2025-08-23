@@ -39,7 +39,12 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [new AttackAbility(2, hasAdvantage: true)]);
+								ActionState actionState = new ActionState(user, [
+									AttackAbility.Builder()
+										.WithDamage(2)
+										.WithHasAdvantage(true)
+										.Build()
+								]);
 								await actionState.Perform();
 							},
 							effectType: EffectType.SelectableMandatory,

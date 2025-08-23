@@ -12,11 +12,17 @@ public class DoubleCannons : BombardCardModel<DoubleCannons.CardTop, DoubleCanno
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 2, rangeType: RangeType.Range, aoePattern: new AOEPattern(
-			[
-				new AOEHex(Vector2I.Zero, AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-			])))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithRange(2)
+				.WithRangeType(RangeType.Range)
+				.WithAOEPattern(new AOEPattern(
+					[
+						new AOEHex(Vector2I.Zero, AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+					]
+				))
+				.Build())
 		];
 	}
 

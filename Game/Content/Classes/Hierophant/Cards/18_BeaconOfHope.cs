@@ -18,8 +18,9 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 				.WithRange(3)
 				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2,
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 					foreach(Figure targetedFigure in attackAbilityState.UniqueTargetedFigures)
@@ -32,9 +33,9 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];

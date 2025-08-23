@@ -16,15 +16,21 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
-					new AttackAbility(3, rangeType: RangeType.Range, pierce: 1, targetHex: hex, aoePattern: new AOEPattern([
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red)
-					]))
+					AttackAbility.Builder()
+						.WithDamage(3)
+						.WithRangeType(RangeType.Range)
+						.WithPierce(1)
+						.WithTargetHex(hex)
+						.WithAOEPattern(new AOEPattern([
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red)
+						]))
+						.Build()
 				])
 				.WithAbilityCardSide(this)
 				.WithRange(4)

@@ -12,18 +12,19 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, conditions: [Conditions.Immobilize],
-				afterTargetConfirmedSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithConditions([Conditions.Immobilize])
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
 						parameters => parameters.AbilityState.Performer.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 							await AbilityCmd.GainXP(parameters.Performer, 1);
-						}),
-				]
-			))
+						})
+				)
+				.Build())
 		];
 	}
 
