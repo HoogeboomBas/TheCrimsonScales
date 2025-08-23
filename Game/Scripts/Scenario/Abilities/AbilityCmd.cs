@@ -564,7 +564,7 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask<ItemModel> SelectItem(Character characterAndAuthority, ItemState requiredItemState, string hintText = "Select an item")
+	public static async GDTask<ItemModel> SelectItem(Character characterAndAuthority, ItemState requiredItemState, ItemType? requiredItemType = null, string hintText = "Select an item")
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 
@@ -573,6 +573,11 @@ public static class AbilityCmd
 		foreach(ItemModel item in characterAndAuthority.Items)
 		{
 			if(item.ItemState != requiredItemState)
+			{
+				continue;
+			}
+
+			if(requiredItemType != null && item.ItemType != requiredItemType)
 			{
 				continue;
 			}

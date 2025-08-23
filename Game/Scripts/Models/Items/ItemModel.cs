@@ -92,16 +92,6 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 		ItemState oldItemState = ItemState;
 		ItemState = state;
 
-		if(oldItemState == ItemState.Available)
-		{
-			Unsubscribe();
-		}
-
-		if(ItemState == ItemState.Available && Owner != null)
-		{
-			Subscribe();
-		}
-
 		await ScenarioEvents.ItemStateChangedEvent.CreatePrompt(new ScenarioEvents.ItemStateChanged.Parameters(this));
 	}
 
@@ -193,10 +183,10 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeDuringTurn(Func<Character, bool> canApply = null, Func<Character, GDTask> apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.CardSideSelectionEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -211,7 +201,7 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 			effectInfoViewParameters: _effectInfoViewParameters);
 
 		ScenarioEvents.AfterCardsPlayedEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -226,7 +216,7 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 			effectInfoViewParameters: _effectInfoViewParameters);
 
 		ScenarioEvents.LongRestCardSelectionEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -242,10 +232,10 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeDuringAttack(Func<AttackAbility.State, bool> canApply = null, Func<AttackAbility.State, GDTask> apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.DuringAttackEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -261,10 +251,10 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeAttackAfterTargetConfirmed(Func<AttackAbility.State, bool> canApply = null, Func<AttackAbility.State, GDTask> apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -280,10 +270,10 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeDuringMove(Func<MoveAbility.State, bool> canApply = null, Func<MoveAbility.State, GDTask> apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.DuringMovementEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -299,11 +289,17 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeSufferDamage(ScenarioEvent<ScenarioEvents.SufferDamage.Parameters>.CanApplyFunction canApply = null, ScenarioEvent<ScenarioEvents.SufferDamage.Parameters>.ApplyFunction apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.SufferDamageEvent.Subscribe(this, _subscriber,
-			canApply,
-			apply,
+			canApply: canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters)),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters);
+				}
+			},
 			HasUseSlots ? EffectType.SelectableMandatory : EffectType.Selectable,
 			order: order,
 			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
@@ -312,11 +308,17 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeRetaliate(ScenarioEvent<ScenarioEvents.Retaliate.Parameters>.CanApplyFunction canApply = null, ScenarioEvent<ScenarioEvents.Retaliate.Parameters>.ApplyFunction apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.RetaliateEvent.Subscribe(this, _subscriber,
-			canApply,
-			apply,
+			canApply: canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters)),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters);
+				}
+			},
 			HasUseSlots ? EffectType.SelectableMandatory : EffectType.Selectable,
 			order: order,
 			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
@@ -325,11 +327,17 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	}
 
 	protected void SubscribeInitiativesSorted(ScenarioEvent<ScenarioEvents.InitiativesSorted.Parameters>.CanApplyFunction canApply = null, ScenarioEvent<ScenarioEvents.InitiativesSorted.Parameters>.ApplyFunction apply = null,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+		int order = 0, bool canApplyMultipleTimesDuringAbility = true)
 	{
 		ScenarioEvents.InitiativesSortedEvent.Subscribe(this, _subscriber,
-			canApply,
-			apply,
+			canApply: canApplyParameters => this.ItemState == ItemState.Available && (canApply == null || canApply(canApplyParameters)),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters);
+				}
+			},
 			HasUseSlots ? EffectType.SelectableMandatory : EffectType.Selectable,
 			order: order,
 			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
