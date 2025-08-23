@@ -22,12 +22,17 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GiveAbilityCardAbility((state, list) =>
+			new AbilityCardAbility(GiveAbilityCardAbility.Builder()
+				.WithGetAbilityCards((state, list) =>
 				{
 					list.Add(AbilityCard);
-				}, OnCardGiven, OnCardDiscarded, OnCardLost,
-				selectAutomatically: true
-			)),
+				})
+				.WithOnCardGiven(OnCardGiven)
+				.WithOnCardDiscarded(OnCardDiscarded)
+				.WithOnCardLost(OnCardLost)
+				.WithSelectAutomatically(true)
+				.Build()
+			),
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
@@ -39,7 +44,8 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 						{
 							parameters.SetPrevented(true);
 
-							ActionState actionState = new ActionState(target, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
+							ActionState actionState =
+								new ActionState(target, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await GDTask.CompletedTask;
