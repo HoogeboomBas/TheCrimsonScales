@@ -30,9 +30,17 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 			TBuilder WithConditions(params ConditionModel[] conditions);
 		}
 
-		public TBuilder WithConditions(params ConditionModel[] conditions)
+		public TBuilder WithAfterTargetConfirmedSubscription(
+			ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription afterTargetConfirmedSubscription)
 		{
-			Obj.Conditions = conditions;
+			Obj.AfterTargetConfirmedSubscriptions.Add(afterTargetConfirmedSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAfterTargetConfirmedSubscriptions(
+			List<ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions)
+		{
+			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
 			return (TBuilder)this;
 		}
 
