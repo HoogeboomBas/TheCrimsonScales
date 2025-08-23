@@ -21,10 +21,12 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 						async parameters =>
 						{
 							ActionState actionState = new ActionState(state.Performer, [
-								new GrantAbility(figure => [new AttackAbility(3, range: 3)],
-									getTargetingHintText: grantState =>
+								GrantAbility.Builder()
+									.WithGetAbilities(figure => [new AttackAbility(3, range: 3)])
+									.WithGetTargetingHintText(grantState =>
 										$"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
-								)
+									)
+									.Build()
 							]);
 							await actionState.Perform();
 

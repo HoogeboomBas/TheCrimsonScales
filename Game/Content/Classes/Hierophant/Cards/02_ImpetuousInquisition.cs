@@ -70,12 +70,13 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 				})
 				.Build()),
 
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
-				[
-					RetaliateAbility.Builder().WithRetaliateValue(1).Build()
-				],
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
+					[
+						RetaliateAbility.Builder().WithRetaliateValue(1).Build()
+					]
+				)
+				.WithCustomGetTargets((state, list) =>
 				{
 					foreach(Figure figure in GameController.Instance.Map.Figures)
 					{
@@ -84,12 +85,13 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 							list.Add(figure);
 						}
 					}
-				},
-				onAbilityEndedPerformed: async state =>
+				})
+				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
-				},
-				conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth)))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+				.Build())
 		];
 
 		protected override int XP => 1;

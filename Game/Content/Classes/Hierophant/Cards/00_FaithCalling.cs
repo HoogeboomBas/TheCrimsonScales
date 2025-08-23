@@ -12,12 +12,16 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
-				[
-					ShieldAbility.Builder().WithShieldValue(1).Build()
-				], target: Target.Allies | Target.TargetAll, range: 2
-			)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
+					[
+						ShieldAbility.Builder().WithShieldValue(1).Build()
+					]
+				)
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithRange(2)
+				.Build()
+			),
 
 			new AbilityCardAbility(GivePrayerCardAbility(
 				conditionalAbilityCheck: async state =>

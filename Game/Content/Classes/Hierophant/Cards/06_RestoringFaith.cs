@@ -17,22 +17,24 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 				.WithRange(3)
 				.Build()),
 
-			new AbilityCardAbility(new GrantAbility(figure =>
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
 				[
 					LootAbility.Builder()
 						.WithRange(1)
 						.WithCustomGetLootObtainer(state => state.ActionState.ParentActionState.Performer)
 						.Build()
-				],
-				customGetTargets: (state, list) => list.Add(state.ActionState.GetAbilityState<HealAbility.State>(0).UniqueTargetedFigures[0]),
-				target: Target.SelfOrAllies,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+				])
+				.WithCustomGetTargets((state, list) => list.Add(state.ActionState.GetAbilityState<HealAbility.State>(0).UniqueTargetedFigures[0]))
+				.WithTarget(Target.SelfOrAllies)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					return state.ActionState.GetAbilityState<HealAbility.State>(0).Performed;
-				}
-			))
+						return state.ActionState.GetAbilityState<HealAbility.State>(0).Performed;
+					}
+				)
+				.Build())
 		];
 	}
 

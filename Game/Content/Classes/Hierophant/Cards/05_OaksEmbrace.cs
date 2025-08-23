@@ -55,20 +55,22 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
-			new AbilityCardAbility(new GrantAbility(figure =>
-				[
-					RetaliateAbility.Builder()
-						.WithRetaliateValue(1)
-						.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
-						.WithOnAbilityEndedPerformed(async state =>
-						{
-							state.ActionState.SetOverrideRound();
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
+					[
+						RetaliateAbility.Builder()
+							.WithRetaliateValue(1)
+							.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+							.WithOnAbilityEndedPerformed(async state =>
+							{
+								state.ActionState.SetOverrideRound();
 
-							await GDTask.CompletedTask;
-						})
-						.Build()
-				]
-			))
+								await GDTask.CompletedTask;
+							})
+							.Build()
+					]
+				)
+				.Build())
 		];
 	}
 }

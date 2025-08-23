@@ -90,19 +90,21 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 							{
 								ActionState actionState = new ActionState(state.Performer,
 									[
-										new GrantAbility(figure => [new AttackAbility(2)],
-											customGetTargets: (grantState, list) =>
-											{
-												foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))
+										GrantAbility.Builder()
+											.WithGetAbilities(figure => [new AttackAbility(2)])
+											.WithCustomGetTargets((grantState, list) =>
 												{
-													if(state.Performer.AlliedWith(potentialTarget) &&
-													   potentialTarget.HasCondition(Conditions.Strengthen))
+													foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))
 													{
-														list.Add(potentialTarget);
+														if(state.Performer.AlliedWith(potentialTarget) &&
+														   potentialTarget.HasCondition(Conditions.Strengthen))
+														{
+															list.Add(potentialTarget);
+														}
 													}
 												}
-											}
-										)
+											)
+											.Build()
 									]
 								);
 

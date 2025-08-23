@@ -61,7 +61,10 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [MoveAbility.Builder().WithDistance(3).Build()], range: 3)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<RescueAxe>(), ModelDB.Item<RescueShield>()],
 				onItemGiven: async (state, item) =>

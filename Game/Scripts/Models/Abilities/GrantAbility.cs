@@ -79,28 +79,6 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 
 	public GrantAbility() { }
 
-	public GrantAbility(Func<Figure, List<Ability>> getAbilities, int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Allies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvents.DuringGrant.Subscription> duringGrantSubscriptions = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		_getAbilities = getAbilities;
-		DuringGrantSubscriptions = duringGrantSubscriptions;
-	}
-
 	protected override async GDTask StartPerform(State abilityState)
 	{
 		await base.StartPerform(abilityState);

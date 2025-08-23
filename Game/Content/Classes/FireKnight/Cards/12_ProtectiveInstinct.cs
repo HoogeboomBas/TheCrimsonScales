@@ -14,7 +14,10 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 
-			new AbilityCardAbility(new GrantAbility(figure => [ShieldAbility.Builder().WithShieldValue(1).Build()], target: Target.SelfOrAllies))
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure => [ShieldAbility.Builder().WithShieldValue(1).Build()])
+				.WithTarget(Target.SelfOrAllies)
+				.Build())
 		];
 
 		protected override bool Round => true;
@@ -26,14 +29,17 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new GrantAbility(figure => [MoveAbility.Builder().WithDistance(3).Build()], range: 2,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithRange(2)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					return state.Performer.Hex.HasHexObjectOfType<Ladder>();
-				}
-			)),
+						return state.Performer.Hex.HasHexObjectOfType<Ladder>();
+					}
+				)
+				.Build()),
 		];
 	}
 }

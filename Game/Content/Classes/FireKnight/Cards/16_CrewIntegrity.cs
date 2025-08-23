@@ -66,10 +66,12 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [MoveAbility.Builder().WithDistance(3).Build()], targets: 2, range: 3,
-				target: Target.SelfOrAllies | Target.SelfCountsForTargets,
-				duringGrantSubscriptions:
-				[
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithTargets(2)
+				.WithRange(3)
+				.WithTarget(Target.SelfOrAllies | Target.SelfCountsForTargets)
+				.WithDuringGrantSubscription(
 					ScenarioEvents.DuringGrant.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -78,8 +80,8 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

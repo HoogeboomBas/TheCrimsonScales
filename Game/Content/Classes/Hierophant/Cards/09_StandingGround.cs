@@ -12,14 +12,16 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure =>
-				[
-					ShieldAbility.Builder()
-						.WithShieldValue(2)
-						.WithPierceable(false)
-						.Build()
-				]
-			))
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
+					[
+						ShieldAbility.Builder()
+							.WithShieldValue(2)
+							.WithPierceable(false)
+							.Build()
+					]
+				)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];
@@ -47,8 +49,8 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 				}
 			)),
 
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
 				[
 					ShieldAbility.Builder()
 						.WithShieldValue(1)
@@ -60,8 +62,8 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 							state.ActionState.SetOverrideRound();
 						})
 						.Build()
-				],
-				customGetTargets: (state, list) =>
+				])
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -69,16 +71,17 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 					{
 						list.AddRange(RangeHelper.GetFiguresInRange(target.Hex, 1));
 					}
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+				})
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackAbilityState.Performed;
-				}
-			))
+						return attackAbilityState.Performed;
+					}
+				)
+				.Build())
 		];
 	}
 }

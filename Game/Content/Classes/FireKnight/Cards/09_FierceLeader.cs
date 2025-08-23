@@ -11,7 +11,10 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [new AttackAbility(3)], target: Target.Allies)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure => [new AttackAbility(3)])
+				.WithTarget(Target.Allies)
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<ScrollOfCharisma>(), ModelDB.Item<ScrollOfInvigoration>()],
 				onItemGiven: async (state, item) =>

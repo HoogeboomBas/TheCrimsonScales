@@ -12,28 +12,30 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure =>
-				[
-					HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build(),
-					ShieldAbility.Builder().WithShieldValue(1).Build(),
-					RetaliateAbility.Builder()
-						.WithRetaliateValue(1)
-						.WithAbilityStartedSubscription(
-							ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.ConsumeElement(Element.Earth,
-								parameters => true,
-								async parameters =>
-								{
-									RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
-									retaliateAbilityState.AdjustRange(2);
-									await AbilityCmd.GainXP(parameters.AbilityState.Performer,
-										1); //TODO: This actually grants the granted figure the xp, but I guess that's also implied on the card art currently
-								}
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(figure =>
+					[
+						HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build(),
+						ShieldAbility.Builder().WithShieldValue(1).Build(),
+						RetaliateAbility.Builder()
+							.WithRetaliateValue(1)
+							.WithAbilityStartedSubscription(
+								ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.ConsumeElement(Element.Earth,
+									parameters => true,
+									async parameters =>
+									{
+										RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
+										retaliateAbilityState.AdjustRange(2);
+										await AbilityCmd.GainXP(parameters.AbilityState.Performer,
+											1); //TODO: This actually grants the granted figure the xp, but I guess that's also implied on the card art currently
+									}
+								)
 							)
-						)
-						.Build()
-				],
-				range: 3
-			))
+							.Build()
+					]
+				)
+				.WithRange(3)
+				.Build())
 		];
 
 		protected override bool Round => true;
