@@ -288,38 +288,6 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 	public TargetedAbility() { }
 
-	public TargetedAbility(int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Enemies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<T, List<Figure>> customGetTargets = null,
-		Func<T, GDTask> onAbilityStarted = null, Func<T, GDTask> onAbilityEnded = null, Func<T, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<T, string> getTargetingHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		Targets = targets;
-		Range = range ?? 1;
-		RangeType = rangeType ?? (Range == 1 ? RangeType.Melee : RangeType.Range);
-		Target = target;
-
-		RequiresLineOfSight = requiresLineOfSight;
-		Mandatory = mandatory;
-		TargetHex = targetHex;
-		AOEPattern = aoePattern;
-		Push = push;
-		Pull = pull;
-
-		Conditions = conditions ?? [];
-		CustomGetTargets = customGetTargets;
-		_getTargetingHintText = getTargetingHintText ?? DefaultTargetingHintText;
-	}
-
 	protected override void InitializeState(T abilityState)
 	{
 		base.InitializeState(abilityState);

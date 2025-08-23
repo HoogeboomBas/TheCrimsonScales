@@ -52,19 +52,6 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 		}
 	}
 
-	protected ActiveAbility(
-		Func<T, GDTask> onAbilityStarted = null, Func<T, GDTask> onAbilityEnded = null, Func<T, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<T, string> getHintText = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions,
-			abilityEndedSubscriptions, abilityPerformedSubscriptions)
-	{
-		_getHintText = getHintText ?? DefaultHintText;
-	}
-
 	protected async GDTask AskConfirmAndActivate(T abilityState)
 	{
 		ConfirmPrompt.Answer confirmAnswer =
