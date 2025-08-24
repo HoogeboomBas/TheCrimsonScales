@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -28,16 +29,21 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 			EffectInfoViewParameters = effectInfoViewParameters;
 		}
 
-		public static Subscription New(CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.MandatoryBeforeOptionals,
-			int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false, EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+		public static Subscription New(CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null,
+			EffectType effectType = EffectType.MandatoryBeforeOptionals,
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
 		{
-			return new Subscription(canApplyFunction, applyFunction, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
-				effectButtonParameters ?? new IconEffectButton.Parameters(Icons.GetItem(ItemType.Head)), effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
+			return new Subscription(canApplyFunction, applyFunction, effectType, order, canApplyMultipleTimesDuringSubscription,
+				canApplyMultipleTimesInEffectCollection,
+				effectButtonParameters ?? new IconEffectButton.Parameters(Icons.GetItem(ItemType.Head)),
+				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 
 		public static Subscription ConsumeElement(Element element,
 			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
-			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false, EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
 		{
 			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
 			return new Subscription(parameters =>
@@ -61,7 +67,8 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 						await applyFunction.Invoke(parameters);
 					}
 				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
-				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(element), effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
+				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(element),
+				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 
 		public override bool CanApply(ParametersBase parameters)
@@ -118,7 +125,7 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public EffectCollection CreateEffectCollection(T parameters)
 	{
-		EffectCollection collection = new EffectCollection(parameters, _subscriptions);
+		EffectCollection collection = new EffectCollection(this, _subscriptions, parameters);
 		return collection;
 	}
 
@@ -149,11 +156,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public void Subscribe(Figure subscriberA, object subscriberB,
 		CanApplyFunction canApply, ApplyFunction apply,
-		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true,
+		bool canApplyMultipleTimesInEffectCollection = false,
 		EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
 		bool checkDuplicates = true)
 	{
-		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters, checkDuplicates);
+		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order,
+			canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters,
+			checkDuplicates);
 	}
 
 	public void Subscribe(Figure subscriberA, object subscriberB, Subscription subscription, bool checkDuplicates = true)
@@ -163,11 +173,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public void Subscribe(AbilityState subscriberA, object subscriberB,
 		CanApplyFunction canApply, ApplyFunction apply,
-		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true,
+		bool canApplyMultipleTimesInEffectCollection = false,
 		EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
 		bool checkDuplicates = true)
 	{
-		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters, checkDuplicates);
+		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order,
+			canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters,
+			checkDuplicates);
 	}
 
 	public void Subscribe(AbilityState subscriberA, object subscriberB, Subscription subscription, bool checkDuplicates = true)
@@ -177,11 +190,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public void Subscribe(ScenarioModel subscriberA, object subscriberB,
 		CanApplyFunction canApply, ApplyFunction apply,
-		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true,
+		bool canApplyMultipleTimesInEffectCollection = false,
 		EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
 		bool checkDuplicates = true)
 	{
-		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters, checkDuplicates);
+		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order,
+			canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters,
+			checkDuplicates);
 	}
 
 	public void Subscribe(ScenarioModel subscriberA, object subscriberB, Subscription subscription, bool checkDuplicates = true)
@@ -191,11 +207,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public void Subscribe(ItemModel subscriberA, object subscriberB,
 		CanApplyFunction canApply, ApplyFunction apply,
-		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true,
+		bool canApplyMultipleTimesInEffectCollection = false,
 		EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
 		bool checkDuplicates = true)
 	{
-		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters, checkDuplicates);
+		Subscribe(ScenarioEvents.GetSubscriberPair(subscriberA, subscriberB), canApply, apply, effectType, order,
+			canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters,
+			checkDuplicates);
 	}
 
 	public void Subscribe(ItemModel subscriberA, object subscriberB, Subscription subscription, bool checkDuplicates = true)
@@ -205,11 +224,13 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 
 	public void Subscribe(IEventSubscriber subscriber,
 		CanApplyFunction canApply, ApplyFunction apply,
-		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true, bool canApplyMultipleTimesInEffectCollection = false,
+		EffectType effectType = EffectType.MandatoryBeforeOptionals, int order = 0, bool canApplyMultipleTimesDuringSubscription = true,
+		bool canApplyMultipleTimesInEffectCollection = false,
 		EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
 		bool checkDuplicates = true)
 	{
-		Subscription subscription = Subscription.New(canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters);
+		Subscription subscription = Subscription.New(canApply, apply, effectType, order, canApplyMultipleTimesDuringSubscription,
+			canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters);
 
 		Subscribe(subscriber, subscription, checkDuplicates);
 	}
@@ -297,6 +318,8 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 		{
 			_subscriptions.Add(subscription);
 		}
+
+		FireSubscriptionAddedEvent(subscription);
 	}
 
 	private void Unsubscribe(Subscription subscription)
@@ -334,6 +357,8 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 				subscription.SetSubscribed(false);
 				subscription.ClearSubscriptionAppliedAndExtraCanApplyFunctions();
 				_subscriptions.RemoveAt(i);
+
+				FireSubscriptionRemovedEvent(subscription);
 			}
 		}
 	}
@@ -421,5 +446,19 @@ public abstract class ScenarioEvent
 
 	public abstract class ParametersBase
 	{
+	}
+
+	public event Action<Subscription> SubscriptionAddedEvent;
+
+	protected void FireSubscriptionAddedEvent(Subscription subscription)
+	{
+		SubscriptionAddedEvent?.Invoke(subscription);
+	}
+
+	public event Action<Subscription> SubscriptionRemovedEvent;
+
+	protected void FireSubscriptionRemovedEvent(Subscription subscription)
+	{
+		SubscriptionRemovedEvent?.Invoke(subscription);
 	}
 }

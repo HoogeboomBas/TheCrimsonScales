@@ -294,7 +294,7 @@ public class Scenario007 : ScenarioModel
 			{
 				if(character.Items.Any(item => item.ItemState == ItemState.Spent))
 				{
-					ItemModel item = await AbilityCmd.SelectItem(character, ItemState.Spent, "Select an item to refresh");
+					ItemModel item = await AbilityCmd.SelectItem(character, ItemState.Spent, hintText: "Select an item to refresh");
 					await AbilityCmd.RefreshItem(item);
 				}
 
