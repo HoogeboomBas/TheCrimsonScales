@@ -577,7 +577,7 @@ public static class AbilityCmd
 				continue;
 			}
 			
-			if(requiredItemType != null && item.ItemType != requiredItemType)
+			if(requiredItemType.HasValue && item.ItemType != requiredItemType)
 			{
 				continue;
 			}
