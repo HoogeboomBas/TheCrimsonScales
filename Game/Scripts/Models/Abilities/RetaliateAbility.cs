@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
+/// <summary>
+/// An <see cref="ActiveAbility{T}"/> that deals direct damage to those that attacked the owner of the ability at a given range.
+/// </summary>
 public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 {
 	public class State : ActiveAbilityState
@@ -20,17 +23,68 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		}
 	}
 
-	public int RetaliateValue { get; }
-	public int Range { get; }
+	public int RetaliateValue { get; protected set; }
+	public int Range { get; protected set; }
+
+	/// <summary>
+	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in RetaliateAbility. Enables inheritors of RetaliateAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending RetaliateAbility.
+	public new class AbstractBuilder<TBuilder, TAbility> : ActiveAbility<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IRetaliateValueStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : RetaliateAbility, new()
+	{
+
+		public interface IRetaliateValueStep
+		{
+			TBuilder WithRetaliateValue(int retaliateValue);
+		}
+
+		public TBuilder WithRetaliateValue(int retaliateValue)
+		{
+			Obj.RetaliateValue = retaliateValue;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithRange(int range)
+		{
+			Obj.Range = range;
+			return (TBuilder)this;
+		}
+	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class RetaliateBuilder : AbstractBuilder<RetaliateBuilder, RetaliateAbility>
+	{
+		internal RetaliateBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of RetaliateBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static AbstractBuilder<RetaliateBuilder, RetaliateAbility>.IRetaliateValueStep Builder()
+	{
+		return new RetaliateBuilder();
+	}
+
+	public RetaliateAbility() { }
 
 	public RetaliateAbility(int retaliateValue, int range = 1,
 		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
 		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
 		Func<State, string> getHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
+		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
+		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
 		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
+			abilityEndedSubscriptions, abilityPerformedSubscriptions)
 	{
 		RetaliateValue = retaliateValue;
 		Range = range;

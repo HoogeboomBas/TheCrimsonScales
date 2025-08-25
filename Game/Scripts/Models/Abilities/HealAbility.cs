@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that restores hit points to the target figure.
+/// </summary>
 public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAbilitySingleTargetState>
 {
 	public class HealAbilitySingleTargetState : SingleTargetState
@@ -34,11 +37,106 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		}
 	}
 
-	public DynamicInt<State> HealValue { get; }
+	public DynamicInt<State> HealValue { get; protected set; }
 
-	public List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> DuringHealSubscriptions { get; }
-	public List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription> AfterTargetConfirmedSubscriptions { get; }
-	public List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription> AfterHealPerformedSubscriptions { get; }
+	public List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> DuringHealSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription>
+		AfterTargetConfirmedSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription>
+		AfterHealPerformedSubscriptions { get; protected set; } = [];
+
+	/// <summary>
+	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in HealAbility. Enables inheritors of HealAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending HealAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> :
+		TargetedAbility<State, HealAbilitySingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IHealValueStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : HealAbility, new()
+	{
+		public interface IHealValueStep
+		{
+			TBuilder WithHealValue(DynamicInt<State> healValue);
+		}
+
+		public TBuilder WithHealValue(DynamicInt<State> healValue)
+		{
+			Obj.HealValue = healValue;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithDuringHealSubscription(ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription duringHealSubscription)
+		{
+			Obj.DuringHealSubscriptions.Add(duringHealSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithDuringHealSubscriptions(List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> duringHealSubscriptions)
+		{
+			Obj.DuringHealSubscriptions = duringHealSubscriptions;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAfterTargetConfirmedSubscription(
+			ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription afterTargetConfirmedSubscription)
+		{
+			Obj.AfterTargetConfirmedSubscriptions.Add(afterTargetConfirmedSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAfterTargetConfirmedSubscriptions(
+			List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions)
+		{
+			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAfterHealPerformedSubscription(
+			ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription afterHealPerformedSubscriptions)
+		{
+			Obj.AfterHealPerformedSubscriptions.Add(afterHealPerformedSubscriptions);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAfterHealPerformedSubscriptions(
+			List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription> afterHealPerformedSubscriptionss)
+		{
+			Obj.AfterHealPerformedSubscriptions = afterHealPerformedSubscriptionss;
+			return (TBuilder)this;
+		}
+
+		/// <summary>
+		/// Overriding so we can set default values.
+		/// </summary>
+		public override TAbility Build()
+		{
+			Obj.Target = _target ?? Target.SelfOrAllies;
+			return base.Build();
+		}
+	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class HealBuilder : AbstractBuilder<HealBuilder, HealAbility>
+	{
+		internal HealBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of HealBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static AbstractBuilder<HealBuilder, HealAbility>.IHealValueStep Builder()
+	{
+		return new HealBuilder();
+	}
+
+	public HealAbility() { }
 
 	public HealAbility(DynamicInt<State> value, int targets = 1, int? range = null, RangeType? rangeType = null,
 		Target target = Target.SelfOrAllies,

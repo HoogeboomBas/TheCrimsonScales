@@ -5,6 +5,9 @@ using Godot;
 using GTweens.Easings;
 using GTweensGodot.Extensions;
 
+/// <summary>
+/// An <see cref="Ability{T}"/> that allows figures to move.
+/// </summary>
 public class MoveAbility : Ability<MoveAbility.State>
 {
 	public class State : AbilityState
@@ -34,20 +37,84 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 	}
 
-	public int Distance { get; }
-	public MoveType MoveType { get; }
-	public List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> DuringMovementSubscriptions { get; }
+	public int Distance { get; protected set; }
+	public MoveType MoveType { get; protected set; }
+	public List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> DuringMovementSubscriptions { get; protected set; } = [];
 	//public List<ScenarioEvent<ScenarioEvents.FigureEnteredHex.Parameters>.Subscription> FigureEnteredHexSubscriptions { get; }
 
+	/// <summary>
+	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in MoveAbility. Enables inheritors of MoveAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending MoveAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IDistanceStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : MoveAbility, new()
+	{
+		public interface IDistanceStep
+		{
+			TBuilder WithDistance(int distance);
+		}
+
+		public TBuilder WithDistance(int distance)
+		{
+			Obj.Distance = distance;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithMoveType(MoveType moveType)
+		{
+			Obj.MoveType = moveType;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithDuringMovementSubscription(ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription movementSubscription)
+		{
+			Obj.DuringMovementSubscriptions.Add(movementSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithDuringMovementSubscriptions(
+			List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> movementSubscriptions)
+		{
+			Obj.DuringMovementSubscriptions = movementSubscriptions;
+			return (TBuilder)this;
+		}
+	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class MoveBuilder : AbstractBuilder<MoveBuilder, MoveAbility>
+	{
+		internal MoveBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of MoveBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static MoveBuilder.IDistanceStep Builder()
+	{
+		return new MoveBuilder();
+	}
+
+	public MoveAbility() { }
+
 	public MoveAbility(int distance, MoveType moveType = MoveType.Regular,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
+		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null,
+		Func<State, GDTask> onAbilityEndedPerformed = null,
 		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		List<ScenarioEvents.DuringMovement.Subscription> duringMovementSubscriptions = null,
+		List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> duringMovementSubscriptions = null,
 		//List<ScenarioEvents.FigureEnteredHex.Subscription> figureEnteredHexSubscriptions = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvents.AbilityPerformed.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions = null,
+		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions = null,
+		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
+		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck,
+			abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
 	{
 		Distance = distance;
 		MoveType = moveType;
@@ -88,7 +155,10 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 			bool playedLandSound = false;
 
-			for(int i = 0; i < path.Count && !performer.IsDestroyed && !performer.HasCondition(Conditions.Immobilize) && !performer.HasCondition(Conditions.Stun); i++)
+			for(int i = 0;
+			    i < path.Count && !performer.IsDestroyed && !performer.HasCondition(Conditions.Immobilize) &&
+			    !performer.HasCondition(Conditions.Stun);
+			    i++)
 			{
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
@@ -100,20 +170,24 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 				if(abilityState.MoveType == MoveType.Flying)
 				{
-					AppController.Instance.AudioController.PlayFastForwardable(SFX.MoveFlying, minPitch: 2.5f, maxPitch: 3.4f, delay: 0.1f);
+					AppController.Instance.AudioController.PlayFastForwardable(SFX.MoveFlying, minPitch: 2.5f,
+						maxPitch: 3.4f, delay: 0.1f);
 				}
 
 				if(abilityState.MoveType == MoveType.Jump && i == path.Count - 1)
 				{
 					playedLandSound = true;
-					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetLand(performer.Hex), delay: 0.25f);
+					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetLand(performer.Hex),
+						delay: 0.25f);
 				}
 
 				abilityState.Hexes.Add(hex);
 
-				await performer.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardableAsync();
+				await performer.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine)
+					.PlayFastForwardableAsync();
 				await GDTask.DelayFastForwardable(0.03f);
-				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
+				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular ||
+				                         (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
 				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects);
 			}
 
@@ -128,7 +202,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 		if(abilityState.Authority is Character)
 		{
 			// Character moving
-			ScenarioEvents.DuringMovement.Parameters duringMovementAbilityStateParameters = new ScenarioEvents.DuringMovement.Parameters(abilityState);
+			ScenarioEvents.DuringMovement.Parameters duringMovementAbilityStateParameters =
+				new ScenarioEvents.DuringMovement.Parameters(abilityState);
 
 			performer.SetZIndex(100);
 
@@ -143,7 +218,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 					ScenarioEvents.DuringMovementEvent.CreateEffectCollection(duringMovementAbilityStateParameters);
 
 				MovePrompt.Answer moveAnswer = await PromptManager.Prompt(
-					new MovePrompt(abilityState, performer, effectCollection, () => "Select a path"), abilityState.Authority);
+					new MovePrompt(abilityState, performer, effectCollection, () => "Select a path"),
+					abilityState.Authority);
 
 				if(moveAnswer.Skipped)
 				{
@@ -163,7 +239,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 		{
 			// Monster moving
 			MonsterMovePrompt.Answer monsterMoveAnswer = await PromptManager.Prompt(
-				new MonsterMovePrompt(abilityState, performer, abilityState.ActionState.GetAIMoveParameters(), await abilityState.ActionState.GetFocus(),
+				new MonsterMovePrompt(abilityState, performer, abilityState.ActionState.GetAIMoveParameters(),
+					await abilityState.ActionState.GetFocus(),
 					null, () => "Select a path"), abilityState.Authority);
 
 			performer.SetZIndex(100);
