@@ -11,12 +11,12 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 	{
 	}
 
-	protected Func<ScenarioEvents.SufferDamage.Parameters, bool> _customCanApply { get; set; }
-	protected bool _customCanApplyReplaceFully { get; set; }
+	private Func<ScenarioEvents.SufferDamage.Parameters, bool> _customCanApply;
+	private bool _customCanApplyReplaceFully;
 
-	public DynamicInt<State> ShieldValue { get; protected set; }
-	public RangeType? RequiredRangeType { get; protected set; }
-	public bool Pierceable { get; protected set; } = true;
+	public DynamicInt<State> ShieldValue { get; private set; }
+	public RangeType? RequiredRangeType { get; private set; }
+	public bool Pierceable { get; private set; } = true;
 
 	public bool ConditionalValue => RequiredRangeType.HasValue || _customCanApply != null;
 
@@ -31,7 +31,6 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : ShieldAbility, new()
 	{
-
 		public interface IShieldValueStep
 		{
 			TBuilder WithShieldValue(DynamicInt<State> shieldValue);
@@ -81,7 +80,7 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 	/// A convenience method that returns an instance of ShieldBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<ShieldBuilder, ShieldAbility>.IShieldValueStep Builder()
+	public static ShieldBuilder.IShieldValueStep Builder()
 	{
 		return new ShieldBuilder();
 	}

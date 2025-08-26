@@ -11,8 +11,8 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 	{
 	}
 
-	protected Func<State, Figure, GDTask> _onAfterConditionsApplied { get; set; }
-	
+	private Func<State, Figure, GDTask> _onAfterConditionsApplied;
+
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in OtherTargetedAbility. Enables inheritors of OtherTargetedAbility to further extend the builder.
@@ -59,7 +59,8 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 
 	public OtherTargetedAbility() { }
 
-	public OtherTargetedAbility(Func<State, Figure, GDTask> onAfterConditionsApplied = null, int targets = 1, int? range = null, RangeType? rangeType = null,
+	public OtherTargetedAbility(Func<State, Figure, GDTask> onAfterConditionsApplied = null, int targets = 1, int? range = null,
+		RangeType? rangeType = null,
 		Target target = Target.Allies,
 		bool requiresLineOfSight = true, bool mandatory = false,
 		Hex targetHex = null,

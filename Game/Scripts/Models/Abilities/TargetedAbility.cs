@@ -158,7 +158,7 @@ public abstract class TargetedAbilityState : AbilityState
 }
 
 /// <summary>
-/// An <see cref="Ability{T}"/> that is considered a targeted ability as per the rules; that targets a specific figure.
+/// An <see cref="Ability{T}"/> that is considered a targeted ability as per the rules; that targets figures with given restrictions.
 /// </summary>
 public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	where T : TargetedAbilityState<TSingleTargetState>, new()
@@ -166,22 +166,22 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 {
 	private static readonly List<Hex> HexCache = new List<Hex>();
 
-	private Func<T, string> GetTargetingHintText { get; set; }
+	private Func<T, string> _getTargetingHintText;
 
-	public int Range { get; protected set; } = 1;
-	public RangeType RangeType { get; protected set; } = RangeType.Melee;
-	public bool RequiresLineOfSight { get; protected set; } = true;
+	public int Range { get; private set; } = 1;
+	public RangeType RangeType { get; private set; } = RangeType.Melee;
+	public bool RequiresLineOfSight { get; private set; } = true;
 	public Target Target { get; protected set; } = Target.Enemies;
-	public int Targets { get; protected set; } = 1;
-	public Hex TargetHex { get; protected set; }
-	public AOEPattern AOEPattern { get; protected set; }
-	public bool Mandatory { get; protected set; }
-	public int Push { get; protected set; }
-	public int Pull { get; protected set; }
+	public int Targets { get; private set; } = 1;
+	public Hex TargetHex { get; private set; }
+	public AOEPattern AOEPattern { get; private set; }
+	public bool Mandatory { get; private set; }
+	public int Push { get; private set; }
+	public int Pull { get; private set; }
 
-	public ConditionModel[] Conditions { get; protected set; } = [];
+	public ConditionModel[] Conditions { get; private set; } = [];
 
-	public Action<T, List<Figure>> CustomGetTargets { get; protected set; }
+	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -193,14 +193,13 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : TargetedAbility<T, TSingleTargetState>, new()
 	{
-
 		protected Target? _target;
 		protected Func<T, string> GetTargetingHintText;
 
 		public TBuilder WithGetTargetingHintText(Func<T, string> getTargetingHintText)
 		{
 			GetTargetingHintText = getTargetingHintText;
-			Obj.GetTargetingHintText = getTargetingHintText;
+			Obj._getTargetingHintText = getTargetingHintText;
 			return (TBuilder)this;
 		}
 
@@ -282,7 +281,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		/// </summary>
 		public override TAbility Build()
 		{
-			Obj.GetTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
+			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();
 		}
 	}
@@ -318,7 +317,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		Conditions = conditions ?? [];
 		CustomGetTargets = customGetTargets;
-		GetTargetingHintText = getTargetingHintText ?? DefaultTargetingHintText;
+		_getTargetingHintText = getTargetingHintText ?? DefaultTargetingHintText;
 	}
 
 	protected override void InitializeState(T abilityState)
@@ -525,7 +524,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				bool autoSelectIfOne = Mandatory || (customTargets != null && customTargets.Count == 1) || (TargetHex != null && AOEPattern == null);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
-						() => GetTargetingHintText(abilityState)), abilityState.Authority);
+						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				if(targetAnswer.Skipped)
 				{
@@ -541,7 +540,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				Figure focus = await abilityState.ActionState.GetFocus();
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, duringTargetedAbilityEffectCollection,
-						() => GetTargetingHintText(abilityState)), abilityState.Authority);
+						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				if(targetAnswer.Skipped)
 				{

@@ -37,9 +37,9 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 	}
 
-	public int Distance { get; protected set; }
-	public MoveType MoveType { get; protected set; }
-	public List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> DuringMovementSubscriptions { get; protected set; } = [];
+	public int Distance { get; private set; }
+	public MoveType MoveType { get; private set; }
+	public List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> DuringMovementSubscriptions { get; private set; } = [];
 	//public List<ScenarioEvent<ScenarioEvents.FigureEnteredHex.Parameters>.Subscription> FigureEnteredHexSubscriptions { get; }
 
 	/// <summary>
@@ -186,8 +186,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 				await performer.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine)
 					.PlayFastForwardableAsync();
 				await GDTask.DelayFastForwardable(0.03f);
-				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular ||
-				                         (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
+				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
 				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects);
 			}
 
@@ -217,9 +216,9 @@ public class MoveAbility : Ability<MoveAbility.State>
 				EffectCollection effectCollection =
 					ScenarioEvents.DuringMovementEvent.CreateEffectCollection(duringMovementAbilityStateParameters);
 
-				MovePrompt.Answer moveAnswer = await PromptManager.Prompt(
-					new MovePrompt(abilityState, performer, effectCollection, () => "Select a path"),
-					abilityState.Authority);
+				MovePrompt.Answer moveAnswer =
+					await PromptManager.Prompt(new MovePrompt(abilityState, performer, effectCollection, () => "Select a path"),
+						abilityState.Authority);
 
 				if(moveAnswer.Skipped)
 				{

@@ -7,7 +7,7 @@ using GTweens.Easings;
 using GTweensGodot.Extensions;
 
 /// <summary>
-/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that creates an attack on a given target.
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that allows a figure to attack other figures.
 /// </summary>
 public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetState>
 {
@@ -80,8 +80,10 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 	public bool HasDisadvantage { get; protected set; }
 
 	public List<ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription> DuringAttackSubscriptions { get; protected set; } = [];
+
 	public List<ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription>
 		AfterTargetConfirmedSubscriptions { get; protected set; } = [];
+
 	public List<ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription>
 		AfterAttackPerformedSubscriptions { get; protected set; } = [];
 
@@ -96,7 +98,6 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : AttackAbility, new()
 	{
-
 		public interface IDamageStep
 		{
 			TBuilder WithDamage(DynamicInt<State> damage);

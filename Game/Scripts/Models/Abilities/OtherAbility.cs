@@ -24,7 +24,6 @@ public class OtherAbility : Ability<OtherAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : OtherAbility, new()
 	{
-
 		public interface IPerformAbilityStep
 		{
 			TBuilder WithPerformAbility(Func<State, GDTask> performAbility);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 
 /// <summary>
-/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that gives the target figure an option to perform a given ability or abilities.
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that allows a figure to grant abilities to other figures.
 /// </summary>
 public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetState>
 {
@@ -11,9 +11,9 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 	}
 
-	protected Func<Figure, List<Ability>> _getAbilities { get; set; }
+	private Func<Figure, List<Ability>> _getAbilities;
 
-	public List<ScenarioEvents.DuringGrant.Subscription> DuringGrantSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvents.DuringGrant.Subscription> DuringGrantSubscriptions { get; private set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods

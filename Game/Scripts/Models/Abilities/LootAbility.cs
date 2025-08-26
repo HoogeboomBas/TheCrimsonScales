@@ -4,7 +4,7 @@ using Fractural.Tasks;
 using Godot;
 
 /// <summary>
-/// An <see cref="Ability{T}"/> that picks up coins from hexes within range.
+/// An <see cref="Ability{T}"/> that allows a figure to pick up loot tokens (coins and treasure chests) within range.
 /// </summary>
 public class LootAbility : Ability<LootAbility.State>
 {
@@ -16,7 +16,6 @@ public class LootAbility : Ability<LootAbility.State>
 	}
 
 	private Func<State, Figure> _customGetLootObtainer { get; set; }
-	// TODO varadski 20.08.2025: Common ability between loot and TargetedAbility; move it to Ability.cs?
 	public int Range { get; protected set; }
 
 	/// <summary>
@@ -30,7 +29,6 @@ public class LootAbility : Ability<LootAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : LootAbility, new()
 	{
-
 		public interface IRangeStep
 		{
 			TBuilder WithRange(int range);
@@ -62,7 +60,7 @@ public class LootAbility : Ability<LootAbility.State>
 	/// A convenience method that returns an instance of LootBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<LootBuilder, LootAbility>.IRangeStep Builder()
+	public static LootBuilder.IRangeStep Builder()
 	{
 		return new LootBuilder();
 	}

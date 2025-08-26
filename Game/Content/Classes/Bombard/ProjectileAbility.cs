@@ -18,11 +18,11 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 		}
 	}
 
-	protected Func<Hex, List<Ability>> _getAbilities { get; set; }
-	public AbilityCardSide AbilityCardSide { get; protected set; }
+	private Func<Hex, List<Ability>> _getAbilities;
+	public AbilityCardSide AbilityCardSide { get; private set; }
 
-	public int Range { get; protected set; }
-	public int Targets { get; protected set; } = 1;
+	public int Range { get; private set; }
+	public int Targets { get; private set; } = 1;
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -37,22 +37,21 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : ProjectileAbility, new()
 	{
-		
 		public interface IGetAbilitiesStep
 		{
 			IAbilityCardSideStep WithGetAbilities(Func<Hex, List<Ability>> getAbilities);
 		}
-		
+
 		public interface IAbilityCardSideStep
 		{
 			IRangeStep WithAbilityCardSide(AbilityCardSide abilityCardSide);
 		}
-		
+
 		public interface IRangeStep
 		{
 			TBuilder WithRange(int range);
 		}
-		
+
 		public IAbilityCardSideStep WithGetAbilities(Func<Hex, List<Ability>> getAbilities)
 		{
 			Obj._getAbilities = getAbilities;

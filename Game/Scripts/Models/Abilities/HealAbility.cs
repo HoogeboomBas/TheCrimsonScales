@@ -4,7 +4,7 @@ using Fractural.Tasks;
 using Godot;
 
 /// <summary>
-/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that restores hit points to the target figure.
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that allows a figure to restore hit points to other figures.
 /// </summary>
 public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAbilitySingleTargetState>
 {
@@ -37,13 +37,15 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		}
 	}
 
-	public DynamicInt<State> HealValue { get; protected set; }
+	public DynamicInt<State> HealValue { get; private set; }
 
-	public List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> DuringHealSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> DuringHealSubscriptions { get; private set; } = [];
+
 	public List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription>
-		AfterTargetConfirmedSubscriptions { get; protected set; } = [];
+		AfterTargetConfirmedSubscriptions { get; private set; } = [];
+
 	public List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription>
-		AfterHealPerformedSubscriptions { get; protected set; } = [];
+		AfterHealPerformedSubscriptions { get; private set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -131,7 +133,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	/// A convenience method that returns an instance of HealBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<HealBuilder, HealAbility>.IHealValueStep Builder()
+	public static HealBuilder.IHealValueStep Builder()
 	{
 		return new HealBuilder();
 	}

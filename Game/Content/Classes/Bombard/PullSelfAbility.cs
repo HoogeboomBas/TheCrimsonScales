@@ -12,8 +12,8 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 	{
 	}
 
-	public int PullSelfValue { get; protected set; }
-	
+	public int PullSelfValue { get; private set; }
+
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in PullSelfAbility. Enables inheritors of PullSelfAbility to further extend the builder.
@@ -29,7 +29,7 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 		{
 			TBuilder WithPullSelfValue(int pullSelfValue);
 		}
-		
+
 		public TBuilder WithPullSelfValue(int pullSelfValue)
 		{
 			Obj.PullSelfValue = pullSelfValue;
@@ -41,18 +41,18 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
 	/// as abstract builders cannot be instantiated.
 	/// </summary>
-	public class PullBuilder : AbstractBuilder<PullBuilder, PullSelfAbility>
+	public class PullSelfBuilder : AbstractBuilder<PullSelfBuilder, PullSelfAbility>
 	{
-		internal PullBuilder() { }
+		internal PullSelfBuilder() { }
 	}
 
 	/// <summary>
 	/// A convenience method that returns an instance of PullBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static PullBuilder.IPullPullSelfStep Builder()
+	public static PullSelfBuilder.IPullPullSelfStep Builder()
 	{
-		return new PullBuilder();
+		return new PullSelfBuilder();
 	}
 
 	public PullSelfAbility() { }
@@ -81,6 +81,7 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 	{
 		await base.AfterConditionsApplied(abilityState, target);
 
-		await PushPull(abilityState, target.Hex, abilityState.Performer, PullSelfValue, false, () => $"Select a path to {Icons.HintText(Icons.Pull)}{PullSelfValue} self toward target");
+		await PushPull(abilityState, target.Hex, abilityState.Performer, PullSelfValue, false,
+			() => $"Select a path to {Icons.HintText(Icons.Pull)}{PullSelfValue} self toward target");
 	}
 }

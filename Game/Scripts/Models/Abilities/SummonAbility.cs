@@ -19,10 +19,10 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		}
 	}
 
-	protected SummonStats SummonStats { get; set; }
-	protected string Name { get; set; }
-	protected string TexturePath { get; set; }
-	protected Action<State, List<Hex>> GetValidHexes { get; set; }
+	private SummonStats _summonStats;
+	private string _name;
+	private string _texturePath;
+	private Action<State, List<Hex>> _getValidHexes;
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -37,7 +37,6 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : SummonAbility, new()
 	{
-
 		public interface ISummonStatsStep
 		{
 			INameStep WithSummonStats(SummonStats summonStats);
@@ -55,26 +54,26 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 
 		public INameStep WithSummonStats(SummonStats summonStats)
 		{
-			Obj.SummonStats = summonStats;
+			Obj._summonStats = summonStats;
 			return (TBuilder)this;
 		}
 
 		public ITexturePathStep WithName(string name)
 		{
-			Obj.Name = name;
+			Obj._name = name;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithTexturePath(string texturePath)
 		{
-			Obj.TexturePath = texturePath;
+			Obj._texturePath = texturePath;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithGetValidHexes(
 			Action<State, List<Hex>> getValidHexes)
 		{
-			Obj.GetValidHexes = getValidHexes;
+			Obj._getValidHexes = getValidHexes;
 			return (TBuilder)this;
 		}
 	}
@@ -92,7 +91,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 	/// A convenience method that returns an instance of SummonBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<SummonBuilder, SummonAbility>.ISummonStatsStep Builder()
+	public static SummonBuilder.ISummonStatsStep Builder()
 	{
 		return new SummonBuilder();
 	}
@@ -109,10 +108,10 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions,
 			abilityEndedSubscriptions, abilityPerformedSubscriptions)
 	{
-		SummonStats = summonStats;
-		Name = name;
-		TexturePath = texturePath;
-		GetValidHexes = getValidHexes;
+		_summonStats = summonStats;
+		_name = name;
+		_texturePath = texturePath;
+		_getValidHexes = getValidHexes;
 	}
 
 	protected override async GDTask Perform(State abilityState)
@@ -120,7 +119,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		// Target a hex within range
 		Hex targetedHex = await AbilityCmd.SelectHex(abilityState, list =>
 		{
-			if(GetValidHexes == null)
+			if(_getValidHexes == null)
 			{
 				RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 1, true, list);
 
@@ -136,7 +135,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 			}
 			else
 			{
-				GetValidHexes(abilityState, list);
+				_getValidHexes(abilityState, list);
 			}
 		});
 
@@ -146,7 +145,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 			Summon summon = summonScene.Instantiate<Summon>();
 			GameController.Instance.Map.AddChild(summon);
 			await summon.Init(targetedHex);
-			summon.Spawn(SummonStats, (Character)abilityState.Performer, Name, TexturePath);
+			summon.Spawn(_summonStats, (Character)abilityState.Performer, _name, _texturePath);
 			abilityState.SetSummon(summon);
 
 			summon.Scale = Vector2.Zero;

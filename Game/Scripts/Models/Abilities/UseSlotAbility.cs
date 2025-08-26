@@ -42,10 +42,9 @@ public class UseSlotAbility : ActiveAbility<UseSlotAbility.State>
 		}
 	}
 
-	public List<UseSlot> UseSlots { get; protected set; } = [];
-	// TODO varadski 21.08.2025: seen in OtherActiveAbility as well; move to ActiveAbility.cs?
-	public Func<State, GDTask> OnActivate { get; protected set; }
-	public Func<State, GDTask> OnDeactivate { get; protected set; }
+	public List<UseSlot> UseSlots { get; private set; } = [];
+	public Func<State, GDTask> OnActivate { get; private set; }
+	public Func<State, GDTask> OnDeactivate { get; private set; }
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -114,7 +113,7 @@ public class UseSlotAbility : ActiveAbility<UseSlotAbility.State>
 	/// A convenience method that returns an instance of UseSlotBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<UseSlotBuilder, UseSlotAbility>.IOnActivateStep Builder()
+	public static UseSlotBuilder.IOnActivateStep Builder()
 	{
 		return new UseSlotBuilder();
 	}

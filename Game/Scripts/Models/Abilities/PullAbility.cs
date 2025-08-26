@@ -11,7 +11,7 @@ public class PullAbility : TargetedAbility<PullAbility.State, SingleTargetState>
 	public class State : TargetedAbilityState<SingleTargetState>
 	{
 	}
-	
+
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in PullAbility. Enables inheritors of PullAbility to further extend the builder.

@@ -12,12 +12,10 @@ public class GiveItemAbility : TargetedAbility<GiveItemAbility.State, SingleTarg
 	{
 	}
 
-	protected Action<AbilityState, List<ItemModel>> _getItems { get; set; }
-	protected Func<AbilityState, ItemModel, GDTask> _onItemGiven { get; set; }
-	protected Func<ItemModel, GDTask> _onItemConsumed { get; set; }
-
-	// TODO varadski 21.08.2025: also exists on GiveItemAbility; move to TargetAbility?
-	protected bool _selectAutomatically { get; set; }
+	private Action<AbilityState, List<ItemModel>> _getItems;
+	private Func<AbilityState, ItemModel, GDTask> _onItemGiven;
+	private Func<ItemModel, GDTask> _onItemConsumed;
+	private bool _selectAutomatically;
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -82,7 +80,7 @@ public class GiveItemAbility : TargetedAbility<GiveItemAbility.State, SingleTarg
 	/// A convenience method that returns an instance of GiveItemBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<GiveItemBuilder, GiveItemAbility>.IGetItemsStep Builder()
+	public static GiveItemBuilder.IGetItemsStep Builder()
 	{
 		return new GiveItemBuilder();
 	}

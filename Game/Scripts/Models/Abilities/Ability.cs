@@ -10,15 +10,15 @@ public abstract class Ability<T> : Ability
 {
 	public delegate GDTask<bool> ConditionalAbilityCheckDelegate(T abilityState);
 
-	private Func<T, GDTask> _onAbilityStarted { get; set; }
-	private Func<T, GDTask> _onAbilityEnded { get; set; }
-	private Func<T, GDTask> _onAbilityEndedPerformed { get; set; }
+	private Func<T, GDTask> _onAbilityStarted;
+	private Func<T, GDTask> _onAbilityEnded;
+	private Func<T, GDTask> _onAbilityEndedPerformed;
 
-	private ConditionalAbilityCheckDelegate ConditionalAbilityCheck { get; set; }
+	private ConditionalAbilityCheckDelegate _conditionalAbilityCheck;
 
-	public List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> AbilityStartedSubscriptions { get; protected set; } = [];
-	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; protected set; } = [];
-	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> AbilityStartedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; private set; } = [];
 
 	/// <summary>
 	/// A builder utilizing generics, which enables inheritors to extend the builder as well.
@@ -52,46 +52,41 @@ public abstract class Ability<T> : Ability
 
 		public TBuilder WithConditionalAbilityCheck(ConditionalAbilityCheckDelegate conditionalAbilityCheck)
 		{
-			Obj.ConditionalAbilityCheck = conditionalAbilityCheck;
+			Obj._conditionalAbilityCheck = conditionalAbilityCheck;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityStartedSubscription(
-			ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription abilityStartedSubscription)
+		public TBuilder WithAbilityStartedSubscription(ScenarioEvents.AbilityStarted.Subscription abilityStartedSubscription)
 		{
 			Obj.AbilityStartedSubscriptions.Add(abilityStartedSubscription);
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityStartedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions)
+		public TBuilder WithAbilityStartedSubscriptions(List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions)
 		{
 			Obj.AbilityStartedSubscriptions = abilityStartedSubscriptions;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityEndedSubscription(ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription abilityEndedSubscription)
+		public TBuilder WithAbilityEndedSubscription(ScenarioEvents.AbilityEnded.Subscription abilityEndedSubscription)
 		{
 			Obj.AbilityEndedSubscriptions.Add(abilityEndedSubscription);
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityEndedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions)
+		public TBuilder WithAbilityEndedSubscriptions(List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions)
 		{
 			Obj.AbilityEndedSubscriptions = abilityEndedSubscriptions;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityPerformedSubscription(
-			ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription abilityPerformedSubscription)
+		public TBuilder WithAbilityPerformedSubscription(ScenarioEvents.AbilityPerformed.Subscription abilityPerformedSubscription)
 		{
 			Obj.AbilityPerformedSubscriptions.Add(abilityPerformedSubscription);
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAbilityPerformedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions)
+		public TBuilder WithAbilityPerformedSubscriptions(List<ScenarioEvents.AbilityPerformed.Subscription> abilityPerformedSubscriptions)
 		{
 			Obj.AbilityPerformedSubscriptions = abilityPerformedSubscriptions;
 			return (TBuilder)this;
@@ -116,7 +111,7 @@ public abstract class Ability<T> : Ability
 		_onAbilityEnded = onAbilityEnded;
 		_onAbilityEndedPerformed = onAbilityEndedPerformed;
 
-		ConditionalAbilityCheck = conditionalAbilityCheck;
+		_conditionalAbilityCheck = conditionalAbilityCheck;
 
 		AbilityStartedSubscriptions = abilityStartedSubscriptions;
 		AbilityEndedSubscriptions = abilityEndedSubscriptions;
@@ -155,9 +150,9 @@ public abstract class Ability<T> : Ability
 			await _onAbilityStarted(abilityState);
 		}
 
-		if(ConditionalAbilityCheck != null)
+		if(_conditionalAbilityCheck != null)
 		{
-			if(!await ConditionalAbilityCheck(abilityState))
+			if(!await _conditionalAbilityCheck(abilityState))
 			{
 				abilityState.SetBlocked();
 				return;

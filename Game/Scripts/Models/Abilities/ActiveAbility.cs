@@ -23,21 +23,22 @@ public abstract class ActiveAbilityState : AbilityState
 }
 
 /// <summary>
-/// An <see cref="Ability{T}"/> that has some sort of persistent effect.
+/// An <see cref="Ability{T}"/> that has some sort of active effect that lasts for some duration.
 /// </summary>
 public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState, new()
 {
-	private Func<T, string> GetHintText { get; set; }
+	private Func<T, string> _getHintText;
 
 	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<T>.AbstractBuilder<TBuilder, TAbility>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : ActiveAbility<T>, new()
 	{
 		private Func<T, string> _getHintText;
+
 		public TBuilder WithGetHintText(Func<T, string> getHintText)
 		{
 			_getHintText = getHintText;
-			Obj.GetHintText = getHintText;
+			Obj._getHintText = getHintText;
 			return (TBuilder)this;
 		}
 
@@ -46,7 +47,7 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 		/// </summary>
 		public override TAbility Build()
 		{
-			Obj.GetHintText = _getHintText ?? Obj.DefaultHintText;
+			Obj._getHintText = _getHintText ?? Obj.DefaultHintText;
 			return base.Build();
 		}
 	}
@@ -61,13 +62,13 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions,
 			abilityEndedSubscriptions, abilityPerformedSubscriptions)
 	{
-		GetHintText = getHintText ?? DefaultHintText;
+		_getHintText = getHintText ?? DefaultHintText;
 	}
 
 	protected async GDTask AskConfirmAndActivate(T abilityState)
 	{
 		ConfirmPrompt.Answer confirmAnswer =
-			await PromptManager.Prompt(new ConfirmPrompt(null, () => GetHintText(abilityState)), abilityState.Authority);
+			await PromptManager.Prompt(new ConfirmPrompt(null, () => _getHintText(abilityState)), abilityState.Authority);
 		if(confirmAnswer.Confirmed)
 		{
 			await Activate(abilityState);

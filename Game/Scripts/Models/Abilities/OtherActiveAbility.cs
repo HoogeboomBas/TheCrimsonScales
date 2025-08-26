@@ -11,8 +11,8 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 	{
 	}
 
-	public Func<State, GDTask> OnActivate { get; protected set; }
-	public Func<State, GDTask> OnDeactivate { get; protected set; }
+	public Func<State, GDTask> OnActivate { get; private set; }
+	public Func<State, GDTask> OnDeactivate { get; private set; }
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -26,7 +26,6 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : OtherActiveAbility, new()
 	{
-
 		public interface IOnActivateStep
 		{
 			IOnDeactivateStep WithOnActivate(Func<State, GDTask> onActivate);
@@ -63,7 +62,7 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 	/// A convenience method that returns an instance of OtherActiveBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<OtherActiveBuilder, OtherActiveAbility>.IOnActivateStep Builder()
+	public static OtherActiveBuilder.IOnActivateStep Builder()
 	{
 		return new OtherActiveBuilder();
 	}

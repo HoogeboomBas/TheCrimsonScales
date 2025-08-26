@@ -11,12 +11,12 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 	{
 	}
 
-	protected Action<AbilityState, List<AbilityCard>> _getAbilityCards { get; set; }
-	protected Func<AbilityState, AbilityCard, GDTask> _onCardGiven { get; set; }
-	protected Func<AbilityCard, GDTask> _onCardDiscarded { get; set; }
-	protected Func<AbilityCard, GDTask> _onCardLost { get; set; }
+	private Action<AbilityState, List<AbilityCard>> _getAbilityCards;
+	private Func<AbilityState, AbilityCard, GDTask> _onCardGiven;
+	private Func<AbilityCard, GDTask> _onCardDiscarded;
+	private Func<AbilityCard, GDTask> _onCardLost;
 
-	protected bool _selectAutomatically { get; set; }
+	private bool _selectAutomatically;
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods

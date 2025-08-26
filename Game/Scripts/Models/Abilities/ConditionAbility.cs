@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 
 /// <summary>
-/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that applies at least one condition to a figure.
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that allows a figure to apply conditions to other figures.
 /// </summary>
 public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTargetState>
 {
@@ -12,7 +12,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 	}
 
 	public List<ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription>
-		AfterTargetConfirmedSubscriptions { get; protected set; } = [];
+		AfterTargetConfirmedSubscriptions { get; private set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -53,7 +53,6 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 			Obj.Target = _target ?? ((Obj.Conditions.Length > 0 && Obj.Conditions[0].IsPositive) ? Target.SelfOrAllies : Target.Enemies);
 			return base.Build();
 		}
-
 	}
 
 	/// <summary>

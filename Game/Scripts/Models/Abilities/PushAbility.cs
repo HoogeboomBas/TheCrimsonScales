@@ -42,7 +42,7 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 	/// A convenience method that returns an instance of PushBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<PushBuilder, PushAbility>.IPushStep Builder()
+	public static PushBuilder.IPushStep Builder()
 	{
 		return new PushBuilder();
 	}

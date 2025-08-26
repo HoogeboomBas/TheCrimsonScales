@@ -23,8 +23,8 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		}
 	}
 
-	public int RetaliateValue { get; protected set; }
-	public int Range { get; protected set; }
+	public int RetaliateValue { get; private set; }
+	public int Range { get; private set; }
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -37,7 +37,6 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : RetaliateAbility, new()
 	{
-
 		public interface IRetaliateValueStep
 		{
 			TBuilder WithRetaliateValue(int retaliateValue);
