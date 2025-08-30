@@ -23,14 +23,16 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 
 		SavedOptions options = AppController.Instance.SaveFile.SaveData.Options;
 
-		AddSliderOption("Music", options.BGMVolume);
-		AddSliderOption("Ambience", options.BGSVolume);
-		AddSliderOption("Sound Effects", options.SFXVolume);
+		AddSliderOption(options.BGMVolume, "Music");
+		AddSliderOption(options.BGSVolume, "Ambience");
+		AddSliderOption(options.SFXVolume, "Sound Effects");
 
 		if(!Platform.DeskTop)
 		{
-			AddCheckmarkOption("Vibrations", options.VibrationsEnabled);
+			AddCheckmarkOption(options.VibrationsEnabled, "Vibrations");
 		}
+
+		AddOption(new DifficultySliderOptionView.Parameters(options.Difficulty, "Difficulty"));
 	}
 
 	protected override void OnOpen()
@@ -52,12 +54,12 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 		AppController.Instance.SaveFile.Save();
 	}
 
-	private void AddCheckmarkOption(string label, SavedOption<bool> option)
+	private void AddCheckmarkOption(SavedOption<bool> option, string label)
 	{
 		AddOption(new CheckmarkOptionView.Parameters(option, label));
 	}
 
-	private void AddSliderOption(string label, SavedOption<int> option)
+	private void AddSliderOption(SavedOption<int> option, string label)
 	{
 		AddOption(new SliderOptionView.Parameters(option, label));
 	}

@@ -64,6 +64,7 @@ public class LootAbility : Ability<LootAbility.State>
 	{
 		return new LootBuilder();
 	}
+
 	public LootAbility() { }
 
 	protected override async GDTask Perform(State abilityState)
