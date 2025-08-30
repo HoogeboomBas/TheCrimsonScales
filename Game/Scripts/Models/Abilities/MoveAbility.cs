@@ -96,7 +96,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 	/// A convenience method that returns an instance of MoveBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<MoveBuilder, MoveAbility>.IDistanceStep Builder()
+	public static MoveBuilder.IDistanceStep Builder()
 	{
 		return new MoveBuilder();
 	}

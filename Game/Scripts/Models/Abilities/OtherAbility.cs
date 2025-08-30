@@ -48,7 +48,7 @@ public class OtherAbility : Ability<OtherAbility.State>
 	/// A convenience method that returns an instance of OtherAbilityBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static AbstractBuilder<OtherBuilder, OtherAbility>.IPerformAbilityStep Builder()
+	public static OtherBuilder.IPerformAbilityStep Builder()
 	{
 		return new OtherBuilder();
 	}
