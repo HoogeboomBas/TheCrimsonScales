@@ -55,11 +55,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 
 					FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
 					FireKnightModel fireKnightModel = (FireKnightModel)fireKnight.ClassModel;
-					List<ItemModel>
-						remainingItemModels =
-							fireKnightModel.AllItems.ToList(); // fireKnight.ClassModel.Select(item => item.ImmutableInstance).ToList();
-					//remainingItemModels.Shuffle(GameController.Instance.StateRNG);
-					//remainingItemModels = remainingItemModels.Take(Mathf.Min(fireKnight.FireKnightItems.Count, itemCount)).ToList();
+					List<ItemModel> remainingItemModels = fireKnightModel.AllItems.ToList();
 
 					for(int i = 0; i < itemCount; i++)
 					{

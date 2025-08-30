@@ -21,7 +21,8 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [
+								ActionState actionState = new ActionState(user,
+								[
 									MoveAbility.Builder()
 										.WithDistance(2)
 										.WithMoveType(MoveType.Jump)
@@ -39,7 +40,8 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [
+								ActionState actionState = new ActionState(user,
+								[
 									AttackAbility.Builder()
 										.WithDamage(2)
 										.WithHasAdvantage(true)
