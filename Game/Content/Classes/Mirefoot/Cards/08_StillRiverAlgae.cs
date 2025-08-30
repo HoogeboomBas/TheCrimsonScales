@@ -13,7 +13,7 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen])
+				.WithConditions(Conditions.Strengthen)
 				.WithRange(1)
 				.Build())
 		];

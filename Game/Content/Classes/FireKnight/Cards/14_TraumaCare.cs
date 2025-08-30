@@ -16,7 +16,7 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 				.WithHealValue(4)
 				.WithRange(1)
 				.WithDuringHealSubscription(
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.New(
+					ScenarioEvents.DuringHeal.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
@@ -26,7 +26,7 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 						}
 					)
 				).WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.AbilityState.Target.HasWound(),
 						async parameters =>
 						{

@@ -14,7 +14,7 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Poison1])
+				.WithConditions(Conditions.Poison1)
 				.WithRange(3)
 				.WithAOEPattern(new AOEPattern(
 						[

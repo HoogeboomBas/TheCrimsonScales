@@ -24,9 +24,9 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.WithDuringAttackSubscription(
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						parameters => true,
 						async parameters =>
 						{
@@ -58,7 +58,7 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 			)),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen])
+				.WithConditions(Conditions.Strengthen)
 				.WithRange(1)
 				.WithTarget(Target.Allies)
 				.WithOnAbilityEndedPerformed(async state =>

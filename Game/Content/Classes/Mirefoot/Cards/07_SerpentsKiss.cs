@@ -14,7 +14,7 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
-				.WithConditions([Conditions.Poison2])
+				.WithConditions(Conditions.Poison2)
 				.Build())
 		];
 

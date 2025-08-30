@@ -16,7 +16,7 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(3).Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Bless])
+				.WithConditions(Conditions.Bless)
 				.WithRange(2)
 				.WithConditionalAbilityCheck(async state =>
 					{

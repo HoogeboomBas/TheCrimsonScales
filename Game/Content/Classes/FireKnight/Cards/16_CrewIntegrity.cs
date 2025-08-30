@@ -42,7 +42,7 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 					)
 				)
 				.WithAfterAttackPerformedSubscription(
-					ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
+					ScenarioEvents.AfterAttackPerformed.Subscription.New(
 						parameters => true,
 						async parameters =>
 						{

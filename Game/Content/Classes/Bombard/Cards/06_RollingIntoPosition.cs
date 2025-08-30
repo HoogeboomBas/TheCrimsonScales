@@ -25,7 +25,7 @@ public class RollingIntoPosition : BombardCardModel<RollingIntoPosition.CardTop,
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Immobilize])
+				.WithConditions(Conditions.Immobilize)
 				.WithTarget(Target.Self)
 				.WithMandatory(true)
 				.Build())

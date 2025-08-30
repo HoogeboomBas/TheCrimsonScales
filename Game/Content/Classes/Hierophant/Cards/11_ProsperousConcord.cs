@@ -58,7 +58,7 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 				.WithRange(1)
 				.WithAfterTargetConfirmedSubscriptions(
 					[
-						ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
+						ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
 							canApplyFunction: canApplyParameters =>
 								canApplyParameters.AbilityState.Performer.AlliedWith(canApplyParameters.AbilityState.Target),
 							applyFunction: async applyParameters =>
@@ -76,7 +76,7 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 							effectType: EffectType.Selectable
 						),
 
-						ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.ConsumeElement(Element.Light,
+						ScenarioEvents.HealAfterTargetConfirmed.Subscription.ConsumeElement(Element.Light,
 							canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "StrengthenAdded"),
 							applyFunction: async applyParameters =>
 							{

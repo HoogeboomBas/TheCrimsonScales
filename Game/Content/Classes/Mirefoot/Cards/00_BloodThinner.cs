@@ -13,7 +13,7 @@ public class BloodThinner : MirefootCardModel<BloodThinner.CardTop, BloodThinner
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
-				.WithConditions([Conditions.Wound2])
+				.WithConditions(Conditions.Wound2)
 				.Build())
 		];
 
@@ -25,7 +25,7 @@ public class BloodThinner : MirefootCardModel<BloodThinner.CardTop, BloodThinner
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(conditions: [Conditions.Wound1, Conditions.Immobilize])
+				.WithConditions(Conditions.Wound1, Conditions.Immobilize)
 				.WithRange(2)
 				.Build())
 		];

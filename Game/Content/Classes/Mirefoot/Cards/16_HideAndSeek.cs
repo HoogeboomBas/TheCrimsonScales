@@ -98,7 +98,7 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Invisible])
+				.WithConditions(Conditions.Invisible)
 				.WithTarget(Target.Self)
 				.WithConditionalAbilityCheck(async state =>
 					{

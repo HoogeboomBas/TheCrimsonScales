@@ -78,12 +78,12 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 	public bool HasAdvantage { get; protected set; }
 	public bool HasDisadvantage { get; protected set; }
 
-	public List<ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription> DuringAttackSubscriptions { get; protected set; } = [];
+	public List<ScenarioEvents.DuringAttack.Subscription> DuringAttackSubscriptions { get; protected set; } = [];
 
-	public List<ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription>
+	public List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription>
 		AfterTargetConfirmedSubscriptions { get; protected set; } = [];
 
-	public List<ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription>
+	public List<ScenarioEvents.AfterAttackPerformed.Subscription>
 		AfterAttackPerformedSubscriptions { get; protected set; } = [];
 
 	/// <summary>
@@ -138,42 +138,42 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithDuringAttackSubscription(ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription movementSubscription)
+		public TBuilder WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription movementSubscription)
 		{
 			Obj.DuringAttackSubscriptions.Add(movementSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithDuringAttackSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription> movementSubscriptions)
+			List<ScenarioEvents.DuringAttack.Subscription> movementSubscriptions)
 		{
 			Obj.DuringAttackSubscriptions = movementSubscriptions;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscription(
-			ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription afterTargetConfirmedSubscription)
+			ScenarioEvents.AttackAfterTargetConfirmed.Subscription afterTargetConfirmedSubscription)
 		{
 			Obj.AfterTargetConfirmedSubscriptions.Add(afterTargetConfirmedSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions)
+			List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions)
 		{
 			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterAttackPerformedSubscription(
-			ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription afterAttackPerformedSubscription)
+			ScenarioEvents.AfterAttackPerformed.Subscription afterAttackPerformedSubscription)
 		{
 			Obj.AfterAttackPerformedSubscriptions.Add(afterAttackPerformedSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterAttackPerformedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription> afterAttackPerformedSubscriptions)
+			List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions)
 		{
 			Obj.AfterAttackPerformedSubscriptions = afterAttackPerformedSubscriptions;
 			return (TBuilder)this;

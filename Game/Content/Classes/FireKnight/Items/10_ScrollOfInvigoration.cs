@@ -63,7 +63,7 @@
 								[
 									HealAbility.Builder()
 										.WithHealValue(2)
-										.WithConditions([Conditions.Bless])
+										.WithConditions(Conditions.Bless)
 										.WithTarget(Target.Self)
 										.Build()
 								]);

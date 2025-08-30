@@ -10,7 +10,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 	{
 	}
 
-	public List<ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription>
+	public List<ScenarioEvents.ConditionAfterTargetConfirmed.Subscription>
 		AfterTargetConfirmedSubscriptions { get; private set; } = [];
 
 	/// <summary>
@@ -30,14 +30,14 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscription(
-			ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription afterTargetConfirmedSubscription)
+			ScenarioEvents.ConditionAfterTargetConfirmed.Subscription afterTargetConfirmedSubscription)
 		{
 			Obj.AfterTargetConfirmedSubscriptions.Add(afterTargetConfirmedSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions)
+			List<ScenarioEvents.ConditionAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions)
 		{
 			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
 			return (TBuilder)this;

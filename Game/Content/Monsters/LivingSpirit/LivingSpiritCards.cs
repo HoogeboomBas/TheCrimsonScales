@@ -101,7 +101,7 @@ public class LivingSpiritAbilityCard6 : LivingSpiritAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Curse])
+			.WithConditions(Conditions.Curse)
 			.WithRange(monster.Stats.Range ?? 1)
 			.Build()),
 	];

@@ -16,7 +16,7 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
 				.WithRange(3)
-				.WithConditions([Conditions.Immobilize])
+				.WithConditions(Conditions.Immobilize)
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),

@@ -15,7 +15,7 @@ public class ForcibleEntry : FireKnightCardModel<ForcibleEntry.CardTop, Forcible
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(5)
 				.WithPierce(2)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.Build()),
 		];
 

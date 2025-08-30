@@ -14,7 +14,7 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Poison1])
+				.WithConditions(Conditions.Poison1)
 				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -49,7 +49,7 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(0)
-				.WithConditions([Conditions.Muddle])
+				.WithConditions(Conditions.Muddle)
 				.WithCustomGetTargets((state, list) =>
 					{
 						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))

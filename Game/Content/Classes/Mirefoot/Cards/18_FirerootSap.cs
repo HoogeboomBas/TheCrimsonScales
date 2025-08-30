@@ -51,7 +51,7 @@ public class FirerootSap : MirefootCardModel<FirerootSap.CardTop, FirerootSap.Ca
 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.Build())
 		];
 	}

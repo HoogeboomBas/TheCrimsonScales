@@ -17,7 +17,7 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 				.WithDamage(2)
 				.WithRange(3)
 				.WithPush(2)
-				.WithConditions([Conditions.Immobilize])
+				.WithConditions(Conditions.Immobilize)
 				.Build()) //TODO: Card art is wrong, it's supposed to be a pull. Leaving it like this for now or it will cause confusion.
 		];
 
@@ -32,7 +32,7 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 				.WithGetAbilities(hex =>
 				[
 					ConditionAbility.Builder()
-						.WithConditions([Conditions.Immobilize])
+						.WithConditions(Conditions.Immobilize)
 						.WithAOEPattern(new AOEPattern(
 							[
 								new AOEHex(Vector2I.Zero, AOEHexType.Red),

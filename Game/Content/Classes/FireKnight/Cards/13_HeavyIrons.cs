@@ -15,7 +15,7 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
-				.WithConditions([Conditions.Immobilize])
+				.WithConditions(Conditions.Immobilize)
 				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility(
@@ -35,7 +35,7 @@ public class HeavyIrons : FireKnightLevelUpCardModel<HeavyIrons.CardTop, HeavyIr
 			new AbilityCardAbility(MoveAbility.Builder()
 				.WithDistance(2)
 				.WithDuringMovementSubscription(
-					ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.AdjustMoveValue(2);

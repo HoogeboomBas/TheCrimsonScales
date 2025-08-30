@@ -16,7 +16,7 @@ public class VolatileTonic : MirefootCardModel<VolatileTonic.CardTop, VolatileTo
 				.WithDamage(1)
 				.WithRange(2)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => (parameters.AbilityState.Target.HasPoison() || parameters.AbilityState.Target.HasWound()),
 						async parameters =>
 						{
@@ -42,7 +42,7 @@ public class VolatileTonic : MirefootCardModel<VolatileTonic.CardTop, VolatileTo
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Wound2])
+				.WithConditions(Conditions.Wound2)
 				.WithRange(2)
 				.WithAOEPattern(new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Red),

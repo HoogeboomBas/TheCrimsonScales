@@ -18,7 +18,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 				.WithTargets(2)
 				.WithRange(2)
 				.WithDuringHealSubscription(
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Fire,
 						parameters => true,
 						async parameters =>
 						{
@@ -29,7 +29,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.GetCondition(Conditions.Bless))}")
 					))
 				.WithAfterHealPerformedSubscription(
-					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
+					ScenarioEvents.AfterHealPerformed.Subscription.New(
 						parameters => parameters.AbilityState.SingleTargetState.RemovedConditions.Count > 0,
 						async parameters =>
 						{

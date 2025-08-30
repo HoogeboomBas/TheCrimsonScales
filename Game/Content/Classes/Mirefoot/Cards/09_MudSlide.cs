@@ -16,7 +16,7 @@ public class Mudslide : MirefootCardModel<Mudslide.CardTop, Mudslide.CardBottom>
 				.WithDamage(2)
 				.WithTargets(2)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.AbilityState.Target.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async parameters =>
 						{

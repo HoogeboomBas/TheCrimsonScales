@@ -17,7 +17,7 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 				.WithDamage(4)
 				.WithRange(3)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.Performer.TurnPerformedActionStates.Any(performedActionState =>
 							performedActionState.AbilityStates.Any(state =>
 								state is AttackAbility.State attackAbilityState &&

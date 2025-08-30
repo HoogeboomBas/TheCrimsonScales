@@ -17,7 +17,7 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
 				.WithDuringAttackSubscription(
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.New(
+					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
@@ -36,7 +36,7 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen])
+				.WithConditions(Conditions.Strengthen)
 				.WithTarget(Target.Allies)
 				.WithConditionalAbilityCheck(async state =>
 					{

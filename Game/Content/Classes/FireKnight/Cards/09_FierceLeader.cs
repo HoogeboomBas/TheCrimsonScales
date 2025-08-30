@@ -33,7 +33,7 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 				.WithHealValue(2)
 				.WithRange(3)
 				.WithDuringHealSubscription(
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.SingleTargetAddCondition(Conditions.Strengthen);

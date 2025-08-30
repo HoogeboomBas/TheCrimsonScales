@@ -24,7 +24,7 @@ public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, Co
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen, Conditions.Poison1])
+				.WithConditions(Conditions.Strengthen, Conditions.Poison1)
 				.WithOnAbilityEnded(async abilityState =>
 					{
 						if(abilityState.Performed)

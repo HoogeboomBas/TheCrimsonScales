@@ -41,7 +41,7 @@ public class WaterSpiritAbilityCard0 : WaterSpiritAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
 						if(applyParameters.AbilityState.Target.Hex.HasHexObjectOfType<Water>())
@@ -127,7 +127,7 @@ public class WaterSpiritAbilityCard3 : WaterSpiritAbilityCard
 			]),
 			afterAttackPerformedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
+				ScenarioEvents.AfterAttackPerformed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
 						await TryCreateWaterTile(applyParameters.AbilityState.Target.Hex);
@@ -231,7 +231,7 @@ public class WaterSpiritAbilityCard7 : WaterSpiritAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1, targets: 2,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
 						await TryCreateWaterTile(applyParameters.AbilityState.Target.Hex);

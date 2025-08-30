@@ -114,12 +114,12 @@ public class ImpAbilityCard7 : ImpAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Strengthen])
+			.WithConditions(Conditions.Strengthen)
 			.WithRange(2)
 			.WithTarget(Target.Allies | Target.TargetAll)
 			.Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Muddle])
+			.WithConditions(Conditions.Muddle)
 			.WithRange(2)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),

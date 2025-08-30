@@ -35,7 +35,7 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 				.WithDistance(3)
 				.WithDuringMovementSubscriptions(
 					[
-						ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Earth,
+						ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Earth,
 							applyFunction: async applyParameters =>
 							{
 								applyParameters.AbilityState.AdjustMoveValue(1);
@@ -44,7 +44,7 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 							},
 							effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Move)}")
 						),
-						ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Light,
+						ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Light,
 							applyFunction: async applyParameters =>
 							{
 								applyParameters.AbilityState.AdjustMoveValue(1);

@@ -14,7 +14,7 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
-				.WithConditions([Conditions.Stun])
+				.WithConditions(Conditions.Stun)
 				.Build())
 		];
 	}

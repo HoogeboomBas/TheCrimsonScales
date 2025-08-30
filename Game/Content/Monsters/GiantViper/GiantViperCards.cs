@@ -30,7 +30,7 @@ public class GiantViperAbilityCard0 : GiantViperAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					canApplyParameters =>
 					{
 						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
@@ -70,7 +70,7 @@ public class GiantViperAbilityCard1 : GiantViperAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					canApplyParameters =>
 					{
 						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)

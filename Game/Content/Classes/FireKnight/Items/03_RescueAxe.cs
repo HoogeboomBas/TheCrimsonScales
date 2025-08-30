@@ -22,7 +22,7 @@ public class RescueAxe : FireKnightItem
 						[
 							AttackAbility.Builder()
 								.WithDamage(2)
-								.WithConditions([Conditions.Muddle])
+								.WithConditions(Conditions.Muddle)
 								.WithDuringAttackSubscription(
 									ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 										applyFunction: async parameters =>

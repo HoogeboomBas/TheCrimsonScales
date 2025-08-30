@@ -15,11 +15,11 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
 				.WithRange(3)
-				.WithConditions([Conditions.Muddle])
+				.WithConditions(Conditions.Muddle)
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen])
+				.WithConditions(Conditions.Strengthen)
 				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);

@@ -16,11 +16,11 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 				[
 					AttackAbility.Builder()
 						.WithDamage(2)
-						.WithConditions([Conditions.Stun])
+						.WithConditions(Conditions.Stun)
 						.WithRangeType(RangeType.Range)
 						.WithTargetHex(hex)
 						.WithAfterAttackPerformedSubscription(
-							ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
+							ScenarioEvents.AfterAttackPerformed.Subscription.New(
 								applyFunction: async applyParameters =>
 								{
 									List<Hex> hexes = new List<Hex>();

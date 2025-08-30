@@ -152,7 +152,7 @@ public class SunDemonAbilityCard7 : SunDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Wound1, Conditions.Poison1])
+			.WithConditions(Conditions.Wound1, Conditions.Poison1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),

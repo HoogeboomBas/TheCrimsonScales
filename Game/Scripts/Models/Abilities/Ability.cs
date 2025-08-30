@@ -16,7 +16,7 @@ public abstract class Ability<T> : Ability
 
 	private ConditionalAbilityCheckDelegate _conditionalAbilityCheck;
 
-	public List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> AbilityStartedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.AbilityStarted.Subscription> AbilityStartedSubscriptions { get; private set; } = [];
 	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; private set; } = [];
 	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; private set; } = [];
 

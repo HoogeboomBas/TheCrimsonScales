@@ -14,7 +14,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Curse, Conditions.Curse])
+				.WithConditions(Conditions.Curse, Conditions.Curse)
 				.WithRange(3)
 				.Build()),
 
@@ -82,7 +82,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.WithHealValue(
 					new DynamicInt<HealAbility.State>(state =>
 						state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount"))
-				).WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				)
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomGetTargets((state, list) =>
 					{
 						list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);

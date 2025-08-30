@@ -16,7 +16,7 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
 				.WithDuringAttackSubscription(
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.New(
+					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
@@ -32,7 +32,7 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 					)
 				)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => true,
 						async parameters =>
 						{

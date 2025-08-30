@@ -24,7 +24,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 							[
 								HealAbility.Builder()
 									.WithHealValue(2)
-									.WithConditions([Conditions.Bless])
+									.WithConditions(Conditions.Bless)
 									.WithTarget(Target.Allies | Target.TargetAll)
 									.WithCustomGetTargets((healAbilityState, list) =>
 									{

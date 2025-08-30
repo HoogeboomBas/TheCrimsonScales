@@ -22,7 +22,7 @@ public class CloakOfInvisibility : Prosperity1Item
 					ActionState actionState = new ActionState(character,
 					[
 						ConditionAbility.Builder()
-							.WithConditions([Conditions.Invisible])
+							.WithConditions(Conditions.Invisible)
 							.WithTarget(Target.Self)
 							.Build()
 					]);

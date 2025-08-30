@@ -38,12 +38,12 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 	public DynamicInt<State> HealValue { get; private set; }
 
-	public List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> DuringHealSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.DuringHeal.Subscription> DuringHealSubscriptions { get; private set; } = [];
 
-	public List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription>
+	public List<ScenarioEvents.HealAfterTargetConfirmed.Subscription>
 		AfterTargetConfirmedSubscriptions { get; private set; } = [];
 
-	public List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription>
+	public List<ScenarioEvents.AfterHealPerformed.Subscription>
 		AfterHealPerformedSubscriptions { get; private set; } = [];
 
 	/// <summary>
@@ -52,7 +52,8 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
 	/// <typeparam name="TAbility"></typeparam> Any ability extending HealAbility.
-	public new abstract class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, HealAbilitySingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+	public new abstract class AbstractBuilder<TBuilder, TAbility> :
+		TargetedAbility<State, HealAbilitySingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
 		AbstractBuilder<TBuilder, TAbility>.IHealValueStep
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : HealAbility, new()
@@ -68,41 +69,41 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithDuringHealSubscription(ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription duringHealSubscription)
+		public TBuilder WithDuringHealSubscription(ScenarioEvents.DuringHeal.Subscription duringHealSubscription)
 		{
 			Obj.DuringHealSubscriptions.Add(duringHealSubscription);
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithDuringHealSubscriptions(List<ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription> duringHealSubscriptions)
+		public TBuilder WithDuringHealSubscriptions(List<ScenarioEvents.DuringHeal.Subscription> duringHealSubscriptions)
 		{
 			Obj.DuringHealSubscriptions = duringHealSubscriptions;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscription(
-			ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription afterTargetConfirmedSubscription)
+			ScenarioEvents.HealAfterTargetConfirmed.Subscription afterTargetConfirmedSubscription)
 		{
 			Obj.AfterTargetConfirmedSubscriptions.Add(afterTargetConfirmedSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription> afterTargetConfirmedSubscriptions)
+			List<ScenarioEvents.HealAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions)
 		{
 			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterHealPerformedSubscription(
-			ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription afterHealPerformedSubscriptions)
+			ScenarioEvents.AfterHealPerformed.Subscription afterHealPerformedSubscriptions)
 		{
 			Obj.AfterHealPerformedSubscriptions.Add(afterHealPerformedSubscriptions);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithAfterHealPerformedSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription> afterHealPerformedSubscriptionss)
+			List<ScenarioEvents.AfterHealPerformed.Subscription> afterHealPerformedSubscriptionss)
 		{
 			Obj.AfterHealPerformedSubscriptions = afterHealPerformedSubscriptionss;
 			return (TBuilder)this;

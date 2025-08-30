@@ -38,7 +38,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 	public int Distance { get; private set; }
 	public MoveType MoveType { get; private set; }
-	public List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> DuringMovementSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.DuringMovement.Subscription> DuringMovementSubscriptions { get; private set; } = [];
 	//public List<ScenarioEvent<ScenarioEvents.FigureEnteredHex.Parameters>.Subscription> FigureEnteredHexSubscriptions { get; }
 
 	/// <summary>
@@ -69,14 +69,14 @@ public class MoveAbility : Ability<MoveAbility.State>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithDuringMovementSubscription(ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription movementSubscription)
+		public TBuilder WithDuringMovementSubscription(ScenarioEvents.DuringMovement.Subscription movementSubscription)
 		{
 			Obj.DuringMovementSubscriptions.Add(movementSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithDuringMovementSubscriptions(
-			List<ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription> movementSubscriptions)
+			List<ScenarioEvents.DuringMovement.Subscription> movementSubscriptions)
 		{
 			Obj.DuringMovementSubscriptions = movementSubscriptions;
 			return (TBuilder)this;

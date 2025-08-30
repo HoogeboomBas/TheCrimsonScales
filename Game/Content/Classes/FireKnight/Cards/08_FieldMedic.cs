@@ -14,7 +14,7 @@ public class FieldMedic : FireKnightCardModel<FieldMedic.CardTop, FieldMedic.Car
 			new AbilityCardAbility(HealAbility.Builder().WithHealValue(3)
 				.WithRange(2)
 				.WithAfterHealPerformedSubscription(
-					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
+					ScenarioEvents.AfterHealPerformed.Subscription.New(
 						parameters => parameters.AbilityState.SingleTargetState.RemovedConditions.Count > 0,
 						async parameters =>
 						{

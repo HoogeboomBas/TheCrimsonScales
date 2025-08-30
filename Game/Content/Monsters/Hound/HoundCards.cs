@@ -39,7 +39,7 @@ public class HoundAbilityCard1 : HoundAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Muddle])
+			.WithConditions(Conditions.Muddle)
 			.WithRange(1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
@@ -58,7 +58,7 @@ public class HoundAbilityCard2 : HoundAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					canApplyParameters =>
 					{
 						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
@@ -98,7 +98,7 @@ public class HoundAbilityCard3 : HoundAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
 			afterTargetConfirmedSubscriptions:
 			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					canApplyParameters =>
 					{
 						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)

@@ -14,7 +14,7 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
-				.WithConditions([Conditions.Poison3, Conditions.Stun])
+				.WithConditions(Conditions.Poison3, Conditions.Stun)
 				.Build())
 		];
 

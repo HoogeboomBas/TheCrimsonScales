@@ -52,7 +52,7 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 				.WithMoveType(MoveType.Jump)
 				.WithDuringMovementSubscriptions(
 					[
-						// ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Light,
+						// ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Light,
 						// 	canApplyFunction: canApplyParameters =>
 						// 	{
 						// 		MoveAbility.State moveAbilityState = canApplyParameters.AbilityState;

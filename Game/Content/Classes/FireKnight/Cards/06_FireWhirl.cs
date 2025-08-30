@@ -28,7 +28,7 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 					]
 				))
 				.WithDuringAttackSubscription(
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
@@ -41,7 +41,7 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.WithTarget(Target.TargetAll | Target.Any)
 				.WithMandatory(true)
 				.WithCustomGetTargets((state, list) =>

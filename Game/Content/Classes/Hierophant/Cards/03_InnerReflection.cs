@@ -15,7 +15,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 				.WithDamage(1)
 				.WithRange(3)
 				.WithPierce(3)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.Build())
 		];
 

@@ -15,7 +15,7 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 				.WithDamage(4)
 				.WithRange(3)
 				.WithPierce(3)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.Build())
 		];
 

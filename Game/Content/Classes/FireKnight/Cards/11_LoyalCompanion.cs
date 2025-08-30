@@ -32,7 +32,7 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 					ActionState actionState = new ActionState(summonAbilityState.Summon,
 					[
 						ConditionAbility.Builder()
-							.WithConditions([Conditions.Bless])
+							.WithConditions(Conditions.Bless)
 							.WithTarget(Target.Allies | Target.TargetAll)
 							.WithRange(2)
 							.Build()
@@ -55,7 +55,7 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 			new AbilityCardAbility(MoveAbility.Builder()
 				.WithDistance(4)
 				.WithAbilityStartedSubscription(
-					ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription.New(
+					ScenarioEvents.AbilityStarted.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{

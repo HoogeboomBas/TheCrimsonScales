@@ -106,7 +106,7 @@ public class SpittingDrakeAbilityCard6 : SpittingDrakeAbilityCard
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Strengthen])
+			.WithConditions(Conditions.Strengthen)
 			.WithTarget(Target.Self)
 			.Build())
 	];

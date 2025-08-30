@@ -14,7 +14,7 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Disarm])
+				.WithConditions(Conditions.Disarm)
 				.WithTarget(Target.Self)
 				.WithMandatory(true)
 				.Build()),
@@ -72,7 +72,7 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Immobilize])
+				.WithConditions(Conditions.Immobilize)
 				.WithTarget(Target.Self)
 				.WithMandatory(true)
 				.Build()),

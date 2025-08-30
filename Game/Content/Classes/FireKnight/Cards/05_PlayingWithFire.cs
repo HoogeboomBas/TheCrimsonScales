@@ -15,7 +15,7 @@ public class PlayingWithFire : FireKnightCardModel<PlayingWithFire.CardTop, Play
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
 				.WithRange(3)
-				.WithConditions([Conditions.Wound1])
+				.WithConditions(Conditions.Wound1)
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>

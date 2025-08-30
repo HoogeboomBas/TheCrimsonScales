@@ -29,7 +29,7 @@ public class LurkerAbilityCard0 : LurkerAbilityCard
 			.WithShieldValue(ConsumeElementDynamicValue<ShieldAbility.State>([Element.Ice], 1, 2))
 			.Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Wound1])
+			.WithConditions(Conditions.Wound1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
 	];
@@ -105,7 +105,7 @@ public class LurkerAbilityCard6 : LurkerAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions([Conditions.Strengthen])
+			.WithConditions(Conditions.Strengthen)
 			.WithTarget(Target.Self)
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Ice]))
 			.Build()),

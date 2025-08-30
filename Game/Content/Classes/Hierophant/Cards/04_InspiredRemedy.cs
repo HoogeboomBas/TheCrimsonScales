@@ -16,7 +16,7 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 				.WithHealValue(3)
 				.WithRange(2)
 				.WithDuringHealSubscription(
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Light,
+					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.AbilityAdjustHealValue(1);
@@ -27,7 +27,7 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Heal)}, +1{Icons.Inline(Icons.Range)}"))
 				)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
 						applyFunction: async applyParameters =>
 						{
 							bool underHalfHP = applyParameters.AbilityState.Target.Health <= applyParameters.AbilityState.Target.MaxHealth / 2;
@@ -37,7 +37,7 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 						})
 				)
 				.WithAfterHealPerformedSubscription(
-					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
+					ScenarioEvents.AfterHealPerformed.Subscription.New(
 						canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "UnderHalfHP"),
 						applyFunction: async applyParameters =>
 						{

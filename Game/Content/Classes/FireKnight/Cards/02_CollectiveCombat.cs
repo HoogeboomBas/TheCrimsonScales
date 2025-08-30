@@ -25,7 +25,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 					]
 				))
 				.WithDuringAttackSubscription(
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
@@ -38,7 +38,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Strengthen])
+				.WithConditions(Conditions.Strengthen)
 				.WithTarget(Target.Allies | Target.TargetAll)
 				.WithCustomGetTargets((abilityState, list) =>
 				{

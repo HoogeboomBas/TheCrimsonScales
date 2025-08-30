@@ -13,10 +13,10 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions([Conditions.Disarm])
+				.WithConditions(Conditions.Disarm)
 				.WithRange(3)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
 						canApplyFunction: canApplyParameters =>
 						{
 							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))

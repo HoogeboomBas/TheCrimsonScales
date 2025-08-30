@@ -53,7 +53,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 				.WithDamage(1)
 				.WithRange(3)
 				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						canApplyFunction: canApplyParameters =>
 						{
 							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
