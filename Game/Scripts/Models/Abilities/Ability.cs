@@ -15,6 +15,7 @@ public abstract class Ability<T> : Ability
 	private Func<T, GDTask> _onAbilityEndedPerformed;
 
 	private ConditionalAbilityCheckDelegate _conditionalAbilityCheck;
+	private bool _canPerformWhileStunned = false;
 
 	public List<ScenarioEvents.AbilityStarted.Subscription> AbilityStartedSubscriptions { get; private set; } = [];
 	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; private set; } = [];
@@ -53,6 +54,12 @@ public abstract class Ability<T> : Ability
 		public TBuilder WithConditionalAbilityCheck(ConditionalAbilityCheckDelegate conditionalAbilityCheck)
 		{
 			Obj._conditionalAbilityCheck = conditionalAbilityCheck;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCanPerformWhileStunned(bool canPerformWhileStunned)
+		{
+			Obj._canPerformWhileStunned = canPerformWhileStunned;
 			return (TBuilder)this;
 		}
 
@@ -104,7 +111,8 @@ public abstract class Ability<T> : Ability
 	{
 		T abilityState = new T()
 		{
-			ActionState = actionState
+			ActionState = actionState,
+			CanPerformWhileStunned = _canPerformWhileStunned
 		};
 
 		InitializeState(abilityState);

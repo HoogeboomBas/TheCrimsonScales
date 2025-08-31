@@ -15,6 +15,8 @@ public class ForcefulBolt : BombardCardModel<ForcefulBolt.CardTop, ForcefulBolt.
 				.WithDamage(3)
 				.WithRange(2)
 				.WithPush(2)
+				.WithTarget(Target.Self)
+				.WithConditions(Conditions.Stun)
 				.Build())
 		];
 	}

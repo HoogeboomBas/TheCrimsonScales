@@ -270,7 +270,8 @@ public partial class Character : Figure
 					break;
 				}
 
-				EffectCollection cardSideSelectionEffectCollection = ScenarioEvents.CardSideSelectionEvent.CreateEffectCollection(new ScenarioEvents.CardSideSelection.Parameters(this));
+				EffectCollection cardSideSelectionEffectCollection =
+					ScenarioEvents.CardSideSelectionEvent.CreateEffectCollection(new ScenarioEvents.CardSideSelection.Parameters(this));
 
 				AbilityCardSectionSelectionPrompt.Answer cardSectionAnswer = await PromptManager.Prompt(
 					new AbilityCardSectionSelectionPrompt(cardDatas, cardSideSelectionEffectCollection, () => "Select card side to play"), this);
@@ -352,9 +353,11 @@ public partial class Character : Figure
 
 	private async GDTask LongRest()
 	{
-		EffectCollection cardSelectionEffectCollection = ScenarioEvents.LongRestCardSelectionEvent.CreateEffectCollection(new ScenarioEvents.LongRestCardSelection.Parameters(this));
+		EffectCollection cardSelectionEffectCollection =
+			ScenarioEvents.LongRestCardSelectionEvent.CreateEffectCollection(new ScenarioEvents.LongRestCardSelection.Parameters(this));
 
-		AbilityCard cardToLose = await AbilityCmd.SelectAbilityCard(this, CardState.Discarded, true, null, cardSelectionEffectCollection, "Select a card to lose for your long rest");
+		AbilityCard cardToLose = await AbilityCmd.SelectAbilityCard(this, CardState.Discarded, true, null, cardSelectionEffectCollection,
+			"Select a card to lose for your long rest");
 
 		if(cardToLose != null)
 		{
@@ -377,7 +380,14 @@ public partial class Character : Figure
 			}
 		}
 
-		ActionState actionState = new ActionState(this, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
+		ActionState actionState = new ActionState(this,
+		[
+			HealAbility.Builder()
+				.WithHealValue(2)
+				.WithTarget(Target.Self)
+				.WithCanPerformWhileStunned(true)
+				.Build()
+		]);
 		await actionState.Perform();
 	}
 
@@ -443,7 +453,8 @@ public partial class Character : Figure
 
 	private async GDTask LoseCardToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
 	{
-		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this, hintText: "Select a card to lose");
+		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this,
+			hintText: "Select a card to lose");
 		await AbilityCmd.LoseCard(card);
 
 		parameters.SetDamagePrevented();
