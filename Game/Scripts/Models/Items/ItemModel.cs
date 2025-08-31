@@ -40,7 +40,6 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	public Character OriginalOwner { get; private set; }
 	public Character Owner { get; private set; }
 	public ItemState ItemState { get; private set; }
-
 	public int UseSlotIndex { get; private set; }
 
 	// Used for items like orbs, which can be used multiple times before being consumed without having use slots
