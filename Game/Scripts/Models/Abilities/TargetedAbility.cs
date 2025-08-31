@@ -309,6 +309,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		/// </summary>
 		public override TAbility Build()
 		{
+			int targets = Obj.AOEPattern != null ? Obj.AOEPattern.Hexes.Count(hex => hex.Type == AOEHexType.Red) : Obj.Targets;
+			Obj.Targets = targets;
 			Obj.RangeType = _rangeType ?? (Obj.Range == 1 ? RangeType.Melee : RangeType.Range);
 			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();

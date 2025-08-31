@@ -1,22 +1,21 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using System.Collections.Generic;
 using Godot;
 
-public class BattleAxe : Prosperity3Item
+public class LongSpear : Prosperity9Item
 {
-	public override string Name => "Battle-Axe";
-	public override int ItemNumber => 18;
+	public override string Name => "Long-Spear";
+	public override int ItemNumber => 26;
 	public override int ShopCount => 2;
-	public override int Cost => 20;
-	public override ItemType ItemType => ItemType.OneHand;
-	public override ItemUseType ItemUseType => ItemUseType.Consume;
+	public override int Cost => 30;
+	public override ItemType ItemType => ItemType.TwoHands;
+	public override ItemUseType ItemUseType => ItemUseType.Spend;
 
-	protected override int AtlasIndex => 6;
+	protected override int AtlasIndex => 8; // TODO varadski 24.08.2025: no clue what this does
 
 	protected override void Subscribe()
 	{
 		base.Subscribe();
-
 
 		SubscribeDuringAttackAbilityStarted(
 			canApply: state => state.Performer == Owner &&
@@ -28,12 +27,15 @@ public class BattleAxe : Prosperity3Item
 				{
 					Dictionary<Vector2I, AOEHexType> aoeHexes = new Dictionary<Vector2I, AOEHexType>();
 
-					List<AOEHex> hexes =
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
-					];
+						AOEHex grayHex = new AOEHex(Vector2I.Zero, AOEHexType.Gray);
+						AOEHex adjacentHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red);
+						AOEHex distantHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red);
+						List<AOEHex> hexes =
+						[
+							grayHex,
+							adjacentHex,
+							distantHex
+						];
 					AOEPattern aoePattern = new AOEPattern(hexes);
 
 					// TODO varadski 24.08.2025: common logic used for aoe prompts. Should be moved to a single place to remove duplicates
