@@ -194,6 +194,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		where TAbility : TargetedAbility<T, TSingleTargetState>, new()
 	{
 		protected Target? _target;
+		protected RangeType? _rangeType;
 		protected Func<T, string> GetTargetingHintText;
 
 		public TBuilder WithGetTargetingHintText(Func<T, string> getTargetingHintText)
@@ -211,6 +212,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		public TBuilder WithRangeType(RangeType rangeType)
 		{
+			_rangeType = rangeType;
 			Obj.RangeType = rangeType;
 			return (TBuilder)this;
 		}
@@ -281,6 +283,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		/// </summary>
 		public override TAbility Build()
 		{
+			Obj.RangeType = _rangeType ?? (Obj.Range == 1 ? RangeType.Melee : RangeType.Range);
 			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();
 		}
