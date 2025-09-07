@@ -17,11 +17,11 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
 							canApplyParameters.AbilityState.Performer == state.Performer && 
-							canApplyParameters.AMDCardValue.Value.HasValue &&
-							canApplyParameters.AMDCardValue.Value < 0,
+							canApplyParameters.AMDCard.Type == AMDCardType.Value &&
+							canApplyParameters.AMDCard.Value < 0,
 						async applyParameters =>
 						{
-							applyParameters.AMDCardValue.Value = 0;
+							applyParameters.SetValue(0);
 
 							await state.AdvanceUseSlot();
 						}
@@ -51,11 +51,11 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
 							state.Performer.EnemiesWith(canApplyParameters.AbilityState.Performer) &&
-							canApplyParameters.AMDCardValue.Value.HasValue &&
-							canApplyParameters.AMDCardValue.Value > 0,
+							canApplyParameters.AMDCard.Type == AMDCardType.Value &&
+							canApplyParameters.AMDCard.Value > 0,
 						async applyParameters =>
 						{
-							applyParameters.AMDCardValue.Value = 0;
+							applyParameters.SetValue(0);
 
 							await state.AdvanceUseSlot();
 						}

@@ -3,14 +3,12 @@ using Godot;
 
 public class AMDCardValue
 {
-	public bool IsCrit = false;
-	public bool IsNull = false;
-	public int? Value = 0;
+	private AMDCardType CardType { get; set; }
+	public int? Value { get; private set; }
 
-	public AMDCardValue(bool isCrit, bool isNull, int? value)
+	public AMDCardValue(AMDCardType cardType, int? value)
 	{
-		IsCrit = isCrit;
-		IsNull = isNull;
+		CardType = cardType;
 		Value = value;
 	}
 
@@ -27,11 +25,11 @@ public class AMDCardValue
 	protected int GetAttackModifierValue(AttackAbility.State attackAbilityState)
 	{
 		int attackModifierValue = 0;
-		if(IsCrit)
+		if(CardType == AMDCardType.Crit)
 		{
 			attackModifierValue = attackAbilityState.AbilityAttackValue;
 		}
-		else if(IsNull)
+		else if(CardType == AMDCardType.Null)
 		{
 			attackModifierValue = -attackAbilityState.AbilityAttackValue;
 		}

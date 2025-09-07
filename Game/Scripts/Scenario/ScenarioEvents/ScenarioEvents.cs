@@ -87,10 +87,22 @@ public class ScenarioEvents
 
 	public class AMDCardDrawn : ScenarioEvent<AMDCardDrawn.Parameters>
 	{
-		public class Parameters(AttackAbility.State abilityState, AMDCardValue amdCardValue)
+		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard)
 			: ParametersBase<AttackAbility.State>(abilityState)
-		{			
-			public AMDCardValue AMDCardValue { get; } = amdCardValue;
+		{
+			public AMDCard AMDCard = amdCard;
+			public AMDCardType Type { get; private set; } = amdCard.Type;
+			public int? Value { get; private set; } = amdCard.Value;
+
+			public void SetType(AMDCardType type)
+			{
+				Type = type;
+			}
+
+			public void SetValue(int? value)
+			{
+				Value = value;
+			}
 		}
 	}
 

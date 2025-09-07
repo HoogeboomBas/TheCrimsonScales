@@ -7,8 +7,8 @@ public abstract class AMDCard : IDeckCard
 	public virtual bool Reshuffles => false;
 	public virtual bool Rolling => false;
 	public virtual bool RemoveAfterDraw => false;
-	public virtual bool IsCrit => false;
-	public virtual bool IsNull => false;
+	public virtual AMDCardType Type => AMDCardType.Value;
+	public virtual int? Value => 0;
 
 	private readonly string _textureAtlasPath;
 	private readonly int _atlasIndex;
@@ -29,13 +29,9 @@ public abstract class AMDCard : IDeckCard
 	{
 		ScenarioEvents.AMDCardDrawn.Parameters amdCardDrawnParameters =
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
-				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, new(IsCrit, IsNull, GetValue())), attackAbilityState);
-		return amdCardDrawnParameters.AMDCardValue;
-	}
-
-	protected virtual int? GetValue()
-	{
-		return null;
+				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
+				
+		return new(amdCardDrawnParameters.Type, amdCardDrawnParameters.Value);
 	}
 
 	public Texture2D GetTexture()
