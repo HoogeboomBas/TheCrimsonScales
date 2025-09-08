@@ -136,11 +136,17 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 			bool playedLandSound = false;
 
-			for(int i = 0;
-			    i < path.Count && !performer.IsDestroyed && !performer.HasCondition(Conditions.Immobilize) &&
-			    !performer.HasCondition(Conditions.Stun);
-			    i++)
+			for(int i = 0; i < path.Count && !performer.IsDestroyed; i++)
 			{
+				ScenarioCheckEvents.CanMoveFurtherCheck.Parameters canMoveFurtherParameters =
+				ScenarioCheckEvents.CanMoveFurtherCheckEvent.Fire(new ScenarioCheckEvents.CanMoveFurtherCheck.Parameters(performer));
+
+				if(!canMoveFurtherParameters.CanMoveFurther)
+				{
+					abilityState.MoveValue = 0;
+					break;
+				}
+
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
 
