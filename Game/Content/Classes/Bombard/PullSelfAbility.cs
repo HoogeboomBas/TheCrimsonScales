@@ -59,7 +59,7 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 	{
 		await base.AfterConditionsApplied(abilityState, target);
 
-		await PushPull(abilityState, target.Hex, abilityState.Performer, PullSelfValue, false,
+		await PushPullSwing(abilityState, target.Hex, abilityState.Performer, PullSelfValue, ForcedMovementType.Pull,
 			() => $"Select a path to {Icons.HintText(Icons.Pull)}{PullSelfValue} self toward target");
 	}
 }
