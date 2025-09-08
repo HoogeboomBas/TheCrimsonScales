@@ -275,30 +275,26 @@ public static class MoveHelper
 
 					if(closedList.TryGetValue(newHex, out ForcedMovementNode oldNode))
 					{
-						// Prevent making a route to your parent if in the list
-						//if(!nodeToHandle.Parents.Contains(oldNode))
-						{
-							CompareResult compareResult = newNode.CompareTo(oldNode);
+						CompareResult compareResult = newNode.CompareTo(oldNode);
 
-							switch(compareResult)
-							{
-								case CompareResult.Better:
-									// The new node is better than the old one; replace it
-									openList.Remove(oldNode);
-									openList.Add(newNode);
-									closedList[newHex] = newNode;
-									break;
-								case CompareResult.Worse:
-									// The old node is better than the new one; do nothing
-									break;
-								case CompareResult.Equal:
-									// The two nodes are equal in value; keep the old one and add this route as a new potential option
-									if(type != ForcedMovementType.Swing)
-									{
-										oldNode.Parents.Add(nodeToHandle);
-									}
-									break;
-							}
+						switch(compareResult)
+						{
+							case CompareResult.Better:
+								// The new node is better than the old one; replace it
+								openList.Remove(oldNode);
+								openList.Add(newNode);
+								closedList[newHex] = newNode;
+								break;
+							case CompareResult.Worse:
+								// The old node is better than the new one; do nothing
+								break;
+							case CompareResult.Equal:
+								// The two nodes are equal in value; keep the old one and add this route as a new potential option
+								if(type != ForcedMovementType.Swing)
+								{
+									oldNode.Parents.Add(nodeToHandle);
+								}
+								break;
 						}
 					}
 					else
