@@ -19,6 +19,14 @@ public class Stun : ConditionModel
 				return GDTask.CompletedTask;
 			},
 			EffectType.MandatoryBeforeOptionals);
+
+		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(this,
+			parameters => parameters.Figure == Owner,
+			parameters =>
+			{
+				parameters.SetCannotMoveFurther();
+			}
+		);
 	}
 
 	public override async GDTask Remove()
@@ -26,5 +34,6 @@ public class Stun : ConditionModel
 		await base.Remove();
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
+		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
 	}
 }
