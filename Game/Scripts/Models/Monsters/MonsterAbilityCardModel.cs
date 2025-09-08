@@ -37,7 +37,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		int? extraDamage, DynamicInt<AttackAbility.State>.GetValueDelegate dynamicValue = null, int extraRange = 0,
 		int targets = 1, int? range = null, RangeType? rangeType = null, Target target = Target.Enemies,
 		Hex targetHex = null, bool requiresLineOfSight = true,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, DynamicInt<AttackAbility.State> pierce = null, ConditionModel[] conditions = null,
+		AOEPattern aoePattern = null, int push = 0, int pull = 0, int swing = 0, DynamicInt<AttackAbility.State> pierce = null, ConditionModel[] conditions = null,
 		Action<AttackAbility.State, List<Figure>> customGetTargets = null,
 		List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
@@ -58,6 +58,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 			.WithAOEPattern(aoePattern)
 			.WithPush(push)
 			.WithPull(pull)
+			.WithSwing(swing)
 			.WithPierce(pierce ?? 0)
 			.WithConditions(conditions ?? [])
 			.WithCustomGetTargets(customGetTargets)

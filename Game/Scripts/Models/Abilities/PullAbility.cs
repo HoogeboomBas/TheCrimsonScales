@@ -21,7 +21,7 @@ public class PullAbility : TargetedAbility<PullAbility.State, SingleTargetState>
 	{
 		public interface IPullStep
 		{
-			TBuilder WithPull(int push);
+			TBuilder WithPull(int pull);
 		}
 	}
 
