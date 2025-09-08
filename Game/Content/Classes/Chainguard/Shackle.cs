@@ -35,6 +35,7 @@ public class Shackle : ConditionModel
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
 			parameters =>
 				parameters.Figure == Owner &&
+				parameters.AbilityState.Performer == Owner &&
 				RangeHelper.GetFiguresInRange(parameters.Hex, 1).Any(figure => figure == Cause),
 			async parameters =>
 			{
@@ -47,8 +48,8 @@ public class Shackle : ConditionModel
 						await GDTask.CompletedTask;
 					}
 				);
-				// If this was not a MoveAbility (Forced movement for example) 
-				// or MoveAbility had no more movement, cancel when ability ends
+
+				// MoveAbility had no more movement, cancel when ability ends
 				ScenarioEvents.AbilityEndedEvent.Subscribe(this,
 					canApplyParameters => canApplyParameters.AbilityState == parameters.AbilityState,
 					async applyParameters =>
@@ -58,6 +59,7 @@ public class Shackle : ConditionModel
 						await GDTask.CompletedTask;
 					}
 				);
+				
 				await GDTask.CompletedTask;
 			});
 
