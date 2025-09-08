@@ -8,6 +8,8 @@ public class Shackle : ConditionModel
 	public override string IconPath => "res://Content/Classes/Chainguard/Icon.svg";
 	public override bool RemovedByHeal => false;
 	public override bool CanBeUpgraded => false;
+	public override bool IsPositive => false;
+	public override bool IsNegative => false;
 	public override ConditionModel BaseCondition => Conditions.Immobilize;
 
 	protected Figure Cause;

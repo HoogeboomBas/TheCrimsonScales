@@ -10,7 +10,7 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 	public virtual ConditionModel BaseCondition => this;
 	public virtual bool RemovedAtEndOfTurn => false;
 	public virtual bool IsPositive => false;
-	public bool IsNegative => !IsPositive;
+	public virtual bool IsNegative => !IsPositive;
 	public virtual bool RemovedByHeal => false;
 	public virtual string ConditionAnimationScenePath => null;
 	public virtual bool ShowOnFigure => true;
