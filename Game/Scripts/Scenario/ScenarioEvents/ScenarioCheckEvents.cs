@@ -361,4 +361,23 @@ public class ScenarioCheckEvents
 
 	private readonly InitiativeCheck _initiativeCheck = new InitiativeCheck();
 	public static InitiativeCheck InitiativeCheckEvent => GameController.Instance.ScenarioCheckEvents._initiativeCheck;
+
+	public class CanMoveFurtherCheck : ScenarioCheckEvent<CanMoveFurtherCheck.Parameters>
+	{
+		public class Parameters(Figure figure)
+			: ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+
+			public bool CanMoveFurther { get; private set; } = true;
+
+			public void SetCannotMoveFurther()
+			{
+				CanMoveFurther = false;
+			}
+		}
+	}
+
+	private readonly CanMoveFurtherCheck _canMoveFurtherCheck = new CanMoveFurtherCheck();
+	public static CanMoveFurtherCheck CanMoveFurtherCheckEvent => GameController.Instance.ScenarioCheckEvents._canMoveFurtherCheck;
 }
