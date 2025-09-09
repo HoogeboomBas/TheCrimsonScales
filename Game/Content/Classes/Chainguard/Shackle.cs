@@ -24,17 +24,17 @@ public class Shackle : ConditionModel
 		await base.Add(target, node);
 
 		// Can only be applied to 1 figure
-		ScenarioEvents.InflictConditionEvent.Subscribe(this,
+		ScenarioEvents.InflictConditionEvent.Subscribe(target, this,
 			parameters => parameters.Condition is Shackle && parameters.Target != Owner,
 			async parameters =>
 			{
-				await Owner.RemoveCondition(this);
+				await Owner.RemoveCondition(Conditions.Shackle);
 			},
 			EffectType.MandatoryBeforeOptionals
 		);
 
 		// Stop movement if became adjacent to the Chainguard
-		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
+		ScenarioEvents.FigureEnteredHexEvent.Subscribe(target, this, 
 			parameters =>
 				parameters.Figure == Owner &&
 				parameters.AbilityState.Performer == Owner &&
@@ -42,7 +42,7 @@ public class Shackle : ConditionModel
 			async parameters =>
 			{
 				// If this was a MoveAbility and had movement left, make the figure stop
-				ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(this,
+				ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(parameters.AbilityState, this, 
 					canApplyParameters => canApplyParameters.Figure == Owner,
 					async applyParameters =>
 					{
@@ -52,7 +52,7 @@ public class Shackle : ConditionModel
 				);
 
 				// MoveAbility had no more movement, cancel when ability ends
-				ScenarioEvents.AbilityEndedEvent.Subscribe(this,
+				ScenarioEvents.AbilityEndedEvent.Subscribe(parameters.AbilityState, this,
 					canApplyParameters => canApplyParameters.AbilityState == parameters.AbilityState,
 					async applyParameters =>
 					{
@@ -66,7 +66,7 @@ public class Shackle : ConditionModel
 			});
 
 		// Don't allow new movement when adjacent to the Chainguard
-		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
+		ScenarioEvents.AbilityStartedEvent.Subscribe(target, this,
 			parameters => parameters.Performer == Owner && parameters.AbilityState is MoveAbility.State &&
 			RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Cause),
 			parameters =>
