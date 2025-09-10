@@ -98,45 +98,39 @@ public class ArcherAbilityCard6 : ArcherAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
+		new MonsterAbilityCardAbility(CreateTrapAbility.Builder()
+			.WithDamage(3)
+			.WithCustomSelectHexes((state, hexes) =>
 				{
-					Hex hex = await AbilityCmd.SelectHex(state, list =>
+					int closestRange = int.MaxValue;
+					foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
 					{
-						int closestRange = int.MaxValue;
-						foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
+						if(!neighbourHex.IsEmpty())
 						{
-							if(!neighbourHex.IsEmpty())
-							{
-								continue;
-							}
+							continue;
+						}
 
-							foreach(Figure figure in GameController.Instance.Map.Figures)
+						foreach(Figure figure in GameController.Instance.Map.Figures)
+						{
+							if(state.Performer.EnemiesWith(figure))
 							{
-								if(state.Performer.EnemiesWith(figure))
+								int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+								if(range == closestRange)
 								{
-									int range = RangeHelper.Distance(neighbourHex, figure.Hex);
-									if(range == closestRange)
-									{
-										list.Add(neighbourHex);
-									}
-									else if(range < closestRange)
-									{
-										closestRange = range;
-										list.Clear();
-										list.Add(neighbourHex);
-									}
+									hexes.Add(neighbourHex);
+								}
+								else if(range < closestRange)
+								{
+									closestRange = range;
+									hexes.Clear();
+									hexes.Add(neighbourHex);
 								}
 							}
 						}
-					}, mandatory: true);
-
-					if(hex != null)
-					{
-						await AbilityCmd.CreateTrap(hex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn", damage: 3);
 					}
 				}
 			)
+			.WithMandatory(true)
 			.Build())
 	];
 }
