@@ -415,7 +415,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					}
 				}
 
-				if(!Target.HasFlag(Target.Allies) && abilityState.Authority.AlliedWith(figure, false))
+				if(!Target.HasFlag(Target.Allies) && (abilityState.Authority.AlliedWith(figure, false) || abilityState.Authority == figure))
 				{
 					remove = true;
 				}

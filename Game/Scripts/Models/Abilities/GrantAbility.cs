@@ -103,7 +103,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 
 		// Perform the actual abilities
-		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(target),
+		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(abilityState.Performer),
 			abilityState.ActionState);
 		await actionState.Perform();
 	}

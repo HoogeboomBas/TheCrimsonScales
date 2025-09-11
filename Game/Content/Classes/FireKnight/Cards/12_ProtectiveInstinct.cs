@@ -15,7 +15,7 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(figure => [ShieldAbility.Builder().WithShieldValue(1).Build()])
+				.WithGetAbilities(granter => [ShieldAbility.Builder().WithShieldValue(1).Build()])
 				.WithTarget(Target.SelfOrAllies)
 				.Build())
 		];
@@ -30,7 +30,7 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(figure => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithGetAbilities(granter => [MoveAbility.Builder().WithDistance(3).Build()])
 				.WithRange(2)
 				.WithConditionalAbilityCheck(async state =>
 					{
