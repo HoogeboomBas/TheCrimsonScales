@@ -1,0 +1,24 @@
+﻿[gd_scene format=3]
+
+[node name="ElementWithConsumeIcon" type="Control"]
+anchor_right = 0.0
+anchor_bottom = 0.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(64, 64)
+
+[node name="ElementIcon" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 2 # KeepAspectCentered
+
+[node name="ConsumeIcon" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -4.0
+offset_bottom = -4.0
+stretch_mode = 2 # KeepAspectCentered
