@@ -59,12 +59,12 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 							canApplyParameters.AMDCard is BlessAMDCard,
 						apply: async applyParameters =>
 						{
-							ScenarioEvents.AfterAttackDamageSufferedEvent.Subscribe(state, this,
+							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
 								canApply: canApplyParameters =>
 									canApplyParameters.AbilityState == applyParameters.AbilityState,
 								apply: async parameters =>
 								{
-									ScenarioEvents.AfterAttackDamageSufferedEvent.Unsubscribe(state, this);
+									ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
 									ActionState actionState = new ActionState(parameters.Performer, 
 										[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).Build()]);
