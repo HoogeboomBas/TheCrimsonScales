@@ -62,7 +62,8 @@ public class ForcedMovementPrompt(
 		HashSet<Hex> reachableHexes = new HashSet<Hex>();
 
 		// Swing requires recreating possible routes on update
-		if(type == ForcedMovementType.Swing) {
+		if(type == ForcedMovementType.Swing) 
+		{
 			_nodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)
 			{

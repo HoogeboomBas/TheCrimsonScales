@@ -224,7 +224,7 @@ public static class MoveHelper
 					}
 
 					// For the first step from origin, prevent going back to the parent if exists
-					if((firstNode == nodeToHandle) && nodeToHandle.Parents.Any(parentNode => parentNode.Hex == newHex))
+					if(firstNode == nodeToHandle && nodeToHandle.Parents.Any(parentNode => parentNode.Hex == newHex))
 					{
 						continue;
 					}

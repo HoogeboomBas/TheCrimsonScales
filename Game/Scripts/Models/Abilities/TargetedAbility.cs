@@ -663,12 +663,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		List<Vector2I> path = null;
 		if(abilityState.Authority is Character)
 		{
-			ForcedMovementPrompt.Answer pushPullAnswer = await PromptManager.Prompt(
+			ForcedMovementPrompt.Answer forcedMovementAnswer = await PromptManager.Prompt(
 				new ForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText), abilityState.Authority);
 
-			if(!pushPullAnswer.Skipped)
+			if(!forcedMovementAnswer.Skipped)
 			{
-				path = pushPullAnswer.Path;
+				path = forcedMovementAnswer.Path;
 			}
 		}
 		else
