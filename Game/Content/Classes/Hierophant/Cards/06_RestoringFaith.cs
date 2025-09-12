@@ -18,7 +18,7 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(figure =>
+				.WithGetAbilities(granter =>
 				[
 					LootAbility.Builder()
 						.WithRange(1)
@@ -97,6 +97,7 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 										{
 											// This card has a prayer ability active
 											await useSlotAbilityState.MoveBackUseSlot();
+											state.SetPerformed();
 										}
 									}
 								}

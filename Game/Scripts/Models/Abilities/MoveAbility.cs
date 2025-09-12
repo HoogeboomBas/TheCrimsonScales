@@ -198,7 +198,9 @@ public class MoveAbility : Ability<MoveAbility.State>
 					ScenarioEvents.DuringMovementEvent.CreateEffectCollection(duringMovementAbilityStateParameters);
 
 				MovePrompt.Answer moveAnswer =
-					await PromptManager.Prompt(new MovePrompt(abilityState, performer, effectCollection, () => "Select a path"),
+					await PromptManager.Prompt(
+						new MovePrompt(abilityState, performer, effectCollection,
+							() => $"Select a path for {Icons.HintText(Icons.Move)}{abilityState.MoveValue}"),
 						abilityState.Authority);
 
 				if(moveAnswer.Skipped)

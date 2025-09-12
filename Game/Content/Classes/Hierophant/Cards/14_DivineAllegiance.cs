@@ -35,6 +35,7 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 						if(!targetedFigure.IsDead)
 						{
 							await AbilityCmd.SufferDamage(null, targetedFigure, 1);
+							state.SetPerformed();
 						}
 					}
 				})

@@ -13,7 +13,7 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(figure =>
+				.WithGetAbilities(granter =>
 					[
 						HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build(),
 						ShieldAbility.Builder().WithShieldValue(1).Build(),
@@ -26,8 +26,7 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 									{
 										RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
 										retaliateAbilityState.AdjustRange(2);
-										await AbilityCmd.GainXP(parameters.AbilityState.Performer,
-											1); //TODO: This actually grants the granted figure the xp, but I guess that's also implied on the card art currently
+										await AbilityCmd.GainXP(granter, 1);
 									}
 								)
 							)

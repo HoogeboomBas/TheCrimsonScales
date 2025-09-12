@@ -13,7 +13,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(figure =>
+				.WithGetAbilities(granter =>
 					[
 						ShieldAbility.Builder().WithShieldValue(1).Build()
 					]

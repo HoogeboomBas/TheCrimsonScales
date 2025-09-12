@@ -16,6 +16,7 @@
 	public const string Pierce = "res://Art/Icons/ConditionsAndEffects/Pierce.svg";
 	public const string Targets = "res://Art/Icons/Abilities/Targets.svg";
 	public const string Jump = "res://Art/Icons/Abilities/Jump.svg";
+	public const string Teleport = "res://Art/Icons/Abilities/Teleport.svg";
 
 	public static string GetElement(Element element)
 	{
