@@ -16,12 +16,13 @@ public class IronHelmet : Prosperity1Item
 		base.Subscribe();
 
 		SubscribeAMDCardDrawn(
-			canApply: canApplyParameters => canApplyParameters.AbilityState.Target == Owner && canApplyParameters.AMDCard.IsCrit,
+			canApply: canApplyParameters => canApplyParameters.AbilityState.Target == Owner && canApplyParameters.Type == AMDCardType.Crit,
 			apply: async applyParameters =>
 			{
 				await Use(async user =>
 				{
-					applyParameters.SetCard(new BasicAMDCard(applyParameters.AMDCard, 0));
+					applyParameters.SetType(AMDCardType.Value);
+					applyParameters.SetValue(0);
 
 					await GDTask.CompletedTask;
 				});
