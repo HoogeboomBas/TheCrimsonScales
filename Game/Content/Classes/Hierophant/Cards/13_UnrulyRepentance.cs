@@ -13,10 +13,13 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Curse, Conditions.Curse], range: 3)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Curse, Conditions.Curse)
+				.WithRange(3)
+				.Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.4f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApply: canApplyParameters =>
@@ -33,11 +36,9 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 
 									if(!parameters.Performer.IsDead) {
 										await AbilityCmd.SufferDamage(null, parameters.Performer, 10);
-
-										await state.AdvanceUseSlot();
 									}
-
-									await GDTask.CompletedTask;
+									
+									await state.AdvanceUseSlot();
 								}
 							);
 
@@ -46,14 +47,15 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}
-			))
+				})
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.4f)))
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -65,8 +67,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherTargetedAbility(
-				async (state, target) =>
+			new AbilityCardAbility(OtherTargetedAbility.Builder()
+				.WithOnAfterConditionsApplied(async (state, target) =>
 				{
 					int conditionCount = 0;
 
@@ -83,17 +85,23 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 					}
 
 					state.SetCustomValue(this, "ConditionCount", conditionCount);
-				}, range: 3, target: Target.Allies
-			)),
+				})
+				.WithRange(3)
+				.WithTarget(Target.Allies)
+				.Build()
+			),
 
-			new AbilityCardAbility(new HealAbility(
-				new DynamicInt<HealAbility.State>(state => state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount")),
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0),
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(
+					new DynamicInt<HealAbility.State>(state => 
+						state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount"))
+				)
+				.WithConditionalAbilityCheck(conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithCustomGetTargets((state, list) =>
 				{
 					list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);
-				}
-			))
+				})
+				.Build())
 		];
 	}
 }

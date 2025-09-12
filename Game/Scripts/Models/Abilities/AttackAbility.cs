@@ -346,7 +346,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 		}
 
 		await ScenarioEvents.AfterAttackDamageSufferedEvent.CreatePrompt(
-			new ScenarioEvents.AfterAttackDamageSuffered.Parameters(abilityState, terminal), abilityState);
+			new ScenarioEvents.AfterAttackDamageSuffered.Parameters(abilityState), abilityState);
 
 		if(target.IsDead)
 		{
