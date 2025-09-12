@@ -109,6 +109,6 @@ public class ScoutAbilityCard7 : ScoutAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1, MoveType.Jump)),
-		new MonsterAbilityCardAbility(new LootAbility(1)),
+		new MonsterAbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 	];
 }

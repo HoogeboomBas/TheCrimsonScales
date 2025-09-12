@@ -11,7 +11,11 @@ public class ForcefulBolt : BombardCardModel<ForcefulBolt.CardTop, ForcefulBolt.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 2, push: 2))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithRange(2)
+				.WithPush(2)
+				.Build())
 		];
 	}
 
@@ -19,8 +23,8 @@ public class ForcefulBolt : BombardCardModel<ForcefulBolt.CardTop, ForcefulBolt.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new LootAbility(1)),
-			new AbilityCardAbility(new MoveAbility(1))
+			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build())
 		];
 	}
 }

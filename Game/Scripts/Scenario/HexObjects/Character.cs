@@ -91,6 +91,12 @@ public partial class Character : Figure
 			ItemModel item = Items[i];
 			item.SetOwner(null);
 		}
+
+		for(int i = Cards.Count - 1; i >= 0; i--)
+		{
+			AbilityCard card = Cards[i];
+			await card.RemoveFromActive();
+		}
 	}
 
 	public void OnRoundCardsChanged()
@@ -259,7 +265,13 @@ public partial class Character : Figure
 
 			for(int i = 0; i < cardDatas.Count; i++)
 			{
-				EffectCollection cardSideSelectionEffectCollection = ScenarioEvents.CardSideSelectionEvent.CreateEffectCollection(new ScenarioEvents.CardSideSelection.Parameters(this));
+				if(IsDead)
+				{
+					break;
+				}
+
+				EffectCollection cardSideSelectionEffectCollection =
+					ScenarioEvents.CardSideSelectionEvent.CreateEffectCollection(new ScenarioEvents.CardSideSelection.Parameters(this));
 
 				AbilityCardSectionSelectionPrompt.Answer cardSectionAnswer = await PromptManager.Prompt(
 					new AbilityCardSectionSelectionPrompt(cardDatas, cardSideSelectionEffectCollection, () => "Select card side to play"), this);
@@ -325,7 +337,10 @@ public partial class Character : Figure
 				}
 			}
 
-			await ScenarioEvents.AfterCardsPlayedEvent.CreatePrompt(new ScenarioEvents.AfterCardsPlayed.Parameters(this), this, "End turn?");
+			if(!IsDead)
+			{
+				await ScenarioEvents.AfterCardsPlayedEvent.CreatePrompt(new ScenarioEvents.AfterCardsPlayed.Parameters(this), this, "End turn?");
+			}
 		}
 	}
 
@@ -338,9 +353,11 @@ public partial class Character : Figure
 
 	private async GDTask LongRest()
 	{
-		EffectCollection cardSelectionEffectCollection = ScenarioEvents.LongRestCardSelectionEvent.CreateEffectCollection(new ScenarioEvents.LongRestCardSelection.Parameters(this));
+		EffectCollection cardSelectionEffectCollection =
+			ScenarioEvents.LongRestCardSelectionEvent.CreateEffectCollection(new ScenarioEvents.LongRestCardSelection.Parameters(this));
 
-		AbilityCard cardToLose = await AbilityCmd.SelectAbilityCard(this, CardState.Discarded, true, null, cardSelectionEffectCollection, "Select a card to lose for your long rest");
+		AbilityCard cardToLose = await AbilityCmd.SelectAbilityCard(this, CardState.Discarded, true, null, cardSelectionEffectCollection,
+			"Select a card to lose for your long rest");
 
 		if(cardToLose != null)
 		{
@@ -363,7 +380,14 @@ public partial class Character : Figure
 			}
 		}
 
-		ActionState actionState = new ActionState(this, [new HealAbility(2, target: Target.Self)]);
+		ActionState actionState = new ActionState(this,
+		[
+			HealAbility.Builder()
+				.WithHealValue(2)
+				.WithTarget(Target.Self)
+				.WithCanPerformWhileStunned(true)
+				.Build()
+		]);
 		await actionState.Perform();
 	}
 
@@ -429,7 +453,8 @@ public partial class Character : Figure
 
 	private async GDTask LoseCardToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
 	{
-		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this, hintText: "Select a card to lose");
+		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this,
+			hintText: "Select a card to lose");
 		await AbilityCmd.LoseCard(card);
 
 		parameters.SetDamagePrevented();

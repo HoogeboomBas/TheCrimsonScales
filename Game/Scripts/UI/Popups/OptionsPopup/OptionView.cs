@@ -15,7 +15,7 @@ public abstract partial class OptionView<TParameters, TValue> : OptionViewBase
 	{
 		base._Ready();
 
-		_label = GetNode<Label>("Panel/Label");
+		_label = GetNode<Label>("LabelContainer/Label");
 	}
 
 	public sealed override void Init(OptionViewParameters parameters)

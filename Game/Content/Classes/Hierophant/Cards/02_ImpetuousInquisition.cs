@@ -12,29 +12,32 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], range: 3, afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvent<ScenarioEvents.ConditionAfterTargetConfirmed.Parameters>.Subscription.New(
-					canApplyFunction: canApplyParameters =>
-					{
-						foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Disarm)
+				.WithRange(3)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
+						canApplyFunction: canApplyParameters =>
 						{
-							if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
+							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
 							{
-								return true;
+								if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
+								{
+									return true;
+								}
 							}
-						}
 
-						return false;
-					},
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
-						await AbilityCmd.GainXP(parameters.Performer, 1);
+							return false;
+						},
+						applyFunction: async parameters =>
+						{
+							parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
+							await AbilityCmd.GainXP(parameters.Performer, 1);
 
-						await GDTask.CompletedTask;
-					})
-			]))
+							await GDTask.CompletedTask;
+						})
+				)
+				.Build())
 		];
 	}
 
@@ -42,8 +45,8 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Subscribe(state, this,
 						canApply: canApplyParameters =>
@@ -61,20 +64,22 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				})),
+				})
+				.Build()),
 
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
-				[
-					new RetaliateAbility(1)
-				],
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter =>
+					[
+						RetaliateAbility.Builder().WithRetaliateValue(1).Build()
+					]
+				)
+				.WithCustomGetTargets((state, list) =>
 				{
 					foreach(Figure figure in GameController.Instance.Map.Figures)
 					{
@@ -83,12 +88,13 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 							list.Add(figure);
 						}
 					}
-				},
-				onAbilityEndedPerformed: async state =>
+				})
+				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
-				},
-				conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth)))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+				.Build())
 		];
 
 		protected override int XP => 1;

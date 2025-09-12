@@ -24,8 +24,8 @@ public class ImpAbilityCard0 : ImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(5)),
-		new MonsterAbilityCardAbility(new HealAbility(1, target: Target.Self))
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(5).Build()),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build())
 	];
 }
 
@@ -61,7 +61,10 @@ public class ImpAbilityCard3 : ImpAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(new HealAbility(2, range: 3)),
+		new MonsterAbilityCardAbility(HealAbility.Builder()
+			.WithHealValue(2)
+			.WithRange(3)
+			.Build()),
 	];
 }
 
@@ -110,7 +113,15 @@ public class ImpAbilityCard7 : ImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen], range: 2, target: Target.Allies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Muddle], range: 2, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Strengthen)
+			.WithRange(2)
+			.WithTarget(Target.Allies | Target.TargetAll)
+			.Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Muddle)
+			.WithRange(2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 	];
 }

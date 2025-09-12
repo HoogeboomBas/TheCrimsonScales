@@ -13,23 +13,20 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility(
-				[
-					new UseSlot(new Vector2(0.16650043f, 0.3549993f)),
-					new UseSlot(new Vector2(0.36999783f, 0.3549993f), GainXP),
-					new UseSlot(new Vector2(0.57749975f, 0.3549993f)),
-					new UseSlot(new Vector2(0.78700954f, 0.3549993f), GainXP)
-				],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
 						async parameters =>
 						{
 							ActionState actionState = new ActionState(state.Performer, [
-								new GrantAbility(figure => [new AttackAbility(3, range: 3)],
-									getTargetingHintText: grantState => $"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
-								)
+								GrantAbility.Builder()
+									.WithGetAbilities(granter => [AttackAbility.Builder().WithDamage(3).WithRange(3).Build()])
+									.WithGetTargetingHintText(grantState =>
+										$"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
+									)
+									.Build()
 							]);
 							await actionState.Perform();
 
@@ -38,14 +35,22 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+				[
+					new UseSlot(new Vector2(0.16650043f, 0.3549993f)),
+					new UseSlot(new Vector2(0.36999783f, 0.3549993f), GainXP),
+					new UseSlot(new Vector2(0.57749975f, 0.3549993f)),
+					new UseSlot(new Vector2(0.78700954f, 0.3549993f), GainXP)
+				])
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -56,8 +61,8 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(state, this,
 						parameters =>
@@ -73,7 +78,7 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 
 							parameters.ForgoAction();
 
-							ActionState actionState = new ActionState(state.Performer, [new AttackAbility(4, range: 3)]);
+							ActionState actionState = new ActionState(state.Performer, [AttackAbility.Builder().WithDamage(4).WithRange(3).Build()]);
 							await actionState.Perform();
 						},
 						EffectType.Selectable,
@@ -82,14 +87,15 @@ public class ManTheCannon : BombardCardModel<ManTheCannon.CardTop, ManTheCannon.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AbilityCardSideStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AbilityCardSideStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override bool Round => true;

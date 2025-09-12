@@ -12,11 +12,16 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure =>
-				[
-					new ShieldAbility(2, pierceable: false)
-				]
-			))
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter =>
+					[
+						ShieldAbility.Builder()
+							.WithShieldValue(2)
+							.WithPierceable(false)
+							.Build()
+					]
+				)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];
@@ -27,36 +32,41 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, rangeType: RangeType.Range,
-				customGetTargets: (state, list) =>
-				{
-					foreach(Figure figure in GameController.Instance.Map.Figures)
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithRangeType(RangeType.Range)
+				.WithCustomGetTargets((state, list) =>
 					{
-						foreach(Figure potentialAlly in RangeHelper.GetFiguresInRange(figure.Hex, 1))
+						foreach(Figure figure in GameController.Instance.Map.Figures)
 						{
-							if(state.Performer.AlliedWith(potentialAlly))
+							foreach(Figure potentialAlly in RangeHelper.GetFiguresInRange(figure.Hex, 1))
 							{
-								list.Add(figure);
-								break;
+								if(state.Performer.AlliedWith(potentialAlly))
+								{
+									list.Add(figure);
+									break;
+								}
 							}
 						}
 					}
-				}
-			)),
+				)
+				.Build()),
 
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter =>
 				[
-					new ShieldAbility(1,
-						conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth),
-						onAbilityEndedPerformed: async state =>
+					ShieldAbility.Builder()
+						.WithShieldValue(1)
+						.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
+						.WithOnAbilityEndedPerformed(async state =>
 						{
 							await GDTask.CompletedTask;
 
 							state.ActionState.SetOverrideRound();
 						})
-				],
-				customGetTargets: (state, list) =>
+						.Build()
+				])
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -64,16 +74,17 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 					{
 						list.AddRange(RangeHelper.GetFiguresInRange(target.Hex, 1));
 					}
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+				})
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackAbilityState.Performed;
-				}
-			))
+						return attackAbilityState.Performed;
+					}
+				)
+				.Build())
 		];
 	}
 }

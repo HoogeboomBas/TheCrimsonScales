@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLeader.CardBottom>
 {
@@ -12,7 +11,10 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [new AttackAbility(3)], target: Target.Allies)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter => [AttackAbility.Builder().WithDamage(3).Build()])
+				.WithTarget(Target.Allies)
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<ScrollOfCharisma>(), ModelDB.Item<ScrollOfInvigoration>()],
 				onItemGiven: async (state, item) =>
@@ -27,10 +29,11 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(2, range: 3,
-				duringHealSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Fire,
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(2)
+				.WithRange(3)
+				.WithDuringHealSubscription(
+					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.SingleTargetAddCondition(Conditions.Strengthen);
@@ -39,8 +42,8 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}")
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

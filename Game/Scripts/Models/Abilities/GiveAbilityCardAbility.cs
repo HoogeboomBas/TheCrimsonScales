@@ -2,48 +2,97 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
+/// <summary>
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that gives an ability card to another character.
+/// </summary>
 public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
 	{
 	}
 
-	private readonly Action<AbilityState, List<AbilityCard>> _getAbilityCards;
-	private readonly Func<AbilityState, AbilityCard, GDTask> _onCardGiven;
-	private readonly Func<AbilityCard, GDTask> _onCardDiscarded;
-	private readonly Func<AbilityCard, GDTask> _onCardLost;
+	private Action<AbilityState, List<AbilityCard>> _getAbilityCards;
+	private Func<AbilityState, AbilityCard, GDTask> _onCardGiven;
+	private Func<AbilityCard, GDTask> _onCardDiscarded;
+	private Func<AbilityCard, GDTask> _onCardLost;
 
-	private readonly bool _selectAutomatically;
+	private bool _selectAutomatically;
 
-	public GiveAbilityCardAbility(Action<AbilityState, List<AbilityCard>> getAbilityCards,
-		Func<AbilityState, AbilityCard, GDTask> onCardGiven = null,
-		Func<AbilityCard, GDTask> onCardDiscarded = null,
-		Func<AbilityCard, GDTask> onCardLost = null,
-		bool selectAutomatically = false,
-		int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Allies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in GiveAbilityCardAbility. Enables inheritors of GiveAbilityCardAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending GiveAbilityCardAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, SingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IGetAbilityCardsStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : GiveAbilityCardAbility, new()
 	{
-		_getAbilityCards = getAbilityCards;
-		_onCardGiven = onCardGiven;
-		_onCardDiscarded = onCardDiscarded;
-		_onCardLost = onCardLost;
+		public interface IGetAbilityCardsStep
+		{
+			TBuilder WithGetAbilityCards(Action<AbilityState, List<AbilityCard>> getAbilityCards);
+		}
 
-		_selectAutomatically = selectAutomatically;
+		public TBuilder WithGetAbilityCards(Action<AbilityState, List<AbilityCard>> getAbilityCards)
+		{
+			Obj._getAbilityCards = getAbilityCards;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardGiven(Func<AbilityState, AbilityCard, GDTask> onCardGiven)
+		{
+			Obj._onCardGiven = onCardGiven;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardDiscarded(Func<AbilityCard, GDTask> onCardDiscarded)
+		{
+			Obj._onCardDiscarded = onCardDiscarded;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnCardLost(Func<AbilityCard, GDTask> onCardLost)
+		{
+			Obj._onCardLost = onCardLost;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithSelectAutomatically(bool selectAutomatically)
+		{
+			Obj._selectAutomatically = selectAutomatically;
+			return (TBuilder)this;
+		}
+
+		/// <summary>
+		/// Overriding so we can set default values.
+		/// </summary>
+		public override TAbility Build()
+		{
+			Obj.Target = _target ?? Target.Allies;
+			return base.Build();
+		}
 	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class GiveAbilityCardBuilder : AbstractBuilder<GiveAbilityCardBuilder, GiveAbilityCardAbility>
+	{
+		internal GiveAbilityCardBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of GiveAbilityCardBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static GiveAbilityCardBuilder.IGetAbilityCardsStep Builder()
+	{
+		return new GiveAbilityCardBuilder();
+	}
+
+	public GiveAbilityCardAbility() { }
 
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
@@ -53,7 +102,8 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 	}
 
 	public static async GDTask GiveAbilityCard(AbilityState abilityState, Figure target, Action<AbilityState, List<AbilityCard>> getAbilityCards,
-		Func<AbilityState, AbilityCard, GDTask> onCardGiven, Func<AbilityCard, GDTask> onCardDiscarded, Func<AbilityCard, GDTask> onCardLost, bool selectAutomatically = false)
+		Func<AbilityState, AbilityCard, GDTask> onCardGiven, Func<AbilityCard, GDTask> onCardDiscarded, Func<AbilityCard, GDTask> onCardLost,
+		bool selectAutomatically = false)
 	{
 		AbilityCard abilityCard;
 		if(selectAutomatically)

@@ -11,8 +11,8 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.308f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.RoundStartedBeforeInitiativesSortedEvent.Subscribe(state, this,
 						canApplyParameters => state.Performer is Character character && character.LongResting,
@@ -24,14 +24,16 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.RoundStartedBeforeInitiativesSortedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.RoundStartedBeforeInitiativesSortedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.308f)))
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -41,8 +43,8 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.764f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.ShortRestStartedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Character == state.Performer,
@@ -54,14 +56,16 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.ShortRestStartedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.ShortRestStartedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.764f)))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

@@ -37,7 +37,8 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 
 		SavedCharacter savedCharacter = PopupRequest.SavedCharacter;
 
-		int smallItemSlotCount = (savedCharacter.Level + 1) / 2;
+		int smallItemSlotCount = savedCharacter.GetSmallItemSlotCount();
+
 		for(int i = 0; i < smallItemSlotCount; i++)
 		{
 			EquipmentSlot equipmentSlot = _equipmentSlotScene.Instantiate<EquipmentSlot>();
@@ -119,7 +120,7 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 				}
 			}
 
-			// Remove one handed item if a two handed item is equipped
+			// Remove one-handed item if a two-handed item is equipped
 			if(itemModel.ItemType == ItemType.TwoHands)
 			{
 				string equippedOneHandItemId = savedCharacter.EquippedBaseSlotItems[(int)ItemType.OneHand];
@@ -127,10 +128,9 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 				{
 					savedCharacter.SetEquippedBaseSlotItem(ItemType.OneHand, null);
 				}
-				//ItemModel equippedOneHandItemModel = ModelDB.GetById<ItemModel>(equippedOneHandItemId);
 			}
 
-			// Remove two handed item if a one handed item is equipped
+			// Remove two-handed item if a one-handed item is equipped
 			if(slotIndex == (int)ItemType.OneHand)
 			{
 				string equippedTwoHandsItemId = savedCharacter.EquippedBaseSlotItems[(int)ItemType.TwoHands];
@@ -146,6 +146,33 @@ public partial class EquipmentPopup : Popup<EquipmentPopup.Request>
 		}
 
 		savedCharacter.SetEquippedBaseSlotItem((ItemType)slotIndex, itemModel);
+
+		int newSmallItemSlotCount = savedCharacter.GetSmallItemSlotCount();
+
+		if(_smallItemSlots.Count != newSmallItemSlotCount)
+		{
+			// Remove excess small item slots
+			for(int i = _smallItemSlots.Count - 1; i >= newSmallItemSlotCount; i--)
+			{
+				savedCharacter.SetEquippedSmallSlotItem(i, null);
+
+				EquipmentSlot equipmentSlotToRemove = _smallItemSlots[i];
+				_smallItemSlots.Remove(equipmentSlotToRemove);
+				_smallItemsParent.RemoveChild(equipmentSlotToRemove);
+				equipmentSlotToRemove.QueueFree();
+			}
+			// Add missing small item slots
+			for(int i = _smallItemSlots.Count; i < newSmallItemSlotCount; i++)
+			{
+				EquipmentSlot equipmentSlot = _equipmentSlotScene.Instantiate<EquipmentSlot>();
+				_smallItemsParent.AddChild(equipmentSlot);
+				equipmentSlot.Init(ItemType.Small, i);
+				equipmentSlot.PressedEvent += OnSmallItemSlotPressed;
+				_smallItemSlots.Add(equipmentSlot);
+
+				savedCharacter.SetEquippedSmallSlotItem(i, null);
+			}
+		}
 	}
 
 	private void OnSmallItemSelected(int slotIndex, ItemModel itemModel)

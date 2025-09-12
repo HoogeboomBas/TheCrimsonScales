@@ -2,92 +2,50 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256"
-   height="256"
-   viewBox="0 0 256 256"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
    version="1.1"
-   id="svg1"
+   id="svg5"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xml:space="preserve"
    sodipodi:docname="Cards.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview1"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview7"
      pagecolor="#505050"
      bordercolor="#ffffff"
      borderopacity="1"
      inkscape:showpageshadow="0"
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="1"
-     inkscape:deskcolor="#d1d1d1"
+     inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="1.2415801"
-     inkscape:cx="394.65839"
-     inkscape:cy="246.05742"
+     inkscape:lockguides="true"
+     inkscape:zoom="1.6191406"
+     inkscape:cx="214.62003"
+     inkscape:cy="273.29313"
      inkscape:window-width="3840"
-     inkscape:window-height="2071"
-     inkscape:window-x="2391"
-     inkscape:window-y="-9"
+     inkscape:window-height="2054"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
-    <inkscape:grid
-       id="grid1"
-       units="px"
+     inkscape:current-layer="layer1"><inkscape:grid
+       type="xygrid"
+       id="grid234"
+       empspacing="4"
        originx="0"
        originy="0"
-       spacingx="4"
-       spacingy="4"
-       empcolor="#0099e5"
-       empopacity="0.30196078"
-       color="#0099e5"
-       opacity="0.14901961"
-       empspacing="4"
-       dotted="false"
-       gridanglex="30"
-       gridanglez="30"
-       visible="true" />
-  </sodipodi:namedview>
-  <defs
-     id="defs1">
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath114">
-      <path
-         d="M 0,300 H 300 V 0 H 0 Z"
-         transform="translate(-191.0898,-87.6973)"
-         id="path114" />
-    </clipPath>
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath116">
-      <path
-         d="M 0,300 H 300 V 0 H 0 Z"
-         transform="translate(-253.74323,-214.333)"
-         id="path116" />
-    </clipPath>
-  </defs>
-  <g
+       spacingy="1"
+       spacingx="1"
+       units="px" /></sodipodi:namedview><defs
+     id="defs2" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <rect
-       style="fill:#ffffff;stroke:#ffffff;stroke-width:8;stroke-dasharray:none"
-       id="rect1"
-       width="145.53035"
-       height="208"
-       x="41.617001"
-       y="32"
-       ry="13.542" />
-    <rect
-       style="fill:none;stroke:#ffffff;stroke-width:8;stroke-dasharray:none"
-       id="rect1-8"
-       width="145.53035"
-       height="208"
-       x="68.851654"
-       y="16"
-       ry="13.542" />
-  </g>
-</svg>
+     id="layer1"><path
+       d="m 392.69426,116.27787 q 7.77775,0.55556 12.77775,6.38889 4.99999,5.83333 4.99999,13.6111 l -14.44442,296.66647 q 0,7.77777 -5.83332,13.05554 -5.83333,5.27778 -13.05554,4.72222 L 184.36121,440.7221 q -6.66665,0 -11.38887,-4.72222 -4.72222,-4.72222 -5.83333,-11.38888 l 171.66643,-15.55555 q 12.77776,-1.11111 21.38886,-11.66666 8.6111,-10.55554 7.49999,-23.88887 L 346.58321,114.05565 Z m -38.33329,258.33316 q 0.55556,7.77777 -4.44443,13.88888 -5,6.11111 -12.22221,6.66666 l -192.22195,17.22221 q -7.77777,0.55556 -13.33332,-4.72221 -5.55554,-5.27778 -6.66665,-13.05555 L 101.58356,99.055659 q -0.55556,-7.77777 4.44443,-13.88888 4.99999,-6.1111 12.2222,-6.66666 l 192.22196,-17.22221 q 7.22221,-0.55555 13.05553,4.72222 5.83332,5.27778 6.38888,13.05555 z"
+       id="path1"
+       style="fill:#ffffff;stroke-width:0.555555" /></g></svg>

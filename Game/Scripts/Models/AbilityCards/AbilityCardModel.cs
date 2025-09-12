@@ -70,7 +70,7 @@ public abstract class AbilityCardModel : AbstractModel<AbilityCardModel>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2))
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build())
 		];
 	}
 
@@ -78,7 +78,7 @@ public abstract class AbilityCardModel : AbstractModel<AbilityCardModel>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build())
 		];
 	}
 }

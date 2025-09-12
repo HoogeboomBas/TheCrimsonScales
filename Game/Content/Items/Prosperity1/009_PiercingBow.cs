@@ -1,3 +1,5 @@
+using Fractural.Tasks;
+
 public class PiercingBow : Prosperity1Item
 {
 	public override string Name => "Piercing Bow";
@@ -8,4 +10,22 @@ public class PiercingBow : Prosperity1Item
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
 	protected override int AtlasIndex => 16;
+
+	protected override void Subscribe()
+	{
+		base.Subscribe();
+
+		SubscribeDuringAttack(
+			canApply: state => state.Performer == Owner && state.SingleTargetRangeType == RangeType.Range,
+			apply: async state =>
+			{
+				await Use(async user =>
+				{
+					state.AbilitySetIgnoresAllShields();
+
+					await GDTask.CompletedTask;
+				});
+			}
+		);
+	}
 }

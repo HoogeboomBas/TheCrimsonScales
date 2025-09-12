@@ -13,18 +13,21 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 3)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(3).Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless], range: 2,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Bless)
+				.WithRange(2)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackAbilityState.Performed && attackAbilityState.KilledTargets.Count > 0;
-				}
-			))
+						return attackAbilityState.Performed && attackAbilityState.KilledTargets.Count > 0;
+					}
+				)
+				.Build())
 		];
 	}
 
@@ -32,47 +35,51 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(state.Performer, list =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 					{
-						if(state.Performer is Character character)
+						AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(state.Performer, list =>
 						{
-							foreach(AbilityCard roundCard in character.RoundCards)
+							if(state.Performer is Character character)
 							{
-								if(roundCard.CardState == CardState.Lost)
+								foreach(AbilityCard roundCard in character.RoundCards)
 								{
-									list.Add(roundCard);
+									if(roundCard.CardState == CardState.Lost)
+									{
+										list.Add(roundCard);
+									}
 								}
 							}
+						}, CardState.Lost, hintText: "Select a lost card to recover.");
+
+						if(abilityCard != null)
+						{
+							await AbilityCmd.ReturnToHand(abilityCard);
+
+							state.SetPerformed();
 						}
-					}, CardState.Lost, hintText: "Select a lost card to recover.");
 
-					if(abilityCard != null)
-					{
-						await AbilityCmd.ReturnToHand(abilityCard);
+						List<AbilityCard> selectedAbilityCards =
+							await AbilityCmd.SelectAbilityCards(state.Performer as Character, CardState.Discarded, 0, 2,
+								hintText: $"Select up to two discarded cards to recover");
 
-						state.SetPerformed();
+						foreach(AbilityCard selectedAbilityCard in selectedAbilityCards)
+						{
+							await AbilityCmd.ReturnToHand(selectedAbilityCard);
+
+							state.SetPerformed();
+						}
+
+						state.SetCustomValue(this, "RecoveredCards", selectedAbilityCards.Select(card => card.ReferenceId).ToList());
 					}
+				)
+				.Build()),
 
-					List<AbilityCard> selectedAbilityCards =
-						await AbilityCmd.SelectAbilityCards(state.Performer as Character, CardState.Discarded, 0, 2,
-							hintText: $"Select up to two discarded cards to recover");
-
-					foreach(AbilityCard selectedAbilityCard in selectedAbilityCards)
-					{
-						await AbilityCmd.ReturnToHand(selectedAbilityCard);
-
-						state.SetPerformed();
-					}
-
-					state.SetCustomValue(this, "RecoveredCards", selectedAbilityCards.Select(card => card.ReferenceId).ToList());
-				}
-			)),
-
-			new AbilityCardAbility(new OtherAbility(async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
-					List<int> recoveredCardIds = state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<List<int>>(this, "RecoveredCards");
+					List<int> recoveredCardIds = state.ActionState.GetAbilityState<OtherAbility.State>(0)
+						.GetCustomValue<List<int>>(this, "RecoveredCards");
 
 					AbilityCard selectedAbilityCard =
 						await AbilityCmd.SelectAbilityCard(state.Performer, list =>
@@ -88,24 +95,26 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 					{
 						await selectedAbilityCard.Bottom.Perform(state.Performer);
 					}
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					if(!await AbilityCmd.HasPerformedAbility(state, 0))
+				})
+				.WithConditionalAbilityCheck(async state =>
 					{
-						return false;
+						if(!await AbilityCmd.HasPerformedAbility(state, 0))
+						{
+							return false;
+						}
+
+						List<int> recoveredCardIds = state.ActionState.GetAbilityState<OtherAbility.State>(0)
+							.GetCustomValue<List<int>>(this, "RecoveredCards");
+
+						if(recoveredCardIds == null || recoveredCardIds.Count == 0)
+						{
+							return false;
+						}
+
+						return true;
 					}
-
-					List<int> recoveredCardIds = state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<List<int>>(this, "RecoveredCards");
-
-					if(recoveredCardIds == null || recoveredCardIds.Count == 0)
-					{
-						return false;
-					}
-
-					return true;
-				}
-			))
+				)
+				.Build())
 		];
 
 		protected override bool Loss => true;

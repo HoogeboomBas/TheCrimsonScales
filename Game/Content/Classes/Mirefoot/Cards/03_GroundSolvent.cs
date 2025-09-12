@@ -13,50 +13,58 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Poison1], range: 3,
-				aoePattern: new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
-					]
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Poison1)
+				.WithRange(3)
+				.WithAOEPattern(new AOEPattern(
+						[
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
+						]
+					)
 				)
-			)),
+				.Build()),
 
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-			{
-				ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
-
-				if(conditionAbilityState.Performed)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 				{
-					List<Hex> hexes = new List<Hex>();
-					foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
+					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
+
+					if(conditionAbilityState.Performed)
 					{
-						Hex hex = GameController.Instance.Map.GetHex(coords);
-						if(hex != null && hex.IsFeatureless())
+						List<Hex> hexes = new List<Hex>();
+						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
 						{
-							hexes.Add(hex);
+							Hex hex = GameController.Instance.Map.GetHex(coords);
+							if(hex != null && hex.IsFeatureless())
+							{
+								hexes.Add(hex);
+							}
+						}
+
+						List<Hex> selectedHexes =
+							await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count, true,
+								"Select hexes to place difficult terrain in");
+
+						foreach(Hex selectedHex in selectedHexes)
+						{
+							await CreateDifficultTerrain(selectedHex);
+						}
+
+						if(selectedHexes.Count > 0)
+						{
+							abilityState.SetPerformed();
 						}
 					}
 
-					List<Hex> selectedHexes =
-						await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count, true, "Select hexes to place difficult terrain in");
+					await GDTask.CompletedTask;
+				})
+				.Build()),
 
-					foreach(Hex selectedHex in selectedHexes)
-					{
-						await CreateDifficultTerrain(selectedHex);
-					}
-
-					if(selectedHexes.Count > 0)
-					{
-						abilityState.SetPerformed();
-					}
-				}
-
-				await GDTask.CompletedTask;
-			})),
-
-			new AbilityCardAbility(new AttackAbility(0, target: Target.Enemies | Target.TargetAll,
-				customGetTargets: (abilityState, list) =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithCustomGetTargets((abilityState, list) =>
 				{
 					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
 
@@ -74,9 +82,9 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 	}
 
@@ -84,8 +92,9 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Subscribe(state.Performer, this,
 						parameters => parameters.AbilityState == state && !parameters.Hex.HasHexObjectOfType<DifficultTerrain>(),
@@ -96,16 +105,17 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
-				{
-					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
+				})
+				.WithOnAbilityEnded(async state =>
+					{
+						ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2))
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build())
 		];
 	}
 }

@@ -7,8 +7,8 @@ public abstract class AMDCard : IDeckCard
 	public virtual bool Reshuffles => false;
 	public virtual bool Rolling => false;
 	public virtual bool RemoveAfterDraw => false;
-	public virtual bool IsCrit => false;
-	public virtual bool IsNull => false;
+	public virtual AMDCardType Type => AMDCardType.Value;
+	public virtual int? Value => 0;
 
 	private readonly string _textureAtlasPath;
 	private readonly int _atlasIndex;
@@ -25,19 +25,14 @@ public abstract class AMDCard : IDeckCard
 		_textureAtlasRowsCount = textureAtlasRowsCount;
 	}
 
-	public async GDTask Apply(AttackAbility.State attackAbilityState)
+	public async GDTask<AMDCardValue> Draw(AttackAbility.State attackAbilityState)
 	{
-		int value = GetValue(attackAbilityState);
 		ScenarioEvents.AMDCardDrawn.Parameters amdCardDrawnParameters =
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
-				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this, value), attackAbilityState);
-
-		attackAbilityState.SingleTargetAdjustAttackValue(amdCardDrawnParameters.Value);
+				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
+				
+		return new(amdCardDrawnParameters.Type, amdCardDrawnParameters.Value);
 	}
-
-	protected abstract int GetValue(AttackAbility.State attackAbilityState);
-
-	public abstract (int, bool) GetScore(AttackAbility.State attackAbilityState);
 
 	public Texture2D GetTexture()
 	{

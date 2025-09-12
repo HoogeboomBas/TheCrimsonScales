@@ -12,9 +12,11 @@ public class PlayingWithFire : FireKnightCardModel<PlayingWithFire.CardTop, Play
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3, conditions: [Conditions.Wound1],
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithConditions(Conditions.Wound1)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -25,8 +27,8 @@ public class PlayingWithFire : FireKnightCardModel<PlayingWithFire.CardTop, Play
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}, advantage")
 					)
-				]
-			)),
+				)
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<ExplosiveTonic>(), ModelDB.Item<EmberCladding>()],
 				conditionalAbilityCheck: async state =>
@@ -43,9 +45,9 @@ public class PlayingWithFire : FireKnightCardModel<PlayingWithFire.CardTop, Play
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(6,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(6)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -60,8 +62,8 @@ public class PlayingWithFire : FireKnightCardModel<PlayingWithFire.CardTop, Play
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

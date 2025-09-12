@@ -11,8 +11,8 @@ public class Salvation : HierophantPrayerCardModel<Salvation.CardTop, Salvation.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.296f)), new UseSlot(new Vector2(0.603f, 0.296f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.ShieldCheckEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
@@ -35,15 +35,22 @@ public class Salvation : HierophantPrayerCardModel<Salvation.CardTop, Salvation.
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.Shield, delay: 0f);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
-					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
+						ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.296f)),
+						new UseSlot(new Vector2(0.603f, 0.296f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -53,7 +60,7 @@ public class Salvation : HierophantPrayerCardModel<Salvation.CardTop, Salvation.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ShieldAbility(1))
+			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];

@@ -12,7 +12,7 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, range: 2)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(2).Build()),
 
 			new AbilityCardAbility(GivePrayerCardAbility(
 				conditionalAbilityCheck: async state =>
@@ -31,53 +31,60 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				duringMovementSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Earth,
-						applyFunction: async applyParameters =>
-						{
-							applyParameters.AbilityState.AdjustMoveValue(1);
-							applyParameters.AbilityState.SetCustomValue(this, "EarthConsumed", true);
-							await GDTask.CompletedTask;
-						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Move)}")
-					),
-					ScenarioEvent<ScenarioEvents.DuringMovement.Parameters>.Subscription.ConsumeElement(Element.Light,
-						applyFunction: async applyParameters =>
-						{
-							applyParameters.AbilityState.AdjustMoveValue(1);
-							applyParameters.AbilityState.SetCustomValue(this, "LightConsumed", true);
-							await GDTask.CompletedTask;
-						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Move)}")
-					)
-				]
-			)),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithDuringMovementSubscriptions(
+					[
+						ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Earth,
+							applyFunction: async applyParameters =>
+							{
+								applyParameters.AbilityState.AdjustMoveValue(1);
+								applyParameters.AbilityState.SetCustomValue(this, "EarthConsumed", true);
+								await GDTask.CompletedTask;
+							},
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Move)}")
+						),
+						ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Light,
+							applyFunction: async applyParameters =>
+							{
+								applyParameters.AbilityState.AdjustMoveValue(1);
+								applyParameters.AbilityState.SetCustomValue(this, "LightConsumed", true);
+								await GDTask.CompletedTask;
+							},
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Move)}")
+						)
+					]
+				)
+				.Build()),
 
-			new AbilityCardAbility(new ShieldAbility(1,
-				conditionalAbilityCheck: async state =>
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(1)
+				.WithConditionalAbilityCheck(async state =>
 				{
 					await GDTask.CompletedTask;
 
 					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "EarthConsumed");
-				},
-				onAbilityEndedPerformed: async state =>
-				{
-					state.ActionState.SetOverrideRound();
+				})
+				.WithOnAbilityEndedPerformed(async state =>
+					{
+						state.ActionState.SetOverrideRound();
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
-			new AbilityCardAbility(new HealAbility(1, range: 3,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(1)
+				.WithRange(3)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "LightConsumed");
-				}
-			))
+						return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "LightConsumed");
+					}
+				)
+				.Build())
 		];
 	}
 }

@@ -12,7 +12,10 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, conditions: [Conditions.Poison3, Conditions.Stun]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithConditions(Conditions.Poison3, Conditions.Stun)
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -23,8 +26,9 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(5,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(5)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -37,13 +41,14 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 						});
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
+				})
+				.WithOnAbilityEnded(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 	}
 }

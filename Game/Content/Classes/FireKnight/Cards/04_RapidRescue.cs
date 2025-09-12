@@ -13,8 +13,9 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Subscribe(state.Performer, this,
 						parameters =>
@@ -27,18 +28,19 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
-				{
-					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
+				})
+				.WithOnAbilityEnded(async state =>
+					{
+						ScenarioCheckEvents.MoveCanStopAtCheckEvent.Unsubscribe(state.Performer, this);
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -47,10 +49,11 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")
+						effectInfoViewParameters: new TextEffectInfoView.Parameters(
+							$"+1{Icons.Inline(Icons.Attack)}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -58,7 +61,10 @@ public class RapidRescue : FireKnightCardModel<RapidRescue.CardTop, RapidRescue.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [new MoveAbility(3)], range: 3)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<RescueAxe>(), ModelDB.Item<RescueShield>()],
 				onItemGiven: async (state, item) =>

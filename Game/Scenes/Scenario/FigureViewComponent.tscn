@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bgv3secgxmvit" path="res://Art/Icons/Abilities/DropSolid.svg" id="2_6qsfo"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_4xl1m"]
 [ext_resource type="Texture2D" uid="uid://dwfu45tw4q2o" path="res://Art/Icons/Abilities/Retaliate.svg" id="4_7kqfs"]
-[ext_resource type="Texture2D" uid="uid://dvxmn1gae8f7d" path="res://Art/Icons/Abilities/ShieldCustom.svg" id="4_lwj5n"]
 [ext_resource type="Texture2D" uid="uid://cht3jc2t48x72" path="res://Art/Other/HexagonOutline.svg" id="5_bs0xx"]
+[ext_resource type="Texture2D" uid="uid://b52qno1r2b0cb" path="res://Art/Icons/Abilities/Shield.svg" id="5_mf4sv"]
 [ext_resource type="Texture2D" uid="uid://vgdnn7dqdiiv" path="res://Art/Icons/Abilities/Flying.svg" id="7_etyjo"]
 [ext_resource type="PackedScene" uid="uid://bpwuqcoowtyi0" path="res://Scenes/Scenario/FigureActiveParticleSystemEdge.tscn" id="8_y46q5"]
 
@@ -106,7 +106,7 @@ position = Vector2(33, 7)
 
 [node name="Icon" type="Sprite2D" parent="Retaliate"]
 self_modulate = Color(0.848804, 0.479233, 0.203923, 1)
-scale = Vector2(0.23, 0.23)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("4_7kqfs")
 
 [node name="Label" type="Label" parent="Retaliate"]
@@ -131,8 +131,8 @@ position = Vector2(43, 43)
 
 [node name="Icon" type="Sprite2D" parent="Shield"]
 self_modulate = Color(0.262745, 0.607843, 0.913725, 1)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("4_lwj5n")
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("5_mf4sv")
 
 [node name="Label" type="Label" parent="Shield"]
 anchors_preset = 8
@@ -141,9 +141,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -9.0
-offset_top = -26.5
+offset_top = -23.0
 offset_right = 9.0
-offset_bottom = 26.5
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "5"
@@ -154,9 +154,16 @@ vertical_alignment = 1
 [node name="Flying" type="Node2D" parent="."]
 
 [node name="Icon" type="Sprite2D" parent="Flying"]
-position = Vector2(0, -60)
-scale = Vector2(0.2, 0.2)
+visible = false
+position = Vector2(-23, -77)
+scale = Vector2(0.14, 0.14)
 texture = ExtResource("7_etyjo")
+
+[node name="Icon2" type="Sprite2D" parent="Flying"]
+position = Vector2(-2, -74)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_etyjo")
+flip_h = true
 
 [node name="Conditions" type="Node2D" parent="."]
 position = Vector2(-60, 0)

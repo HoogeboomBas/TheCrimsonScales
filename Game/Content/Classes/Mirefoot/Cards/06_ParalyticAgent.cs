@@ -12,7 +12,10 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, conditions: [Conditions.Stun]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithConditions(Conditions.Stun)
+				.Build())
 		];
 	}
 
@@ -20,7 +23,7 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build())
 		];
 	}
 }

@@ -98,44 +98,46 @@ public class ArcherAbilityCard6 : ArcherAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				Hex hex = await AbilityCmd.SelectHex(state, list =>
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					int closestRange = int.MaxValue;
-					foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
+					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
-						if(!neighbourHex.IsEmpty())
+						int closestRange = int.MaxValue;
+						foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
 						{
-							continue;
-						}
-
-						foreach(Figure figure in GameController.Instance.Map.Figures)
-						{
-							if(state.Performer.EnemiesWith(figure))
+							if(!neighbourHex.IsEmpty())
 							{
-								int range = RangeHelper.Distance(neighbourHex, figure.Hex);
-								if(range == closestRange)
+								continue;
+							}
+
+							foreach(Figure figure in GameController.Instance.Map.Figures)
+							{
+								if(state.Performer.EnemiesWith(figure))
 								{
-									list.Add(neighbourHex);
-								}
-								else if(range < closestRange)
-								{
-									closestRange = range;
-									list.Clear();
-									list.Add(neighbourHex);
+									int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+									if(range == closestRange)
+									{
+										list.Add(neighbourHex);
+									}
+									else if(range < closestRange)
+									{
+										closestRange = range;
+										list.Clear();
+										list.Add(neighbourHex);
+									}
 								}
 							}
 						}
-					}
-				}, mandatory: true);
+					}, mandatory: true);
 
-				if(hex != null)
-				{
-					await AbilityCmd.CreateTrap(hex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn", damage: 3);
+					if(hex != null)
+					{
+						await AbilityCmd.CreateTrap(hex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn", damage: 3);
+					}
 				}
-			}
-		))
+			)
+			.Build())
 	];
 }
 

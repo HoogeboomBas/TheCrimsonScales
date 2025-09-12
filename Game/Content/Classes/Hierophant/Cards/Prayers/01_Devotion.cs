@@ -11,8 +11,8 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.296f)), new UseSlot(new Vector2(0.603f, 0.296f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -30,7 +30,7 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 						{
 							return
 								canApplyParameters.RetaliatingFigure == state.Performer &&
-								RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
+								canApplyParameters.AbilityState.SingleTargetRangeType == RangeType.Melee;
 						},
 						async applyParameters =>
 						{
@@ -41,18 +41,25 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
 
-					//state.Performer.UpdateRetaliate();
+						//state.Performer.UpdateRetaliate();
 
-					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+						ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.296f)),
+						new UseSlot(new Vector2(0.603f, 0.296f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -62,7 +69,7 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new RetaliateAbility(1))
+			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(1).Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

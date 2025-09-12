@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
 
@@ -10,38 +10,109 @@ public abstract class Ability<T> : Ability
 {
 	public delegate GDTask<bool> ConditionalAbilityCheckDelegate(T abilityState);
 
-	private readonly Func<T, GDTask> _onAbilityStarted;
-	private readonly Func<T, GDTask> _onAbilityEnded;
-	private readonly Func<T, GDTask> _onAbilityEndedPerformed;
+	private Func<T, GDTask> _onAbilityStarted;
+	private Func<T, GDTask> _onAbilityEnded;
+	private Func<T, GDTask> _onAbilityEndedPerformed;
 
-	private readonly ConditionalAbilityCheckDelegate _conditionalAbilityCheck;
+	private ConditionalAbilityCheckDelegate _conditionalAbilityCheck;
+	private bool _canPerformWhileStunned = false;
 
-	public List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> AbilityStartedSubscriptions { get; }
-	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; }
-	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; }
+	public List<ScenarioEvents.AbilityStarted.Subscription> AbilityStartedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; private set; } = [];
 
-	protected Ability(Func<T, GDTask> onAbilityStarted, Func<T, GDTask> onAbilityEnded, Func<T, GDTask> onAbilityEndedPerformed,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck,
-		List<ScenarioEvent<ScenarioEvents.AbilityStarted.Parameters>.Subscription> abilityStartedSubscriptions,
-		List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> abilityEndedSubscriptions,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder utilizing generics, which enables inheritors to extend the builder as well.
+	/// Simplifies adding new properties, which will automatically be propagated to inheritor builders.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any Ability extending Ability.
+	public abstract class AbstractBuilder<TBuilder, TAbility>
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : Ability<T>, new()
 	{
-		_onAbilityStarted = onAbilityStarted;
-		_onAbilityEnded = onAbilityEnded;
-		_onAbilityEndedPerformed = onAbilityEndedPerformed;
+		protected readonly TAbility Obj = new TAbility();
 
-		_conditionalAbilityCheck = conditionalAbilityCheck;
+		public TBuilder WithOnAbilityStarted(Func<T, GDTask> onAbilityStarted)
+		{
+			Obj._onAbilityStarted = onAbilityStarted;
+			return (TBuilder)this;
+		}
 
-		AbilityStartedSubscriptions = abilityStartedSubscriptions;
-		AbilityEndedSubscriptions = abilityEndedSubscriptions;
-		AbilityPerformedSubscriptions = abilityPerformedSubscriptions;
+		public TBuilder WithOnAbilityEnded(Func<T, GDTask> onAbilityEnded)
+		{
+			Obj._onAbilityEnded = onAbilityEnded;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnAbilityEndedPerformed(Func<T, GDTask> onAbilityEndedPerformed)
+		{
+			Obj._onAbilityEndedPerformed = onAbilityEndedPerformed;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithConditionalAbilityCheck(ConditionalAbilityCheckDelegate conditionalAbilityCheck)
+		{
+			Obj._conditionalAbilityCheck = conditionalAbilityCheck;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCanPerformWhileStunned(bool canPerformWhileStunned)
+		{
+			Obj._canPerformWhileStunned = canPerformWhileStunned;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityStartedSubscription(ScenarioEvents.AbilityStarted.Subscription abilityStartedSubscription)
+		{
+			Obj.AbilityStartedSubscriptions.Add(abilityStartedSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityStartedSubscriptions(List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions)
+		{
+			Obj.AbilityStartedSubscriptions = abilityStartedSubscriptions;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityEndedSubscription(ScenarioEvents.AbilityEnded.Subscription abilityEndedSubscription)
+		{
+			Obj.AbilityEndedSubscriptions.Add(abilityEndedSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityEndedSubscriptions(List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions)
+		{
+			Obj.AbilityEndedSubscriptions = abilityEndedSubscriptions;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityPerformedSubscription(ScenarioEvents.AbilityPerformed.Subscription abilityPerformedSubscription)
+		{
+			Obj.AbilityPerformedSubscriptions.Add(abilityPerformedSubscription);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAbilityPerformedSubscriptions(List<ScenarioEvents.AbilityPerformed.Subscription> abilityPerformedSubscriptions)
+		{
+			Obj.AbilityPerformedSubscriptions = abilityPerformedSubscriptions;
+			return (TBuilder)this;
+		}
+
+		public virtual TAbility Build()
+		{
+			return Obj;
+		}
 	}
+
+	protected Ability() { }
 
 	public override async GDTask Perform(ActionState actionState)
 	{
 		T abilityState = new T()
 		{
-			ActionState = actionState
+			ActionState = actionState,
+			CanPerformWhileStunned = _canPerformWhileStunned
 		};
 
 		InitializeState(abilityState);

@@ -27,14 +27,14 @@ public class ScenarioCheckEvents
 
 	public class MoveCheck : ScenarioCheckEvent<MoveCheck.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Figure performer, Hex hex, MoveNode parentNode, int moveCost, bool affectedByNegativeHex)
+		public class Parameters(AbilityState abilityState, Figure performer, Hex hex, Hex fromHex, int moveCost, bool affectedByNegativeHex)
 			: ParametersBase
 		{
 			public AbilityState AbilityState { get; } = abilityState;
 
 			public Figure Performer { get; } = performer;
 			public Hex Hex { get; } = hex;
-			public MoveNode ParentNode { get; } = parentNode;
+			public Hex FromHex { get; } = fromHex;
 
 			public int MoveCost { get; private set; } = moveCost;
 			public bool AffectedByNegativeHex { get; private set; } = affectedByNegativeHex;

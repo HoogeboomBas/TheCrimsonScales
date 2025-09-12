@@ -12,18 +12,19 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, conditions: [Conditions.Immobilize],
-				afterTargetConfirmedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithConditions(Conditions.Immobilize)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.AbilityState.Performer.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 							await AbilityCmd.GainXP(parameters.Performer, 1);
-						}),
-				]
-			))
+						})
+				)
+				.Build())
 		];
 	}
 
@@ -31,13 +32,14 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(state =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(state, this,
 						canApplyParameters =>
 							canApplyParameters.Performer == state.Performer &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -60,17 +62,18 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 						});
 
 					return GDTask.CompletedTask;
-				},
-				state =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(state, this);
-					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(state =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(state, this);
+						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(state, this);
 
-					return GDTask.CompletedTask;
-				}
-			)),
+						return GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
-			new AbilityCardAbility(new MoveAbility(6))
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(6).Build())
 		];
 
 		protected override int XP => 2;

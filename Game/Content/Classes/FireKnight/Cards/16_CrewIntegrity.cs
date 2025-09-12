@@ -12,9 +12,9 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -29,9 +29,8 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				)
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -41,10 +40,9 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 							await GDTask.CompletedTask;
 						}
 					)
-				],
-				afterAttackPerformedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
+				)
+				.WithAfterAttackPerformedSubscription(
+					ScenarioEvents.AfterAttackPerformed.Subscription.New(
 						parameters => true,
 						async parameters =>
 						{
@@ -57,8 +55,8 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 							}
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -66,10 +64,12 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure => [new MoveAbility(3)], targets: 2, range: 3,
-				target: Target.SelfOrAllies | Target.SelfCountsForTargets,
-				duringGrantSubscriptions:
-				[
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithTargets(2)
+				.WithRange(3)
+				.WithTarget(Target.SelfOrAllies | Target.SelfCountsForTargets)
+				.WithDuringGrantSubscription(
 					ScenarioEvents.DuringGrant.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -78,8 +78,8 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

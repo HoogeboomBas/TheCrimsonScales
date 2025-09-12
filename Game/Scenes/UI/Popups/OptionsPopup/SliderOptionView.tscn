@@ -6,7 +6,8 @@
 
 [node name="SliderOptionView" node_paths=PackedStringArray("_slider") instance=ExtResource("1_r2wg2")]
 script = ExtResource("2_cyw7o")
-_slider = NodePath("Panel/ValueContainer/BetterSlider")
+_slider = NodePath("ValueContainer/BetterSlider")
 
-[node name="BetterSlider" parent="Panel/ValueContainer" index="0" instance=ExtResource("3_cyw7o")]
+[node name="BetterSlider" parent="ValueContainer" index="0" instance=ExtResource("3_cyw7o")]
 layout_mode = 2
+size_flags_horizontal = 8

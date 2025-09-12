@@ -20,9 +20,10 @@ public class RescueAxe : FireKnightItem
 
 					ActionState actionState = new ActionState(user,
 						[
-							new AttackAbility(2, conditions: [Conditions.Muddle],
-								duringAttackSubscriptions:
-								[
+							AttackAbility.Builder()
+								.WithDamage(2)
+								.WithConditions(Conditions.Muddle)
+								.WithDuringAttackSubscription(
 									ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 										applyFunction: async parameters =>
 										{
@@ -31,10 +32,11 @@ public class RescueAxe : FireKnightItem
 
 											await GDTask.CompletedTask;
 										},
-										effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Wound1))} instead")
+										effectInfoViewParameters: new TextEffectInfoView.Parameters(
+											$"{Icons.Inline(Icons.GetCondition(Conditions.Wound1))} instead")
 									)
-								]
-							)
+								)
+								.Build()
 						]
 					);
 					await actionState.Perform();

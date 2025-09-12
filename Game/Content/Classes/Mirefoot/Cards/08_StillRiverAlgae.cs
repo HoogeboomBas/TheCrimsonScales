@@ -11,8 +11,11 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new LootAbility(1)),
-			new AbilityCardAbility(new ConditionAbility(range: 1, conditions: [Conditions.Strengthen]))
+			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Strengthen)
+				.WithRange(1)
+				.Build())
 		];
 	}
 
@@ -20,24 +23,26 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-			{
-				Hex hex = abilityState.Performer.Hex;
-
-				if(hex.IsFeatureless())
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 				{
-					List<Hex> selectedHexes =
-						await AbilityCmd.SelectHexes(abilityState, list => list.Add(hex), 0, 1, true, "Place difficult terrain?");
+					Hex hex = abilityState.Performer.Hex;
 
-					foreach(Hex selectedHex in selectedHexes)
+					if(hex.IsFeatureless())
 					{
-						await CreateDifficultTerrain(selectedHex);
-						abilityState.SetPerformed();
-					}
-				}
-			})),
+						List<Hex> selectedHexes =
+							await AbilityCmd.SelectHexes(abilityState, list => list.Add(hex), 0, 1, true, "Place difficult terrain?");
 
-			new AbilityCardAbility(new MoveAbility(3))
+						foreach(Hex selectedHex in selectedHexes)
+						{
+							await CreateDifficultTerrain(selectedHex);
+							abilityState.SetPerformed();
+						}
+					}
+				})
+				.Build()),
+
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build())
 		];
 	}
 }

@@ -90,8 +90,6 @@ public partial class MovePath : Node2D
 				}, 0.03f).SetEasing(Easing.Linear).PlayAsync(cancellationToken);
 			}
 
-			AddChild(new Node2D());
-
 			foreach(Hex waypointHex in waypointHexes)
 			{
 				TryAddWaypoint(waypointHex);

@@ -11,11 +11,11 @@ public partial class LoadingSceneController : SingletonNode<LoadingSceneControll
 	public async GDTask FadeIn(CancellationToken ct)
 	{
 		_background.Modulate = new Color(1f, 1f, 1f, 0f);
-		await _background.TweenModulateAlpha(1f, 0.2f).PlayAsync(ct);
+		await _background.TweenModulateAlpha(1f, 0.1f).PlayAsync(ct);
 	}
 
 	public async GDTask FadeOut(CancellationToken ct)
 	{
-		await _background.TweenModulateAlpha(0f, 0.2f).PlayAsync(ct);
+		await _background.TweenModulateAlpha(0f, 0.1f).PlayAsync(ct);
 	}
 }

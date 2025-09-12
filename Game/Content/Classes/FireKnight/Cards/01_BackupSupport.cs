@@ -14,9 +14,9 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -32,18 +32,21 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen], target: Target.Allies,
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Strengthen)
+				.WithTarget(Target.Allies)
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					return attackAbilityState.Performed && attackAbilityState.GetCustomValue<bool>(this, "AddedRange");
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						return attackAbilityState.Performed && attackAbilityState.GetCustomValue<bool>(this, "AddedRange");
+					}
+				)
+				.Build())
 		];
 	}
 
@@ -51,10 +54,10 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(5)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5560003f, 0.8259989f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters =>
@@ -69,14 +72,16 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5560003f, 0.8259989f), GainXP))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire];

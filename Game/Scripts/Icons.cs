@@ -10,11 +10,13 @@
 	public const string Damage = "res://Art/Icons/Abilities/Damage.svg";
 	public const string Push = "res://Art/Icons/ConditionsAndEffects/Push.svg";
 	public const string Pull = "res://Art/Icons/ConditionsAndEffects/Pull.svg";
-	public const string Shield = "res://Art/Icons/Abilities/ShieldCustom.svg";
+    public const string Swing = "res://Art/Icons/ConditionsAndEffects/Swing.svg";
+	public const string Shield = "res://Art/Icons/Abilities/Shield.svg";
 	public const string Retaliate = "res://Art/Icons/Abilities/Retaliate.svg";
 	public const string Pierce = "res://Art/Icons/ConditionsAndEffects/Pierce.svg";
 	public const string Targets = "res://Art/Icons/Abilities/Targets.svg";
 	public const string Jump = "res://Art/Icons/Abilities/Jump.svg";
+	public const string Teleport = "res://Art/Icons/Abilities/Teleport.svg";
 
 	public static string GetElement(Element element)
 	{

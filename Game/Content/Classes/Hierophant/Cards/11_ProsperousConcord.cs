@@ -12,10 +12,10 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 3)),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(3).Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					//TODO: Add visual (character token) to target(?)
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
@@ -34,15 +34,15 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];
@@ -53,38 +53,42 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 1,
-				afterTargetConfirmedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
-						canApplyFunction: canApplyParameters =>
-							canApplyParameters.AbilityState.Performer.AlliedWith(canApplyParameters.AbilityState.Target),
-						applyFunction: async applyParameters =>
-						{
-							applyParameters.AbilityState.SetCustomValue(this, "StrengthenAdded", true);
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithRange(1)
+				.WithAfterTargetConfirmedSubscriptions(
+					[
+						ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
+							canApplyFunction: canApplyParameters =>
+								canApplyParameters.AbilityState.Performer.AlliedWith(canApplyParameters.AbilityState.Target),
+							applyFunction: async applyParameters =>
+							{
+								applyParameters.AbilityState.SetCustomValue(this, "StrengthenAdded", true);
 
-							applyParameters.AbilityState.SingleTargetAddCondition(Conditions.Strengthen);
-							applyParameters.AbilityState.SingleTargetAdjustHealValue(-2);
+								applyParameters.AbilityState.SingleTargetAddCondition(Conditions.Strengthen);
+								applyParameters.AbilityState.SingleTargetAdjustHealValue(-2);
 
-							await GDTask.CompletedTask;
-						},
-						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Strengthen)),
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"-2{Icons.Inline(Icons.Heal)}, {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}"),
-						effectType: EffectType.Selectable
-					),
+								await GDTask.CompletedTask;
+							},
+							effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Strengthen)),
+							effectInfoViewParameters: new TextEffectInfoView.Parameters(
+								$"-2{Icons.Inline(Icons.Heal)}, {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}"),
+							effectType: EffectType.Selectable
+						),
 
-					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.ConsumeElement(Element.Light,
-						canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "StrengthenAdded"),
-						applyFunction: async applyParameters =>
-						{
-							applyParameters.AbilityState.SingleTargetAdjustHealValue(2);
+						ScenarioEvents.HealAfterTargetConfirmed.Subscription.ConsumeElement(Element.Light,
+							canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "StrengthenAdded"),
+							applyFunction: async applyParameters =>
+							{
+								applyParameters.AbilityState.SingleTargetAdjustHealValue(2);
 
-							await GDTask.CompletedTask;
-						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}")
-					)
-				]
-			))
+								await GDTask.CompletedTask;
+							},
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}")
+						)
+					]
+				)
+				.Build())
 		];
 	}
 }

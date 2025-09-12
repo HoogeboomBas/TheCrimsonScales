@@ -13,42 +13,50 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3, conditions: [Conditions.Immobilize], aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
-			]))),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithConditions(Conditions.Immobilize)
+				.WithAOEPattern(new AOEPattern([
+					new AOEHex(Vector2I.Zero, AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
+				]))
+				.Build()),
 
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-			{
-				AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
-				if(!attackAbilityState.Performed)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 				{
-					return;
-				}
-
-				List<Hex> possibleHexes = new List<Hex>();
-				foreach(Hex aoeHex in attackAbilityState.GetRedAOEHexes())
-				{
-					if(aoeHex.IsFeatureless())
+					AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
+					if(!attackAbilityState.Performed)
 					{
-						possibleHexes.Add(aoeHex);
+						return;
 					}
-				}
 
-				List<Hex> selectedHexes =
-					await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(possibleHexes), 0, possibleHexes.Count, true, "Place difficult terrain?");
+					List<Hex> possibleHexes = new List<Hex>();
+					foreach(Hex aoeHex in attackAbilityState.GetRedAOEHexes())
+					{
+						if(aoeHex.IsFeatureless())
+						{
+							possibleHexes.Add(aoeHex);
+						}
+					}
 
-				foreach(Hex selectedHex in selectedHexes)
-				{
-					await CreateDifficultTerrain(selectedHex);
-					abilityState.SetPerformed();
-				}
-			}))
+					List<Hex> selectedHexes =
+						await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(possibleHexes), 0, possibleHexes.Count, true,
+							"Place difficult terrain?");
+
+					foreach(Hex selectedHex in selectedHexes)
+					{
+						await CreateDifficultTerrain(selectedHex);
+						abilityState.SetPerformed();
+					}
+				})
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -59,10 +67,10 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				abilityState =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
@@ -77,13 +85,14 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 						});
 
 					return GDTask.CompletedTask;
-				},
-				abilityState =>
+				})
+				.WithOnDeactivate(abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
 
 					return GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 
 		protected override int XP => 2;

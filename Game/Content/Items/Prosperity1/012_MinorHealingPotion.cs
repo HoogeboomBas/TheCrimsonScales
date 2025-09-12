@@ -19,7 +19,7 @@ public class MinorHealingPotion : Prosperity1Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character, [new HealAbility(3, target: Target.Self)]);
+					ActionState actionState = new ActionState(character, [HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
 					await actionState.Perform();
 				});
 			}

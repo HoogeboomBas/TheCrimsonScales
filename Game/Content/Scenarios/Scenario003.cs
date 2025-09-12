@@ -18,20 +18,23 @@ public class Scenario003 : ScenarioModel
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 
 	private readonly List<Water> _waterTiles = new List<Water>();
+	private readonly List<Hex> _waterSpawnHexes = new List<Hex>();
 
 	public override async GDTask Start()
 	{
 		await base.Start();
 
 		UpdateScenarioText(
-			$"At the end of each round, the water tiles marked {Icons.Marker(Marker.Type.a)} move one hex toward the hexes marked {Icons.Marker(Marker.Type.b)}. " +
-			"These water tiles cannot be removed. After the first round, a new column of water tiles will spawn to the right of the first colum." +
+			$"At the end of each round, the water tiles marked {Icons.Marker(Marker.Type.a)} " +
+			$"and all spawned water tiles to the right of them move one hex toward the hexes marked {Icons.Marker(Marker.Type.b)}. " +
+			"These water tiles cannot be removed. After every round, a new column of water tiles will spawn to the right of the other columns." +
 			$"\nWhen all hexes marked {Icons.Marker(Marker.Type.b)} are occupied by water tiles, the scenario is immediately lost.");
 
 		foreach(Marker marker in GameController.Instance.Map.Markers)
 		{
 			if(marker.MarkerType == Marker.Type.a)
 			{
+				_waterSpawnHexes.Add(marker.Hex);
 				_waterTiles.Add(marker.GetHexObject<Water>());
 			}
 		}
@@ -57,24 +60,14 @@ public class Scenario003 : ScenarioModel
 					water.SetOriginHexAndRotation(newHex);
 				}
 
-				if(parameters.RoundIndex == 0)
+				// Spawn a new column of water hexes to follow the first column
+				for(int i = _waterSpawnHexes.Count - 1; i >= 0; i--)
 				{
-					// Spawn a new column of water hexes to follow the first column
-					for(int i = _waterTiles.Count - 1; i >= 0; i--)
-					{
-						Water water = _waterTiles[i];
-						Hex currentHex = water.Hex;
-						Hex newHex = GameController.Instance.Map.GetHex(currentHex.Coords.Add(Direction.East));
-						Water newWater =
-							await AbilityCmd.CreateDifficultTerrain(newHex,
-								ResourceLoader.Load<PackedScene>("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn")) as Water;
-						_waterTiles.Add(newWater);
-					}
-
-					UpdateScenarioText(
-						$"At the end of each round, the water tiles marked {Icons.Marker(Marker.Type.a)} and the water tiles to the right of them move one hex toward the hexes marked {Icons.Marker(Marker.Type.b)}. " +
-						"These water tiles cannot be removed." +
-						$"\nWhen all hexes marked {Icons.Marker(Marker.Type.b)} are occupied by water tiles, the scenario is immediately lost.");
+					Hex newHex = _waterSpawnHexes[i];
+					Water newWater =
+						await AbilityCmd.CreateDifficultTerrain(newHex,
+							ResourceLoader.Load<PackedScene>("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn")) as Water;
+					_waterTiles.Add(newWater);
 				}
 
 				if(parameters.RoundIndex == 10)

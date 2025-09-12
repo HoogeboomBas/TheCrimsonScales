@@ -1,38 +1,90 @@
 ﻿using System;
-using System.Collections.Generic;
 using Fractural.Tasks;
 
+/// <summary>
+/// An <see cref="ActiveAbility{T}"/> that reduces the damage suffered from attacks.
+/// </summary>
 public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 {
 	public class State : ActiveAbilityState
 	{
 	}
 
-	private readonly Func<ScenarioEvents.SufferDamage.Parameters, bool> _customCanApply;
-	private readonly bool _customCanApplyReplaceFully;
+	private Func<ScenarioEvents.SufferDamage.Parameters, bool> _customCanApply;
+	private bool _customCanApplyReplaceFully;
 
-	public DynamicInt<State> ShieldValue { get; }
-	public RangeType? RequiredRangeType { get; }
-	public bool Pierceable { get; }
+	public DynamicInt<State> ShieldValue { get; private set; }
+	public RangeType? RequiredRangeType { get; private set; }
+	public bool Pierceable { get; private set; } = true;
 
 	public bool ConditionalValue => RequiredRangeType.HasValue || _customCanApply != null;
 
-	public ShieldAbility(DynamicInt<State> shieldValue, RangeType? requiredRangeType = null, bool pierceable = true,
-		Func<ScenarioEvents.SufferDamage.Parameters, bool> customCanApply = null, bool customCanApplyReplaceFully = false,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in ShieldAbility. Enables inheritors of ShieldAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending ShieldAbility.
+	public new class AbstractBuilder<TBuilder, TAbility> : ActiveAbility<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IShieldValueStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : ShieldAbility, new()
 	{
-		ShieldValue = shieldValue;
-		RequiredRangeType = requiredRangeType;
-		Pierceable = pierceable;
-		_customCanApply = customCanApply;
-		_customCanApplyReplaceFully = customCanApplyReplaceFully;
+		public interface IShieldValueStep
+		{
+			TBuilder WithShieldValue(DynamicInt<State> shieldValue);
+		}
+
+		public TBuilder WithCustomCanApply(Func<ScenarioEvents.SufferDamage.Parameters, bool> customCanApply)
+		{
+			Obj._customCanApply = customCanApply;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCustomCanApplyReplaceFully(bool customCanApplyReplaceFully)
+		{
+			Obj._customCanApplyReplaceFully = customCanApplyReplaceFully;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithShieldValue(DynamicInt<State> shieldValue)
+		{
+			Obj.ShieldValue = shieldValue;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithRequiredRangeType(RangeType rangeType)
+		{
+			Obj.RequiredRangeType = rangeType;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithPierceable(bool pierceable)
+		{
+			Obj.Pierceable = pierceable;
+			return (TBuilder)this;
+		}
 	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class ShieldBuilder : AbstractBuilder<ShieldBuilder, ShieldAbility>
+	{
+		internal ShieldBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of ShieldBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static ShieldBuilder.IShieldValueStep Builder()
+	{
+		return new ShieldBuilder();
+	}
+
+	public ShieldAbility() { }
 
 	protected override async GDTask Perform(State abilityState)
 	{

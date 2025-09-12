@@ -12,8 +12,10 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3, push: 2,
-				onAbilityStarted: async state =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithPush(2)
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						parameters =>
@@ -27,14 +29,15 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async state =>
-				{
-					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+				})
+				.WithOnAbilityEnded(async state =>
+					{
+						ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 
@@ -42,13 +45,15 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
 							canApplyParameters.AbilityState == abilityState &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -79,15 +84,16 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 					}
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
-					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
+				})
+				.WithOnAbilityEnded(async abilityState =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
+						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 }

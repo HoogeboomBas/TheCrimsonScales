@@ -65,15 +65,15 @@ public class ScenarioEvents
 	private readonly DuringAttack _duringAttack = new DuringAttack();
 	public static DuringAttack DuringAttackEvent => GameController.Instance.ScenarioEvents._duringAttack;
 
-	private readonly AttackAfterTargetConfirmed _attackAfterTargetConfirmed = new AttackAfterTargetConfirmed();
-	public static AttackAfterTargetConfirmed AttackAfterTargetConfirmedEvent => GameController.Instance.ScenarioEvents._attackAfterTargetConfirmed;
-
 	public class AttackAfterTargetConfirmed : ScenarioEvent<AttackAfterTargetConfirmed.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState) : ParametersBase<AttackAbility.State>(abilityState)
 		{
 		}
 	}
+
+	private readonly AttackAfterTargetConfirmed _attackAfterTargetConfirmed = new AttackAfterTargetConfirmed();
+	public static AttackAfterTargetConfirmed AttackAfterTargetConfirmedEvent => GameController.Instance.ScenarioEvents._attackAfterTargetConfirmed;
 
 	public class AfterAttackPerformed : ScenarioEvent<AfterAttackPerformed.Parameters>
 	{
@@ -85,7 +85,31 @@ public class ScenarioEvents
 	private readonly AfterAttackPerformed _afterAttackPerformed = new AfterAttackPerformed();
 	public static AfterAttackPerformed AfterAttackPerformedEvent => GameController.Instance.ScenarioEvents._afterAttackPerformed;
 
-	public class AfterAttackDamageSuffered : ScenarioEvent<AfterAttackDamageSuffered.Parameters>
+	public class AMDCardDrawn : ScenarioEvent<AMDCardDrawn.Parameters>
+	{
+		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard)
+			: ParametersBase<AttackAbility.State>(abilityState)
+		{
+			public AMDCard AMDCard = amdCard;
+			public AMDCardType Type { get; private set; } = amdCard.Type;
+			public int? Value { get; private set; } = amdCard.Value;
+
+			public void SetType(AMDCardType type)
+			{
+				Type = type;
+			}
+
+			public void SetValue(int? value)
+			{
+				Value = value;
+			}
+		}
+	}
+
+	private readonly AMDCardDrawn _amdCardDrawn = new AMDCardDrawn();
+	public static AMDCardDrawn AMDCardDrawnEvent => GameController.Instance.ScenarioEvents._amdCardDrawn;
+
+	public class AMDTerminalDrawn : ScenarioEvent<AMDTerminalDrawn.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard)
 			: ParametersBase<AttackAbility.State>(abilityState)
@@ -94,46 +118,21 @@ public class ScenarioEvents
 		}
 	}
 
-	private readonly AfterAttackDamageSuffered _afterAttackDamageSuffered = new AfterAttackDamageSuffered();
-	public static AfterAttackDamageSuffered AfterAttackDamageSufferedEvent => GameController.Instance.ScenarioEvents._afterAttackDamageSuffered;
+	private readonly AMDTerminalDrawn _amdTerminalDrawn = new AMDTerminalDrawn();
+	public static AMDTerminalDrawn AMDTerminalDrawnEvent => GameController.Instance.ScenarioEvents._amdTerminalDrawn;
 
-	public class AMDCardDrawn : ScenarioEvent<AMDCardDrawn.Parameters>
+	public class AMDCardValueApplied : ScenarioEvent<AMDCardValueApplied.Parameters>
 	{
-		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard, int value)
+		public class Parameters(AttackAbility.State abilityState, AMDCardValue amdCardValue)
 			: ParametersBase<AttackAbility.State>(abilityState)
 		{
-			public AMDCard AMDCard { get; private set; } = amdCard;
-
-			public int Value { get; } = value;
-			public void SetCard(AMDCard amdCard)
-			{
-				AMDCard = amdCard;
-			}
+			public AMDCardValue AMDCardValue { get; } = amdCardValue;
 		}
 	}
 
-	private readonly AMDCardDrawn _amdCardDrawn = new AMDCardDrawn();
-	public static AMDCardDrawn AMDCardDrawnEvent => GameController.Instance.ScenarioEvents._amdCardDrawn;
-
-	public class AMDCardApplied : ScenarioEvent<AMDCardApplied.Parameters>
-	{
-		public class Parameters(AttackAbility.State abilityState, AMDCard amdCard, int value)
-			: ParametersBase<AttackAbility.State>(abilityState)
-		{
-			public AMDCard AMDCard { get; } = amdCard;
-
-			public int Value { get; private set; } = value;
-
-			public void SetValue(int value)
-			{
-				Value = value;
-			}
-		}
-	}
-
-	private readonly AMDCardApplied _amdCardApplied = new AMDCardApplied();
-	public static AMDCardApplied AMDCardAppliedEvent => GameController.Instance.ScenarioEvents._amdCardApplied;
-
+	private readonly AMDCardValueApplied _amdCardValueApplied = new AMDCardValueApplied();
+	public static AMDCardValueApplied AMDCardValueAppliedEvent => GameController.Instance.ScenarioEvents._amdCardValueApplied;
+	
 	public class DuringHeal : ScenarioEvent<DuringHeal.Parameters>
 	{
 		public class Parameters(HealAbility.State abilityState) : ParametersBase<HealAbility.State>(abilityState)
@@ -335,8 +334,10 @@ public class ScenarioEvents
 					return;
 				}
 
+				bool ignoresShield = PotentialAttackAbilityState?.SingleTargetIgnoresAllShields ?? false;
+
 				int finalPierce = Mathf.Max(PotentialAttackAbilityState?.SingleTargetPierce ?? 0, 0);
-				int finalShieldValue = Mathf.Max(Shield - finalPierce, 0) + UnpierceableShield;
+				int finalShieldValue = ignoresShield ? 0 : Mathf.Max(Shield - finalPierce, 0) + UnpierceableShield;
 				int finalDamage = Mathf.Max(InitialDamage - finalShieldValue, 0);
 
 				if(HasBrittle)

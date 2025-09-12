@@ -11,12 +11,18 @@ public class RapidFire : BombardCardModel<RapidFire.CardTop, RapidFire.CardBotto
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(targets: 3, range: 3,
-				getAbilities: hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder().WithGetAbilities(hex =>
 				[
-					new AttackAbility(4, rangeType: RangeType.Range, targetHex: hex)
-				], abilityCardSide: this
-			))
+					AttackAbility.Builder()
+						.WithDamage(4)
+						.WithRangeType(RangeType.Range)
+						.WithTargetHex(hex)
+						.Build()
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(3)
+				.WithTargets(3)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Air];
@@ -29,7 +35,11 @@ public class RapidFire : BombardCardModel<RapidFire.CardTop, RapidFire.CardBotto
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, targets: 3, range: 3))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithTargets(3)
+				.WithRange(3)
+				.Build())
 		];
 	}
 }

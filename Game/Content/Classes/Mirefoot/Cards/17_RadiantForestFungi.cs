@@ -12,33 +12,35 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async abilityState =>
-				{
-					List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
-						list =>
-						{
-							foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 1, true))
-							{
-								if(possibleHex != null && possibleHex.IsFeatureless())
-								{
-									list.Add(possibleHex);
-								}
-							}
-						},
-						0, 2, false, "Place difficult terrain in up to two adjacent hexes"
-					);
-
-					foreach(Hex selectedHex in selectedHexes)
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async abilityState =>
 					{
-						await CreateDifficultTerrain(selectedHex);
+						List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
+							list =>
+							{
+								foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 1, true))
+								{
+									if(possibleHex != null && possibleHex.IsFeatureless())
+									{
+										list.Add(possibleHex);
+									}
+								}
+							},
+							0, 2, false, "Place difficult terrain in up to two adjacent hexes"
+						);
 
-						abilityState.SetPerformed();
+						foreach(Hex selectedHex in selectedHexes)
+						{
+							await CreateDifficultTerrain(selectedHex);
+
+							abilityState.SetPerformed();
+						}
 					}
-				}
-			)),
+				)
+				.Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.ShieldCheckEvent.Subscribe(state, this,
 						parameters =>
@@ -77,24 +79,27 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 						parameters => state.Performer.AlliedWith(parameters.Figure, true),
 						parameters =>
 						{
-							parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
+							parameters.Add(
+								new FigureInfoTextExtraEffect.Parameters(
+									$"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
 						}
 					);
 
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.Shield, delay: 0f);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
-					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
-					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
+						ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
+						ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -105,8 +110,9 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
@@ -122,14 +128,15 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
+				})
+				.WithOnAbilityEnded(async abilityState =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 }

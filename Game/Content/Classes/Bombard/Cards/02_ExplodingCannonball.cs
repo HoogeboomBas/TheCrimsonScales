@@ -13,20 +13,28 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(4,
-				hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
-					new AttackAbility(3, rangeType: RangeType.Range, pierce: 1, targetHex: hex, aoePattern: new AOEPattern([
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red)
-					]))
-				], this
-			))
+					AttackAbility.Builder()
+						.WithDamage(3)
+						.WithRangeType(RangeType.Range)
+						.WithPierce(1)
+						.WithTargetHex(hex)
+						.WithAOEPattern(new AOEPattern([
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)1), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)2), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)3), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red)
+						]))
+						.Build()
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];
@@ -40,13 +48,15 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
 							canApplyParameters.AbilityState == abilityState &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -69,14 +79,15 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 						});
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
+				})
+				.WithOnAbilityEnded(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 	}
 }

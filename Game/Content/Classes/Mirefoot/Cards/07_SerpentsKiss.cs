@@ -12,7 +12,10 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, conditions: [Conditions.Poison2]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithConditions(Conditions.Poison2)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -22,14 +25,19 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GiveAbilityCardAbility((state, list) =>
+			new AbilityCardAbility(GiveAbilityCardAbility.Builder()
+				.WithGetAbilityCards((state, list) =>
 				{
 					list.Add(AbilityCard);
-				}, OnCardGiven, OnCardDiscarded, OnCardLost,
-				selectAutomatically: true
-			)),
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+				})
+				.WithOnCardGiven(OnCardGiven)
+				.WithOnCardDiscarded(OnCardDiscarded)
+				.WithOnCardLost(OnCardLost)
+				.WithSelectAutomatically(true)
+				.Build()
+			),
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					Figure target = state.ActionState.GetAbilityState<GiveAbilityCardAbility.State>(0).UniqueTargetedFigures[0];
 
@@ -39,7 +47,8 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 						{
 							parameters.SetPrevented(true);
 
-							ActionState actionState = new ActionState(target, [new HealAbility(2, target: Target.Self)]);
+							ActionState actionState =
+								new ActionState(target, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await GDTask.CompletedTask;
@@ -47,15 +56,15 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override int XP => 2;

@@ -13,15 +13,31 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(3,
-				hex =>
-				[
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex),
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 1),
-					new AttackAbility(1, rangeType: RangeType.Range, targetHex: hex, pierce: 2),
-				],
-				this
-			))
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
+					[
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.Build(),
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.WithPierce(1)
+							.Build(),
+						AttackAbility.Builder()
+							.WithDamage(1)
+							.WithRangeType(RangeType.Range)
+							.WithTargetHex(hex)
+							.WithPierce(2)
+							.Build(),
+					]
+				)
+				.WithAbilityCardSide(this)
+				.WithRange(3)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -32,10 +48,10 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.85f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Performer == state.Performer,
@@ -47,13 +63,15 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.85f), GainXP))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

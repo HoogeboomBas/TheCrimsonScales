@@ -14,17 +14,17 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2,
-				aoePattern: new AOEPattern(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 					]
-				),
-				duringAttackSubscriptions:
-				[
+				))
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -34,12 +34,13 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen],
-				target: Target.Allies | Target.TargetAll,
-				customGetTargets: (abilityState, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Strengthen)
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithCustomGetTargets((abilityState, list) =>
 				{
 					AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -57,21 +58,22 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
-
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-
-					if(attackAbilityState.AOEHexes == null || attackAbilityState.AOEHexes.Count == 0)
+				})
+				.WithConditionalAbilityCheck(async state =>
 					{
-						return false;
-					}
+						await GDTask.CompletedTask;
 
-					return true;
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+
+						if(attackAbilityState.AOEHexes == null || attackAbilityState.AOEHexes.Count == 0)
+						{
+							return false;
+						}
+
+						return true;
+					}
+				)
+				.Build())
 		];
 	}
 
@@ -79,14 +81,16 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.83799946f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters =>
 							parameters.Performer == state.Performer &&
-							RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure)) &&
-							RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure)),
+							RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure)) &&
+							RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure)),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAddCondition(Conditions.Stun);
@@ -96,14 +100,16 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.83799946f), GainXP))
+				.Build())
 		];
 
 		protected override bool Persistent => true;

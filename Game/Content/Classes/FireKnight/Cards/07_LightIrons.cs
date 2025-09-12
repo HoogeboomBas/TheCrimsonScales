@@ -14,69 +14,70 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					int itemCount = 4;
-
-					if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire))
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 					{
-						itemCount++;
-						await AbilityCmd.GainXP(state.Performer, 1);
-					}
+						int itemCount = 4;
 
-					FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
-					List<ItemModel> remainingItemModels = fireKnight.FireKnightItems.Select(item => item.ImmutableInstance).ToList();
-					remainingItemModels.Shuffle(GameController.Instance.StateRNG);
-					remainingItemModels = remainingItemModels.Take(Mathf.Min(fireKnight.FireKnightItems.Count, itemCount)).ToList();
-
-					int itemsGivenToSelfCount = 0;
-
-					while(remainingItemModels.Count > 0)
-					{
-						ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
-
-						if(itemModel == null)
+						if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire))
 						{
-							break;
+							itemCount++;
+							await AbilityCmd.GainXP(state.Performer, 1);
 						}
 
-						Figure figure = await AbilityCmd.SelectFigure(state,
-							list =>
-							{
-								list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1));
+						FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
+						List<ItemModel> remainingItemModels = fireKnight.FireKnightItems.Select(item => item.ImmutableInstance).ToList();
+						remainingItemModels.Shuffle(GameController.Instance.StateRNG);
+						remainingItemModels = remainingItemModels.Take(Mathf.Min(fireKnight.FireKnightItems.Count, itemCount)).ToList();
 
-								for(int itemIndex = list.Count - 1; itemIndex >= 0; itemIndex--)
+						int itemsGivenToSelfCount = 0;
+
+						while(remainingItemModels.Count > 0)
+						{
+							ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
+
+							if(itemModel == null)
+							{
+								break;
+							}
+
+							Figure figure = await AbilityCmd.SelectFigure(state,
+								list =>
 								{
-									Figure potentialTarget = list[itemIndex];
-									if(!state.Performer.AlliedWith(potentialTarget, itemsGivenToSelfCount < 2) && potentialTarget is Character)
+									list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1));
+
+									for(int itemIndex = list.Count - 1; itemIndex >= 0; itemIndex--)
 									{
-										list.RemoveAt(itemIndex);
+										Figure potentialTarget = list[itemIndex];
+										if(!state.Performer.AlliedWith(potentialTarget, itemsGivenToSelfCount < 2) && potentialTarget is Character)
+										{
+											list.RemoveAt(itemIndex);
+										}
 									}
-								}
-							}, hintText: $"Select a figure to give {itemModel.Name} to"
-						);
+								}, hintText: $"Select a figure to give {itemModel.Name} to"
+							);
 
-						if(figure == null)
-						{
-							break;
-						}
-
-						await GiveFireKnightItem(state, [itemModel], (Character)figure,
-							async (abilityState, item) =>
+							if(figure == null)
 							{
-								remainingItemModels.Remove(item.ImmutableInstance);
+								break;
+							}
 
-								if(figure == state.Performer)
+							await GiveFireKnightItem(state, [itemModel], (Character)figure,
+								async (abilityState, item) =>
 								{
-									itemsGivenToSelfCount++;
-								}
+									remainingItemModels.Remove(item.ImmutableInstance);
 
-								await GDTask.CompletedTask;
-							}, true
-						);
-					}
-				}
-			))
+									if(figure == state.Performer)
+									{
+										itemsGivenToSelfCount++;
+									}
+
+									await GDTask.CompletedTask;
+								}, true
+							);
+						}
+					})
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -87,7 +88,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<PikeHook>(), ModelDB.Item<FireproofHelm>()]))
 		];

@@ -25,11 +25,17 @@ public class LurkerAbilityCard0 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(ConsumeElementDynamicValue<ShieldAbility.State>([Element.Ice], 1, 2))),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Wound1], target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder()
+			.WithShieldValue(ConsumeElementDynamicValue<ShieldAbility.State>([Element.Ice], 1, 2))
+			.Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Wound1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } = [MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
 }
 
 public class LurkerAbilityCard1 : LurkerAbilityCard
@@ -98,13 +104,17 @@ public class LurkerAbilityCard6 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen], target: Target.Self,
-			conditionalAbilityCheck: ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Ice]))),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Strengthen)
+			.WithTarget(Target.Self)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Ice]))
+			.Build()),
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Wound1])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } = [MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
 }
 
 public class LurkerAbilityCard7 : LurkerAbilityCard
@@ -115,10 +125,11 @@ public class LurkerAbilityCard7 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(1)),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } = [MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
 }

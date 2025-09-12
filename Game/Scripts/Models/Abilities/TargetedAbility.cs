@@ -157,6 +157,9 @@ public abstract class TargetedAbilityState : AbilityState
 	}
 }
 
+/// <summary>
+/// An <see cref="Ability{T}"/> that is considered a targeted ability as per the rules; that targets figures with given restrictions.
+/// </summary>
 public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	where T : TargetedAbilityState<TSingleTargetState>, new()
 	where TSingleTargetState : SingleTargetState, new()
@@ -165,52 +168,128 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 	private Func<T, string> _getTargetingHintText;
 
-	public int Targets { get; }
-	public int Range { get; }
-	public RangeType RangeType { get; }
-	public Target Target { get; }
+	public int Range { get; private set; } = 1;
+	public RangeType RangeType { get; private set; } = RangeType.Melee;
+	public bool RequiresLineOfSight { get; private set; } = true;
+	public Target Target { get; protected set; } = Target.Enemies;
+	public int Targets { get; private set; } = 1;
+	public Hex TargetHex { get; private set; }
+	public AOEPattern AOEPattern { get; private set; }
+	public bool Mandatory { get; private set; }
+	public int Push { get; private set; }
+	public int Pull { get; private set; }
 
-	public bool RequiresLineOfSight { get; }
-	public bool Mandatory { get; }
-	public Hex TargetHex { get; }
-	public AOEPattern AOEPattern { get; }
-	public int Push { get; }
-	public int Pull { get; }
+	public ConditionModel[] Conditions { get; private set; } = [];
 
-	public ConditionModel[] Conditions { get; }
+	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
 
-	public Action<T, List<Figure>> CustomGetTargets { get; }
-
-	public TargetedAbility(int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Enemies,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<T, List<Figure>> customGetTargets = null,
-		Func<T, GDTask> onAbilityStarted = null, Func<T, GDTask> onAbilityEnded = null, Func<T, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<T, string> getTargetingHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in TargetedAbility. Enables inheritors of TargetedAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending TargetedAbility.
+	public new class AbstractBuilder<TBuilder, TAbility> : Ability<T>.AbstractBuilder<TBuilder, TAbility>
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : TargetedAbility<T, TSingleTargetState>, new()
 	{
-		Targets = targets;
-		Range = range ?? 1;
-		RangeType = rangeType ?? (Range == 1 ? RangeType.Melee : RangeType.Range);
-		Target = target;
+		protected Target? _target;
+		protected RangeType? _rangeType;
+		protected Func<T, string> GetTargetingHintText;
 
-		RequiresLineOfSight = requiresLineOfSight;
-		Mandatory = mandatory;
-		TargetHex = targetHex;
-		AOEPattern = aoePattern;
-		Push = push;
-		Pull = pull;
+		public TBuilder WithGetTargetingHintText(Func<T, string> getTargetingHintText)
+		{
+			GetTargetingHintText = getTargetingHintText;
+			Obj._getTargetingHintText = getTargetingHintText;
+			return (TBuilder)this;
+		}
 
-		Conditions = conditions ?? [];
-		CustomGetTargets = customGetTargets;
-		_getTargetingHintText = getTargetingHintText ?? DefaultTargetingHintText;
+		public TBuilder WithRange(int range)
+		{
+			Obj.Range = range;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithRangeType(RangeType rangeType)
+		{
+			_rangeType = rangeType;
+			Obj.RangeType = rangeType;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithRequiresLineOfSight(bool requiresLineOfSight)
+		{
+			Obj.RequiresLineOfSight = requiresLineOfSight;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithTarget(Target target)
+		{
+			_target = target;
+			Obj.Target = target;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithTargets(int targets)
+		{
+			Obj.Targets = targets;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithTargetHex(Hex targetHex)
+		{
+			Obj.TargetHex = targetHex;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAOEPattern(AOEPattern aoePattern)
+		{
+			Obj.AOEPattern = aoePattern;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithMandatory(bool mandatory)
+		{
+			Obj.Mandatory = mandatory;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithPush(int push)
+		{
+			Obj.Push = push;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithPull(int pull)
+		{
+			Obj.Pull = pull;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithConditions(params ConditionModel[] conditions)
+		{
+			Obj.Conditions = conditions;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCustomGetTargets(Action<T, List<Figure>> getTargets)
+		{
+			Obj.CustomGetTargets = getTargets;
+			return (TBuilder)this;
+		}
+
+		/// <summary>
+		/// Overriding so we can set default values.
+		/// </summary>
+		public override TAbility Build()
+		{
+			Obj.RangeType = _rangeType ?? (Obj.Range == 1 ? RangeType.Melee : RangeType.Range);
+			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
+			return base.Build();
+		}
 	}
+
+	public TargetedAbility() { }
 
 	protected override void InitializeState(T abilityState)
 	{
@@ -254,7 +333,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			if(abilityState.Authority is Character)
 			{
 				AOEPrompt.Answer aoeAnswer =
-					await PromptManager.Prompt(new AOEPrompt(abilityState, AOEPattern, TargetHex, null, () => "Select where to target"), abilityState.Authority);
+					await PromptManager.Prompt(new AOEPrompt(abilityState, AOEPattern, TargetHex, null, () => "Select where to target"),
+						abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
 				{
@@ -271,7 +351,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				Figure focus = await abilityState.ActionState.GetFocus();
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new MonsterAOEPrompt(abilityState, AOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null, () => "Select where to target"), abilityState.Authority);
+						new MonsterAOEPrompt(abilityState, AOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
+							() => "Select where to target"), abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
 				{
@@ -334,7 +415,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					}
 				}
 
-				if(!Target.HasFlag(Target.Allies) && abilityState.Authority.AlliedWith(figure, false))
+				if(!Target.HasFlag(Target.Allies) && (abilityState.Authority.AlliedWith(figure, false) || abilityState.Authority == figure))
 				{
 					remove = true;
 				}
@@ -360,7 +441,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Count > 0 && abilityState.UniqueTargetedFigures[0] != figure)
+				if(Target.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Count > 0 &&
+				   abilityState.UniqueTargetedFigures[0] != figure)
 				{
 					remove = true;
 				}
@@ -412,7 +494,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			{
 				bool autoSelectIfOne = Mandatory || (customTargets != null && customTargets.Count == 1) || (TargetHex != null && AOEPattern == null);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection, () => _getTargetingHintText(abilityState)), abilityState.Authority);
+					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
+						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				if(targetAnswer.Skipped)
 				{
@@ -427,7 +510,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				//Figure focus = bestFocusNodes.Count > 0 ? bestFocusNodes[0].Focus : null;
 				Figure focus = await abilityState.ActionState.GetFocus();
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, duringTargetedAbilityEffectCollection, () => _getTargetingHintText(abilityState)), abilityState.Authority);
+					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, duringTargetedAbilityEffectCollection,
+						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				if(targetAnswer.Skipped)
 				{
@@ -459,13 +543,15 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			// Pull
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPull > 0)
 			{
-				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPull, false, () => $"Select a path to {Icons.HintText(Icons.Pull)}{abilityState.SingleTargetPull} target");
+				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPull, false,
+					() => $"Select a path to {Icons.HintText(Icons.Pull)}{abilityState.SingleTargetPull} target");
 			}
 
 			// Push
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPush > 0)
 			{
-				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPush, true, () => $"Select a path to {Icons.HintText(Icons.Push)}{abilityState.SingleTargetPush} target");
+				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPush, true,
+					() => $"Select a path to {Icons.HintText(Icons.Push)}{abilityState.SingleTargetPush} target");
 			}
 
 			await AfterEffects(abilityState, target);

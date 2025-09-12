@@ -22,10 +22,11 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 				}
 			)),
 
-			new AbilityCardAbility(new AttackAbility(3, conditions: [Conditions.Wound1],
-				duringAttackSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.DuringAttack.Parameters>.Subscription.ConsumeElement(Element.Fire,
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithConditions(Conditions.Wound1)
+				.WithDuringAttackSubscription(
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						parameters => true,
 						async parameters =>
 						{
@@ -35,8 +36,8 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -44,7 +45,7 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 
 			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<PikeHook>(), ModelDB.Item<KindledTonic>(), ModelDB.Item<ExplosiveTonic>()],
 				target: Target.SelfOrAllies,
@@ -56,13 +57,16 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 				}
 			)),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen], range: 1, target: Target.Allies,
-				onAbilityEndedPerformed: async state =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Strengthen)
+				.WithRange(1)
+				.WithTarget(Target.Allies)
+				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
-				},
-				conditionalAbilityCheck: state => AbilityCmd.AskConsumeElement(state.Performer, Element.Fire)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Fire))
+				.Build())
 		];
 	}
 }

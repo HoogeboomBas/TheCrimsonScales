@@ -11,12 +11,14 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.306f)), new UseSlot(new Vector2(0.603f, 0.306f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
-							canApplyParameters.AbilityState.Performer == state.Performer && canApplyParameters.Value < 0,
+							canApplyParameters.AbilityState.Performer == state.Performer && 
+							canApplyParameters.AMDCard.Type == AMDCardType.Value &&
+							canApplyParameters.AMDCard.Value < 0,
 						async applyParameters =>
 						{
 							applyParameters.SetValue(0);
@@ -26,14 +28,21 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.306f)),
+						new UseSlot(new Vector2(0.603f, 0.306f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -43,12 +52,14 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.398f, 0.772f)), new UseSlot(new Vector2(0.603f, 0.772f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters =>
-							state.Performer.EnemiesWith(canApplyParameters.AbilityState.Performer) && canApplyParameters.Value > 0,
+							state.Performer.EnemiesWith(canApplyParameters.AbilityState.Performer) &&
+							canApplyParameters.AMDCard.Type == AMDCardType.Value &&
+							canApplyParameters.AMDCard.Value > 0,
 						async applyParameters =>
 						{
 							applyParameters.SetValue(0);
@@ -58,14 +69,21 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.398f, 0.772f)),
+						new UseSlot(new Vector2(0.603f, 0.772f))
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;

@@ -13,10 +13,14 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Disarm)
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.2869934f, 0.3959994f)), new UseSlot(new Vector2(0.5f, 0.3959994f)), new UseSlot(new Vector2(0.7025001f, 0.3959994f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.ShieldCheckEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -40,16 +44,24 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.Shield, delay: 0f);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(state, this);
 
-					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
+						ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.2869934f, 0.3959994f)),
+						new UseSlot(new Vector2(0.5f, 0.3959994f)),
+						new UseSlot(new Vector2(0.7025001f, 0.3959994f), GainXP)
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -59,10 +71,14 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Immobilize], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Immobilize)
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.2869934f, 0.8740155f)), new UseSlot(new Vector2(0.5f, 0.8740155f)), new UseSlot(new Vector2(0.7025001f, 0.8740155f), GainXP)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters =>
@@ -88,14 +104,22 @@ public class StationaryEnhancements : BombardCardModel<StationaryEnhancements.Ca
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlots(
+					[
+						new UseSlot(new Vector2(0.2869934f, 0.8740155f)),
+						new UseSlot(new Vector2(0.5f, 0.8740155f)),
+						new UseSlot(new Vector2(0.7025001f, 0.8740155f), GainXP)
+					]
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;

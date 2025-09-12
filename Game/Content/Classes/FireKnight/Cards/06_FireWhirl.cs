@@ -13,8 +13,10 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 2,
-				aoePattern: new AOEPattern(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(2)
+				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add((Direction)0), AOEHexType.Red),
@@ -24,9 +26,8 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 						new AOEHex(Vector2I.Zero.Add((Direction)4), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add((Direction)5), AOEHexType.Red),
 					]
-				),
-				duringAttackSubscriptions:
-				[
+				))
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
 						{
@@ -36,11 +37,14 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
 					)
-				]
-			)),
+				)
+				.Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Wound1], target: Target.TargetAll | Target.Any, mandatory: true,
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Wound1)
+				.WithTarget(Target.TargetAll | Target.Any)
+				.WithMandatory(true)
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -58,9 +62,9 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Fire, Element.Air];
@@ -72,13 +76,15 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
 							canApplyParameters.AbilityState == abilityState &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -103,15 +109,16 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
-					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
+				})
+				.WithOnAbilityEnded(async abilityState =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
+						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 	}
 }

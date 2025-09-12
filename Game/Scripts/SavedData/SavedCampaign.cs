@@ -64,10 +64,6 @@ public class SavedCampaign
 			ModelDB.Item<MinorHealingPotion>(),
 			ModelDB.Item<MinorPowerPotion>(),
 			ModelDB.Item<MinorManaPotion>(),
-			ModelDB.Item<WarHammer>(),
-			ModelDB.Item<BootsOfStriding>(),
-			ModelDB.Item<CloakOfInvisibility>(),
-			ModelDB.Item<EagleEyeGoggles>(),
 		];
 
 		foreach(ItemModel itemModel in itemModels)

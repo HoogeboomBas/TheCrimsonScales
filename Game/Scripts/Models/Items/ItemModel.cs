@@ -16,7 +16,7 @@ public abstract class ItemModel : AbstractModel<ItemModel> //, IEventSubscriber
 	public abstract ItemUseType ItemUseType { get; }
 
 	public virtual int MinusOneCount => 0; // Amount of -1 cards this would add to the character's AMD if they do not have the ignore -1 card perk
-
+	public virtual int SmallItemSlotCount => 0; // Amount of small item slots this would add to the character's inventory
 	//public virtual List<ItemUseSlot> UseSlots { get; } = null;
 	public virtual int MaxUseCount => 1; // Used for items like orbs, which can be used multiple times before being consumed without having use slots
 
