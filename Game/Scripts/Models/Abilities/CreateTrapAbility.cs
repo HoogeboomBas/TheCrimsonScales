@@ -4,7 +4,7 @@ using System.Linq;
 using Fractural.Tasks;
 
 /// <summary>
-/// An <see cref="Ability{T}"/> that allows a figure to pick up loot tokens (coins and treasure chests) within range.
+/// An <see cref="Ability{T}"/> that allows a figure to create a trap of a specific kind in an empty hex
 /// </summary>
 public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 {
@@ -17,7 +17,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 	public int Range { get; private set; } = 1;
 	public int Damage { get; private set; }
-	public int Traps { get; private set; } = 1;
+	public int TrapCount { get; private set; } = 1;
 	public string AssetPath = "res://Content/OverlayTiles/Traps/BearTrap1H.tscn";
 
 	public ConditionModel[] ConditionModels { get; private set; } = [];
@@ -26,10 +26,10 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
-	/// for values defined in LootAbility. Enables inheritors of LootAbility to further extend the builder.
+	/// for values defined in CreateTrapAbility. Enables inheritors of CreateTrapAbility to further extend the builder.
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
-	/// <typeparam name="TAbility"></typeparam> Any ability extending LootAbility.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending CreateTrapAbility.
 	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
 		AbstractBuilder<TBuilder, TAbility>.IDamageStep
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
@@ -52,9 +52,9 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithTraps(int traps)
+		public TBuilder WithTrapCount(int trapCount)
 		{
-			Obj.Traps = traps;
+			Obj.TrapCount = trapCount;
 			return (TBuilder)this;
 		}
 
@@ -93,7 +93,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	}
 
 	/// <summary>
-	/// A convenience method that returns an instance of LootBuilder.
+	/// A convenience method that returns an instance of CreateTrapBuilder.
 	/// </summary>
 	/// <returns></returns>
 	public static CreateTrapBuilder.IDamageStep Builder()
@@ -115,7 +115,8 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	{
 		List<Hex> targetHexes;
 
-		if(CustomSelectHexes != null) {
+		if(CustomSelectHexes != null) 
+		{
 			List<Hex> customTargetHexes = [];
 			CustomSelectHexes(abilityState, customTargetHexes);
 
@@ -132,7 +133,11 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 						list.Add(hex);
 					}
 				}
-			}, minSelectionCount: 0, maxSelectionCount: Traps, autoSelectIfMaxCountIsValidCount: false, hintText: (Traps == 1) ? $"Select a hex to place the trap" : $"Select up to {Traps} hexes to place the traps");
+			}, 
+			minSelectionCount: 0, 
+			maxSelectionCount: TrapCount, 
+			autoSelectIfMaxCountIsValidCount: false, 
+			hintText: (TrapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {TrapCount} hexes to place the traps");
 		}
 
 		if(targetHexes != null && targetHexes.Count > 0)
