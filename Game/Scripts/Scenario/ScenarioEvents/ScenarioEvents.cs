@@ -109,17 +109,6 @@ public class ScenarioEvents
 	private readonly AMDCardDrawn _amdCardDrawn = new AMDCardDrawn();
 	public static AMDCardDrawn AMDCardDrawnEvent => GameController.Instance.ScenarioEvents._amdCardDrawn;
 
-	public class AfterAttackDamageSuffered : ScenarioEvent<AfterAttackDamageSuffered.Parameters>
-	{
-		public class Parameters(AttackAbility.State abilityState)
-			: ParametersBase<AttackAbility.State>(abilityState)
-		{
-		}
-	}
-
-	private readonly AfterAttackDamageSuffered _afterAttackDamageSuffered = new AfterAttackDamageSuffered();
-	public static AfterAttackDamageSuffered AfterAttackDamageSufferedEvent => GameController.Instance.ScenarioEvents._afterAttackDamageSuffered;
-
 	public class AMDCardValueApplied : ScenarioEvent<AMDCardValueApplied.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState, AMDCardValue amdCardValue)

@@ -345,9 +345,6 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GDTask.DelayFastForwardable(0.6f);
 		}
 
-		await ScenarioEvents.AfterAttackDamageSufferedEvent.CreatePrompt(
-			new ScenarioEvents.AfterAttackDamageSuffered.Parameters(abilityState), abilityState);
-
 		if(target.IsDead)
 		{
 			abilityState.KilledTargets.Add(target);
