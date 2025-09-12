@@ -28,7 +28,7 @@ public partial class AMDDrawView : Control
 		Hide();
 	}
 
-	public async GDTask<AMDCard> DrawCards(AttackAbility.State attackAbilityState)
+	public async GDTask DrawCards(AttackAbility.State attackAbilityState)
 	{
 		AMDCardDeck deck = attackAbilityState.Performer.AMDCardDeck;
 
@@ -42,7 +42,7 @@ public partial class AMDDrawView : Control
 		await this.TweenPositionY(0f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardableAsync();
 		await GDTask.DelayFastForwardable(0.2f);
 
-		AMDCard terminal = null;
+		AMDCardValue terminalCardValue = null;
 		//List<AMDCard> rollingCards = new List<AMDCard>();
 
 		while(true)
@@ -61,8 +61,11 @@ public partial class AMDDrawView : Control
 
 			_discardContainer.Visible = true;
 			_discardTopCardTextureRect.Texture = newCard.GetTexture();
+			
+			// A drawn card can be overridden by an item or ability
+			AMDCardValue newCardValue = await newCard.Draw(attackAbilityState);
 
-			if(terminal == null)
+			if(terminalCardValue == null)
 			{
 				if(newCard.Rolling)
 				{
@@ -70,7 +73,7 @@ public partial class AMDDrawView : Control
 
 					if(!attackAbilityState.SingleTargetHasDisadvantage || attackAbilityState.SingleTargetHasAdvantage == attackAbilityState.SingleTargetHasDisadvantage)
 					{
-						await newCard.Apply(attackAbilityState);
+						await newCardValue.Apply(attackAbilityState);
 					}
 				}
 				else
@@ -78,13 +81,13 @@ public partial class AMDDrawView : Control
 					if(attackAbilityState.SingleTargetHasAdvantage != attackAbilityState.SingleTargetHasDisadvantage)
 					{
 						// Loop around to draw another card
-						terminal = newCard;
+						terminalCardValue = newCardValue;
 						await GDTask.DelayFastForwardable(0.3f);
 					}
 					else
 					{
 						// Not rolling, no advantage or disadvantage, so done here
-						terminal = newCard;
+						terminalCardValue = newCardValue;
 						await GDTask.DelayFastForwardable(0.5f);
 						break;
 					}
@@ -93,14 +96,14 @@ public partial class AMDDrawView : Control
 			else
 			{
 				// Had a previous terminal, so no more rolling allowed, and decide on which terminal to use
-				(int currentTerminalScore, bool currentTerminalExtraEffect) = terminal.GetScore(attackAbilityState);
-				(int newTerminalScore, bool newTerminalExtraEffect) = newCard.GetScore(attackAbilityState);
+				(int currentTerminalScore, bool currentTerminalExtraEffect) = terminalCardValue.GetScore(attackAbilityState);
+				(int newTerminalScore, bool newTerminalExtraEffect) = newCardValue.GetScore(attackAbilityState);
 
 				if(currentTerminalScore > newTerminalScore)
 				{
 					if(currentTerminalExtraEffect && !newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? terminal : newCard;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
 					}
 					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
 					{
@@ -114,7 +117,7 @@ public partial class AMDDrawView : Control
 					}
 					else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? terminal : newCard;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
 					}
 				}
 				else if(currentTerminalScore < newTerminalScore)
@@ -126,7 +129,7 @@ public partial class AMDDrawView : Control
 					}
 					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? newCard : terminal;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
 					}
 					else if(currentTerminalExtraEffect && newTerminalExtraEffect)
 					{
@@ -135,18 +138,18 @@ public partial class AMDDrawView : Control
 					}
 					else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? newCard : terminal;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
 					}
 				}
 				else //if(currentTerminalScore == newTerminalScore)
 				{
 					if(currentTerminalExtraEffect && !newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? terminal : newCard;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
 					}
 					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
 					{
-						terminal = attackAbilityState.SingleTargetHasAdvantage ? newCard : terminal;
+						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
 					}
 					else if(currentTerminalExtraEffect && newTerminalExtraEffect)
 					{
@@ -172,12 +175,10 @@ public partial class AMDDrawView : Control
 		// 	}
 		// }
 
-		await terminal.Apply(attackAbilityState);
+		await terminalCardValue.Apply(attackAbilityState);
 
 		// Move visuals away
 		await this.TweenPositionY(OpenDistance, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardableAsync();
-
-		return terminal;
 	}
 
 	private void UpdateDrawPileSize(AMDCardDeck deck)

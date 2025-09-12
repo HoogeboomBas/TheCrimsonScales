@@ -12,18 +12,21 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(4, range: 3,
-				aoePattern: new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-					]
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithRange(3)
+				.WithAOEPattern(new AOEPattern(
+						[
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+						]
+					)
 				)
-			)),
+				.Build()),
 
-			new AbilityCardAbility(new OtherAbility(
-				async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -32,11 +35,12 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 						if(!targetedFigure.IsDead)
 						{
 							await AbilityCmd.SufferDamage(null, targetedFigure, 1);
+							state.SetPerformed();
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];
@@ -47,9 +51,13 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless], target: Target.Allies, range: 1))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Bless)
+				.WithTarget(Target.Allies)
+				.WithRange(1)
+				.Build())
 		];
 	}
 }

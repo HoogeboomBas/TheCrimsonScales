@@ -12,9 +12,10 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(4, range: 1,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(4)
+				.WithRange(1)
+				.WithDuringHealSubscription(
 					ScenarioEvents.DuringHeal.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -24,9 +25,7 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 							await GDTask.CompletedTask;
 						}
 					)
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				).WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.AbilityState.Target.HasWound(),
 						async parameters =>
@@ -36,8 +35,8 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -45,13 +44,15 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2,
-				onAbilityStarted: async abilityState =>
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2)
+				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
 						canApplyParameters =>
 							canApplyParameters.AbilityState == abilityState &&
-							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() || canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+							(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
+							 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
 						applyParameters =>
 						{
 							if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
@@ -76,17 +77,20 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 					);
 
 					await GDTask.CompletedTask;
-				},
-				onAbilityEnded: async abilityState =>
-				{
-					ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
-					ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
+				})
+				.WithOnAbilityEnded(async abilityState =>
+					{
+						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(abilityState, this);
+						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(abilityState, this);
 
-					await GDTask.CompletedTask;
-				}
-			)),
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build()),
 
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<FireproofHelm>(), ModelDB.Item<RescueShield>(), ModelDB.Item<ScrollOfProtection>()]))
+			new AbilityCardAbility(GiveFireKnightItemAbility([
+				ModelDB.Item<FireproofHelm>(), ModelDB.Item<RescueShield>(), ModelDB.Item<ScrollOfProtection>()
+			]))
 		];
 	}
 }

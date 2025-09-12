@@ -1,3 +1,5 @@
+using System.Linq;
+
 public class EmpoweringTalisman : Prosperity2Item
 {
 	public override string Name => "Empowering Talisman";
@@ -8,4 +10,23 @@ public class EmpoweringTalisman : Prosperity2Item
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
 	protected override int AtlasIndex => 4;
+
+	protected override void Subscribe()
+	{
+		base.Subscribe();
+
+		SubscribeDuringTurn(
+			canApply: character =>
+				character == Owner &&
+				character.Items.Any(item => item.ItemState == ItemState.Consumed && item.ItemType == ItemType.Small),
+			apply: async character =>
+			{
+				await Use(async user =>
+				{
+					ItemModel item = await AbilityCmd.SelectItem(character, ItemState.Consumed, ItemType.Small, "Select an item to refresh");
+					await AbilityCmd.RefreshItem(item);
+				});
+			}
+		);
+	}
 }

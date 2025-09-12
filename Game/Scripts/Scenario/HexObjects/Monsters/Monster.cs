@@ -12,7 +12,7 @@ public partial class Monster : Figure
 
 	private MonsterViewComponent _monsterViewComponent;
 
-	public override string DisplayName => $"{MonsterGroup.MonsterModel.Name}";
+	public override string DisplayName => $"{(MonsterType == MonsterType.Elite ? $"{MonsterType} " : string.Empty)}{MonsterGroup.MonsterModel.Name}";
 	public override string DebugName => $"{MonsterGroup.MonsterModel.Name} {StandeeNumber}";
 
 	public MonsterModel MonsterModel { get; private set; }

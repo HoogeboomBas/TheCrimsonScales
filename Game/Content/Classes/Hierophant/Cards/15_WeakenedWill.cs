@@ -12,10 +12,15 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, range: 3, conditions: [Conditions.Muddle])),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithRange(3)
+				.WithConditions(Conditions.Muddle)
+				.Build()),
 
-			new AbilityCardAbility(new ConditionAbility([Conditions.Strengthen],
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Strengthen)
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
@@ -32,9 +37,9 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 	}
 
@@ -42,10 +47,10 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(1)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.AbilityState.Target),
@@ -64,20 +69,22 @@ public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWi
 
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Figure),
-						parameters => parameters.Add(new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+						parameters => parameters.Add(
+							new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 					);
 
 					return GDTask.CompletedTask;
-				},
-				state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
-					return GDTask.CompletedTask;
-				}
-			))
+						return GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override bool Round => true;

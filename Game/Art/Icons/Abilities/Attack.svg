@@ -2,18 +2,18 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256"
-   height="256"
-   viewBox="0 0 256 256"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xml:space="preserve"
    sodipodi:docname="Attack.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
      id="namedview7"
      pagecolor="#505050"
      bordercolor="#ffffff"
@@ -25,72 +25,27 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:lockguides="true"
-     inkscape:zoom="1.6191406"
-     inkscape:cx="45.394451"
-     inkscape:cy="145.13872"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="0.8095703"
+     inkscape:cx="127.8456"
+     inkscape:cy="451.47407"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
-    <inkscape:grid
+     inkscape:current-layer="layer1"><inkscape:grid
        type="xygrid"
        id="grid234"
        empspacing="4"
        originx="0"
-       originy="0" />
-  </sodipodi:namedview>
-  <defs
-     id="defs2">
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath198">
-      <path
-         d="M 0,300 H 300 V 0 H 0 Z"
-         id="path196" />
-    </clipPath>
-  </defs>
-  <g
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" /></sodipodi:namedview><defs
+     id="defs2" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <g
-       id="g188"
-       transform="matrix(0.99999772,0,0,-0.99999912,79.891878,223.93782)"
-       style="fill:#ffffff">
-      <path
-         d="m 0,0 -6.907,-4.933 -50.887,46.962 4.363,7.281 13.994,-12.914 87.349,94.649 29.862,6.833 -4.419,-30.314 -87.348,-94.65 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="path190" />
-    </g>
-    <g
-       id="g192"
-       transform="matrix(0.99999772,0,0,-0.99999912,-21.999891,278.00027)"
-       style="fill:#ffffff">
-      <g
-         id="g194"
-         clip-path="url(#clipPath198)"
-         style="fill:#ffffff">
-        <g
-           id="g200"
-           transform="translate(72.1644,62.1807)"
-           style="fill:#ffffff">
-          <path
-             d="m 0,0 -25.629,-27.772 c 0,0 -4.416,-0.636 -8.964,3.561 -4.548,4.196 -4.266,8.648 -4.266,8.648 L -13.23,12.21 Z"
-             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path202" />
-        </g>
-        <g
-           id="g204"
-           transform="translate(96.7475,153.3145)"
-           style="fill:#ffffff">
-          <path
-             d="m 0,0 10.053,6.239 -18.657,23.442 38.414,4.15 1.734,34.457 22.403,-14.066 35.487,17.186 4.746,-39.734 26.798,-6.716 -22.185,-13.186 15.945,-28.411 -30.957,0.945 -2.706,-38.642 -24.357,18.687 -5.471,-10.492 42.111,-63.102 6.44,76.617 62.587,-21.949 -38.566,61.081 46.132,21.026 -56.652,19.033 -3.414,65.747 L 54.943,73.555 9.382,106.114 11.979,51.79 -62.572,48.581 Z"
-             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path206" />
-        </g>
-      </g>
-    </g>
-  </g>
-</svg>
+     id="layer1"><path
+       d="m 472.767,192.38882 -82.77771,37.77782 68.88883,108.88899 -111.66657,-38.88892 -11.66667,137.22237 -75.55549,-113.33346 9.99999,-18.88891 43.3333,33.88892 5,-69.44451 55.55551,1.66667 -28.88886,-50.55561 39.99997,-23.88891 -47.77775,-11.66668 -8.88888,-71.66674 -63.33328,31.11115 -39.99998,-25.00003 -3.33333,61.66673 -68.88883,7.22223 33.33331,41.66671 -17.77777,11.66668 -112.222136,-87.22231 133.888786,-5.55557 -4.99999,-97.222319 81.6666,58.333389 98.33326,-69.44451 6.11111,117.7779 z m -165.55542,34.44448 -156.66655,169.44462 26.66664,23.88891 -7.77777,13.33335 -101.11103,-91.66676 12.22221,-8.8889 26.66665,23.88891 L 261.1005,185.16659 314.43379,172.3888 Z M 99.98951,384.61124 123.87838,406.27793 82.7673,451.27798 q 3.33333,3.88888 6.11111,6.66667 L 80.54508,471.278 Q 56.656209,455.72242 39.434,434.05573 l 12.222213,-9.44445 q 3.333331,2.22222 7.222216,5.00001 z"
+       id="path1"
+       style="stroke-width:0.555556;fill:#ffffff" /></g></svg>

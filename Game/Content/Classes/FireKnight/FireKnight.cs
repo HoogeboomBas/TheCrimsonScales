@@ -21,7 +21,7 @@ public partial class FireKnight : Character
 
 		_fireKnightModel = (FireKnightModel)savedCharacter.ClassModel;
 
-		// Copy over all prayer cards from the character
+		// Copy over all items from the character
 		foreach(ItemModel itemModel in _fireKnightModel.AllItems)
 		{
 			ItemModel item = itemModel.ToMutable();

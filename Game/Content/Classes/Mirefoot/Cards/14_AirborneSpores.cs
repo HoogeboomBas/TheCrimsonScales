@@ -13,20 +13,21 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Poison1],
-				aoePattern: new AOEPattern(
-				[
-					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
-				]),
-				afterTargetConfirmedSubscriptions:
-				[
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Poison1)
+				.WithAOEPattern(new AOEPattern(
+					[
+						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+					]
+				))
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
 						parameters => RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex) == 1,
 						async parameters =>
@@ -37,8 +38,8 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -46,18 +47,21 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(0, conditions: [Conditions.Muddle],
-				customGetTargets: (state, list) =>
-				{
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.WithConditions(Conditions.Muddle)
+				.WithCustomGetTargets((state, list) =>
 					{
-						if(figure.HasPoison())
+						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
 						{
-							list.Add(figure);
+							if(figure.HasPoison())
+							{
+								list.Add(figure);
+							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

@@ -2,4 +2,9 @@
 	where T : SceneController<T>
 {
 	public virtual bool AdditionalLoadingCompleted => true;
+
+	public void StartDestroy()
+	{
+		TryCancelToken();
+	}
 }

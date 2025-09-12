@@ -19,10 +19,10 @@ corner_radius_bottom_left = 8
 
 [node name="CheckmarkOptionView" node_paths=PackedStringArray("_checkmark", "_button") instance=ExtResource("1_278m4")]
 script = ExtResource("2_in0hj")
-_checkmark = NodePath("Panel/ValueContainer/BetterButton/Box/Checkmark")
-_button = NodePath("Panel/ValueContainer/BetterButton")
+_checkmark = NodePath("ValueContainer/BetterButton/Box/Checkmark")
+_button = NodePath("ValueContainer/BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="Panel/ValueContainer" index="0"]
+[node name="BetterButton" type="BaseButton" parent="ValueContainer" index="0"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -51,7 +51,7 @@ clip_contents = false
 custom_minimum_size = Vector2(60, 0)
 layout_direction = 0
 layout_mode = 2
-size_flags_horizontal = 1
+size_flags_horizontal = 8
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
 localize_numeral_system = true
@@ -82,7 +82,7 @@ shortcut_in_tooltip = true
 script = ExtResource("3_loeln")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Box" type="Panel" parent="Panel/ValueContainer/BetterButton" index="0"]
+[node name="Box" type="Panel" parent="ValueContainer/BetterButton" index="0"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 offset_right = 60.0
@@ -90,7 +90,7 @@ offset_bottom = 60.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_278m4")
 
-[node name="Checkmark" type="TextureRect" parent="Panel/ValueContainer/BetterButton/Box" index="0"]
+[node name="Checkmark" type="TextureRect" parent="ValueContainer/BetterButton/Box" index="0"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

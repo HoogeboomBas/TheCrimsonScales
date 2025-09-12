@@ -12,10 +12,14 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Disarm], target: Target.Self, mandatory: true)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Disarm)
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer,
@@ -30,14 +34,15 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;
@@ -47,10 +52,10 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(2)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(null)],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state,
 						this,
@@ -82,14 +87,16 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(null))
+				.Build())
 		];
 
 		protected override bool Round => true;

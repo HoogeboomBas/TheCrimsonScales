@@ -43,7 +43,7 @@ public static class MoveHelper
 
 					ScenarioCheckEvents.MoveCheck.Parameters moveCheckParameters =
 						ScenarioCheckEvents.MoveCheckEvent.Fire(
-							new ScenarioCheckEvents.MoveCheck.Parameters(abilityState, performer, newHex, nodeToHandle, moveCost, affectedByNegativeHex));
+							new ScenarioCheckEvents.MoveCheck.Parameters(abilityState, performer, newHex, nodeToHandle.Hex, moveCost, affectedByNegativeHex));
 
 					int newMoveLeft = nodeToHandle.MoveLeft - moveCheckParameters.MoveCost;
 
@@ -53,6 +53,101 @@ public static class MoveHelper
 					}
 
 					if(newMoveLeft == 0 && !CanStopAt(performer, newHex, moveType))
+					{
+						continue;
+					}
+
+					if(moveCheckParameters.AffectedByNegativeHex)
+					{
+						newNegativeHexEncounteredCount++;
+					}
+
+					MoveNode newNode = new MoveNode(newHex, nodeToHandle.MoveSpent + moveCheckParameters.MoveCost, newMoveLeft, newNegativeHexEncounteredCount);
+
+					newNode.Parents.Add(nodeToHandle);
+
+					if(closedList.TryGetValue(newHex, out MoveNode oldNode))
+					{
+						CompareResult compareResult = newNode.CompareTo(oldNode);
+						switch(compareResult)
+						{
+							case CompareResult.Better:
+								// The new node is better than the old one; replace it
+								openList.Remove(oldNode);
+								openList.Add(newNode);
+								closedList[newHex] = newNode;
+								break;
+							case CompareResult.Worse:
+								// The old node is better than the new one; do nothing
+								break;
+							case CompareResult.Equal:
+								// The two nodes are equal in value; keep the old one and add this route as a new potential option
+								oldNode.Parents.Add(nodeToHandle);
+								break;
+						}
+					}
+					else
+					{
+						// New node found
+						openList.Add(newNode);
+						closedList.Add(newHex, newNode);
+					}
+				}
+			}
+		}
+	}
+
+	public static void FindReachableFromHexes(AbilityState abilityState, MoveNode firstNode, Figure performer, MoveType moveType,
+		Dictionary<Hex, MoveNode> closedList, bool addFirstNodeToClosedList = false)
+	{
+		closedList.Clear();
+
+		if(!CanStopAt(performer, firstNode.Hex, moveType))
+		{
+			return;
+		}
+
+		if(addFirstNodeToClosedList)
+		{
+			closedList.Add(firstNode.Hex, firstNode);
+		}
+
+		// Flood fill to find all reachable from hexes
+		List<MoveNode> openList = new List<MoveNode>();
+		openList.Add(firstNode);
+		while(openList.Count > 0)
+		{
+			MoveNode nodeToHandle = openList[0];
+			openList.RemoveAt(0);
+
+			Hex fromHex = nodeToHandle.Hex;
+
+			foreach(Hex newHex in nodeToHandle.Hex.Neighbours)
+			{
+				if(newHex.Revealed && newHex != firstNode.Hex)
+				{
+					// Check if the old hex can be passed, since we're moving there from the new hex
+					if(!CanPass(abilityState, performer, fromHex, false, moveType))
+					{
+						continue;
+					}
+
+					// Moving to the old hex from the new hex, we get the move cost of the old hex
+					int moveCost = GetMoveCost(performer, fromHex, moveType);
+
+					int newNegativeHexEncounteredCount = nodeToHandle.NegativeHexEncounteredCount;
+
+					bool affectedByNegativeHex =
+						(fromHex.HasHexObjectOfType<HazardousTerrain>() || fromHex.HasHexObjectOfType<Trap>()) && 
+						(moveType == MoveType.Regular || (moveType == MoveType.Jump && nodeToHandle == firstNode));
+
+					ScenarioCheckEvents.MoveCheck.Parameters moveCheckParameters =
+						ScenarioCheckEvents.MoveCheckEvent.Fire(
+							new ScenarioCheckEvents.MoveCheck.Parameters(abilityState, performer, fromHex, newHex, moveCost, affectedByNegativeHex));
+
+					int newMoveLeft = nodeToHandle.MoveLeft - moveCheckParameters.MoveCost;
+
+					if(newMoveLeft < 0)
 					{
 						continue;
 					}

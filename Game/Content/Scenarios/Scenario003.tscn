@@ -89,146 +89,150 @@ CannotBeDestroyed = true
 
 [node name="Marker" parent="Map/Rooms/Room/Water1H7" index="4" instance=ExtResource("7_ebkjt")]
 
-[node name="MonsterSpawner" parent="Map/Rooms/Room" index="16" instance=ExtResource("8_s4hec")]
+[node name="Water1H8" parent="Map/Rooms/Room" index="16" instance=ExtResource("6_ipjib")]
+position = Vector2(2073.26, 189)
+CannotBeDestroyed = true
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="17" instance=ExtResource("8_s4hec")]
 position = Vector2(2073.26, 189)
 MonsterModelId = "MONSTER_MODEL.HYDRA_SPIRIT"
 MonsterType2Characters = 2
 MonsterType3Characters = 2
 MonsterType4Characters = 2
 
-[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="17" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="18" instance=ExtResource("8_s4hec")]
 position = Vector2(0, -378)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="18" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="19" instance=ExtResource("8_s4hec")]
 position = Vector2(109.119, -567)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="19" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="20" instance=ExtResource("8_s4hec")]
 position = Vector2(218.238, -378)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner11" parent="Map/Rooms/Room" index="20" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner11" parent="Map/Rooms/Room" index="21" instance=ExtResource("8_s4hec")]
 position = Vector2(1745.91, -378)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner12" parent="Map/Rooms/Room" index="21" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner12" parent="Map/Rooms/Room" index="22" instance=ExtResource("8_s4hec")]
 position = Vector2(1855.03, -567)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner13" parent="Map/Rooms/Room" index="22" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner13" parent="Map/Rooms/Room" index="23" instance=ExtResource("8_s4hec")]
 position = Vector2(1855.03, -189)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner14" parent="Map/Rooms/Room" index="23" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner14" parent="Map/Rooms/Room" index="24" instance=ExtResource("8_s4hec")]
 position = Vector2(1745.91, 378)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="24" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="25" instance=ExtResource("8_s4hec")]
 position = Vector2(654.715, 0)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner6" parent="Map/Rooms/Room" index="25" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner6" parent="Map/Rooms/Room" index="26" instance=ExtResource("8_s4hec")]
 position = Vector2(1200.31, -189)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner8" parent="Map/Rooms/Room" index="26" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner8" parent="Map/Rooms/Room" index="27" instance=ExtResource("8_s4hec")]
 position = Vector2(1418.55, 189)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner9" parent="Map/Rooms/Room" index="27" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner9" parent="Map/Rooms/Room" index="28" instance=ExtResource("8_s4hec")]
 position = Vector2(1745.91, 0)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType2Characters = 1
 
-[node name="MonsterSpawner10" parent="Map/Rooms/Room" index="28" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner10" parent="Map/Rooms/Room" index="29" instance=ExtResource("8_s4hec")]
 position = Vector2(1855.03, 567)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner7" parent="Map/Rooms/Room" index="29" instance=ExtResource("8_s4hec")]
+[node name="MonsterSpawner7" parent="Map/Rooms/Room" index="30" instance=ExtResource("8_s4hec")]
 position = Vector2(1418.55, -567)
 MonsterModelId = "MONSTER_MODEL.LURKER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="CharacterStartHex" parent="Map/Rooms/Room" index="30" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="31" instance=ExtResource("9_lppjs")]
 position = Vector2(0, 378)
 
-[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="31" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="32" instance=ExtResource("9_lppjs")]
 position = Vector2(-109.119, 189)
 
-[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="32" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="33" instance=ExtResource("9_lppjs")]
 position = Vector2(-109.119, 567)
 
-[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="33" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="34" instance=ExtResource("9_lppjs")]
 position = Vector2(-218.238, 378)
 
-[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="34" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="35" instance=ExtResource("9_lppjs")]
 position = Vector2(-327.358, 189)
 
-[node name="CharacterStartHex6" parent="Map/Rooms/Room" index="35" instance=ExtResource("9_lppjs")]
+[node name="CharacterStartHex6" parent="Map/Rooms/Room" index="36" instance=ExtResource("9_lppjs")]
 position = Vector2(109.119, 567)
 
-[node name="Stalagmites1H" parent="Map/Rooms/Room" index="36" instance=ExtResource("11_gx355")]
+[node name="Stalagmites1H" parent="Map/Rooms/Room" index="37" instance=ExtResource("11_gx355")]
 position = Vector2(-545.596, -189)
 
-[node name="Marker" parent="Map/Rooms/Room" index="37" instance=ExtResource("7_ebkjt")]
+[node name="Marker" parent="Map/Rooms/Room" index="38" instance=ExtResource("7_ebkjt")]
 position = Vector2(-327.358, -567)
 MarkerType = 1
 
-[node name="Marker2" parent="Map/Rooms/Room" index="38" instance=ExtResource("7_ebkjt")]
+[node name="Marker2" parent="Map/Rooms/Room" index="39" instance=ExtResource("7_ebkjt")]
 position = Vector2(-436.477, -378)
 MarkerType = 1
 
-[node name="Marker3" parent="Map/Rooms/Room" index="39" instance=ExtResource("7_ebkjt")]
+[node name="Marker3" parent="Map/Rooms/Room" index="40" instance=ExtResource("7_ebkjt")]
 position = Vector2(-327.358, -189)
 MarkerType = 1
 
-[node name="Marker4" parent="Map/Rooms/Room" index="40" instance=ExtResource("7_ebkjt")]
+[node name="Marker4" parent="Map/Rooms/Room" index="41" instance=ExtResource("7_ebkjt")]
 position = Vector2(-436.477, 0)
 MarkerType = 1
 
-[node name="Marker5" parent="Map/Rooms/Room" index="41" instance=ExtResource("7_ebkjt")]
+[node name="Marker5" parent="Map/Rooms/Room" index="42" instance=ExtResource("7_ebkjt")]
 position = Vector2(-545.596, 189)
 MarkerType = 1
 
-[node name="Marker6" parent="Map/Rooms/Room" index="42" instance=ExtResource("7_ebkjt")]
+[node name="Marker6" parent="Map/Rooms/Room" index="43" instance=ExtResource("7_ebkjt")]
 position = Vector2(-436.477, 378)
 MarkerType = 1
 
-[node name="Marker7" parent="Map/Rooms/Room" index="43" instance=ExtResource("7_ebkjt")]
+[node name="Marker7" parent="Map/Rooms/Room" index="44" instance=ExtResource("7_ebkjt")]
 position = Vector2(-327.358, 567)
 MarkerType = 1
 
-[node name="RockColumn1H" parent="Map/Rooms/Room" index="44" instance=ExtResource("12_522t7")]
+[node name="RockColumn1H" parent="Map/Rooms/Room" index="45" instance=ExtResource("12_522t7")]
 position = Vector2(-545.596, 567)
 
-[node name="RockColumn1H2" parent="Map/Rooms/Room" index="45" instance=ExtResource("12_522t7")]
+[node name="RockColumn1H2" parent="Map/Rooms/Room" index="46" instance=ExtResource("12_522t7")]
 position = Vector2(-545.596, -567)

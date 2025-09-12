@@ -13,9 +13,11 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, targets: 2, range: 2,
-				duringHealSubscriptions:
-				[
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithTargets(2)
+				.WithRange(2)
+				.WithDuringHealSubscription(
 					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Fire,
 						parameters => true,
 						async parameters =>
@@ -25,19 +27,18 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.GetCondition(Conditions.Bless))}")
-					)
-				],
-				afterHealPerformedSubscriptions:
-				[
+					))
+				.WithAfterHealPerformedSubscription(
 					ScenarioEvents.AfterHealPerformed.Subscription.New(
 						parameters => parameters.AbilityState.SingleTargetState.RemovedConditions.Count > 0,
 						async parameters =>
 						{
-							await AbilityCmd.AddCondition(parameters.AbilityState, parameters.AbilityState.SingleTargetState.Target, Conditions.Strengthen);
+							await AbilityCmd.AddCondition(parameters.AbilityState, parameters.AbilityState.SingleTargetState.Target,
+								Conditions.Strengthen);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -45,18 +46,16 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(5)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
 
-			new AbilityCardAbility(new OtherAbility(
-				async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
 					int itemCount = 2;
 
 					FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
 					FireKnightModel fireKnightModel = (FireKnightModel)fireKnight.ClassModel;
-					List<ItemModel> remainingItemModels = fireKnightModel.AllItems.ToList(); // fireKnight.ClassModel.Select(item => item.ImmutableInstance).ToList();
-					//remainingItemModels.Shuffle(GameController.Instance.StateRNG);
-					//remainingItemModels = remainingItemModels.Take(Mathf.Min(fireKnight.FireKnightItems.Count, itemCount)).ToList();
+					List<ItemModel> remainingItemModels = fireKnightModel.AllItems.ToList();
 
 					for(int i = 0; i < itemCount; i++)
 					{
@@ -100,8 +99,8 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 							}, true
 						);
 					}
-				},
-				conditionalAbilityCheck: async state =>
+				})
+				.WithConditionalAbilityCheck(async state =>
 				{
 					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
 
@@ -120,32 +119,35 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 					}
 
 					return false;
-				}
-			)),
+				})
+				.Build()),
 
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer && RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false).Any(figure => state.Performer.AlliedWith(figure)),
+						parameters => parameters.Figure == state.Performer && RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false)
+							.Any(figure => state.Performer.AlliedWith(figure)),
 						async parameters =>
 						{
 							FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
-							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire, $"Consume {Icons.Inline(Icons.GetElement(Element.Fire))} to give an adjacent ally a {Icons.Inline(fireKnight.ClassModel.IconPath)} item."))
+							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire,
+								   $"Consume {Icons.Inline(Icons.GetElement(Element.Fire))} to give an adjacent ally a {Icons.Inline(fireKnight.ClassModel.IconPath)} item."))
 							{
 							}
 						}
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 2;

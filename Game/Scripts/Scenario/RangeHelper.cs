@@ -147,7 +147,7 @@ public static class RangeHelper
 
 	public static IEnumerable<Figure> GetFiguresInRange(Hex origin, int range, bool includeOrigin = true, bool requiresLineOfSight = true)
 	{
-		foreach(Hex hex in GetHexesInRange(origin, range, requiresLineOfSight))
+		foreach(Hex hex in GetHexesInRange(origin, range, includeOrigin, requiresLineOfSight))
 		{
 			foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
 			{

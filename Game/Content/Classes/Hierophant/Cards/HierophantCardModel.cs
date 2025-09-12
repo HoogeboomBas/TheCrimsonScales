@@ -13,21 +13,24 @@ public abstract class HierophantCardModel<TTop, TBottom> : AtlasAbilityCardModel
 
 public abstract class HierophantCardSide : AbilityCardSide
 {
-	protected GiveAbilityCardAbility GivePrayerCardAbility(int targets = 1, int? range = null,
+	protected GiveAbilityCardAbility GivePrayerCardAbility(int targets = 1, int range = 1,
 		Action<GiveAbilityCardAbility.State, List<Figure>> customGetTargets = null,
 		GiveAbilityCardAbility.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null)
 	{
-		return new GiveAbilityCardAbility(
-			(state, list) =>
+		return GiveAbilityCardAbility.Builder()
+			.WithGetAbilityCards((state, list) =>
 			{
 				Hierophant hierophant = (Hierophant)AbilityCard.OriginalOwner;
 				list.AddRange(hierophant.PrayerCards);
-			},
-			OnCardGiven, OnCardDiscarded, OnCardLost,
-			targets: targets, range: range,
-			customGetTargets: customGetTargets,
-			conditionalAbilityCheck: conditionalAbilityCheck
-		);
+			})
+			.WithOnCardGiven(OnCardGiven)
+			.WithOnCardDiscarded(OnCardDiscarded)
+			.WithOnCardLost(OnCardLost)
+			.WithTargets(targets)
+			.WithRange(range)
+			.WithCustomGetTargets(customGetTargets)
+			.WithConditionalAbilityCheck(conditionalAbilityCheck)
+			.Build();
 	}
 
 	protected async GDTask GivePrayerCard(AbilityState abilityState, Figure target)

@@ -16,7 +16,7 @@ public class WarHammer : Prosperity1Item
 		base.Subscribe();
 
 		SubscribeDuringAttack(
-			canApply: state => state.Performer == Owner && state.AbilityRangeType == RangeType.Melee,
+			canApply: state => state.Performer == Owner && state.SingleTargetRangeType == RangeType.Melee,
 			apply: async state =>
 			{
 				await Use(async user =>

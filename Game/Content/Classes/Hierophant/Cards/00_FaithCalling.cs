@@ -12,12 +12,16 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(
-				figure =>
-				[
-					new ShieldAbility(1)
-				], target: Target.Allies | Target.TargetAll, range: 2
-			)),
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter =>
+					[
+						ShieldAbility.Builder().WithShieldValue(1).Build()
+					]
+				)
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithRange(2)
+				.Build()
+			),
 
 			new AbilityCardAbility(GivePrayerCardAbility(
 				conditionalAbilityCheck: async state =>
@@ -45,10 +49,11 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 3,
-				afterTargetConfirmedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(3)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						canApplyFunction: canApplyParameters =>
 						{
 							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
@@ -68,8 +73,8 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

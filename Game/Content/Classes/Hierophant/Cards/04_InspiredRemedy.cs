@@ -12,10 +12,11 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 2,
-				duringHealSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.DuringHeal.Parameters>.Subscription.ConsumeElement(Element.Light,
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithRange(2)
+				.WithDuringHealSubscription(
+					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.AbilityAdjustHealValue(1);
@@ -24,10 +25,9 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 							await GDTask.CompletedTask;
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Heal)}, +1{Icons.Inline(Icons.Range)}"))
-				],
-				afterTargetConfirmedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.HealAfterTargetConfirmed.Parameters>.Subscription.New(
+				)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(
 						applyFunction: async applyParameters =>
 						{
 							bool underHalfHP = applyParameters.AbilityState.Target.Health <= applyParameters.AbilityState.Target.MaxHealth / 2;
@@ -35,18 +35,17 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 
 							await GDTask.CompletedTask;
 						})
-				],
-				afterHealPerformedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.AfterHealPerformed.Parameters>.Subscription.New(
+				)
+				.WithAfterHealPerformedSubscription(
+					ScenarioEvents.AfterHealPerformed.Subscription.New(
 						canApplyFunction: canApplyParameters => canApplyParameters.AbilityState.GetCustomValue<bool>(this, "UnderHalfHP"),
 						applyFunction: async applyParameters =>
 						{
 							await GivePrayerCard(applyParameters.AbilityState, applyParameters.AbilityState.Target);
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -54,26 +53,33 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [new HealAbility(1, range: 1, target: Target.Allies)]);
+							ActionState actionState = new ActionState(state.Performer, [
+								HealAbility.Builder()
+									.WithHealValue(1)
+									.WithRange(1)
+									.WithTarget(Target.Allies)
+									.Build()
+							]);
 							await actionState.Perform();
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 2;

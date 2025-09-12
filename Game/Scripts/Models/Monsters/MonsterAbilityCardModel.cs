@@ -27,7 +27,10 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 			return null;
 		}
 
-		return new MoveAbility(monster.Stats.Move.Value + extraDistance, moveType);
+		return global::MoveAbility.Builder()
+			.WithDistance(monster.Stats.Move.Value + extraDistance)
+			.WithMoveType(moveType)
+			.Build();
 	}
 
 	protected AttackAbility AttackAbility(Monster monster,
@@ -39,15 +42,28 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
 	{
-		DynamicInt<AttackAbility.State> dynamicAttackValue = new DynamicInt<AttackAbility.State>(extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, dynamicValue);
+		DynamicInt<AttackAbility.State> dynamicAttackValue =
+			new DynamicInt<AttackAbility.State>(extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, dynamicValue);
 		//Monster monster = (Monster)parameters.Performer;
 		int finalRange = range ?? ((monster.Stats.Range ?? 1) + extraRange);
 		RangeType finalRangeType = rangeType ?? (finalRange > 1 ? RangeType.Range : monster.Stats.RangeType);
-		return new AttackAbility(dynamicAttackValue, //extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, getValue: getValue,
-			targets: targets, range: finalRange, rangeType: finalRangeType,
-			target: target, targetHex: targetHex, requiresLineOfSight: requiresLineOfSight, aoePattern: aoePattern,
-			push: push, pull: pull, pierce: pierce, conditions: conditions, customGetTargets: customGetTargets,
-			afterTargetConfirmedSubscriptions: afterTargetConfirmedSubscriptions, afterAttackPerformedSubscriptions: afterAttackPerformedSubscriptions);
+		return global::AttackAbility.Builder()
+			.WithDamage(dynamicAttackValue) //extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, getValue: getValue,
+			.WithTargets(targets)
+			.WithRange(finalRange)
+			.WithRangeType(finalRangeType)
+			.WithTarget(target)
+			.WithTargetHex(targetHex)
+			.WithRequiresLineOfSight(requiresLineOfSight)
+			.WithAOEPattern(aoePattern)
+			.WithPush(push)
+			.WithPull(pull)
+			.WithPierce(pierce ?? 0)
+			.WithConditions(conditions ?? [])
+			.WithCustomGetTargets(customGetTargets)
+			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions)
+			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions)
+			.Build();
 	}
 
 	protected DynamicInt<TState> ConsumeElementDynamicValue<TState>(IReadOnlyCollection<Element> possibleElements, int normalValue, int consumedValue)

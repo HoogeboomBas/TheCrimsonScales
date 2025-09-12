@@ -80,7 +80,7 @@ public class Scenario002 : ScenarioModel
 					{
 						foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
 						{
-							ActionState actionState = new ActionState(figure, [new HealAbility(2, target: Target.Self)]);
+							ActionState actionState = new ActionState(figure, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 						}
 					}

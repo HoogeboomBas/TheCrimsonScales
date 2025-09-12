@@ -11,7 +11,12 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(4, range: 3, pierce: 3, conditions: [Conditions.Wound1]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithRange(3)
+				.WithPierce(3)
+				.WithConditions(Conditions.Wound1)
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -22,25 +27,28 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(3)),
+			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
-			new AbilityCardAbility(new HealAbility(1, target: Target.Allies | Target.TargetAll,
-				customGetTargets: (state, list) =>
-				{
-					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
-					foreach(Hex hex in moveAbilityState.Hexes)
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(1)
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithCustomGetTargets((state, list) =>
 					{
-						foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+						MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
+
+						foreach(Hex hex in moveAbilityState.Hexes)
 						{
-							if(state.Performer.AlliedWith(figure))
+							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
 							{
-								list.Add(figure);
+								if(state.Performer.AlliedWith(figure))
+								{
+									list.Add(figure);
+								}
 							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

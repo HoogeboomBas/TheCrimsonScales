@@ -11,13 +11,16 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ProjectileAbility(4,
-				hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
-					new AttackAbility(2, conditions: [Conditions.Stun], rangeType: RangeType.Range, targetHex: hex,
-						afterAttackPerformedSubscriptions:
-						[
-							ScenarioEvent<ScenarioEvents.AfterAttackPerformed.Parameters>.Subscription.New(
+					AttackAbility.Builder()
+						.WithDamage(2)
+						.WithConditions(Conditions.Stun)
+						.WithRangeType(RangeType.Range)
+						.WithTargetHex(hex)
+						.WithAfterAttackPerformedSubscription(
+							ScenarioEvents.AfterAttackPerformed.Subscription.New(
 								applyFunction: async applyParameters =>
 								{
 									List<Hex> hexes = new List<Hex>();
@@ -27,7 +30,8 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 									{
 										foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
 										{
-											if(figure != applyParameters.AbilityState.Target && applyParameters.AbilityState.Performer.EnemiesWith(figure))
+											if(figure != applyParameters.AbilityState.Target &&
+											   applyParameters.AbilityState.Performer.EnemiesWith(figure))
 											{
 												enemies.Add(figure);
 											}
@@ -39,10 +43,12 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 										await AbilityCmd.SufferDamage(null, enemy, 1);
 									}
 								})
-						]),
-				],
-				this)
-			)
+						)
+						.Build(),
+				])
+				.WithAbilityCardSide(this)
+				.WithRange(4)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -53,7 +59,10 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new PullSelfAbility(4, range: 5))
+			new AbilityCardAbility(PullSelfAbility.Builder()
+				.WithPullSelfValue(4)
+				.WithRange(5)
+				.Build())
 		];
 	}
 }

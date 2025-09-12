@@ -11,7 +11,10 @@ public class BloodThinner : MirefootCardModel<BloodThinner.CardTop, BloodThinner
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, conditions: [Conditions.Wound2]))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithConditions(Conditions.Wound2)
+				.Build())
 		];
 
 		protected override int XP => 1;
@@ -21,7 +24,10 @@ public class BloodThinner : MirefootCardModel<BloodThinner.CardTop, BloodThinner
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility(range: 2, conditions: [Conditions.Wound1, Conditions.Immobilize]))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Wound1, Conditions.Immobilize)
+				.WithRange(2)
+				.Build())
 		];
 	}
 }

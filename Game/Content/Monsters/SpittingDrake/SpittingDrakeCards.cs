@@ -103,9 +103,12 @@ public class SpittingDrakeAbilityCard6 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ShieldAbility(2)),
-		new MonsterAbilityCardAbility(new HealAbility(2, target: Target.Self)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Strengthen], target: Target.Self))
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Strengthen)
+			.WithTarget(Target.Self)
+			.Build())
 	];
 }
 

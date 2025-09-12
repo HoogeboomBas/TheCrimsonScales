@@ -13,9 +13,9 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(3,
-				duringAttackSubscriptions:
-				[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3)
+				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -30,20 +30,21 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 						effectButtonParameters: new IconEffectButton.Parameters(LadderIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Range)}")
 					)
-				],
-				afterTargetConfirmedSubscriptions:
-				[
+				)
+				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => true,
 						async parameters =>
 						{
-							bool targetNextToAlly = RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure));
+							bool targetNextToAlly = RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure));
 							if(targetNextToAlly)
 							{
 								parameters.AbilityState.SingleTargetAdjustAttackValue(1);
 							}
 
-							bool performerNextToAlly = RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false).Any(figure => parameters.Performer.AlliedWith(figure));
+							bool performerNextToAlly = RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1, false)
+								.Any(figure => parameters.Performer.AlliedWith(figure));
 							if(performerNextToAlly)
 							{
 								parameters.AbilityState.SingleTargetSetHasAdvantage();
@@ -55,8 +56,8 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 							}
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -64,8 +65,8 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
@@ -88,18 +89,21 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 							{
 								ActionState actionState = new ActionState(state.Performer,
 									[
-										new GrantAbility(figure => [new AttackAbility(2)],
-											customGetTargets: (grantState, list) =>
-											{
-												foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))
+										GrantAbility.Builder()
+											.WithGetAbilities(granter => [AttackAbility.Builder().WithDamage(2).Build()])
+											.WithCustomGetTargets((grantState, list) =>
 												{
-													if(state.Performer.AlliedWith(potentialTarget) && potentialTarget.HasCondition(Conditions.Strengthen))
+													foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))
 													{
-														list.Add(potentialTarget);
+														if(state.Performer.AlliedWith(potentialTarget) &&
+														   potentialTarget.HasCondition(Conditions.Strengthen))
+														{
+															list.Add(potentialTarget);
+														}
 													}
 												}
-											}
-										)
+											)
+											.Build()
 									]
 								);
 
@@ -109,14 +113,15 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override int XP => 2;

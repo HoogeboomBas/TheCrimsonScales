@@ -153,9 +153,20 @@ public abstract partial class Figure : HexObject
 
 	public virtual async GDTask TakeFullTurn()
 	{
-		await StartTurn();
-		await TakeTurn();
-		await EndTurn();
+		if(!IsDead)
+		{
+			await StartTurn();
+		}
+
+		if(!IsDead)
+		{
+			await TakeTurn();
+		}
+
+		if(!IsDead)
+		{
+			await EndTurn();
+		}
 
 		await GDTask.DelayFastForwardable(0.5f);
 	}

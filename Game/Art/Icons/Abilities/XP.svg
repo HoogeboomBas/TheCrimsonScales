@@ -2,18 +2,18 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256"
-   height="256"
-   viewBox="0 0 256 256"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xml:space="preserve"
    sodipodi:docname="XP.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
      id="namedview7"
      pagecolor="#505050"
      bordercolor="#ffffff"
@@ -25,36 +25,27 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:lockguides="true"
-     inkscape:zoom="0.80957031"
-     inkscape:cx="187.13631"
-     inkscape:cy="160.57901"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="1.6191406"
+     inkscape:cx="333.20145"
+     inkscape:cy="520.95538"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
-    <inkscape:grid
+     inkscape:current-layer="layer1"><inkscape:grid
        type="xygrid"
        id="grid234"
        empspacing="4"
        originx="0"
-       originy="0" />
-  </sodipodi:namedview>
-  <defs
-     id="defs2" />
-  <g
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" /></sodipodi:namedview><defs
+     id="defs2" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <g
-       id="g576"
-       transform="matrix(1,0,0,-1,128,8)"
-       style="fill:#ffffff">
-      <path
-         d="M 0,0 31.967,-42.824 84.853,-35.147 77.176,-88.033 120,-120 77.176,-151.967 84.853,-204.853 31.967,-197.176 0,-240 l -31.967,42.824 -52.886,-7.677 7.677,52.886 L -120,-120 l 42.824,31.967 -7.677,52.886 52.886,-7.677 z"
-         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="path578" />
-    </g>
-  </g>
-</svg>
+     id="layer1"><path
+       d="m 472.00023,255.99989 -77.36398,57.55877 14.23497,95.31236 L 313.55881,395.25497 256,472 198.44119,395.25497 103.12878,408.87102 117.36374,313.55866 39.999767,255.99989 117.36374,198.44112 103.12878,103.74766 198.44119,117.36371 256,39.99978 l 57.55881,77.36393 95.31241,-13.61605 -14.23497,94.69346 z"
+       id="path1"
+       style="fill:#ffffff;stroke-width:0.618912" /></g></svg>

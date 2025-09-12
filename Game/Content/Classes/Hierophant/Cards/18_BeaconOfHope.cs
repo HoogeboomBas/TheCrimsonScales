@@ -13,10 +13,14 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new HealAbility(3, range: 3)),
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3)
+				.WithRange(3)
+				.Build()),
 
-			new AbilityCardAbility(new AttackAbility(2,
-				customGetTargets: (state, list) =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 					foreach(Figure targetedFigure in attackAbilityState.UniqueTargetedFigures)
@@ -29,9 +33,9 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 							}
 						}
 					}
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];
@@ -41,10 +45,13 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Bless, Conditions.Bless], range: 3)),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Bless, Conditions.Bless)
+				.WithRange(3)
+				.Build()),
 
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.9f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AMDTerminalDrawnEvent.Subscribe(state, this,
 						parameters =>
@@ -52,7 +59,8 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 							parameters.AMDCard is BlessAMDCard,
 						async parameters =>
 						{
-							ActionState actionState = new ActionState(parameters.Performer, [new HealAbility(6, target: Target.Self)]);
+							ActionState actionState = new ActionState(parameters.Performer,
+								[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();
@@ -60,14 +68,16 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.AMDTerminalDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.9f)))
+				.Build())
 		];
 
 		protected override int XP => 1;

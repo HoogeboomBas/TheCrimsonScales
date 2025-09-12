@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public abstract class NightDemonAbilityCard : MonsterAbilityCardModel
@@ -116,8 +115,8 @@ public class NightDemonAbilityCard6 : NightDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 6)),
-		new MonsterAbilityCardAbility(new OtherAbility(
-			async state =>
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 			{
 				AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 				foreach(Figure target in attackAbilityState.UniqueTargetedFigures)
@@ -133,15 +132,16 @@ public class NightDemonAbilityCard6 : NightDemonAbilityCard
 						}
 					});
 
-					if(hex != null && await GameController.Instance.Map.CreateMonster(ModelDB.Monster<NightDemon>(), MonsterType.Normal, hex.Coords, true) != null)
+					if(hex != null &&
+					   await GameController.Instance.Map.CreateMonster(ModelDB.Monster<NightDemon>(), MonsterType.Normal, hex.Coords, true) != null)
 					{
 						state.SetPerformed();
 						break;
 					}
 				}
-			},
-			conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-		))
+			})
+			.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+			.Build())
 	];
 }
 
@@ -152,7 +152,10 @@ public class NightDemonAbilityCard7 : NightDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Wound1, Conditions.Poison1], target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Wound1, Conditions.Poison1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),
 	];
 }

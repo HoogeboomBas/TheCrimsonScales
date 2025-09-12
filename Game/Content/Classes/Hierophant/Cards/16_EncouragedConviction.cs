@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class EncouragedConviction : HierophantCardModel<EncouragedConviction.CardTop, EncouragedConviction.CardBottom>
 {
@@ -13,26 +12,29 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new GrantAbility(figure =>
-				[
-					new HealAbility(2, target: Target.Self),
-					new ShieldAbility(1),
-					new RetaliateAbility(1,
-						abilityStartedSubscriptions:
-						[
-							ScenarioEvents.AbilityStarted.Subscription.ConsumeElement(Element.Earth,
-								parameters => true,
-								async parameters =>
-								{
-									RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
-									retaliateAbilityState.AdjustRange(2);
-									await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1); //TODO: This actually grants the granted figure the xp, but I guess that's also implied on the card art currently
-								}
+			new AbilityCardAbility(GrantAbility.Builder()
+				.WithGetAbilities(granter =>
+					[
+						HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build(),
+						ShieldAbility.Builder().WithShieldValue(1).Build(),
+						RetaliateAbility.Builder()
+							.WithRetaliateValue(1)
+							.WithAbilityStartedSubscription(
+								ScenarioEvents.AbilityStarted.Subscription.ConsumeElement(Element.Earth,
+									parameters => true,
+									async parameters =>
+									{
+										RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
+										retaliateAbilityState.AdjustRange(2);
+										await AbilityCmd.GainXP(granter, 1);
+									}
+								)
 							)
-						]
-					)
-				]
-			))
+							.Build()
+					]
+				)
+				.WithRange(3)
+				.Build())
 		];
 
 		protected override bool Round => true;
@@ -42,63 +44,66 @@ public class EncouragedConviction : HierophantCardModel<EncouragedConviction.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					Figure figure = await AbilityCmd.SelectFigure(state,
-						list =>
-						{
-							foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+					{
+						Figure figure = await AbilityCmd.SelectFigure(state,
+							list =>
 							{
-								if(
-									state.Performer.AlliedWith(figure) &&
-									figure is Character character &&
-									character.Cards.Any(card => card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide))
+								foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
 								{
-									list.Add(figure);
+									if(
+										state.Performer.AlliedWith(figure) &&
+										figure is Character character &&
+										character.Cards.Any(card => card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide))
+									{
+										list.Add(figure);
+									}
 								}
 							}
-						}
-					);
+						);
 
-					if(figure == null)
-					{
-						return;
-					}
-
-					Character character = (Character)figure;
-					AbilityCard prayerCard = await AbilityCmd.SelectAbilityCard(character,
-						list =>
+						if(figure == null)
 						{
-							foreach(AbilityCard card in character.Cards)
+							return;
+						}
+
+						Character character = (Character)figure;
+						AbilityCard prayerCard = await AbilityCmd.SelectAbilityCard(character,
+							list =>
 							{
-								if(card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide)
+								foreach(AbilityCard card in character.Cards)
 								{
-									list.Add(card);
+									if(card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide)
+									{
+										list.Add(card);
+									}
 								}
-							}
-						}, CardState.Hand, false, hintText: "Select a prayer card to play for its top or bottom"
-					);
+							}, CardState.Hand, false, hintText: "Select a prayer card to play for its top or bottom"
+						);
 
-					if(prayerCard == null)
-					{
-						return;
-					}
-
-					state.SetPerformed();
-
-					AbilityCardSection section = await AbilityCmd.PerformAbilityCardTopOrBottom(figure, prayerCard);
-
-					await AbilityCmd.GainXP(state.Performer, 1);
-
-					if(section == AbilityCardSection.Bottom)
-					{
-						if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Light, $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
+						if(prayerCard == null)
 						{
-							await GivePrayerCard(state, figure);
+							return;
+						}
+
+						state.SetPerformed();
+
+						AbilityCardSection section = await AbilityCmd.PerformAbilityCardTopOrBottom(figure, prayerCard);
+
+						await AbilityCmd.GainXP(state.Performer, 1);
+
+						if(section == AbilityCardSection.Bottom)
+						{
+							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Light,
+								   $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
+							{
+								await GivePrayerCard(state, figure);
+							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 	}
 }

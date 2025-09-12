@@ -2,18 +2,18 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256"
-   height="256"
-   viewBox="0 0 256 256"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xml:space="preserve"
    sodipodi:docname="Shield.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
      id="namedview7"
      pagecolor="#505050"
      bordercolor="#ffffff"
@@ -26,53 +26,26 @@
      showgrid="true"
      inkscape:lockguides="true"
      inkscape:zoom="1.6191406"
-     inkscape:cx="123.21351"
-     inkscape:cy="240.86852"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:cx="228.20748"
+     inkscape:cy="129.38963"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1">
-    <inkscape:grid
+     inkscape:current-layer="layer1"><inkscape:grid
        type="xygrid"
        id="grid234"
        empspacing="4"
        originx="0"
-       originy="0" />
-  </sodipodi:namedview>
-  <defs
-     id="defs2">
-    <clipPath
-       clipPathUnits="userSpaceOnUse"
-       id="clipPath358">
-      <path
-         d="M 0,300 H 300 V 0 H 0 Z"
-         id="path356" />
-    </clipPath>
-  </defs>
-  <g
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" /></sodipodi:namedview><defs
+     id="defs2" /><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <g
-       id="g352"
-       transform="matrix(1.0000003,0,0,-1,-22.000124,277.9999)"
-       style="fill:#ffffff">
-      <g
-         id="g354"
-         clip-path="url(#clipPath358)"
-         style="fill:#ffffff">
-        <g
-           id="g360"
-           transform="translate(260.2741,241.6924)"
-           style="fill:#ffffff">
-          <path
-             d="m 0,0 c 0.49,1.955 -0.669,3.942 -2.609,4.487 -27.946,7.849 -88.191,9.827 -107.665,19.404 -19.474,-9.577 -79.719,-11.555 -107.665,-19.404 -1.94,-0.545 -3.099,-2.532 -2.609,-4.487 14.509,-57.853 -13.349,-87.76 -6.732,-129.802 7.503,-47.677 92.543,-55.038 117.006,-77.474 24.462,22.436 109.503,29.797 117.006,77.474 C 13.349,-87.76 -14.51,-57.853 0,0"
-             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-             id="path362" />
-        </g>
-      </g>
-    </g>
-  </g>
-</svg>
+     id="layer1"><path
+       d="m 381.83379,135.72283 q 8.88889,8.33332 18.05555,16.11109 9.16666,7.77777 14.16666,11.11111 l 5,3.33333 q -0.55555,6.1111 -1.11111,16.38887 -0.55556,10.27777 -4.44444,38.3333 -3.88889,28.05553 -9.44444,52.77773 -5.55555,24.72221 -16.11111,52.22219 -10.55555,27.49997 -23.88888,43.05551 -21.1111,24.99998 -48.05554,45.27774 -26.94444,20.27776 -43.6111,28.05554 l -16.1111,7.77776 q -2.77778,-1.11111 -7.22222,-3.33333 -4.44444,-2.22222 -17.22222,-9.44443 -12.77777,-7.22222 -25.27777,-15.83333 -12.49999,-8.6111 -28.88888,-22.77776 -16.38888,-14.16664 -29.72221,-29.72219 -13.33332,-15.55554 -23.88888,-42.22219 -10.55555,-26.66664 -16.11111,-53.61106 -5.55555,-26.94442 -9.16666,-51.38885 -3.61111,-24.44442 -4.72222,-39.99996 L 92.945,166.27836 q 17.22221,-11.11111 37.22221,-30.55553 8.33333,-8.88889 13.6111,-19.16666 5.27778,-10.27777 6.38889,-16.38887 l 1.11111,-5.55555 q 34.44444,0.55555 60.55554,-9.44444 12.22222,-4.44444 23.05555,-10.27776 10.83333,-5.83334 15.83332,-9.16666 l 5.55556,-3.88889 q 17.22222,13.33332 43.88887,23.33331 11.66667,4.44445 26.94444,6.66666 15.27777,2.22222 24.16666,2.77778 h 9.44444 q 1.66666,21.66664 21.1111,41.11108 z"
+       id="path1"
+       style="fill:#ffffff;stroke-width:0.555556" /></g></svg>

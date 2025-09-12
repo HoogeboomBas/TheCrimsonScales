@@ -21,7 +21,13 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [new MoveAbility(2, MoveType.Jump)]);
+								ActionState actionState = new ActionState(user,
+								[
+									MoveAbility.Builder()
+										.WithDistance(2)
+										.WithMoveType(MoveType.Jump)
+										.Build()
+								]);
 								await actionState.Perform();
 							},
 							effectType: EffectType.SelectableMandatory,
@@ -34,7 +40,13 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [new AttackAbility(2, hasAdvantage: true)]);
+								ActionState actionState = new ActionState(user,
+								[
+									AttackAbility.Builder()
+										.WithDamage(2)
+										.WithHasAdvantage(true)
+										.Build()
+								]);
 								await actionState.Perform();
 							},
 							effectType: EffectType.SelectableMandatory,
@@ -47,12 +59,20 @@
 							subscriptionParameters => true,
 							async subscriptionParameters =>
 							{
-								ActionState actionState = new ActionState(user, [new HealAbility(2, conditions: [Conditions.Bless], target: Target.Self)]);
+								ActionState actionState = new ActionState(user,
+								[
+									HealAbility.Builder()
+										.WithHealValue(2)
+										.WithConditions(Conditions.Bless)
+										.WithTarget(Target.Self)
+										.Build()
+								]);
 								await actionState.Perform();
 							},
 							effectType: EffectType.SelectableMandatory,
 							effectButtonParameters: new IconEffectButton.Parameters(Icons.Heal),
-							effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}2 self, {Icons.Inline(Icons.GetCondition(Conditions.Bless))}")
+							effectInfoViewParameters: new TextEffectInfoView.Parameters(
+								$"{Icons.Inline(Icons.Heal)}2 self, {Icons.Inline(Icons.GetCondition(Conditions.Bless))}")
 						);
 
 					await AbilityCmd.GenericChoice(user,

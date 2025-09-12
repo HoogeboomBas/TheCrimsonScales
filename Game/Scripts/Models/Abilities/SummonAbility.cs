@@ -4,6 +4,9 @@ using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
 
+/// <summary>
+/// An <see cref="ActiveAbility{T}"/> that creates a summon ally.
+/// </summary>
 public class SummonAbility : ActiveAbility<SummonAbility.State>
 {
 	public class State : ActiveAbilityState
@@ -16,25 +19,84 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		}
 	}
 
-	private readonly SummonStats _summonStats;
-	private readonly string _name;
-	private readonly string _texturePath;
-	private readonly Action<State, List<Hex>> _getValidHexes;
+	private SummonStats _summonStats;
+	private string _name;
+	private string _texturePath;
+	private Action<State, List<Hex>> _getValidHexes;
 
-	public SummonAbility(SummonStats summonStats, string name, string texturePath, Action<State, List<Hex>> getValidHexes = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, getHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in SummonAbility. Enables inheritors of SummonAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending SummonAbility.
+	public new class AbstractBuilder<TBuilder, TAbility> : ActiveAbility<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.ISummonStatsStep,
+		AbstractBuilder<TBuilder, TAbility>.INameStep,
+		AbstractBuilder<TBuilder, TAbility>.ITexturePathStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : SummonAbility, new()
 	{
-		_summonStats = summonStats;
-		_name = name;
-		_texturePath = texturePath;
-		_getValidHexes = getValidHexes;
+		public interface ISummonStatsStep
+		{
+			INameStep WithSummonStats(SummonStats summonStats);
+		}
+
+		public interface INameStep
+		{
+			ITexturePathStep WithName(string name);
+		}
+
+		public interface ITexturePathStep
+		{
+			TBuilder WithTexturePath(string texturePath);
+		}
+
+		public INameStep WithSummonStats(SummonStats summonStats)
+		{
+			Obj._summonStats = summonStats;
+			return (TBuilder)this;
+		}
+
+		public ITexturePathStep WithName(string name)
+		{
+			Obj._name = name;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithTexturePath(string texturePath)
+		{
+			Obj._texturePath = texturePath;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithGetValidHexes(
+			Action<State, List<Hex>> getValidHexes)
+		{
+			Obj._getValidHexes = getValidHexes;
+			return (TBuilder)this;
+		}
 	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class SummonBuilder : AbstractBuilder<SummonBuilder, SummonAbility>
+	{
+		internal SummonBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of SummonBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static SummonBuilder.ISummonStatsStep Builder()
+	{
+		return new SummonBuilder();
+	}
+
+	public SummonAbility() { }
 
 	protected override async GDTask Perform(State abilityState)
 	{

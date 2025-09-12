@@ -13,18 +13,21 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(4, range: 3,
-				afterTargetConfirmedSubscriptions:
-				[
-					ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
-						parameters => parameters.Performer.TurnPerformedActionStates.Any(performedActionState => performedActionState.AbilityStates.Any(state =>
-							state is AttackAbility.State attackAbilityState &&
-							attackAbilityState.ActionState.ParentActionState != null &&
-							attackAbilityState.ActionState.ParentActionState.AbilityStates.Any(potentialProjectileAbility =>
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithRange(3)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
+						parameters => parameters.Performer.TurnPerformedActionStates.Any(performedActionState =>
+							performedActionState.AbilityStates.Any(state =>
+								state is AttackAbility.State attackAbilityState &&
+								attackAbilityState.ActionState.ParentActionState != null &&
+								attackAbilityState.ActionState.ParentActionState.AbilityStates.Any(potentialProjectileAbility =>
 									potentialProjectileAbility is ProjectileAbility.State &&
-									attackAbilityState.UniqueTargetedFigures.Contains(parameters.AbilityState.Target) //TODO: Currently does not work with Unexpected Bombshell's direct suffer damage
-							)
-						)),
+									//TODO: Currently does not work with Unexpected Bombshell's direct suffer damage
+									attackAbilityState.UniqueTargetedFigures.Contains(parameters.AbilityState.Target)
+								)
+							)),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustAttackValue(2);
@@ -32,8 +35,8 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 
@@ -41,7 +44,11 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(4, targets: 2, range: 3))
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithTargets(2)
+				.WithRange(3)
+				.Build())
 		];
 
 		protected override int XP => 2;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// An <see cref="Ability{T}"/> that allows a figure to pick up loot tokens (coins and treasure chests) within range.
+/// </summary>
 public class LootAbility : Ability<LootAbility.State>
 {
 	public class State : AbilityState
@@ -12,20 +15,57 @@ public class LootAbility : Ability<LootAbility.State>
 		public int TotalLootedCount { get; set; }
 	}
 
-	private readonly Func<State, Figure> _customGetLootObtainer;
-	public int Range { get; }
+	private Func<State, Figure> _customGetLootObtainer { get; set; }
+	public int Range { get; protected set; }
 
-	public LootAbility(int range, Func<State, Figure> customGetLootObtainer = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvents.AbilityPerformed.Subscription> abilityPerformedSubscriptions = null)
-		: base(onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed, conditionalAbilityCheck, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in LootAbility. Enables inheritors of LootAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending LootAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IRangeStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : LootAbility, new()
 	{
-		_customGetLootObtainer = customGetLootObtainer;
-		Range = range;
+		public interface IRangeStep
+		{
+			TBuilder WithRange(int range);
+		}
+
+		public TBuilder WithCustomGetLootObtainer(Func<State, Figure> customGetLootObtainer)
+		{
+			Obj._customGetLootObtainer = customGetLootObtainer;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithRange(int range)
+		{
+			Obj.Range = range;
+			return (TBuilder)this;
+		}
 	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class LootBuilder : AbstractBuilder<LootBuilder, LootAbility>
+	{
+		internal LootBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of LootBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static LootBuilder.IRangeStep Builder()
+	{
+		return new LootBuilder();
+	}
+
+	public LootAbility() { }
 
 	protected override async GDTask Perform(State abilityState)
 	{

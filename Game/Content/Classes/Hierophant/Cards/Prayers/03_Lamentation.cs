@@ -10,8 +10,8 @@ public class Lamentation : HierophantPrayerCardModel<Lamentation.CardTopBottom, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.SufferDamageEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -24,14 +24,15 @@ public class Lamentation : HierophantPrayerCardModel<Lamentation.CardTopBottom, 
 						}, EffectType.Selectable);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.Build())
 		];
 
 		protected override bool Persistent => true;

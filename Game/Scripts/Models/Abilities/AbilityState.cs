@@ -13,6 +13,7 @@ public abstract class AbilityState
 	//TODO: Change this into a weak reference to make sure GC works correctly because of cyclic referencing?
 	public ActionState ActionState { get; init; }
 
+	public bool CanPerformWhileStunned { get; init; }
 	public bool Performed { get; private set; }
 
 	public Figure Performer => ActionState.Performer;

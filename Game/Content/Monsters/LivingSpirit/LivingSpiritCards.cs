@@ -88,7 +88,7 @@ public class LivingSpiritAbilityCard5 : LivingSpiritAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1)),
-		new MonsterAbilityCardAbility(new HealAbility(1, target: Target.Self)),
+		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()),
 	];
 }
 
@@ -100,10 +100,14 @@ public class LivingSpiritAbilityCard6 : LivingSpiritAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new ConditionAbility([Conditions.Curse], range: monster.Stats.Range)),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Curse)
+			.WithRange(monster.Stats.Range ?? 1)
+			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } = [MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class LivingSpiritAbilityCard7 : LivingSpiritAbilityCard
@@ -129,5 +133,6 @@ public class LivingSpiritAbilityCard7 : LivingSpiritAbilityCard
 		),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } = [MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
 }

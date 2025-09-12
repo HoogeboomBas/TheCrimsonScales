@@ -12,27 +12,37 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new SummonAbility(new SummonStats()
+			new AbilityCardAbility(SummonAbility.Builder()
+				.WithSummonStats(new SummonStats()
 				{
 					Health = 4,
 					Move = 2,
 					Attack = 1,
 					Traits = [new AdjacentAlliesGainAdvantageTrait()]
-				},
-				"Spotted Hound", "res://Content/Classes/FireKnight/SpottedHound.jpg"
-			)),
+				})
+				.WithName("Spotted Hound")
+				.WithTexturePath("res://Content/Classes/FireKnight/SpottedHound.jpg")
+				.Build()
+			),
 
-			new AbilityCardAbility(new OtherAbility(async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
 					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
 					ActionState actionState = new ActionState(summonAbilityState.Summon,
 					[
-						new ConditionAbility([Conditions.Bless], target: Target.Allies | Target.TargetAll, range: 2)
+						ConditionAbility.Builder()
+							.WithConditions(Conditions.Bless)
+							.WithTarget(Target.Allies | Target.TargetAll)
+							.WithRange(2)
+							.Build()
 					], state.ActionState);
 					await actionState.Perform();
-				},
-				conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0)
-			))
+
+					state.SetPerformed();
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.Build())
 		];
 
 		protected override int XP => 2;
@@ -44,9 +54,9 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new MoveAbility(4,
-				abilityStartedSubscriptions:
-				[
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4)
+				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
@@ -57,8 +67,8 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 							await GDTask.CompletedTask;
 						}
 					)
-				]
-			))
+				)
+				.Build())
 		];
 	}
 }

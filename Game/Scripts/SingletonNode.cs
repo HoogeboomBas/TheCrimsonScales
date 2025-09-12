@@ -14,8 +14,7 @@ public abstract partial class SingletonNode<T> : Node
 	{
 		if(Instance != null)
 		{
-			Log.Error($"Instance of Singleton {GetType()} already exists.");
-			return;
+			Log.Write($"Instance of Singleton {GetType()} already exists. Overwriting with the new version.");
 		}
 
 		Instance = (T)this;
@@ -41,9 +40,18 @@ public abstract partial class SingletonNode<T> : Node
 		}
 	}
 
+	protected void TryCancelToken()
+	{
+		if(_destroyCancellationTokenSource.IsCancellationRequested)
+		{
+			_destroyCancellationTokenSource.Cancel();
+		}
+	}
+
 	protected virtual void OnDestroy()
 	{
-		_destroyCancellationTokenSource.Cancel();
+		TryCancelToken();
+
 		Log.Write($"Removed Singleton of type {GetType()}.");
 	}
 }

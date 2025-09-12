@@ -12,9 +12,9 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new RetaliateAbility(1)),
-			new AbilityCardAbility(new OtherActiveAbility(
-				async state =>
+			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(1).Build()),
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -26,13 +26,14 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
+				})
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
-				}))
+				})
+				.Build())
 		];
 
 		protected override bool Round => true;
@@ -42,7 +43,10 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ShieldAbility(2, requiredRangeType: RangeType.Melee))
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(2)
+				.WithRequiredRangeType(RangeType.Melee)
+				.Build())
 		];
 
 		protected override bool Round => true;

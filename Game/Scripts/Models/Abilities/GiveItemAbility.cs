@@ -3,45 +3,89 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that gives an item to another character.
+/// </summary>
 public class GiveItemAbility : TargetedAbility<GiveItemAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
 	{
 	}
 
-	private readonly Action<AbilityState, List<ItemModel>> _getItems;
-	private readonly Func<AbilityState, ItemModel, GDTask> _onItemGiven;
-	private readonly Func<ItemModel, GDTask> _onItemConsumed;
+	private Action<AbilityState, List<ItemModel>> _getItems;
+	private Func<AbilityState, ItemModel, GDTask> _onItemGiven;
+	private Func<ItemModel, GDTask> _onItemConsumed;
+	private bool _selectAutomatically;
 
-	private readonly bool _selectAutomatically;
-
-	public GiveItemAbility(Action<AbilityState, List<ItemModel>> getItems,
-		Func<AbilityState, ItemModel, GDTask> onItemGiven = null,
-		Func<ItemModel, GDTask> onItemConsumed = null,
-		bool selectAutomatically = false,
-		int targets = 1, int? range = null, RangeType? rangeType = null,
-		Target target = Target.Allies | Target.MustTargetCharacters,
-		bool requiresLineOfSight = true, bool mandatory = false,
-		Hex targetHex = null,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, ConditionModel[] conditions = null,
-		Action<State, List<Figure>> customGetTargets = null,
-		Func<State, GDTask> onAbilityStarted = null, Func<State, GDTask> onAbilityEnded = null, Func<State, GDTask> onAbilityEndedPerformed = null,
-		ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		Func<State, string> getTargetingHintText = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.AbilityEnded.Subscription> abilityEndedSubscriptions = null,
-		List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> abilityPerformedSubscriptions = null)
-		: base(targets, range, rangeType, target,
-			requiresLineOfSight, mandatory, targetHex, aoePattern, push, pull, conditions,
-			customGetTargets, onAbilityStarted, onAbilityEnded, onAbilityEndedPerformed,
-			conditionalAbilityCheck, getTargetingHintText, abilityStartedSubscriptions, abilityEndedSubscriptions, abilityPerformedSubscriptions)
+	/// <summary>
+	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
+	/// for values defined in GiveItemAbility. Enables inheritors of GiveItemAbility to further extend the builder.
+	/// </summary>
+	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
+	/// <typeparam name="TAbility"></typeparam> Any ability extending GiveItemAbility.
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, SingleTargetState>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IGetItemsStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : GiveItemAbility, new()
 	{
-		_getItems = getItems;
-		_onItemGiven = onItemGiven;
-		_onItemConsumed = onItemConsumed;
+		public interface IGetItemsStep
+		{
+			TBuilder WithGetItems(Action<AbilityState, List<ItemModel>> getItems);
+		}
 
-		_selectAutomatically = selectAutomatically;
+		public TBuilder WithGetItems(Action<AbilityState, List<ItemModel>> getItems)
+		{
+			Obj._getItems = getItems;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnItemGiven(Func<AbilityState, ItemModel, GDTask> onItemGiven)
+		{
+			Obj._onItemGiven = onItemGiven;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithOnItemConsumed(Func<ItemModel, GDTask> onItemConsumed)
+		{
+			Obj._onItemConsumed = onItemConsumed;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithSelectAutomatically(bool selectAutomatically)
+		{
+			Obj._selectAutomatically = selectAutomatically;
+			return (TBuilder)this;
+		}
+
+		/// <summary>
+		/// Overriding so we can set default values.
+		/// </summary>
+		public override TAbility Build()
+		{
+			Obj.Target = _target ?? Target.Allies | Target.MustTargetCharacters;
+			return base.Build();
+		}
 	}
+
+	/// <summary>
+	/// A concrete implementation of the AbstractBuilder. Required to actually use the builder,
+	/// as abstract builders cannot be instantiated.
+	/// </summary>
+	public class GiveItemBuilder : AbstractBuilder<GiveItemBuilder, GiveItemAbility>
+	{
+		internal GiveItemBuilder() { }
+	}
+
+	/// <summary>
+	/// A convenience method that returns an instance of GiveItemBuilder.
+	/// </summary>
+	/// <returns></returns>
+	public static GiveItemBuilder.IGetItemsStep Builder()
+	{
+		return new GiveItemBuilder();
+	}
+
+	public GiveItemAbility() { }
 
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public abstract class AncientArtilleryAbilityCard : MonsterAbilityCardModel
@@ -39,25 +38,27 @@ public class AncientArtilleryAbilityCard1 : AncientArtilleryAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = new List<Figure>();
-				foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					if(state.Authority.EnemiesWith(figure))
+					List<Figure> sufferDamageTargets = new List<Figure>();
+					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
 					{
-						sufferDamageTargets.Add(figure);
+						if(state.Authority.EnemiesWith(figure))
+						{
+							sufferDamageTargets.Add(figure);
+						}
 					}
-				}
 
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(null, target, 2);
-				}
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 2);
+					}
 
-				state.SetPerformed();
-			}
-		))
+					state.SetPerformed();
+				}
+			)
+			.Build())
 	];
 }
 
@@ -70,25 +71,27 @@ public class AncientArtilleryAbilityCard2 : AncientArtilleryAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(new OtherAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = new List<Figure>();
-				foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
 				{
-					if(state.Authority.EnemiesWith(figure))
+					List<Figure> sufferDamageTargets = new List<Figure>();
+					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
 					{
-						sufferDamageTargets.Add(figure);
+						if(state.Authority.EnemiesWith(figure))
+						{
+							sufferDamageTargets.Add(figure);
+						}
 					}
-				}
 
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(null, target, 2);
-				}
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 2);
+					}
 
-				state.SetPerformed();
-			}
-		))
+					state.SetPerformed();
+				}
+			)
+			.Build())
 	];
 }
 
@@ -99,7 +102,11 @@ public class AncientArtilleryAbilityCard3 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(1, range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(1)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
 			aoePattern: new AOEPattern(
 				[
@@ -119,7 +126,11 @@ public class AncientArtilleryAbilityCard4 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(1, range: 1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(1)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
 			aoePattern: new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
@@ -152,8 +163,12 @@ public class AncientArtilleryAbilityCard6 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(new PushAbility(2, range: 1, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(new ShieldAbility(2)),
+		new MonsterAbilityCardAbility(PushAbility.Builder()
+			.WithPush(2)
+			.WithRange(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
+		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -2))
 	];
 }

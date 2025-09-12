@@ -20,9 +20,11 @@ public class ExplosiveTonic : FireKnightItem
 
 					ActionState actionState = new ActionState(user,
 						[
-							new AttackAbility(1, range: 3, conditions: [Conditions.Wound1],
-								duringAttackSubscriptions:
-								[
+							AttackAbility.Builder()
+								.WithDamage(1)
+								.WithRange(3)
+								.WithConditions(Conditions.Wound1)
+								.WithDuringAttackSubscription(
 									ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 										applyFunction: async parameters =>
 										{
@@ -32,8 +34,8 @@ public class ExplosiveTonic : FireKnightItem
 										},
 										effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
 									)
-								]
-							)
+								)
+								.Build()
 						]
 					);
 					await actionState.Perform();

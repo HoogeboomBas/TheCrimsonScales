@@ -16,6 +16,8 @@ public class MonsterMovePrompt(
 	}
 
 	private readonly Dictionary<Hex, MoveNode> _closedList = new Dictionary<Hex, MoveNode>();
+	private readonly Dictionary<Hex, MoveNode> _moreMoveClosedList = new Dictionary<Hex, MoveNode>();
+	private readonly Dictionary<Hex, MoveNode> _toBestFocusFromMoveCloserClosedList = new Dictionary<Hex, MoveNode>();
 	private MoveNode _currentNode;
 	private readonly List<MoveNode> _waypoints = new List<MoveNode>();
 	private readonly List<Hex> _path = new List<Hex>();
@@ -244,14 +246,13 @@ public class MonsterMovePrompt(
 
 		int range = aiMoveParameters.Range;
 
-		// Find all tiles this AI could move to if it had much more movement
-		Dictionary<Hex, MoveNode> moreMoveClosedList = new Dictionary<Hex, MoveNode>();
+		// Find all hexes this AI could move to if it had much more movement
 		MoveHelper.FindReachableHexes(
 			null, new MoveNode(performer.Hex, 0, ActionState.MuchMoreMoveValue, 0),
-			performer, aiMoveParameters.MoveType, moreMoveClosedList, true);
+			performer, aiMoveParameters.MoveType, _moreMoveClosedList, true);
 
 		bestFocusNodes.Clear();
-		foreach((Hex moveHex, MoveNode node) in moreMoveClosedList)
+		foreach((Hex moveHex, MoveNode node) in _moreMoveClosedList)
 		{
 			if(!MoveHelper.CanStopAt(performer, moveHex, moveAbilityState.MoveType))
 			{
@@ -360,60 +361,59 @@ public class MonsterMovePrompt(
 			_bestAIMoveNodes.Clear();
 
 			// Cannot attack anything this round, time to move closer to the hex it can attack focus from
-			// Move toward one of the `bestFocusNodes`
+			// Move toward (more specifically; move closer to) one of the `bestFocusNodes`
 
 			List<MoveCloserNode> moveCloserNodes = new List<MoveCloserNode>();
 
 			foreach(FocusNode focusNode in bestFocusNodes)
 			{
-				// Find all ancestors of this node
-				HashSet<MoveNode> parents = new HashSet<MoveNode>();
-				HandleNode(focusNode.MoveNode);
-
-				void HandleNode(MoveNode node)
-				{
-					foreach(MoveNode parent in node.Parents)
-					{
-						parents.Add(parent);
-						HandleNode(parent);
-					}
-				}
+				// Find all paths that lead to this focus node
+				MoveHelper.FindReachableFromHexes(
+					null, new MoveNode(focusNode.MoveNode.Hex, 0, ActionState.MuchMoreMoveValue, 0),
+					performer, aiMoveParameters.MoveType, _toBestFocusFromMoveCloserClosedList, true);
 
 				foreach((Hex hex, MoveNode moveNode) in _closedList)
 				{
-					if(!MoveHelper.CanStopAt(performer, hex))
+					if(!MoveHelper.CanStopAt(performer, hex, moveAbilityState.MoveType))
 					{
 						continue;
 					}
 
 					// Check if the focus node has a parent going down to this node within move range
-					if(parents.All(parent => parent.Hex != hex))
+					foreach((Hex toBestFocusFromMoveCloserNodeHex, MoveNode toBestFocusFromMoveCloserNode) in _toBestFocusFromMoveCloserClosedList)
 					{
-						continue;
-					}
-
-					int toDestinationMoveRequired = focusNode.MoveSpent - moveNode.MoveSpent;
-					MoveCloserNode newMoveCloserNode = new MoveCloserNode(moveNode, moveNode.MoveSpent, toDestinationMoveRequired);
-
-					if(moveCloserNodes.Count == 0)
-					{
-						moveCloserNodes.Add(newMoveCloserNode);
-					}
-					else
-					{
-						MoveCloserNode previousBestMoveCloserNode = moveCloserNodes[0];
-						CompareResult compareResult = newMoveCloserNode.CompareTo(previousBestMoveCloserNode, moveAbilityState.MoveType == MoveType.Jump);
-						switch(compareResult)
+						if(toBestFocusFromMoveCloserNodeHex == hex)
 						{
-							case CompareResult.Better:
-								moveCloserNodes.Clear();
+							// If the path with this stop results in more negative hexes, just don't bother
+							int totalNegativeHexCount = moveNode.NegativeHexEncounteredCount + toBestFocusFromMoveCloserNode.NegativeHexEncounteredCount;
+							if(totalNegativeHexCount > focusNode.NegativeHexEncounteredCount)
+							{
+								continue;
+							}
+
+							MoveCloserNode newMoveCloserNode = new MoveCloserNode(moveNode, toBestFocusFromMoveCloserNode);
+
+							if(moveCloserNodes.Count == 0)
+							{
 								moveCloserNodes.Add(newMoveCloserNode);
-								break;
-							case CompareResult.Equal:
-								moveCloserNodes.Add(newMoveCloserNode);
-								break;
-							case CompareResult.Worse:
-								break;
+							}
+							else
+							{
+								MoveCloserNode previousBestMoveCloserNode = moveCloserNodes[0];
+								CompareResult compareResult = newMoveCloserNode.CompareTo(previousBestMoveCloserNode, moveAbilityState.MoveType == MoveType.Jump);
+								switch(compareResult)
+								{
+									case CompareResult.Better:
+										moveCloserNodes.Clear();
+										moveCloserNodes.Add(newMoveCloserNode);
+										break;
+									case CompareResult.Equal:
+										moveCloserNodes.Add(newMoveCloserNode);
+										break;
+									case CompareResult.Worse:
+										break;
+								}
+							}
 						}
 					}
 				}
@@ -669,33 +669,35 @@ public class MonsterMovePrompt(
 	private class MoveCloserNode
 	{
 		public MoveNode MoveNode { get; }
-		public int MoveSpent { get; }
-		public int ToDestinationMoveRequired { get; }
+		public MoveNode ToBestFocusFromMoveCloserNode { get; }
 
-		public int NegativeHexEncounteredCount => MoveNode.NegativeHexEncounteredCount;
+		public int MoveSpent => MoveNode.MoveSpent;
+		//public int NegativeHexEncounteredCount => MoveNode.NegativeHexEncounteredCount;
 
-		public MoveCloserNode(MoveNode moveNode, int moveSpent, int toDestinationMoveRequired)
+		public int ToDestinationMoveRequired => ToBestFocusFromMoveCloserNode.MoveSpent;
+
+		public MoveCloserNode(MoveNode moveNode, MoveNode toBestFocusFromMoveCloserNode)
 		{
 			MoveNode = moveNode;
-			MoveSpent = moveSpent;
-			ToDestinationMoveRequired = toDestinationMoveRequired;
+			ToBestFocusFromMoveCloserNode = toBestFocusFromMoveCloserNode;
 		}
 
 		public CompareResult CompareTo(MoveCloserNode other, bool jumping)
 		{
-			if(jumping)
-			{
-				// When jumping, if the final hex of a move closer node is negative, we'd rather not jump into it
-				if(NegativeHexEncounteredCount > other.NegativeHexEncounteredCount)
-				{
-					return CompareResult.Worse;
-				}
-
-				if(other.NegativeHexEncounteredCount > NegativeHexEncounteredCount)
-				{
-					return CompareResult.Better;
-				}
-			}
+			//TODO: The commented out code can probably be removed, but I'm not 100% sure hmmm...
+			// if(jumping)
+			// {
+			// 	// When jumping, if the final hex of a move closer node is negative, we'd rather not jump into it
+			// 	if(NegativeHexEncounteredCount > other.NegativeHexEncounteredCount)
+			// 	{
+			// 		return CompareResult.Worse;
+			// 	}
+			//
+			// 	if(other.NegativeHexEncounteredCount > NegativeHexEncounteredCount)
+			// 	{
+			// 		return CompareResult.Better;
+			// 	}
+			// }
 
 			if(ToDestinationMoveRequired > other.ToDestinationMoveRequired)
 			{

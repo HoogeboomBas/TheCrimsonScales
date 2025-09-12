@@ -11,9 +11,9 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(0)),
-			new AbilityCardAbility(new AttackAbility(0)),
-			new AbilityCardAbility(new AttackAbility(0))
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
+			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build())
 		];
 	}
 
@@ -21,27 +21,31 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new SummonAbility(new SummonStats()
+			new AbilityCardAbility(SummonAbility.Builder()
+				.WithSummonStats(new SummonStats()
 				{
 					Health = 1,
 					Attack = 1,
 					Traits = [new TargetsTrait(3)]
-				}, "Flailing Ivies", "res://Content/Classes/Mirefoot/FlailingIvies.png", getValidHexes:
-				(abilityState, list) =>
-				{
-					RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 3, true, list);
-
-					for(int i = list.Count - 1; i >= 0; i--)
+				})
+				.WithName("Flailing Ivies")
+				.WithTexturePath("res://Content/Classes/Mirefoot/FlailingIvies.png")
+				.WithGetValidHexes((abilityState, list) =>
 					{
-						Hex hex = list[i];
+						RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 3, true, list);
 
-						if(!hex.HasHexObjectOfType<DifficultTerrain>() || hex.HasHexObjectOfType<Figure>())
+						for(int i = list.Count - 1; i >= 0; i--)
 						{
-							list.RemoveAt(i);
+							Hex hex = list[i];
+
+							if(!hex.HasHexObjectOfType<DifficultTerrain>() || hex.HasHexObjectOfType<Figure>())
+							{
+								list.RemoveAt(i);
+							}
 						}
 					}
-				}
-			))
+				)
+				.Build())
 		];
 
 		protected override int XP => 1;

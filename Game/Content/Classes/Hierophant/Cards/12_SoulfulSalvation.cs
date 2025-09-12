@@ -13,8 +13,8 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.3f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
 						canApplyParameters => state.Authority.EnemiesWith(canApplyParameters.Figure),
@@ -22,11 +22,15 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 						{
 							ActionState actionState = new ActionState(state.Performer,
 							[
-								new HealAbility(2, conditions: [Conditions.Bless], target: Target.Allies | Target.TargetAll,
-									customGetTargets: (healAbilityState, list) =>
+								HealAbility.Builder()
+									.WithHealValue(2)
+									.WithConditions(Conditions.Bless)
+									.WithTarget(Target.Allies | Target.TargetAll)
+									.WithCustomGetTargets((healAbilityState, list) =>
 									{
 										list.AddRange(RangeHelper.GetFiguresInRange(applyParameters.Figure.Hex, 1));
 									})
+									.Build()
 							]);
 							await actionState.Perform();
 
@@ -34,14 +38,16 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 						});
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.3f)))
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Light];
@@ -52,8 +58,8 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new UseSlotAbility([new UseSlot(new Vector2(0.5f, 0.857998f))],
-				async state =>
+			new AbilityCardAbility(UseSlotAbility.Builder()
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.JustBeforeSufferDamageEvent.Subscribe(state, this,
 						parameters =>
@@ -71,7 +77,8 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 									async subscriptionParameters =>
 									{
 										Character character = (Character)parameters.Figure;
-										AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Lost, hintText: "Select a lost card to recover");
+										AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Lost,
+											hintText: "Select a lost card to recover");
 										if(abilityCard != null)
 										{
 											await AbilityCmd.ReturnToHand(abilityCard);
@@ -87,7 +94,8 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 									subscriptionParameters => true,
 									async subscriptionParameters =>
 									{
-										ActionState actionState = new ActionState(parameters.Figure, [new HealAbility(5, target: Target.Self)]);
+										ActionState actionState = new ActionState(parameters.Figure,
+											[HealAbility.Builder().WithHealValue(5).WithTarget(Target.Self).Build()]);
 										await actionState.Perform();
 									},
 									effectType: EffectType.SelectableMandatory,
@@ -103,14 +111,16 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 					);
 
 					await GDTask.CompletedTask;
-				},
-				async state =>
-				{
-					ScenarioEvents.JustBeforeSufferDamageEvent.Unsubscribe(state, this);
+				})
+				.WithOnDeactivate(async state =>
+					{
+						ScenarioEvents.JustBeforeSufferDamageEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				}
-			))
+						await GDTask.CompletedTask;
+					}
+				)
+				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.857998f)))
+				.Build())
 		];
 
 		protected override int XP => 1;

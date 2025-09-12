@@ -12,13 +12,19 @@ public class VitalBond : HierophantCardModel<VitalBond.CardTop, VitalBond.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(2, targets: 2, range: 4)),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.WithTargets(2)
+				.WithRange(4)
+				.Build()),
 
-			new AbilityCardAbility(new OtherAbility(async state =>
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					ConfirmPrompt.Answer confirmAnswer = await PromptManager.Prompt(new ConfirmPrompt(null, () => "Swap the positions of the targets?"), state.Performer);
+					ConfirmPrompt.Answer confirmAnswer =
+						await PromptManager.Prompt(new ConfirmPrompt(null, () => "Swap the positions of the targets?"), state.Performer);
 					if(confirmAnswer.Confirmed)
 					{
 						state.SetPerformed();
@@ -41,15 +47,17 @@ public class VitalBond : HierophantCardModel<VitalBond.CardTop, VitalBond.CardBo
 					}
 
 					await GDTask.CompletedTask;
-				},
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
+				})
+				.WithConditionalAbilityCheck(async state =>
+					{
+						await GDTask.CompletedTask;
 
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					return attackAbilityState.Performed && attackAbilityState.UniqueTargetedFigures.Count == 2 && attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => !figure.IsDead);
-				}
-			))
+						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+						return attackAbilityState.Performed && attackAbilityState.UniqueTargetedFigures.Count == 2 &&
+						       attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => !figure.IsDead);
+					}
+				)
+				.Build())
 		];
 	}
 
@@ -57,45 +65,49 @@ public class VitalBond : HierophantCardModel<VitalBond.CardTop, VitalBond.CardBo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new OtherAbility(async state =>
-				{
-					Figure figure = await AbilityCmd.SelectFigure(state,
-						list =>
-						{
-							foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1))
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+					{
+						Figure figure = await AbilityCmd.SelectFigure(state,
+							list =>
 							{
-								if(
-									state.Performer.AlliedWith(figure) &&
-									figure is Character character)
+								foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1))
 								{
-									list.Add(figure);
+									if(
+										state.Performer.AlliedWith(figure) &&
+										figure is Character character)
+									{
+										list.Add(figure);
+									}
 								}
 							}
+						);
+
+						if(figure == null)
+						{
+							return;
 						}
-					);
 
-					if(figure == null)
-					{
-						return;
+						state.SetPerformed();
+
+						Character character = (Character)figure;
+						AbilityCard abilityCard =
+							await AbilityCmd.SelectAbilityCard(character, CardState.Lost, hintText: "Select a lost card to recover");
+						if(abilityCard != null)
+						{
+							await AbilityCmd.ReturnToHand(abilityCard);
+						}
+
+						IEnumerable<AbilityCard> abilityCards = await AbilityCmd.SelectAbilityCards(character, CardState.Discarded, 0, 2,
+							hintText: "Select up to two discarded cards to recover");
+
+						foreach(AbilityCard card in abilityCards)
+						{
+							await AbilityCmd.ReturnToHand(card);
+						}
 					}
-
-					state.SetPerformed();
-
-					Character character = (Character)figure;
-					AbilityCard abilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Lost, hintText: "Select a lost card to recover");
-					if(abilityCard != null)
-					{
-						await AbilityCmd.ReturnToHand(abilityCard);
-					}
-
-					IEnumerable<AbilityCard> abilityCards = await AbilityCmd.SelectAbilityCards(character, CardState.Discarded, 0, 2, hintText: "Select up to two discarded cards to recover");
-
-					foreach(AbilityCard card in abilityCards)
-					{
-						await AbilityCmd.ReturnToHand(card);
-					}
-				}
-			))
+				)
+				.Build())
 		];
 
 		protected override IEnumerable<Element> Elements => [Element.Earth];

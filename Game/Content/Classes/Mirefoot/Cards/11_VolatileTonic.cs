@@ -12,25 +12,28 @@ public class VolatileTonic : MirefootCardModel<VolatileTonic.CardTop, VolatileTo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new AttackAbility(1, range: 2, afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvent<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>.Subscription.New(
-					parameters => (parameters.AbilityState.Target.HasPoison() || parameters.AbilityState.Target.HasWound()),
-					async parameters =>
-					{
-						if(parameters.AbilityState.Target.HasPoison())
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(1)
+				.WithRange(2)
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
+						parameters => (parameters.AbilityState.Target.HasPoison() || parameters.AbilityState.Target.HasWound()),
+						async parameters =>
 						{
-							parameters.AbilityState.SingleTargetAddCondition(Conditions.Wound2);
-						}
+							if(parameters.AbilityState.Target.HasPoison())
+							{
+								parameters.AbilityState.SingleTargetAddCondition(Conditions.Wound2);
+							}
 
-						if(parameters.AbilityState.Target.HasWound())
-						{
-							parameters.AbilityState.SingleTargetAddCondition(Conditions.Poison2);
-						}
+							if(parameters.AbilityState.Target.HasWound())
+							{
+								parameters.AbilityState.SingleTargetAddCondition(Conditions.Poison2);
+							}
 
-						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
-					}),
-			]))
+							await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+						})
+				)
+				.Build())
 		];
 	}
 
@@ -38,11 +41,16 @@ public class VolatileTonic : MirefootCardModel<VolatileTonic.CardTop, VolatileTo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(new ConditionAbility([Conditions.Wound2], range: 2, aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			])))
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Wound2)
+				.WithRange(2)
+				.WithAOEPattern(new AOEPattern([
+						new AOEHex(Vector2I.Zero, AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+					]
+				))
+				.Build())
 		];
 
 		protected override int XP => 2;

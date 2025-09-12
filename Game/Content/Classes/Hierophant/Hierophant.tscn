@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
 [ext_resource type="Script" uid="uid://btnl6iuqryl2q" path="res://Content/Classes/Hierophant/Hierophant.cs" id="2_7s24i"]
-[ext_resource type="Texture2D" uid="uid://bovaj5jfuqg7r" path="res://Content/Classes/Bombard/Artwork.png" id="2_jk5jr"]
+[ext_resource type="Texture2D" uid="uid://g3xhp6yc14k1" path="res://Content/Classes/Hierophant/Artwork.png" id="2_jk5jr"]
 [ext_resource type="Texture2D" uid="uid://c1g6lexhcux7d" path="res://Content/Classes/Hierophant/Animation.jpg" id="3_pebit"]
 
 [node name="Hierophant" instance=ExtResource("1_q7cyt")]
