@@ -93,14 +93,15 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(
-					new DynamicInt<HealAbility.State>(state => 
+					new DynamicInt<HealAbility.State>(state =>
 						state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).GetCustomValue<int>(this, "ConditionCount"))
 				)
-				.WithConditionalAbilityCheck(conditionalAbilityCheck: state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomGetTargets((state, list) =>
-				{
+					{
 					list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);
-				})
+					}
+				)
 				.Build())
 		];
 	}
