@@ -52,41 +52,43 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
-				{
-					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
-						canApply: canApplyParameters =>
-							state.Performer.AlliedWith(canApplyParameters.Performer) &&
-							canApplyParameters.AMDCard is BlessAMDCard,
-						apply: async applyParameters =>
-						{
-							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
-								canApply: canApplyParameters =>
-									canApplyParameters.AbilityState == applyParameters.AbilityState,
-								apply: async parameters =>
-								{
-									ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
+					{
+						ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
+							canApply: canApplyParameters =>
+								state.Performer.AlliedWith(canApplyParameters.Performer) &&
+								canApplyParameters.AMDCard is BlessAMDCard,
+							apply: async applyParameters =>
+							{
+								ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
+									canApply: canApplyParameters =>
+										canApplyParameters.AbilityState == applyParameters.AbilityState,
+									apply: async parameters =>
+									{
+										ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
-									ActionState actionState = new ActionState(parameters.Performer, 
-										[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).Build()]);
+										ActionState actionState = new ActionState(parameters.AbilityState.Performer, 
+											[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).WithTargets(1).WithMandatory(true).WithRangeType(RangeType.Range).WithRange(6).WithRequiresLineOfSight(false).Build()]);
 
-									await actionState.Perform();
+										await actionState.Perform();
 
-									await state.AdvanceUseSlot();
-								}
-							);
+										await state.AdvanceUseSlot();
+									}
+								);
 
-							await GDTask.CompletedTask;
-						}
-					);
+								await GDTask.CompletedTask;
+							}
+						);
 
-					await GDTask.CompletedTask;
-				})
+						await GDTask.CompletedTask;
+					}
+				)
 				.WithOnDeactivate(async state =>
-				{
-					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+					{
+						ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
-				})
+						await GDTask.CompletedTask;
+					}
+				)
 				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.9f)))
 				.Build())
 		];
