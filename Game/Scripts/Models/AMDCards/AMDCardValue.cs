@@ -3,7 +3,7 @@ using Godot;
 
 public class AMDCardValue
 {
-	private AMDCardType CardType { get; set; }
+	public AMDCardType CardType { get; private set; }
 	public int? Value { get; private set; }
 
 	public AMDCardValue(AMDCardType cardType, int? value)
