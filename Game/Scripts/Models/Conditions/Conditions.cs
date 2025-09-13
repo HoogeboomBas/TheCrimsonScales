@@ -15,6 +15,9 @@
 	public static Disarm Disarm { get; } = ModelDB.Condition<Disarm>();
 
 	public static Immobilize Immobilize { get; } = ModelDB.Condition<Immobilize>();
+	public static Blind Blind { get; } = ModelDB.Condition<Blind>();
+
+	public static Regenerate Regenerate { get; } = ModelDB.Condition<Regenerate>();
 
 	public static Strengthen Strengthen { get; } = ModelDB.Condition<Strengthen>();
 
