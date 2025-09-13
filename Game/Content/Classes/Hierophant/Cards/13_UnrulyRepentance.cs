@@ -51,6 +51,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+					ScenarioEvents.AMDCardValueAppliedEvent.Unsubscribe(state, this); 
 
 					await GDTask.CompletedTask;
 				})
@@ -98,10 +99,9 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				)
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomGetTargets((state, list) =>
-					{
+				{
 					list.AddRange(state.ActionState.GetAbilityState<OtherTargetedAbility.State>(0).UniqueTargetedFigures);
-					}
-				)
+				})
 				.Build())
 		];
 	}

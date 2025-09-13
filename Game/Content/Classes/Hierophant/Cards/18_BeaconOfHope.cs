@@ -67,7 +67,11 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 										ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
 										ActionState actionState = new ActionState(parameters.AbilityState.Performer, 
-											[HealAbility.Builder().WithHealValue(6).WithTarget(Target.Self).WithTargets(1).WithMandatory(true).WithRangeType(RangeType.Range).WithRange(6).WithRequiresLineOfSight(false).Build()]);
+											[HealAbility.Builder()
+												.WithHealValue(6)
+												.WithTarget(Target.Self)
+												.Build()]
+										);
 
 										await actionState.Perform();
 
@@ -85,6 +89,7 @@ public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHo
 				.WithOnDeactivate(async state =>
 					{
 						ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+						ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
 						await GDTask.CompletedTask;
 					}
