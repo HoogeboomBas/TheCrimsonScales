@@ -1,24 +1,27 @@
-﻿[gd_scene format=3]
+[gd_scene load_steps=3 format=3 uid="uid://dqgvw7guxiso1"]
 
-[node name="ElementWithConsumeIcon" type="Control"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_minimum_size = Vector2(64, 64)
+[ext_resource type="Texture2D" uid="uid://cvupsrpor0q1o" path="res://Art/Icons/Elements/Air.svg" id="1_yw4kd"]
+[ext_resource type="Texture2D" uid="uid://d043xqe7kffio" path="res://Art/Icons/Elements/Consume.svg" id="2_bobgd"]
 
-[node name="ElementIcon" type="TextureRect" parent="."]
+[node name="ConsumeElement" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-stretch_mode = 2 # KeepAspectCentered
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yw4kd")
 
-[node name="ConsumeIcon" type="TextureRect" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = -4.0
-offset_bottom = -4.0
-stretch_mode = 2 # KeepAspectCentered
+offset_left = 335.0
+offset_top = 335.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_bobgd")
+expand_mode = 1
