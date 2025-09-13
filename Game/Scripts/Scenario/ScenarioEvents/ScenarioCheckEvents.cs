@@ -364,10 +364,10 @@ public class ScenarioCheckEvents
 
 	public class CanMoveFurtherCheck : ScenarioCheckEvent<CanMoveFurtherCheck.Parameters>
 	{
-		public class Parameters(Figure figure)
+		public class Parameters(Figure performer)
 			: ParametersBase
 		{
-			public Figure Figure { get; } = figure;
+			public Figure Performer { get; } = performer;
 
 			public bool CanMoveFurther { get; private set; } = true;
 

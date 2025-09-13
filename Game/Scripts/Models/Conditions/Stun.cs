@@ -21,7 +21,7 @@ public class Stun : ConditionModel
 			EffectType.MandatoryBeforeOptionals);
 
 		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(this,
-			parameters => parameters.Figure == Owner,
+			parameters => parameters.Performer == Owner,
 			parameters =>
 			{
 				parameters.SetCannotMoveFurther();
