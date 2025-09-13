@@ -34,13 +34,14 @@ public class Shackle : ConditionModel
 		);
 
 		// Stop movement if became adjacent to the Chainguard
-		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(target, this, 
+		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(target, this, 
 			parameters => parameters.Performer == Owner && 
 				RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
 			async parameters =>
 			{
 				Node.Flash();
 				parameters.SetCannotMoveFurther();
+
 				await GDTask.CompletedTask;
 			}
 		);
@@ -53,6 +54,7 @@ public class Shackle : ConditionModel
 			{
 				Node.Flash();
 				parameters.SetIsBlocked(true);
+
 				return GDTask.CompletedTask;
 			},
 			EffectType.MandatoryBeforeOptionals);
@@ -63,7 +65,7 @@ public class Shackle : ConditionModel
 		await base.Remove();
 
 		ScenarioEvents.InflictConditionEvent.Unsubscribe(this);
-		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
+		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
 	}
 }

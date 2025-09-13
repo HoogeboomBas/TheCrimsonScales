@@ -10,21 +10,25 @@ public class Stun : ConditionModel
 	{
 		await base.Add(target, node);
 
-		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
+		ScenarioEvents.AbilityStartedEvent.Subscribe(Owner, this,
 			parameters => parameters.Performer == Owner && !parameters.AbilityState.CanPerformWhileStunned,
 			parameters =>
 			{
 				Node.Flash();
 				parameters.SetIsBlocked(true);
+
 				return GDTask.CompletedTask;
 			},
 			EffectType.MandatoryBeforeOptionals);
 
-		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Subscribe(this,
+		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(Owner, this,
 			parameters => parameters.Performer == Owner,
 			parameters =>
 			{
+				Node.Flash();
 				parameters.SetCannotMoveFurther();
+
+				return GDTask.CompletedTask;
 			}
 		);
 	}
@@ -34,6 +38,6 @@ public class Stun : ConditionModel
 		await base.Remove();
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
-		ScenarioCheckEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
+		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
 	}
 }

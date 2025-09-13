@@ -138,8 +138,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 			for(int i = 0; i < path.Count && !performer.IsDestroyed; i++)
 			{
-				ScenarioCheckEvents.CanMoveFurtherCheck.Parameters canMoveFurtherParameters =
-				ScenarioCheckEvents.CanMoveFurtherCheckEvent.Fire(new ScenarioCheckEvents.CanMoveFurtherCheck.Parameters(performer));
+				ScenarioEvents.CanMoveFurtherCheck.Parameters canMoveFurtherParameters =
+					await ScenarioEvents.CanMoveFurtherCheckEvent.CreatePrompt(new ScenarioEvents.CanMoveFurtherCheck.Parameters(performer));
 
 				if(!canMoveFurtherParameters.CanMoveFurther)
 				{

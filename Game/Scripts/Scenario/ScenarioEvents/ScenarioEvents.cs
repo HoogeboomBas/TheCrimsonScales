@@ -439,6 +439,25 @@ public class ScenarioEvents
 	private readonly DuringMovement _duringMovement = new DuringMovement();
 	public static DuringMovement DuringMovementEvent => GameController.Instance.ScenarioEvents._duringMovement;
 
+	public class CanMoveFurtherCheck : ScenarioEvent<CanMoveFurtherCheck.Parameters>
+	{
+		public class Parameters(Figure performer)
+			: ParametersBase
+		{
+			public Figure Performer { get; } = performer;
+
+			public bool CanMoveFurther { get; private set; } = true;
+
+			public void SetCannotMoveFurther()
+			{
+				CanMoveFurther = false;
+			}
+		}
+	}
+
+	private readonly CanMoveFurtherCheck _canMoveFurtherCheck = new CanMoveFurtherCheck();
+	public static CanMoveFurtherCheck CanMoveFurtherCheckEvent => GameController.Instance.ScenarioEvents._canMoveFurtherCheck;
+
 	public class FigureEnteredHex : ScenarioEvent<FigureEnteredHex.Parameters>
 	{
 		public class Parameters(AbilityState abilityState, Figure figure)
