@@ -23,6 +23,10 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 						]
 					)
 				)
+				.WithOnAbilityEndedPerformed(async state =>
+				{
+					await AbilityCmd.GainXP(state.Performer, state.UniqueTargetedFigures.Count);
+				})
 				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
@@ -35,6 +39,7 @@ public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, Di
 						if(!targetedFigure.IsDead)
 						{
 							await AbilityCmd.SufferDamage(null, targetedFigure, 1);
+							state.SetPerformed();
 						}
 					}
 				})

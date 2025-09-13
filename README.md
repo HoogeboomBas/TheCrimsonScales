@@ -9,7 +9,7 @@ As you might know, The Crimson Scales, created by Boardgame613, is the famous fa
 Available for both Windows and Android, you can play from the comfort of your computer or even on the go on your commute!
 
 ## Installation
-Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.4 .NET with C# support.
+Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.4.1 .NET with C# support.
 
 ## Contributing
 
@@ -21,6 +21,7 @@ Gloomhaven® is a registered trademark of Cephalofair Games LLC.
 
 The Crimson Scales was created by various creators. The creators whose contributions are currently in the game include but are not limited to:
 - Boardgame613
+- Alexandr Elichev
 - Quasilocal
 - TH3 DISC1PLE
 - Dareth
@@ -30,7 +31,7 @@ The Music and Sound Effects are the property of various artists, including but n
 - Fictium Sound Design
 - John Leonard French
 - EminYILDIRIM
-- zapsplat
+- Robinhood76
 
 These pieces of Audio are licensed to be used for this product specifically, and cannot be used in other games or products.
 

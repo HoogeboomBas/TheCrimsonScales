@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjtowcemsdb8l"
-path="res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.ctex"
+path.s3tc="res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.s3tc.ctex"
+path.etc2="res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/G2b-Man-Made Wood - D1.png"
-dest_files=["res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.ctex"]
+dest_files=["res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.s3tc.ctex", "res://.godot/imported/G2b-Man-Made Wood - D1.png-04c005bd132d56018d85958e9ce5b520.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -43,17 +43,24 @@ public abstract class TargetedAbilityState : AbilityState
 	public List<ConditionModel> AbilityConditionModels { get; set; }
 	public int AbilityPush { get; set; }
 	public int AbilityPull { get; set; }
+	public int AbilitySwing { get; set; }
 
 	public RangeType SingleTargetRangeType { get; set; }
 	public int SingleTargetRange { get; set; }
 	public List<ConditionModel> SingleTargetConditionModels { get; set; }
 	public int SingleTargetPush { get; set; }
 	public int SingleTargetPull { get; set; }
+	public int SingleTargetSwing { get; set; }
 
 	public abstract Figure Target { get; }
 
 	public IEnumerable<Hex> GetRedAOEHexes()
 	{
+		if(AOEHexes == null)
+		{
+			yield break;
+		}
+
 		foreach((Vector2I coords, AOEHexType type) in AOEHexes)
 		{
 			Hex hex = GameController.Instance.Map.GetHex(coords);
@@ -119,6 +126,13 @@ public abstract class TargetedAbilityState : AbilityState
 		SingleTargetPull += amount;
 	}
 
+	public void AbilityAdjustSwing(int amount)
+	{
+		AbilitySwing += amount;
+
+		SingleTargetSwing += amount;
+	}
+
 	public void SingleTargetAdjustRange(int amount)
 	{
 		SingleTargetRange += amount;
@@ -155,6 +169,11 @@ public abstract class TargetedAbilityState : AbilityState
 	{
 		SingleTargetPull += amount;
 	}
+
+	public void SingleTargetAdjustSwing(int amount)
+	{
+		SingleTargetSwing += amount;
+	}
 }
 
 /// <summary>
@@ -178,6 +197,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	public bool Mandatory { get; private set; }
 	public int Push { get; private set; }
 	public int Pull { get; private set; }
+	public int Swing { get; private set; }
 
 	public ConditionModel[] Conditions { get; private set; } = [];
 
@@ -266,6 +286,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithSwing(int swing)
+		{
+			Obj.Swing = swing;
+			return (TBuilder)this;
+		}
+
 		public TBuilder WithConditions(params ConditionModel[] conditions)
 		{
 			Obj.Conditions = conditions;
@@ -306,6 +332,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		abilityState.AbilityConditionModels = Conditions.ToList();
 		abilityState.AbilityPush = Push;
 		abilityState.AbilityPull = Pull;
+		abilityState.AbilitySwing = Swing;
 	}
 
 	protected override async GDTask Perform(T abilityState)
@@ -416,6 +443,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				}
 
 				if(!Target.HasFlag(Target.Allies) && abilityState.Authority.AlliedWith(figure, false))
+				{
+					remove = true;
+				}
+
+				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure && 
+					abilityState.Authority.EnemiesWith(abilityState.Performer))
 				{
 					remove = true;
 				}
@@ -543,15 +576,22 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			// Pull
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPull > 0)
 			{
-				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPull, false,
+				await PushPullSwing(abilityState, performer.Hex, target, abilityState.SingleTargetPull, ForcedMovementType.Pull,
 					() => $"Select a path to {Icons.HintText(Icons.Pull)}{abilityState.SingleTargetPull} target");
 			}
 
 			// Push
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPush > 0)
 			{
-				await PushPull(abilityState, performer.Hex, target, abilityState.SingleTargetPush, true,
+				await PushPullSwing(abilityState, performer.Hex, target, abilityState.SingleTargetPush, ForcedMovementType.Push,
 					() => $"Select a path to {Icons.HintText(Icons.Push)}{abilityState.SingleTargetPush} target");
+			}
+
+			// Swing
+			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetSwing > 0)
+			{
+				await PushPullSwing(abilityState, performer.Hex, target, abilityState.SingleTargetSwing, ForcedMovementType.Swing,
+					() => $"Select a path to {Icons.HintText(Icons.Swing)}{abilityState.SingleTargetSwing} target");
 			}
 
 			await AfterEffects(abilityState, target);
@@ -606,6 +646,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		abilityState.SingleTargetConditionModels = abilityState.AbilityConditionModels.ToList();
 		abilityState.SingleTargetPush = abilityState.AbilityPush;
 		abilityState.SingleTargetPull = abilityState.AbilityPull;
+		abilityState.SingleTargetSwing = abilityState.AbilitySwing;
 	}
 
 	protected virtual EffectCollection CreateDuringTargetedAbilityEffectCollection(T abilityState)
@@ -628,23 +669,23 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		await GDTask.CompletedTask;
 	}
 
-	protected async GDTask PushPull(T abilityState, Hex origin, Figure target, int distance, bool push, Func<string> hintText)
+	protected async GDTask PushPullSwing(T abilityState, Hex origin, Figure target, int distance, ForcedMovementType type, Func<string> hintText)
 	{
 		List<Vector2I> path = null;
 		if(abilityState.Authority is Character)
 		{
-			PushPullPrompt.Answer pullAnswer = await PromptManager.Prompt(
-				new PushPullPrompt(abilityState, origin, target, distance, push, null, hintText), abilityState.Authority);
+			ForcedMovementPrompt.Answer forcedMovementAnswer = await PromptManager.Prompt(
+				new ForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText), abilityState.Authority);
 
-			if(!pullAnswer.Skipped)
+			if(!forcedMovementAnswer.Skipped)
 			{
-				path = pullAnswer.Path;
+				path = forcedMovementAnswer.Path;
 			}
 		}
 		else
 		{
-			MonsterPushPullPrompt.Answer answer = await PromptManager.Prompt(
-				new MonsterPushPullPrompt(abilityState, origin, target, distance, push, null, hintText), abilityState.Authority);
+			MonsterForcedMovementPrompt.Answer answer = await PromptManager.Prompt(
+				new MonsterForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText), abilityState.Authority);
 
 			if(!answer.Skipped)
 			{

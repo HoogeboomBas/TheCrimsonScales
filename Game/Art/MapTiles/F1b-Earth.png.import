@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xu77cich3oj8"
-path="res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.ctex"
+path.s3tc="res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.s3tc.ctex"
+path.etc2="res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/F1b-Earth.png"
-dest_files=["res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.ctex"]
+dest_files=["res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.s3tc.ctex", "res://.godot/imported/F1b-Earth.png-70dedb80d4216922f50e7e1f9dfde492.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

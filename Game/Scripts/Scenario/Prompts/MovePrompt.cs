@@ -43,13 +43,7 @@ public class MovePrompt(MoveAbility.State moveAbilityState, Figure performer, Ef
 		}
 	}
 
-	protected override bool CanSkip
-	{
-		get
-		{
-			return MoveHelper.CanStopAt(moveAbilityState, performer.Hex);
-		}
-	}
+	protected override bool CanSkip => moveAbilityState.Hexes.Count == 0 || MoveHelper.CanStopAt(moveAbilityState, performer.Hex);
 
 	private bool PathExists => _currentNode != null && _currentNode.Parents.Count > 0;
 

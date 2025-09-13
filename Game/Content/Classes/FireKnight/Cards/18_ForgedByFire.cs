@@ -82,7 +82,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 								}
 
 								list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1));
-							}, hintText: $"Select a figure to give {itemModel.Name} to"
+							}, hintText: $"Select an ally to give {itemModel.Name} to"
 						);
 
 						if(figure == null)
@@ -102,6 +102,8 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
+					await GDTask.CompletedTask;
+
 					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
 
 					if(moveAbilityState.Performed)
@@ -112,7 +114,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 							{
 								if(state.Performer.AlliedWith(figure))
 								{
-									return await AbilityCmd.AskConsumeElement(state.Performer, Element.Light);
+									return true;
 								}
 							}
 						}
@@ -131,9 +133,36 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 						async parameters =>
 						{
 							FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
+
 							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire,
 								   $"Consume {Icons.Inline(Icons.GetElement(Element.Fire))} to give an adjacent ally a {Icons.Inline(fireKnight.ClassModel.IconPath)} item."))
 							{
+								FireKnightModel fireKnightModel = (FireKnightModel)fireKnight.ClassModel;
+								List<ItemModel> remainingItemModels = fireKnightModel.AllItems.ToList();
+								ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
+
+								Figure figure = await AbilityCmd.SelectFigure(state,
+									list =>
+									{
+										list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1));
+
+										for(int itemIndex = list.Count - 1; itemIndex >= 0; itemIndex--)
+										{
+											Figure potentialTarget = list[itemIndex];
+											if(!state.Performer.AlliedWith(potentialTarget) && potentialTarget is Character)
+											{
+												list.RemoveAt(itemIndex);
+											}
+										}
+									}, hintText: $"Select an ally to give {itemModel.Name} to"
+								);
+
+								if(figure == null)
+								{
+									return;
+								}
+
+								await GiveFireKnightItem(state, [itemModel], (Character)figure, null, true);
 							}
 						}
 					);

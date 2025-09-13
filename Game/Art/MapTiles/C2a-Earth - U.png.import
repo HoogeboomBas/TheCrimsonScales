@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://be2aex26f1j3p"
-path="res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.ctex"
+path.s3tc="res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.s3tc.ctex"
+path.etc2="res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/C2a-Earth - U.png"
-dest_files=["res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.ctex"]
+dest_files=["res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.s3tc.ctex", "res://.godot/imported/C2a-Earth - U.png-4f9212165d07d512213db9dde7287393.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

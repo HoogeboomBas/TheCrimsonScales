@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Godot;
 
 public static class MoveHelper
 {
@@ -13,8 +15,8 @@ public static class MoveHelper
 		}
 
 		// Flood fill to find all reachable hexes
-		List<MoveNode> openList = new List<MoveNode>();
-		openList.Add(firstNode);
+		List<MoveNode> openList = [firstNode];
+
 		while(openList.Count > 0)
 		{
 			MoveNode nodeToHandle = openList[0];
@@ -113,8 +115,8 @@ public static class MoveHelper
 		}
 
 		// Flood fill to find all reachable from hexes
-		List<MoveNode> openList = new List<MoveNode>();
-		openList.Add(firstNode);
+		List<MoveNode> openList = [firstNode];
+
 		while(openList.Count > 0)
 		{
 			MoveNode nodeToHandle = openList[0];
@@ -192,8 +194,8 @@ public static class MoveHelper
 		}
 	}
 
-	public static void FindReachablePushPullHexes(AbilityState abilityState, PushPullNode firstNode, Figure target, Hex origin, bool push,
-		Dictionary<Hex, PushPullNode> closedList, bool addFirstNodeToClosedList = false)
+	public static void FindReachableForcedMovementHexes(AbilityState abilityState, ForcedMovementNode firstNode, Figure target, Hex origin, ForcedMovementType type,
+		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false)
 	{
 		closedList.Clear();
 
@@ -205,11 +207,11 @@ public static class MoveHelper
 		Map map = GameController.Instance.Map;
 
 		// Flood fill to find all reachable hexes
-		List<PushPullNode> openList = new List<PushPullNode>();
+		List<ForcedMovementNode> openList = new List<ForcedMovementNode>();
 		openList.Add(firstNode);
 		while(openList.Count > 0)
 		{
-			PushPullNode nodeToHandle = openList[0];
+			ForcedMovementNode nodeToHandle = openList[0];
 			openList.RemoveAt(0);
 
 			foreach(Hex newHex in nodeToHandle.Hex.Neighbours)
@@ -221,21 +223,35 @@ public static class MoveHelper
 						continue;
 					}
 
+					// For the first step from origin, prevent going back to the parent if exists
+					if(firstNode == nodeToHandle && nodeToHandle.Parents.Any(parentNode => parentNode.Hex == newHex))
+					{
+						continue;
+					}
+
 					int oldDistance = RangeHelper.Distance(nodeToHandle.Hex, origin);
 					int newDistance = RangeHelper.Distance(newHex, origin);
 
-					if(push)
+					if(type == ForcedMovementType.Push)
 					{
-						// Pull needs to go away from the performer
+						// Push needs to go away from the performer
 						if(oldDistance >= newDistance)
 						{
 							continue;
 						}
 					}
-					else
+					else if(type == ForcedMovementType.Pull)
 					{
 						// Pull needs to go towards the performer
 						if(oldDistance <= newDistance)
+						{
+							continue;
+						}
+					}
+					else if(type == ForcedMovementType.Swing)
+					{
+						// Swing needs to keep the distance fixed
+						if(oldDistance != newDistance)
 						{
 							continue;
 						}
@@ -253,13 +269,14 @@ public static class MoveHelper
 						continue;
 					}
 
-					PushPullNode newNode = new PushPullNode(newHex, nodeToHandle.MoveSpent + 1, newMoveLeft);
+					ForcedMovementNode newNode = new ForcedMovementNode(newHex, nodeToHandle.MoveSpent + 1, newMoveLeft);
 
 					newNode.Parents.Add(nodeToHandle);
 
-					if(closedList.TryGetValue(newHex, out PushPullNode oldNode))
+					if(closedList.TryGetValue(newHex, out ForcedMovementNode oldNode))
 					{
 						CompareResult compareResult = newNode.CompareTo(oldNode);
+
 						switch(compareResult)
 						{
 							case CompareResult.Better:
@@ -273,7 +290,10 @@ public static class MoveHelper
 								break;
 							case CompareResult.Equal:
 								// The two nodes are equal in value; keep the old one and add this route as a new potential option
-								oldNode.Parents.Add(nodeToHandle);
+								if(type != ForcedMovementType.Swing)
+								{
+									oldNode.Parents.Add(nodeToHandle);
+								}
 								break;
 						}
 					}

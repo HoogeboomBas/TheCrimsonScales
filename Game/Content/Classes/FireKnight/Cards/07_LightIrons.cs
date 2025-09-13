@@ -54,7 +54,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 											list.RemoveAt(itemIndex);
 										}
 									}
-								}, hintText: $"Select a figure to give {itemModel.Name} to"
+								}, hintText: $"Select an ally to give {itemModel.Name} to"
 							);
 
 							if(figure == null)

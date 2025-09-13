@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 
-public class PushPullNode
+public class ForcedMovementNode
 {
 	public Hex Hex { get; }
 	public int MoveSpent { get; }
 	public int MoveLeft { get; }
-	public List<PushPullNode> Parents { get; } = new List<PushPullNode>();
+	public List<ForcedMovementNode> Parents { get; } = new List<ForcedMovementNode>();
 
-	public PushPullNode(Hex hex, int moveSpent, int moveLeft)
+	public ForcedMovementNode(Hex hex, int moveSpent, int moveLeft)
 	{
 		Hex = hex;
 		MoveSpent = moveSpent;
 		MoveLeft = moveLeft;
 	}
 
-	public CompareResult CompareTo(PushPullNode other)
+	public CompareResult CompareTo(ForcedMovementNode other)
 	{
 		if(other.MoveSpent > MoveSpent)
 		{

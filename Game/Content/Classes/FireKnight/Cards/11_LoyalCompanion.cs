@@ -38,6 +38,8 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 							.Build()
 					], state.ActionState);
 					await actionState.Perform();
+
+					state.SetPerformed();
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())

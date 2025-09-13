@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvk7nvg1hwfw1"
-path="res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.ctex"
+path.s3tc="res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.s3tc.ctex"
+path.etc2="res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/I2b-Man-Made Wood - D.png"
-dest_files=["res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.ctex"]
+dest_files=["res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.s3tc.ctex", "res://.godot/imported/I2b-Man-Made Wood - D.png-3e1e9da9a31b7b89253ae5d7c3ec7f77.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

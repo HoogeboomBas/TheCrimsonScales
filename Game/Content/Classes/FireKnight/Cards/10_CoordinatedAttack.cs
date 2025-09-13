@@ -90,7 +90,7 @@ public class CoordinatedAttack : FireKnightCardModel<CoordinatedAttack.CardTop, 
 								ActionState actionState = new ActionState(state.Performer,
 									[
 										GrantAbility.Builder()
-											.WithGetAbilities(figure => [AttackAbility.Builder().WithDamage(2).Build()])
+											.WithGetAbilities(granter => [AttackAbility.Builder().WithDamage(2).Build()])
 											.WithCustomGetTargets((grantState, list) =>
 												{
 													foreach(Figure potentialTarget in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false))

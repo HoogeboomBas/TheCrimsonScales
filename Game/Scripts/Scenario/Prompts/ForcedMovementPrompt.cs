@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class PushPullPrompt(
-	AbilityState abilityState, Hex origin, Figure target, int distance, bool push,
+public class ForcedMovementPrompt(
+	AbilityState abilityState, Hex origin, Figure target, int distance, ForcedMovementType type,
 	EffectCollection effectCollection, Func<string> getHintText)
-	: Prompt<PushPullPrompt.Answer>(effectCollection, getHintText)
+	: Prompt<ForcedMovementPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
 	{
 		public List<Vector2I> Path { get; init; }
 	}
 
-	private readonly Dictionary<Hex, PushPullNode> _closedList = new Dictionary<Hex, PushPullNode>();
-	private PushPullNode _currentNode;
-	private readonly List<PushPullNode> _waypoints = new List<PushPullNode>();
+	private readonly Dictionary<Hex, ForcedMovementNode> _closedList = new Dictionary<Hex, ForcedMovementNode>();
+	private ForcedMovementNode _currentNode;
+
+	private readonly List<ForcedMovementNode> _waypoints = new List<ForcedMovementNode>();
 	private readonly List<Hex> _path = new List<Hex>();
 
-	private readonly List<PushPullNode> _nodes = new List<PushPullNode>();
+	private readonly List<ForcedMovementNode> _nodes = new List<ForcedMovementNode>();
 
 	protected override bool CanConfirm => PathExists && MoveHelper.CanStopAt(target, _currentNode.Hex);
 	protected override bool CanSkip => true;
@@ -29,17 +30,17 @@ public class PushPullPrompt(
 	{
 		base.Enable();
 
-		_currentNode = new PushPullNode(target.Hex, 0, distance);
+		_currentNode = new ForcedMovementNode(target.Hex, 0, distance);
 		_waypoints.Clear();
 		_waypoints.Add(_currentNode);
 
-		// Find all hexes we can push/pull into to
-		MoveHelper.FindReachablePushPullHexes(abilityState, _currentNode, target, origin, push, _closedList);
+		// Find all hexes we can push/pull/swing into to
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_nodes.Clear();
 
-		foreach((Hex hex, PushPullNode node) in _closedList)
+		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
 			if(!MoveHelper.CanStopAt(target, hex))
 			{
@@ -47,53 +48,44 @@ public class PushPullPrompt(
 			}
 
 			_nodes.Add(node);
-
-			// if(_nodes.Count == 0)
-			// {
-			// 	_nodes.Add(node);
-			// }
-			// else
-			// {
-			// 	PushPullNode previousBestNode = _nodes[0];
-			// 	if(node.MoveSpent > previousBestNode.MoveSpent)
-			// 	{
-			// 		_nodes.Clear();
-			// 		_nodes.Add(node);
-			// 	}
-			//
-			// 	if(node.MoveSpent == previousBestNode.MoveSpent)
-			// 	{
-			// 		_nodes.Add(node);
-			// 	}
-			// }
 		}
-
-		// if(_bestNodes.Count == 0 || _bestNodes[0].Hex == _currentNode.Hex)
-		// {
-		// 	// Cannot push/pull further
-		// 	Skip();
-		// }
 	}
 
 	protected override void UpdateState()
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachablePushPullHexes(abilityState, _currentNode, target, origin, push, _closedList);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
 		HashSet<Hex> reachableHexes = new HashSet<Hex>();
 
-		foreach(PushPullNode bestMoveNode in _nodes)
+		// Swing requires recreating possible routes on update
+		if(type == ForcedMovementType.Swing) 
+		{
+			_nodes.Clear();
+			foreach((Hex hex, ForcedMovementNode node) in _closedList)
+			{
+				if(!MoveHelper.CanStopAt(target, hex))
+				{
+					continue;
+				}
+
+				_nodes.Add(node);
+			}
+		}
+
+		foreach(ForcedMovementNode bestMoveNode in _nodes)
 		{
 			HandleNode(bestMoveNode);
 		}
 
-		bool HandleNode(PushPullNode moveNode)
+		bool HandleNode(ForcedMovementNode moveNode)
 		{
 			bool cameAcrossWaypoint = _waypoints.LastOrDefault()?.Hex == moveNode.Hex;
-			foreach(PushPullNode moveNodeParent in moveNode.Parents)
+
+			foreach(ForcedMovementNode moveNodeParent in moveNode.Parents)
 			{
 				if(HandleNode(moveNodeParent))
 				{
@@ -103,11 +95,7 @@ public class PushPullPrompt(
 
 			if(cameAcrossWaypoint)
 			{
-				if(moveNode.Hex == _waypoints.LastOrDefault()?.Hex)
-				{
-					//waypointHexes.AddIfNew(moveNode.Hex);
-				}
-				else
+				if(moveNode.Hex != _waypoints.LastOrDefault()?.Hex)
 				{
 					reachableHexes.Add(moveNode.Hex);
 				}
@@ -130,7 +118,7 @@ public class PushPullPrompt(
 
 		// Create path out of the waypoints
 		_path.Clear();
-		PushPullNode pathNode = _currentNode;
+		ForcedMovementNode pathNode = _currentNode;
 		while(pathNode != null)
 		{
 			_path.Add(pathNode.Hex);
@@ -162,7 +150,7 @@ public class PushPullPrompt(
 			return;
 		}
 
-		if(_closedList.TryGetValue(hexIndicator.Hex, out PushPullNode node))
+		if(_closedList.TryGetValue(hexIndicator.Hex, out ForcedMovementNode node))
 		{
 			_currentNode = node;
 			_waypoints.Add(_currentNode);

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://w8q7d88y5f8r"
-path="res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.ctex"
+path.s3tc="res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.s3tc.ctex"
+path.etc2="res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/C1a-Man-Made Stone - U.png"
-dest_files=["res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.ctex"]
+dest_files=["res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.s3tc.ctex", "res://.godot/imported/C1a-Man-Made Stone - U.png-e2be22774407381c6638c82dffdddc72.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

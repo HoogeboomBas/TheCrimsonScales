@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bumscmb0mvx6o"
-path="res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.ctex"
+path.s3tc="res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.s3tc.ctex"
+path.etc2="res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/MapTiles/E1b-Natural Stone.png"
-dest_files=["res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.ctex"]
+dest_files=["res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.s3tc.ctex", "res://.godot/imported/E1b-Natural Stone.png-40e1fed1cdc70cf670aeb90e92812c8c.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
