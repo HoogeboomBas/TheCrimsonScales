@@ -474,6 +474,18 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				{
 					figures.RemoveAt(i);
 				}
+
+				bool performerBlinded = performer.GetCondition(global::Conditions.Blind) != null;
+				if(performerBlinded)
+				{
+					List<Hex> adjacentHexes = [];
+					RangeHelper.FindHexesInRange(performer.Hex, 1, true, adjacentHexes);
+
+					if(!adjacentHexes.Contains(figure.Hex))
+					{
+						figures.RemoveAt(i);
+					}
+				}
 			}
 		};
 

@@ -25,8 +25,7 @@ public class Regenerate : ConditionModel
 				ActionState actionState = new ActionState(parameters.Figure, [heal]);
 				await actionState.Perform();
 			},
-			effectType: EffectType.MandatoryAfterOptionals,
-			// TODO varadski 07.09.2025: should happen prior to wound, but order isn't affecting this for some reason
+			effectType: EffectType.MandatoryBeforeOptionals,
 			order: -1
 		);
 		
@@ -34,7 +33,7 @@ public class Regenerate : ConditionModel
 			canApply: parameters => parameters.Figure == Owner,
 			apply: async parameters =>
 			{
-				await AbilityCmd.RemoveCondition(target, Conditions.Regenerate);
+				await AbilityCmd.RemoveCondition(target, this);
 				await Remove();
 			});
 	}

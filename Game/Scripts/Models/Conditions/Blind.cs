@@ -14,8 +14,8 @@ public class Blind : ConditionModel
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(Owner, this,
 			parameters => parameters.AbilityState.Performer == Owner &&
-			parameters.AbilityState is AttackAbility.State attackState &&
-			attackState.AbilityRangeType == RangeType.Range,
+			              parameters.AbilityState is AttackAbility.State attackState &&
+			              attackState.AbilityRangeType == RangeType.Range,
 			async parameters =>
 			{
 				Node.Flash();
