@@ -64,8 +64,8 @@ public class Shackle : ConditionModel
 	{
 		await base.Remove();
 
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(this);
-		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
-		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
+		ScenarioEvents.InflictConditionEvent.Unsubscribe(Owner, this);
+		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(Owner, this);
+		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
 	}
 }
