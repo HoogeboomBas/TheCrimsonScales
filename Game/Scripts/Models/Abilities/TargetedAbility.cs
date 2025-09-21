@@ -309,8 +309,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		/// </summary>
 		public override TAbility Build()
 		{
-			int targets = Obj.AOEPattern != null ? Obj.AOEPattern.Hexes.Count(hex => hex.Type == AOEHexType.Red) : Obj.Targets;
-			Obj.Targets = targets;
+			Obj.Targets = Obj.AOEPattern != null
+				? Obj.AOEPattern.Hexes.Count(hex => hex.Type == AOEHexType.Red)
+				: Obj.Targets;
 			Obj.RangeType = _rangeType ?? (Obj.Range == 1 ? RangeType.Melee : RangeType.Range);
 			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();
@@ -449,8 +450,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure && 
-					abilityState.Authority.EnemiesWith(abilityState.Performer))
+				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure &&
+				   abilityState.Authority.EnemiesWith(abilityState.Performer))
 				{
 					remove = true;
 				}

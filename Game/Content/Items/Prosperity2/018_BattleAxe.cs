@@ -2,7 +2,7 @@ using Fractural.Tasks;
 using System.Collections.Generic;
 using Godot;
 
-public class BattleAxe : Prosperity3Item
+public class BattleAxe : Prosperity2Item
 {
 	public override string Name => "Battle-Axe";
 	public override int ItemNumber => 18;

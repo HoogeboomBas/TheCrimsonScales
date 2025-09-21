@@ -519,12 +519,11 @@ public class ScenarioEvents
 	private readonly ConsumeElement _consumeElement = new ConsumeElement();
 	public static ConsumeElement ConsumeElementElement => GameController.Instance.ScenarioEvents._consumeElement;
 
-	public class AbilityStarted<T> : ScenarioEvent<AbilityStarted<T>.Parameters>
-		where T : AbilityState
+	public class AbilityStarted : ScenarioEvent<AbilityStarted.Parameters>
 	{
-		public class Parameters(T abilityState) : ParametersBase<T>(abilityState)
+		public class Parameters(AbilityState abilityState)
+			: ParametersBase<AbilityState>(abilityState)
 		{
-
 			public bool IsBlocked { get; private set; }
 
 			public void SetIsBlocked(bool isBlocked)
@@ -533,9 +532,6 @@ public class ScenarioEvents
 			}
 		}
 	}
-
-	// Non-generic alias so existing code compiles unchanged
-	public class AbilityStarted : AbilityStarted<AbilityState> { }
 
 	private readonly AbilityStarted _abilityStarted = new AbilityStarted();
 	public static AbilityStarted AbilityStartedEvent => GameController.Instance.ScenarioEvents._abilityStarted;

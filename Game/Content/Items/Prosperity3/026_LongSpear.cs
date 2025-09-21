@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public class LongSpear : Prosperity9Item
+public class LongSpear : Prosperity3Item
 {
 	public override string Name => "Long-Spear";
 	public override int ItemNumber => 26;
@@ -27,15 +27,15 @@ public class LongSpear : Prosperity9Item
 				{
 					Dictionary<Vector2I, AOEHexType> aoeHexes = new Dictionary<Vector2I, AOEHexType>();
 
-						AOEHex grayHex = new AOEHex(Vector2I.Zero, AOEHexType.Gray);
-						AOEHex adjacentHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red);
-						AOEHex distantHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red);
-						List<AOEHex> hexes =
-						[
-							grayHex,
-							adjacentHex,
-							distantHex
-						];
+					AOEHex grayHex = new AOEHex(Vector2I.Zero, AOEHexType.Gray);
+					AOEHex adjacentHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red);
+					AOEHex distantHex = new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red);
+					List<AOEHex> hexes =
+					[
+						grayHex,
+						adjacentHex,
+						distantHex
+					];
 					AOEPattern aoePattern = new AOEPattern(hexes);
 
 					// TODO varadski 24.08.2025: common logic used for aoe prompts. Should be moved to a single place to remove duplicates
@@ -55,6 +55,7 @@ public class LongSpear : Prosperity9Item
 							aoeHexes.Add(aoeAnswer.HexCoords[i], aoeAnswer.HexTypes[i]);
 						}
 					}
+
 					state.AOEHexes = aoeHexes;
 					state.AbilityTargets = 2;
 
@@ -62,6 +63,5 @@ public class LongSpear : Prosperity9Item
 				});
 			}
 		);
-
 	}
 }
