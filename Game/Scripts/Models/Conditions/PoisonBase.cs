@@ -5,7 +5,7 @@ public abstract class PoisonBase : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Poison.svg";
 	public override bool RemovedByHeal => true;
 	public override bool CanBeUpgraded => true;
-	public override ConditionModel BaseCondition => Conditions.Poison1;
+	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Poison1;
 
 	protected abstract int PoisonValue { get; }
 

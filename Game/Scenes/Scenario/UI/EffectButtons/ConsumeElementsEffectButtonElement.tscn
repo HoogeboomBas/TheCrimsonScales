@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8a610q1aglpc"]
+
+[ext_resource type="Texture2D" uid="uid://cvupsrpor0q1o" path="res://Art/Icons/Elements/Air.svg" id="1_pgv7u"]
+
+[node name="TextureRect" type="TextureRect"]
+custom_minimum_size = Vector2(50, 50)
+mouse_filter = 2
+texture = ExtResource("1_pgv7u")
+expand_mode = 1
+stretch_mode = 5

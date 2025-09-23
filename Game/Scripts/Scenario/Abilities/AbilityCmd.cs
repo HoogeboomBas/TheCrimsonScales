@@ -451,7 +451,10 @@ public static class AbilityCmd
 			ScenarioEvents.GenericChoice.ApplyFunction oldApplyFunction = subscription.ApplyFunction;
 			ScenarioEvents.GenericChoice.ApplyFunction newApplyFunction = async parameters =>
 			{
-				await oldApplyFunction.Invoke(parameters);
+				if(oldApplyFunction != null)
+				{
+					await oldApplyFunction.Invoke(parameters);
+				}
 
 				parameters.SetChoiceMade();
 			};

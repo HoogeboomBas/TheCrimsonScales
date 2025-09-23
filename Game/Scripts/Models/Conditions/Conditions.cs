@@ -16,6 +16,8 @@
 
 	public static Immobilize Immobilize { get; } = ModelDB.Condition<Immobilize>();
 
+	public static Regenerate Regenerate { get; } = ModelDB.Condition<Regenerate>();
+
 	public static Strengthen Strengthen { get; } = ModelDB.Condition<Strengthen>();
 
 	public static Invisible Invisible { get; } = ModelDB.Condition<Invisible>();

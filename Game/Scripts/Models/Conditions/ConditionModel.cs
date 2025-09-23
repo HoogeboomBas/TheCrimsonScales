@@ -7,7 +7,7 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 	public abstract string IconPath { get; }
 	public virtual bool CanStack => false;
 	public virtual bool CanBeUpgraded => false;
-	public virtual ConditionModel BaseCondition => this;
+	public virtual ConditionModel ImmunityCompareBaseCondition => IsMutable ? ImmutableInstance : this;
 	public virtual bool RemovedAtEndOfTurn => false;
 	public virtual bool IsPositive => false;
 	public virtual bool IsNegative => !IsPositive;

@@ -37,7 +37,7 @@ public class Stun : ConditionModel
 	{
 		await base.Remove();
 
-		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
-		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(this);
+		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
+		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(Owner, this);
 	}
 }

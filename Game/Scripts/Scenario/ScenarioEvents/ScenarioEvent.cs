@@ -71,6 +71,44 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 
+		public static Subscription ConsumeElements(List<Element> elements,
+			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+		{
+			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
+			return new Subscription(parameters =>
+				{
+					foreach(Element element in elements)
+					{
+						if(GameController.Instance.ElementManager.GetState(element) == ElementState.Inert)
+						{
+							return false;
+						}
+					}
+
+					return canApplyFunction == null || canApplyFunction.Invoke(parameters);
+				},
+				async parameters =>
+				{
+					foreach(Element element in elements)
+					{
+						await AbilityCmd.TryConsumeElement(element);
+					}
+
+					if(applyFunction != null)
+					{
+						// if(parameters is ParametersBaseWithAbilityState parametersBaseWithAbilityState)
+						// {
+						// 	parametersBaseWithAbilityState.BaseAbilityState.SetElementConsumed(element);
+						// }
+						await applyFunction.Invoke(parameters);
+					}
+				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
+				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(elements),
+				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
+		}
+
 		public override bool CanApply(ParametersBase parameters)
 		{
 			if(!Subscribed)

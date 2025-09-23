@@ -9,7 +9,7 @@ public class Shackle : ConditionModel
 	public override bool CanBeUpgraded => false;
 	public override bool IsPositive => false;
 	public override bool IsNegative => false;
-	public override ConditionModel BaseCondition => Conditions.Immobilize;
+	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Immobilize;
 
 	public Figure Shackler;
 

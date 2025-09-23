@@ -17,6 +17,7 @@
 	public const string Targets = "res://Art/Icons/Abilities/Targets.svg";
 	public const string Jump = "res://Art/Icons/Abilities/Jump.svg";
 	public const string Teleport = "res://Art/Icons/Abilities/Teleport.svg";
+	public const string Loot = "res://Art/Icons/Abilities/Loot.svg";
 
 	public static string GetElement(Element element)
 	{
