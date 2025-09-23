@@ -26,7 +26,7 @@ public class Stun : ConditionModel
 			parameters =>
 			{
 				Node.Flash();
-				parameters.SetCannotMoveFurther();
+				parameters.SetCannotMoveFurther(true);
 
 				return GDTask.CompletedTask;
 			}

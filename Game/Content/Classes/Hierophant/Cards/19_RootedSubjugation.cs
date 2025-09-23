@@ -76,7 +76,7 @@ public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, 
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter => [RetaliateAbility.Builder().WithRetaliateValue(1).WithRange(2).Build()])
+				.WithGetAbilities(state => [RetaliateAbility.Builder().WithRetaliateValue(1).WithRange(2).Build()])
 				.Build())
 		];
 

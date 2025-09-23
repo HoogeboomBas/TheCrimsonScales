@@ -27,11 +27,11 @@ public class AMDCardValue
 		int attackModifierValue = 0;
 		if(CardType == AMDCardType.Crit)
 		{
-			attackModifierValue = attackAbilityState.AbilityAttackValue;
+			attackModifierValue = attackAbilityState.SingleTargetAttackValue;
 		}
 		else if(CardType == AMDCardType.Null)
 		{
-			attackModifierValue = -attackAbilityState.AbilityAttackValue;
+			attackModifierValue = -attackAbilityState.SingleTargetAttackValue;
 		}
 		else if(Value.HasValue)
 		{

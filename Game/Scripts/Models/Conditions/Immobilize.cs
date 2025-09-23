@@ -26,7 +26,7 @@ public class Immobilize : ConditionModel
 			parameters =>
 			{
 				Node.Flash();
-				parameters.SetCannotMoveFurther();
+				parameters.SetCannotMoveFurther(true);
 
 				return GDTask.CompletedTask;
 			}

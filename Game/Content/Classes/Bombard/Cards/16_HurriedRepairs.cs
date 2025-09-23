@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRepairs.CardBottom>
@@ -53,6 +54,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 						MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
 
 						List<Figure> figures = new List<Figure>();
+
 						foreach(Hex hex in moveAbilityState.Hexes)
 						{
 							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())

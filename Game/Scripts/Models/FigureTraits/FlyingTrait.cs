@@ -6,7 +6,7 @@
 
 		ScenarioCheckEvents.FlyingCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
-			parameters => parameters.SetFlying());
+			parameters => parameters.SetFlying(true));
 
 		//figure.UpdateFlying();
 	}

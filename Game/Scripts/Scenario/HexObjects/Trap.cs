@@ -26,10 +26,15 @@ public partial class Trap : OverlayTile
 		_trapViewComponent = GetViewComponent<TrapViewComponent>();
 	}
 
-	public void SetTrapValues(int damage, ConditionModel[] conditionModels)
+	public void SetTrapDamage(int damage)
 	{
 		ScaledDamage = false;
 		CustomDamage = damage;
+	}
+
+	public void SetTrapValues(int damage, ConditionModel[] conditionModels)
+	{
+		SetTrapDamage(damage);
 
 		ConditionModels = new ConditionModelResource[conditionModels.Length];
 		for(int i = 0; i < conditionModels.Length; i++)

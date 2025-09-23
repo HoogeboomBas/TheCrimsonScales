@@ -56,7 +56,7 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter =>
+				.WithGetAbilities(state =>
 					[
 						RetaliateAbility.Builder()
 							.WithRetaliateValue(1)

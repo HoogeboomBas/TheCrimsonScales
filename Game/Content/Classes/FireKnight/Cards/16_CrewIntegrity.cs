@@ -65,7 +65,7 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithGetAbilities(state => [MoveAbility.Builder().WithDistance(3).Build()])
 				.WithTargets(2)
 				.WithRange(3)
 				.WithTarget(Target.SelfOrAllies | Target.SelfCountsForTargets)

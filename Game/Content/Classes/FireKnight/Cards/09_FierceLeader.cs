@@ -12,7 +12,7 @@ public class FierceLeader : FireKnightCardModel<FierceLeader.CardTop, FierceLead
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter => [AttackAbility.Builder().WithDamage(3).Build()])
+				.WithGetAbilities(state => [AttackAbility.Builder().WithDamage(3).Build()])
 				.WithTarget(Target.Allies)
 				.Build()),
 
