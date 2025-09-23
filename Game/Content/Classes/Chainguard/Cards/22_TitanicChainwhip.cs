@@ -1,0 +1,36 @@
+using System.Collections.Generic;
+using Fractural.Tasks;
+using Godot;
+
+public class TitanicChainwhip : ChainguardCardModel<TitanicChainwhip.CardTop, TitanicChainwhip.CardBottom>
+{
+	public override string Name => "Titanic Chainwhip";
+	public override int Level => 6;
+	public override int Initiative => 29;
+	protected override int AtlasIndex => 28 - 22;
+
+	public class CardTop : ChainguardCardSide
+	{
+		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(4)
+				.WithRange(3)
+				.WithConditions(Chainguard.Shackle)
+				.WithPull(2)
+				.Build()),
+		];
+	}
+
+	public class CardBottom : ChainguardCardSide
+	{
+		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(PullAbility.Builder()
+				.WithPull(4)
+				.WithRange(5)
+				.WithConditions(Chainguard.Shackle, Conditions.Wound1)
+				.Build()),
+		];  
+	}
+}
