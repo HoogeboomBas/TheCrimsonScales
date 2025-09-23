@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
-public class MeteorHammer : ChainguardCardModel<MeteorHammer.CardTop, MeteorHammer.CardBottom>
+public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, MeteorHammer.CardBottom>
 {
 	public override string Name => "Meteor Hammer";
 	public override int Level => 7;
 	public override int Initiative => 45;
-	protected override int AtlasIndex => 28 - 24;
+	protected override int AtlasIndex => 19 - 15;
 
 	public class CardTop : ChainguardCardSide
 	{

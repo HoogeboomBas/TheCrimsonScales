@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class PivotAndSmash : ChainguardCardModel<PivotAndSmash.CardTop, PivotAndSmash.CardBottom>
+public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, PivotAndSmash.CardBottom>
 {
 	public override string Name => "Pivot and Smash";
 	public override int Level => 8;
 	public override int Initiative => 28;
-	protected override int AtlasIndex => 28 - 25;
+	protected override int AtlasIndex => 19 - 16;
 
 	public class CardTop : ChainguardCardSide
 	{

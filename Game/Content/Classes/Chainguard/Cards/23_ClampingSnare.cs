@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
-public class ClampingSnare : ChainguardCardModel<ClampingSnare.CardTop, ClampingSnare.CardBottom>
+public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, ClampingSnare.CardBottom>
 {
 	public override string Name => "Clamping Snare";
 	public override int Level => 7;
 	public override int Initiative => 27;
-	protected override int AtlasIndex => 28 - 23;
+	protected override int AtlasIndex => 19 - 14;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -16,6 +15,7 @@ public class ClampingSnare : ChainguardCardModel<ClampingSnare.CardTop, Clamping
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(5)
 				.WithConditions(Conditions.Muddle)
+				// .WithCustomAsset("cs-rope-trap.png")
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()

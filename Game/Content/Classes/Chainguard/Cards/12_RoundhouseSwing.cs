@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
 public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, RoundhouseSwing.CardBottom>
 {
 	public override string Name => "Roundhouse Swing";
 	public override int Level => 1;
 	public override int Initiative => 79;
-	protected override int AtlasIndex => 28 - 11;
+	protected override int AtlasIndex => 15 - 15;
 
 	public class CardTop : ChainguardCardSide
 	{

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class IronThrust : ChainguardCardModel<IronThrust.CardTop, IronThrust.CardBottom>
+public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThrust.CardBottom>
 {
 	public override string Name => "Iron Thrust";
 	public override int Level => 2;
 	public override int Initiative => 38;
-	protected override int AtlasIndex => 28 - 14;
+	protected override int AtlasIndex => 19 - 4;
 
 	public class CardTop : ChainguardCardSide
 	{

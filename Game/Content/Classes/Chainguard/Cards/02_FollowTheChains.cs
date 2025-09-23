@@ -7,7 +7,7 @@ public class FollowTheChains : ChainguardCardModel<FollowTheChains.CardTop, Foll
 	public override string Name => "Follow the Chains";
 	public override int Level => 1;
 	public override int Initiative => 19;
-	protected override int AtlasIndex => 28 - 3;
+	protected override int AtlasIndex => 15 - 5;
 
 	public class CardTop : ChainguardCardSide
 	{

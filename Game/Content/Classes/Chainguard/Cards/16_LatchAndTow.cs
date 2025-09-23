@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class LatchAndTow : ChainguardCardModel<LatchAndTow.CardTop, LatchAndTow.CardBottom>
+public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, LatchAndTow.CardBottom>
 {
 	public override string Name => "Latch and Tow";
 	public override int Level => 3;
 	public override int Initiative => 81;
-	protected override int AtlasIndex => 28 - 15;
+	protected override int AtlasIndex => 19 - 7;
 
 	public class CardTop : ChainguardCardSide
 	{

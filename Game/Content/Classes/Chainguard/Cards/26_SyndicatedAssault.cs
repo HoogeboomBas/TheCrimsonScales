@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class SyndicatedAssault : ChainguardCardModel<SyndicatedAssault.CardTop, SyndicatedAssault.CardBottom>
+public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.CardTop, SyndicatedAssault.CardBottom>
 {
 	public override string Name => "Syndicated Assault";
 	public override int Level => 8;
 	public override int Initiative => 68;
-	protected override int AtlasIndex => 28 - 26;
+	protected override int AtlasIndex => 19 - 17;
 
 	public class CardTop : ChainguardCardSide
 	{

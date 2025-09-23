@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
-public class ImpendingPower : ChainguardCardModel<ImpendingPower.CardTop, ImpendingPower.CardBottom>
+public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop, ImpendingPower.CardBottom>
 {
 	public override string Name => "Impending Power";
 	public override int Level => 5;
 	public override int Initiative => 12;
-	protected override int AtlasIndex => 28 - 19;
+	protected override int AtlasIndex => 19 - 10;
 
 	public class CardTop : ChainguardCardSide
 	{

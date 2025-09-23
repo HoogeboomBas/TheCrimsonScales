@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
-using Godot;
 
-public class TitanicChainwhip : ChainguardCardModel<TitanicChainwhip.CardTop, TitanicChainwhip.CardBottom>
+public class TitanicChainwhip : ChainguardLevelUpCardModel<TitanicChainwhip.CardTop, TitanicChainwhip.CardBottom>
 {
 	public override string Name => "Titanic Chainwhip";
 	public override int Level => 6;
 	public override int Initiative => 29;
-	protected override int AtlasIndex => 28 - 22;
+	protected override int AtlasIndex => 19 - 13;
 
 	public class CardTop : ChainguardCardSide
 	{

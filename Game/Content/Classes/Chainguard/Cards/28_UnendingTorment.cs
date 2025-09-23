@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class UnendingTorment : ChainguardCardModel<UnendingTorment.CardTop, UnendingTorment.CardBottom>
+public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTop, UnendingTorment.CardBottom>
 {
 	public override string Name => "Unending Torment";
 	public override int Level => 9;
 	public override int Initiative => 33;
-	protected override int AtlasIndex => 28 - 28;
+	protected override int AtlasIndex => 19 - 19;
 
 	public class CardTop : ChainguardCardSide
 	{

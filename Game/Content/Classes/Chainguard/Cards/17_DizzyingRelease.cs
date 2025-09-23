@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class DizzyingRelease : ChainguardCardModel<DizzyingRelease.CardTop, DizzyingRelease.CardBottom>
+public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTop, DizzyingRelease.CardBottom>
 {
 	public override string Name => "Dizzying Release";
 	public override int Level => 4;
 	public override int Initiative => 24;
-	protected override int AtlasIndex => 28 - 17;
+	protected override int AtlasIndex => 19 - 8;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -123,6 +123,7 @@ public class DizzyingRelease : ChainguardCardModel<DizzyingRelease.CardTop, Dizz
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(3)
 				.WithConditions(Conditions.Wound1)
+				// .WithCustomAsset("cs-wood-spike-trap.png")
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()

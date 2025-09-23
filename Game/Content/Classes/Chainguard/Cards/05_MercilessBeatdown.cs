@@ -8,7 +8,7 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 	public override string Name => "Merciless Beatdown";
 	public override int Level => 1;
 	public override int Initiative => 26;
-	protected override int AtlasIndex => 28 - 5;
+	protected override int AtlasIndex => 15 - 8;
 
 	public class CardTop : ChainguardCardSide
 	{

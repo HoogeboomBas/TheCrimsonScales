@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
-public class SufferingSteel : ChainguardCardModel<SufferingSteel.CardTop, SufferingSteel.CardBottom>
+public class SufferingSteel : ChainguardLevelUpCardModel<SufferingSteel.CardTop, SufferingSteel.CardBottom>
 {
 	public override string Name => "Suffering Steel";
 	public override int Level => 6;
 	public override int Initiative => 09;
-	protected override int AtlasIndex => 28 - 21;
+	protected override int AtlasIndex => 19 - 12;
 
 	public class CardTop : ChainguardCardSide
 	{

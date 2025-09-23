@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class SlammingShove : ChainguardCardModel<SlammingShove.CardTop, SlammingShove.CardBottom>
 {
 	public override string Name => "Slamming Shove";
 	public override int Level => 1;
 	public override int Initiative => 25;
-	protected override int AtlasIndex => 28 - 7;
+	protected override int AtlasIndex => 15 - 7;
 
 	public class CardTop : ChainguardCardSide
 	{

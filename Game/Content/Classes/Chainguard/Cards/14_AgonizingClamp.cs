@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class AgonizingClamp : ChainguardCardModel<AgonizingClamp.CardTop, AgonizingClamp.CardBottom>
+public class AgonizingClamp : ChainguardLevelUpCardModel<AgonizingClamp.CardTop, AgonizingClamp.CardBottom>
 {
 	public override string Name => "Agonizing Clamp";
 	public override int Level => 2;
 	public override int Initiative => 57;
-	protected override int AtlasIndex => 28 - 13;
+	protected override int AtlasIndex => 19 - 5;
 
 	public class CardTop : ChainguardCardSide
 	{

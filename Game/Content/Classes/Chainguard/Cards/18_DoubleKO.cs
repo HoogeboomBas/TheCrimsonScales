@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
-public class DoubleKO : ChainguardCardModel<DoubleKO.CardTop, DoubleKO.CardBottom>
+public class DoubleKO : ChainguardLevelUpCardModel<DoubleKO.CardTop, DoubleKO.CardBottom>
 {
 	public override string Name => "Double K.O.";
 	public override int Level => 4;
 	public override int Initiative => 92;
-	protected override int AtlasIndex => 28 - 18;
+	protected override int AtlasIndex => 19 - 9;
 
 	public class CardTop : ChainguardCardSide
 	{

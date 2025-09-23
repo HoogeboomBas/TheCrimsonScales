@@ -6,7 +6,7 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 	public override string Name => "Spiked Knuckles";
 	public override int Level => 1;
 	public override int Initiative => 66;
-	protected override int AtlasIndex => 28 - 8;
+	protected override int AtlasIndex => 15 - 11;
 
 	public class CardTop : ChainguardCardSide
 	{

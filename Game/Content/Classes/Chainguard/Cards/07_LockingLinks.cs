@@ -7,7 +7,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 	public override string Name => "Locking Links";
 	public override int Level => 1;
 	public override int Initiative => 41;
-	protected override int AtlasIndex => 28 - 4;
+	protected override int AtlasIndex => 15 - 10;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -67,6 +67,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 		[
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(2)
+				// .WithCustomAsset("cs-trap.png")
 				.Build())
 		];
 

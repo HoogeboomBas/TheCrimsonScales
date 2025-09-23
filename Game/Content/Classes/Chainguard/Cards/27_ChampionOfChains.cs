@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using Fractural.Tasks;
 
-public class ChampionOfChains : ChainguardCardModel<ChampionOfChains.CardTop, ChampionOfChains.CardBottom>
+public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.CardTop, ChampionOfChains.CardBottom>
 {
 	public override string Name => "Champion of Chains";
 	public override int Level => 9;
 	public override int Initiative => 10;
-	protected override int AtlasIndex => 28 - 27;
+	protected override int AtlasIndex => 19 - 18;
 
 	public class CardTop : ChainguardCardSide
 	{

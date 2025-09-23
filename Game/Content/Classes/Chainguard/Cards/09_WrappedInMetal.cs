@@ -6,7 +6,7 @@ public class WrappedInMetal : ChainguardCardModel<WrappedInMetal.CardTop, Wrappe
 	public override string Name => "Wrapped in Metal";
 	public override int Level => 1;
 	public override int Initiative => 82;
-	protected override int AtlasIndex => 28 - 9;
+	protected override int AtlasIndex => 15 - 12;
 
 	public class CardTop : ChainguardCardSide
 	{

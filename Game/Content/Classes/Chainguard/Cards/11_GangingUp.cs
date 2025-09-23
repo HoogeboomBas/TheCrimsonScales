@@ -6,7 +6,7 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 	public override string Name => "Ganging Up";
 	public override int Level => 1;
 	public override int Initiative => 74;
-	protected override int AtlasIndex => 28 - 10;
+	protected override int AtlasIndex => 15 - 14;
 
 	public class CardTop : ChainguardCardSide
 	{

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class SweepingCollision : ChainguardCardModel<SweepingCollision.CardTop, SweepingCollision.CardBottom>
+public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.CardTop, SweepingCollision.CardBottom>
 {
 	public override string Name => "Sweeping Collision";
 	public override int Level => 3;
 	public override int Initiative => 20;
-	protected override int AtlasIndex => 28 - 16;
+	protected override int AtlasIndex => 19 - 6;
 
 	public class CardTop : ChainguardCardSide
 	{

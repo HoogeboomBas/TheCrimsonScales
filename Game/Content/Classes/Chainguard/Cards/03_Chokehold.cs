@@ -7,7 +7,7 @@ public class Chokehold : ChainguardCardModel<Chokehold.CardTop, Chokehold.CardBo
 	public override string Name => "Chokehold";
 	public override int Level => 1;
 	public override int Initiative => 22;
-	protected override int AtlasIndex => 28 - 1;
+	protected override int AtlasIndex => 15 - 6;
 
 	public class CardTop : ChainguardCardSide
 	{

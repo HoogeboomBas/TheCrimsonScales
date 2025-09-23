@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 using Godot;
 
 public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSway.CardBottom>
@@ -8,7 +7,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 	public override string Name => "Vigorous Sway";
 	public override int Level => 1;
 	public override int Initiative => 52;
-	protected override int AtlasIndex => 28 - 12;
+	protected override int AtlasIndex => 15 - 13;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -55,6 +54,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(3)
 				.WithConditions(Conditions.Stun)
+				// .WithCustomAsset("cs-rope-trap.png")
 				.Build())
 		];
 

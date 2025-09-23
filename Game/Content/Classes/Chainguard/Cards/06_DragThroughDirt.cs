@@ -6,7 +6,7 @@ public class DragThroughDirt : ChainguardCardModel<DragThroughDirt.CardTop, Drag
 	public override string Name => "Drag Through Dirt";
 	public override int Level => 1;
 	public override int Initiative => 30;
-	protected override int AtlasIndex => 28 - 2;
+	protected override int AtlasIndex => 15 - 9;
 
 	public class CardTop : ChainguardCardSide
 	{

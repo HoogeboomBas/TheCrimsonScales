@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.CardBottom>
 {
 	public override string Name => "Rusty Spikes";
 	public override int Level => 1;
 	public override int Initiative => 18;
-	protected override int AtlasIndex => 28 - 6;
+	protected override int AtlasIndex => 15 - 4;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -15,6 +14,7 @@ public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(3)
 				.WithConditions(Conditions.Poison1)
+				// .WithCustomAsset("cs-poison-trap.png")
 				.Build())
 		];
 
