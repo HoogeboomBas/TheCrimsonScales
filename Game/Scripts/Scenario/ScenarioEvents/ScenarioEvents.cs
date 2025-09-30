@@ -867,11 +867,11 @@ public class ScenarioEvents
 	{
 		public class Parameters(AbilityState abilityState) : ParametersBase<AbilityState>(abilityState)
 		{
-			public bool? Clockwise { get; private set; } = null;
+			public SwingDirectionType? RequiredDirection { get; private set; } = null;
 
-			public void SetClockwise(bool clockwise)
+			public void SetRequiredSwingDirection(SwingDirectionType requiredDirection)
 			{
-				Clockwise = clockwise;
+				RequiredDirection = requiredDirection;
 			}
 		}
 	}

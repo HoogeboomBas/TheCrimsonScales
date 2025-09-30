@@ -205,7 +205,7 @@ public static class MoveHelper
 	}
 
 	public static void FindReachableForcedMovementHexes(AbilityState abilityState, ForcedMovementNode firstNode, Figure target, Hex origin, ForcedMovementType type,
-		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false, bool? direction = null)
+		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false, SwingDirectionType? requiredDirection = null)
 	{
 		closedList.Clear();
 
@@ -265,7 +265,7 @@ public static class MoveHelper
 							continue;
 						}
 
-						if(direction.HasValue && direction != IsClockwise(origin, nodeToHandle.Hex, newHex)) 
+						if(requiredDirection.HasValue && ((requiredDirection == SwingDirectionType.Clockwise) ^ IsClockwise(origin, nodeToHandle.Hex, newHex)))
 						{
 							continue;
 						}

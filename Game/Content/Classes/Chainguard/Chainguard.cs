@@ -9,36 +9,6 @@ public partial class Chainguard : Character
 
 	private int _maximumShackles = 1;
 
-	private async GDTask PromptAndRemoveAllButXShackles(int shacklesToKeep)
-	{
-		IEnumerable<Figure> shackledFigures = GameController.Instance.Map.Figures.FindAll(figure => figure.HasCondition(Shackle));
-		int shacklesToRemove = shackledFigures.Count() - shacklesToKeep;
-
-		if(shacklesToKeep == 0)
-		{
-			foreach(Figure figure in shackledFigures)
-			{
-				await AbilityCmd.RemoveCondition(figure, Shackle);
-			}
-		}
-		else
-		{
-			int extraShacklesIndex = 1;
-			while(extraShacklesIndex <= shacklesToRemove)
-			{
-				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new TargetSelectionPrompt(figures => figures.AddRange(shackledFigures), 
-						true, true, null, 
-						() => $"Select an enemy to lose {Icons.Inline(Icons.GetCondition(Shackle))}, {extraShacklesIndex}/{shacklesToRemove}"), 
-					this);
-
-				await AbilityCmd.RemoveCondition(GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId), Shackle);
-
-				extraShacklesIndex++;
-			}
-		}
-	}
-
 	public async GDTask SetMaximumShackles(int maximumShackles)
 	{
 		_maximumShackles = maximumShackles;
@@ -63,5 +33,34 @@ public partial class Chainguard : Character
 				await PromptAndRemoveAllButXShackles(shacklesToKeep);
 			}
 		);
+	}
+
+	private async GDTask PromptAndRemoveAllButXShackles(int shacklesToKeep)
+	{
+		IEnumerable<Figure> shackledFigures = GameController.Instance.Map.Figures.FindAll(figure => figure.HasCondition(Shackle));
+		int shacklesToRemove = shackledFigures.Count() - shacklesToKeep;
+
+		if(shacklesToKeep == 0)
+		{
+			foreach(Figure figure in shackledFigures)
+			{
+				await AbilityCmd.RemoveCondition(figure, Shackle);
+			}
+		}
+		else
+		{
+			for(int extraShacklesIndex = 1; extraShacklesIndex <= shacklesToRemove; extraShacklesIndex++)
+			{
+				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
+					new TargetSelectionPrompt(figures => figures.AddRange(shackledFigures), 
+						true, true, null, 
+						() => $"Select an enemy to lose {Icons.Inline(Icons.GetCondition(Shackle))}, {extraShacklesIndex}/{shacklesToRemove}"), 
+					this);
+
+				await AbilityCmd.RemoveCondition(GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId), Shackle);
+
+				extraShacklesIndex++;
+			}
+		}
 	}
 }

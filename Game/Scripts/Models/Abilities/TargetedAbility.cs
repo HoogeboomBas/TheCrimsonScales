@@ -53,7 +53,6 @@ public abstract class TargetedAbilityState : AbilityState
 	public int SingleTargetSwing { get; set; }
 
 	public abstract Figure Target { get; }
-	public List<Hex> ForcedMovementHexes { get; } = new List<Hex>();
 
 	public IEnumerable<Hex> GetRedAOEHexes()
 	{
@@ -203,6 +202,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	public ConditionModel[] Conditions { get; private set; } = [];
 
 	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
+
+	public List<Hex> ForcedMovementHexes { get; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -648,8 +649,6 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		abilityState.SingleTargetPush = abilityState.AbilityPush;
 		abilityState.SingleTargetPull = abilityState.AbilityPull;
 		abilityState.SingleTargetSwing = abilityState.AbilitySwing;
-
-		abilityState.ForcedMovementHexes.Clear();
 	}
 
 	protected virtual EffectCollection CreateDuringTargetedAbilityEffectCollection(T abilityState)
@@ -675,20 +674,20 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	protected async GDTask ForcedMovement(T abilityState, Hex origin, Figure target, int distance, ForcedMovementType type, Func<string> hintText)
 	{
 		List<Vector2I> path = null;
-		bool? direction = null;
+		SwingDirectionType? requiredDirection = null;
 
 		if(type == ForcedMovementType.Swing)
 		{
 			ScenarioEvents.SwingDirectionCheck.Parameters parameters =
 				await ScenarioEvents.SwingDirectionCheckEvent.CreatePrompt(
 					new ScenarioEvents.SwingDirectionCheck.Parameters(abilityState));
-			direction = parameters.Clockwise;
+			requiredDirection = parameters.RequiredDirection;
 		}
 
 		if(abilityState.Authority is Character)
 		{
 			ForcedMovementPrompt.Answer forcedMovementAnswer = await PromptManager.Prompt(
-				new ForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, direction), abilityState.Authority);
+				new ForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, requiredDirection), abilityState.Authority);
 
 			if(!forcedMovementAnswer.Skipped)
 			{
@@ -698,7 +697,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		else
 		{
 			MonsterForcedMovementPrompt.Answer answer = await PromptManager.Prompt(
-				new MonsterForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, direction), abilityState.Authority);
+				new MonsterForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, requiredDirection), abilityState.Authority);
 
 			if(!answer.Skipped)
 			{
@@ -714,7 +713,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			{
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
-				abilityState.ForcedMovementHexes.Add(hex);
+				ForcedMovementHexes.Add(hex);
 
 				await target.TweenGlobalPosition(hex.GlobalPosition, 0.2f).PlayFastForwardableAsync();
 				await AbilityCmd.EnterHex(abilityState, target, abilityState.Authority, hex, true);

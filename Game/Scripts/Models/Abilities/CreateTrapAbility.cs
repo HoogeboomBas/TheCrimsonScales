@@ -12,7 +12,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	{
 		public int AbilityRange { get; set; }
 		public List<ConditionModel> AbilityConditionModels { get; set; }
-		public List<Trap> Traps { get; set; }
+		public List<Trap> CreatedTraps { get; set; } = [];
 
 		public void AbilityAdjustRange(int amount)
 		{
@@ -114,7 +114,6 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 		abilityState.AbilityRange = Range;
 		abilityState.AbilityConditionModels = ConditionModels.ToList();
-		abilityState.Traps = [];
 	}
 
 	protected override async GDTask Perform(State abilityState)
@@ -139,7 +138,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 		{
 			foreach(Hex hex in targetHexes)
 			{
-				abilityState.Traps.Add(await AbilityCmd.CreateTrap(hex, AssetPath, damage: Damage, conditions: ConditionModels));
+				abilityState.CreatedTraps.Add(await AbilityCmd.CreateTrap(hex, AssetPath, damage: Damage, conditions: ConditionModels));
 			}
 
 			abilityState.SetPerformed();
