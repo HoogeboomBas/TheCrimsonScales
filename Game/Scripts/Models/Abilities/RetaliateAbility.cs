@@ -40,6 +40,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : RetaliateAbility, new()
 	{
+		protected int? _range;
 		public interface IRetaliateValueStep
 		{
 			TBuilder WithRetaliateValue(int retaliateValue);
@@ -53,6 +54,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 
 		public TBuilder WithRange(int range)
 		{
+			_range = range;
 			Obj.Range = range;
 			return (TBuilder)this;
 		}
@@ -67,6 +69,11 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		{
 			Obj._customCanApplyReplaceFully = customCanApplyReplaceFully;
 			return (TBuilder)this;
+
+		public override TAbility Build()
+		{
+			Obj.Range = _range ?? 1;
+			return base.Build();
 		}
 	}
 
