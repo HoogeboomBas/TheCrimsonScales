@@ -2,7 +2,7 @@
 	where TTop : ChainguardCardSide, new()
 	where TBottom : ChainguardCardSide, new()
 {
-	protected override string TexturePath => "res://Content/Classes/Chainguard/Level_2-9_spread.png.jpg";
+	protected override string TexturePath => "res://Content/Classes/Chainguard/Level_2-9_spread.png";
 	protected override int ColumnCount => 5;
 	protected override int RowCount => 4;
 }
