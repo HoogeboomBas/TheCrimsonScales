@@ -30,6 +30,7 @@ public class Immobilize : ConditionModel
 
 				return GDTask.CompletedTask;
 			}
+			, order: 100
 		);
 	}
 

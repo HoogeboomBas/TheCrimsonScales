@@ -30,6 +30,7 @@ public class Stun : ConditionModel
 
 				return GDTask.CompletedTask;
 			}
+			, order: 100
 		);
 	}
 
