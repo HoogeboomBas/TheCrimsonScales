@@ -21,7 +21,11 @@ public class CardSelectionPrompt(
 
 	private readonly List<AbilityCard> _selectedCards = new List<AbilityCard>();
 
-	protected override bool CanConfirm => _selectedCards.Count > 0 && (_selectedCards.Count >= minSelectionCount || _selectedCards.Count == _selectableCards.Count) && _selectedCards.Count <= maxSelectionCount;
+	protected override bool CanConfirm =>
+		_selectedCards.Count > 0 &&
+		(_selectedCards.Count >= minSelectionCount || _selectedCards.Count == _selectableCards.Count) &&
+		_selectedCards.Count <= maxSelectionCount;
+
 	protected override bool CanSkip => minSelectionCount == 0 || _selectableCards.Count == 0;
 
 	protected override void Enable()
@@ -51,7 +55,8 @@ public class CardSelectionPrompt(
 
 		foreach(CardSelectionCard cardSelectionCard in GameController.Instance.CardSelectionView.Cards)
 		{
-			bool selected = _selectedCards.Contains(cardSelectionCard.AbilityCard);
+			AbilityCard abilityCard = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
+			bool selected = _selectedCards.Contains(abilityCard);
 			cardSelectionCard.SetSelected(selected);
 			cardSelectionCard.SetInitiativeSelected(selected);
 		}
@@ -74,13 +79,14 @@ public class CardSelectionPrompt(
 
 	private void OnCardPressed(CardSelectionCard card)
 	{
-		if(_selectedCards.Contains(card.AbilityCard))
+		AbilityCard abilityCard = GameController.Instance.CardManager.Get(card.SavedAbilityCard);
+		if(_selectedCards.Contains(abilityCard))
 		{
-			_selectedCards.Remove(card.AbilityCard);
+			_selectedCards.Remove(abilityCard);
 		}
 		else
 		{
-			if(!requiredCardState.HasValue || card.AbilityCard.CardState == requiredCardState)
+			if(!requiredCardState.HasValue || abilityCard.CardState == requiredCardState)
 			{
 				if(maxSelectionCount == 1)
 				{
@@ -89,7 +95,7 @@ public class CardSelectionPrompt(
 
 				if(_selectedCards.Count < maxSelectionCount)
 				{
-					_selectedCards.Add(card.AbilityCard);
+					_selectedCards.Add(abilityCard);
 				}
 			}
 		}

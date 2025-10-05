@@ -194,8 +194,18 @@ public static class MoveHelper
 		}
 	}
 
+	public static bool IsClockwise(Hex pivot, Hex hex0, Hex hex1)
+	{
+		Vector2 vector0 = pivot.GlobalPosition - hex0.GlobalPosition;
+		Vector2 vector1 = pivot.GlobalPosition - hex1.GlobalPosition;
+
+		float angle = vector0.Normalized().AngleTo(vector1.Normalized());
+
+		return angle > 0.0f;
+	}
+
 	public static void FindReachableForcedMovementHexes(AbilityState abilityState, ForcedMovementNode firstNode, Figure target, Hex origin, ForcedMovementType type,
-		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false)
+		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false, SwingDirectionType? requiredDirection = null)
 	{
 		closedList.Clear();
 
@@ -207,8 +217,7 @@ public static class MoveHelper
 		Map map = GameController.Instance.Map;
 
 		// Flood fill to find all reachable hexes
-		List<ForcedMovementNode> openList = new List<ForcedMovementNode>();
-		openList.Add(firstNode);
+		List<ForcedMovementNode> openList = [firstNode];
 		while(openList.Count > 0)
 		{
 			ForcedMovementNode nodeToHandle = openList[0];
@@ -223,7 +232,7 @@ public static class MoveHelper
 						continue;
 					}
 
-					// For the first step from origin, prevent going back to the parent if exists
+					// For the first step from first node, prevent going back to the parent if exists
 					if(firstNode == nodeToHandle && nodeToHandle.Parents.Any(parentNode => parentNode.Hex == newHex))
 					{
 						continue;
@@ -252,6 +261,11 @@ public static class MoveHelper
 					{
 						// Swing needs to keep the distance fixed
 						if(oldDistance != newDistance)
+						{
+							continue;
+						}
+
+						if(requiredDirection.HasValue && ((requiredDirection == SwingDirectionType.Clockwise) ^ IsClockwise(origin, nodeToHandle.Hex, newHex)))
 						{
 							continue;
 						}

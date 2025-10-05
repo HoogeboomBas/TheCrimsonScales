@@ -436,9 +436,9 @@ public class ScenarioEvents
 
 			public bool CanMoveFurther { get; private set; } = true;
 
-			public void SetCannotMoveFurther()
+			public void SetCannotMoveFurther(bool cannotMoveFurther)
 			{
-				CanMoveFurther = false;
+				CanMoveFurther = !cannotMoveFurther;
 			}
 		}
 	}
@@ -481,16 +481,22 @@ public class ScenarioEvents
 
 	public class TrapTriggered : ScenarioEvent<TrapTriggered.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Hex hex, Trap trap, bool triggersTrap)
+		public class Parameters(AbilityState abilityState, Hex hex, Trap trap, Figure figure, bool triggersTrap)
 			: ParametersBase<AbilityState>(abilityState)
 		{
 			public Hex Hex { get; } = hex;
 			public Trap Trap { get; } = trap;
+			public Figure Figure { get; } = figure;
 			public bool TriggersTrap { get; private set; } = triggersTrap;
 
 			public void SetTriggersTrap(bool triggersTrap)
 			{
 				TriggersTrap = triggersTrap;
+			}
+
+			public void AdjustTrapDamage(int damage)
+			{
+				Trap.SetTrapDamage(Trap.Damage + damage);
 			}
 		}
 	}
@@ -856,4 +862,20 @@ public class ScenarioEvents
 
 	private readonly ItemUseEnded _itemUseEnded = new ItemUseEnded();
 	public static ItemUseEnded ItemUseEndedEvent => GameController.Instance.ScenarioEvents._itemUseEnded;
+
+	public class SwingDirectionCheck : ScenarioEvent<SwingDirectionCheck.Parameters>
+	{
+		public class Parameters(AbilityState abilityState) : ParametersBase<AbilityState>(abilityState)
+		{
+			public SwingDirectionType? RequiredDirection { get; private set; } = null;
+
+			public void SetRequiredSwingDirection(SwingDirectionType requiredDirection)
+			{
+				RequiredDirection = requiredDirection;
+			}
+		}
+	}
+
+	private readonly SwingDirectionCheck _swingDirectionCheck = new SwingDirectionCheck();
+	public static SwingDirectionCheck SwingDirectionCheckEvent => GameController.Instance.ScenarioEvents._swingDirectionCheck;
 }

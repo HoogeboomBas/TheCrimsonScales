@@ -1,23 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://cpl0163b2ppbv"]
+[gd_scene load_steps=8 format=3 uid="uid://cpl0163b2ppbv"]
 
 [ext_resource type="Script" uid="uid://cjcsrsvbxjyn1" path="res://Scripts/Scenario/UI/CardSelectionView/CardSelectionView.cs" id="1_hlgn3"]
-[ext_resource type="PackedScene" uid="uid://b7ogm4op7ko2a" path="res://Scenes/Scenario/UI/CardSelectionCard.tscn" id="2_rego2"]
-[ext_resource type="Script" uid="uid://c1mtipnwlpxx3" path="res://Scripts/Scenario/UI/CardSelectionView/CardSelectionCardPreview.cs" id="3_f2apl"]
-[ext_resource type="PackedScene" uid="uid://dvex4pgry7e30" path="res://Scenes/Scenario/UI/CardView.tscn" id="4_jmr32"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="5_17wxw"]
+[ext_resource type="PackedScene" uid="uid://d01x6nmjmss3c" path="res://Scenes/UI/CardSelectionList/CardSelectionList.tscn" id="5_rego2"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="6_mmykg"]
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="7_sfnjd"]
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="8_3x8lk"]
 [ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="9_5atsp"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pk70c"]
-bg_color = Color(1, 1, 1, 0)
-border_width_top = 10
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 0)
-border_blend = true
-
-[node name="CardSelectionView" type="Control" node_paths=PackedStringArray("_scrollContainer", "_itemParent", "_container", "_cardPreview", "_restButtons", "_shortRestButton", "_longRestButton", "_longRestIndicatorContainer")]
+[node name="CardSelectionView" type="Control" node_paths=PackedStringArray("_container", "_cardSelectionList", "_restButtons", "_shortRestButton", "_longRestButton", "_longRestIndicatorContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,11 +17,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_hlgn3")
-_itemScene = ExtResource("2_rego2")
-_scrollContainer = NodePath("MarginContainer/Container/Mask/ScrollContainer")
-_itemParent = NodePath("MarginContainer/Container/Mask/ScrollContainer/Cards")
-_container = NodePath("MarginContainer/Container/Mask")
-_cardPreview = NodePath("MarginContainer/Container/CardPreview")
+_container = NodePath("MarginContainer/Container")
+_cardSelectionList = NodePath("MarginContainer/Container/CardSelectionList")
 _restButtons = NodePath("MarginContainer/Container/RestButtons")
 _shortRestButton = NodePath("MarginContainer/Container/RestButtons/ShortRest/BetterButton")
 _longRestButton = NodePath("MarginContainer/Container/RestButtons/LongRest/BetterButton")
@@ -53,54 +41,14 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CardPreview" type="Control" parent="MarginContainer/Container" node_paths=PackedStringArray("_cardView")]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 490.0
-offset_right = 810.0
-offset_bottom = 448.0
-scale = Vector2(1.07, 1.07)
-mouse_filter = 2
-script = ExtResource("3_f2apl")
-_cardView = NodePath("CardView")
-
-[node name="CardView" parent="MarginContainer/Container/CardPreview" instance=ExtResource("4_jmr32")]
-layout_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Mask" type="Panel" parent="MarginContainer/Container"]
-clip_contents = true
+[node name="CardSelectionList" parent="MarginContainer/Container" instance=ExtResource("5_rego2")]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = 80.0
-offset_right = 590.0
+offset_top = 100.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pk70c")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Container/Mask"]
-clip_contents = false
-layout_direction = 3
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = 10.0
-offset_right = -50.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 0
-horizontal_scroll_mode = 0
-scroll_deadzone = 10
-
-[node name="Cards" type="Control" parent="MarginContainer/Container/Mask/ScrollContainer"]
-layout_direction = 2
-layout_mode = 2
-mouse_filter = 1
 
 [node name="RestButtons" type="Control" parent="MarginContainer/Container"]
 anchors_preset = 0
@@ -340,15 +288,3 @@ text = "Long Rest"
 label_settings = ExtResource("8_3x8lk")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="CardPreviewContainer" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 50.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2

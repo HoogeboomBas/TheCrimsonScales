@@ -44,8 +44,18 @@ public abstract class Prompt<TAnswer>
 			() =>
 				_answer != null ||
 				GameController.Instance.ResignRequested ||
-				GameController.Instance.CheatWinRequested,
+				GameController.Instance.CheatWinRequested ||
+				GameController.Instance.SyncedActionManager.HasSyncedAction,
 			cancellationToken: GameController.CancellationToken);
+
+		if(GameController.Instance.SyncedActionManager.HasSyncedAction)
+		{
+			SyncedAction syncedAction = GameController.Instance.SyncedActionManager.PopSyncedAction();
+			Complete(new TAnswer()
+			{
+				SyncedAction = syncedAction
+			});
+		}
 
 		return _answer;
 	}
@@ -123,7 +133,10 @@ public abstract class Prompt<TAnswer>
 	protected virtual void ShowOptions()
 	{
 		//ScenarioController.Instance.ChoiceButtonsView.SetButtons(CanConfirm, CanSkip, CanUndo);
-		bool finalCanConfirm = CanConfirm && (EffectCollection == null || EffectCollection.ApplicableEffects.All(effect => effect.EffectType != EffectType.SelectableMandatory));
+		bool finalCanConfirm =
+			CanConfirm &&
+			(EffectCollection == null ||
+			 EffectCollection.ApplicableEffects.All(effect => effect.EffectType != EffectType.SelectableMandatory));
 		GameController.Instance.ChoiceButtonsView.SetButtons(finalCanConfirm, CanSkip);
 	}
 

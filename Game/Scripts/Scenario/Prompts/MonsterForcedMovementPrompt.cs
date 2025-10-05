@@ -5,7 +5,7 @@ using Godot;
 
 public class MonsterForcedMovementPrompt(
 	AbilityState abilityState, Hex origin, Figure target, int distance, ForcedMovementType type,
-	EffectCollection effectCollection, Func<string> getHintText)
+	EffectCollection effectCollection, Func<string> getHintText, SwingDirectionType? requiredDirection = null)
 	: Prompt<MonsterForcedMovementPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -33,7 +33,7 @@ public class MonsterForcedMovementPrompt(
 		_waypoints.Add(_currentNode);
 
 		// Find all hexes this AI can push/pull/swing into to
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_bestNodes.Clear();
@@ -76,7 +76,7 @@ public class MonsterForcedMovementPrompt(
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 

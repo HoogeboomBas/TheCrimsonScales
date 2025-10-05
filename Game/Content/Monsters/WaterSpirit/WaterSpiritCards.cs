@@ -209,7 +209,7 @@ public class WaterSpiritAbilityCard6 : WaterSpiritAbilityCard
 								}
 							}
 						}
-					});
+					}, mandatory: true);
 
 					if(hex != null)
 					{

@@ -2,18 +2,8 @@
 using System.Linq;
 using Fractural.Tasks;
 
-//using Newtonsoft.Json;
-
 public class CardSelectionPhase : ScenarioPhase
 {
-	// public static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()
-	// {
-	// 	Formatting = Formatting.None,
-	// 	TypeNameHandling = TypeNameHandling.Auto,
-	// 	NullValueHandling = NullValueHandling.Ignore,
-	// 	ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
-	// };
-
 	private CardSelectionState _cardSelectionState;
 
 	private Character _selectedCharacter;
@@ -51,7 +41,8 @@ public class CardSelectionPhase : ScenarioPhase
 			// Save data contains data for this card selection phase
 			GameController.SetFastForward(true);
 
-			_cardSelectionState = GameController.Instance.SavedCampaign.SavedScenario.CardSelectionStates[GameController.Instance.ScenarioPhaseManager.RoundIndex];
+			_cardSelectionState =
+				GameController.Instance.SavedCampaign.SavedScenario.CardSelectionStates[GameController.Instance.ScenarioPhaseManager.RoundIndex];
 
 			//SetState(fullState);
 		}
@@ -206,7 +197,8 @@ public class CardSelectionPhase : ScenarioPhase
 		CharacterCardSelectionState state = _cardSelectionState.CharacterCardSelectionStates[character.Index];
 		character.SetLongResting(state.LongResting);
 		character.RoundCards.Clear();
-		character.RoundCards.AddRange(state.ChosenCardReferenceIds.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)));
+		character.RoundCards.AddRange(state.ChosenCardReferenceIds.Select(referenceId =>
+			GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)));
 
 		character.OnRoundCardsChanged();
 
@@ -221,7 +213,8 @@ public class CardSelectionPhase : ScenarioPhase
 	private void SetSelectedCharacter(Character character)
 	{
 		_selectedCharacter = character;
-		GameController.Instance.CardSelectionView.Open(_selectedCharacter.Cards, OnCardPressed, OnInitiativePressed, OnShortRestPressed, OnLongRestPressed);
+		GameController.Instance.CardSelectionView.Open(_selectedCharacter.Cards, OnCardPressed, OnInitiativePressed, OnShortRestPressed,
+			OnLongRestPressed);
 		UpdateCardSelectionView();
 		UpdateHexIndicators();
 
@@ -258,7 +251,8 @@ public class CardSelectionPhase : ScenarioPhase
 			for(int i = 0; i < _selectedCharacter.RoundCards.Count; i++)
 			{
 				AbilityCard card = _selectedCharacter.RoundCards[i];
-				if(cardSelectionCard.AbilityCard == card)
+				AbilityCard abilityCard = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
+				if(abilityCard == card)
 				{
 					selected = true;
 					cardSelectionCard.SetSelected(true);
@@ -276,7 +270,8 @@ public class CardSelectionPhase : ScenarioPhase
 
 		GameController.Instance.CardSelectionView.SetLongRestSelected(_selectedCharacter.LongResting);
 
-		GameController.Instance.CardSelectionView.SetRestingEnabled(_selectedCharacter.Cards.Count(card => card.CardState == CardState.Discarded) >= 2);
+		GameController.Instance.CardSelectionView.SetRestingEnabled(
+			_selectedCharacter.Cards.Count(card => card.CardState == CardState.Discarded) >= 2);
 	}
 
 	private bool TryAddSyncedAction(SyncedAction syncedAction)
@@ -389,11 +384,12 @@ public class CardSelectionPhase : ScenarioPhase
 			return;
 		}
 
-		AbilityCard card = cardSelectionCard.AbilityCard;
+		AbilityCard card = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
 
 		if(card.CardState == CardState.Persistent || card.CardState == CardState.PersistentLoss)
 		{
-			AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Deactivate card", $"Are you sure you want to {(card.CardState == CardState.Persistent ? "discard" : "lose")} {card.Model.Name}?",
+			AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Deactivate card",
+				$"Are you sure you want to {(card.CardState == CardState.Persistent ? "discard" : "lose")} {card.Model.Name}?",
 				new TextButton.Parameters("Cancel", () =>
 				{
 				}),
@@ -433,39 +429,48 @@ public class CardSelectionPhase : ScenarioPhase
 			return;
 		}
 
-		AbilityCard cardModel = cardSelectionCard.AbilityCard;
+		AbilityCard abilityCard = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
 
-		CharacterCardSelectionState characterCardSelectionState = _cardSelectionState.CharacterCardSelectionStates[cardModel.Owner.Index];
+		CharacterCardSelectionState characterCardSelectionState = _cardSelectionState.CharacterCardSelectionStates[abilityCard.Owner.Index];
 
-		int index = characterCardSelectionState.ChosenCardReferenceIds.IndexOf(cardModel.ReferenceId);
+		int index = characterCardSelectionState.ChosenCardReferenceIds.IndexOf(abilityCard.ReferenceId);
 		if(index == 0)
 		{
-			characterCardSelectionState.ChosenCardReferenceIds.Remove(cardModel.ReferenceId);
-			characterCardSelectionState.ChosenCardReferenceIds.Add(cardModel.ReferenceId);
+			characterCardSelectionState.ChosenCardReferenceIds.Remove(abilityCard.ReferenceId);
+			characterCardSelectionState.ChosenCardReferenceIds.Add(abilityCard.ReferenceId);
 		}
 		else if(index > 0)
 		{
-			characterCardSelectionState.ChosenCardReferenceIds.Remove(cardModel.ReferenceId);
-			characterCardSelectionState.ChosenCardReferenceIds.Insert(0, cardModel.ReferenceId);
+			characterCardSelectionState.ChosenCardReferenceIds.Remove(abilityCard.ReferenceId);
+			characterCardSelectionState.ChosenCardReferenceIds.Insert(0, abilityCard.ReferenceId);
 		}
 		else if(_selectedCharacter.RoundCards.Count < _selectedCharacter.PlayableAbilityCardCount)
 		{
-			characterCardSelectionState.ChosenCardReferenceIds.Insert(0, cardModel.ReferenceId);
+			characterCardSelectionState.ChosenCardReferenceIds.Insert(0, abilityCard.ReferenceId);
 		}
 
 		characterCardSelectionState.LongResting = false;
 
-		SyncCharacterWithState(cardModel.Owner);
+		SyncCharacterWithState(abilityCard.Owner);
 	}
 
 	private void OnShortRestPressed()
 	{
-		CharacterCardSelectionState characterCardSelectionState = GetCharacterCardSelectionState(_selectedCharacter);
-		characterCardSelectionState.LongResting = false;
-		characterCardSelectionState.ChosenCardReferenceIds.Clear();
-		SyncCharacterWithState(_selectedCharacter);
+		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Short rest",
+			$"Are you sure you want to short rest?",
+			new TextButton.Parameters("Cancel", () =>
+			{
+			}),
+			new TextButton.Parameters("Confirm", () =>
+			{
+				CharacterCardSelectionState characterCardSelectionState = GetCharacterCardSelectionState(_selectedCharacter);
+				characterCardSelectionState.LongResting = false;
+				characterCardSelectionState.ChosenCardReferenceIds.Clear();
+				SyncCharacterWithState(_selectedCharacter);
 
-		TryAddSyncedAction(new ShortRestSyncedAction(_selectedCharacter));
+				TryAddSyncedAction(new ShortRestSyncedAction(_selectedCharacter));
+			}, TextButton.ColorType.Red)
+		));
 	}
 
 	private void OnLongRestPressed()

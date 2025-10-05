@@ -13,7 +13,7 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter =>
+				.WithGetAbilities(state =>
 					[
 						ShieldAbility.Builder()
 							.WithShieldValue(2)
@@ -53,7 +53,7 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter =>
+				.WithGetAbilities(state =>
 				[
 					ShieldAbility.Builder()
 						.WithShieldValue(1)

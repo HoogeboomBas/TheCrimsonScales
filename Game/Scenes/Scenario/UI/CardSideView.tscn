@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcjxeakyfta8h"]
 
 [ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Content/Classes/Mirefoot/AbilityCardExample.tres" id="1_35wrr"]
-[ext_resource type="Script" uid="uid://7f7wbrxb3rjh" path="res://Scripts/Scenario/UI/CardView/CardSideView.cs" id="1_ekf7w"]
+[ext_resource type="Script" uid="uid://7f7wbrxb3rjh" path="res://Scripts/UI/CardView/CardSideView.cs" id="1_ekf7w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35wrr"]
 corner_radius_top_left = 16

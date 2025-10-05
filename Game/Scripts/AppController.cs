@@ -14,6 +14,12 @@ public partial class AppController : SingletonNode<AppController>
 	[Export]
 	public AudioController AudioController { get; private set; }
 
+	[Export]
+	public CardSelectionCardPreview CardSelectionCardPreview { get; private set; }
+
+	[Export]
+	public ItemPreview ItemPreview { get; private set; }
+
 	public SaveFile SaveFile { get; private set; }
 
 	public override void _EnterTree()
@@ -32,17 +38,4 @@ public partial class AppController : SingletonNode<AppController>
 				"\nPlease always make sure to finish up a scenario before installing a new version of the application!"));
 		}
 	}
-
-	// public override void _Input(InputEvent @event)
-	// {
-	// 	base._Input(@event);
-	//
-	// 	if(@event is InputEventKey inputEventKey && inputEventKey.Pressed)
-	// 	{
-	// 		if(inputEventKey.Keycode == Key.O)
-	// 		{
-	// 			GetViewport().GetTexture().GetImage().SaveJpg($"user://{Guid.NewGuid().ToString()}.jpg");
-	// 		}
-	// 	}
-	// }
 }

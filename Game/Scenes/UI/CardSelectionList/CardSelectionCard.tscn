@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://wrqct2yulpo5"]
+[gd_scene load_steps=10 format=3 uid="uid://b7ogm4op7ko2a"]
 
-[ext_resource type="Script" uid="uid://c8abu7b2mx60f" path="res://Scripts/UI/Popups/CardSelectionPopup/CardSelectionPopupCard.cs" id="1_ex2th"]
-[ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="2_7t05d"]
-[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="3_prlmh"]
-[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_ivwik"]
-[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_evhe4"]
-[ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/AbilityCard.gdshader" id="6_i32to"]
-[ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Content/Classes/Mirefoot/AbilityCardExample.tres" id="7_iqj8e"]
+[ext_resource type="Script" uid="uid://d3o61kecora4w" path="res://Scripts/UI/CardSelectionList/CardSelectionCard.cs" id="1_phsj2"]
+[ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="2_hgfth"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="3_q33ox"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_cy34m"]
+[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_b7evf"]
+[ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/AbilityCard.gdshader" id="6_72eni"]
+[ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Content/Classes/Mirefoot/AbilityCardExample.tres" id="7_84o0e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teg01"]
 corner_radius_top_left = 10
@@ -15,24 +15,24 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0audc"]
-shader = ExtResource("6_i32to")
+shader = ExtResource("6_72eni")
 shader_parameter/tint = Color(1, 1, 1, 1)
 
-[node name="CardSelectionPopupCard" type="Control" node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton")]
-custom_minimum_size = Vector2(470, 68)
+[node name="CardSelectionCard" type="Control" node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 470.0
 offset_bottom = 68.0
 mouse_filter = 1
-script = ExtResource("1_ex2th")
+script = ExtResource("1_phsj2")
 _container = NodePath("Container")
 _textureRect = NodePath("Container/CardButton/Mask/TextureRect")
 _initiativeLabel = NodePath("Container/InitiativeButton/TextureRect/Label")
 _cardButton = NodePath("Container/CardButton")
+_initiativeButton = NodePath("Container/InitiativeButton")
+_initiativeIndicatorContainer = NodePath("InitiativeIndicator")
 
 [node name="InitiativeIndicator" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -48,7 +48,7 @@ pivot_offset = Vector2(0, 20)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_7t05d")
+texture = ExtResource("2_hgfth")
 expand_mode = 1
 
 [node name="Container" type="Control" parent="."]
@@ -122,7 +122,7 @@ mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
 theme = null
 theme_type_variation = &""
-disabled = true
+disabled = false
 toggle_mode = false
 button_pressed = false
 action_mode = 1
@@ -132,7 +132,7 @@ button_group = null
 shortcut = null
 shortcut_feedback = true
 shortcut_in_tooltip = true
-script = null
+script = ExtResource("3_q33ox")
 
 [node name="TextureRect" type="TextureRect" parent="Container/InitiativeButton"]
 self_modulate = Color(0.219608, 0.215686, 0.2, 1)
@@ -143,7 +143,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_ivwik")
+texture = ExtResource("4_cy34m")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Container/InitiativeButton/TextureRect"]
@@ -154,7 +154,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "99"
-label_settings = ExtResource("5_evhe4")
+label_settings = ExtResource("5_b7evf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -229,7 +229,7 @@ button_group = null
 shortcut = null
 shortcut_feedback = true
 shortcut_in_tooltip = true
-script = ExtResource("3_prlmh")
+script = ExtResource("3_q33ox")
 _centerPivot = false
 
 [node name="Mask" type="Panel" parent="Container/CardButton"]
@@ -261,5 +261,5 @@ offset_right = 10.0
 offset_bottom = 558.6
 grow_horizontal = 2
 mouse_filter = 2
-texture = ExtResource("7_iqj8e")
+texture = ExtResource("7_84o0e")
 expand_mode = 1

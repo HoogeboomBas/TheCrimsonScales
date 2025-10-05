@@ -18,7 +18,7 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter =>
+				.WithGetAbilities(grantAbilityState =>
 				[
 					LootAbility.Builder()
 						.WithRange(1)

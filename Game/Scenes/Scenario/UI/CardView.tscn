@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvex4pgry7e30"]
 
 [ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Content/Classes/Mirefoot/AbilityCardExample.tres" id="1_njows"]
-[ext_resource type="Script" uid="uid://bbf02642hmere" path="res://Scripts/Scenario/UI/CardView/CardView.cs" id="1_uiprm"]
+[ext_resource type="Script" uid="uid://bbf02642hmere" path="res://Scripts/UI/CardView/CardView.cs" id="1_uiprm"]
 [ext_resource type="PackedScene" uid="uid://drs874b0lo5o6" path="res://Scenes/Scenario/UI/CardViewCharacterToken.tscn" id="2_6wou7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4oh2"]

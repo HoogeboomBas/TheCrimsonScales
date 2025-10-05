@@ -64,11 +64,11 @@ public partial class CardView : Control
 		_bottomContainer.Modulate = enableBottom ? Colors.White : grayedOutColor;
 	}
 
-	public void SetCardMaterial(CardState cardState)
-	{
-		foreach(TextureRect textureRect in _textureRects)
-		{
-			UIHelper.SetCardMaterial(textureRect, cardState);
-		}
-	}
+	// public void SetCardMaterial(CardState cardState)
+	// {
+	// 	foreach(TextureRect textureRect in _textureRects)
+	// 	{
+	// 		UIHelper.SetCardMaterial(textureRect, cardState);
+	// 	}
+	// }
 }

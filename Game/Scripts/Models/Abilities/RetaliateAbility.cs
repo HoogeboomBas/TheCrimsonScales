@@ -23,6 +23,9 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		}
 	}
 
+	private Func<ScenarioEvents.Retaliate.Parameters, bool> _customCanApply;
+	private bool _customCanApplyReplaceFully;
+
 	public int RetaliateValue { get; private set; }
 	public int Range { get; private set; }
 
@@ -37,6 +40,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : RetaliateAbility, new()
 	{
+		protected int? _range;
 		public interface IRetaliateValueStep
 		{
 			TBuilder WithRetaliateValue(int retaliateValue);
@@ -50,8 +54,26 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 
 		public TBuilder WithRange(int range)
 		{
+			_range = range;
 			Obj.Range = range;
 			return (TBuilder)this;
+		}
+
+		public TBuilder WithCustomCanApply(Func<ScenarioEvents.Retaliate.Parameters, bool> customCanApply)
+		{
+			Obj._customCanApply = customCanApply;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCustomCanApplyReplaceFully(bool customCanApplyReplaceFully)
+		{
+			Obj._customCanApplyReplaceFully = customCanApplyReplaceFully;
+			return (TBuilder)this;
+
+		public override TAbility Build()
+		{
+			Obj.Range = _range ?? 1;
+			return base.Build();
 		}
 	}
 
@@ -107,6 +129,15 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 				bool canApply =
 					canApplyParameters.RetaliatingFigure == abilityState.Performer &&
 					RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, abilityState.Performer.Hex) <= abilityState.Range;
+
+				if(_customCanApply != null)
+				{
+					if(_customCanApplyReplaceFully)
+					{
+						return _customCanApply(canApplyParameters);
+					}
+					canApply = canApply && _customCanApply(canApplyParameters);
+				}
 
 				return canApply;
 			},

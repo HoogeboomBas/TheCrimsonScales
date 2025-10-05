@@ -88,10 +88,10 @@ public class SavedCampaign
 		savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), "Vuur Knecht");
 
 		//savedCampaign.Characters[0].AddItem(ModelDB.Item<MinorManaPotion>());
-		//savedCampaign.Characters[0].SetEquippedSmallSlotItem(0, ModelDB.Item<MinorManaPotion>());
+		savedCampaign.Characters[0].SetEquippedSmallSlotItem(0, ModelDB.Item<MinorManaPotion>());
 		//savedCampaign.Characters[1].SetEquippedSmallSlotItem(0, ModelDB.Item<ScrollOfCharisma>());
 		//savedCampaign.Characters[1].AddItem(ModelDB.Item<MinorManaPotion>());
-		// savedCampaign.Characters[0].AddItem(ModelDB.Item<PoisonDagger>());
+		savedCampaign.Characters[0].AddItem(ModelDB.Item<PoisonDagger>());
 
 		return savedCampaign;
 	}

@@ -10,6 +10,7 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 	{
 	}
 
+	private Func<State, Figure, GDTask> _onAfterTargetConfirmed;
 	private Func<State, Figure, GDTask> _onAfterConditionsApplied;
 
 	/// <summary>
@@ -22,6 +23,12 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : OtherTargetedAbility, new()
 	{
+		public TBuilder WithOnAfterTargetConfirmed(Func<State, Figure, GDTask> onAfterTargetConfirmed)
+		{
+			Obj._onAfterTargetConfirmed = onAfterTargetConfirmed;
+			return (TBuilder)this;
+		}
+	
 		public TBuilder WithOnAfterConditionsApplied(Func<State, Figure, GDTask> onAfterConditionsApplied)
 		{
 			Obj._onAfterConditionsApplied = onAfterConditionsApplied;
@@ -57,6 +64,16 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 	}
 
 	public OtherTargetedAbility() { }
+
+	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	{
+		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
+
+		if(_onAfterTargetConfirmed != null)
+		{
+			await _onAfterTargetConfirmed(abilityState, target);
+		}
+	}
 
 	protected override async GDTask AfterConditionsApplied(State abilityState, Figure target)
 	{

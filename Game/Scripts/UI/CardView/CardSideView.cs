@@ -60,11 +60,11 @@ public partial class CardSideView : Control
 		// }
 	}
 
-	public void SetCardMaterial(CardState cardState)
-	{
-		foreach(TextureRect textureRect in _textureRects)
-		{
-			UIHelper.SetCardMaterial(textureRect, cardState);
-		}
-	}
+	// public void SetCardMaterial(CardState cardState)
+	// {
+	// 	foreach(TextureRect textureRect in _textureRects)
+	// 	{
+	// 		UIHelper.SetCardMaterial(textureRect, cardState);
+	// 	}
+	// }
 }

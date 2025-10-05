@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dc3oqbu0m8jid"]
+[gd_scene load_steps=87 format=3 uid="uid://dc3oqbu0m8jid"]
 
 [ext_resource type="Script" uid="uid://bq2pwm6f32li" path="res://Scripts/Scenario/GameController.cs" id="1_arwlr"]
 [ext_resource type="Script" uid="uid://d1n1uymvup76h" path="res://Scripts/Scenario/TeleportPath/TeleportPath.cs" id="6_b23n0"]
@@ -72,6 +72,8 @@
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="64_ldvfj"]
 [ext_resource type="Texture2D" uid="uid://ba4nlrsbyojkl" path="res://Art/Icons/Other/StartHexMoveIcon.svg" id="65_h6npn"]
 [ext_resource type="Script" uid="uid://bctno8ajvg8at" path="res://Scripts/Scenario/CharacterStartHexMoveIndicator.cs" id="65_pcjy7"]
+[ext_resource type="Script" uid="uid://bdesfx5saafxe" path="res://Scripts/Scenario/UI/PartyButton.cs" id="68_7tbw1"]
+[ext_resource type="Texture2D" uid="uid://u3h3kga0ipcv" path="res://Art/Icons/Other/Party.svg" id="69_b2ul3"]
 [ext_resource type="Script" uid="uid://opd3xcxouwh5" path="res://Scripts/Scenario/UI/CurrentActionView/CurrentActionViewManager.cs" id="71_b23n0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcllr"]
@@ -127,6 +129,8 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2qf5q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mdo4f"]
 font = ExtResource("39_namyh")
@@ -1152,6 +1156,121 @@ layout_mode = 1
 [node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("58_2qf5q")]
 layout_mode = 1
 
+[node name="PartyButton" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_button")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -90.0
+offset_top = 84.0
+offset_right = -10.0
+offset_bottom = 164.0
+grow_horizontal = 0
+script = ExtResource("68_7tbw1")
+_button = NodePath("BetterButton")
+
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/PartyButton"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("38_grpwx")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/PartyButton/BetterButton"]
+material = ExtResource("64_ldvfj")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2qf5q")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("69_b2ul3")
+expand_mode = 1
+
 [node name="ScenarioLostView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_retryButton", "_returnToTownButton")]
 visible = false
 layout_mode = 1
@@ -1335,6 +1454,7 @@ label_settings = SubResource("LabelSettings_hctre")
 [editable path="CanvasLayer/UI/ElementsView/Elements/Light"]
 [editable path="CanvasLayer/UI/ElementsView/Elements/Dark"]
 [editable path="CanvasLayer/UI/CardSelectionView"]
+[editable path="CanvasLayer/UI/CardSelectionView/MarginContainer/Container/CardSelectionList"]
 [editable path="CanvasLayer/UI/ScenarioLostView/Retry"]
 [editable path="CanvasLayer/UI/ScenarioLostView/ReturnToTown"]
 [editable path="CanvasLayer/UI/ScenarioWonView/ContinueButton"]

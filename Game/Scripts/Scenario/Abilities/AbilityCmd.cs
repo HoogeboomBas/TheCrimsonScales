@@ -416,7 +416,7 @@ public static class AbilityCmd
 			{
 				ScenarioEvents.TrapTriggered.Parameters trapTriggeredParameters =
 					await ScenarioEvents.TrapTriggeredEvent.CreatePrompt(
-						new ScenarioEvents.TrapTriggered.Parameters(state, hex, trap, true), authority);
+						new ScenarioEvents.TrapTriggered.Parameters(state, hex, trap, figure, true), authority);
 				if(trapTriggeredParameters.TriggersTrap)
 				{
 					await trap.Trigger(state, figure);

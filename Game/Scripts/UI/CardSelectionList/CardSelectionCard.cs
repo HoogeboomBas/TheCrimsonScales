@@ -1,13 +1,13 @@
 ﻿using System;
 using Godot;
-using GTweens.Builders;
 using GTweens.Easings;
-using GTweens.Tweens;
 using GTweensGodot.Extensions;
 
 [GlobalClass]
 public partial class CardSelectionCard : Control
 {
+	public new static readonly Vector2 Size = new Vector2(470f, 68f);
+
 	[Export]
 	private Control _container;
 	[Export]
@@ -21,10 +21,7 @@ public partial class CardSelectionCard : Control
 	[Export]
 	private Control _initiativeIndicatorContainer;
 
-	private GTween _tween;
-
-	public AbilityCard AbilityCard { get; private set; }
-	public int Index { get; private set; }
+	public SavedAbilityCard SavedAbilityCard { get; private set; }
 
 	public bool Selected { get; private set; }
 	public bool InitiativeSelected { get; private set; }
@@ -33,12 +30,11 @@ public partial class CardSelectionCard : Control
 	public event Action<CardSelectionCard> InitiativePressedEvent;
 	public event Action<CardSelectionCard> MouseEnteredEvent;
 	public event Action<CardSelectionCard> MouseExitedEvent;
-	//public event Action<CardSelectionCard> InitiativeMouseEnterEvent;
 
-	public void Init(AbilityCard card, int index, float delay, bool canSelect, bool canPressInitiative)
+	public void Init(SavedAbilityCard card, bool canSelect, bool canPressInitiative,
+		CardSelectionListCategoryType cardSelectionListCategoryType = CardSelectionListCategoryType.None)
 	{
-		AbilityCard = card;
-		Index = index;
+		SavedAbilityCard = card;
 
 		_textureRect.Texture = card.Model.GetTexture();
 		_initiativeLabel.Text = card.Model.Initiative.ToString();
@@ -48,32 +44,12 @@ public partial class CardSelectionCard : Control
 		_cardButton.SetEnabled(canSelect, canSelect);
 		_initiativeButton.SetEnabled(canPressInitiative, canPressInitiative);
 
-		UIHelper.SetCardMaterial(_textureRect, card.CardState);
+		UIHelper.SetCardMaterial(_textureRect, cardSelectionListCategoryType);
 
 		_cardButton.Pressed += OnCardPressed;
 		_initiativeButton.Pressed += OnInitiativePressed;
 		_cardButton.MouseEntered += OnMouseEntered;
 		_cardButton.MouseExited += OnMouseExited;
-
-		Position = new Vector2(-600f, Position.Y);
-		_tween = GTweenSequenceBuilder.New()
-			.AppendTime(delay + index * 0.03f)
-			.Append(this.TweenPositionX(0f, 0.3f).SetEasing(Easing.OutBack))
-			.Build().Play();
-	}
-
-	public void Destroy()
-	{
-		CardPressedEvent = null;
-		InitiativePressedEvent = null;
-
-		_tween?.Kill();
-
-		_tween = GTweenSequenceBuilder.New()
-			.AppendTime(Index * 0.03f)
-			.Append(this.TweenPositionX(-600f, 0.15f).SetEasing(Easing.InBack))
-			.AppendCallback(QueueFree)
-			.Build().Play();
 	}
 
 	public void SetSelected(bool selected)

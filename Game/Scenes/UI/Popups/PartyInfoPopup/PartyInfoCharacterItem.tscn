@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://2y46md6quvos"]
+
+[ext_resource type="Script" uid="uid://d4km3e4t53vx5" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoCharacterItem.cs" id="1_nbf60"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="2_ulufj"]
+[ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="3_ulufj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnh86"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbf60"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PartyInfoCharacterItem" type="Control" node_paths=PackedStringArray("_itemView", "_itemTypeIcon", "_border")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nbf60")
+_itemView = NodePath("MarginContainer/Mask/ItemView")
+_itemTypeIcon = NodePath("MarginContainer/MarginContainer/ItemTypeIcon")
+_border = NodePath("MarginContainer/Outline")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Mask" type="Panel" parent="MarginContainer"]
+clip_children = 1
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fnh86")
+
+[node name="ItemView" parent="MarginContainer/Mask" instance=ExtResource("2_ulufj")]
+custom_minimum_size = Vector2(129.6, 198.288)
+layout_mode = 2
+offset_left = -31.0
+offset_top = -30.0
+offset_right = 111.56
+offset_bottom = 188.117
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mask" parent="MarginContainer/Mask/ItemView" index="0"]
+clip_children = 0
+
+[node name="MaxUseTokens" parent="MarginContainer/Mask/ItemView" index="1"]
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemTypeIcon" type="TextureRect" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_ulufj")
+expand_mode = 1
+
+[node name="Outline" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nbf60")
+
+[editable path="MarginContainer/Mask/ItemView"]

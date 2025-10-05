@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class AllNegativeConditionImmunityTrait : FigureTrait
@@ -19,7 +20,8 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 		base.Activate(figure);
 
 		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this,
-			parameters => parameters.Target == figure && parameters.Condition.IsNegative,
+			parameters => parameters.Target == figure &&
+				NegativeConditionModels.Any(condition => parameters.Condition.ImmunityCompareBaseCondition == condition.ImmunityCompareBaseCondition),
 			async parameters =>
 			{
 				parameters.SetPrevented(true);

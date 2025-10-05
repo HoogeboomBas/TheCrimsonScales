@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://drmjh44chpm2j"]
+[gd_scene load_steps=20 format=3 uid="uid://drmjh44chpm2j"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_an4kr"]
 [ext_resource type="Script" uid="uid://d32g04i3j00hb" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortrait.cs" id="1_ju0a4"]
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="1_m8ida"]
 [ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="4_cnbgs"]
+[ext_resource type="Texture2D" uid="uid://c0cdv7dosesax" path="res://Art/Icons/Other/LevelCrown.svg" id="4_jd7ye"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="5_eruca"]
 [ext_resource type="Texture2D" uid="uid://xcevbjw5n8no" path="res://Art/Icons/Abilities/XP.svg" id="6_eruca"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="7_fae8n"]
@@ -23,7 +24,6 @@ anti_aliasing = false
 [sub_resource type="LabelSettings" id="LabelSettings_0oj1h"]
 font = ExtResource("5_eruca")
 font_size = 30
-font_color = Color(0.118581, 0.118581, 0.118581, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnbgs"]
 bg_color = Color(0, 0, 0, 0.588235)
@@ -187,9 +187,8 @@ stretch_mode = 6
 [node name="LevelIndicator" type="Control" parent="Container/BetterButton"]
 anchors_preset = 0
 offset_left = 10.0
-offset_top = 10.0
 offset_right = 70.0
-offset_bottom = 70.0
+offset_bottom = 60.0
 pivot_offset = Vector2(30, 30)
 
 [node name="BetterButton" type="BaseButton" parent="Container/BetterButton/LevelIndicator"]
@@ -273,10 +272,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_eruca")
+texture = ExtResource("4_jd7ye")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="Container/BetterButton/LevelIndicator/BetterButton/Level"]
+self_modulate = Color(0.117647, 0.117647, 0.117647, 1)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -284,9 +284,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -30.8125
+offset_top = -27.8125
 offset_right = 20.0
-offset_bottom = 34.8125
+offset_bottom = 37.8125
 grow_horizontal = 2
 grow_vertical = 2
 text = "9"

@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -23,30 +22,20 @@ public class Shackle : ConditionModel
 	{
 		await base.Add(target, node);
 
-		// Can only be applied to 1 figure
-		ScenarioEvents.InflictConditionEvent.Subscribe(target, this,
-			parameters => parameters.Condition is Shackle && parameters.Target != Owner,
-			async parameters =>
-			{
-				await AbilityCmd.RemoveCondition(Owner, this);
-			},
-			EffectType.MandatoryBeforeOptionals
-		);
-
-		// Stop movement if became adjacent to the Chainguard
+		// Stop movement if became adjacent to the Shackler
 		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(target, this, 
 			parameters => parameters.Performer == Owner && 
 				RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
 			async parameters =>
 			{
 				Node.Flash();
-				parameters.SetCannotMoveFurther();
+				parameters.SetCannotMoveFurther(true);
 
 				await GDTask.CompletedTask;
 			}
 		);
 
-		// Don't allow new movement when adjacent to the Chainguard
+		// Don't allow new movement when adjacent to the Shackler
 		ScenarioEvents.AbilityStartedEvent.Subscribe(target, this,
 			parameters => parameters.Performer == Owner && parameters.AbilityState is MoveAbility.State &&
 				RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
@@ -64,7 +53,6 @@ public class Shackle : ConditionModel
 	{
 		await base.Remove();
 
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(Owner, this);
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(Owner, this);
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
 	}

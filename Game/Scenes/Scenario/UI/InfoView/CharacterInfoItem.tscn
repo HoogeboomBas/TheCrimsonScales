@@ -35,3 +35,5 @@ text = "3"
 [editable path="MarginContainer/Content/Container/Stats/Health"]
 [editable path="MarginContainer/Content/Container/Stats/Coins"]
 [editable path="MarginContainer/Content/Container/Stats/XP"]
+[editable path="MarginContainer/Content/Effects/Conditions"]
+[editable path="MarginContainer/Content/Effects/Applies"]

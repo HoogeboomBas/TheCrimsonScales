@@ -1,0 +1,208 @@
+[gd_scene load_steps=12 format=3 uid="uid://bohg0fqy18017"]
+
+[ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="1_oxie2"]
+[ext_resource type="Script" uid="uid://crxigg1k4jm3r" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoCharacter.cs" id="1_p0hwl"]
+[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="2_p0hwl"]
+[ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="3_ou5he"]
+[ext_resource type="PackedScene" uid="uid://d01x6nmjmss3c" path="res://Scenes/UI/CardSelectionList/CardSelectionList.tscn" id="4_gti5s"]
+[ext_resource type="PackedScene" uid="uid://dbuph6sax0stv" path="res://Scenes/Scenario/UI/InfoView/InfoStat.tscn" id="5_fw44v"]
+[ext_resource type="Texture2D" uid="uid://jflaun2fecvo" path="res://Art/Icons/Abilities/Health.svg" id="6_a1h7m"]
+[ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="7_fnh86"]
+[ext_resource type="Texture2D" uid="uid://xcevbjw5n8no" path="res://Art/Icons/Abilities/XP.svg" id="8_l86bb"]
+[ext_resource type="PackedScene" uid="uid://2y46md6quvos" path="res://Scenes/UI/Popups/PartyInfoPopup/PartyInfoCharacterItem.tscn" id="10_a1h7m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wid1p"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[node name="PartyInfoCharacter" type="MarginContainer" node_paths=PackedStringArray("_portraitTextureRect", "_nameLabel", "_healthLabel", "_xpLabel", "_cardSelectionList", "_baseItemSlots", "_smallItemsParent")]
+offset_right = 400.0
+offset_bottom = 870.0
+script = ExtResource("1_p0hwl")
+_portraitTextureRect = NodePath("VBoxContainer/Header/MarginContainer/HBoxContainer/Mask/Portrait")
+_nameLabel = NodePath("VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Label")
+_healthLabel = NodePath("VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health/Label")
+_xpLabel = NodePath("VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP/Label")
+_cardSelectionList = NodePath("VBoxContainer/Cards/CardSelectionList")
+_baseItemSlots = [NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCharacterItem"), NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCharacterItem2"), NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCharacterItem3"), NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCharacterItem4"), NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCharacterItem5")]
+_partyInfoCharacterItemScene = ExtResource("10_a1h7m")
+_smallItemsParent = NodePath("VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer/ScrollContainer/SmallItems")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Mask" type="Panel" parent="VBoxContainer/Header/MarginContainer/HBoxContainer"]
+clip_children = 1
+clip_contents = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wid1p")
+
+[node name="Portrait" type="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/Mask"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -5.0
+offset_bottom = 145.0
+grow_horizontal = 2
+texture = ExtResource("1_oxie2")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="LabelContainer" type="Control" parent="VBoxContainer/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 47.0
+grow_horizontal = 2
+text = "Mirefoot"
+label_settings = ExtResource("2_p0hwl")
+vertical_alignment = 1
+script = ExtResource("3_ou5he")
+_minSize = 20
+_maxSize = 50
+
+[node name="Stats" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 30
+
+[node name="Health" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="0"]
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_bottom = 34.0
+grow_vertical = 1
+texture = ExtResource("6_a1h7m")
+
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="1"]
+offset_left = 40.0
+offset_top = -2.0
+offset_bottom = 2.0
+horizontal_alignment = 0
+
+[node name="Coins" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+visible = false
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="0"]
+texture = ExtResource("7_fnh86")
+
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="1"]
+text = "3"
+
+[node name="XP" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="0"]
+texture = ExtResource("8_l86bb")
+
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="1"]
+offset_left = 40.0
+offset_top = -2.0
+offset_bottom = 2.0
+text = "3"
+horizontal_alignment = 0
+
+[node name="Cards" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+
+[node name="CardSelectionList" parent="VBoxContainer/Cards" instance=ExtResource("4_gti5s")]
+layout_mode = 1
+offset_bottom = 705.0
+scale = Vector2(0.851, 0.851)
+
+[node name="Items" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TopRow" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PartyInfoCharacterItem" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+layout_mode = 2
+
+[node name="PartyInfoCharacterItem2" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+layout_mode = 2
+
+[node name="PartyInfoCharacterItem3" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+layout_mode = 2
+
+[node name="PartyInfoCharacterItem4" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+layout_mode = 2
+
+[node name="PartyInfoCharacterItem5" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+vertical_scroll_mode = 0
+scroll_deadzone = 10
+
+[node name="SmallItems" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 0
+alignment = 1
+
+[editable path="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health"]
+[editable path="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins"]
+[editable path="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP"]

@@ -11,7 +11,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 	}
 
-	private Func<Figure, List<Ability>> _getAbilities;
+	private Func<State, List<Ability>> _getAbilities;
 
 	public List<ScenarioEvents.DuringGrant.Subscription> DuringGrantSubscriptions { get; private set; } = [];
 
@@ -28,10 +28,10 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 		public interface IGetAbilitiesStep
 		{
-			TBuilder WithGetAbilities(Func<Figure, List<Ability>> getAbilities);
+			TBuilder WithGetAbilities(Func<State, List<Ability>> getAbilities);
 		}
 
-		public TBuilder WithGetAbilities(Func<Figure, List<Ability>> getAbilities)
+		public TBuilder WithGetAbilities(Func<State, List<Ability>> getAbilities)
 		{
 			Obj._getAbilities = getAbilities;
 			return (TBuilder)this;
@@ -103,7 +103,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 
 		// Perform the actual abilities
-		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(abilityState.Performer),
+		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(abilityState),
 			abilityState.ActionState);
 		await actionState.Perform();
 	}

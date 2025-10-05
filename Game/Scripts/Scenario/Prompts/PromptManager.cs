@@ -124,6 +124,13 @@ public class PromptManager
 					continue;
 				}
 
+				if(answer.SyncedAction != null)
+				{
+					await answer.SyncedAction.Perform();
+
+					continue;
+				}
+
 				break;
 			}
 		}
@@ -164,6 +171,11 @@ public class PromptManager
 					{
 						PromptAnswer promptAnswer = (PromptAnswer)instance;
 						return promptAnswer.SelectedEffectIndex >= 0;
+					},
+					nameof(PromptAnswer.SyncedAction) => instance =>
+					{
+						PromptAnswer promptAnswer = (PromptAnswer)instance;
+						return promptAnswer.SyncedAction != null;
 					},
 					_ => instance =>
 					{

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0b85tbrwp16b"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_egs1f"]
+[ext_resource type="Script" uid="uid://bdxrr5m1sang3" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoPopup.cs" id="2_egs1f"]
+[ext_resource type="PackedScene" uid="uid://bohg0fqy18017" path="res://Scenes/UI/Popups/PartyInfoPopup/PartyInfoCharacter.tscn" id="2_ljofi"]
+
+[node name="PartyInfoPopup" node_paths=PackedStringArray("_partyInfoCharacterContainer") instance=ExtResource("1_egs1f")]
+script = ExtResource("2_egs1f")
+_partyInfoCharacterScene = ExtResource("2_ljofi")
+_partyInfoCharacterContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Characters")
+
+[node name="Panel" parent="." index="1"]
+offset_left = -290.0
+offset_top = -142.5
+offset_right = 290.0
+offset_bottom = 142.5
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+text = "Party Info"
+
+[node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+visible = false

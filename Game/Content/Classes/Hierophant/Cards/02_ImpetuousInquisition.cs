@@ -74,7 +74,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(granter =>
+				.WithGetAbilities(state =>
 					[
 						RetaliateAbility.Builder().WithRetaliateValue(1).Build()
 					]

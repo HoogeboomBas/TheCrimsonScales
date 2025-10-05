@@ -29,6 +29,8 @@ public class AbilityCard : IReferenced
 
 		SavedAbilityCard = savedAbilityCard;
 
+		GameController.Instance.CardManager.Register(this);
+
 		OriginalOwner = owner;
 		SetOwner(owner);
 

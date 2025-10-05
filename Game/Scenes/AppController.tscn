@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cbtuwtadxyfut"]
+[gd_scene load_steps=28 format=3 uid="uid://cbtuwtadxyfut"]
 
 [ext_resource type="Script" uid="uid://x4kpb6u0l25u" path="res://Scripts/AppController.cs" id="1_6s6iu"]
 [ext_resource type="Script" uid="uid://bn4208bsiittm" path="res://Scripts/InputController.cs" id="2_2vstq"]
@@ -20,15 +20,22 @@
 [ext_resource type="Script" uid="uid://bu37eqpl075ak" path="res://Scripts/Audio/AudioController.cs" id="16_u3jyv"]
 [ext_resource type="PackedScene" uid="uid://dy57ybgbn2epj" path="res://Scenes/AudioStreamPlayer.tscn" id="17_7c1c5"]
 [ext_resource type="PackedScene" uid="uid://bvih1o1ec48e2" path="res://Scenes/UI/Popups/ErrorPopup.tscn" id="17_g5bd1"]
+[ext_resource type="PackedScene" uid="uid://c0b85tbrwp16b" path="res://Scenes/UI/Popups/PartyInfoPopup/PartyInfoPopup.tscn" id="17_pcrgh"]
 [ext_resource type="Script" uid="uid://cwsakirhn6l0u" path="res://Scripts/UI/LongPressIndicator.cs" id="19_7txjg"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="19_7484g"]
+[ext_resource type="PackedScene" uid="uid://dvex4pgry7e30" path="res://Scenes/Scenario/UI/CardView.tscn" id="20_4ci4a"]
+[ext_resource type="Script" uid="uid://c1mtipnwlpxx3" path="res://Scripts/UI/CardSelectionCardPreview.cs" id="20_6qf3b"]
+[ext_resource type="Script" uid="uid://cl05mha8gf05x" path="res://Scripts/UI/ItemPreview.cs" id="22_x7plq"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="23_p2uns"]
 
-[node name="AppController" type="Node" node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController")]
+[node name="AppController" type="Node" node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview")]
 script = ExtResource("1_6s6iu")
 InputController = NodePath("InputController")
 SceneLoader = NodePath("SceneLoader")
 PopupManager = NodePath("CanvasLayer/PopupManager")
 AudioController = NodePath("AudioController")
+CardSelectionCardPreview = NodePath("CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview")
+ItemPreview = NodePath("CanvasLayer/CardPreviewView/MarginContainer/Container/ItemPreview")
 
 [node name="InputController" type="Node" parent="."]
 script = ExtResource("2_2vstq")
@@ -85,11 +92,66 @@ layout_mode = 1
 [node name="CreateCampaignPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("15_gd3oa")]
 layout_mode = 1
 
+[node name="PartyInfoPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("17_pcrgh")]
+layout_mode = 1
+
 [node name="OptionsPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("16_448tb")]
 layout_mode = 1
 
 [node name="ErrorPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("17_g5bd1")]
 layout_mode = 1
+
+[node name="CardPreviewView" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CardPreviewView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Container" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CardSelectionCardPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" node_paths=PackedStringArray("_cardView")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 448.0
+scale = Vector2(1.07, 1.07)
+mouse_filter = 2
+script = ExtResource("20_6qf3b")
+_cardView = NodePath("CardView")
+
+[node name="CardView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview" instance=ExtResource("20_4ci4a")]
+layout_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" node_paths=PackedStringArray("_itemView")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 275.4
+scale = Vector2(1.07, 1.07)
+mouse_filter = 2
+script = ExtResource("22_x7plq")
+_itemView = NodePath("ItemView")
+
+[node name="ItemView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/ItemPreview" instance=ExtResource("23_p2uns")]
 
 [node name="LongPressIndicator" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("_background", "_fill")]
 layout_mode = 3

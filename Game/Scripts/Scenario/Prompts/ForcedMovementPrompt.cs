@@ -5,7 +5,7 @@ using Godot;
 
 public class ForcedMovementPrompt(
 	AbilityState abilityState, Hex origin, Figure target, int distance, ForcedMovementType type,
-	EffectCollection effectCollection, Func<string> getHintText)
+	EffectCollection effectCollection, Func<string> getHintText, SwingDirectionType? requiredDirection = null)
 	: Prompt<ForcedMovementPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -35,7 +35,7 @@ public class ForcedMovementPrompt(
 		_waypoints.Add(_currentNode);
 
 		// Find all hexes we can push/pull/swing into to
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_nodes.Clear();
@@ -55,7 +55,7 @@ public class ForcedMovementPrompt(
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 

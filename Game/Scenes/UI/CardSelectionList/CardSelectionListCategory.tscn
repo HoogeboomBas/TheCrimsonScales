@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://jijaocqypkiy"]
+
+[ext_resource type="Script" uid="uid://uxipg5vjnwk4" path="res://Scripts/UI/CardSelectionList/CardSelectionListCategory.cs" id="1_v5t77"]
+[ext_resource type="PackedScene" uid="uid://b7ogm4op7ko2a" path="res://Scenes/UI/CardSelectionList/CardSelectionCard.tscn" id="2_t6w8s"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="3_5sqkl"]
+[ext_resource type="Texture2D" uid="uid://cwepqdiymi0bo" path="res://Art/Icons/Other/Cards.svg" id="4_v5t77"]
+
+[sub_resource type="Gradient" id="Gradient_xuamw"]
+colors = PackedColorArray(0, 0, 0, 0.745098, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sssfe"]
+gradient = SubResource("Gradient_xuamw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2ogp"]
+texture = SubResource("GradientTexture1D_sssfe")
+
+[node name="CardSelectionListCategory" type="Control" node_paths=PackedStringArray("HeaderContainer", "_headerLabel", "_headerIcon", "_cardsContainer")]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 1
+script = ExtResource("1_v5t77")
+_cardSelectionCardScene = ExtResource("2_t6w8s")
+HeaderContainer = NodePath("Header")
+_headerLabel = NodePath("Header/Panel/Label")
+_headerIcon = NodePath("Header/Panel/TextureRect")
+_cardsContainer = NodePath("Cards")
+
+[node name="Header" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 470.0
+offset_bottom = 50.0
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_x2ogp")
+
+[node name="Label" type="Label" parent="Header/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Discarded"
+label_settings = ExtResource("3_5sqkl")
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Header/Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_v5t77")
+expand_mode = 1
+
+[node name="Cards" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="CardSelectionCard" parent="Cards" instance=ExtResource("2_t6w8s")]
+visible = false
