@@ -24,7 +24,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 					CreateTrapAbility.State createTrapState = state.ActionState.GetAbilityState<CreateTrapAbility.State>(0);
 
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
-						canApply: canApplyParameters => createTrapState.Traps.Contains(canApplyParameters.Trap),
+						canApply: canApplyParameters => createTrapState.CreatedTraps.Contains(canApplyParameters.Trap),
 						async applyParameters =>
 						{
 							ScenarioEvents.TrapTriggeredEvent.Unsubscribe(state, this);

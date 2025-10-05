@@ -19,7 +19,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 				.WithConditions(Chainguard.Shackle)
 				.WithOnAbilityEndedPerformed(async state => 
 				{
-					if(state.ForcedMovementHexes.Count < state.SingleTargetSwing) 
+					if(state.SingleTargetState.ForcedMovementHexes.Count < state.SingleTargetSwing) 
 					{
 						int abilityRange = RangeHelper.Distance(state.Target.Hex, state.Performer.Hex);
 						// Find hexes that are both adjacent to the target and on a circle around the performer with radius of distance to the target
