@@ -4,7 +4,7 @@ using Fractural.Tasks;
 public class Shackle : ConditionModel
 {
     public override string Name => "Shackle";
-	public override string IconPath => "res://Content/Classes/Chainguard/Icon.svg";
+	public override string IconPath => "res://Content/Classes/Chainguard/Shackle.svg";
 	public override bool RemovedByHeal => false;
 	public override bool CanBeUpgraded => false;
 	public override bool IsPositive => false;
