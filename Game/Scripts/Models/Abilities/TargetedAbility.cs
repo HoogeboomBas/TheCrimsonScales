@@ -7,7 +7,8 @@ using GTweensGodot.Extensions;
 
 public class SingleTargetState
 {
-	public Figure Target;
+	public Figure Target { get; init; }
+	public List<Hex> ForcedMovementHexes { get; } = new List<Hex>();
 }
 
 public abstract class TargetedAbilityState<TSingleTargetState> : TargetedAbilityState
@@ -202,8 +203,6 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	public ConditionModel[] Conditions { get; private set; } = [];
 
 	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
-
-	public List<Hex> ForcedMovementHexes { get; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -450,8 +449,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure && 
-					abilityState.Authority.EnemiesWith(abilityState.Performer))
+				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure &&
+				   abilityState.Authority.EnemiesWith(abilityState.Performer))
 				{
 					remove = true;
 				}
@@ -698,7 +697,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		else
 		{
 			MonsterForcedMovementPrompt.Answer answer = await PromptManager.Prompt(
-				new MonsterForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, requiredDirection), abilityState.Authority);
+				new MonsterForcedMovementPrompt(abilityState, origin, target, distance, type, null, hintText, requiredDirection),
+				abilityState.Authority);
 
 			if(!answer.Skipped)
 			{
@@ -714,7 +714,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			{
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
-				ForcedMovementHexes.Add(hex);
+				abilityState.SingleTargetState.ForcedMovementHexes.Add(hex);
 
 				await target.TweenGlobalPosition(hex.GlobalPosition, 0.2f).PlayFastForwardableAsync();
 				await AbilityCmd.EnterHex(abilityState, target, abilityState.Authority, hex, true);

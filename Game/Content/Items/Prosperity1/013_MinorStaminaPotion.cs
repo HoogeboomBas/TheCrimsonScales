@@ -9,7 +9,10 @@ public class MinorStaminaPotion : Prosperity1Item
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
-	protected override int AtlasIndex => 26;
+	protected override int ColumnCount => 1;
+	protected override int RowCount => 1;
+	protected override string TexturePath => "res://Content/Items/Prosperity1/MinorStaminaPotion.jpg";
+	protected override int AtlasIndex => 0;
 
 	protected override void Subscribe()
 	{
@@ -22,7 +25,8 @@ public class MinorStaminaPotion : Prosperity1Item
 				await Use(async user =>
 				{
 					AbilityCard selectedAbilityCard =
-						await AbilityCmd.SelectAbilityCard(user, CardState.Discarded, mandatory: true, hintText: $"Select a discarded card to recover");
+						await AbilityCmd.SelectAbilityCard(user, CardState.Discarded, mandatory: true,
+							hintText: $"Select a discarded card to recover");
 
 					await AbilityCmd.ReturnToHand(selectedAbilityCard);
 				});
