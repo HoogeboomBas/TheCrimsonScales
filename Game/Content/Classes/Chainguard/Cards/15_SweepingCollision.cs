@@ -30,31 +30,20 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 				.WithCustomGetTargets((state, figures) =>
 				{
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
+
+					// Always add the target of the Swing ability as a potential target; it's filtered out if it's been targeted already anyway
 					figures.Add(swingState.Target);
-				})
-				.WithConditionalAbilityCheck(async state => 
-				{
-					await GDTask.CompletedTask;
 
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
+					if(state.UniqueTargetedFigures.Contains(swingState.Target) || state.AbilityTargets > state.SingleTargetStates.Count + 1)
+					{
+						// The target of the Swing ability has not been targeted yet, or there is more than 1 target remaining
+						// This means the figures swung through can still be targeted
+						IEnumerable<Figure> figuresPassedThrough =
+							swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
+						figures.AddRange(figuresPassedThrough.Where(figure => figure.EnemiesWith(state.Performer) && figure != swingState.Target));
+					}
 				})
-				.Build()),
-
-			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
-				.WithCustomGetTargets((state, figures) =>
-				{
-					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
-
-					IEnumerable<Figure> figuresPassedThrough = swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
-					figures.AddRange(figuresPassedThrough.Where(figure => figure.EnemiesWith(state.Performer) && figure != swingState.Target));
-				})
-				.WithConditionalAbilityCheck(async state => 
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithTargets(2)
 				.Build())
 		];
 	}

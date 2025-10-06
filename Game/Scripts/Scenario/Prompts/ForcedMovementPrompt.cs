@@ -67,11 +67,6 @@ public class ForcedMovementPrompt(
 			_nodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)
 			{
-				if(!MoveHelper.CanStopAt(target, hex))
-				{
-					continue;
-				}
-
 				_nodes.Add(node);
 			}
 		}
