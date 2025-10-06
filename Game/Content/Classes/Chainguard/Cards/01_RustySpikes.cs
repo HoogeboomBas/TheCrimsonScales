@@ -5,7 +5,7 @@ public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.
 	public override string Name => "Rusty Spikes";
 	public override int Level => 1;
 	public override int Initiative => 18;
-	protected override int AtlasIndex => 15 - 4;
+	protected override int AtlasIndex => 12 - 1;
 
 	public class CardTop : ChainguardCardSide
 	{

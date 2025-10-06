@@ -7,7 +7,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 	public override string Name => "Impending Power";
 	public override int Level => 5;
 	public override int Initiative => 12;
-	protected override int AtlasIndex => 19 - 10;
+	protected override int AtlasIndex => 15 - 6;
 
 	public class CardTop : ChainguardCardSide
 	{

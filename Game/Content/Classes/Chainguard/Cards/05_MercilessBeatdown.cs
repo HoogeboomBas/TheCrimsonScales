@@ -8,7 +8,7 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 	public override string Name => "Merciless Beatdown";
 	public override int Level => 1;
 	public override int Initiative => 26;
-	protected override int AtlasIndex => 15 - 8;
+	protected override int AtlasIndex => 12 - 5;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -41,7 +41,7 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(GrantAbility.Builder()
+			new AbilityCardAbility(ControlAbility.Builder()
 				.WithGetAbilities(state =>
 				[
 					AttackAbility.Builder().WithDamage(3).Build()
@@ -51,7 +51,6 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);
 					figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(state.Performer) && figure.HasCondition(Chainguard.Shackle)));
 				})
-				.WithTarget(Target.Enemies)
 				.Build()
 			),
 		];

@@ -6,7 +6,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 	public override string Name => "Clamping Snare";
 	public override int Level => 7;
 	public override int Initiative => 27;
-	protected override int AtlasIndex => 19 - 14;
+	protected override int AtlasIndex => 15 - 10;
 
 	public class CardTop : ChainguardCardSide
 	{

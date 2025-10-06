@@ -7,7 +7,7 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 	public override string Name => "Syndicated Assault";
 	public override int Level => 8;
 	public override int Initiative => 68;
-	protected override int AtlasIndex => 19 - 17;
+	protected override int AtlasIndex => 15 - 13;
 
 	public class CardTop : ChainguardCardSide
 	{

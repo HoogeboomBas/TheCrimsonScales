@@ -6,7 +6,7 @@ public class SufferingSteel : ChainguardLevelUpCardModel<SufferingSteel.CardTop,
 	public override string Name => "Suffering Steel";
 	public override int Level => 6;
 	public override int Initiative => 09;
-	protected override int AtlasIndex => 19 - 12;
+	protected override int AtlasIndex => 15 - 8;
 
 	public class CardTop : ChainguardCardSide
 	{

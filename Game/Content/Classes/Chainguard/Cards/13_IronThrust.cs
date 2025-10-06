@@ -7,7 +7,7 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 	public override string Name => "Iron Thrust";
 	public override int Level => 2;
 	public override int Initiative => 38;
-	protected override int AtlasIndex => 19 - 4;
+	protected override int AtlasIndex => 15 - 0;
 
 	public class CardTop : ChainguardCardSide
 	{

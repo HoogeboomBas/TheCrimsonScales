@@ -6,7 +6,7 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 	public override string Name => "Roundhouse Swing";
 	public override int Level => 1;
 	public override int Initiative => 79;
-	protected override int AtlasIndex => 15 - 15;
+	protected override int AtlasIndex => 12 - 12;
 
 	public class CardTop : ChainguardCardSide
 	{

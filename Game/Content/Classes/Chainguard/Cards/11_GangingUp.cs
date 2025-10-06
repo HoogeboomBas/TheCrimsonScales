@@ -6,7 +6,7 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 	public override string Name => "Ganging Up";
 	public override int Level => 1;
 	public override int Initiative => 74;
-	protected override int AtlasIndex => 15 - 14;
+	protected override int AtlasIndex => 12 - 11;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -18,7 +18,7 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 				.Build()
 			),
 
-			new AbilityCardAbility(GrantAbility.Builder()
+			new AbilityCardAbility(ControlAbility.Builder()
 				.WithGetAbilities(state =>
 				[
 					AttackAbility.Builder().WithDamage(2).Build()
@@ -28,7 +28,6 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);
 					figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(state.Performer) && figure.HasCondition(Chainguard.Shackle)));
 				})
-				.WithTarget(Target.Enemies)
 				.Build()
 			),
 		];

@@ -6,7 +6,7 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 	public override string Name => "Champion of Chains";
 	public override int Level => 9;
 	public override int Initiative => 10;
-	protected override int AtlasIndex => 19 - 18;
+	protected override int AtlasIndex => 15 - 14;
 
 	public class CardTop : ChainguardCardSide
 	{

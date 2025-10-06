@@ -7,7 +7,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 	public override string Name => "Unending Torment";
 	public override int Level => 9;
 	public override int Initiative => 33;
-	protected override int AtlasIndex => 19 - 19;
+	protected override int AtlasIndex => 15 - 15;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -58,7 +58,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 	{
 		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(GrantAbility.Builder()
+			new AbilityCardAbility(ControlAbility.Builder()
 				.WithGetAbilities(state => 
 					[MoveAbility.Builder()
 						.WithDistance(3)
@@ -103,7 +103,6 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 						.Build()
 					]
 				)
-				.WithTarget(Target.Enemies)
 				.WithCustomGetTargets((state, figures) =>
 				{
 					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);

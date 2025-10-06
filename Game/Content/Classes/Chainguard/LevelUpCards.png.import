@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ch8mafokg2th0"
-path="res://.godot/imported/Level_2-9_spread.png-23c3d4ed669f9cbb2e8e092975d0ebca.ctex"
+path="res://.godot/imported/LevelUpCards.png-70ff2b2037d89cfc9f2c69b0aae126bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Chainguard/Level_2-9_spread.png"
-dest_files=["res://.godot/imported/Level_2-9_spread.png-23c3d4ed669f9cbb2e8e092975d0ebca.ctex"]
+source_file="res://Content/Classes/Chainguard/LevelUpCards.png"
+dest_files=["res://.godot/imported/LevelUpCards.png-70ff2b2037d89cfc9f2c69b0aae126bd.ctex"]
 
 [params]
 

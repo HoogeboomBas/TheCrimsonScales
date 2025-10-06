@@ -5,7 +5,7 @@ public class SlammingShove : ChainguardCardModel<SlammingShove.CardTop, Slamming
 	public override string Name => "Slamming Shove";
 	public override int Level => 1;
 	public override int Initiative => 25;
-	protected override int AtlasIndex => 15 - 7;
+	protected override int AtlasIndex => 12 - 4;
 
 	public class CardTop : ChainguardCardSide
 	{

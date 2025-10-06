@@ -6,7 +6,7 @@ public class AgonizingClamp : ChainguardLevelUpCardModel<AgonizingClamp.CardTop,
 	public override string Name => "Agonizing Clamp";
 	public override int Level => 2;
 	public override int Initiative => 57;
-	protected override int AtlasIndex => 19 - 5;
+	protected override int AtlasIndex => 15 - 1;
 
 	public class CardTop : ChainguardCardSide
 	{

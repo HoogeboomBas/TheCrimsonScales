@@ -6,7 +6,7 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 	public override string Name => "Untouchable Keeper";
 	public override int Level => 1;
 	public override int Initiative => 14;
-	protected override int AtlasIndex => 15 - 3;
+	protected override int AtlasIndex => 12 - 0;
 
 	public class CardTop : ChainguardCardSide
 	{

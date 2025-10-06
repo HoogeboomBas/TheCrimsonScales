@@ -7,7 +7,7 @@ public class DoubleKO : ChainguardLevelUpCardModel<DoubleKO.CardTop, DoubleKO.Ca
 	public override string Name => "Double K.O.";
 	public override int Level => 4;
 	public override int Initiative => 92;
-	protected override int AtlasIndex => 19 - 9;
+	protected override int AtlasIndex => 15 - 5;
 
 	public class CardTop : ChainguardCardSide
 	{

@@ -7,7 +7,7 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 	public override string Name => "Pivot and Smash";
 	public override int Level => 8;
 	public override int Initiative => 28;
-	protected override int AtlasIndex => 19 - 16;
+	protected override int AtlasIndex => 15 - 12;
 
 	public class CardTop : ChainguardCardSide
 	{

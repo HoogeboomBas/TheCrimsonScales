@@ -5,7 +5,7 @@ public class TitanicChainwhip : ChainguardLevelUpCardModel<TitanicChainwhip.Card
 	public override string Name => "Titanic Chainwhip";
 	public override int Level => 6;
 	public override int Initiative => 29;
-	protected override int AtlasIndex => 19 - 13;
+	protected override int AtlasIndex => 15 - 9;
 
 	public class CardTop : ChainguardCardSide
 	{

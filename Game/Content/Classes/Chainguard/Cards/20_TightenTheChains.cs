@@ -7,7 +7,7 @@ public class TightenTheChains : ChainguardLevelUpCardModel<TightenTheChains.Card
 	public override string Name => "Tighten the Chains";
 	public override int Level => 5;
 	public override int Initiative => 17;
-	protected override int AtlasIndex => 19 - 11;
+	protected override int AtlasIndex => 15 - 7;
 
 	public class CardTop : ChainguardCardSide
 	{

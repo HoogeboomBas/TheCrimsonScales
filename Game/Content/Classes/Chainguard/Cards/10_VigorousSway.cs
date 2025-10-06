@@ -7,7 +7,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 	public override string Name => "Vigorous Sway";
 	public override int Level => 1;
 	public override int Initiative => 52;
-	protected override int AtlasIndex => 15 - 13;
+	protected override int AtlasIndex => 12 - 10;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -24,10 +24,10 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 						int abilityRange = RangeHelper.Distance(state.Target.Hex, state.Performer.Hex);
 						// Find hexes that are both adjacent to the target and on a circle around the performer with radius of distance to the target
 						// That is 0-2 hexes, depending on walls
-						IEnumerable<Hex> list = RangeHelper.GetHexesInRange(state.Target.Hex, 1, includeOrigin: false).Where(hex => RangeHelper.Distance(hex, state.Performer.Hex) == abilityRange);
+						List<Hex> list = RangeHelper.GetHexesInRange(state.Target.Hex, 1, includeOrigin: false).Where(hex => RangeHelper.Distance(hex, state.Performer.Hex) == abilityRange).ToList();
 
 						// 0 or 1 hex means 1 or 2 hexes are walls, otherwise check if one of the hexes has an obstacle
-						if(!list.Any() || list.Count() == 1 || list.Any(hex => hex.HasHexObjectOfType<Obstacle>()))
+						if(list.Count < 2 || list.Any(hex => hex.HasHexObjectOfType<Obstacle>()))
 						{
 							await AbilityCmd.SufferDamage(null, state.Target, 2);
 							await AbilityCmd.GainXP(state.Performer, 1);

@@ -6,7 +6,7 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 	public override string Name => "Latch and Tow";
 	public override int Level => 3;
 	public override int Initiative => 81;
-	protected override int AtlasIndex => 19 - 7;
+	protected override int AtlasIndex => 15 - 3;
 
 	public class CardTop : ChainguardCardSide
 	{

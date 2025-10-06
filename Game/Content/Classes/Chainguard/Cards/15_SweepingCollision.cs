@@ -7,7 +7,7 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 	public override string Name => "Sweeping Collision";
 	public override int Level => 3;
 	public override int Initiative => 20;
-	protected override int AtlasIndex => 19 - 6;
+	protected override int AtlasIndex => 15 - 2;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -32,6 +32,12 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
 					figures.Add(swingState.Target);
 				})
+				.WithConditionalAbilityCheck(async state => 
+				{
+					await GDTask.CompletedTask;
+
+					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
+				})
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
@@ -42,6 +48,12 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 
 					IEnumerable<Figure> figuresPassedThrough = swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
 					figures.AddRange(figuresPassedThrough.Where(figure => figure.EnemiesWith(state.Performer) && figure != swingState.Target));
+				})
+				.WithConditionalAbilityCheck(async state => 
+				{
+					await GDTask.CompletedTask;
+
+					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
 				})
 				.Build())
 		];

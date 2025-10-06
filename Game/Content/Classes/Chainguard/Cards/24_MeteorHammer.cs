@@ -6,7 +6,7 @@ public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, Met
 	public override string Name => "Meteor Hammer";
 	public override int Level => 7;
 	public override int Initiative => 45;
-	protected override int AtlasIndex => 19 - 15;
+	protected override int AtlasIndex => 15 - 11;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -19,7 +19,7 @@ public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, Met
 						parameters => parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
 						async parameters =>
 						{
-							parameters.AbilityState.AbilityAddCondition(Conditions.Disarm);
+							parameters.AbilityState.SingleTargetAddCondition(Conditions.Disarm);
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}

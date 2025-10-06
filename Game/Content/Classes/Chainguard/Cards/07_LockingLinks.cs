@@ -7,7 +7,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 	public override string Name => "Locking Links";
 	public override int Level => 1;
 	public override int Initiative => 41;
-	protected override int AtlasIndex => 15 - 10;
+	protected override int AtlasIndex => 12 - 7;
 
 	public class CardTop : ChainguardCardSide
 	{
@@ -18,6 +18,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 				.WithConditions(Chainguard.Shackle)
 				.Build()
 			),
+
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state => 
 				{

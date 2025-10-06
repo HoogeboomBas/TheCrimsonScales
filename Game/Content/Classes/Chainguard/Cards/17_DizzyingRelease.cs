@@ -7,7 +7,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 	public override string Name => "Dizzying Release";
 	public override int Level => 4;
 	public override int Initiative => 24;
-	protected override int AtlasIndex => 19 - 8;
+	protected override int AtlasIndex => 15 - 4;
 
 	public class CardTop : ChainguardCardSide
 	{
