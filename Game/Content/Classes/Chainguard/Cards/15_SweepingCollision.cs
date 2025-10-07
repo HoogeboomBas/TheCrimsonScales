@@ -44,6 +44,12 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 					}
 				})
 				.WithTargets(2)
+				.WithConditionalAbilityCheck(async state =>
+				{
+					await GDTask.CompletedTask;
+
+					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
+				})
 				.Build())
 		];
 	}
