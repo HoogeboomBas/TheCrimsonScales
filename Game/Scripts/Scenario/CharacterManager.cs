@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class CharacterManager
 {
@@ -61,6 +62,18 @@ public class CharacterManager
 		foreach(CharacterStartHex characterStartHex in CharacterStartHexes)
 		{
 			await characterStartHex.Destroy();
+		}
+	}
+
+	public async GDTask AddStartHexIndicators()
+	{
+		PackedScene scene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/StartHexIndicator.tscn");
+		foreach(CharacterStartHex characterStartHex in CharacterStartHexes)
+		{
+			StartHexIndicator startHexIndicator = scene.Instantiate<StartHexIndicator>();
+			GameController.Instance.Map.AddChild(startHexIndicator);
+			Hex hex = characterStartHex.Hex;
+			await startHexIndicator.Init(hex);
 		}
 	}
 }

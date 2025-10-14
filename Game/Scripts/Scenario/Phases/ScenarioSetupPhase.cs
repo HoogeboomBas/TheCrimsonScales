@@ -85,6 +85,8 @@ public class ScenarioSetupPhase : ScenarioPhase
 		// End of the phase
 		await GameController.Instance.CharacterManager.RemoveCharacterStartHexes();
 
+		await ScenarioEvents.ScenarioSetupCompletedEvent.CreatePrompt(new ScenarioEvents.ScenarioSetupCompleted.Parameters());
+
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
 			await character.OnScenarioSetupCompleted();

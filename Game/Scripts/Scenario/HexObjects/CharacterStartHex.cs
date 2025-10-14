@@ -6,6 +6,7 @@ public sealed partial class CharacterStartHex : HexObject
 	{
 		base.AddInfoItemParameters(parametersList);
 
-		parametersList.Add(new GenericInfoItem.Parameters(this, "Starting Hex", "Drag a character here to change its starting position.", sceneVerticalSize: 100f));
+		parametersList.Add(new GenericInfoItem.Parameters(this, "Starting Hex", "Drag a character here to change its starting position.",
+			sceneVerticalSize: 100f));
 	}
 }

@@ -53,7 +53,6 @@ position = Vector2(-654.715, -378)
 
 [node name="Treasure1H" parent="Map/Rooms/Room" index="7" instance=ExtResource("12_couc6")]
 position = Vector2(-545.596, -567)
-TreasureNumber = 6
 
 [node name="SpikePitTrap1H" parent="Map/Rooms/Room" index="8" instance=ExtResource("8_pbbc0")]
 position = Vector2(-436.477, -378)
@@ -122,7 +121,6 @@ ConditionModels = Array[Object]([SubResource("Resource_yq2k7")])
 
 [node name="Treasure1H2" parent="Map/Rooms/Room2" index="5" instance=ExtResource("12_couc6")]
 position = Vector2(1309.43, 378)
-TreasureNumber = 19
 
 [node name="MonsterSpawner5" parent="Map/Rooms/Room2" index="6" instance=ExtResource("8_sh87o")]
 position = Vector2(872.954, -378)
@@ -179,7 +177,6 @@ rotation = 1.0472
 
 [node name="Treasure1H3" parent="Map/Rooms/Room3" index="3" instance=ExtResource("12_couc6")]
 position = Vector2(872.954, -2268)
-TreasureNumber = 43
 
 [node name="Treasure1H4" parent="Map/Rooms/Room3" index="4" instance=ExtResource("12_couc6")]
 position = Vector2(-218.238, -1134)

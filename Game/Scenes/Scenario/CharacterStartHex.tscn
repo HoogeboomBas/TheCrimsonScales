@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="1_orche"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_mhnx2"]
 [ext_resource type="Texture2D" uid="uid://gbwor6vopdv6" path="res://Art/Icons/OverlayTiles/StartHexIcon.svg" id="3_48q5k"]
-[ext_resource type="Script" uid="uid://t8p1wbjs8k3" path="res://Scripts/Scenario/CharacterStartHex.cs" id="5_n3yea"]
+[ext_resource type="Script" uid="uid://t8p1wbjs8k3" path="res://Scripts/Scenario/HexObjects/CharacterStartHex.cs" id="5_n3yea"]
 
 [node name="CharacterStartHex" type="Node2D"]
 z_index = 5

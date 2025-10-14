@@ -14,11 +14,43 @@ public class Scenario017 : ScenarioModel
 
 	private bool _lootedTreasure;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
 		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(-1, OnTreasureLooted, null);
+
+		ScenarioEvents.RoundEndedEvent.Subscribe(this,
+			parameters =>
+			{
+				if(!_lootedTreasure)
+				{
+					return false;
+				}
+
+				foreach(Character character in GameController.Instance.CharacterManager.Characters)
+				{
+					if(!character.IsDead && !character.Hex.HasHexObjectOfType<StartHexIndicator>())
+					{
+						return false;
+					}
+				}
+
+				return true;
+			},
+			async parameters =>
+			{
+				await ((CustomScenarioGoals)ScenarioGoals).Win();
+			}
+		);
+
+		ScenarioEvents.ScenarioSetupCompletedEvent.Subscribe(this,
+			parameters => true,
+			async parameters =>
+			{
+				await GameController.Instance.CharacterManager.AddStartHexIndicators();
+			}
+		);
 	}
 
 	private async GDTask OnTreasureLooted(Character lootingCharacter)

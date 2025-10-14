@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b27hr74egsbi4"]
+
+[ext_resource type="Script" uid="uid://c516n8rs6i3mb" path="res://Scripts/Scenario/HexObjects/StartHexIndicator.cs" id="1_xb541"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_6y1gv"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="3_gvgf3"]
+[ext_resource type="Texture2D" uid="uid://gbwor6vopdv6" path="res://Art/Icons/OverlayTiles/StartHexIcon.svg" id="4_0qoky"]
+
+[node name="StartHexIndicator" type="Node2D"]
+z_index = 5
+script = ExtResource("1_xb541")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_6y1gv")
+
+[node name="Outline" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_gvgf3")
+
+[node name="Background" type="Sprite2D" parent="Outline"]
+self_modulate = Color(0, 0.466667, 0.662745, 1)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_gvgf3")
+
+[node name="Icon" type="Sprite2D" parent="Outline/Background"]
+position = Vector2(-6.66667, 0)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_0qoky")
