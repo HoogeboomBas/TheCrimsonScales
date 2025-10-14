@@ -6,7 +6,7 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 	public override string Name => "Prosperous Concord";
 	public override int Level => 1;
 	public override int Initiative => 43;
-	protected override int AtlasIndex => 29 - 11;
+	protected override int AtlasIndex => 13 - 13;
 
 	public class CardTop : HierophantCardSide
 	{

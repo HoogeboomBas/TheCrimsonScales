@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class RootedSubjugation : HierophantCardModel<RootedSubjugation.CardTop, RootedSubjugation.CardBottom>
+public class RootedSubjugation : HierophantLevelUpCardModel<RootedSubjugation.CardTop, RootedSubjugation.CardBottom>
 {
 	public override string Name => "Rooted Subjugation";
 	public override int Level => 4;
 	public override int Initiative => 30;
-	protected override int AtlasIndex => 29 - 19;
+	protected override int AtlasIndex => 15 - 4;
 
 	public class CardTop : HierophantCardSide
 	{

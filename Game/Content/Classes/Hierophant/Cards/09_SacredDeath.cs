@@ -7,7 +7,7 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 	public override string Name => "Sacred Death";
 	public override int Level => 1;
 	public override int Initiative => 81;
-	protected override int AtlasIndex => 29 - 7;
+	protected override int AtlasIndex => 13 - 9;
 
 	public class CardTop : HierophantCardSide
 	{

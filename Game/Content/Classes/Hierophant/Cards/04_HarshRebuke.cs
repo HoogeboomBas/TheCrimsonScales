@@ -6,7 +6,7 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 	public override string Name => "Harsh Rebuke";
 	public override int Level => 1;
 	public override int Initiative => 44;
-	protected override int AtlasIndex => 29 - 1;
+	protected override int AtlasIndex => 13 - 4;
 
 	public class CardTop : HierophantCardSide
 	{

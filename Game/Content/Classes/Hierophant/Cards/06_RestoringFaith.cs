@@ -6,7 +6,7 @@ public class RestoringFaith : HierophantCardModel<RestoringFaith.CardTop, Restor
 	public override string Name => "Restoring Faith";
 	public override int Level => 1;
 	public override int Initiative => 64;
-	protected override int AtlasIndex => 29 - 6;
+	protected override int AtlasIndex => 13 - 6;
 
 	public class CardTop : HierophantCardSide
 	{

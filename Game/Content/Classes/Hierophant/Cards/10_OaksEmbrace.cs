@@ -7,7 +7,7 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 	public override string Name => "Oaks Embrace";
 	public override int Level => 1;
 	public override int Initiative => 84;
-	protected override int AtlasIndex => 29 - 5;
+	protected override int AtlasIndex => 13 - 10;
 
 	public class CardTop : HierophantCardSide
 	{

@@ -5,7 +5,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 	public override string Name => "Inner Reflection";
 	public override int Level => 1;
 	public override int Initiative => 53;
-	protected override int AtlasIndex => 29 - 3;
+	protected override int AtlasIndex => 13 - 5;
 
 	public class CardTop : HierophantCardSide
 	{

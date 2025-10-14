@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class VitalBond : HierophantCardModel<VitalBond.CardTop, VitalBond.CardBottom>
+public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond.CardBottom>
 {
 	public override string Name => "Vital Bond";
 	public override int Level => 3;
 	public override int Initiative => 48;
-	protected override int AtlasIndex => 29 - 17;
+	protected override int AtlasIndex => 15 - 3;
 
 	public class CardTop : HierophantCardSide
 	{

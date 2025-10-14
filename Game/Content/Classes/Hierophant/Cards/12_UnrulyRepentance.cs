@@ -7,7 +7,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 	public override string Name => "Unruly Repentance";
 	public override int Level => 1;
 	public override int Initiative => 25;
-	protected override int AtlasIndex => 29 - 13;
+	protected override int AtlasIndex => 13 - 12;
 
 	public class CardTop : HierophantCardSide
 	{

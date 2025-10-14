@@ -6,7 +6,7 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 	public override string Name => "Inspired Remedy";
 	public override int Level => 1;
 	public override int Initiative => 76;
-	protected override int AtlasIndex => 29 - 4;
+	protected override int AtlasIndex => 13 - 8;
 
 	public class CardTop : HierophantCardSide
 	{

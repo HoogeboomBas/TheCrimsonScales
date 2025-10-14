@@ -5,7 +5,7 @@ public class SoulStrike : HierophantCardModel<SoulStrike.CardTop, SoulStrike.Car
 	public override string Name => "Soul Strike";
 	public override int Level => 1;
 	public override int Initiative => 69;
-	protected override int AtlasIndex => 29 - 8;
+	protected override int AtlasIndex => 13 - 7;
 
 	public class CardTop : HierophantCardSide
 	{
