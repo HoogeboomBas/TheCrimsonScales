@@ -17,9 +17,9 @@ public class Scenario007 : ScenarioModel
 	private readonly List<(Water, int)> _waterTiles = new List<(Water, int)>();
 	private int _lastUsedRoundIndex = -1;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
 		UpdateScenarioText(
 			$"Once per round, when a character ends their turn on a water tile marked {Icons.Marker(Marker.Type.a)}, " +

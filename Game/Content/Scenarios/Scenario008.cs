@@ -10,10 +10,10 @@ public class Scenario008 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillAlLEnemiesScenarioGoals();
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<DrakesBlood>());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(1, ModelDB.Item<DrakesBlood>());
 	}
 }

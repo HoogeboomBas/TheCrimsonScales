@@ -16,13 +16,13 @@ public class Scenario009 : ScenarioModel
 	private bool _lootedTreasure;
 	private readonly List<Door> _firstDoors = new List<Door>();
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
 		UpdateScenarioText("The doors are locked.\nSomething will happen once all enemies in this room are killed.");
 
-		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(OnTreasureLooted, null);
+		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(-1, OnTreasureLooted, null);
 
 		foreach(Marker marker in GameController.Instance.Map.Markers)
 		{

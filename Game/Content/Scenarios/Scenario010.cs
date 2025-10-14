@@ -33,7 +33,7 @@ public class Scenario010 : ScenarioModel
 
 		UpdateScenarioText();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(10, AbilityCmd.GetRandomAvailableStone());
 
 		//TODO: Scenario effect
 

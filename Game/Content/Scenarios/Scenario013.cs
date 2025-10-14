@@ -10,13 +10,13 @@ public class Scenario013 : ScenarioModel
 
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
 		UpdateScenarioText($"All Living Corpses add {Icons.Inline(Icons.Targets)} 1 on all their attacks.");
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(7, AbilityCmd.GetRandomAvailableStone());
 
 		//TODO: Scenario effect
 		// foreach(Character character in GameController.Instance.CharacterManager.Characters)

@@ -5,11 +5,11 @@ using Godot;
 
 public partial class Treasure : LootableObject
 {
-	[Export]
-	public int TreasureNumber = -1;
-
 	private Character _lootingCharacter;
 
+	private bool _lootSet;
+
+	public int TreasureNumber { get; private set; }
 	public bool Looted { get; private set; }
 
 	private Func<Character, GDTask> _obtainLootFunction;
@@ -19,21 +19,31 @@ public partial class Treasure : LootableObject
 	{
 		await base.Init(originHex, rotationIndex, hexCanBeNull);
 
+		if(!_lootSet)
+		{
+			Log.Error("Trying to initialize the treasure while the loot hasn't been set.");
+			return;
+		}
+
 		if(GameController.Instance.SavedScenarioProgress.CollectedTreasureChestNumbers.Contains(TreasureNumber))
 		{
 			await Destroy(true);
 		}
 	}
 
-	public void SetObtainLootFunction(Func<Character, GDTask> obtainLootFunction, Action<Character> scenarioEndFunction)
+	public void SetObtainLootFunction(int treasureNumber, Func<Character, GDTask> obtainLootFunction, Action<Character> scenarioEndFunction)
 	{
+		_lootSet = true;
+
+		TreasureNumber = treasureNumber;
+
 		_obtainLootFunction = obtainLootFunction;
 		_scenarioEndFunction = scenarioEndFunction;
 	}
 
-	public void SetItemLoot(ItemModel itemModel)
+	public void SetItemLoot(int treasureNumber, ItemModel itemModel)
 	{
-		SetObtainLootFunction(
+		SetObtainLootFunction(treasureNumber,
 			async character =>
 			{
 				ItemModel item = itemModel.ToMutable();

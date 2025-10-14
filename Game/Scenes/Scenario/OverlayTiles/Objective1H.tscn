@@ -25,4 +25,7 @@ Outline = NodePath("../Hexagon")
 [node name="Health" parent="FigureViewComponent" index="0"]
 position = Vector2(0, 0)
 
+[node name="FigureActiveParticleSystem" parent="FigureViewComponent" index="6"]
+visible = false
+
 [editable path="FigureViewComponent"]

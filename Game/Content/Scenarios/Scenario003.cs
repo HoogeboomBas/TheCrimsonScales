@@ -21,9 +21,9 @@ public class Scenario003 : ScenarioModel
 	private readonly List<Water> _waterTiles = new List<Water>();
 	private readonly List<Hex> _waterSpawnHexes = new List<Hex>();
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
 		UpdateScenarioText(
 			$"At the end of each round, the water tiles marked {Icons.Marker(Marker.Type.a)} " +

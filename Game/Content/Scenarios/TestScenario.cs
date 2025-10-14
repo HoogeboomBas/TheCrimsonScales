@@ -11,6 +11,6 @@ public class TestScenario : ScenarioModel
 	{
 		await base.StartAfterFirstRoomRevealed();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<DizzyingTincture>());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(0, ModelDB.Item<DizzyingTincture>());
 	}
 }

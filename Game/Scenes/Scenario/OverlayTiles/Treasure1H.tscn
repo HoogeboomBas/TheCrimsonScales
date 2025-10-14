@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://c55i4i3yqfdx6"]
+[gd_scene load_steps=8 format=3 uid="uid://c55i4i3yqfdx6"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_1j3lq"]
 [ext_resource type="Script" uid="uid://txq20422y76a" path="res://Scripts/Scenario/HexObjects/Treasure.cs" id="2_1j3lq"]
 [ext_resource type="Texture2D" uid="uid://u7xtn46uldjj" path="res://Art/OverlayTiles/Treasure.png" id="4_aurhd"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_aurhd"]
 [ext_resource type="Texture2D" uid="uid://dvtigqr8nxucq" path="res://Art/Icons/OverlayTiles/TreasureIcon.svg" id="5_bjgdx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjgdx"]
+bg_color = Color(0.843137, 0.67451, 0.0705882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_y25jm"]
+font = ExtResource("5_aurhd")
+font_size = 60
 
 [node name="Treasure1H" instance=ExtResource("1_1j3lq")]
 script = ExtResource("2_1j3lq")
@@ -29,3 +41,29 @@ self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)
 self_modulate = Color(1, 1, 1, 0.662745)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_bjgdx")
+
+[node name="GoalLabelContainer" type="PanelContainer" parent="." index="5"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -30.0
+offset_right = 57.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bjgdx")
+
+[node name="MarginContainer" type="MarginContainer" parent="GoalLabelContainer" index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -5
+
+[node name="Label" type="Label" parent="GoalLabelContainer/MarginContainer" index="0"]
+layout_mode = 2
+text = "Goal"
+label_settings = SubResource("LabelSettings_y25jm")

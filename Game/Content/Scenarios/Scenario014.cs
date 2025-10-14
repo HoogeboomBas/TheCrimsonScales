@@ -14,12 +14,12 @@ public class Scenario014 : ScenarioModel
 	private bool _firstDoorOpened;
 	private int _cultistMurderCount = 0;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<DizzyingTincture>());
-		GameController.Instance.Map.Treasures[1].SetItemLoot(ModelDB.Item<OrbOfFortune>());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(8, ModelDB.Item<DizzyingTincture>());
+		GameController.Instance.Map.Treasures[1].SetItemLoot(9, ModelDB.Item<OrbOfFortune>());
 
 		UpdateScenarioText("The door is locked.\nSomething will happen once all enemies in this room are killed.");
 

@@ -18,11 +18,11 @@ public class Scenario002 : ScenarioModel
 	private Door _door1;
 	private Door _door2;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask StartBeforeFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.StartBeforeFirstRoomRevealed();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
+		GameController.Instance.Map.Treasures[0].SetItemLoot(24, AbilityCmd.GetRandomAvailableStone());
 
 		Marker markerA = GameController.Instance.Map.GetMarker(Marker.Type.a);
 		_pressurePlateA = markerA.GetHexObject<PressurePlate>();
