@@ -140,7 +140,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 							if(applyParameters.Figure.HasCondition(Chainguard.Shackle))
 							{
 								await AbilityCmd.SufferDamage(null, applyParameters.Figure, 1);
-								await applyParameters.Figure.RemoveCondition(Chainguard.Shackle);
+								await AbilityCmd.RemoveCondition(applyParameters.Figure, Chainguard.Shackle);
 							}
 
 							await state.ActionState.RequestDiscardOrLose();

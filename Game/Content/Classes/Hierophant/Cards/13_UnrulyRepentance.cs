@@ -27,18 +27,13 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 							canApplyParameters.AMDCard is CurseAMDCard,
 						apply: async applyParameters =>
 						{
-							ScenarioEvents.AMDCardValueAppliedEvent.Subscribe(state, this,
+							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
 								canApply: canApplyParameters =>
 									canApplyParameters.AbilityState == applyParameters.AbilityState,
 								apply: async parameters =>
 								{
-									ScenarioEvents.AMDCardValueAppliedEvent.Unsubscribe(state, this);
-									if(parameters.AMDCardValue.CardType == AMDCardType.Null)
-									{
-										await AbilityCmd.SufferDamage(null, parameters.Performer, 10);
-
-										await state.AdvanceUseSlot();
-									}
+									await AbilityCmd.SufferDamage(null, parameters.Performer, 10);
+									await state.AdvanceUseSlot();
 								}
 							);
 
@@ -51,7 +46,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
-					ScenarioEvents.AMDCardValueAppliedEvent.Unsubscribe(state, this); 
+					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this); 
 
 					await GDTask.CompletedTask;
 				})

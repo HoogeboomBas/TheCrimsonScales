@@ -23,7 +23,7 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 						{
 							IEnumerable<Figure> figures = RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, includeOrigin: false);
 							
-							parameters.AbilityState.AbilityAdjustAttackValue(2 * figures.Count(figure => figure.EnemiesWith(parameters.Performer)));
+							parameters.AbilityState.SingleTargetAdjustAttackValue(2 * figures.Count(figure => figure.EnemiesWith(parameters.Performer)));
 
 							await GDTask.CompletedTask;
 						}

@@ -49,7 +49,9 @@ public class DoubleKO : ChainguardLevelUpCardModel<DoubleKO.CardTop, DoubleKO.Ca
 							applyParameters.AbilityState.SingleTargetAdjustAttackValue(applyParameters.AbilityState.SingleTargetAttackValue);
 							await AbilityCmd.GainXP(state.Performer, 2);
 							await state.AdvanceUseSlot();
-						});
+						},
+						order: 10
+					);
 
 					await GDTask.CompletedTask;
 				})
