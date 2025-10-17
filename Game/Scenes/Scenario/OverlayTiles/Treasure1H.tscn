@@ -17,8 +17,9 @@ corner_radius_bottom_left = 8
 font = ExtResource("5_aurhd")
 font_size = 60
 
-[node name="Treasure1H" instance=ExtResource("1_1j3lq")]
+[node name="Treasure1H" node_paths=PackedStringArray("_goalLabelContainer") instance=ExtResource("1_1j3lq")]
 script = ExtResource("2_1j3lq")
+_goalLabelContainer = NodePath("GoalLabelContainer")
 
 [node name="Hexagon" parent="." index="1"]
 self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)

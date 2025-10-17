@@ -5,6 +5,9 @@ using Godot;
 
 public partial class Treasure : LootableObject
 {
+	[Export]
+	private Control _goalLabelContainer;
+
 	private Character _lootingCharacter;
 
 	private bool _lootSet;
@@ -36,6 +39,8 @@ public partial class Treasure : LootableObject
 		_lootSet = true;
 
 		TreasureNumber = treasureNumber;
+
+		_goalLabelContainer.SetVisible(TreasureNumber <= 0);
 
 		_obtainLootFunction = obtainLootFunction;
 		_scenarioEndFunction = scenarioEndFunction;
