@@ -6,7 +6,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 	public override string Name => "Impetuous Inquisition";
 	public override int Level => 1;
 	public override int Initiative => 28;
-	protected override int AtlasIndex => 29 - 2;
+	protected override int AtlasIndex => 13 - 2;
 
 	public class CardTop : HierophantCardSide
 	{

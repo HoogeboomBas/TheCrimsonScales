@@ -5,7 +5,7 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 	public override string Name => "Vocal Sermon";
 	public override int Level => 1;
 	public override int Initiative => 32;
-	protected override int AtlasIndex => 29 - 10;
+	protected override int AtlasIndex => 13 - 3;
 
 	public class CardTop : HierophantCardSide
 	{

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class WeakenedWill : HierophantCardModel<WeakenedWill.CardTop, WeakenedWill.CardBottom>
+public class WeakenedWill : HierophantLevelUpCardModel<WeakenedWill.CardTop, WeakenedWill.CardBottom>
 {
 	public override string Name => "Weakened Will";
 	public override int Level => 2;
 	public override int Initiative => 17;
-	protected override int AtlasIndex => 29 - 15;
+	protected override int AtlasIndex => 15 - 0;
 
 	public class CardTop : HierophantCardSide
 	{

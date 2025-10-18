@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
-public class BeaconOfHope : HierophantCardModel<BeaconOfHope.CardTop, BeaconOfHope.CardBottom>
+public class BeaconOfHope : HierophantLevelUpCardModel<BeaconOfHope.CardTop, BeaconOfHope.CardBottom>
 {
 	public override string Name => "Beacon of Hope";
 	public override int Level => 4;
 	public override int Initiative => 82;
-	protected override int AtlasIndex => 29 - 18;
+	protected override int AtlasIndex => 15 - 5;
 
 	public class CardTop : HierophantCardSide
 	{

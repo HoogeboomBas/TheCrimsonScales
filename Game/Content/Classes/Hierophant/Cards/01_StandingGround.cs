@@ -6,7 +6,7 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 	public override string Name => "Standing Ground";
 	public override int Level => 1;
 	public override int Initiative => 22;
-	protected override int AtlasIndex => 29 - 9;
+	protected override int AtlasIndex => 13 - 1;
 
 	public class CardTop : HierophantCardSide
 	{

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Godot;
 
-public class DivineAllegiance : HierophantCardModel<DivineAllegiance.CardTop, DivineAllegiance.CardBottom>
+public class DivineAllegiance : HierophantLevelUpCardModel<DivineAllegiance.CardTop, DivineAllegiance.CardBottom>
 {
 	public override string Name => "Divine Allegiance";
 	public override int Level => 2;
 	public override int Initiative => 63;
-	protected override int AtlasIndex => 29 - 14;
+	protected override int AtlasIndex => 15 - 1;
 
 	public class CardTop : HierophantCardSide
 	{

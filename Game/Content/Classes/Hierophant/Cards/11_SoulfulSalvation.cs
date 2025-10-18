@@ -7,7 +7,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 	public override string Name => "Soulful Salvation";
 	public override int Level => 1;
 	public override int Initiative => 11;
-	protected override int AtlasIndex => 29 - 12;
+	protected override int AtlasIndex => 13 - 11;
 
 	public class CardTop : HierophantCardSide
 	{

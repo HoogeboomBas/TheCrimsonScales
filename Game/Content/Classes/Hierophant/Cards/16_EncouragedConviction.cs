@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class EncouragedConviction : HierophantCardModel<EncouragedConviction.CardTop, EncouragedConviction.CardBottom>
+public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConviction.CardTop, EncouragedConviction.CardBottom>
 {
 	public override string Name => "Encouraged Conviction";
 	public override int Level => 3;
 	public override int Initiative => 14;
-	protected override int AtlasIndex => 29 - 16;
+	protected override int AtlasIndex => 15 - 2;
 
 	public class CardTop : HierophantCardSide
 	{

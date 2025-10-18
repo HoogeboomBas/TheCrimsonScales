@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cspchdgrh6yr8"
-path="res://.godot/imported/Cards.jpg-e230ed790781ef81116f3a8bf44519e0.ctex"
+uid="uid://bpbya5nh5n241"
+path="res://.godot/imported/LevelUpCards.png-995d46d4992e26c4cf5bc1080d26d6fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Hierophant/Cards.jpg"
-dest_files=["res://.godot/imported/Cards.jpg-e230ed790781ef81116f3a8bf44519e0.ctex"]
+source_file="res://Content/Classes/Hierophant/LevelUpCards.png"
+dest_files=["res://.godot/imported/LevelUpCards.png-995d46d4992e26c4cf5bc1080d26d6fb.ctex"]
 
 [params]
 

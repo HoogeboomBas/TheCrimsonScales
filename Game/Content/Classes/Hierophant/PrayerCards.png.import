@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bifjw7aqn5coj"
-path="res://.godot/imported/CardSelectionCards.png-e2fa96ea705b9aa2cc0ff9fca8e16f3d.ctex"
+uid="uid://bedmpn3e3dnaa"
+path="res://.godot/imported/Prayers.png-98c7070b39d35a5bb933a7eacd5a60f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Hierophant/CardSelectionCards.png"
-dest_files=["res://.godot/imported/CardSelectionCards.png-e2fa96ea705b9aa2cc0ff9fca8e16f3d.ctex"]
+source_file="res://Content/Classes/Hierophant/PrayerCards.png"
+dest_files=["res://.godot/imported/Prayers.png-98c7070b39d35a5bb933a7eacd5a60f4.ctex"]
 
 [params]
 
