@@ -96,11 +96,15 @@ public class ToxicImpAbilityCard4 : ToxicImpAbilityCard
 						parameters.Add(new FigureInfoTextExtraEffect.Parameters("Attackers gain advantage on all their attacks targeting this figure."));
 					}
 				);
+
+				await GDTask.CompletedTask;
 			})
 			.WithOnDeactivate(async state =>
 			{
 				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(monster, this);
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
+
+				await GDTask.CompletedTask;
 			})
 			.Build()
 		),
@@ -123,6 +127,8 @@ public class ToxicImpAbilityCard5 : ToxicImpAbilityCard
 					async parameters =>
 					{
 						parameters.AbilityState.SingleTargetAdjustAttackValue(1);
+
+						await GDTask.CompletedTask;
 					}
 				)
 			]
@@ -141,14 +147,14 @@ public class ToxicImpAbilityCard6 : ToxicImpAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, 
 			extraDamage: -1,
 			afterAttackPerformedSubscriptions: [
-                ScenarioEvents.AfterAttackPerformed.Subscription.New(
+				ScenarioEvents.AfterAttackPerformed.Subscription.New(
 					parameters => parameters.AbilityState.SingleTargetState.Target == monster,
 					async parameters =>
 					{
 						await AbilityCmd.AddCondition(null, parameters.Performer, Conditions.Infect);
 					}
 				)
-            ]
+			]
 		)),
 	];
 }

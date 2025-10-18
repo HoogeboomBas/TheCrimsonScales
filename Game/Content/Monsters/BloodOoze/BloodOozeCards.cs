@@ -45,9 +45,14 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 
 				await GDTask.CompletedTask;
 			})
-			.WithConditionalAbilityCheck(async state => state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed)
+			.WithConditionalAbilityCheck(async state => 
+			{
+				await GDTask.CompletedTask;
+
+				return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
+			})
 			.WithGetValidHexes((state, hexes) =>
-            {
+			{
 				RangeHelper.FindHexesInRange(state.ActionState.GetAbilityState<AttackAbility.State>(0).Target.Hex, 1, true, hexes);
 
 				for(int i = hexes.Count - 1; i >= 0; i--)
@@ -78,6 +83,8 @@ public class BloodOozeAbilityCard1 : BloodOozeAbilityCard
 			.WithOnAbilityStarted(async state =>
 			{
 				state.SetForcedHitPoints(CheckElementConsumed(monster, [Element.Fire]) ? 3 : 4);
+
+				await GDTask.CompletedTask;
 			})
 			.Build()),
 	];
@@ -113,9 +120,9 @@ public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
 			.WithHealValue(1)
 			.WithTarget(Target.Allies)
 			.WithCustomGetTargets((state, figures) =>
-            {
-                figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 1, false));
-            })
+			{
+				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 1, false));
+			})
 			.Build()),
 	];
 }
@@ -138,6 +145,8 @@ public class BloodOozeAbilityCard3 : BloodOozeAbilityCard
 					async parameters =>
 					{
 						parameters.AbilityState.SingleTargetAdjustAttackValue(2);
+
+						await GDTask.CompletedTask;
 					}
 				)
 			])),
@@ -176,7 +185,12 @@ public class BloodOozeAbilityCard5 : BloodOozeAbilityCard
 		new MonsterAbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster, 
 			extraDamage: +1,
-			conditionalAbilityCheck: async state => state.ActionState.GetAbilityState<LootAbility.State>(1).LootedCoinCount > 0
+			conditionalAbilityCheck: async state => 
+			{
+				await GDTask.CompletedTask;
+
+				return state.ActionState.GetAbilityState<LootAbility.State>(1).LootedCoinCount > 0;
+			}
 		)),
 	];
 }
