@@ -20,6 +20,9 @@ public class SavedCampaign
 	[JsonProperty]
 	public SavedScenario SavedScenario { get; set; }
 
+	[JsonProperty]
+	public List<PartyAchievement> CollectedPartyAchievements { get; } = [];
+
 	public event Action CharactersChangedEvent;
 
 	public static SavedCampaign New(string partyName)
