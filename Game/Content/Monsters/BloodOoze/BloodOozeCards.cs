@@ -41,6 +41,9 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 				int level = state.Performer is Monster performingMonster
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
+				
+				int health = Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2);
+
 				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2));
 
 				await GDTask.CompletedTask;
@@ -49,7 +52,7 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 			{
 				await GDTask.CompletedTask;
 
-				return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
+				return state.Performer.Health > 2 && state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
 			})
 			.WithGetValidHexes((state, hexes) =>
 			{
