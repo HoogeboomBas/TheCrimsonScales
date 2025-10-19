@@ -14,7 +14,7 @@ public partial class TreasureItemRewardView : Control
 		this.TweenModulateAlpha(0f, 0f).Play(true);
 	}
 
-	public void Open(Character lootingCharacter, ItemModel itemModel)
+	public void Open(ItemModel itemModel)
 	{
 		_itemView.SetItem(itemModel);
 

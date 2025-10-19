@@ -22,7 +22,7 @@ public class Scenario009 : ScenarioModel
 
 		UpdateScenarioText("The doors are locked.\nSomething will happen once all enemies in this room are killed.");
 
-		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(OnTreasureLooted, null);
+		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(OnTreasureLooted);
 
 		foreach(Marker marker in GameController.Instance.Map.Markers)
 		{

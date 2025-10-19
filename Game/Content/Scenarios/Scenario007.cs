@@ -170,16 +170,9 @@ public class Scenario007 : ScenarioModel
 					{
 						ItemModel itemModel = AbilityCmd.GetRandomAvailableOrb();
 
-						ItemModel item = itemModel.ToMutable();
-						item.Init(character);
-						character.AddItem(item);
+						await AbilityCmd.GiveItem(character, itemModel, true);
 
-						await PromptManager.Prompt(new TreasureItemRewardPrompt(character, itemModel, null), character);
-
-						SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-						savedItem.AddUnlocked(1);
-
-						character.SavedCharacter.AddItem(itemModel);
+						GameController.Instance.SavedCampaign.CollectedPartyAchievements.Add(PartyAchievement.FollowTheMoney);
 					}
 
 					await ((CustomScenarioGoals)ScenarioGoals).Win();
