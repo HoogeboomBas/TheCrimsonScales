@@ -20,6 +20,7 @@ public class BeaconOfHope : HierophantLevelUpCardModel<BeaconOfHope.CardTop, Bea
 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
+				.WithRangeType(RangeType.Range)
 				.WithCustomGetTargets((state, list) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);

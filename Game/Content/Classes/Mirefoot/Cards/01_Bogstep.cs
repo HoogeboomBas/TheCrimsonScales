@@ -15,8 +15,8 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
 				.WithConditions(Conditions.Immobilize)
-				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
+				.WithDuringAttackSubscription(
+					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.AbilityState.Performer.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async parameters =>
 						{
