@@ -50,19 +50,19 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 			})
 			.WithConditionalAbilityCheck(async state => 
 			{
-				await GDTask.CompletedTask;
-
-				return state.Performer.Health > 2 && state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
+				return state.Performer.Health > 2 && await AbilityCmd.HasPerformedAbility(state, 0);
 			})
 			.WithGetValidHexes((state, hexes) =>
 			{
-				RangeHelper.FindHexesInRange(state.ActionState.GetAbilityState<AttackAbility.State>(0).Target.Hex, 1, true, hexes);
+				AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+				foreach(Figure target in attackAbilityState.UniqueTargetedFigures)
+				{
+					RangeHelper.FindHexesInRange(target.Hex, 1, true, hexes);
+				}
 
 				for(int i = hexes.Count - 1; i >= 0; i--)
 				{
-					Hex hex = hexes[i];
-
-					if(!hex.IsEmpty())
+					if(!hexes[i].IsEmpty())
 					{
 						hexes.RemoveAt(i);
 					}
