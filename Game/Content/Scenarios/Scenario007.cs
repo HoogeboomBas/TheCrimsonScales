@@ -170,7 +170,7 @@ public class Scenario007 : ScenarioModel
 					{
 						ItemModel itemModel = AbilityCmd.GetRandomAvailableOrb();
 
-						await AbilityCmd.GiveItem(character, itemModel, true);
+						await AbilityCmd.GiveItem(character, itemModel);
 
 						GameController.Instance.SavedCampaign.CollectedPartyAchievements.Add(PartyAchievement.FollowTheMoney);
 					}

@@ -34,7 +34,7 @@ public partial class Treasure : LootableObject
 		SetObtainLootFunction(
 			async character =>
 			{
-				await AbilityCmd.GiveItem(character, itemModel, true);
+				await AbilityCmd.GiveItem(character, itemModel);
 			}
 		);
 	}

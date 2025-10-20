@@ -703,7 +703,7 @@ public static class AbilityCmd
 		return section;
 	}
 
-	public static async GDTask GiveItem(Character character, ItemModel itemModel, bool staysAfterScenario = false)
+	public static async GDTask GiveItem(Character character, ItemModel itemModel, bool staysOnlyIfCompleted = false)
 	{
 		ItemModel item = itemModel.ToMutable();
 		item.Init(character);
@@ -711,17 +711,20 @@ public static class AbilityCmd
 
 		await PromptManager.Prompt(new TreasureItemRewardPrompt(character, itemModel, null), character);
 
-		if(staysAfterScenario)
-        {
-            void OnScenarioEnd(bool backToTown, bool won, SavedScenarioProgress savedScenarioProgress)
-            {
-            	SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-				savedItem.AddUnlocked(1);
-				character.SavedCharacter.AddItem(itemModel);
-            }
+		void OnScenarioEnd(bool backToTown, bool won, SavedScenarioProgress savedScenarioProgress)
+		{
+			if(staysOnlyIfCompleted && !won)
+			{
+				return;
+			}
 
-			GameController.Instance.EndEvent += OnScenarioEnd;
-        }
+			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
+			savedItem.AddUnlocked(1);
+			character.SavedCharacter.AddItem(itemModel);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+
 	}
 
 	public static ItemModel GetRandomAvailableOrb()
