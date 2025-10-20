@@ -121,10 +121,11 @@ public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(1)
-			.WithTarget(Target.Allies)
+			.WithTarget(Target.Allies | Target.TargetAll)
 			.WithCustomGetTargets((state, figures) =>
 			{
-				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 1, false));
+				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 1, false)
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze));
 			})
 			.Build()),
 	];

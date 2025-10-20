@@ -44,7 +44,7 @@ public class FlamingDrakeAbilityCard0 : FlamingDrakeAbilityCard
 public class FlamingDrakeAbilityCard1 : FlamingDrakeAbilityCard
 {
 	public override int Initiative => 62;
-	public override int CardIndex => 0;
+	public override int CardIndex => 1;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
