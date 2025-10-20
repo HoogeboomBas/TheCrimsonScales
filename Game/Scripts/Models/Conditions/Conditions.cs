@@ -28,4 +28,6 @@
 	public static Ward Ward { get; } = ModelDB.Condition<Ward>();
 
 	public static Safeguard Safeguard { get; } = ModelDB.Condition<Safeguard>();
+
+	public static Infect Infect { get; } = ModelDB.Condition<Infect>();
 }
