@@ -3,7 +3,7 @@ using Fractural.Tasks;
 
 public abstract class ToxicImpAbilityCard : MonsterAbilityCardModel
 {
-	public override string CardsAtlasPath => "res://Content/Monsters/Imp/Cards.jpg";
+	public override string CardsAtlasPath => "res://Content/Monsters/ToxicImp/Cards.png";
 
 	public static IEnumerable<MonsterAbilityCardModel> Deck { get; } =
 	[
