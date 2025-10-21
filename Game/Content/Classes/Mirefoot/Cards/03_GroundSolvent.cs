@@ -33,9 +33,8 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 					if(conditionAbilityState.Performed)
 					{
 						List<Hex> hexes = new List<Hex>();
-						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
+						foreach(Hex hex in conditionAbilityState.TargetedHexes)
 						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
 							if(hex != null && hex.IsFeatureless())
 							{
 								hexes.Add(hex);
@@ -71,9 +70,8 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 
 					if(conditionAbilityState.Performed)
 					{
-						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
+						foreach(Hex hex in conditionAbilityState.TargetedHexes)
 						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
 							if(hex != null)
 							{
 								foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())

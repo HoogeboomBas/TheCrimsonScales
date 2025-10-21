@@ -574,7 +574,7 @@ public class Scenario007 : ScenarioModel
 				Hex firstHex = null;
 				foreach(Hex hex in hexes)
 				{
-					if(hex.IsUnoccupied())
+					if(hex.IsEmpty())
 					{
 						firstHex = hex;
 						break;
@@ -591,7 +591,7 @@ public class Scenario007 : ScenarioModel
 				foreach(Hex otherHex in hexes)
 				{
 					int otherDistance = RangeHelper.Distance(character.Hex, otherHex);
-					if(otherHex.IsUnoccupied() && otherDistance == distance)
+					if(otherHex.IsEmpty() && otherDistance == distance)
 					{
 						list.Add(otherHex);
 					}
