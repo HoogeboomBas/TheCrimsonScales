@@ -1,4 +1,4 @@
-﻿public static class Conditions
+public static class Conditions
 {
 	public static Poison1 Poison1 { get; } = ModelDB.Condition<Poison1>();
 	public static Poison2 Poison2 { get; } = ModelDB.Condition<Poison2>();
@@ -15,6 +15,8 @@
 	public static Disarm Disarm { get; } = ModelDB.Condition<Disarm>();
 
 	public static Immobilize Immobilize { get; } = ModelDB.Condition<Immobilize>();
+	
+	public static Chill Chill { get; } = ModelDB.Condition<Chill>();
 
 	public static Regenerate Regenerate { get; } = ModelDB.Condition<Regenerate>();
 
@@ -26,6 +28,8 @@
 	public static Curse Curse { get; } = ModelDB.Condition<Curse>();
 
 	public static Ward Ward { get; } = ModelDB.Condition<Ward>();
+	
+	public static Infect Infect { get; } = ModelDB.Condition<Infect>();
 
 	public static Safeguard Safeguard { get; } = ModelDB.Condition<Safeguard>();
 }
