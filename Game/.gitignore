@@ -4,3 +4,4 @@ android/
 Build/
 Game.sln.DotSettings.user
 .import/
+*.import
