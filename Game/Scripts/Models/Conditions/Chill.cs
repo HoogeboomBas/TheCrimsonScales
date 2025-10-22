@@ -10,7 +10,7 @@ public class Chill : ConditionModel
 	public override bool RemovedAtEndOfTurn => true;
 	public override ConditionModel[] ImmunityCompareBaseCondition => [Conditions.Immobilize, Conditions.Muddle];
 
-	int _chillStacks = 1;
+	int _chillStacks = 0;
 
 	public override async GDTask Add(Figure target, ConditionNode node)
 	{
