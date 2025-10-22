@@ -11,7 +11,7 @@ public class Shackle : ConditionModel
 	public override bool IsPositive => false;
 	public override bool IsNegative => false;
 	public override bool ShowOnFigure => false;
-	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Immobilize;
+	public override ConditionModel[] ImmunityCompareBaseCondition => [Conditions.Immobilize];
 
 	public Figure Shackler { get; private set; }
 
@@ -33,7 +33,7 @@ public class Shackle : ConditionModel
 		// Stop movement if became adjacent to the Shackler
 		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(target, this,
 			parameters => parameters.Performer == Owner &&
-			              RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
+						  RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
 			async parameters =>
 			{
 				_indicator.Flash();
@@ -46,7 +46,7 @@ public class Shackle : ConditionModel
 		// Don't allow new movement when adjacent to the Shackler
 		ScenarioEvents.AbilityStartedEvent.Subscribe(target, this,
 			parameters => parameters.Performer == Owner && parameters.AbilityState is MoveAbility.State &&
-			              RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
+						  RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 1).Any(figure => figure == Shackler),
 			parameters =>
 			{
 				_indicator.Flash();

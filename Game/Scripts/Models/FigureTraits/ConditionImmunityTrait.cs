@@ -25,7 +25,21 @@ public class ConditionImmunityTrait : FigureTrait
 		base.Activate(figure);
 
 		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this,
-			parameters => parameters.Target == figure && parameters.Condition.ImmunityCompareBaseCondition == _conditionModel.ImmunityCompareBaseCondition,
+			parameters =>
+			{
+				foreach(ConditionModel condition1 in parameters.Condition.ImmunityCompareBaseCondition)
+				{
+					foreach(ConditionModel condition2 in _conditionModel.ImmunityCompareBaseCondition)
+					{
+						if(parameters.Target == figure && condition1 == condition2)
+						{
+							return true;
+
+						}
+					}
+				}
+				return false;
+			},
 			async parameters =>
 			{
 				parameters.SetPrevented(true);

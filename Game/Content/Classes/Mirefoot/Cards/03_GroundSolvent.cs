@@ -86,6 +86,8 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
+
+		protected override int XP => 2;
 	}
 
 	public class CardBottom : MirefootCardSide

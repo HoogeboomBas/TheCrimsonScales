@@ -5,7 +5,7 @@ public abstract class WoundBase : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Wound.svg";
 	public override bool RemovedByHeal => true;
 	public override bool CanBeUpgraded => true;
-	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Wound1;
+	public override ConditionModel[] ImmunityCompareBaseCondition => [Conditions.Wound1];
 
 	protected abstract int WoundValue { get; }
 
