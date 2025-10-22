@@ -32,6 +32,8 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 			AddCheckmarkOption(options.VibrationsEnabled, "Vibrations");
 		}
 
+		AddCheckmarkOption(options.AnimatedCharacters, "Animated Characters");
+
 		AddOption(new DifficultySliderOptionView.Parameters(options.Difficulty, "Difficulty"));
 	}
 

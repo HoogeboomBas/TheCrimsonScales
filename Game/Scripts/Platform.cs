@@ -8,7 +8,8 @@ public static class Platform
 		Windows,
 		Android,
 		iOS,
-		macOS
+		macOS,
+		Linux,
 	}
 
 	private static Type? _platformType;
@@ -33,6 +34,9 @@ public static class Platform
 					case "macOS":
 						_platformType = Type.macOS;
 						break;
+					case "Linux":
+						_platformType = Type.Linux;
+						break;
 					default:
 						throw new Exception("Unknown platform type");
 				}
@@ -42,5 +46,5 @@ public static class Platform
 		}
 	}
 
-	public static bool DeskTop => PlatformType is Type.Windows or Type.macOS;
+	public static bool DeskTop => PlatformType is Type.Windows or Type.macOS or Type.Linux;
 }

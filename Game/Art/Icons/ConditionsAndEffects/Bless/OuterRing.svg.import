@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://iqt2mmxqi06o"
-path="res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.ctex"
+path.s3tc="res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.s3tc.ctex"
+path.etc2="res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/ConditionsAndEffects/Bless/OuterRing.svg"
-dest_files=["res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.ctex"]
+dest_files=["res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.s3tc.ctex", "res://.godot/imported/OuterRing.svg-dc9ea2014eebdbe74d05d6f91374d9cb.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

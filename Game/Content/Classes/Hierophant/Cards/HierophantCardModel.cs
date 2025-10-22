@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
+public abstract class HierophantLevelUpCardModel<TTop, TBottom> : AtlasAbilityCardModel<TTop, TBottom>
+	where TTop : HierophantCardSide, new()
+	where TBottom : HierophantCardSide, new()
+{
+	protected override string TexturePath => "res://Content/Classes/Hierophant/LevelUpCards.jpg";
+	protected override int ColumnCount => 5;
+	protected override int RowCount => 4;
+}
+
 public abstract class HierophantCardModel<TTop, TBottom> : AtlasAbilityCardModel<TTop, TBottom>
 	where TTop : HierophantCardSide, new()
 	where TBottom : HierophantCardSide, new()
 {
 	protected override string TexturePath => "res://Content/Classes/Hierophant/Cards.jpg";
-	protected override int ColumnCount => 8;
+	protected override int ColumnCount => 4;
 	protected override int RowCount => 4;
 }
 

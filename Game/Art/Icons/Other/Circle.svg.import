@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ik22o4ue7m2t"
-path="res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.ctex"
+path.s3tc="res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.s3tc.ctex"
+path.etc2="res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Other/Circle.svg"
-dest_files=["res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.ctex"]
+dest_files=["res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.s3tc.ctex", "res://.godot/imported/Circle.svg-85f6619850952bd5454286e1574f87cf.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

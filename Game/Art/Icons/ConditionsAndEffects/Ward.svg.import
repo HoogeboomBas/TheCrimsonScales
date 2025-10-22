@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmcge4c5btq1m"
-path="res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.ctex"
+path.s3tc="res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.s3tc.ctex"
+path.etc2="res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/ConditionsAndEffects/Ward.svg"
-dest_files=["res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.ctex"]
+dest_files=["res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.s3tc.ctex", "res://.godot/imported/Ward.svg-7c96e89f5301130c7868dbec271c5def.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,0 +1,387 @@
+[gd_scene load_steps=15 format=3 uid="uid://cxg3u8opcit3d"]
+
+[ext_resource type="Script" uid="uid://ur10y2c2d0qy" path="res://Scripts/NewCampaign/NewCampaignStartingGroup.cs" id="1_byxwj"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="1_e2t5o"]
+[ext_resource type="PackedScene" uid="uid://c1raw4u7yce4g" path="res://Scenes/NewCampaign/StartingGroupClass.tscn" id="2_ilx8c"]
+[ext_resource type="Texture2D" uid="uid://ukntvb1ygx0s" path="res://Content/Classes/Bombard/Icon.svg" id="3_c6sfd"]
+[ext_resource type="Texture2D" uid="uid://cjvut1gbp27rw" path="res://Content/Classes/FireKnight/Icon.svg" id="4_byxwj"]
+[ext_resource type="Texture2D" uid="uid://m8jmlvd740dq" path="res://Content/Classes/Hierophant/Icon.svg" id="5_e0waq"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="6_ilx8c"]
+[ext_resource type="PackedScene" uid="uid://c1lpk04wsc2xx" path="res://Scenes/NewCampaign/RatingCircle.tscn" id="7_c6sfd"]
+
+[sub_resource type="Gradient" id="Gradient_2p2e3"]
+colors = PackedColorArray(0.752582, 0.752582, 0.752582, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p1m44"]
+gradient = SubResource("Gradient_2p2e3")
+fill = 1
+fill_from = Vector2(0.527066, 0.555556)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_fkfa5"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3npii"]
+gradient = SubResource("Gradient_fkfa5")
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6sfd"]
+font = ExtResource("6_ilx8c")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_byxwj"]
+font = ExtResource("6_ilx8c")
+font_size = 25
+
+[node name="StartingGroup" type="BaseButton" node_paths=PackedStringArray("_button")]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(248, 542)
+layout_direction = 0
+layout_mode = 3
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 248.0
+offset_bottom = 516.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("1_byxwj")
+_button = NodePath(".")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 248.0
+offset_bottom = 516.0
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Box" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="VBoxContainer/Box"]
+self_modulate = Color(0.376659, 0.376658, 0.376658, 0.341176)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_p1m44")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Box/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+self_modulate = Color(0.984616, 0.549261, 0.513281, 1)
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_3npii")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.5
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Militants"
+label_settings = ExtResource("1_e2t5o")
+horizontal_alignment = 1
+
+[node name="Divider" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+self_modulate = Color(0.454589, 0.0747298, 0.0835239, 1)
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_3npii")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Classes" type="GridContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="StartingGroupClass" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+layout_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass" index="0"]
+self_modulate = Color(0.572549, 0.521569, 0.443137, 1)
+texture = ExtResource("3_c6sfd")
+
+[node name="StartingGroupClass2" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+layout_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass2" index="0"]
+self_modulate = Color(0.772549, 0.113725, 0.129412, 1)
+texture = ExtResource("4_byxwj")
+
+[node name="StartingGroupClass3" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+layout_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass3" index="0"]
+self_modulate = Color(0.745098, 0.752941, 0.356863, 1)
+texture = ExtResource("5_e0waq")
+
+[node name="StartingGroupClass4" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+layout_mode = 2
+
+[node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass4" index="0"]
+self_modulate = Color(0.913725, 0.411765, 0.0705882, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Divider" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer"]
+modulate = Color(0.949121, 0.31306, 0.297705, 1)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Horizontal" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_3npii")
+expand_mode = 1
+
+[node name="Vertical" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(120, 2)
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_3npii")
+expand_mode = 1
+
+[node name="Border" type="Control" parent="VBoxContainer/Box"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Top" type="ColorRect" parent="VBoxContainer/Box/Border"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Left" type="ColorRect" parent="VBoxContainer/Box/Border"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Right" type="ColorRect" parent="VBoxContainer/Box/Border"]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Bottom" type="ColorRect" parent="VBoxContainer/Box/Border"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Details" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="ComplexityRating" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating"]
+layout_mode = 2
+text = "Average Complexity:"
+label_settings = SubResource("LabelSettings_c6sfd")
+horizontal_alignment = 1
+
+[node name="Rating" type="HBoxContainer" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="RatingCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+layout_mode = 2
+
+[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle" index="2"]
+visible = true
+
+[node name="RatingCircle2" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+layout_mode = 2
+
+[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2" index="2"]
+visible = true
+
+[node name="RatingCircle3" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+layout_mode = 2
+
+[node name="RatingCircle4" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+layout_mode = 2
+
+[node name="RatingCircle5" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+layout_mode = 2
+
+[node name="Summary" type="MarginContainer" parent="VBoxContainer/Details/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer/Summary"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Header" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer"]
+layout_mode = 2
+text = "Group Summary:"
+label_settings = SubResource("LabelSettings_c6sfd")
+horizontal_alignment = 1
+
+[node name="Text" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer"]
+layout_mode = 2
+text = "Delayed Damage, Protection, Support, Healing, Debuffing, and Terrain Creation."
+label_settings = SubResource("LabelSettings_byxwj")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[editable path="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass"]
+[editable path="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass2"]
+[editable path="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass3"]
+[editable path="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass4"]
+[editable path="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle"]
+[editable path="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2"]
+[editable path="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle3"]
+[editable path="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle4"]
+[editable path="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle5"]

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://os57rda8mo2u"
-path="res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.ctex"
+path.s3tc="res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.s3tc.ctex"
+path.etc2="res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Hierophant/MatFront.png"
-dest_files=["res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.ctex"]
+dest_files=["res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.s3tc.ctex", "res://.godot/imported/MatFront.png-5ff7e4475db8ee9d92c1769f43a262a5.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

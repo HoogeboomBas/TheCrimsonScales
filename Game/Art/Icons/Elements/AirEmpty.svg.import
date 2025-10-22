@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cw1eg163nqbbj"
-path="res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.ctex"
+path.s3tc="res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.s3tc.ctex"
+path.etc2="res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Elements/AirEmpty.svg"
-dest_files=["res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.ctex"]
+dest_files=["res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.s3tc.ctex", "res://.godot/imported/AirEmpty.svg-93d1f3ff8e27c9cda2d00b7b5413e238.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cbtuwtadxyfut"]
+[gd_scene load_steps=29 format=3 uid="uid://cbtuwtadxyfut"]
 
 [ext_resource type="Script" uid="uid://x4kpb6u0l25u" path="res://Scripts/AppController.cs" id="1_6s6iu"]
 [ext_resource type="Script" uid="uid://bn4208bsiittm" path="res://Scripts/InputController.cs" id="2_2vstq"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://c1mtipnwlpxx3" path="res://Scripts/UI/CardSelectionCardPreview.cs" id="20_6qf3b"]
 [ext_resource type="Script" uid="uid://cl05mha8gf05x" path="res://Scripts/UI/ItemPreview.cs" id="22_x7plq"]
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="23_p2uns"]
+[ext_resource type="Script" uid="uid://bgob383cre1d1" path="res://Scripts/ScreenshotHelper.cs" id="28_p2uns"]
 
 [node name="AppController" type="Node" node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview")]
 script = ExtResource("1_6s6iu")
@@ -207,3 +208,6 @@ bus = &"BGM"
 
 [node name="BGSStreamPlayer" type="AudioStreamPlayer" parent="AudioController"]
 bus = &"BGS"
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("28_p2uns")

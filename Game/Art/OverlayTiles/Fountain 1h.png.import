@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://co1h1ud4hvi6b"
-path="res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.ctex"
+path.s3tc="res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.s3tc.ctex"
+path.etc2="res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Fountain 1h.png"
-dest_files=["res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.ctex"]
+dest_files=["res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.s3tc.ctex", "res://.godot/imported/Fountain 1h.png-0351c5aa4c48638dcf1ad27f589406df.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

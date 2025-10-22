@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6uxeh7a8hk2p"
-path="res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.ctex"
+path.s3tc="res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.s3tc.ctex"
+path.etc2="res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Sarcophagus 2h.png"
-dest_files=["res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.ctex"]
+dest_files=["res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.s3tc.ctex", "res://.godot/imported/Sarcophagus 2h.png-0bd3a3b1688bbd403b0d81a04a07665c.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

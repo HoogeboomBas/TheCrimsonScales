@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4468ioa4vps5"
-path="res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.ctex"
+path.s3tc="res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.s3tc.ctex"
+path.etc2="res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Other/LineSegment.svg"
-dest_files=["res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.ctex"]
+dest_files=["res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.s3tc.ctex", "res://.godot/imported/LineSegment.svg-c969cb973f91c28e77438554b39ea558.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

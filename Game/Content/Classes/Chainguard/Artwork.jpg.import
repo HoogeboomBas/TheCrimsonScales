@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6mix1lnvb5jj"
-path="res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.ctex"
+path.s3tc="res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.s3tc.ctex"
+path.etc2="res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Chainguard/Artwork.jpg"
-dest_files=["res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.ctex"]
+dest_files=["res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.s3tc.ctex", "res://.godot/imported/Artwork.jpg-54c9edbec80ac5550241f2b574b688ec.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

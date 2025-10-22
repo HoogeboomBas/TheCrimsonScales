@@ -54,6 +54,9 @@ public partial class ItemShop : BetweenScenariosAction
 	[Export]
 	private Control _backPageCoverInside;
 
+	[Export]
+	private Node3D _3dRoot;
+
 	private int _leftPageIndex;
 
 	private ItemShopPage _leftPage;
@@ -95,6 +98,8 @@ public partial class ItemShop : BetweenScenariosAction
 
 	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder)
 	{
+		_3dRoot.SetVisible(true);
+
 		_leftPage?.QueueFree();
 		_leftPage = null;
 		_rightPage?.QueueFree();
@@ -180,6 +185,13 @@ public partial class ItemShop : BetweenScenariosAction
 			.AppendTime(0.5f)
 			.Append(_bookContainer.TweenPosition(new Vector2(-100, -2000), 0.6f))
 			.Join(_bookContainer.TweenRotationDegrees(40f, 0.6f));
+	}
+
+	protected override void AfterAnimateOut()
+	{
+		base.AfterAnimateOut();
+
+		_3dRoot.SetVisible(true);
 	}
 
 	private ItemShopPage CreatePage(int pageIndex)

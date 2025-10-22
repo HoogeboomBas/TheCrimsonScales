@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5insf5u61cwx"
-path="res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.ctex"
+path.s3tc="res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.s3tc.ctex"
+path.etc2="res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Abilities/Range.svg"
-dest_files=["res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.ctex"]
+dest_files=["res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.s3tc.ctex", "res://.godot/imported/Range.svg-e0508c92c472b571aaba1c5e4b059b7b.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

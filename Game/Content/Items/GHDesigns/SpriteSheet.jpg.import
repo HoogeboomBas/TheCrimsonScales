@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnaeq3w6clhne"
-path="res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.ctex"
+path.s3tc="res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.s3tc.ctex"
+path.etc2="res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Items/GHDesigns/SpriteSheet.jpg"
-dest_files=["res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.ctex"]
+dest_files=["res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.s3tc.ctex", "res://.godot/imported/SpriteSheet.jpg-61a967c7a2a10ab14a6519555155c2a0.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

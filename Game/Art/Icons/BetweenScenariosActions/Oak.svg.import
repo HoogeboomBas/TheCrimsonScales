@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0kjhh1qav1gd"
-path="res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.ctex"
+path.s3tc="res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.s3tc.ctex"
+path.etc2="res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/BetweenScenariosActions/Oak.svg"
-dest_files=["res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.ctex"]
+dest_files=["res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.s3tc.ctex", "res://.godot/imported/Oak.svg-acfd2e463fd8369d8983656880e26bae.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

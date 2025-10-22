@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c81yrpljk10uc"
-path="res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.ctex"
+path.s3tc="res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.s3tc.ctex"
+path.etc2="res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Artificer/Artwork.jpg"
-dest_files=["res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.ctex"]
+dest_files=["res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.s3tc.ctex", "res://.godot/imported/Artwork.jpg-e310c11cd71234e5f3b05d057a0dd84d.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

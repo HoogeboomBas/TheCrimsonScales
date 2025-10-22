@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brid6ltk6r0im"
-path="res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.ctex"
+path.s3tc="res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.s3tc.ctex"
+path.etc2="res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Ruinmaw/Artwork.jpg"
-dest_files=["res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.ctex"]
+dest_files=["res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.s3tc.ctex", "res://.godot/imported/Artwork.jpg-7dbe843d894a65c114f0854f8757d5fb.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

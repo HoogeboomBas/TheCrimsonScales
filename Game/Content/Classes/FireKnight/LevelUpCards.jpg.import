@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnpvxoami5cuc"
-path="res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.ctex"
+path.s3tc="res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.s3tc.ctex"
+path.etc2="res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/FireKnight/LevelUpCards.jpg"
-dest_files=["res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.ctex"]
+dest_files=["res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.s3tc.ctex", "res://.godot/imported/LevelUpCards.jpg-18f9fe5246b0d590c4b339bce1cbccb1.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

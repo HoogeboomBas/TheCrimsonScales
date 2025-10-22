@@ -54,7 +54,7 @@ public class PromptManager
 			{
 				if(_promptIndex < GameController.Instance.SavedScenario.PromptAnswers.Count)
 				{
-					GameController.SetFastForward(true);
+					//GameController.SetFastForward(true);
 
 					// Answer has already been decided
 					answer = (TAnswer)GameController.Instance.SavedScenario.PromptAnswers[_promptIndex];

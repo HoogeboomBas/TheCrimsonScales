@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1raw4u7yce4g"]
+
+[ext_resource type="Texture2D" uid="uid://cpf6pyn4qhdn3" path="res://Content/Classes/Mirefoot/Icon.svg" id="1_5c8ex"]
+
+[node name="StartingGroupClass" type="MarginContainer"]
+custom_minimum_size = Vector2(120, 120)
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_5c8ex")
+expand_mode = 1

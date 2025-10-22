@@ -8,7 +8,7 @@ public class Scenario010 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<WondrousScenarioChain>();
 	//public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario017>()];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals("Destroyed at least 5 supply crates to win this scenario.");
+	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals("Destroy at least 5 supply crates to win this scenario.");
 
 	public override string BGSPath => null;
 

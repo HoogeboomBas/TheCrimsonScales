@@ -75,7 +75,7 @@ public partial class Marker : Node2D
 	public T GetHexObject<T>()
 		where T : HexObject
 	{
-		return GetParent<T>();
+		return GetParent() as T;
 	}
 
 	private void MarkDirty()

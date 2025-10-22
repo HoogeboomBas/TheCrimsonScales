@@ -35,11 +35,10 @@ public partial class AudioController : Node
 
 	public void Play(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f)
 	{
-		AudioStream audioStream = ResourceLoader.Load<AudioStream>(path);
+		AudioStream audioStream = LoadAudioStream(path);
 
 		if(audioStream == null)
 		{
-			Log.Error($"Audio stream path is incorrect: {path}");
 			return;
 		}
 
@@ -72,10 +71,17 @@ public partial class AudioController : Node
 
 		_bgmPath = path;
 
-		AudioStream audioStream = ResourceLoader.Load<AudioStream>(_bgmPath);
+		AudioStream audioStream = LoadAudioStream(_bgmPath);
 		_bgmPlayer.SetStream(audioStream);
-		_bgmPlayer.SetVolumeDb(volumeDb);
-		_bgmPlayer.Play();
+		if(audioStream == null)
+		{
+			_bgmPlayer.Stop();
+		}
+		else
+		{
+			_bgmPlayer.SetVolumeDb(volumeDb);
+			_bgmPlayer.Play();
+		}
 	}
 
 	public void SetBGS(string path)
@@ -87,7 +93,7 @@ public partial class AudioController : Node
 
 		_bgsPath = path;
 
-		AudioStream audioStream = _bgsPath == null ? null : ResourceLoader.Load<AudioStream>(_bgsPath);
+		AudioStream audioStream = LoadAudioStream(_bgsPath);
 		_bgsPlayer.SetStream(audioStream);
 		if(audioStream == null)
 		{
@@ -97,6 +103,23 @@ public partial class AudioController : Node
 		{
 			_bgsPlayer.Play();
 		}
+	}
+
+	private AudioStream LoadAudioStream(string path)
+	{
+		if(path == null)
+		{
+			return null;
+		}
+
+		AudioStream audioStream = ResourceLoader.Exists(path) ? ResourceLoader.Load<AudioStream>(path) : null;
+
+		if(audioStream == null)
+		{
+			Log.Warning($"Audio stream path is incorrect: {path}");
+		}
+
+		return audioStream;
 	}
 
 	private void OnSFXVolumeChanged(int volume)

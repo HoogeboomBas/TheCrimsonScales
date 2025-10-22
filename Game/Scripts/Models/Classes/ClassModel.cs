@@ -23,4 +23,5 @@ public abstract class ClassModel : AbstractModel<ClassModel>
 	public virtual Texture2D MatFrontTexture => ResourceLoader.Load<Texture2D>($"{AssetPath}/MatFront.png");
 	public virtual string IconPath => $"{AssetPath}/Icon.svg";
 	public virtual Texture2D IconTexture => ResourceLoader.Load<Texture2D>(IconPath);
+	public virtual bool HasAnimatedSprite => true;
 }

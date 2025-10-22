@@ -63,7 +63,7 @@ public class Scenario002 : ScenarioModel
 
 		UpdateScenarioText(
 			$"The door is locked. When a character ends their turn on the pressure plate marked {Icons.Marker(Marker.Type.a)}, " +
-			$"all enemies occupying the I2A map tile gain {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))} and permanently unlock the door.");
+			$"all enemies occupying the I2A map tile gain {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))} and the door is permanently unlocked.");
 	}
 
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters parameters)
@@ -122,7 +122,7 @@ public class Scenario002 : ScenarioModel
 
 			UpdateScenarioText(
 				$"The pressure plate marked {Icons.Marker(Marker.Type.c)} activates the Electric Current. " +
-				"When a character ends their turn on this pressure plate, all figures occupying a water hex in the E1B tile immediately reduce their current hit points to 1.");
+				"When a character ends their turn on this pressure plate, all figures occupying a water hex in the E1B tile immediately have their current hit points reduced to 1.");
 		}
 	}
 }

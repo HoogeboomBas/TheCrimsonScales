@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmb4kpbmfm5mb"
-path="res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.ctex"
+path.s3tc="res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.s3tc.ctex"
+path.etc2="res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/ScenarioFlowchart/LinkedScenariosIcon.svg"
-dest_files=["res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.ctex"]
+dest_files=["res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.s3tc.ctex", "res://.godot/imported/LinkedScenariosIcon.svg-7325ea19aa20c7be9382aab474c80b5a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

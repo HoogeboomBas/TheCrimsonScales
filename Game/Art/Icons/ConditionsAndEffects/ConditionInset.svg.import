@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcjtkb8a25bn"
-path="res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.ctex"
+path.s3tc="res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.s3tc.ctex"
+path.etc2="res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/ConditionsAndEffects/ConditionInset.svg"
-dest_files=["res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.ctex"]
+dest_files=["res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.s3tc.ctex", "res://.godot/imported/ConditionInset.svg-496302ddac14269f05eb6862e9be3b49.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xqvy28nqtwe4"
-path="res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.ctex"
+path.s3tc="res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.s3tc.ctex"
+path.etc2="res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Other/OverlayTileHexagonOutline.svg"
-dest_files=["res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.ctex"]
+dest_files=["res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.s3tc.ctex", "res://.godot/imported/OverlayTileHexagonOutline.svg-f4ec74f2134f52b4f0d9c28402189e27.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

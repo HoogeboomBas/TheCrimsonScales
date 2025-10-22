@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 public partial class Character : Figure
 {
+	private Sprite2D _staticSprite;
+	private AnimatedSpriteSheet2D _animatedSprite;
+
 	private AMDCardDeck _amdCardDeck;
 
 	public SavedCharacter SavedCharacter { get; private set; }
@@ -44,6 +47,14 @@ public partial class Character : Figure
 	public event Action<Character, AbilityCard> CardAddedEvent;
 	public event Action<Character, AbilityCard> CardRemovedEvent;
 
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_staticSprite = GetNode<Sprite2D>("Mask/Sprite2D");
+		_animatedSprite = GetNode<AnimatedSpriteSheet2D>("Mask/AnimatedSpriteSheet2D");
+	}
+
 	public virtual void Spawn(SavedCharacter savedCharacter, int index)
 	{
 		SavedCharacter = savedCharacter;
@@ -68,6 +79,10 @@ public partial class Character : Figure
 		_figureViewComponent.ActivePS.Modulate = _figureViewComponent.Outline.SelfModulate;
 
 		GameController.Instance.Map.RegisterFigure(this);
+
+		AppController.Instance.Options.AnimatedCharacters.ValueChangedEvent += OnAnimatedCharactersChanged;
+
+		OnAnimatedCharactersChanged(AppController.Instance.Options.AnimatedCharacters.Value);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -97,6 +112,13 @@ public partial class Character : Figure
 			AbilityCard card = Cards[i];
 			await card.RemoveFromActive();
 		}
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+
+		AppController.Instance.Options.AnimatedCharacters.ValueChangedEvent -= OnAnimatedCharactersChanged;
 	}
 
 	public void OnRoundCardsChanged()
@@ -539,6 +561,12 @@ public partial class Character : Figure
 			effectInfoViewParameters: new TextEffectInfoView.Parameters("Lose two cards from your discard pile to negate the damage"));
 
 		await GDTask.CompletedTask;
+	}
+
+	private void OnAnimatedCharactersChanged(bool animatedCharacters)
+	{
+		_staticSprite.SetVisible(!ClassModel.HasAnimatedSprite || !animatedCharacters);
+		_animatedSprite.SetVisible(ClassModel.HasAnimatedSprite && animatedCharacters);
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)

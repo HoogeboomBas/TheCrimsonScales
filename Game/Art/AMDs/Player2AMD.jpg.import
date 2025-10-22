@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://craasl8iv8r2g"
-path="res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.ctex"
+path.s3tc="res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.s3tc.ctex"
+path.etc2="res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/AMDs/Player2AMD.jpg"
-dest_files=["res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.ctex"]
+dest_files=["res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.s3tc.ctex", "res://.godot/imported/Player2AMD.jpg-e70308c9ab5a8efb22371a987a9f7cc4.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

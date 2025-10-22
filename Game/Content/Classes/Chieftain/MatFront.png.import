@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cidgxt1ls6rvr"
-path="res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.ctex"
+path.s3tc="res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.s3tc.ctex"
+path.etc2="res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Chieftain/MatFront.png"
-dest_files=["res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.ctex"]
+dest_files=["res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.s3tc.ctex", "res://.godot/imported/MatFront.png-e9d8f13ed4e20ed9b7ca60cb58c4ff5d.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

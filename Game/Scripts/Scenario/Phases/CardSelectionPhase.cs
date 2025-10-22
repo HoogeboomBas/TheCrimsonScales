@@ -39,7 +39,7 @@ public class CardSelectionPhase : ScenarioPhase
 		if(GameController.Instance.ScenarioPhaseManager.RoundIndex < GameController.Instance.SavedCampaign.SavedScenario.CardSelectionStates.Count)
 		{
 			// Save data contains data for this card selection phase
-			GameController.SetFastForward(true);
+			//GameController.SetFastForward(true);
 
 			_cardSelectionState =
 				GameController.Instance.SavedCampaign.SavedScenario.CardSelectionStates[GameController.Instance.ScenarioPhaseManager.RoundIndex];

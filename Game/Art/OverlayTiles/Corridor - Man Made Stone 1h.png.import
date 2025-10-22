@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsej3xs8x027a"
-path="res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.ctex"
+path.s3tc="res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.s3tc.ctex"
+path.etc2="res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Corridor - Man Made Stone 1h.png"
-dest_files=["res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.ctex"]
+dest_files=["res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.s3tc.ctex", "res://.godot/imported/Corridor - Man Made Stone 1h.png-24e0f047abbc78d5f1f2c465b5afff2b.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

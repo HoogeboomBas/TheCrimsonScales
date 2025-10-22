@@ -6,7 +6,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 	public override string Name => "Faith Calling";
 	public override int Level => 1;
 	public override int Initiative => 13;
-	protected override int AtlasIndex => 29 - 0;
+	protected override int AtlasIndex => 13 - 0;
 
 	public class CardTop : HierophantCardSide
 	{

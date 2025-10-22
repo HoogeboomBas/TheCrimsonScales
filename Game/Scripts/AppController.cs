@@ -22,6 +22,8 @@ public partial class AppController : SingletonNode<AppController>
 
 	public SaveFile SaveFile { get; private set; }
 
+	public SavedOptions Options => SaveFile.SaveData.Options;
+
 	public override void _EnterTree()
 	{
 		SaveFile = new SaveFile("user://SaveFile.save");

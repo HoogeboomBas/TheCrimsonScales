@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvxentaxnsw52"
-path="res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.ctex"
+path.s3tc="res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.s3tc.ctex"
+path.etc2="res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/ItemShop/PaperTexture.jpg"
-dest_files=["res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.ctex"]
+dest_files=["res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.s3tc.ctex", "res://.godot/imported/PaperTexture.jpg-fc1164f47e5ff12cf62cafd09f69491d.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

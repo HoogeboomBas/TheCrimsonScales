@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvxmn1gae8f7d"
-path="res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.ctex"
+path.s3tc="res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.s3tc.ctex"
+path.etc2="res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Abilities/ShieldCustom.svg"
-dest_files=["res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.ctex"]
+dest_files=["res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.s3tc.ctex", "res://.godot/imported/ShieldCustom.svg-2b4fa9fe6727b53faf2b9dafcb987286.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

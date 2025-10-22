@@ -20,7 +20,7 @@ public class AttackersGainDisadvantageTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters("Attackers gain advantage on all their attacks targeting this figure."));
+				parameters.Add(new FigureInfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
 			}
 		);
 	}

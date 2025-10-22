@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvupsrpor0q1o"
-path="res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.ctex"
+path.s3tc="res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.s3tc.ctex"
+path.etc2="res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Elements/Air.svg"
-dest_files=["res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.ctex"]
+dest_files=["res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.s3tc.ctex", "res://.godot/imported/Air.svg-b3a8731fc6a9adcae0f400e134d83ecf.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dvuofg15kuckt"]
+[gd_scene load_steps=72 format=3 uid="uid://dvuofg15kuckt"]
 
 [ext_resource type="PackedScene" uid="uid://cmjlk65mr5s6w" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButton.tscn" id="1_5l4i3"]
 [ext_resource type="Script" uid="uid://b7sa3xe4kseh8" path="res://Scripts/BetweenScenarios/BetweenScenariosController.cs" id="1_rtyjh"]
@@ -8,18 +8,24 @@
 [ext_resource type="Script" uid="uid://caiomvdhl54wg" path="res://Scripts/BetweenScenarios/BetweenScenariosActionManager.cs" id="6_nmjfa"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="7_blgb5"]
 [ext_resource type="PackedScene" uid="uid://bb10ctp48iifh" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButtonOutline.tscn" id="8_gcm5d"]
-[ext_resource type="Texture2D" uid="uid://cpkeepf7piqqa" path="res://Art/Other/ParchmentPaper.png" id="8_ywvcx"]
+[ext_resource type="Texture2D" uid="uid://cpkeepf7piqqa" path="res://Art/ScenarioFlowchart/ParchmentPaper.png" id="8_ywvcx"]
 [ext_resource type="Shader" uid="uid://wgkvda4bun1e" path="res://Shaders/Outline.gdshader" id="9_fpmem"]
 [ext_resource type="Script" uid="uid://dx2d6ou7y0pb6" path="res://Scripts/BetweenScenarios/ItemShop/ItemShop.cs" id="12_4wnl8"]
 [ext_resource type="PackedScene" uid="uid://c5l6nyceg64dd" path="res://Art/ItemShop/PageAnimation.tscn" id="12_41e7t"]
 [ext_resource type="Shader" uid="uid://dsuuwudbr00f0" path="res://Shaders/Scroll.gdshader" id="12_ywvcx"]
 [ext_resource type="PackedScene" uid="uid://dwe2ry8s1wyke" path="res://Scenes/BetweenScenarios/ItemShop/ItemShopPage.tscn" id="15_807yg"]
 [ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="16_r0lwg"]
+[ext_resource type="Script" uid="uid://bfq2vghon5v53" path="res://Scripts/BetweenScenarios/Enhancer/Enhancer.cs" id="17_1n38g"]
 [ext_resource type="PackedScene" uid="uid://xx5h6b6pu3ko" path="res://Scenes/BetweenScenarios/BetweenScenariosActionButton.tscn" id="17_3hv00"]
+[ext_resource type="PackedScene" uid="uid://b3ggvb5s1of6w" path="res://Art/Models/CrystalBallHolder.fbx" id="17_seeb3"]
+[ext_resource type="Material" uid="uid://rdsus6ec1nmq" path="res://Materials/Gold.tres" id="18_1n38g"]
 [ext_resource type="Texture2D" uid="uid://cfrq1meyfpqgx" path="res://Art/ItemShop/BookCover.jpg" id="18_3hv00"]
 [ext_resource type="Texture2D" uid="uid://cgrc2ho6w58yc" path="res://Art/Icons/BetweenScenariosActions/TreasureMap.svg" id="18_nmjfa"]
+[ext_resource type="Shader" uid="uid://1deu7u58adcl" path="res://Shaders/CrystalBall.gdshader" id="19_lv8vq"]
 [ext_resource type="Texture2D" uid="uid://d0kjhh1qav1gd" path="res://Art/Icons/BetweenScenariosActions/Oak.svg" id="19_ywvcx"]
 [ext_resource type="Texture2D" uid="uid://bydbxbc7udwta" path="res://Art/Icons/BetweenScenariosActions/CrystalBall.svg" id="20_1ehwm"]
+[ext_resource type="Shader" uid="uid://csl6uc8relo7u" path="res://Shaders/CrystallBallSwirlingBack.tres" id="21_7gbn5"]
+[ext_resource type="Shader" uid="uid://dcgendyiah7dg" path="res://Shaders/CrystallBallSwirlingTop.tres" id="22_7gbn5"]
 [ext_resource type="Texture2D" uid="uid://cgvuos5ph5e6r" path="res://Art/Icons/BetweenScenariosActions/HazardSign.svg" id="22_ywvcx"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="23_1ehwm"]
 [ext_resource type="Script" uid="uid://co64dv05t1htu" path="res://Scripts/BetweenScenarios/BetweenScenariosSidePanel.cs" id="23_5k12q"]
@@ -112,6 +118,105 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7gbn5"]
+noise_type = 3
+frequency = 0.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3tvgr"]
+in_3d_space = true
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_7gbn5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t8hrt"]
+render_priority = -1
+shader = ExtResource("19_lv8vq")
+shader_parameter/screen_texture = ExtResource("2_bqd0o")
+shader_parameter/height_map = SubResource("NoiseTexture2D_3tvgr")
+shader_parameter/fresnel_color = Color(0.977807, 0.685518, 0.990998, 1)
+shader_parameter/fresnel_amount = 3.0
+shader_parameter/distortion = 1.41
+shader_parameter/animation_speed = 0.15
+shader_parameter/alpha = 0.7
+
+[sub_resource type="SphereMesh" id="SphereMesh_jvldq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t8hrt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jvldq"]
+seamless = true
+noise = SubResource("FastNoiseLite_t8hrt")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jvldq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tquji"]
+seamless = true
+noise = SubResource("FastNoiseLite_jvldq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tquji"]
+render_priority = 0
+shader = ExtResource("21_7gbn5")
+shader_parameter/heightmap = SubResource("NoiseTexture2D_jvldq")
+shader_parameter/heightmap2 = SubResource("NoiseTexture2D_tquji")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvldq"]
+render_priority = 1
+shader = ExtResource("22_7gbn5")
+shader_parameter/heightmap = SubResource("NoiseTexture2D_jvldq")
+shader_parameter/heightmap2 = SubResource("NoiseTexture2D_tquji")
+
+[sub_resource type="Animation" id="Animation_t8hrt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CrystalBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_jvldq"]
+resource_name = "CrystalBallMoveOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CrystalBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1.86607, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1), Vector3(0, 3, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_7gbn5"]
+resource_name = "CrystalBallFall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CrystalBall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.566667, 0.7),
+"transitions": PackedFloat32Array(2.54912, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 3, -1), Vector3(0, 0, -1), Vector3(0, 0.1, -1), Vector3(0, 0, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jvldq"]
+_data = {
+&"CrystalBallMoveIn": SubResource("Animation_7gbn5"),
+&"CrystalBallMoveOut": SubResource("Animation_jvldq"),
+&"RESET": SubResource("Animation_t8hrt")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5k12q"]
 shader = ExtResource("23_psaff")
 shader_parameter/inner_radius = 0.3
@@ -189,10 +294,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_nmjfa")
-_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop")]
+_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("Enhancer")]
 _startActiveAction = NodePath("ScenarioFlowchart")
 
-[node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "Button")]
+[node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "_3dRoot", "Button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -203,9 +309,10 @@ script = ExtResource("6_41e7t")
 OutlineParent = NodePath("Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer/SubViewport/Container")
 _gridContainer = NodePath("Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons")
 _3dContainer = NodePath("AnimationContainer/3D")
-_scrollMesh = NodePath("AnimationContainer/3D/SubViewport/Map/MeshInstance3D")
+_scrollMesh = NodePath("AnimationContainer/3D/SubViewport/Root/Map/MeshInstance3D")
 _subViewportContainer = NodePath("Container/SubViewportContainer")
 _subViewport = NodePath("Container/SubViewportContainer/SubViewport")
+_3dRoot = NodePath("AnimationContainer/3D/SubViewport/Root")
 Button = NodePath("../ActionButtons/VBoxContainer/ScenarioFlowchartButton")
 
 [node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart"]
@@ -236,7 +343,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1536, 1024)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport"]
 layout_mode = 3
@@ -482,33 +589,37 @@ transparent_bg = true
 handle_input_locally = false
 msaa_3d = 1
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport"]
+visible = false
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/CameraController"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/CameraController/MovePivot"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController"]
+
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.873)
 cull_mask = 2
 environment = SubResource("Environment_4wnl8")
 fov = 20.8
 
-[node name="Map" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport"]
+[node name="Map" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Map"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/Map"]
 layers = 2
 material_override = SubResource("ShaderMaterial_ywvcx")
 mesh = SubResource("PlaneMesh_efp8j")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0, 0, 0)
 layers = 2
+light_cull_mask = 4293918722
 
-[node name="ItemShop" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_animationPlayer", "_frontSubViewport", "_backSubViewport", "_bookSubViewportContainer", "_leftPageParent", "_rightPageParent", "_frontPageParent", "_backPageParent", "_flipLeftButton", "_flipRightButton", "_bookContainer", "_bookCover", "_frontBookCover", "_leftPageCoverInside", "_backPageCoverInside", "Button")]
+[node name="ItemShop" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_animationPlayer", "_frontSubViewport", "_backSubViewport", "_bookSubViewportContainer", "_leftPageParent", "_rightPageParent", "_frontPageParent", "_backPageParent", "_flipLeftButton", "_flipRightButton", "_bookContainer", "_bookCover", "_frontBookCover", "_leftPageCoverInside", "_backPageCoverInside", "_3dRoot", "Button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -517,7 +628,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_4wnl8")
-_animationPlayer = NodePath("Book/Container/3D/SubViewport/Page/PageAnimation/AnimationPlayer")
+_animationPlayer = NodePath("Book/Container/3D/SubViewport/Root/Page/PageAnimation/AnimationPlayer")
 _forwardAnimationName = &"Page|Turn1"
 _backwardAnimationName = &"Page|Turn2"
 _openAnimationName = &"Page|TurnForward"
@@ -537,6 +648,7 @@ _bookCover = NodePath("Book/Container/BookCoverContainer/BookCover")
 _frontBookCover = NodePath("Book/Container/FrontSubViewport/BookCover")
 _leftPageCoverInside = NodePath("Book/Container/LeftPage/CoverInside")
 _backPageCoverInside = NodePath("Book/Container/BackSubViewport/CoverInside")
+_3dRoot = NodePath("Book/Container/3D/SubViewport/Root")
 Button = NodePath("../ActionButtons/VBoxContainer/ItemShopButton")
 
 [node name="Book" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop"]
@@ -705,35 +817,39 @@ handle_input_locally = false
 size = Vector2i(1920, 1300)
 render_target_update_mode = 0
 
-[node name="Page" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport"]
+visible = false
 
-[node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page" instance=ExtResource("12_41e7t")]
+[node name="Page" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
 
-[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page/PageAnimation" index="0"]
+[node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" instance=ExtResource("12_41e7t")]
+
+[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0"]
 transform = Transform3D(68.9, 0, 0, 0, -4.37114e-06, 102.3, 0, -100, -4.47168e-06, 0, 0, 0)
 
-[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page/PageAnimation/Page/Skeleton3D" index="0"]
+[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" index="0"]
 material_override = SubResource("StandardMaterial3D_r0lwg")
 
-[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page/PageAnimation/Page/Skeleton3D" index="1"]
+[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" index="1"]
 material_override = SubResource("StandardMaterial3D_57ue0")
 
-[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page/PageAnimation" index="1"]
+[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1"]
 speed_scale = 1.4
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/CameraController"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController"]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/CameraController/MovePivot"]
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot"]
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-cull_mask = 1048573
+cull_mask = 1
 environment = SubResource("Environment_4wnl8")
 fov = 20.8
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
+light_cull_mask = 4293918721
 
 [node name="Center" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
 layout_mode = 1
@@ -861,6 +977,116 @@ grow_vertical = 2
 texture = ExtResource("16_r0lwg")
 expand_mode = 1
 
+[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_subViewport", "_animationPlayer", "_3dRoot", "_crystalBall", "Button")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("17_1n38g")
+_subViewport = NodePath("AnimationContainer/3D/SubViewport")
+_animationPlayer = NodePath("AnimationContainer/3D/SubViewport/Root/AnimationPlayer")
+_moveInAnimationName = &"CrystalBallMoveIn"
+_moveOutAnimationName = &"CrystalBallMoveOut"
+_3dRoot = NodePath("AnimationContainer/3D/SubViewport/Root")
+_crystalBall = NodePath("AnimationContainer/3D/SubViewport/Root/CrystalBall")
+Button = NodePath("../ActionButtons/VBoxContainer/EnhancerButton")
+
+[node name="AnimationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D"]
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 1
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport"]
+
+[node name="CrystalBall" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, -1)
+
+[node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall" instance=ExtResource("17_seeb3")]
+transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
+
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder" index="0"]
+layers = 4
+material_override = ExtResource("18_1n38g")
+cast_shadow = 0
+
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder" index="1"]
+layers = 4
+material_override = ExtResource("18_1n38g")
+
+[node name="Ball" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, 0)
+
+[node name="Distortion" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+transform = Transform3D(-1, -8.44439e-08, -2.26267e-08, 0, 0.258819, -0.965926, 8.74228e-08, -0.965926, -0.258819, 0, 0.000139952, 0)
+layers = 4
+material_override = SubResource("ShaderMaterial_t8hrt")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_jvldq")
+skeleton = NodePath("../../../..")
+
+[node name="SwirlingBack" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
+layers = 4
+material_override = SubResource("ShaderMaterial_tquji")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_jvldq")
+skeleton = NodePath("../../../..")
+
+[node name="SwirlingTop" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
+layers = 4
+material_override = SubResource("ShaderMaterial_jvldq")
+mesh = SubResource("SphereMesh_jvldq")
+skeleton = NodePath("../../../..")
+
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController"]
+
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
+cull_mask = 4
+environment = SubResource("Environment_4wnl8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+transform = Transform3D(0.7127, -0.502156, 0.489794, 0, 0.69824, 0.715863, -0.701469, -0.510196, 0.497636, 0, 0, 0)
+layers = 4
+light_color = Color(0.989348, 1, 0.687726, 1)
+light_cull_mask = 4293918724
+sky_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+libraries = {
+&"": SubResource("AnimationLibrary_jvldq")
+}
+
 [node name="ActionButtons" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager"]
 layout_mode = 1
 anchors_preset = 12
@@ -901,12 +1127,12 @@ layout_mode = 2
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/TempleOfTheOakButton/Container/BetterButton/Panel" index="0"]
 texture = ExtResource("19_ywvcx")
 
-[node name="EnchanterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
 visible = false
-modulate = Color(1, 0.709804, 1, 1)
+modulate = Color(0.994686, 0.586915, 1, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnchanterButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container/BetterButton/Panel" index="0"]
 texture = ExtResource("20_1ehwm")
 
 [node name="EventButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
@@ -1145,11 +1371,12 @@ label_settings = SubResource("LabelSettings_f340v")
 [node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("32_5k12q")]
 layout_mode = 1
 
-[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Page/PageAnimation"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/TempleOfTheOakButton"]
-[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnchanterButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton"]
 [editable path="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton"]

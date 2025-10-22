@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://esmyriyal68s"
-path="res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.ctex"
+path.s3tc="res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.s3tc.ctex"
+path.etc2="res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/AmberAegis/MatFront.png"
-dest_files=["res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.ctex"]
+dest_files=["res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.s3tc.ctex", "res://.godot/imported/MatFront.png-c672c3a15e5a8894f662a726ee3eff4a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

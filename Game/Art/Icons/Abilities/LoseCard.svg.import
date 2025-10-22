@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ca72vsmwgu28w"
-path="res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.ctex"
+path.s3tc="res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.s3tc.ctex"
+path.etc2="res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Abilities/LoseCard.svg"
-dest_files=["res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.ctex"]
+dest_files=["res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.s3tc.ctex", "res://.godot/imported/LoseCard.svg-32b88b406778a0d743fa77dc685ad5b2.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdu1dfk0f1r54"
-path="res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.ctex"
+path.s3tc="res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.s3tc.ctex"
+path.etc2="res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Rubble 1h.png"
-dest_files=["res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.ctex"]
+dest_files=["res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.s3tc.ctex", "res://.godot/imported/Rubble 1h.png-131731fbc5dfbc72798b3c68cf41b964.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -19,7 +19,7 @@ public class ScenarioSetupPhase : ScenarioPhase
 		if(_scenarioSetupState != null)
 		{
 			// Save data contains data for this card selection phase
-			GameController.SetFastForward(true);
+			//GameController.SetFastForward(true);
 
 			_scenarioSetupState = GameController.Instance.SavedCampaign.SavedScenario.ScenarioSetupState;
 		}

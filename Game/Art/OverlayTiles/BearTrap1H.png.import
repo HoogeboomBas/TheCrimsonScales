@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://wu4apxqcxj1m"
-path="res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.ctex"
+path.s3tc="res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.s3tc.ctex"
+path.etc2="res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/BearTrap1H.png"
-dest_files=["res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.ctex"]
+dest_files=["res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.s3tc.ctex", "res://.godot/imported/BearTrap1H.png-2ee79e5c4cb84349572a40f0ced8692a.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

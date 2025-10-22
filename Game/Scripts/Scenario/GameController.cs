@@ -172,6 +172,7 @@ public partial class GameController : SceneController<GameController>
 			if(string.IsNullOrEmpty(DefaultSavedGame))
 			{
 				savedCampaign = SavedCampaign.Test();
+				float characterLevelSum = savedCampaign.Characters.Sum(character => character.Level);
 				savedCampaign.SavedScenario = new SavedScenario
 				{
 					Id = Guid.NewGuid(),
@@ -180,7 +181,8 @@ public partial class GameController : SceneController<GameController>
 					ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
 					//Seed = GD.RandRange(0, int.MaxValue),
 					Seed = 0,
-					ScenarioLevel = 1,
+					ScenarioLevel =
+						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) + AppController.Instance.Options.Difficulty.Value,
 					IsOnline = false
 				};
 			}

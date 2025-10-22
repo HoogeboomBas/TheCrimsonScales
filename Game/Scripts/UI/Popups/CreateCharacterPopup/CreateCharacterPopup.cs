@@ -45,16 +45,14 @@ public partial class CreateCharacterPopup : Popup<CreateCharacterPopup.Request>
 	{
 		base.OnOpen();
 
-		ClassModel[] classModels =
-		[
-			ModelDB.Class<MirefootModel>(),
-			ModelDB.Class<BombardModel>(),
-			ModelDB.Class<HierophantModel>(),
-			ModelDB.Class<FireKnightModel>(),
-			ModelDB.Class<ChainguardModel>(),
-		];
+		List<ClassModel> unlockedClasses =
+			PopupRequest.SavedCampaign.SavedClasses
+				.Where(savedClass => savedClass.Value.Unlocked)
+				.Select(keyValuePair => ModelDB.GetById<ClassModel>(keyValuePair.Key))
+				.ToList();
 
-		IEnumerable<ClassModel> usableClassModels = classModels.Where(classModel => PopupRequest.SavedCampaign.Characters.All(character => character.ClassModel != classModel));
+		IEnumerable<ClassModel> usableClassModels = unlockedClasses.Where(classModel =>
+			PopupRequest.SavedCampaign.Characters.All(character => character.ClassModel != classModel));
 
 		foreach(ClassModel classModel in usableClassModels)
 		{

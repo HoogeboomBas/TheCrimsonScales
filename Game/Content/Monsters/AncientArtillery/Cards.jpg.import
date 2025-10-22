@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://i6ysd0xd1vyc"
-path="res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.ctex"
+path.s3tc="res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.s3tc.ctex"
+path.etc2="res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Monsters/AncientArtillery/Cards.jpg"
-dest_files=["res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.ctex"]
+dest_files=["res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.s3tc.ctex", "res://.godot/imported/Cards.jpg-828a05dd4817b0c024d9236b20fb56ef.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

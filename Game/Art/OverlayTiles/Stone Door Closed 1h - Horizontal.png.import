@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ha6116jm4j3r"
-path="res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.ctex"
+path.s3tc="res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.s3tc.ctex"
+path.etc2="res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Stone Door Closed 1h - Horizontal.png"
-dest_files=["res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.ctex"]
+dest_files=["res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.s3tc.ctex", "res://.godot/imported/Stone Door Closed 1h - Horizontal.png-07cfa8ac36492d3ee84e6c81a9975851.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

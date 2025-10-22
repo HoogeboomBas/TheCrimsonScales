@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddmoe780ap55i"
-path="res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.ctex"
+path.s3tc="res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.s3tc.ctex"
+path.etc2="res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Icons/Other/Card.svg"
-dest_files=["res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.ctex"]
+dest_files=["res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.s3tc.ctex", "res://.godot/imported/Card.svg-37d401ef0a42d67f27909568f0c35479.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

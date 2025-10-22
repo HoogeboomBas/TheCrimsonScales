@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k4dydvjkdv5r"
-path="res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.ctex"
+path.s3tc="res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.s3tc.ctex"
+path.etc2="res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Crate B 1h.png"
-dest_files=["res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.ctex"]
+dest_files=["res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.s3tc.ctex", "res://.godot/imported/Crate B 1h.png-75fc4628ba9fb85f19fd9e7f3ef4f6dd.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

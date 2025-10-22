@@ -17,5 +17,8 @@ public class SavedOptions
 	public SavedOption<bool> VibrationsEnabled { get; private set; } = new SavedOption<bool>(true);
 
 	[JsonProperty]
+	public SavedOption<bool> AnimatedCharacters { get; private set; } = new SavedOption<bool>(true);
+
+	[JsonProperty]
 	public SavedOption<int> Difficulty { get; private set; } = new SavedOption<int>(0);
 }

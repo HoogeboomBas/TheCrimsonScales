@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceaiorsb16a1t"
-path="res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.ctex"
+path.s3tc="res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.s3tc.ctex"
+path.etc2="res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Items/Prosperity3/SpriteSheet.jpg"
-dest_files=["res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.ctex"]
+dest_files=["res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.s3tc.ctex", "res://.godot/imported/SpriteSheet.jpg-503f74c350a81715f1f9d8d90e2595bb.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

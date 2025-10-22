@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0j4e8nfogpfg"
-path="res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.ctex"
+path.s3tc="res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.s3tc.ctex"
+path.etc2="res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/OverlayTiles/Boulder 3h.png"
-dest_files=["res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.ctex"]
+dest_files=["res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.s3tc.ctex", "res://.godot/imported/Boulder 3h.png-6730ba2863936ec03e875cb6a1bb699e.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -6,7 +6,7 @@ using GTweensGodot.Extensions;
 [GlobalClass]
 public partial class CardSelectionCard : Control
 {
-	public new static readonly Vector2 Size = new Vector2(470f, 68f);
+	public new static readonly Vector2 Size = new Vector2(470f, 64f);
 
 	[Export]
 	private Control _container;
