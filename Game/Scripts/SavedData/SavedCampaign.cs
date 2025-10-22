@@ -136,4 +136,9 @@ public class SavedCampaign
 
 		CharactersChangedEvent?.Invoke();
 	}
+
+	public void AddPartyAchievement(PartyAchievement partyAchievement)
+	{
+		CollectedPartyAchievements.AddIfNew(partyAchievement);
+	}
 }

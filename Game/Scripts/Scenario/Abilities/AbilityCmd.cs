@@ -703,7 +703,7 @@ public static class AbilityCmd
 		return section;
 	}
 
-	public static async GDTask GiveItem(Character character, ItemModel itemModel, bool staysOnlyIfCompleted = false)
+	public static async GDTask PermanentlyGiveItem(Character character, ItemModel itemModel, bool staysOnlyIfCompleted = false)
 	{
 		ItemModel item = itemModel.ToMutable();
 		item.Init(character);
@@ -724,7 +724,6 @@ public static class AbilityCmd
 		}
 
 		GameController.Instance.EndEvent += OnScenarioEnd;
-
 	}
 
 	public static ItemModel GetRandomAvailableOrb()
