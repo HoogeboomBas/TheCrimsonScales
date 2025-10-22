@@ -11,7 +11,7 @@ public class Shackle : ConditionModel
 	public override bool IsPositive => false;
 	public override bool IsNegative => false;
 	public override bool ShowOnFigure => false;
-	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Immobilize;
+	public override ConditionModel[] ImmunityCompareBaseCondition => [Conditions.Immobilize];
 
 	public Figure Shackler { get; private set; }
 
