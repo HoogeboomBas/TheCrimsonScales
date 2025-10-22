@@ -5,7 +5,7 @@ using Godot;
 
 public abstract class BloodOozeAbilityCard : MonsterAbilityCardModel
 {
-	public override string CardsAtlasPath => "res://Content/Monsters/BloodOoze/Cards.png";
+	public override string CardsAtlasPath => "res://Content/Monsters/BloodOoze/Cards.jpg";
 
 	public static IEnumerable<MonsterAbilityCardModel> Deck { get; } =
 	[
