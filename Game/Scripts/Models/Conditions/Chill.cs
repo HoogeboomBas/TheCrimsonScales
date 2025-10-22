@@ -14,11 +14,9 @@ public class Chill : ConditionModel
 
 	public override async GDTask Add(Figure target, ConditionNode node)
 	{
-		GD.Print(node);
 		Chill existingChill = target.GetCondition(global::Conditions.Chill) as Chill;
 		if (existingChill != null && existingChill != this)
 		{
-			GD.Print(existingChill.Node);
 			existingChill.ChangeChillStacks(1);
 			node.Destroy();
 		}
