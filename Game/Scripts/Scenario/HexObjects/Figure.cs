@@ -265,7 +265,6 @@ public abstract partial class Figure : HexObject
 				return condition;
 			}
 		}
-
 		return null;
 	}
 
@@ -279,7 +278,6 @@ public abstract partial class Figure : HexObject
 			conditionNode.Init(condition);
 		}
 
-		Conditions.Add(condition);
 		//ConditionNodes.Add(condition, conditionNode);
 
 		ConditionsChangedEvent?.Invoke(this);
@@ -294,14 +292,10 @@ public abstract partial class Figure : HexObject
 	public async GDTask RemoveCondition(ConditionModel conditionModel)
 	{
 		ConditionModel condition = GetCondition(conditionModel);
-		ConditionNode node = condition.Node;
-		node?.Destroy();
-		Conditions.Remove(condition);
-
-		ConditionsChangedEvent?.Invoke(this);
 
 		await condition.Remove();
 
+		ConditionsChangedEvent?.Invoke(this);
 		ReorderConditions();
 	}
 
