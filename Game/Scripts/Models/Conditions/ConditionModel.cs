@@ -1,4 +1,4 @@
-﻿using Fractural.Tasks;
+using Fractural.Tasks;
 using Godot;
 
 public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubscriber
@@ -7,7 +7,7 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 	public abstract string IconPath { get; }
 	public virtual bool CanStack => false;
 	public virtual bool CanBeUpgraded => false;
-	public virtual ConditionModel ImmunityCompareBaseCondition => IsMutable ? ImmutableInstance : this;
+	public virtual ConditionModel[] ImmunityCompareBaseCondition => [IsMutable ? ImmutableInstance : this];
 	public virtual bool RemovedAtEndOfTurn => false;
 	public virtual bool IsPositive => false;
 	public virtual bool IsNegative => !IsPositive;
@@ -15,15 +15,17 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 	public virtual string ConditionAnimationScenePath => null;
 	public virtual bool ShowOnFigure => true;
 
-	private bool _appliedDuringThisTurn;
+	protected bool _appliedDuringThisTurn;
 
 	protected Figure Owner { get; private set; }
 	public ConditionNode Node { get; private set; }
 
 	public virtual async GDTask Add(Figure target, ConditionNode node)
 	{
+		
 		Owner = target;
 		Node = node;
+		Owner.Conditions.Add(this);
 
 		if(target.TakingTurn)
 		{
@@ -50,6 +52,10 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 
 	public virtual GDTask Remove()
 	{
+		ConditionNode node = this.Node;
+		node?.Destroy();
+		Owner.Conditions.Remove(this);
+
 		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Unsubscribe(this);
 		ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.Unsubscribe(this);
 
@@ -61,7 +67,7 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 		return !parameters.Prevented && parameters.Target == Owner && parameters.Condition.ImmutableInstance == ImmutableInstance;
 	}
 
-	private GDTask DuplicatesCheckApply(ScenarioEvents.InflictConditionDuplicatesCheck.Parameters parameters)
+	protected virtual GDTask DuplicatesCheckApply(ScenarioEvents.InflictConditionDuplicatesCheck.Parameters parameters)
 	{
 		parameters.SetPrevented(true);
 
