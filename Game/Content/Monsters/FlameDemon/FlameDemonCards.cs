@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 using Godot;
 
 public abstract class FlameDemonAbilityCard : MonsterAbilityCardModel
@@ -20,141 +21,150 @@ public abstract class FlameDemonAbilityCard : MonsterAbilityCardModel
 
 public class FlameDemonAbilityCard0 : FlameDemonAbilityCard
 {
-	public override int Initiative => 65;
+	public override int Initiative => 03;
 	public override int CardIndex => 0;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 3, conditions: [Conditions.Curse])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard1 : FlameDemonAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 24;
 	public override int CardIndex => 1;
-	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 46;
 	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
+			abilityStartedSubscriptions:
+			[
+				ConsumeElementCheckSubscription<ScenarioEvents.AbilityStarted.Parameters>(monster, [Element.Ice],
+					applyFunction: async parameters =>
+					{
+						//TODO: Add AOE here
+						//((AttackAbility.State)parameters.AbilityState)
+
+						await GDTask.CompletedTask;
+					}
+				)
 			])
-		)),
+		),
 	];
 }
 
 public class FlameDemonAbilityCard3 : FlameDemonAbilityCard
 {
-	public override int Initiative => 84;
+	public override int Initiative => 49;
 	public override int CardIndex => 3;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 4, conditions: [Conditions.Wound1])),
+		// new MonsterAbilityCardAbility(AttackAbility(monster, 
+		// 	ConsumeElementDynamicValue<ShieldAbility.State>([Element.Fire], +0, 1), conditions: [Conditions.Wound1])),
 	];
 }
 
 public class FlameDemonAbilityCard4 : FlameDemonAbilityCard
 {
-	public override int Initiative => 75;
+	public override int Initiative => 67;
 	public override int CardIndex => 4;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Poison1])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 5, conditions: [Conditions.Immobilize])),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard5 : FlameDemonAbilityCard
 {
-	public override int Initiative => 75;
+	public override int Initiative => 77;
 	public override int CardIndex => 5;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, target: Target.Enemies | Target.TargetAll, conditions: [Conditions.Disarm])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 2)),
 	];
 }
 
 public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
 {
-	public override int Initiative => 96;
+	public override int Initiative => 30;
 	public override int CardIndex => 6;
+	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 6)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-				foreach(Figure target in attackAbilityState.UniqueTargetedFigures)
-				{
-					Hex hex = await AbilityCmd.SelectHex(state, list =>
-					{
-						foreach(Hex neighbourHex in target.Hex.Neighbours)
-						{
-							if(neighbourHex.IsEmpty())
-							{
-								list.Add(neighbourHex);
-							}
-						}
-					});
-
-					// if(hex != null && await GameController.Instance.Map.CreateMonster(ModelDB.Monster<FlameDemon>(), MonsterType.Normal, hex.Coords, true))
-					// {
-					// 	state.SetPerformed();
-					// 	break;
-					// }
-				}
-			})
-			.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
-			.Build())
 	];
 }
 
 public class FlameDemonAbilityCard7 : FlameDemonAbilityCard
 {
-	public override int Initiative => 54;
+	public override int Initiative => 08;
 	public override int CardIndex => 7;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions(Conditions.Wound1, Conditions.Poison1)
-			.WithTarget(Target.Enemies | Target.TargetAll)
-			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+
+		new MonsterAbilityCardAbility(CreateTrapAbility.Builder()
+			.WithDamage(4)
+			.WithCustomSelectHexes((state, hexes) =>
+				{
+					int closestRange = int.MaxValue;
+					foreach(Hex neighbourHex in state.Performer.Hex.Neighbours)
+					{
+						if(!neighbourHex.IsEmpty())
+						{
+							continue;
+						}
+
+						foreach(Figure figure in GameController.Instance.Map.Figures)
+						{
+							if(state.Performer.EnemiesWith(figure))
+							{
+								int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+								if(range == closestRange)
+								{
+									hexes.Add(neighbourHex);
+								}
+								else if(range < closestRange)
+								{
+									closestRange = range;
+									hexes.Clear();
+									hexes.Add(neighbourHex);
+								}
+							}
+						}
+					}
+				}
+			)
+			.WithMandatory(true)
+			.Build())
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Fire)];
 }
