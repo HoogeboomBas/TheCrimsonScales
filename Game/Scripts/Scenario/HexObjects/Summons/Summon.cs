@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -97,8 +98,36 @@ public partial class Summon : Figure
 	{
 		await base.TakeTurn();
 
+		object subscriber = new object();
+		Map map = GameController.Instance.Map;
+
+		ScenarioCheckEvents.CanFocusOnAllyCheckEvent.Subscribe(this, subscriber,
+			canApplyParameters => canApplyParameters.Performer == this && 
+									canApplyParameters.PotentialTarget == Owner &&
+									!map.Figures.Any(figure => figure.EnemiesWith(this)),
+			applyParameters =>
+			{
+				applyParameters.SetCanFocusOnAlly();
+			});
+
+		ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this, subscriber,
+			parameters => parameters.Performer == this &&
+				!map.Figures.Any(figure => figure.EnemiesWith(this)),
+			parameters =>
+			{
+				parameters.AIMoveParameters.AOEPattern = null;
+				parameters.AIMoveParameters.RangeType = RangeType.Melee;
+				parameters.AIMoveParameters.Range = 1;
+				parameters.AIMoveParameters.Targets = 1;
+				parameters.AIMoveParameters.TargetAll = false;
+			}
+		);
+
 		_turnActionState = new ActionState(this, _abilities);
 		await _turnActionState.Perform();
+
+		ScenarioCheckEvents.CanFocusOnAllyCheckEvent.Unsubscribe(this, subscriber);
+		ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this, subscriber);
 	}
 
 	public async GDTask RemoveActionFromActive()
