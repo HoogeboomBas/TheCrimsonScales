@@ -131,9 +131,14 @@ public partial class ActionState
 						continue;
 					}
 
+					ScenarioCheckEvents.PotentialTargetCheck.Parameters potentialTargetCheckParameters =
+						ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
+							new ScenarioCheckEvents.PotentialTargetCheck.Parameters(Performer, potentialTarget));
+
+					int adjustedSortingInitiative = potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
 					int distanceFromCurrentHex = RangeHelper.Distance(Performer.Hex, potentialTargetHex);
 					FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
-						distanceFromCurrentHex, potentialTarget.Initiative.SortingInitiative, node);
+						distanceFromCurrentHex, adjustedSortingInitiative, node);
 					if(bestFocusNodes.Count == 0)
 					{
 						bestFocusNodes.Add(newNode);

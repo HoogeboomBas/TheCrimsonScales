@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm467436yab76"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
+[ext_resource type="Texture2D" uid="uid://kqidvxla5g8b" path="res://Content/Classes/Chieftain/Artwork.jpg" id="2_jk5jr"]
+[ext_resource type="Texture2D" uid="uid://dhoes3577idrw" path="res://Content/Classes/Chieftain/Animation.jpg" id="3_pebit"]
+
+[node name="Chieftain" instance=ExtResource("1_q7cyt")]
+
+[node name="Hexagon" parent="." index="1"]
+self_modulate = Color(0.866667, 0.870588, 0.541176, 1)
+
+[node name="Sprite2D" parent="Mask" index="0"]
+position = Vector2(-1.25, 8.75)
+texture = ExtResource("2_jk5jr")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+texture = ExtResource("3_pebit")
+hframes = 12
+vframes = 13
