@@ -119,14 +119,7 @@ public class MonsterMovePrompt(
 					{
 						if(!performer.EnemiesWith(potentialTarget))
 						{
-							ScenarioCheckEvents.CanFocusOnAllyCheck.Parameters canFocusOnAllyCheckParameters =
-								ScenarioCheckEvents.CanFocusOnAllyCheckEvent.Fire(
-									new ScenarioCheckEvents.CanFocusOnAllyCheck.Parameters(null, performer, potentialTarget));
-
-							if(!canFocusOnAllyCheckParameters.CanFocusOnAlly)
-							{
-								continue;
-							}
+							continue;
 						}
 
 						ScenarioCheckEvents.CanBeTargetedCheck.Parameters canBeTargetedParameters =
@@ -214,14 +207,7 @@ public class MonsterMovePrompt(
 								{
 									if(!performer.EnemiesWith(potentialTarget))
 									{
-										ScenarioCheckEvents.CanFocusOnAllyCheck.Parameters canFocusOnAllyCheckParameters =
-											ScenarioCheckEvents.CanFocusOnAllyCheckEvent.Fire(
-												new ScenarioCheckEvents.CanFocusOnAllyCheck.Parameters(null, performer, potentialTarget));
-
-										if(!canFocusOnAllyCheckParameters.CanFocusOnAlly)
-										{
-											continue;
-										}
+										continue;
 									}
 
 									ScenarioCheckEvents.CanBeTargetedCheck.Parameters canBeTargetedParameters =

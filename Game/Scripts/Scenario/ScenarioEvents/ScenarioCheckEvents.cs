@@ -385,25 +385,4 @@ public class ScenarioCheckEvents
 
 	private readonly InitiativeCheck _initiativeCheck = new InitiativeCheck();
 	public static InitiativeCheck InitiativeCheckEvent => GameController.Instance.ScenarioCheckEvents._initiativeCheck;
-
-	public class CanFocusOnAllyCheck : ScenarioCheckEvent<CanFocusOnAllyCheck.Parameters>
-	{
-		public class Parameters(AbilityState potentialAbilityState, Figure performer, Figure potentialTarget)
-			: ParametersBase
-		{
-			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
-			public Figure Performer { get; } = performer;
-			public Figure PotentialTarget { get; } = potentialTarget;
-
-			public bool CanFocusOnAlly { get; private set; } = false;
-
-			public void SetCanFocusOnAlly()
-			{
-				CanFocusOnAlly = true;
-			}
-		}
-	}
-
-	private readonly CanFocusOnAllyCheck _canFocusOnAllyCheck = new CanFocusOnAllyCheck();
-	public static CanFocusOnAllyCheck CanFocusOnAllyCheckEvent => GameController.Instance.ScenarioCheckEvents._canFocusOnAllyCheck;
 }

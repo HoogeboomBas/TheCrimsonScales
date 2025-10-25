@@ -378,6 +378,13 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			else
 			{
 				Figure focus = await abilityState.ActionState.GetFocus();
+
+				ScenarioEvents.FigureFoundFocus.Parameters figureFoundFocusEventParameters =
+					await ScenarioEvents.FigureFoundFocusEvent.CreatePrompt(
+						new ScenarioEvents.FigureFoundFocus.Parameters(abilityState, focus), abilityState);
+
+				focus = figureFoundFocusEventParameters.Focus;
+
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
 						new MonsterAOEPrompt(abilityState, AOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
