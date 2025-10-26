@@ -1,17 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwgq0qpm0mfeo"]
+[gd_scene load_steps=5 format=3 uid="uid://bwgq0qpm0mfeo"]
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
 [ext_resource type="Script" uid="uid://4mvvcb6y0106" path="res://Content/Classes/Chainguard/Chainguard.cs" id="2_7s24i"]
 [ext_resource type="Texture2D" uid="uid://b6mix1lnvb5jj" path="res://Content/Classes/Chainguard/Artwork.jpg" id="2_jk5jr"]
-[ext_resource type="PackedScene" uid="uid://jocfr1rcko82" path="res://Content/Classes/Chainguard/ShackleIndicator.tscn" id="3_j3oci"]
 [ext_resource type="Texture2D" uid="uid://drm47fcovk78y" path="res://Content/Classes/Chainguard/Animation.jpg" id="3_pebit"]
 
 [node name="Chainguard" instance=ExtResource("1_q7cyt")]
 script = ExtResource("2_7s24i")
-ShackleIndicatorScene = ExtResource("3_j3oci")
 
 [node name="Hexagon" parent="." index="1"]
-self_modulate = Color(0.866667, 0.870588, 0.541176, 1)
+self_modulate = Color(0.807843, 0.427451, 0.188235, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]
 position = Vector2(-1.25, 8.75)

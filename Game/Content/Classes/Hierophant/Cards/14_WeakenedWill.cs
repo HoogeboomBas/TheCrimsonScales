@@ -64,7 +64,7 @@ public class WeakenedWill : HierophantLevelUpCardModel<WeakenedWill.CardTop, Wea
 
 					ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Target),
-						parameters => parameters.SetDisadvantage()
+						parameters => parameters.SetDisadvantage(true)
 					);
 
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,

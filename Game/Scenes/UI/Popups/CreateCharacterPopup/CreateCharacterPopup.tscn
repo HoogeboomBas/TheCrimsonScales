@@ -43,13 +43,12 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 expand_margin_left = 8.0
 
-[node name="CreateCharacterPopup" node_paths=PackedStringArray("_classButtonParent", "_matFrontTexture", "_nameLineEdit", "_header", "_cancelButton", "_confirmButton") instance=ExtResource("1_8q3oh")]
+[node name="CreateCharacterPopup" node_paths=PackedStringArray("_classButtonParent", "_matFrontTexture", "_nameLineEdit", "_cancelButton", "_confirmButton") instance=ExtResource("1_8q3oh")]
 script = ExtResource("2_xgl6u")
 _classButtonScene = ExtResource("3_bm0d6")
 _classButtonParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/ClassesGrid")
 _matFrontTexture = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/VBoxContainer/MatFront/Mask/TextureRect")
 _nameLineEdit = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name/Name/LineEdit")
-_header = NodePath("Panel/MarginContainer/VBoxContainer/Header")
 _cancelButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton")
 _confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
 
@@ -203,6 +202,7 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxFlat_jyu3w")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rkkap")
 placeholder_text = "..."
+max_length = 20
 caret_blink = true
 
 [node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("3_xgl6u")]

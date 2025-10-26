@@ -64,6 +64,7 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(0)
 				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithRangeType(RangeType.Range)
 				.WithCustomGetTargets((abilityState, list) =>
 				{
 					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);

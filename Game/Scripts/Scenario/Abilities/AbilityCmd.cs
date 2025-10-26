@@ -18,7 +18,14 @@ public static class AbilityCmd
 	{
 		await card.RemoveFromActive();
 
-		await card.SetCardState(CardState.Lost);
+		if(card.Unrecoverable)
+		{
+			await card.SetCardState(CardState.UnrecoverablyLost);
+		}
+		else
+		{
+			await card.SetCardState(CardState.Lost);
+		}
 	}
 
 	public static async GDTask DiscardOrLose(AbilityCard card)
@@ -58,7 +65,7 @@ public static class AbilityCmd
 
 				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, subscriber,
 					parameters => parameters.Target == state.Performer,
-					parameters => parameters.SetDisadvantage()
+					parameters => parameters.SetDisadvantage(true)
 				);
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
@@ -117,7 +124,7 @@ public static class AbilityCmd
 			await KillOrExhaust(potentialAttackAbilityState, target);
 		}
 
-		if (finalDamage > 0)
+		if(finalDamage > 0)
 		{
 			await ScenarioEvents.AfterSufferDamageEvent.CreatePrompt(
 				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters),
@@ -203,11 +210,27 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
+	public static async GDTask DestroyObstacle(Obstacle obstacle)
+	{
+		if(!obstacle.CannotBeDestroyed)
+		{
+			await obstacle.Destroy();
+		}
+	}
+
 	public static async GDTask DestroyDifficultTerrain(DifficultTerrain difficultTerrain)
 	{
 		if(!difficultTerrain.CannotBeDestroyed)
 		{
 			await difficultTerrain.Destroy();
+		}
+	}
+
+	public static async GDTask DisarmTrap(Trap trap)
+	{
+		if(!trap.CannotBeDestroyed)
+		{
+			await trap.Disarm();
 		}
 	}
 
@@ -354,7 +377,8 @@ public static class AbilityCmd
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(getAllCards,
 			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText), authority);
 
-		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0 ? null
+		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0
+			? null
 			: GameController.Instance.ReferenceManager.Get<AbilityCard>(answer.CardReferenceIds[0]);
 	}
 
@@ -377,8 +401,10 @@ public static class AbilityCmd
 			},
 			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText), character);
 
-		return answer.CardReferenceIds == null ? [] : answer.CardReferenceIds
-			.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)).ToList();
+		return answer.CardReferenceIds == null
+			? []
+			: answer.CardReferenceIds
+				.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)).ToList();
 	}
 
 	public static async GDTask EnterHex(AbilityState state, Figure figure, Figure authority, Hex hex, bool triggerHexEffects)
@@ -480,7 +506,8 @@ public static class AbilityCmd
 
 	public static GDTask InfuseElement(Figure authority, IReadOnlyCollection<Element> possibleElements)
 	{
-		List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
+		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
+			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 		foreach(Element possibleElement in possibleElements)
 		{
 			subscriptions.Add(ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(
@@ -591,7 +618,8 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask<ItemModel> SelectItem(Character characterAndAuthority, ItemState requiredItemState, ItemType? requiredItemType = null, string hintText = "Select an item")
+	public static async GDTask<ItemModel> SelectItem(Character characterAndAuthority, ItemState requiredItemState, ItemType? requiredItemType = null,
+		string hintText = "Select an item")
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions
 			= new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
@@ -604,7 +632,7 @@ public static class AbilityCmd
 			{
 				continue;
 			}
-			
+
 			if(requiredItemType.HasValue && item.ItemType != requiredItemType)
 			{
 				continue;
@@ -701,6 +729,29 @@ public static class AbilityCmd
 		}
 
 		return section;
+	}
+
+	public static async GDTask PermanentlyGiveItem(Character character, ItemModel itemModel, bool staysOnlyIfCompleted = false)
+	{
+		ItemModel item = itemModel.ToMutable();
+		item.Init(character);
+		character.AddItem(item);
+
+		await PromptManager.Prompt(new TreasureItemRewardPrompt(character, itemModel, null), character);
+
+		void OnScenarioEnd(bool backToTown, bool won, SavedScenarioProgress savedScenarioProgress)
+		{
+			if(staysOnlyIfCompleted && !won)
+			{
+				return;
+			}
+
+			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
+			savedItem.AddUnlocked(1);
+			character.SavedCharacter.AddItem(itemModel);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
 	}
 
 	public static ItemModel GetRandomAvailableOrb()

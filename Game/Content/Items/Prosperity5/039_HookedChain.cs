@@ -11,15 +11,6 @@ public class HookedChain : Prosperity5Item
 
 	protected override int AtlasIndex => 6;
 
-	private object _subscriber;
-
-	public override void Init(Character owner)
-	{
-		_subscriber = new object();
-
-		base.Init(owner);
-	}
-
 	protected override void Subscribe()
 	{
 		base.Subscribe();
@@ -33,8 +24,10 @@ public class HookedChain : Prosperity5Item
 					// Add pull 2 to the attack ability
 					state.AbilityAdjustPull(2);
 
+					object subscriber = new object();
+
 					// Also add pull 2 to all attacks in the same action
-					ScenarioEvents.AbilityStartedEvent.Subscribe(this, _subscriber,
+					ScenarioEvents.AbilityStartedEvent.Subscribe(this, subscriber,
 						parameters =>
 							parameters.AbilityState.ActionState == state.ActionState &&
 							parameters.AbilityState is AttackAbility.State,
@@ -47,12 +40,12 @@ public class HookedChain : Prosperity5Item
 						}
 					);
 
-					ScenarioEvents.ActionEndedEvent.Subscribe(this, _subscriber,
+					ScenarioEvents.ActionEndedEvent.Subscribe(this, subscriber,
 						parameters => parameters.ActionState == state.ActionState,
 						async parameters =>
 						{
-							ScenarioEvents.AbilityStartedEvent.Unsubscribe(this, _subscriber);
-							ScenarioEvents.ActionEndedEvent.Unsubscribe(this, _subscriber);
+							ScenarioEvents.AbilityStartedEvent.Unsubscribe(this, subscriber);
+							ScenarioEvents.ActionEndedEvent.Unsubscribe(this, subscriber);
 
 							await GDTask.CompletedTask;
 						}

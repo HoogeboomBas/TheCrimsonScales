@@ -66,6 +66,8 @@ public partial class CardSelectionView : Control
 			[CardState.Discarded], CardSelectionListCategoryType.Discarded));
 		cardCategoryParameters.Add(CreateCategoryParameters(cards, onCardPressed, onInitiativePressed,
 			[CardState.Lost], CardSelectionListCategoryType.Lost));
+		cardCategoryParameters.Add(CreateCategoryParameters(cards, onCardPressed, onInitiativePressed,
+			[CardState.UnrecoverablyLost], CardSelectionListCategoryType.UnrecoverablyLost));
 
 		_cardSelectionList.Open(cardCategoryParameters, (cardA, cardB) => cardA.Model.Initiative.CompareTo(cardB.Model.Initiative));
 

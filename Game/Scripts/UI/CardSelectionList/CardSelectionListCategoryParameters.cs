@@ -48,6 +48,10 @@ public class CardSelectionListCategoryParameters
 				HeaderLabel = "Lost";
 				HeaderIconPath = Icons.LoseCard;
 				break;
+			case CardSelectionListCategoryType.UnrecoverablyLost:
+				HeaderLabel = "Unrecoverable Lost";
+				HeaderIconPath = Icons.LoseCard;
+				break;
 
 			case CardSelectionListCategoryType.Unlockable:
 				HeaderLabel = "Unlockable";

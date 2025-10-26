@@ -33,6 +33,10 @@ public static class UIHelper
 				grayscaleFactor = 1f;
 				modulateColor = LostColor;
 				break;
+			case CardSelectionListCategoryType.UnrecoverablyLost:
+				grayscaleFactor = 1f;
+				modulateColor = LostColor;
+				break;
 
 			case CardSelectionListCategoryType.Unlockable:
 				grayscaleFactor = 0f;

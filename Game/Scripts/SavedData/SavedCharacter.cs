@@ -57,7 +57,8 @@ public class SavedCharacter
 	{
 		ClassModelId = classModel.Id.ToString();
 		Level = 1;
-		AvailableAbilityCards = classModel.AbilityCards.Where(abilityCardModel => abilityCardModel.Level == 1).Select(abilityCardModel => new SavedAbilityCard(abilityCardModel)).ToList();
+		AvailableAbilityCards = classModel.AbilityCards.Where(abilityCardModel => abilityCardModel.Level == 1)
+			.Select(abilityCardModel => new SavedAbilityCard(abilityCardModel)).ToList();
 
 		HandAbilityCardIndices = new List<int>();
 		for(int i = 0; i < classModel.HandSize; i++)
@@ -146,6 +147,14 @@ public class SavedCharacter
 	public void AddItem(ItemModel itemModel)
 	{
 		ItemIds.Add(itemModel.Id.ToString());
+	}
+
+	public void SellItem(ItemModel itemModel)
+	{
+		if(ItemIds.Remove(itemModel.Id.ToString()))
+		{
+			AddGold(itemModel.Cost / 2);
+		}
 	}
 
 	public void SetName(string name)

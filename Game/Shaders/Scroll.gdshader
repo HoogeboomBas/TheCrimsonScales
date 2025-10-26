@@ -39,7 +39,7 @@ void vertex()
 
 		float offset = -(1.563 * 0.5) + progress * 1.563 + 0.03;
 		VERTEX.x = offset - (r / (2.0 * 3.1415)) * t * (cos(t));
-		
+
 		UV.x *= 1.02;
 
 		//vec3 normalVector = VERTEX - vec3(offset, 0, VERTEX.z);

@@ -288,8 +288,14 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			abilityState.SingleTargetSetHasDisadvantage();
 		}
 
-		await ScenarioEvents.AttackAfterTargetConfirmedEvent.CreatePrompt(
-			new ScenarioEvents.AttackAfterTargetConfirmed.Parameters(abilityState), abilityState);
+		ScenarioEvents.AttackAfterTargetConfirmed.Parameters attackAfterTargetConfirmedParameters =
+			await ScenarioEvents.AttackAfterTargetConfirmedEvent.CreatePrompt(
+				new ScenarioEvents.AttackAfterTargetConfirmed.Parameters(abilityState), abilityState);
+				
+		if(attackAfterTargetConfirmedParameters.CannotGainDisadvantage)
+        {
+			attackAfterTargetConfirmedParameters.AbilityState.SingleTargetHasDisadvantage = false;
+        }
 
 		await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 

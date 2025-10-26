@@ -131,6 +131,14 @@ public class MonsterMovePrompt(
 							continue;
 						}
 
+						ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
+							ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+
+						if(!canBeFocusedParameters.CanBeFocused)
+						{
+							continue;
+						}
+
 						if(potentialTarget == focus)
 						{
 							attackableFocus = potentialTarget;
@@ -207,6 +215,14 @@ public class MonsterMovePrompt(
 											new ScenarioCheckEvents.CanBeTargetedCheck.Parameters(null, performer, potentialTarget));
 
 									if(!canBeTargetedParameters.CanBeTargeted)
+									{
+										continue;
+									}
+
+									ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
+										ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+
+									if(!canBeFocusedParameters.CanBeFocused)
 									{
 										continue;
 									}
@@ -293,9 +309,15 @@ public class MonsterMovePrompt(
 					// 	continue;
 					// }
 
+					ScenarioCheckEvents.PotentialTargetCheck.Parameters potentialTargetCheckParameters =
+								ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
+									new ScenarioCheckEvents.PotentialTargetCheck.Parameters(performer, potentialTarget));
+
+					int adjustedSortingInitiative = potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
 					int distanceFromCurrentHex = RangeHelper.Distance(performer.Hex, potentialTargetHex);
+
 					FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
-						distanceFromCurrentHex, potentialTarget.Initiative.SortingInitiative, node);
+						distanceFromCurrentHex, adjustedSortingInitiative, node);
 					if(bestFocusNodes.Count == 0)
 					{
 						bestFocusNodes.Add(newNode);

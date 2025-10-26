@@ -75,12 +75,12 @@ public partial class Summon : Figure
 
 		if(Stats.Attack.HasValue)
 		{
-			AttackAbility moveAbility = AttackAbility.Builder()
+			AttackAbility attackAbility = AttackAbility.Builder()
 				.WithDamage(Stats.Attack.Value)
 				.WithRange(Stats.Range ?? 1)
 				.WithRangeType(Stats.RangeType)
 				.Build();
-			_abilities.Add(moveAbility);
+			_abilities.Add(attackAbility);
 		}
 	}
 
@@ -97,7 +97,17 @@ public partial class Summon : Figure
 	{
 		await base.TakeTurn();
 
-		_turnActionState = new ActionState(this, _abilities);
+		ScenarioCheckEvents.IsSummonControlledCheck.Parameters isSummonControlledCheckParameters =
+			ScenarioCheckEvents.IsSummonControlledCheckEvent.Fire(
+				new ScenarioCheckEvents.IsSummonControlledCheck.Parameters(this));
+
+		Figure authority = this;
+		if(isSummonControlledCheckParameters.IsControlled)
+		{
+			authority = CharacterOwner;
+		}
+
+		_turnActionState = new ActionState(this, authority, _abilities);
 		await _turnActionState.Perform();
 	}
 
@@ -140,7 +150,7 @@ public partial class Summon : Figure
 		return new Initiative()
 		{
 			MainInitiative = ownerInitiative.MainInitiative,
-			SortingInitiative = ownerInitiative.SortingInitiative - 10 + SummonIndex
+			SortingInitiative = ownerInitiative.SortingInitiative - 100 + SummonIndex
 		};
 	}
 

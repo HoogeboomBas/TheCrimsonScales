@@ -54,7 +54,9 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 				{
 					await GDTask.CompletedTask;
 
-					return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
+					AttackAbility.State attackState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+
+					return attackState.Performed && !attackState.Target.IsDead;
 				})
 				.Build()
 			)

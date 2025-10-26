@@ -102,7 +102,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 			conditonIconsText += Icons.HintText(Icons.GetCondition(conditionModel));
 		}
 
-		if(Target == Target.Self)
+		if(abilityState.AbilityTarget == Target.Self)
 		{
 			return $"Perform {conditonIconsText} self?";
 		}

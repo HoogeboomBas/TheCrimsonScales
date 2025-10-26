@@ -11,6 +11,7 @@ public class AbilityCard : IReferenced
 	public Character OriginalOwner { get; private set; }
 	public Character Owner { get; private set; }
 	public CardState CardState { get; private set; }
+	public bool Unrecoverable { get; private set; }
 
 	public AbilityCardSide Top { get; }
 	public AbilityCardSide Bottom { get; }
@@ -49,6 +50,11 @@ public class AbilityCard : IReferenced
 		await ScenarioEvents.AbilityCardStateChangedEvent.CreatePrompt(new ScenarioEvents.AbilityCardStateChanged.Parameters(this));
 
 		CardStateChangedEvent?.Invoke(this);
+	}
+
+	public void SetUnrecoverable(bool unrecoverable)
+	{
+		Unrecoverable = unrecoverable;
 	}
 
 	public void SetOwner(Character character)

@@ -69,6 +69,8 @@ public abstract class AbilityCardSide
 					Log.Error($"Ability card side {this} is supposed to be both only active for the round, and persistent. This is not allowed.");
 				}
 
+				AbilityCard.SetUnrecoverable(Unrecoverable);
+
 				// If no persistent/round ability has been performed, discard or lose it instead
 				if(actionState.HasPerformedActiveAbility)
 				{
@@ -89,7 +91,7 @@ public abstract class AbilityCardSide
 				{
 					if(loss)
 					{
-						resultingState = CardState.Lost;
+						resultingState = Unrecoverable ? CardState.UnrecoverablyLost : CardState.Lost;
 					}
 				}
 
@@ -115,7 +117,6 @@ public abstract class AbilityCardSide
 
 	private async GDTask OnFirstActivateAbilityActivated(ActionState actionState)
 	{
-		//await AbilityCard.SetCardState(ResultingCardState);
 		AbilityCard.SetActionStateActive(actionState);
 
 		await GDTask.CompletedTask;

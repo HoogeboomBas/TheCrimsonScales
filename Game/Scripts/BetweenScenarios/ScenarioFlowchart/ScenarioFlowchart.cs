@@ -25,6 +25,9 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 	[Export]
 	private SubViewport _subViewport;
 
+	[Export]
+	private Node3D _3dRoot;
+
 	private bool _animating;
 
 	private Dictionary<int, ScenarioButton> _scenarioButtons = new Dictionary<int, ScenarioButton>();
@@ -102,7 +105,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 			{
 				Vector2I directionOffset = DirectionOffsets[i];
 				Vector2I neighbourCoords = scenarioButton.Coords + directionOffset;
-				if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) && neighbour.SavedScenarioProgress.Discovered &&
+				if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+				   neighbour.SavedScenarioProgress.Discovered &&
 				   scenarioButton.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
 				{
 					scenarioButton.ScenarioButtonOutline.AnimateDirectionalExtension(i, true);
@@ -111,9 +115,11 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 					Vector2I otherNeighbourCoords = scenarioButton.Coords + otherDirectionOffset;
 					Vector2I diagonalNeighbourCoords = neighbourCoords + otherDirectionOffset;
 
-					if(_scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) && otherNeighbour.SavedScenarioProgress.Discovered &&
+					if(_scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
+					   otherNeighbour.SavedScenarioProgress.Discovered &&
 					   scenarioButton.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
-					   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) && diagonalNeighbour.SavedScenarioProgress.Discovered &&
+					   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
+					   diagonalNeighbour.SavedScenarioProgress.Discovered &&
 					   scenarioButton.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
 					{
 						scenarioButton.ScenarioButtonOutline.AnimateDiagonalExtension(i, true);
@@ -130,6 +136,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 
 	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder)
 	{
+		_3dRoot.SetVisible(true);
+
 		AppController.Instance.AudioController.Play("res://Audio/SFX/ScenarioFlowchart/UnfurlMap.wav", delay: 0.4f);
 
 		_subViewportContainer.SetVisible(false);
@@ -190,6 +198,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 	protected override void AfterAnimateOut()
 	{
 		base.AfterAnimateOut();
+
+		_3dRoot.SetVisible(true);
 	}
 
 	private async GDTaskVoid AnimationSequence()
@@ -218,7 +228,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 						{
 							Vector2I directionOffset = DirectionOffsets[i];
 							Vector2I neighbourCoords = destination.Coords + directionOffset;
-							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) && neighbour.SavedScenarioProgress.Discovered &&
+							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+							   neighbour.SavedScenarioProgress.Discovered &&
 							   destination.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
 							{
 								destination.ScenarioButtonOutline.AnimateDirectionalExtension(i);
@@ -234,11 +245,14 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 							Vector2I otherNeighbourCoords = destination.Coords + otherDirectionOffset;
 							Vector2I diagonalNeighbourCoords = neighbourCoords + otherDirectionOffset;
 
-							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) && neighbour.SavedScenarioProgress.Discovered &&
+							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+							   neighbour.SavedScenarioProgress.Discovered &&
 							   destination.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain &&
-							   _scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) && otherNeighbour.SavedScenarioProgress.Discovered &&
+							   _scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
+							   otherNeighbour.SavedScenarioProgress.Discovered &&
 							   destination.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
-							   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) && diagonalNeighbour.SavedScenarioProgress.Discovered &&
+							   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
+							   diagonalNeighbour.SavedScenarioProgress.Discovered &&
 							   destination.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
 							{
 								destination.ScenarioButtonOutline.AnimateDiagonalExtension(i);

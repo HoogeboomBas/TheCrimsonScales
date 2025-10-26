@@ -41,6 +41,30 @@ public partial class EquipItemPopup : Popup<EquipItemPopup.Request>
 	{
 		base.OnOpen();
 
+		UpdateView();
+	}
+
+	protected override void OnClosed()
+	{
+		base.OnClosed();
+
+		foreach(EquipItemPopupItem item in _items)
+		{
+			item.QueueFree();
+		}
+
+		_items.Clear();
+	}
+
+	private void UpdateView()
+	{
+		foreach(EquipItemPopupItem item in _items)
+		{
+			item.QueueFree();
+		}
+
+		_items.Clear();
+
 		foreach(string itemId in PopupRequest.SavedCharacter.ItemIds)
 		{
 			ItemModel itemModel = ModelDB.GetById<ItemModel>(itemId);
@@ -69,6 +93,7 @@ public partial class EquipItemPopup : Popup<EquipItemPopup.Request>
 			_itemParent.AddChild(item);
 			item.Init(itemModel);
 			item.PressedEvent += OnItemPressed;
+			item.SellPressedEvent += OnSellItemPressed;
 			_items.Add(item);
 		}
 
@@ -88,23 +113,34 @@ public partial class EquipItemPopup : Popup<EquipItemPopup.Request>
 		});
 	}
 
-	protected override void OnClosed()
-	{
-		base.OnClosed();
-
-		foreach(EquipItemPopupItem item in _items)
-		{
-			item.QueueFree();
-		}
-
-		_items.Clear();
-	}
-
 	private void OnItemPressed(EquipItemPopupItem item)
 	{
 		PopupRequest.ItemSelectedEvent?.Invoke(PopupRequest.SlotIndex, item.ItemModel);
 
 		Close();
+	}
+
+	private void OnSellItemPressed(EquipItemPopupItem item)
+	{
+		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?",
+			$"Are you sure you want to sell {item.ItemModel.Name}?",
+			new TextButton.Parameters("Cancel",
+				() =>
+				{
+				}
+			),
+			new TextButton.Parameters("Sell",
+				() =>
+				{
+					PopupRequest.SavedCharacter.SellItem(item.ItemModel);
+
+					AppController.Instance.SaveFile.Save();
+
+					UpdateView();
+				},
+				TextButton.ColorType.Red
+			)
+		));
 	}
 
 	private void OnCancelPressed()

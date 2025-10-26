@@ -225,7 +225,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 	protected override string DefaultTargetingHintText(State abilityState)
 	{
-		if(Target == Target.Self)
+		if(abilityState.AbilityTarget == Target.Self)
 		{
 			return $"Perform {Icons.HintText(Icons.Heal)}{abilityState.AbilityHealValue} self?";
 		}

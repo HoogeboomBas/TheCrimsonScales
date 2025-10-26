@@ -60,6 +60,18 @@ public class RoundPhase : ScenarioPhase
 			GameController.Instance.ResetRelevantTurnTaker();
 
 			await GDTask.DelayFastForwardable(0.5f);
+
+			if(activeFigureIndex + 1 < _sortedFigures.Count)
+			{
+				ScenarioEvents.NextActiveFigure.Parameters nextActiveFigureParameters =
+					await ScenarioEvents.NextActiveFigureEvent.CreatePrompt(
+						new ScenarioEvents.NextActiveFigure.Parameters(figure, _sortedFigures[activeFigureIndex+1]));
+
+				if(nextActiveFigureParameters.SortingRequired)
+            	{
+            	    _sortingRequired = true;
+            	}
+			}
 		}
 
 		GameController.Instance.Map.SetTurnTaker(null);

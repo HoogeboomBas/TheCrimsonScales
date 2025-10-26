@@ -140,7 +140,7 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 							await onCardDiscarded(abilityCard);
 						}
 					}
-					else if(abilityCard.CardState == CardState.Lost)
+					else if(abilityCard.CardState == CardState.Lost || abilityCard.CardState == CardState.UnrecoverablyLost)
 					{
 						if(onCardLost != null)
 						{

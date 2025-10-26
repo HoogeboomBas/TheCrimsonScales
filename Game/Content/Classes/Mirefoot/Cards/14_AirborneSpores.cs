@@ -50,6 +50,7 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(0)
 				.WithConditions(Conditions.Muddle)
+				.WithRangeType(RangeType.Range)
 				.WithCustomGetTargets((state, list) =>
 					{
 						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))

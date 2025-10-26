@@ -11,7 +11,7 @@ public class Invisible : ConditionModel
 	{
 		await base.Add(target, node);
 
-		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(this,
+		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(Owner, this,
 			parameters => parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner),
 			parameters =>
 			{
@@ -19,11 +19,19 @@ public class Invisible : ConditionModel
 			}
 		);
 
-		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(this,
+		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(Owner, this,
 			parameters => parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner),
 			parameters =>
 			{
 				parameters.SetCannotBeTargeted();
+			}
+		);
+
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(Owner, this,
+			parameters => parameters.EnemyFigure == Owner,
+			parameters =>
+			{
+				parameters.SetCanPass();
 			}
 		);
 	}
@@ -32,7 +40,8 @@ public class Invisible : ConditionModel
 	{
 		await base.Remove();
 
-		ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(this);
-		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(this);
+		ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(Owner, this);
+		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(Owner, this);
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(Owner, this);
 	}
 }

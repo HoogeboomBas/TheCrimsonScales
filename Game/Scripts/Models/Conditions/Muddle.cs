@@ -22,7 +22,7 @@ public class Muddle : ConditionModel
 
 		ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(this,
 			canApplyParameters => canApplyParameters.Attacker == Owner,
-			applyParameters => applyParameters.SetDisadvantage());
+			applyParameters => applyParameters.SetDisadvantage(true));
 	}
 
 	public override async GDTask Remove()

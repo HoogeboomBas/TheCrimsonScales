@@ -8,5 +8,6 @@
 	Playing = -1,
 	Hand = 0,
 	Discarded = 1,
-	Lost = 2
+	Lost = 2,
+	UnrecoverablyLost = 3
 }

@@ -88,7 +88,8 @@ public partial class MainMenuController : SceneController<MainMenuController>
 
 	private void StartNewCampaign()
 	{
-		AppController.Instance.PopupManager.RequestPopup(new CreateCampaignPopup.Request());
+		AppController.Instance.SceneLoader.RequestSceneChange(new NewCampaignSceneRequest());
+		//AppController.Instance.PopupManager.RequestPopup(new CreateCampaignPopup.Request());
 	}
 
 	private void OnExitPressed()

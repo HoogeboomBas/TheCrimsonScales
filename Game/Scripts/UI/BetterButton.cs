@@ -33,6 +33,7 @@ public partial class BetterButton : BaseButton
 			this.DelayedCall(CenterPivot);
 		}
 
+		UpdateVisuals();
 		//MouseDefaultCursorShape = CursorShape.PointingHand;
 	}
 

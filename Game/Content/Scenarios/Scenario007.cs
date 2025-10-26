@@ -170,16 +170,9 @@ public class Scenario007 : ScenarioModel
 					{
 						ItemModel itemModel = AbilityCmd.GetRandomAvailableOrb();
 
-						ItemModel item = itemModel.ToMutable();
-						item.Init(character);
-						character.AddItem(item);
+						await AbilityCmd.PermanentlyGiveItem(character, itemModel);
 
-						await PromptManager.Prompt(new TreasureItemRewardPrompt(character, itemModel, null), character);
-
-						SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-						savedItem.AddUnlocked(1);
-
-						character.SavedCharacter.AddItem(itemModel);
+						GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.FollowTheMoney);
 					}
 
 					await ((CustomScenarioGoals)ScenarioGoals).Win();
@@ -574,7 +567,7 @@ public class Scenario007 : ScenarioModel
 				Hex firstHex = null;
 				foreach(Hex hex in hexes)
 				{
-					if(hex.IsUnoccupied())
+					if(hex.IsEmpty())
 					{
 						firstHex = hex;
 						break;
@@ -591,7 +584,7 @@ public class Scenario007 : ScenarioModel
 				foreach(Hex otherHex in hexes)
 				{
 					int otherDistance = RangeHelper.Distance(character.Hex, otherHex);
-					if(otherHex.IsUnoccupied() && otherDistance == distance)
+					if(otherHex.IsEmpty() && otherDistance == distance)
 					{
 						list.Add(otherHex);
 					}

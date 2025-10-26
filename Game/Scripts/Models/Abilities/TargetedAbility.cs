@@ -37,7 +37,9 @@ public abstract class TargetedAbilityState : AbilityState
 	public List<Hex> TargetedHexes { get; } = new List<Hex>();
 	public Dictionary<Vector2I, AOEHexType> AOEHexes { get; set; }
 
+	public Target AbilityTarget { get; set; }
 	public int AbilityTargets { get; set; }
+	public AOEPattern AbilityAOEPattern { get; set; }
 
 	public RangeType AbilityRangeType { get; set; }
 	public int AbilityRange { get; set; }
@@ -45,6 +47,7 @@ public abstract class TargetedAbilityState : AbilityState
 	public int AbilityPush { get; set; }
 	public int AbilityPull { get; set; }
 	public int AbilitySwing { get; set; }
+
 
 	public RangeType SingleTargetRangeType { get; set; }
 	public int SingleTargetRange { get; set; }
@@ -71,6 +74,11 @@ public abstract class TargetedAbilityState : AbilityState
 				yield return hex;
 			}
 		}
+	}
+
+	public void AdjustTarget(Target target)
+	{
+		AbilityTarget |= target;
 	}
 
 	public void AdjustTargets(int amount)
@@ -112,6 +120,11 @@ public abstract class TargetedAbilityState : AbilityState
 
 		SingleTargetConditionModels.Remove(conditionModel);
 	}
+
+	public void AbilityAddAOEPattern(AOEPattern aoePattern)
+    {
+		AbilityAOEPattern = aoePattern;
+    }
 
 	public void AbilityAdjustPush(int amount)
 	{
@@ -323,8 +336,11 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	{
 		base.InitializeState(abilityState);
 
+		abilityState.AbilityTarget = Target;
 		abilityState.AbilityTargets = Targets;
-		if(Target.HasFlag(Target.TargetAll))
+		abilityState.AbilityAOEPattern = AOEPattern;
+
+		if(abilityState.AbilityTarget.HasFlag(Target.TargetAll))
 		{
 			abilityState.AbilityTargets = int.MaxValue;
 		}
@@ -341,20 +357,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	{
 		Figure performer = abilityState.Performer;
 
-		List<Figure> customTargets = null; // = CustomTargets?.ToList();
-
-		// if(MustTargetSelf && customTargets == null)
-		// {
-		// 	customTargets = [performer];
-		// }
-		if(Target == Target.Self)
-		{
-			customTargets = [performer];
-		}
-
 		//await InitAbilityState(abilityState);
 
-		if(AOEPattern != null)
+		if(abilityState.AbilityAOEPattern != null)
 		{
 			Dictionary<Vector2I, AOEHexType> aoeHexes = new Dictionary<Vector2I, AOEHexType>();
 
@@ -362,7 +367,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			if(abilityState.Authority is Character)
 			{
 				AOEPrompt.Answer aoeAnswer =
-					await PromptManager.Prompt(new AOEPrompt(abilityState, AOEPattern, TargetHex, null, () => "Select where to target"),
+					await PromptManager.Prompt(new AOEPrompt(abilityState, abilityState.AbilityAOEPattern, TargetHex, null, () => "Select where to target"),
 						abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
@@ -380,7 +385,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				Figure focus = await abilityState.ActionState.GetFocus();
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new MonsterAOEPrompt(abilityState, AOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
+						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
 							() => "Select where to target"), abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
@@ -399,9 +404,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		Action<List<Figure>> getValidTargets = figures =>
 		{
-			if(customTargets != null)
+			if(abilityState.AbilityTarget == Target.Self)
 			{
-				figures.AddRange(customTargets);
+				figures.Add(performer);
 			}
 			else if(CustomGetTargets != null)
 			{
@@ -444,45 +449,47 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 					}
 				}
 
-				if(!Target.HasFlag(Target.Allies) && abilityState.Authority.AlliedWith(figure, false))
+				if(abilityState.Authority.AlliedWith(figure, false) && 
+					!abilityState.AbilityTarget.HasFlag(Target.Self) && 
+					!abilityState.AbilityTarget.HasFlag(Target.Allies))
 				{
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.Enemies) && abilityState.Authority == figure &&
-				   abilityState.Authority.EnemiesWith(abilityState.Performer))
+				if(abilityState.AbilityTarget.HasFlag(Target.Enemies) && abilityState.Authority == figure)
 				{
 					remove = true;
 				}
 
-				if(!Target.HasFlag(Target.Enemies) && abilityState.Authority.EnemiesWith(figure))
+				if(!abilityState.AbilityTarget.HasFlag(Target.Enemies) && abilityState.Authority.EnemiesWith(figure))
 				{
 					remove = true;
 				}
 
-				if(!Target.HasFlag(Target.Self) && abilityState.Performer == figure)
+				if(!abilityState.AbilityTarget.HasFlag(Target.Self) && abilityState.Performer == figure)
 				{
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.SelfCountsForTargets) && abilityState.SingleTargetStates.Count + 1 == abilityState.AbilityTargets &&
-				   !abilityState.UniqueTargetedFigures.Contains(performer) && abilityState.Performer != figure)
+				if(abilityState.AbilityTarget.HasFlag(Target.SelfCountsForTargets) && 
+					abilityState.SingleTargetStates.Count + 1 == abilityState.AbilityTargets &&
+				   	!abilityState.UniqueTargetedFigures.Contains(performer) && abilityState.Performer != figure)
 				{
 					remove = true;
 				}
 
-				if(!Target.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Contains(figure))
+				if(!abilityState.AbilityTarget.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Contains(figure))
 				{
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Count > 0 &&
+				if(abilityState.AbilityTarget.HasFlag(Target.MustTargetSameWithAllTargets) && abilityState.UniqueTargetedFigures.Count > 0 &&
 				   abilityState.UniqueTargetedFigures[0] != figure)
 				{
 					remove = true;
 				}
 
-				if(Target.HasFlag(Target.MustTargetCharacters) && figure is not Character)
+				if(abilityState.AbilityTarget.HasFlag(Target.MustTargetCharacters) && figure is not Character)
 				{
 					remove = true;
 				}
@@ -528,7 +535,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 			if(abilityState.Authority is Character)
 			{
-				bool autoSelectIfOne = Mandatory || (customTargets != null && customTargets.Count == 1) || (TargetHex != null && AOEPattern == null);
+				bool autoSelectIfOne = Mandatory || 
+					abilityState.AbilityTarget == Target.Self || 
+					(TargetHex != null && abilityState.AbilityAOEPattern == null);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
@@ -604,16 +613,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				break;
 			}
 
-			if(customTargets != null && Target.HasFlag(Target.TargetAll))
+			if(abilityState.AbilityAOEPattern != null)
 			{
-				if(abilityState.SingleTargetStates.Count == customTargets.Count)
-				{
-					break;
-				}
-			}
-			else if(AOEPattern != null)
-			{
-				if(abilityState.TargetedHexes.Count == AOEPattern.Hexes.Count)
+				if(abilityState.TargetedHexes.Count == abilityState.AbilityAOEPattern.Hexes.Count)
 				{
 					break;
 				}
@@ -728,6 +730,15 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 				await target.TweenGlobalPosition(hex.GlobalPosition, 0.2f).PlayFastForwardableAsync();
 				await AbilityCmd.EnterHex(abilityState, target, abilityState.Authority, hex, true);
+
+				ScenarioEvents.MoveTogetherCheck.Parameters moveTogetherCheckParameters =
+					await ScenarioEvents.MoveTogetherCheckEvent.CreatePrompt(new ScenarioEvents.MoveTogetherCheck.Parameters(target));
+
+				if(moveTogetherCheckParameters.OtherFigure != null)
+				{
+					await target.TweenGlobalPosition(hex.GlobalPosition, 0.2f).PlayFastForwardableAsync();
+					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex, true);
+				}
 			}
 
 			target.ZIndex = target.DefaultZIndex;

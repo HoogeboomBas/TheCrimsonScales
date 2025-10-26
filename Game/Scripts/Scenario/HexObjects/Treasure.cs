@@ -13,7 +13,6 @@ public partial class Treasure : LootableObject
 	public bool Looted { get; private set; }
 
 	private Func<Character, GDTask> _obtainLootFunction;
-	private Action<Character> _scenarioEndFunction;
 
 	public override async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
@@ -25,10 +24,9 @@ public partial class Treasure : LootableObject
 		}
 	}
 
-	public void SetObtainLootFunction(Func<Character, GDTask> obtainLootFunction, Action<Character> scenarioEndFunction)
+	public void SetObtainLootFunction(Func<Character, GDTask> obtainLootFunction)
 	{
 		_obtainLootFunction = obtainLootFunction;
-		_scenarioEndFunction = scenarioEndFunction;
 	}
 
 	public void SetItemLoot(ItemModel itemModel)
@@ -36,18 +34,7 @@ public partial class Treasure : LootableObject
 		SetObtainLootFunction(
 			async character =>
 			{
-				ItemModel item = itemModel.ToMutable();
-				item.Init(character);
-				character.AddItem(item);
-
-				await PromptManager.Prompt(new TreasureItemRewardPrompt(_lootingCharacter, itemModel, null), _lootingCharacter);
-			},
-			character =>
-			{
-				SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-				savedItem.AddUnlocked(1);
-
-				character.SavedCharacter.AddItem(itemModel);
+				await AbilityCmd.PermanentlyGiveItem(character, itemModel);
 			}
 		);
 	}
@@ -77,8 +64,6 @@ public partial class Treasure : LootableObject
 		{
 			savedScenarioProgress.CollectedTreasureChestNumbers.AddIfNew(TreasureNumber);
 		}
-
-		_scenarioEndFunction?.Invoke(_lootingCharacter);
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)

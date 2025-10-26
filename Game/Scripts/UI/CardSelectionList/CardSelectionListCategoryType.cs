@@ -7,6 +7,7 @@
 	Hand,
 	Discarded,
 	Lost,
+	UnrecoverablyLost,
 
 	Unlockable,
 	Unavailable,

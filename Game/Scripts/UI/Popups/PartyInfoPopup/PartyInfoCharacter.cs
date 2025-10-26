@@ -87,6 +87,8 @@ public partial class PartyInfoCharacter : Control
 				[CardState.Discarded], CardSelectionListCategoryType.Discarded));
 			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
 				[CardState.Lost], CardSelectionListCategoryType.Lost));
+			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
+				[CardState.UnrecoverablyLost], CardSelectionListCategoryType.UnrecoverablyLost));
 		}
 		else
 		{
