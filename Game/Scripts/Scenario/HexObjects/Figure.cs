@@ -10,7 +10,6 @@ using GTweensGodot.Extensions;
 public abstract partial class Figure : HexObject
 {
 	protected FigureViewComponent _figureViewComponent;
-
 	private int _shield;
 	private bool _shieldExtraValue;
 
@@ -265,21 +264,19 @@ public abstract partial class Figure : HexObject
 				return condition;
 			}
 		}
-
 		return null;
 	}
 
 	public async GDTask<ConditionNode> AddCondition(ConditionModel condition)
 	{
 		ConditionNode conditionNode = null;
-		if(condition.ShowOnFigure)
+		if(condition.ShouldShowOnFigure(this))
 		{
 			conditionNode = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Condition.tscn").Instantiate<ConditionNode>();
 			_figureViewComponent.ConditionParent.AddChild(conditionNode);
 			conditionNode.Init(condition);
 		}
 
-		Conditions.Add(condition);
 		//ConditionNodes.Add(condition, conditionNode);
 
 		ConditionsChangedEvent?.Invoke(this);
@@ -294,14 +291,10 @@ public abstract partial class Figure : HexObject
 	public async GDTask RemoveCondition(ConditionModel conditionModel)
 	{
 		ConditionModel condition = GetCondition(conditionModel);
-		ConditionNode node = condition.Node;
-		node?.Destroy();
-		Conditions.Remove(condition);
-
-		ConditionsChangedEvent?.Invoke(this);
 
 		await condition.Remove();
 
+		ConditionsChangedEvent?.Invoke(this);
 		ReorderConditions();
 	}
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
+using System.Linq;
 
 [Serializable]
 public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCardModel> //, IDeckCard
@@ -173,7 +174,6 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 				return true;
 			}
 		}
-
 		return false;
 	}
 
