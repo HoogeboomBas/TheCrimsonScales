@@ -92,6 +92,7 @@ public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubs
 			await AbilityCmd.RemoveCondition(Owner, ImmutableInstance);
 		}
 	}
+	
 	public virtual bool ShouldShowOnFigure(Figure figure)
     {
 		return true;
