@@ -118,7 +118,7 @@ public class EarthDemon : MonsterModel
 
 	public override string AssetPath => "res://Content/Monsters/EarthDemon";
 
-	public override int MaxStandeeCount => 10;
+	public override int MaxStandeeCount => 6;
 
 	public override IEnumerable<MonsterAbilityCardModel> Deck => EarthDemonAbilityCard.Deck;
 }
