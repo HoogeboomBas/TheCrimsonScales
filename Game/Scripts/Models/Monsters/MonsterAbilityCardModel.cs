@@ -20,7 +20,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 
 	public abstract IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster);
 
-	protected MoveAbility MoveAbility(Monster monster, int extraDistance, MoveType moveType = MoveType.Regular)
+	public static MoveAbility MoveAbility(Monster monster, int extraDistance, MoveType moveType = MoveType.Regular)
 	{
 		if(!monster.Stats.Move.HasValue)
 		{
@@ -34,7 +34,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 			.Build();
 	}
 
-	protected AttackAbility AttackAbility(Monster monster,
+	public static AttackAbility AttackAbility(Monster monster,
 		int? extraDamage, DynamicInt<AttackAbility.State>.GetValueDelegate dynamicValue = null, int extraRange = 0,
 		int targets = 1, int? range = null, RangeType? rangeType = null, Target target = Target.Enemies,
 		Hex targetHex = null, bool requiresLineOfSight = true,
