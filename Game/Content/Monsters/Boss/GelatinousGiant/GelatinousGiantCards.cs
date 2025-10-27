@@ -18,28 +18,67 @@ public abstract class GelatinousGiantAbilityCard : BossAbilityCard
 		ModelDB.MonsterAbilityCard<GelatinousGiantAbilityCard7>()
 	];
 
-	Func<Monster, IEnumerable<MonsterAbilityCardAbility>> Special1 = 
-	monster =>
-	{
-	return [
-			new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+	public override IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
+	[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 
-			new MonsterAbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState => 
-				[
-					AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1),
-				])
-				.WithTarget(Target.Allies | Target.TargetAll)
-				.WithCustomGetTargets((state, list) =>
+		new MonsterAbilityCardAbility(GrantAbility.Builder()
+			.WithGetAbilities(grantAbilityState => 
+			[
+				AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1),
+			])
+			.WithTarget(Target.Allies | Target.TargetAll)
+			.WithCustomGetTargets((state, list) =>
+			{
+				list.AddRange(GameController.Instance.Map.Figures
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze));
+			})
+			.Build())
+	];
+
+	public override IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
+	[
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, target: Target.Enemies | Target.TargetAll,
+			customGetTargets: (state, figures) =>
+			{
+				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 3, false, true)
+					.Where(figure => monster.EnemiesWith(figure)));
+			}
+		)),
+
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
+			{
+				List<IGrouping<MonsterType, Figure>> list = GameController.Instance.Map.Figures
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze)
+					.Except([monster])
+					.GroupBy(figure => ((Monster)figure).MonsterType).ToList();
+
+				int damageSuffered = 0;
+
+				list.ForEach(async monsterGroup => 
 				{
-					list.AddRange(GameController.Instance.Map.Figures
-						.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze));
-				})
-				.Build())
-		];
-	}
+					int damage = monsterGroup.Key == MonsterType.Normal ? 1 : 2;
+
+					foreach(Figure figure in monsterGroup)
+					{
+						damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
+					}
+				});
+
+				if(damageSuffered > 0)
+				{
+					monster.SetMaxHealth(monster.MaxHealth + damageSuffered);
+					monster.SetHealth(monster.Health + damageSuffered);
+
+					state.SetPerformed();
+				}
+			})
+			.Build())
+	];
 }
 
+/*
 public abstract class GelatinousGiantAbilityCardSpecial1 : BossAbilityCard
 {
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
