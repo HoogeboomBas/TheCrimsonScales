@@ -28,7 +28,8 @@ public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 			.WithCustomGetTargets((state, list) =>
 			{
 				list.AddRange(GameController.Instance.Map.Figures
-					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze));
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze)
+					.Except([monster]));
 			})
 			.Build())
 	];
