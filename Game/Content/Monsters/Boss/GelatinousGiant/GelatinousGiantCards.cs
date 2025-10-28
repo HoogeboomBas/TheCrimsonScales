@@ -36,13 +36,7 @@ public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 
 	public static IEnumerable<MonsterAbilityCardAbility> GetSpecial2(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, target: Target.Enemies | Target.TargetAll,
-			customGetTargets: (state, figures) =>
-			{
-				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 3, false, true)
-					.Where(figure => monster.EnemiesWith(figure)));
-			}
-		)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, range: 3, target: Target.Enemies | Target.TargetAll)),
 
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
