@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class GelatinousGiantSecondStage : BloodOoze
+public class GelatinousGiantSecondStage : GelatinousGiant
 {
 	public override MonsterStats[] BossLevelStats =>
 	[
@@ -69,7 +69,5 @@ public class GelatinousGiantSecondStage : BloodOoze
 		},
 	];
 
-	public override string Name => "Gelatinous Giant";
-
-	public override int MaxStandeeCount => 1;
+	public override IEnumerable<MonsterAbilityCardModel> Deck => BloodOozeAbilityCard.Deck;
 }
