@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System;
 
 public abstract class BossAbilityCard : MonsterAbilityCardModel
 {
 	public override string CardsAtlasPath => "res://Content/Monsters/Boss/Cards.jpg";
 
-	//public Func<Monster, IEnumerable<MonsterAbilityCardAbility>> GetSpecial1Abilities;
-	//public Func<Monster, IEnumerable<MonsterAbilityCardAbility>> GetSpecial2Abilities;
 	public abstract IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster);
 	public abstract IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster);
 }

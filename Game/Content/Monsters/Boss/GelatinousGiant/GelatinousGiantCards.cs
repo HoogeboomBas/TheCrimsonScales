@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
-using Godot;
 
 public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 {
@@ -19,7 +16,6 @@ public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 	];
 
 	public static IEnumerable<MonsterAbilityCardAbility> GetSpecial1(Monster monster) =>
-	//public static Func<Monster, IEnumerable<MonsterAbilityCardAbility>> GetSpecial1 => monster =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 
@@ -38,7 +34,6 @@ public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 	];
 
 	public static IEnumerable<MonsterAbilityCardAbility> GetSpecial2(Monster monster) =>
-	//public static Func<Monster, IEnumerable<MonsterAbilityCardAbility>> GetSpecial2 => monster =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, target: Target.Enemies | Target.TargetAll,
 			customGetTargets: (state, figures) =>
@@ -79,7 +74,6 @@ public abstract class GelatinousGiantAbilityCard : MonsterAbilityCardModel
 			.Build())
 	];
 }
-
 
 public class GelatinousGiantAbilityCard0 : BossAbilityCard0
 {
