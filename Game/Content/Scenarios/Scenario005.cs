@@ -36,7 +36,14 @@ public class Scenario005 : ScenarioModel
 			$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)} 2, Self” ability.");
 
 		Figure boss = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
-		
+
+		// Every other round spawn an ooze on the marker closest to the boss
+
+		// When elite ooze is killed, prompt to destroy one of marked water tiles
+
+		// When no more water, 1: stop spawning, 2: respawn second stage of ooze and give him hp
+
+		// When done - achievement!
 	}
 }
 
