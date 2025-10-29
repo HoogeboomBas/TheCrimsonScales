@@ -15,12 +15,27 @@ public class ScenarioCheckEvents
 				AIMoveParameters.Targets += amount;
 			}
 
+			public void SetTargets(int amount)
+			{
+				AIMoveParameters.Targets = amount;
+			}
+
 			public void AdjustRange(int amount)
 			{
 				AIMoveParameters.Range += amount;
 			}
 
-			public void AddAOEPattern(AOEPattern aoePattern)
+			public void SetRange(int amount)
+			{
+				AIMoveParameters.Range = amount;
+			}
+
+			public void SetRangeType(RangeType rangeType)
+			{
+				AIMoveParameters.RangeType = rangeType;
+			}
+
+			public void SetAOEPattern(AOEPattern aoePattern)
 			{
 				AIMoveParameters.AOEPattern = aoePattern;
 			}

@@ -91,6 +91,19 @@ public partial class Summon : Figure
 			async parameters =>
 			{
 				parameters.SetNewFocus(CharacterOwner);
+
+				ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this, characterOwner,
+					parameters => parameters.Performer == this,
+					parameters =>
+					{
+						parameters.SetRange(1);
+						parameters.SetRangeType(RangeType.Melee);
+						parameters.SetTargets(1);
+						parameters.SetAOEPattern(null);
+
+						ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this, characterOwner);
+					}
+				);
 			},
 			effectType: EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.Move),

@@ -121,7 +121,7 @@ public abstract class TargetedAbilityState : AbilityState
 		SingleTargetConditionModels.Remove(conditionModel);
 	}
 
-	public void AbilityAddAOEPattern(AOEPattern aoePattern)
+	public void AbilitySetAOEPattern(AOEPattern aoePattern)
     {
 		AbilityAOEPattern = aoePattern;
     }
