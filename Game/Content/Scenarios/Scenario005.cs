@@ -17,7 +17,7 @@ public class Scenario005 : ScenarioModel
 		await base.StartAfterFirstRoomRevealed();
 
 		UpdateScenarioText(
-			$"All characters start with INFECT {Icons.Inline(Icons.GetCondition(Conditions.Infect))} as a scenario effect");
+			$"All characters start with {Icons.Inline(Icons.GetCondition(Conditions.Infect))} as a scenario effect");
 
 		//TODO: Scenario effect
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
@@ -38,8 +38,9 @@ public class Scenario005 : ScenarioModel
 		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
 
 		UpdateScenarioText(
-			$"The door is locked. When a character ends their turn on the pressure plate marked {Icons.Marker(Marker.Type.b)} the door is permanently unlocked " +
-			$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)} 2, Self” ability.");
+			"Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained." + 
+			System.Environment.NewLine + System.Environment.NewLine +
+			$"Whenever an elite Blood Ooze is killed, drain an infected water source {Icons.Inline(Icons.Marker(Marker.Type.a))}");
 
 		Figure gelatinousGiant = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
 
