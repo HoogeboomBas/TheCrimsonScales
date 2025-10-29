@@ -111,7 +111,7 @@ public partial class Map : Node2D
 		return (hex != null && (!checkRevealed || hex.Revealed)) ? hex : null;
 	}
 
-	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon, bool register = true)
+	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon)
 	{
 		MonsterGroup monsterGroup = GetMonsterGroup(monsterModel);
 
@@ -122,7 +122,7 @@ public partial class Map : Node2D
 			AddChild(monsterHexObject, true);
 			monsterHexObject.SetMonsterModel(monsterModel);
 			await monsterHexObject.Init(hex);
-			monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon, register);
+			monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon);
 			return monsterHexObject;
 		}
 

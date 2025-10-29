@@ -504,4 +504,23 @@ public class ScenarioCheckEvents
 
 	private readonly CanOpenDoorsCheck _canOpenDoorsCheck = new CanOpenDoorsCheck();
 	public static CanOpenDoorsCheck CanOpenDoorsCheckEvent => GameController.Instance.ScenarioCheckEvents._canOpenDoorsCheck;
+
+	public class CanTakeTurnCheck : ScenarioCheckEvent<CanTakeTurnCheck.Parameters>
+	{
+		public class Parameters(Figure figure, bool canTakeTurn)
+			: ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+
+			public bool CanTakeTurn { get; private set; } = canTakeTurn;
+
+			public void SetCannotTakeTurn()
+			{
+				CanTakeTurn = false;
+			}
+		}
+	}
+
+	private readonly CanTakeTurnCheck _canTakeTurnCheck = new CanTakeTurnCheck();
+	public static CanTakeTurnCheck CanTakeTurnCheckEvent => GameController.Instance.ScenarioCheckEvents._canTakeTurnCheck;
 }

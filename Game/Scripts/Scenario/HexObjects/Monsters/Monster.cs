@@ -37,7 +37,7 @@ public partial class Monster : Figure
 		_monsterViewComponent = GetViewComponent<MonsterViewComponent>();
 	}
 
-	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, bool register)
+	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -92,11 +92,8 @@ public partial class Monster : Figure
 			CanTakeTurn = false;
 		}
 
-		if(register)
-		{
-			MonsterGroup.RegisterMonster(this);
-			GameController.Instance.Map.RegisterFigure(this);
-		}
+		MonsterGroup.RegisterMonster(this);
+		GameController.Instance.Map.RegisterFigure(this);
 
 		Scale = Vector2.Zero;
 		this.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();

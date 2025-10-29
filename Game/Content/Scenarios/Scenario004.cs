@@ -75,7 +75,7 @@ public class Scenario004 : ScenarioModel
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.Heal),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}1, {Icons.Inline(Icons.Range)}2"
+			effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}1, {Icons.Inline(Icons.Range)}2")
 		);
 
 		// Win when all infected warriors are healed and all enemies are dead
@@ -133,7 +133,7 @@ public class Scenario004 : ScenarioModel
 	{
 		MonsterModel monsterModel = marker.MarkerType == Marker.Type.a ? ModelDB.Monster<CityArcher>() : ModelDB.Monster<CityGuard>();
 
-		Monster monster = await AbilityCmd.SpawnMonster(monsterModel, MonsterType.Normal, marker.Hex, false);
+		Monster monster = await AbilityCmd.SpawnMonster(monsterModel, MonsterType.Normal, marker.Hex);
 
 		monster.SetAlignment(Alignment.Characters);
 		monster.SetEnemies(Alignment.Enemies);
@@ -152,6 +152,14 @@ public class Scenario004 : ScenarioModel
 
 		public async GDTask Init(Monster monster)
 		{
+			ScenarioCheckEvents.CanTakeTurnCheckEvent.Subscribe(monster, this,
+				parameters => parameters.Figure == monster,
+				parameters =>
+				{
+					parameters.SetCannotTakeTurn();
+				}
+			);
+
 			ScenarioEvents.InflictConditionEvent.Subscribe(monster, this,
 				parameters => parameters.Target == monster,
 				async parameters =>
@@ -239,6 +247,7 @@ public class Scenario004 : ScenarioModel
 
 		private async GDTask Unsubscribe(Monster monster)
 		{
+			ScenarioCheckEvents.CanTakeTurnCheckEvent.Unsubscribe(monster, this);
 			ScenarioEvents.InflictConditionEvent.Unsubscribe(monster, this);
 			ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(monster, this);
 			ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(monster, this);

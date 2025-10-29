@@ -276,9 +276,9 @@ public static class AbilityCmd
 		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, true);
 	}
 
-	public static async GDTask<Monster> SpawnMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex, bool register = true)
+	public static async GDTask<Monster> SpawnMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex)
 	{
-		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, register);
+		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false);
 	}
 
 	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene)
