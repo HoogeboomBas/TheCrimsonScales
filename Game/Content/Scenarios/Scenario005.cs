@@ -24,6 +24,11 @@ public class Scenario005 : ScenarioModel
 		{
 			await AbilityCmd.AddCondition(null, character, Conditions.Infect);
 		}
+
+		GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) => 
+		{ 
+			if(won) { GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.OozeDestroyed); }
+		};
 	}
 
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters parameters)
@@ -77,15 +82,13 @@ public class Scenario005 : ScenarioModel
 				// Remove all connected water tiles
 				await DrainAllConnectedWater(chosenHex);
 
-				// Drained all the water, summon boss version that can be damaged and draws different abilities
-				if(markers.Count == 0)
+				// Drained C water markers, summon boss version that can be damaged and draws different abilities
+				if(markers.Count == 4 - GameController.Instance.SavedCampaign.Characters.Count)
 				{
 					await SummonSecondStageBoss(gelatinousGiant);
 				}
 			}
 		);
-
-		// When done - achievement!
 	}
 
 	private async GDTask DrainAllConnectedWater(Hex waterHex)
@@ -118,18 +121,6 @@ public class Scenario005 : ScenarioModel
 		Monster secondStageboss = await AbilityCmd.SpawnMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
 		secondStageboss.SetMaxHealth(bossHealth);
 		secondStageboss.SetHealth(bossHealth);
-
-		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => parameters.Figure is Monster monsterFigure && 
-				monsterFigure.MonsterModel is GelatinousGiantSecondStage,
-			async parameters =>
-			{
-				if(!GameController.Instance.SavedScenarioProgress.Completed)
-				{
-					GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.OozeDestroyed);
-				}
-			}
-		);
 	}
 }
 
