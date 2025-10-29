@@ -72,6 +72,11 @@ public partial class Trap : OverlayTile
 		await Destroy();
 	}
 
+	public async GDTask Disarm()
+	{
+		await Destroy();
+	}
+
 	public void UpdateVisuals()
 	{
 		int damage = Damage;

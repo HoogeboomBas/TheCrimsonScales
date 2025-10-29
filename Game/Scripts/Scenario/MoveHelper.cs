@@ -338,19 +338,31 @@ public static class MoveHelper
 
 		if(hex.TryGetHexObjectOfType(out Door door) && (performer is not Character || door.Locked || forcedMovement))
 		{
-			return false;
-		}
+			ScenarioCheckEvents.CanOpenDoorsCheck.Parameters canOpenDoorsCheckParameters =
+				ScenarioCheckEvents.CanOpenDoorsCheckEvent.Fire(
+					new ScenarioCheckEvents.CanOpenDoorsCheck.Parameters(performer));
 
-		Figure otherFigure = hex.GetHexObjectOfType<Figure>();
-		if(otherFigure != null && performer.EnemiesWith(otherFigure) && !otherFigure.HasCondition(Conditions.Invisible) && moveType == MoveType.Regular)
-		{
-			ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
-				ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
-					new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
-
-			if(!canPassEnemyParameters.CanPass)
+			if(!canOpenDoorsCheckParameters.CanOpenDoors)
 			{
 				return false;
+			}
+		}
+
+		if(moveType == MoveType.Regular)
+		{
+			foreach(Figure otherFigure in hex.GetHexObjectsOfType<Figure>())
+			{
+				if(performer.EnemiesWith(otherFigure))
+				{
+					ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
+					ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
+						new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
+
+					if(!canPassEnemyParameters.CanPass)
+					{
+						return false;
+					}
+				}
 			}
 		}
 
@@ -393,7 +405,14 @@ public static class MoveHelper
 		Figure otherFigure = hex.GetHexObjectOfType<Figure>();
 		if(otherFigure != null && otherFigure != performer)
 		{
-			return false;
+			ScenarioCheckEvents.CanEnterHexWithFigureCheck.Parameters canEnterHexWithFigureCheckParameters =
+				ScenarioCheckEvents.CanEnterHexWithFigureCheckEvent.Fire(
+					new ScenarioCheckEvents.CanEnterHexWithFigureCheck.Parameters(performer, hex, otherFigure, true));
+
+			if(!canEnterHexWithFigureCheckParameters.CanEnter)
+			{
+				return false;
+			}
 		}
 
 		return true;

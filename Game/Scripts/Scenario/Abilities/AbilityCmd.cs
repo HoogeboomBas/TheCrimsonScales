@@ -65,7 +65,7 @@ public static class AbilityCmd
 
 				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, subscriber,
 					parameters => parameters.Target == state.Performer,
-					parameters => parameters.SetDisadvantage()
+					parameters => parameters.SetDisadvantage(true)
 				);
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
@@ -210,11 +210,27 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
+	public static async GDTask DestroyObstacle(Obstacle obstacle)
+	{
+		if(!obstacle.CannotBeDestroyed)
+		{
+			await obstacle.Destroy();
+		}
+	}
+
 	public static async GDTask DestroyDifficultTerrain(DifficultTerrain difficultTerrain)
 	{
 		if(!difficultTerrain.CannotBeDestroyed)
 		{
 			await difficultTerrain.Destroy();
+		}
+	}
+
+	public static async GDTask DisarmTrap(Trap trap)
+	{
+		if(!trap.CannotBeDestroyed)
+		{
+			await trap.Disarm();
 		}
 	}
 
