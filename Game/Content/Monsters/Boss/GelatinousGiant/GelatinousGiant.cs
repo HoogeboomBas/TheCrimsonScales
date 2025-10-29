@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class GelatinousGiant : BloodOoze
+public class GelatinousGiant : MonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>
 	[
@@ -71,6 +71,8 @@ public class GelatinousGiant : BloodOoze
 	];
 
 	public override string Name => "Gelatinous Giant";
+
+	public override string AssetPath => "res://Content/Monsters/Ooze";
 
 	public override int MaxStandeeCount => 1;
 
