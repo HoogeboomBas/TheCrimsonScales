@@ -58,7 +58,7 @@ public partial class ActionState
 		return aiMoveParameters;
 	}
 
-	public async GDTask<Figure> GetFocus()
+	public async GDTask<Figure> GetFocus(AbilityState abilityState)
 	{
 		if(!_focusDetermined || (_cachedFocus != null && _cachedFocus.IsDead))
 		{
@@ -66,7 +66,11 @@ public partial class ActionState
 			_cachedFocus = await DetermineFocus();
 		}
 
-		return _cachedFocus;
+		ScenarioEvents.FigureFoundFocus.Parameters figureFoundFocusEventParameters =
+			await ScenarioEvents.FigureFoundFocusEvent.CreatePrompt(
+				new ScenarioEvents.FigureFoundFocus.Parameters(abilityState, _cachedFocus), abilityState);
+
+		return figureFoundFocusEventParameters.Focus;
 	}
 
 	// TODO: Change this to a prompt of sorts, to ensure this is saved

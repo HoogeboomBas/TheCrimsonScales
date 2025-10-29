@@ -225,13 +225,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 		else
 		{
-			Figure focus = await abilityState.ActionState.GetFocus();
-
-			ScenarioEvents.FigureFoundFocus.Parameters figureFoundFocusEventParameters =
-				await ScenarioEvents.FigureFoundFocusEvent.CreatePrompt(
-					new ScenarioEvents.FigureFoundFocus.Parameters(abilityState, focus), abilityState);
-
-			focus = figureFoundFocusEventParameters.Focus;
+			Figure focus = await abilityState.ActionState.GetFocus(abilityState);
 
 			// Monster moving
 			MonsterMovePrompt.Answer monsterMoveAnswer = await PromptManager.Prompt(
