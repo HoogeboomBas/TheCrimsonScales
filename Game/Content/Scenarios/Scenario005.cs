@@ -94,7 +94,7 @@ public class Scenario005 : ScenarioModel
 		while(waterHexes.Count > 0)
 		{
 			Hex currentHex = waterHexes.First();
-			await currentHex.GetHexObjectOfType<Water>().Destroy();
+			await currentHex.GetHexObjectOfType<Water>().Destroy(forceDestroy: true);
 			foreach(Hex hex in RangeHelper.GetHexesInRange(currentHex, 1, false, false))
 			{
 				if(hex.HasHexObjectOfType<Water>())
