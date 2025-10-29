@@ -14,10 +14,10 @@ public class Scenario004 : ScenarioModel
 		new CustomScenarioGoals("Kill all enemies and cure four sick warriors to win this scenario." + 
 			System.Environment.NewLine + System.Environment.NewLine +
 			"Any character may forgo the top action of their turn to perform a" + 
-			$"”Heal{Icons.Inline(Icons.Heal)}1, Range{Icons.Inline(Icons.Range)}2” ability.");
+			$"“{Icons.Inline(Icons.Heal)}1, {Icons.Inline(Icons.Range)}2” ability.");
 
 	private List<InfectedWarrior> _infectedWarriors = [];
-	private bool _update_once = false;
+	private bool _roomRevealed = false;
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -75,7 +75,7 @@ public class Scenario004 : ScenarioModel
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.Heal),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"Heal{Icons.Inline(Icons.Heal)}1,Range {Icons.Inline(Icons.Range)}2")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}1, {Icons.Inline(Icons.Range)}2"
 		);
 
 		// Win when all infected warriors are healed and all enemies are dead
@@ -108,15 +108,15 @@ public class Scenario004 : ScenarioModel
 	{
 		await base.OnRoomRevealed(parameters);
 
-		if(!_update_once)
-        {
-            UpdateScenarioText(
-				$"City Archers and City Guards suffer from INFECT{Icons.Inline(Icons.GetCondition(Conditions.Infect))}" +
+		if(!_roomRevealed)
+		{
+			UpdateScenarioText(
+				$"City Archers and City Guards suffer from {Icons.Inline(Icons.GetCondition(Conditions.Infect))}" +
 				"They are considered allies to you." + 
 				"If you perform a heal ability targeting the infected warrior, you have successfully cured them.");
 			
-			_update_once = true;
-        }
+			_roomRevealed = true;
+		}
 
 		foreach(Marker marker in GameController.Instance.Map.Markers)
 		{
@@ -130,8 +130,8 @@ public class Scenario004 : ScenarioModel
 	}
 
 	private async GDTask SpawnGuard(Marker marker)
-    {
-        MonsterModel monsterModel = marker.MarkerType == Marker.Type.a ? ModelDB.Monster<CityArcher>() : ModelDB.Monster<CityGuard>();
+	{
+		MonsterModel monsterModel = marker.MarkerType == Marker.Type.a ? ModelDB.Monster<CityArcher>() : ModelDB.Monster<CityGuard>();
 
 		Monster monster = await AbilityCmd.SpawnMonster(monsterModel, MonsterType.Normal, marker.Hex, false);
 
@@ -144,7 +144,7 @@ public class Scenario004 : ScenarioModel
 		InfectedWarrior infectedWarrior = new();
 		await infectedWarrior.Init(monster);
 		_infectedWarriors.Add(infectedWarrior);
-    }
+	}
 
 	public class InfectedWarrior
 	{
@@ -212,7 +212,6 @@ public class Scenario004 : ScenarioModel
 					await Unsubscribe(monster);
 				}
 			);
-
 
 			ScenarioEvents.AfterHealPerformedEvent.Subscribe(monster, this,
 				parameters => parameters.AbilityState.Target == monster,
