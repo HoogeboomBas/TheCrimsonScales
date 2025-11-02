@@ -123,6 +123,6 @@ public class StoneGolemAbilityCard7 : StoneGolemAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +2, range: 3, pull: 2, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 3, pull: 2, conditions: [Conditions.Immobilize])),
 	];
 }
