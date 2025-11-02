@@ -4,24 +4,33 @@ public abstract class BossAbilityCard : MonsterAbilityCardModel
 {
 	public override string CardsAtlasPath => "res://Content/Monsters/Boss/Cards.jpg";
 
-	public abstract IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster);
-	public abstract IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster);
+	public static IEnumerable<MonsterAbilityCardModel> Deck { get; } =
+	[
+		ModelDB.MonsterAbilityCard<BossAbilityCard0>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard1>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard2>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard3>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard4>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard5>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard6>(),
+		ModelDB.MonsterAbilityCard<BossAbilityCard7>(),
+	];
 }
 
-public abstract class BossAbilityCard0 : BossAbilityCard
+public class BossAbilityCard0 : BossAbilityCard
 {
 	public override int Initiative => 11;
 	public override int CardIndex => 0;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
-public abstract class BossAbilityCard1 : BossAbilityCard
+public class BossAbilityCard1 : BossAbilityCard
 {
 	public override int Initiative => 14;
 	public override int CardIndex => 1;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
 public abstract class BossAbilityCard2 : BossAbilityCard
@@ -30,7 +39,7 @@ public abstract class BossAbilityCard2 : BossAbilityCard
 	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
 public abstract class BossAbilityCard3 : BossAbilityCard
@@ -39,7 +48,7 @@ public abstract class BossAbilityCard3 : BossAbilityCard
 	public override int CardIndex => 3;
 	public override bool Reshuffles => true;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public abstract class BossAbilityCard4 : BossAbilityCard
@@ -47,7 +56,7 @@ public abstract class BossAbilityCard4 : BossAbilityCard
 	public override int Initiative => 79;
 	public override int CardIndex => 4;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public abstract class BossAbilityCard5 : BossAbilityCard
@@ -55,7 +64,7 @@ public abstract class BossAbilityCard5 : BossAbilityCard
 	public override int Initiative => 73;
 	public override int CardIndex => 5;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public abstract class BossAbilityCard6 : BossAbilityCard

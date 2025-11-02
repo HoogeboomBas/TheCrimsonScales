@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 
-public class GelatinousGiant : MonsterModel
+public class GelatinousGiant : MonsterModel, IBossMonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>
 	[
@@ -76,5 +77,60 @@ public class GelatinousGiant : MonsterModel
 
 	public override int MaxStandeeCount => 1;
 
-	public override IEnumerable<MonsterAbilityCardModel> Deck => GelatinousGiantAbilityCard.Deck;
+	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
+
+	// IBossMonsterModel
+	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
+	[
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
+
+		new MonsterAbilityCardAbility(GrantAbility.Builder()
+			.WithGetAbilities(grantAbilityState => 
+			[
+				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1),
+			])
+			.WithTarget(Target.Allies | Target.TargetAll)
+			.WithCustomGetTargets((state, list) =>
+			{
+				list.AddRange(GameController.Instance.Map.Figures
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze)
+					.Except([monster]));
+			})
+			.Build())
+	];
+
+	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
+	[
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: -1, range: 3, target: Target.Enemies | Target.TargetAll)),
+
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
+			{
+				List<IGrouping<MonsterType, Figure>> list = GameController.Instance.Map.Figures
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze)
+					.Except([monster])
+					.GroupBy(figure => ((Monster)figure).MonsterType).ToList();
+
+				int damageSuffered = 0;
+
+				list.ForEach(async monsterGroup => 
+				{
+					int damage = monsterGroup.Key == MonsterType.Normal ? 1 : 2;
+
+					foreach(Figure figure in monsterGroup)
+					{
+						damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
+					}
+				});
+
+				if(damageSuffered > 0)
+				{
+					monster.SetMaxHealth(monster.MaxHealth + damageSuffered);
+					monster.SetHealth(monster.Health + damageSuffered);
+
+					state.SetPerformed();
+				}
+			})
+			.Build())
+	];
 }

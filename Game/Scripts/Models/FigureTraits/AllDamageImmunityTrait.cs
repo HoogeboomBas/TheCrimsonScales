@@ -15,6 +15,14 @@ public class AllDamageImmunityTrait : FigureTrait
 				await GDTask.CompletedTask;
 			}
 		);
+
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, this,
+			parameters => parameters.Figure == figure,
+			parameters =>
+			{
+				parameters.Add(new FigureInfoTextExtraEffect.Parameters("This figure cannot suffer damage from any source"));
+			}
+		);
 	}
 
 	public override void Deactivate(Figure figure)
@@ -22,5 +30,6 @@ public class AllDamageImmunityTrait : FigureTrait
 		base.Deactivate(figure);
 
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);
 	}
 }
