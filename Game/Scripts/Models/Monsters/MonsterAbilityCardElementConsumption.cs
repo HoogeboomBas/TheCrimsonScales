@@ -19,7 +19,7 @@ public class MonsterAbilityCardElementConsumption
 		return new MonsterAbilityCardElementConsumption(consumableElements);
 	}
 
-	public static MonsterAbilityCardElementConsumption ConsumeWild(Element infusedElement)
+	public static MonsterAbilityCardElementConsumption ConsumeWild()
 	{
 		return Consume(Elements.All);
 	}

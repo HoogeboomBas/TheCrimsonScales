@@ -42,6 +42,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		ConditionModel[] conditions = null,
 		Action<AttackAbility.State, List<Figure>> customGetTargets = null,
 		Ability<AttackAbility.State>.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
+		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
 		List<ScenarioEvents.DuringAttack.Subscription> duringAttackSubscriptions = null,
 		List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
@@ -72,6 +73,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 			.WithConditions(conditions ?? [])
 			.WithCustomGetTargets(customGetTargets)
 			.WithConditionalAbilityCheck(conditionalAbilityCheck)
+			.WithAbilityStartedSubscriptions(abilityStartedSubscriptions)
 			.WithDuringAttackSubscriptions(duringAttackSubscriptions)
 			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions)
 			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions)

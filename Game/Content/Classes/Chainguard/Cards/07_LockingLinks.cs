@@ -56,7 +56,9 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 
 					AttackAbility.State attackState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackState.Performed && !attackState.Target.IsDead;
+					return attackState.Performed && 
+						!attackState.Target.IsDead && 
+						attackState.Target.HasCondition(Chainguard.Shackle);
 				})
 				.Build()
 			)

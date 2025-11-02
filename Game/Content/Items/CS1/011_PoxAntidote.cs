@@ -1,5 +1,3 @@
-using System.Linq;
-
 public class PoxAntidote : CS1Item
 {
 	public override string Name => "Pox Antidote";
