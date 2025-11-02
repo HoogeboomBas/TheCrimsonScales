@@ -168,7 +168,7 @@ public class MonsterSummonAbility : Ability<MonsterSummonAbility.State>
 			Monster monster = await AbilityCmd.SummonMonster(abilityState.MonsterModel, abilityState.MonsterType, targetedHex);
 			abilityState.SetSummonedMonster(monster);
 
-			if(abilityState.ForcedHitPoints.HasValue)
+			if(abilityState.ForcedHitPoints.HasValue && monster != null)
 			{
 				monster.SetHealth(abilityState.ForcedHitPoints.Value);
 			}
