@@ -130,7 +130,7 @@ public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
 				{
 					AttackAbility.State attackAbilityState = (AttackAbility.State)parameters.AbilityState;
 					attackAbilityState.AbilityAdjustAttackValue(2);
-					attackAbilityState.AbilityAddAOEPattern(new AOEPattern([
+					attackAbilityState.AbilitySetAOEPattern(new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
 						new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
