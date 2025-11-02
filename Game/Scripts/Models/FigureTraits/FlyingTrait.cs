@@ -8,7 +8,13 @@
 			parameters => parameters.Figure == figure,
 			parameters => parameters.SetFlying(true));
 
-		//figure.UpdateFlying();
+		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Subscribe(figure, this,
+			parameters => parameters.Figure == figure,
+			parameters =>
+			{
+				parameters.SetCanEnter();
+			}
+		);
 	}
 
 	public override void Deactivate(Figure figure)
@@ -16,5 +22,6 @@
 		base.Deactivate(figure);
 
 		ScenarioCheckEvents.FlyingCheckEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Unsubscribe(figure, this);
 	}
 }
