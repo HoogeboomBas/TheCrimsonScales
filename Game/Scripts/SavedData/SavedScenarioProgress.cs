@@ -17,6 +17,6 @@ public class SavedScenarioProgress
 	[JsonProperty]
 	public List<int> CollectedTreasureChestNumbers { get; } = new List<int>();
 
-	// [JsonProperty]
-	// public Dictionary<string, object> CustomValues { get; } = new Dictionary<string, object>();
+	[JsonProperty]
+	public Dictionary<string, object> CustomValues { get; } = new Dictionary<string, object>();
 }

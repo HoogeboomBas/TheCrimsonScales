@@ -93,7 +93,6 @@ public partial class Monster : Figure
 		}
 
 		MonsterGroup.RegisterMonster(this);
-
 		GameController.Instance.Map.RegisterFigure(this);
 
 		Scale = Vector2.Zero;
@@ -104,7 +103,10 @@ public partial class Monster : Figure
 	{
 		await base.TakeTurn();
 
-		await MonsterGroup.ActiveMonsterAbilityCard.Perform(this);
+		if(MonsterGroup.ActiveMonsterAbilityCard != null)
+		{
+			await MonsterGroup.ActiveMonsterAbilityCard.Perform(this);
+		}
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
