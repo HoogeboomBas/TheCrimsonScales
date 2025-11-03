@@ -54,7 +54,10 @@ public class Scenario004 : ScenarioModel
 					"During this scenario, this item is equipped" + System.Environment.NewLine +
 					$"without it occupying an {Icons.Inline(Icons.GetItem(ItemType.Small))} item slot.");
 
-			GameController.Instance.SavedScenarioProgress.CustomValues.Add("PoxAntidoteGiven", true);
+			GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) =>
+			{
+				GameController.Instance.SavedScenarioProgress.CustomValues.Add("PoxAntidoteGiven", true);
+			};
 		}
 
 		if(character != null)
