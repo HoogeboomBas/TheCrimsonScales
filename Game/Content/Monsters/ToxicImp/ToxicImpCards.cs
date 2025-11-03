@@ -63,7 +63,7 @@ public class ToxicImpAbilityCard3 : ToxicImpAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 1, rangeType: RangeType.Melee)),
 	];
 }
 
