@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bw80rn82glffc"]
+[gd_scene load_steps=16 format=3 uid="uid://dsfs01mq6aogw"]
 
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_t4bfx"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_w461r"]
@@ -249,7 +249,7 @@ MonsterType4Characters = 1
 
 [node name="MonsterSpawner6" parent="Map/Rooms/Room2" index="33" instance=ExtResource("9_vx3hm")]
 position = Vector2(1418.55, -1323)
-MonsterModelId = "BLOOD_OOZE.GELATINOUS_GIANT"
+MonsterModelId = "MONSTER_MODEL.GELATINOUS_GIANT"
 MonsterType2Characters = 2
 MonsterType3Characters = 2
 MonsterType4Characters = 2
