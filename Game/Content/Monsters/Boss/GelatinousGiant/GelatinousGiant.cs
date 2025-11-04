@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 
 public class GelatinousGiant : MonsterModel, IBossMonsterModel
 {
@@ -130,6 +131,8 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 					state.SetPerformed();
 				}
+
+				await GDTask.CompletedTask;
 			})
 			.Build())
 	];

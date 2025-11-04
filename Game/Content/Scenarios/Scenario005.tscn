@@ -207,15 +207,19 @@ TreasureNumber = 45
 
 [node name="Marker" parent="Map/Rooms/Room2" index="24" instance=ExtResource("8_a2qfp")]
 position = Vector2(982.073, 567)
+_hideDuringPlay = true
 
 [node name="Marker2" parent="Map/Rooms/Room2" index="25" instance=ExtResource("8_a2qfp")]
 position = Vector2(1636.79, -189)
+_hideDuringPlay = true
 
 [node name="Marker3" parent="Map/Rooms/Room2" index="26" instance=ExtResource("8_a2qfp")]
 position = Vector2(982.073, -945)
+_hideDuringPlay = true
 
 [node name="Marker4" parent="Map/Rooms/Room2" index="27" instance=ExtResource("8_a2qfp")]
 position = Vector2(1636.79, -1701)
+_hideDuringPlay = true
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room2" index="28" instance=ExtResource("9_vx3hm")]
 position = Vector2(1200.31, 567)

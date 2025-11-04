@@ -112,9 +112,9 @@ public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
 				foreach(Figure target in sufferDamageTargets)
 				{
 					await AbilityCmd.SufferDamage(null, target, 1);
-				}
 
-				state.SetPerformed();
+					state.SetPerformed();
+				}
 			})
 			.Build()),
 

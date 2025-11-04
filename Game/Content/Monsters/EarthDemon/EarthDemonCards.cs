@@ -32,7 +32,11 @@ public class EarthDemonAbilityCard0 : EarthDemonAbilityCard
 			.WithConditions(Conditions.Immobilize)
 			.WithRange(3)
 			.WithTarget(Target.Enemies | Target.TargetAll)
-			.WithConditionalAbilityCheck(async state => CheckElementConsumed(monster, [Element.Earth]))
+			.WithConditionalAbilityCheck(async state =>
+			{
+				await GDTask.CompletedTask;
+				return CheckElementConsumed(monster, [Element.Earth]);
+			})
 			.Build())
 	];
 

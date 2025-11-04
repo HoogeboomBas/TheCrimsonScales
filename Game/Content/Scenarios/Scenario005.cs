@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Fractural.Tasks;
 
 public class Scenario005 : ScenarioModel
@@ -11,6 +10,9 @@ public class Scenario005 : ScenarioModel
 	//public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals([ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
+
+	int _markersLeftToRemove;
+	Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -37,14 +39,36 @@ public class Scenario005 : ScenarioModel
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
 
-		UpdateScenarioText(
-			"Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained." + 
-			System.Environment.NewLine + System.Environment.NewLine +
-			$"Whenever an elite Blood Ooze is killed, drain an infected water source {Icons.Inline(Icons.Marker(Marker.Type.a))}");
-
 		Figure gelatinousGiant = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
 
 		List<Marker> markers = GameController.Instance.Map.Markers;
+
+		foreach(Marker marker in markers)
+		{
+			List<Hex> waterHexes = [marker.Hex];
+			List<Hex> currentHexes = [marker.Hex];
+
+			while(currentHexes.Count > 0)
+			{
+				Hex currentHex = currentHexes.First();
+				foreach(Hex newHex in RangeHelper.GetHexesInRange(currentHex, 1, false, false).Except(waterHexes))
+				{
+					if(newHex.HasHexObjectOfType<Water>())
+					{
+						currentHexes.Add(newHex);
+						waterHexes.Add(newHex);
+					}
+				}
+
+				currentHexes.Remove(currentHex);
+			}
+
+			_infectedWaterSources.Add(marker, waterHexes);
+		}
+
+		_markersLeftToRemove = 4 - GameController.Instance.SavedCampaign.Characters.Count;
+
+		UpdateScenarioText();
 
 		int doorOpenedRoundNumber = GameController.Instance.ScenarioPhaseManager.RoundIndex + 1;
 		int doorOpenedRoundNumberOddness = doorOpenedRoundNumber % 2;
@@ -54,12 +78,32 @@ public class Scenario005 : ScenarioModel
 			parameters => parameters.RoundNumber % 2 != doorOpenedRoundNumberOddness,
 			async parameters =>
 			{
+				// Sort the markers by distance to the boss
 				markers.Sort(Comparer<Marker>.Create(
 					(marker0, marker1) => 
-						RangeHelper.Distance(marker0.Hex, gelatinousGiant.Hex) - RangeHelper.Distance(marker1.Hex, gelatinousGiant.Hex)
+						RangeHelper.Distance(marker1.Hex, gelatinousGiant.Hex) - RangeHelper.Distance(marker0.Hex, gelatinousGiant.Hex)
 				));
 
-				await AbilityCmd.SummonMonster(ModelDB.Monster<BloodOoze>(), MonsterType.Elite, markers.First().Hex);
+				Hex chosenHex = null;
+
+				// First see if there are unoccupied water hexes in water group with the closest marker
+				// Then go to the next closest one
+				markers.ForEach(marker =>
+				{
+					foreach(Hex hex in _infectedWaterSources[marker])
+					{
+						if(hex.IsUnoccupied())
+						{
+							chosenHex = hex;
+							break;
+						}
+					}
+				});
+
+				if(chosenHex != null)
+				{
+					await AbilityCmd.SpawnMonster(ModelDB.Monster<BloodOoze>(), MonsterType.Elite, chosenHex);
+				}
 			}
 		);
 
@@ -77,55 +121,63 @@ public class Scenario005 : ScenarioModel
 
 				// Hide the marker and remove it from the list
 				Marker chosenMarker = markers.First(marker => marker.Hex == chosenHex);
-				chosenMarker.Hide();
 				markers.Remove(chosenMarker);
+				_markersLeftToRemove--;
+
+				UpdateScenarioText();
 
 				// Remove all connected water tiles
-				await DrainAllConnectedWater(chosenHex);
+				await DrainAllConnectedWater(chosenMarker);
 
 				// Drained C water markers, summon boss version that can be damaged and draws different abilities
-				if(markers.Count == 4 - GameController.Instance.SavedCampaign.Characters.Count)
+				if(_markersLeftToRemove == 0)
 				{
 					await SummonSecondStageBoss(gelatinousGiant);
+
+					ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
+					ScenarioEvents.FigureKilledEvent.Unsubscribe(this);
 				}
 			}
 		);
 	}
 
-	private async GDTask DrainAllConnectedWater(Hex waterHex)
+	private async GDTask DrainAllConnectedWater(Marker infectedWaterMarker)
 	{
-		List<Hex> waterHexes = [waterHex];
-
-		while(waterHexes.Count > 0)
+		_infectedWaterSources[infectedWaterMarker].ForEach(async hex =>
 		{
-			Hex currentHex = waterHexes.First();
-			
-			foreach(Hex hex in RangeHelper.GetHexesInRange(currentHex, 1, false, false))
-			{
-				if(hex.HasHexObjectOfType<Water>())
-				{
-					waterHexes.AddIfNew(hex);
-				}
-			}
+			await hex.GetHexObjectOfType<Water>().Destroy(forceDestroy: true);
+		});
 
-			await currentHex.GetHexObjectOfType<Water>().Destroy(forceDestroy: true);
-			waterHexes.Remove(currentHex);
-		}
+		_infectedWaterSources.Remove(infectedWaterMarker);
 	}
 
 	private async GDTask SummonSecondStageBoss(Figure boss)
 	{
-		ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
-		ScenarioEvents.FigureKilledEvent.Unsubscribe(this);
-
 		int bossHealth = boss.Health;
 		Hex bossHex = boss.Hex;
 
 		await boss.Destroy(immediately: true);
 
 		Monster secondStageboss = await AbilityCmd.SpawnMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
+		
 		secondStageboss.SetMaxHealth(bossHealth);
 		secondStageboss.SetHealth(bossHealth);
 	}
-}
 
+	private void UpdateScenarioText()
+	{
+		if(_markersLeftToRemove > 0)
+		{
+			UpdateScenarioText(
+				"Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained." +
+				System.Environment.NewLine + System.Environment.NewLine +
+				"At the end of every other round, an Elite Blood Ooze spawns at an infected water source closest to the Gelationous Giant." +
+				System.Environment.NewLine + System.Environment.NewLine +
+				$"Drain {_markersLeftToRemove} more sources of infected water by killing Elite Blood Ooze.");
+		}
+		else
+		{
+			UpdateScenarioText("");
+		}
+	}
+}

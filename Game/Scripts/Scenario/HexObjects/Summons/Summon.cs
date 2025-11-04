@@ -104,6 +104,8 @@ public partial class Summon : Figure
 						ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this, characterOwner);
 					}
 				);
+
+				await GDTask.CompletedTask;
 			},
 			effectType: EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.Move),

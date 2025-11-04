@@ -256,6 +256,8 @@ public class Scenario004 : ScenarioModel
 			ScenarioEvents.RemoveConditionEvent.Unsubscribe(monster, this);
 			ScenarioEvents.AfterHealPerformedEvent.Unsubscribe(monster, this);
 			ScenarioEvents.FigureKilledEvent.Unsubscribe(monster, this);
+
+			await GDTask.CompletedTask;
 		}
 	}
 }
