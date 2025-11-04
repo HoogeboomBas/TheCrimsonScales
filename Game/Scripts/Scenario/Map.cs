@@ -228,7 +228,11 @@ public partial class Map : Node2D
 		MonsterGroup group = MonsterGroups.FirstOrDefault(group => group.MonsterModel == monsterModel);
 		if(group == null)
 		{
-			group = new MonsterGroup(monsterModel, MonsterGroups.Count);
+			MonsterAbilityCardDeck deckIsAlreadyInUseByAGroup = MonsterGroups
+				.Where(monsterGroup => monsterGroup.MonsterModel.Deck == monsterModel.Deck)
+				.Select(group => group.MonsterAbilityCardDeck)
+				.FirstOrDefault();
+			group = new MonsterGroup(monsterModel, MonsterGroups.Count, deckIsAlreadyInUseByAGroup);
 			MonsterGroups.Add(group);
 		}
 

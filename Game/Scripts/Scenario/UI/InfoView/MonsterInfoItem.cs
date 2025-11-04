@@ -53,8 +53,8 @@ public partial class MonsterInfoItem : FigureInfoItem<MonsterInfoItem.Parameters
 
 	private void UpdateAbilityCard()
 	{
-		_abilityCardTexture.SetTexture(_monster.MonsterGroup.ActiveMonsterAbilityCard?.GetTexture());
-		_abilityCardContainer.SetVisible(_monster.MonsterGroup.ActiveMonsterAbilityCard != null);
+		_abilityCardTexture.SetTexture(_monster.MonsterGroup.MonsterAbilityCardDeck.ActiveCard?.GetTexture());
+		_abilityCardContainer.SetVisible(_monster.MonsterGroup.MonsterAbilityCardDeck.ActiveCard != null);
 	}
 
 	private void OnInitiativeChanged(Figure figure)

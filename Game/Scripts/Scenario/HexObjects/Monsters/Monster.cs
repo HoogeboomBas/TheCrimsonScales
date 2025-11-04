@@ -103,9 +103,9 @@ public partial class Monster : Figure
 	{
 		await base.TakeTurn();
 
-		if(MonsterGroup.ActiveMonsterAbilityCard != null)
+		if(MonsterGroup.MonsterAbilityCardDeck.ActiveCard != null)
 		{
-			await MonsterGroup.ActiveMonsterAbilityCard.Perform(this);
+			await MonsterGroup.MonsterAbilityCardDeck.ActiveCard.Perform(this);
 		}
 	}
 
@@ -120,9 +120,9 @@ public partial class Monster : Figure
 		}
 
 		// Unsubscribe from any events that the monster subscribed to using abilities this turn
-		if(MonsterGroup.ActiveMonsterAbilityCard != null)
+		if(MonsterGroup.MonsterAbilityCardDeck.ActiveCard != null)
 		{
-			await MonsterGroup.ActiveMonsterAbilityCard.RemoveFromActive(this);
+			await MonsterGroup.MonsterAbilityCardDeck.ActiveCard.RemoveFromActive(this);
 		}
 
 		MonsterGroup.DeregisterMonster(this);
