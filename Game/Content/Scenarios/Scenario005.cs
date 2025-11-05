@@ -12,7 +12,9 @@ public class Scenario005 : ScenarioModel
 	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals([ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
 
 	int _markersLeftToRemove;
+	List<Marker> _markers = null;
 	Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
+	Figure _gelatinousGiant = null;
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -39,11 +41,11 @@ public class Scenario005 : ScenarioModel
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
 
-		Figure gelatinousGiant = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
+		_gelatinousGiant = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
 
-		List<Marker> markers = GameController.Instance.Map.Markers;
+		_markers = GameController.Instance.Map.Markers;
 
-		foreach(Marker marker in markers)
+		foreach(Marker marker in _markers)
 		{
 			List<Hex> waterHexes = [marker.Hex];
 			List<Hex> currentHexes = [marker.Hex];
@@ -78,32 +80,7 @@ public class Scenario005 : ScenarioModel
 			parameters => parameters.RoundNumber % 2 != doorOpenedRoundNumberOddness,
 			async parameters =>
 			{
-				// Sort the markers by distance to the boss
-				markers.Sort(Comparer<Marker>.Create(
-					(marker0, marker1) => 
-						RangeHelper.Distance(marker1.Hex, gelatinousGiant.Hex) - RangeHelper.Distance(marker0.Hex, gelatinousGiant.Hex)
-				));
-
-				Hex chosenHex = null;
-
-				// First see if there are unoccupied water hexes in water group with the closest marker
-				// Then go to the next closest one
-				markers.ForEach(marker =>
-				{
-					foreach(Hex hex in _infectedWaterSources[marker])
-					{
-						if(hex.IsUnoccupied())
-						{
-							chosenHex = hex;
-							break;
-						}
-					}
-				});
-
-				if(chosenHex != null)
-				{
-					await AbilityCmd.SpawnMonster(ModelDB.Monster<BloodOoze>(), MonsterType.Elite, chosenHex);
-				}
+				await SummonEliteOoze();
 			}
 		);
 
@@ -114,31 +91,44 @@ public class Scenario005 : ScenarioModel
 				monsterFigure.MonsterType == MonsterType.Elite,
 			async parameters =>
 			{
-				Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(), hexes =>
-				{
-					hexes.AddRange(markers.Select(marker => marker.Hex));
-				}, mandatory: true, hintText: "Choose infected water to drain");
+				ScenarioEvents.AbilityEndedEvent.Subscribe(parameters.Figure, this,
+					abilityEndedParameters => true,
+					async abilityEndedParameters =>
+					{
+						await DrainInfectedWater();
 
-				// Hide the marker and remove it from the list
-				Marker chosenMarker = markers.First(marker => marker.Hex == chosenHex);
-				markers.Remove(chosenMarker);
-				_markersLeftToRemove--;
-
-				UpdateScenarioText();
-
-				// Remove all connected water tiles
-				await DrainAllConnectedWater(chosenMarker);
-
-				// Drained C water markers, summon boss version that can be damaged and draws different abilities
-				if(_markersLeftToRemove == 0)
-				{
-					await SummonSecondStageBoss(gelatinousGiant);
-
-					ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
-					ScenarioEvents.FigureKilledEvent.Unsubscribe(this);
-				}
+						ScenarioEvents.AbilityEndedEvent.Unsubscribe(parameters.Figure, this);
+					}
+				);
 			}
 		);
+	}
+
+	private async GDTask DrainInfectedWater()
+	{
+		Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(), hexes =>
+		{
+			hexes.AddRange(_markers.Select(marker => marker.Hex));
+		}, mandatory: true, hintText: "Choose infected water to drain");
+
+		// Hide the marker and remove it from the list
+		Marker chosenMarker = _markers.First(marker => marker.Hex == chosenHex);
+		_markers.Remove(chosenMarker);
+		_markersLeftToRemove--;
+
+		UpdateScenarioText();
+
+		// Remove all connected water tiles
+		await DrainAllConnectedWater(chosenMarker);
+
+		// Drained C water markers, summon boss version that can be damaged and draws different abilities
+		if(_markersLeftToRemove == 0)
+		{
+			await SummonSecondStageBoss();
+
+			ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
+			ScenarioEvents.FigureKilledEvent.Unsubscribe(this);
+		}
 	}
 
 	private async GDTask DrainAllConnectedWater(Marker infectedWaterMarker)
@@ -151,17 +141,53 @@ public class Scenario005 : ScenarioModel
 		_infectedWaterSources.Remove(infectedWaterMarker);
 	}
 
-	private async GDTask SummonSecondStageBoss(Figure boss)
+	private async GDTask SummonEliteOoze()
 	{
-		int bossHealth = boss.Health;
-		Hex bossHex = boss.Hex;
+		// Sort the markers by distance to the boss
+		_markers.Sort(Comparer<Marker>.Create(
+			(marker0, marker1) => 
+				RangeHelper.Distance(marker1.Hex, _gelatinousGiant.Hex) - RangeHelper.Distance(marker0.Hex, _gelatinousGiant.Hex)
+		));
 
-		await boss.Destroy(immediately: true);
+		Hex chosenHex = null;
 
-		Monster secondStageboss = await AbilityCmd.SpawnMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
+		// First see if there are unoccupied water hexes in water group with the closest marker
+		// Then go to the next closest one
+		_markers.ForEach(marker =>
+		{
+			foreach(Hex hex in _infectedWaterSources[marker])
+			{
+				if(hex.IsUnoccupied())
+				{
+					chosenHex = hex;
+					break;
+				}
+			}
+		});
+
+		if(chosenHex != null)
+		{
+			await AbilityCmd.SpawnMonster(ModelDB.Monster<BloodOoze>(), MonsterType.Elite, chosenHex);
+		}
+	}
+
+	private async GDTask SummonSecondStageBoss()
+	{
+		int bossHealth = _gelatinousGiant.Health;
+		Hex bossHex = _gelatinousGiant.Hex;
+
+		ScenarioCheckEvents.SpawnCoinCheckEvent.Subscribe(this, 
+			parameters => parameters.Figure == _gelatinousGiant,
+			parameters => parameters.SetSpawnCoin(false));
+
+		await _gelatinousGiant.Destroy(immediately: true);
+
+		ScenarioCheckEvents.SpawnCoinCheckEvent.Unsubscribe(this);
+
+		_gelatinousGiant = await AbilityCmd.SpawnMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
 		
-		secondStageboss.SetMaxHealth(bossHealth);
-		secondStageboss.SetHealth(bossHealth);
+		_gelatinousGiant.SetMaxHealth(bossHealth);
+		_gelatinousGiant.SetHealth(bossHealth);
 	}
 
 	private void UpdateScenarioText()

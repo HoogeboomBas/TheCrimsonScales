@@ -130,15 +130,15 @@ public class MonsterGroup
 			await MonsterAbilityCardDeck.ActiveCard.RemoveFromActive();
 
 			MonsterAbilityCardDeck.ActiveCard = null;
-			Initiative = new Initiative()
-			{
-				Null = true,
-				SortingInitiative = 999 * 1000000 + (GroupIndex + 1) * 100000
-			};
-
-			InitiativeChangedEvent?.Invoke(this);
 		}
 
+		Initiative = new Initiative()
+		{
+			Null = true,
+			SortingInitiative = 999 * 1000000 + (GroupIndex + 1) * 100000
+		};
+
+		InitiativeChangedEvent?.Invoke(this);
 		InitiativeUpdated = false;
 	}
 }
