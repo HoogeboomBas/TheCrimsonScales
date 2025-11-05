@@ -1,6 +1,6 @@
 ﻿using Fractural.Tasks;
 
-public class IgnoreDifficultAndHazardousTerrainTrait() : FigureTrait
+public class IgnoreHazardousTerrainTrait() : FigureTrait
 {
 	public override void Activate(Figure figure)
 	{
@@ -9,19 +9,10 @@ public class IgnoreDifficultAndHazardousTerrainTrait() : FigureTrait
 		ScenarioCheckEvents.MoveCheckEvent.Subscribe(figure, this,
 			canApplyParameters =>
 				canApplyParameters.Performer == figure &&
-				(canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>() ||
-				 canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>()),
+				canApplyParameters.Hex.HasHexObjectOfType<HazardousTerrain>(),
 			applyParameters =>
 			{
-				if(applyParameters.Hex.HasHexObjectOfType<DifficultTerrain>())
-				{
-					applyParameters.SetMoveCost(1);
-				}
-
-				if(applyParameters.Hex.HasHexObjectOfType<HazardousTerrain>())
-				{
-					applyParameters.SetAffectedByNegativeHex(false);
-				}
+				applyParameters.SetAffectedByNegativeHex(false);
 			}
 		);
 
