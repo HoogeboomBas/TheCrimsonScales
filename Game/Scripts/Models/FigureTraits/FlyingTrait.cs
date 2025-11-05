@@ -7,8 +7,6 @@
 		ScenarioCheckEvents.FlyingCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
 			parameters => parameters.SetFlying(true));
-
-		//figure.UpdateFlying();
 	}
 
 	public override void Deactivate(Figure figure)

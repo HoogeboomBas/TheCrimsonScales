@@ -186,13 +186,13 @@ public class FlamingDrakeAbilityCard6 : FlamingDrakeAbilityCard
 
 public class FlamingDrakeAbilityCard7 : FlamingDrakeAbilityCard
 {
-	public override int Initiative => 89;
+	public override int Initiative => 77;
 	public override int CardIndex => 7;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1,
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -2,
 			aoePattern: new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),

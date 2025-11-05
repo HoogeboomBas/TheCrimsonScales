@@ -330,14 +330,23 @@ public static class MoveHelper
 				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
 					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(performer, hex, obstacle, false));
 
-			if(!canEnterObstacleParameters.CanEnter)
+			ScenarioCheckEvents.FlyingCheck.Parameters flyingCheckParameters =
+				ScenarioCheckEvents.FlyingCheckEvent.Fire(
+					new ScenarioCheckEvents.FlyingCheck.Parameters(performer));
+
+			if(!canEnterObstacleParameters.CanEnter && !flyingCheckParameters.HasFlying)
 			{
 				return false;
 			}
 		}
 
-		if(hex.TryGetHexObjectOfType(out Door door) && (performer is not Character || door.Locked || forcedMovement))
+		if(hex.TryGetHexObjectOfType(out Door door) && performer is not Character)
 		{
+			if(door.Locked || forcedMovement)
+			{
+				return false;
+			}
+
 			ScenarioCheckEvents.CanOpenDoorsCheck.Parameters canOpenDoorsCheckParameters =
 				ScenarioCheckEvents.CanOpenDoorsCheckEvent.Fire(
 					new ScenarioCheckEvents.CanOpenDoorsCheck.Parameters(performer));

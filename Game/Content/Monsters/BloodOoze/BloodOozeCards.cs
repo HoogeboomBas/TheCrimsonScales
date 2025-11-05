@@ -142,6 +142,7 @@ public class BloodOozeAbilityCard3 : BloodOozeAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, 
 			extraDamage: +0,
 			range: 1,
+			rangeType: RangeType.Melee,
 			afterTargetConfirmedSubscriptions: [
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					parameters => RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
@@ -164,7 +165,7 @@ public class BloodOozeAbilityCard4 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 1, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 1, rangeType: RangeType.Melee, conditions: [Conditions.Poison1])),
 		new MonsterAbilityCardAbility(AttackAbility(monster, 
 			extraDamage: +0, 
 			customGetTargets: (state, figures) =>

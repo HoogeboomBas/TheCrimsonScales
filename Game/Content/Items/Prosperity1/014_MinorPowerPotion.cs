@@ -33,7 +33,7 @@ public class MinorPowerPotion : Prosperity1Item
 						async parameters =>
 						{
 							AttackAbility.State attackAbilityState = ((AttackAbility.State)parameters.AbilityState);
-							attackAbilityState.AbilityAdjustPull(2);
+							attackAbilityState.AbilityAdjustAttackValue(1);
 
 							await GDTask.CompletedTask;
 						}
