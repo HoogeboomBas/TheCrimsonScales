@@ -114,15 +114,15 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 				int damageSuffered = 0;
 
-				list.ForEach(async monsterGroup => 
+				foreach(IGrouping<MonsterType, Figure> monsterGroup in list)
 				{
-					int damage = monsterGroup.Key == MonsterType.Normal ? 1 : 2;
-
-					foreach(Figure figure in monsterGroup)
-					{
-						damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
-					}
-				});
+				    int damage = monsterGroup.Key == MonsterType.Normal ? 1 : 2;
+				
+				    foreach(Figure figure in monsterGroup)
+				    {
+				        damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
+				    }
+				}
 
 				if(damageSuffered > 0)
 				{

@@ -91,15 +91,7 @@ public class Scenario005 : ScenarioModel
 				monsterFigure.MonsterType == MonsterType.Elite,
 			async parameters =>
 			{
-				ScenarioEvents.AbilityEndedEvent.Subscribe(parameters.Figure, this,
-					abilityEndedParameters => true,
-					async abilityEndedParameters =>
-					{
-						await DrainInfectedWater();
-
-						ScenarioEvents.AbilityEndedEvent.Unsubscribe(parameters.Figure, this);
-					}
-				);
+				await DrainInfectedWater();
 			}
 		);
 	}
