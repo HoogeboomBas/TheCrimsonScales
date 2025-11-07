@@ -37,7 +37,7 @@ public partial class Monster : Figure
 		_monsterViewComponent = GetViewComponent<MonsterViewComponent>();
 	}
 
-	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon)
+	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, int? monsterLevel)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -70,7 +70,7 @@ public partial class Monster : Figure
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
 
-		MonsterLevel = GameController.Instance.SavedScenario.ScenarioLevel;
+		MonsterLevel = monsterLevel ?? GameController.Instance.SavedScenario.ScenarioLevel;
 		Stats = levelStats[MonsterLevel];
 
 		SetMaxHealth(Stats.Health);
