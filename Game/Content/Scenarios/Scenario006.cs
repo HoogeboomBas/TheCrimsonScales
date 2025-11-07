@@ -16,6 +16,14 @@ public class Scenario006 : ScenarioModel
 	{
 		await base.StartAfterFirstRoomRevealed();
 
+		List<Hex> hexesWithAntidote = GameController.Instance.Map.Markers
+			.Where(marker => marker.MarkerType == Marker.Type._1)
+			.Select(marker => marker.Hex)
+			.ToList();
+
+		Hex hexWithFountain = GameController.Instance.Map.Markers
+			.First(marker => marker.MarkerType == Marker.Type._2).Hex;
+
 		Dictionary<Figure, bool> characterHasAntidote = [];
 		int antidoteBottlesPicked = 0;
 		int antidoteBottlesPlaced = 0;
@@ -36,15 +44,26 @@ public class Scenario006 : ScenarioModel
 
 		// Allow picking up the antidote
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
-			parameters => !parameters.ForgoneAction && 
-			/*RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Obstacle>() &&*/
-			!characterHasAntidote[parameters.Performer],
+			parameters =>
+				!parameters.ForgoneAction && 
+				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexesWithAntidote.Contains(hex) && 
+				hex.HasHexObjectOfType<Obstacle>()) &&
+				!characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
+				Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(),
+				list =>
+				{
+					list.AddRange(RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hexesWithAntidote.Contains(hex)));
+				}, mandatory: true);
+
 				parameters.ForgoAction();
+
 				characterHasAntidote[parameters.Performer] = true;
-				// OBSTACLE.DESTROY(FORCED)
 				antidoteBottlesPicked++;
+
+				await chosenHex.GetHexObjectOfType<Obstacle>().Destroy(false, true);
+				hexesWithAntidote.Remove(chosenHex);
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(parameters.Performer, this,
 					infoParameters => infoParameters.Figure == parameters.Performer,
@@ -84,10 +103,11 @@ public class Scenario006 : ScenarioModel
 		// Allow placing the antidote into the fountain
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
 			parameters => !parameters.ForgoneAction && 
-			/*RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Fountain>() && */
-			characterHasAntidote[parameters.Performer],
+				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexWithFountain == hex) &&
+				characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
+				await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(), list => list.Add(hexWithFountain), mandatory: true);
 				parameters.ForgoAction();
 				characterHasAntidote[parameters.Performer] = false;
 				antidoteBottlesPlaced++;
