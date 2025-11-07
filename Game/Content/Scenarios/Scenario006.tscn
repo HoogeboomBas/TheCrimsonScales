@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brifv838k6d20"]
+[gd_scene load_steps=15 format=3 uid="uid://b35ouqc81rlw2"]
 
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_kdsd8"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_nxabk"]
@@ -82,58 +82,72 @@ position = Vector2(436.477, 0)
 
 [node name="Fountain1H" parent="Map/Rooms/Room" index="16" instance=ExtResource("11_1mlcp")]
 rotation = 1.0472
+CannotBeDestroyed = true
 
 [node name="Water1H" parent="Map/Rooms/Room" index="17" instance=ExtResource("12_25atf")]
 position = Vector2(-327.358, 189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H3" parent="Map/Rooms/Room" index="18" instance=ExtResource("12_25atf")]
 position = Vector2(109.119, 189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H4" parent="Map/Rooms/Room" index="19" instance=ExtResource("12_25atf")]
 position = Vector2(218.238, 0)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H5" parent="Map/Rooms/Room" index="20" instance=ExtResource("12_25atf")]
 position = Vector2(327.358, -189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H6" parent="Map/Rooms/Room" index="21" instance=ExtResource("12_25atf")]
 position = Vector2(-218.238, 0)
 rotation = 1.0472
+CannotBeDestroyed = true
 
 [node name="Water1H7" parent="Map/Rooms/Room" index="22" instance=ExtResource("12_25atf")]
 position = Vector2(-109.119, -189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H8" parent="Map/Rooms/Room" index="23" instance=ExtResource("12_25atf")]
 position = Vector2(109.119, -189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H9" parent="Map/Rooms/Room" index="24" instance=ExtResource("12_25atf")]
 position = Vector2(1200.31, -2079)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H10" parent="Map/Rooms/Room" index="25" instance=ExtResource("12_25atf")]
 position = Vector2(1200.31, -1701)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H11" parent="Map/Rooms/Room" index="26" instance=ExtResource("12_25atf")]
 position = Vector2(1091.19, -1890)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H12" parent="Map/Rooms/Room" index="27" instance=ExtResource("12_25atf")]
 position = Vector2(982.073, -2079)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H13" parent="Map/Rooms/Room" index="28" instance=ExtResource("12_25atf")]
 position = Vector2(872.954, -2268)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Water1H2" parent="Map/Rooms/Room" index="29" instance=ExtResource("12_25atf")]
 position = Vector2(-109.119, 189)
 rotation = -5.23599
+CannotBeDestroyed = true
 
 [node name="Marker" parent="Map/Rooms/Room" index="30" instance=ExtResource("13_fupj6")]
 position = Vector2(-218.238, -1512)
