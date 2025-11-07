@@ -156,9 +156,9 @@ public class Scenario005 : ScenarioModel
 						break;
 					}
 					
-					if(_infectedWaterSources[marker].Any(marker => marker.IsUnoccupied()))
+					if(_infectedWaterSources[marker].Any(hex => hex.IsUnoccupied()))
 					{
-						list.AddRange(_infectedWaterSources[marker]);
+						list.AddRange(_infectedWaterSources[marker].Where(hex => hex.IsUnoccupied()));
 						break;
 					}
 				}
