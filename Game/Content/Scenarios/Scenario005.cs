@@ -80,7 +80,7 @@ public class Scenario005 : ScenarioModel
 			parameters => parameters.RoundNumber % 2 != doorOpenedRoundNumberOddness,
 			async parameters =>
 			{
-				await SummonEliteOoze();
+				await SpawnEliteBloodOoze();
 			}
 		);
 
@@ -133,29 +133,35 @@ public class Scenario005 : ScenarioModel
 		_infectedWaterSources.Remove(infectedWaterMarker);
 	}
 
-	private async GDTask SummonEliteOoze()
+	private async GDTask SpawnEliteBloodOoze()
 	{
 		// Sort the markers by distance to the boss
 		_markers.Sort(Comparer<Marker>.Create(
 			(marker0, marker1) => 
-				RangeHelper.Distance(marker1.Hex, _gelatinousGiant.Hex) - RangeHelper.Distance(marker0.Hex, _gelatinousGiant.Hex)
+				RangeHelper.Distance(marker0.Hex, _gelatinousGiant.Hex) - RangeHelper.Distance(marker1.Hex, _gelatinousGiant.Hex)
 		));
-
-		Hex chosenHex = null;
 
 		// First see if there are unoccupied water hexes in water group with the closest marker
 		// Then go to the next closest one
-		_markers.ForEach(marker =>
-		{
-			foreach(Hex hex in _infectedWaterSources[marker])
+		Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(),
+			list =>
 			{
-				if(hex.IsUnoccupied())
-				{
-					chosenHex = hex;
-					break;
+				foreach(Marker marker in _markers)
+				{	
+					if(marker.Hex.IsUnoccupied())
+					{
+						list.Add(marker.Hex);
+						break;
+					}
+					
+					if(_infectedWaterSources[marker].Any(marker => marker.IsUnoccupied()))
+					{
+						list.AddRange(_infectedWaterSources[marker]);
+						break;
+					}
 				}
-			}
-		});
+			}, true, $"Select where to summon the Elite Bloode Ooze"
+		);
 
 		if(chosenHex != null)
 		{
