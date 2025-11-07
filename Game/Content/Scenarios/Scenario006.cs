@@ -16,16 +16,12 @@ public class Scenario006 : ScenarioModel
 	{
 		await base.StartAfterFirstRoomRevealed();
 
-		UpdateScenarioText(
-			"The crate and cabinet obstacles contain the bottles of antidote and cannot be destroyed." +
-			"Any character may sacrifice the top or bottom action of their turn while adjacent to an antidote to it pick up." + 
-			"Any character may sacrifice the top or bottom action of their turn while adjacent to the fountain to place the antidote in the fountain." +
-			"Each character may only hold one antidote at a time, and if a character exhausts while holding an antidote, the scenario is immediately lost.");
-
 		Dictionary<Figure, bool> characterHasAntidote = [];
 		int antidoteBottlesPicked = 0;
 		int antidoteBottlesPlaced = 0;
 		bool triggerMonsterSpawn = false;
+
+		UpdateScenarioText(antidoteBottlesPlaced);
 
 		foreach(Figure character in GameController.Instance.CharacterManager.Characters)
 		{
@@ -49,6 +45,16 @@ public class Scenario006 : ScenarioModel
 				characterHasAntidote[parameters.Performer] = true;
 				// OBSTACLE.DESTROY(FORCED)
 				antidoteBottlesPicked++;
+
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(parameters.Performer, this,
+					infoParameters => infoParameters.Figure == parameters.Performer,
+					infoParameters =>
+					{
+						infoParameters.Add(new FigureInfoTextExtraEffect.Parameters(
+							$"This character carries an antidote bottle."));
+					}
+				);
+
 				triggerMonsterSpawn = true;
 
 				await SpawnMonsters(antidoteBottlesPicked);
@@ -85,6 +91,8 @@ public class Scenario006 : ScenarioModel
 				parameters.ForgoAction();
 				characterHasAntidote[parameters.Performer] = false;
 				antidoteBottlesPlaced++;
+
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, this);
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
@@ -99,6 +107,16 @@ public class Scenario006 : ScenarioModel
 				await AbilityCmd.Lose();
 			}
 		);
+	}
+
+	private void UpdateScenarioText(int antidoteBottlesPlaced)
+	{
+		UpdateScenarioText(
+			"The crate and cabinet obstacles contain the bottles of antidote and cannot be destroyed." +
+			"Any character may sacrifice the top or bottom action of their turn while adjacent to an antidote to it pick up." + 
+			"Any character may sacrifice the top or bottom action of their turn while adjacent to the fountain to place the antidote in the fountain." +
+			"Each character may only hold one antidote at a time, and if a character exhausts while holding an antidote, the scenario is immediately lost." +
+			$"{antidoteBottlesPlaced}/{GameController.Instance.CharacterManager.Characters.Count} antidote bottles placed in the fountain.");
 	}
 
 	private async GDTask SpawnMonsters(int antidoteBottlesPicked)

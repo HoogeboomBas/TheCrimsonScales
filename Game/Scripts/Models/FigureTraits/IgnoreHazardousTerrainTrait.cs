@@ -24,6 +24,15 @@ public class IgnoreHazardousTerrainTrait() : FigureTrait
 				await GDTask.CompletedTask;
 			}
 		);
+
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, this,
+			parameters => parameters.Figure == figure,
+			parameters =>
+			{
+				parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+					$"This figure ignores the effects of hazardous terrain."));
+			}
+		);
 	}
 
 	public override void Deactivate(Figure figure)
@@ -32,5 +41,6 @@ public class IgnoreHazardousTerrainTrait() : FigureTrait
 
 		ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(figure, this);
 		ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);
 	}
 }
