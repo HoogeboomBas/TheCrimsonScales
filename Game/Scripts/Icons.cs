@@ -24,7 +24,7 @@
 	public const string UnavailableCards = "res://Art/Icons/Other/CloseIcon.svg";
 	public const string PlayingCards = "res://Art/Icons/Other/Card.svg";
 	public const string Active = "res://Art/Icons/Other/Active.svg";
-	public const string StartHexMove = "res://Art/Icons/Other/StartHexMove.svg";
+	public const string StartHexMove = "res://Art/Icons/Other/StartHexMoveIcon.svg";
 
 	public static string GetElement(Element element)
 	{

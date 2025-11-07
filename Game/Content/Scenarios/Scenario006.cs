@@ -9,8 +9,7 @@ public class Scenario006 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 
 	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals(
-		"Purify the poisoned water supply to win this scenario." +
-		$"Place {GameController.Instance.CharacterManager.Characters.Count} bottles of antidote in the fountain.");
+		"Purify the poisoned water supply to win this scenario. ");
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -43,7 +42,7 @@ public class Scenario006 : ScenarioModel
 		}
 
 		// Allow picking up the antidote
-		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
+		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, antidoteBottlesPicked,
 			parameters =>
 				!parameters.ForgoneAction && 
 				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexesWithAntidote.Contains(hex) && 
@@ -75,8 +74,6 @@ public class Scenario006 : ScenarioModel
 				);
 
 				triggerMonsterSpawn = true;
-
-				await SpawnMonsters(antidoteBottlesPicked);
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
@@ -101,7 +98,7 @@ public class Scenario006 : ScenarioModel
 		);
 
 		// Allow placing the antidote into the fountain
-		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
+		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, antidoteBottlesPlaced,
 			parameters => !parameters.ForgoneAction && 
 				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexWithFountain == hex) &&
 				characterHasAntidote[parameters.Performer],
@@ -111,6 +108,8 @@ public class Scenario006 : ScenarioModel
 				parameters.ForgoAction();
 				characterHasAntidote[parameters.Performer] = false;
 				antidoteBottlesPlaced++;
+
+				UpdateScenarioText(antidoteBottlesPlaced);
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, this);
 			},
@@ -132,11 +131,15 @@ public class Scenario006 : ScenarioModel
 	private void UpdateScenarioText(int antidoteBottlesPlaced)
 	{
 		UpdateScenarioText(
+			$"{antidoteBottlesPlaced}/{GameController.Instance.CharacterManager.Characters.Count} antidote bottles placed in the fountain." +
+			System.Environment.NewLine + System.Environment.NewLine +
 			"The crate and cabinet obstacles contain the bottles of antidote and cannot be destroyed." +
-			"Any character may sacrifice the top or bottom action of their turn while adjacent to an antidote to it pick up." + 
+			System.Environment.NewLine + System.Environment.NewLine +
+			"Any character may sacrifice the top or bottom action of their turn while adjacent to an antidote to it pick up." +
+			System.Environment.NewLine + System.Environment.NewLine +
 			"Any character may sacrifice the top or bottom action of their turn while adjacent to the fountain to place the antidote in the fountain." +
-			"Each character may only hold one antidote at a time, and if a character exhausts while holding an antidote, the scenario is immediately lost." +
-			$"{antidoteBottlesPlaced}/{GameController.Instance.CharacterManager.Characters.Count} antidote bottles placed in the fountain.");
+			System.Environment.NewLine + System.Environment.NewLine +
+			"Each character may only hold one antidote at a time, and if a character exhausts while holding an antidote, the scenario is immediately lost.");
 	}
 
 	private async GDTask SpawnMonsters(int antidoteBottlesPicked)
