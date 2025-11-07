@@ -8,7 +8,9 @@ public class Scenario006 : ScenarioModel
 	public override int ScenarioNumber => 6;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 
-	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals($"Purify the poisoned water supply to win this scenario. Place {GameController.Instance.CharacterManager.Characters.Count} bottles of antidote in the fountain.");
+	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals(
+		"Purify the poisoned water supply to win this scenario." +
+		$"Place {GameController.Instance.CharacterManager.Characters.Count} bottles of antidote in the fountain.");
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -23,6 +25,7 @@ public class Scenario006 : ScenarioModel
 		Dictionary<Figure, bool> characterHasAntidote = [];
 		int antidoteBottlesPicked = 0;
 		int antidoteBottlesPlaced = 0;
+		bool triggerMonsterSpawn = false;
 
 		foreach(Figure character in GameController.Instance.CharacterManager.Characters)
 		{
@@ -38,35 +41,50 @@ public class Scenario006 : ScenarioModel
 		// Allow picking up the antidote
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
 			parameters => !parameters.ForgoneAction && 
-			RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Obstacle>() && !characterHasAntidote[parameters.Performer],
+			/*RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Obstacle>() &&*/
+			!characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
 				parameters.ForgoAction();
 				characterHasAntidote[parameters.Performer] = true;
 				// OBSTACLE.DESTROY(FORCED)
 				antidoteBottlesPicked++;
+				triggerMonsterSpawn = true;
 
-				TriggerMonsterSpawn(antidoteBottlesPicked);
+				await SpawnMonsters(antidoteBottlesPicked);
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
 			effectInfoViewParameters: new TextEffectInfoView.Parameters("Pick up a bottle of antidote")
 		);
 
+		ScenarioEvents.RoundEndedEvent.Subscribe(this,
+			parameters => true,
+			async parameters =>
+			{
+				if(antidoteBottlesPlaced == GameController.Instance.CharacterManager.Characters.Count)
+				{
+					await ((CustomScenarioGoals)ScenarioGoals).Win();
+				}
+
+				if(triggerMonsterSpawn)
+				{
+					await SpawnMonsters(antidoteBottlesPicked);
+					triggerMonsterSpawn = false;
+				}
+			}
+		);
+
 		// Allow placing the antidote into the fountain
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
 			parameters => !parameters.ForgoneAction && 
-			RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Fountain>() && characterHasAntidote[parameters.Performer],
+			/*RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hex.HasHexObjectOfType<Fountain>() && */
+			characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
 				parameters.ForgoAction();
 				characterHasAntidote[parameters.Performer] = false;
 				antidoteBottlesPlaced++;
-
-				if(antidoteBottlesPlaced == GameController.Instance.CharacterManager.Characters.Count)
-				{
-					ScenarioGoals.Win();
-				}
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
@@ -75,7 +93,7 @@ public class Scenario006 : ScenarioModel
 
 		// If a character exhausts while holding an antidote, the scenario is immediately lost
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => characterHasAntidote[parameters.Figure],
+			parameters => parameters.Figure is Character && characterHasAntidote[parameters.Figure],
 			async parameters =>
 			{
 				await AbilityCmd.Lose();
@@ -83,34 +101,82 @@ public class Scenario006 : ScenarioModel
 		);
 	}
 
-	private async GDTask TriggerMonsterSpawn(int antidoteBottlesPicked)
+	private async GDTask SpawnMonsters(int antidoteBottlesPicked)
 	{
+		Hex hexA = GameController.Instance.Map.Markers.First(marker => marker.MarkerType == Marker.Type.a).Hex;
+		Hex hexB = GameController.Instance.Map.Markers.First(marker => marker.MarkerType == Marker.Type.b).Hex;
+
 		switch(antidoteBottlesPicked)
 		{
 			case 1: // 6G
 			{
-				// elite Blood Ooze closest to A
-				// normal Water Spirit closest to B
+				await SummonMonster(hexA, ModelDB.Monster<BloodOoze>(), MonsterType.Elite);
+				await SummonMonster(hexB, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Normal);
 				break;
 			}
 			case 2: // 6D
 			{
-				// normal Flaming Drake closest to A
-				// normal Flaming Drake closest to B
+				await SummonMonster(hexA, ModelDB.Monster<FlamingDrake>(), MonsterType.Normal);
+				await SummonMonster(hexB, ModelDB.Monster<FlamingDrake>(), MonsterType.Normal);
 				break;
 			}
 			case 3: // 6F
 			{
-				// Normal and Elite toxic imp B
-				// Normal and Elite toxic imp B
+				await SummonMonster(hexA, ModelDB.Monster<ToxicImp>(), MonsterType.Normal);
+				await SummonMonster(hexA, ModelDB.Monster<ToxicImp>(), MonsterType.Elite);
+				await SummonMonster(hexB, ModelDB.Monster<ToxicImp>(), MonsterType.Normal);
+				await SummonMonster(hexB, ModelDB.Monster<ToxicImp>(), MonsterType.Elite);
 				break;
 			}
 			case 4: // 6E
 			{
-				// Elite Water Spirit A
-				// Elite Water Spirit B
+				await SummonMonster(hexA, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Elite);
+				await SummonMonster(hexB, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Elite);
 				break;
 			}
 		}
+	}
+
+	private async GDTask SummonMonster(Hex hex, MonsterModel monsterModel, MonsterType monsterType)
+	{
+		List<Hex> hexes = RangeHelper.GetHexesInRange(hex, 100, requiresLineOfSight: false).ToList();
+
+		Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(),
+			list =>
+			{
+				Hex firstHex = null;
+				foreach(Hex hex in hexes)
+				{
+					if(hex.IsEmpty())
+					{
+						firstHex = hex;
+						break;
+					}
+				}
+
+				if(firstHex == null)
+				{
+					return;
+				}
+
+				int distance = RangeHelper.Distance(hex, firstHex);
+
+				foreach(Hex otherHex in hexes)
+				{
+					int otherDistance = RangeHelper.Distance(hex, otherHex);
+					if(otherHex.IsEmpty() && otherDistance == distance)
+					{
+						list.Add(otherHex);
+					}
+				}
+			}, true, $"Select where to summon the {monsterType.ToString()} {monsterModel.Name}"
+		);
+
+		if(chosenHex == null)
+		{
+			return;
+		}
+
+		await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex);
 	}
 }
