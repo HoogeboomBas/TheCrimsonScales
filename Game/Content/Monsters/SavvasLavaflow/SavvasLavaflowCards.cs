@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
+using System.Linq;
+using Fractural.Tasks;
 
 public abstract class SavvasLavaflowAbilityCard : MonsterAbilityCardModel
 {
@@ -20,141 +22,202 @@ public abstract class SavvasLavaflowAbilityCard : MonsterAbilityCardModel
 
 public class SavvasLavaflowAbilityCard0 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 65;
+	public override int Initiative => 97;
 	public override int CardIndex => 0;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 3, conditions: [Conditions.Curse])),
+		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
+			.WithMonsterModel(ModelDB.Monster<FlameDemon>())
+			.WithMonsterType(MonsterType.Normal)
+			.Build()),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class SavvasLavaflowAbilityCard1 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 97;
 	public override int CardIndex => 1;
-	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
+		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
+			.WithMonsterModel(ModelDB.Monster<EarthDemon>())
+			.WithMonsterType(MonsterType.Normal)
+			.Build()),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard2 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 22;
 	public override int CardIndex => 2;
-	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(RetaliateAbility.Builder()
+			.WithRetaliateValue(3)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<RetaliateAbility.State>([Element.Fire]))
+			.Build())
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
 }
 
 public class SavvasLavaflowAbilityCard3 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 84;
+	public override int Initiative => 68;
 	public override int CardIndex => 3;
+	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 4, conditions: [Conditions.Wound1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3, afterAttackPerformedSubscriptions: [
+			ScenarioEvents.AfterAttackPerformed.Subscription.New(canApplyFunction: canApply => CheckElementConsumed(monster, [Element.Earth]),
+				applyFunction: async applyParameters =>
+				{
+					List<Hex> hexes = [];
+					RangeHelper.FindHexesInRange(applyParameters.AbilityState.Target.Hex, 1, false, hexes);
+
+					List<Figure> enemies = hexes
+						.SelectMany(hex => hex.GetHexObjectsOfType<Figure>())
+						.Where(figure => figure != applyParameters.AbilityState.Target)
+						.ToList();
+
+					foreach(Figure enemy in enemies)
+					{
+						await AbilityCmd.SufferDamage(null, enemy, 2);
+					}
+				}
+			)
+		])),
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard4 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 75;
+	public override int Initiative => 41;
 	public override int CardIndex => 4;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Poison1])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 5, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+
+		new MonsterAbilityCardAbility(
+			AttackAbility(
+				monster,
+				-1,
+				aoePattern: new AOEPattern([
+					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast)
+						.Add(Direction.SouthEast)
+						.Add(Direction.SouthEast), AOEHexType.Red),
+				]),
+				duringAttackSubscriptions: [
+					ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(
+						monster,
+						[Element.Earth],
+						applyFunction: async parameters =>
+						{
+							parameters.AbilityState.AbilityAdjustAttackValue(2);
+							parameters.AbilityState.AbilityAddCondition(Conditions.Immobilize);
+							await GDTask.CompletedTask;
+						}
+					)
+				]
+			)
+		)
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 75;
+	public override int Initiative => 51;
 	public override int CardIndex => 5;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, target: Target.Enemies | Target.TargetAll, conditions: [Conditions.Disarm])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 2)),
+		new MonsterAbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(async state =>
+				{
+					List<Figure> sufferDamageTargets = GameController.Instance.Map.Figures.FindAll(figure => state.Authority.EnemiesWith(figure));
+					foreach(Figure target in sufferDamageTargets)
+					{
+						await AbilityCmd.SufferDamage(null, target, 2);
+					}
+				}
+			)
+			.Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Wound1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Fire]))
+			.Build()),
+		new MonsterAbilityCardAbility(ConditionAbility.Builder()
+			.WithConditions(Conditions.Disarm)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Earth]))
+			.Build())
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume([Element.Fire, Element.Earth])];
 }
 
 public class SavvasLavaflowAbilityCard6 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 96;
+	public override int Initiative => 31;
 	public override int CardIndex => 6;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 6)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-				foreach(Figure target in attackAbilityState.UniqueTargetedFigures)
+		new MonsterAbilityCardAbility(HealAbility.Builder()
+			.WithHealValue(4)
+			.WithRange(3)
+			.WithDuringHealSubscription(ConsumeElementCheckSubscription<ScenarioEvents.DuringHeal.Parameters>(monster, [Element.Earth],
+				applyFunction: async parameters =>
 				{
-					Hex hex = await AbilityCmd.SelectHex(state, list =>
-					{
-						foreach(Hex neighbourHex in target.Hex.Neighbours)
-						{
-							if(neighbourHex.IsEmpty())
-							{
-								list.Add(neighbourHex);
-							}
-						}
-					});
-
-					// if(hex != null && await GameController.Instance.Map.CreateMonster(ModelDB.Monster<SavvasLavaflow>(), MonsterType.Normal, hex.Coords, true))
-					// {
-					// 	state.SetPerformed();
-					// 	break;
-					// }
+					parameters.AbilityState.AdjustTargets(2);
+					await GDTask.CompletedTask;
 				}
-			})
-			.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+			))
 			.Build())
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
+		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard7 : SavvasLavaflowAbilityCard
 {
-	public override int Initiative => 54;
+	public override int Initiative => 68;
 	public override int CardIndex => 7;
+	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(ConditionAbility.Builder()
-			.WithConditions(Conditions.Wound1, Conditions.Poison1)
-			.WithTarget(Target.Enemies | Target.TargetAll)
-			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 3, targets: 2))
 	];
+
+	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
+		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
 }

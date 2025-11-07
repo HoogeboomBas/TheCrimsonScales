@@ -129,11 +129,10 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 					list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, abilityState.AbilityRange).Where(hex => hex.IsEmpty()));
 				}
 			}, 
-			minSelectionCount: 0, 
+			minSelectionCount: Mandatory ? TrapCount : 0,
 			maxSelectionCount: TrapCount, 
 			autoSelectIfMaxCountIsValidCount: false, 
 			hintText: (TrapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {TrapCount} hexes to place the traps");
-
 		if(targetHexes.Count > 0)
 		{
 			foreach(Hex hex in targetHexes)

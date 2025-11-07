@@ -85,7 +85,8 @@ public partial class Summon : Figure
 		}
 
 		ScenarioEvents.FigureFoundFocusEvent.Subscribe(this, characterOwner,
-			parameters => parameters.Performer == this &&
+			parameters =>
+				parameters.Performer == this &&
 				parameters.AbilityState is MoveAbility.State &&
 				parameters.Focus == null,
 			async parameters =>

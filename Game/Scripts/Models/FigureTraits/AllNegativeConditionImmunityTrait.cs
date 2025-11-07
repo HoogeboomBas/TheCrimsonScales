@@ -19,9 +19,14 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 	{
 		base.Activate(figure);
 
-		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this,
-			parameters => parameters.Target == figure &&
-				NegativeConditionModels.Any(condition => parameters.Condition.ImmunityCompareBaseCondition == condition.ImmunityCompareBaseCondition),
+		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this, parameters =>
+			{
+				return parameters.Target == figure &&
+					parameters.Condition?.ImmunityCompareBaseConditions != null &&
+					NegativeConditionModels != null &&
+					parameters.Condition.ImmunityCompareBaseConditions
+						.Any(c1 => NegativeConditionModels.Contains(c1));
+			},
 			async parameters =>
 			{
 				parameters.SetPrevented(true);

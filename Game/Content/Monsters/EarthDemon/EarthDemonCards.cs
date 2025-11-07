@@ -32,11 +32,7 @@ public class EarthDemonAbilityCard0 : EarthDemonAbilityCard
 			.WithConditions(Conditions.Immobilize)
 			.WithRange(3)
 			.WithTarget(Target.Enemies | Target.TargetAll)
-			.WithConditionalAbilityCheck(async state =>
-			{
-				await GDTask.CompletedTask;
-				return CheckElementConsumed(monster, [Element.Earth]);
-			})
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Earth]))
 			.Build())
 	];
 
@@ -67,7 +63,7 @@ public class EarthDemonAbilityCard2 : EarthDemonAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
-	
+
 	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
 		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
 }
@@ -108,7 +104,7 @@ public class EarthDemonAbilityCard4 : EarthDemonAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
 	];
-	
+
 	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
 		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
 }
