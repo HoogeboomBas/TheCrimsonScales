@@ -37,7 +37,7 @@ public partial class Monster : Figure
 		_monsterViewComponent = GetViewComponent<MonsterViewComponent>();
 	}
 
-	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, int? monsterLevel)
+	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -69,8 +69,8 @@ public partial class Monster : Figure
 		_figureViewComponent.ActivePS.Modulate = _figureViewComponent.Outline.SelfModulate;
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
-		
-		MonsterLevel = monsterLevel.HasValue ? monsterLevel.Value : GameController.Instance.SavedScenario.ScenarioLevel;
+
+		MonsterLevel = GameController.Instance.SavedScenario.ScenarioLevel;
 		Stats = levelStats[MonsterLevel];
 
 		SetMaxHealth(Stats.Health);
@@ -103,9 +103,9 @@ public partial class Monster : Figure
 	{
 		await base.TakeTurn();
 
-		if(MonsterGroup.MonsterAbilityCardDeck.ActiveCard != null)
+		if(MonsterGroup.ActiveMonsterAbilityCard != null)
 		{
-			await MonsterGroup.MonsterAbilityCardDeck.ActiveCard.Perform(this);
+			await MonsterGroup.ActiveMonsterAbilityCard.Perform(this);
 		}
 	}
 
@@ -120,16 +120,16 @@ public partial class Monster : Figure
 		}
 
 		// Unsubscribe from any events that the monster subscribed to using abilities this turn
-		if(MonsterGroup.MonsterAbilityCardDeck.ActiveCard != null)
+		if(MonsterGroup.ActiveMonsterAbilityCard != null)
 		{
-			await MonsterGroup.MonsterAbilityCardDeck.ActiveCard.RemoveFromActive(this);
+			await MonsterGroup.ActiveMonsterAbilityCard.RemoveFromActive(this);
 		}
 
 		MonsterGroup.DeregisterMonster(this);
 
 		await base.Destroy(immediately, forceDestroy);
 
-		await AbilityCmd.SpawnCoin(Hex, this);
+		await AbilityCmd.SpawnCoin(Hex);
 	}
 
 	protected override Initiative GetInitiative()

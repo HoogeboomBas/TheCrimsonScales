@@ -12,6 +12,7 @@ public class MonsterGroup
 	public int GroupIndex { get; }
 
 	public MonsterAbilityCardDeck MonsterAbilityCardDeck { get; private set; }
+	public MonsterAbilityCard ActiveMonsterAbilityCard { get; private set; }
 
 	public List<Monster> Monsters { get; } = new List<Monster>();
 
@@ -19,7 +20,6 @@ public class MonsterGroup
 	public List<Element> AbilityCardConsumedElements { get; } = new List<Element>();
 
 	public Initiative Initiative { get; private set; }
-	public bool InitiativeUpdated { get; private set; }
 
 	public Texture2D PortraitTexture => ResourceLoader.Load<Texture2D>(MonsterModel.PortraitTexturePath);
 
@@ -78,11 +78,11 @@ public class MonsterGroup
 		_availableStandeeNumbers.Remove(monster.StandeeNumber);
 
 		// Check if this spawn came in during a round, if so, potentially draw a card to make the monster take a turn
-		if(Monsters.Count == 1 && GameController.Instance.ScenarioPhaseManager.ActivePhase is RoundPhase)
+		if(Monsters.Count == 1 && ActiveMonsterAbilityCard == null && GameController.Instance.ScenarioPhaseManager.ActivePhase is RoundPhase)
 		{
 			TryDrawCard();
 		}
-		else if(MonsterAbilityCardDeck.ActiveCard != null)
+		else if(ActiveMonsterAbilityCard != null)
 		{
 			monster.UpdateInitiative();
 		}
@@ -97,48 +97,39 @@ public class MonsterGroup
 
 	public void TryDrawCard()
 	{
-		if(Monsters.Count > 0)
+		if(Monsters.Count > 0 && ActiveMonsterAbilityCard == null)
 		{
-			if(MonsterAbilityCardDeck.ActiveCard == null)
+			ActiveMonsterAbilityCard = MonsterAbilityCardDeck.DrawCard();
+
+			Initiative = new Initiative()
 			{
-				MonsterAbilityCardDeck.ActiveCard = MonsterAbilityCardDeck.DrawCard();
+				MainInitiative = ActiveMonsterAbilityCard.Model.Initiative,
+				SortingInitiative = ActiveMonsterAbilityCard.Model.Initiative * 10000000 + 9000000 + GroupIndex * 100000
+			};
+
+			foreach(Monster monster in Monsters)
+			{
+				monster.UpdateInitiative();
 			}
 
-			if(!InitiativeUpdated)
-			{
-				Initiative = new Initiative()
-				{
-					MainInitiative = MonsterAbilityCardDeck.ActiveCard.Model.Initiative,
-					SortingInitiative = MonsterAbilityCardDeck.ActiveCard.Model.Initiative * 10000000 + 9000000 + GroupIndex * 100000
-				};
-
-				foreach(Monster monster in Monsters)
-				{
-					monster.UpdateInitiative();
-				}
-
-				InitiativeChangedEvent?.Invoke(this);
-				InitiativeUpdated = true;
-			}
+			InitiativeChangedEvent?.Invoke(this);
 		}
 	}
 
 	public async GDTask RemoveCard()
 	{
-		if(MonsterAbilityCardDeck.ActiveCard != null)
+		if(ActiveMonsterAbilityCard != null)
 		{
-			await MonsterAbilityCardDeck.ActiveCard.RemoveFromActive();
+			await ActiveMonsterAbilityCard.RemoveFromActive();
 
-			MonsterAbilityCardDeck.ActiveCard = null;
+			ActiveMonsterAbilityCard = null;
+			Initiative = new Initiative()
+			{
+				Null = true,
+				SortingInitiative = 999 * 1000000 + (GroupIndex + 1) * 100000
+			};
+
+			InitiativeChangedEvent?.Invoke(this);
 		}
-
-		Initiative = new Initiative()
-		{
-			Null = true,
-			SortingInitiative = 999 * 1000000 + (GroupIndex + 1) * 100000
-		};
-
-		InitiativeChangedEvent?.Invoke(this);
-		InitiativeUpdated = false;
 	}
 }

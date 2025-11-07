@@ -131,6 +131,8 @@ public class Scenario005 : ScenarioModel
 		});
 
 		_infectedWaterSources.Remove(infectedWaterMarker);
+
+		await GDTask.CompletedTask;
 	}
 
 	private async GDTask SpawnEliteBloodOoze()
