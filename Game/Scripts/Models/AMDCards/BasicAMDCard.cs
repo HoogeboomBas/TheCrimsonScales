@@ -1,6 +1,6 @@
 ﻿public class BasicAMDCard : AMDCard
 {
-	public override int? Value => _value;
+	public override int? Value(AttackAbility.State state) => _value;
 
 	private readonly int _value;
 

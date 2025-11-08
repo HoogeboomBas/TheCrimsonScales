@@ -67,7 +67,7 @@ public partial class AMDDrawView : Control
 
 			if(terminalCardValue == null)
 			{
-				if(newCard.Rolling)
+				if(newCard.Rolling(attackAbilityState))
 				{
 					//rollingCards.Add(newCard);
 

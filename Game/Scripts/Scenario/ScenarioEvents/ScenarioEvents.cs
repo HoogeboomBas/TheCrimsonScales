@@ -98,7 +98,7 @@ public class ScenarioEvents
 		{
 			public AMDCard AMDCard = amdCard;
 			public AMDCardType Type { get; private set; } = amdCard.Type;
-			public int? Value { get; private set; } = amdCard.Value;
+			public int? Value { get; private set; } = amdCard.Value(abilityState);
 
 			public void SetType(AMDCardType type)
 			{
