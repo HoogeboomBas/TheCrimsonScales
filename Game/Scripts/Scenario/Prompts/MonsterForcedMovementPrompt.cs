@@ -20,10 +20,9 @@ public class MonsterForcedMovementPrompt(
 	private readonly List<Hex> _path = new List<Hex>();
 
 	private readonly List<ForcedMovementNode> _bestNodes = new List<ForcedMovementNode>();
-	private int _bestMoveSpent = 0;
+	private int _bestSwing = 0;
 
 	protected override bool CanConfirm => _bestNodes.Any(bestNode => bestNode.Hex == _currentNode.Hex);
-		
 	protected override bool CanSkip => false;
 
 	protected override void Enable()
@@ -90,15 +89,15 @@ public class MonsterForcedMovementPrompt(
 			_bestNodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)
 			{
-				if(node.MoveSpent > _bestMoveSpent)
+				if(node.MoveSpent > _bestSwing)
 				{
-					_bestMoveSpent = node.MoveSpent;
+					_bestSwing = node.MoveSpent;
 				}
 
 				_bestNodes.Add(node);
 			}
 
-			if(!_bestNodes.Any() && _currentNode.MoveSpent >= _bestMoveSpent)
+			if(!_bestNodes.Any() && _currentNode.MoveSpent >= _bestSwing)
 			{
 				_bestNodes.Add(_currentNode);
 			}
