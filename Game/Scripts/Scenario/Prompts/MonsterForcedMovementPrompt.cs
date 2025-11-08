@@ -22,10 +22,7 @@ public class MonsterForcedMovementPrompt(
 	private readonly List<ForcedMovementNode> _bestNodes = new List<ForcedMovementNode>();
 	private int _bestMoveSpent = 0;
 
-	protected override bool CanConfirm => _bestNodes.Any(bestNode => bestNode.Hex == _currentNode.Hex) || 
-		(!_bestNodes.Any() && _currentNode.MoveSpent >= _bestMoveSpent);
-	// For Swing, best nodes are empty when there are no further hexes to swing
-	// In that case we also want to prevent picking an option with less hexes moved
+	protected override bool CanConfirm => _bestNodes.Any(bestNode => bestNode.Hex == _currentNode.Hex);
 		
 	protected override bool CanSkip => false;
 
@@ -99,6 +96,11 @@ public class MonsterForcedMovementPrompt(
 				}
 
 				_bestNodes.Add(node);
+			}
+
+			if(!_bestNodes.Any() && _currentNode.MoveSpent >= _bestMoveSpent)
+			{
+				_bestNodes.Add(_currentNode);
 			}
 		}
 
