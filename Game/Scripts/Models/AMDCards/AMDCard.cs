@@ -6,8 +6,9 @@ using System.Collections.Generic;
 public abstract class AMDCard : IDeckCard
 {
 	public virtual bool Reshuffles => false;
-	public virtual bool Rolling(AttackAbility.State state) => false;
 	public virtual bool RemoveAfterDraw => false;
+
+	public virtual bool Rolling(AttackAbility.State state) => false;
 
 	public virtual AMDCardType Type => AMDCardType.Value;
 	public virtual int? Value(AttackAbility.State state) => null;
@@ -19,7 +20,7 @@ public abstract class AMDCard : IDeckCard
 
 	public virtual List<Element> Elements => [];
 	public virtual List<ConditionModel> ConditionModels(AttackAbility.State state) => [];
-	public virtual Func<AttackAbility.State, List<Ability>> GetAbilities => null;
+	public virtual List<Ability> Abilities => [];
 
 	private readonly string _textureAtlasPath;
 	private readonly int _atlasIndex;
@@ -42,7 +43,7 @@ public abstract class AMDCard : IDeckCard
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
 				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
 				
-		return new AMDCardValue(amdCardDrawnParameters.Type, amdCardDrawnParameters.Value, Pierce, Push, Pull, Swing, IgnoreRetaliate, Elements, ConditionModels(attackAbilityState), GetAbilities);
+		return new AMDCardValue(Rolling(attackAbilityState), amdCardDrawnParameters.Type, amdCardDrawnParameters.Value, Pierce, Push, Pull, Swing, IgnoreRetaliate, Elements, ConditionModels(attackAbilityState), Abilities);
 	}
 
 	public Texture2D GetTexture()

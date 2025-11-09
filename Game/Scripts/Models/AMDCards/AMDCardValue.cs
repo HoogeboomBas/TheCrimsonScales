@@ -1,11 +1,13 @@
 using Fractural.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 
-public class AMDCardValue(AMDCardType cardType, int? value, int? pierce, int? push, int? pull, int? swing, bool ignoreRetaliate,
-	List<Element> elements, List<ConditionModel> conditionModels, Func<AttackAbility.State, List<Ability>> getAbilities)
+public class AMDCardValue(bool rolling, AMDCardType cardType, int? value, int? pierce, int? push, int? pull, int? swing, bool ignoreRetaliate,
+	List<Element> elements, List<ConditionModel> conditionModels, List<Ability> abilities)
 {
+	public bool Rolling { get; private set; } = rolling;
 	public AMDCardType CardType { get; private set; } = cardType;
 	public int? Value { get; private set; } = value;
 	public int? Pierce { get; private set; } = pierce;
@@ -16,7 +18,7 @@ public class AMDCardValue(AMDCardType cardType, int? value, int? pierce, int? pu
 
 	public List<Element> Elements { get; private set; } = elements;
 	public List<ConditionModel> ConditionModels { get; private set; } = conditionModels;
-	public Func<AttackAbility.State, List<Ability>> GetAbilities { get; private set; } = getAbilities;
+	public List<Ability> Abilities { get; private set; } = abilities;
 
 	public async GDTask Apply(AttackAbility.State attackAbilityState)
 	{
@@ -73,7 +75,7 @@ public class AMDCardValue(AMDCardType cardType, int? value, int? pierce, int? pu
 			attackAbilityState.SingleTargetAddCondition(condtion);
 		}
 
-		if(GetAbilities != null)
+		if(Abilities.Count > 0)
 		{
 			ScenarioEvents.AfterAttackPerformedEvent.Subscribe(attackAbilityState, this,
 			parameters => attackAbilityState == parameters.AbilityState && 
@@ -82,7 +84,7 @@ public class AMDCardValue(AMDCardType cardType, int? value, int? pierce, int? pu
 			{
 				ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(attackAbilityState, this);
 
-				ActionState actionState = new(attackAbilityState.Performer, GetAbilities(attackAbilityState));
+				ActionState actionState = new(attackAbilityState.Performer, Abilities);
 				await actionState.Perform();
 			});
 		}
@@ -108,6 +110,8 @@ public class AMDCardValue(AMDCardType cardType, int? value, int? pierce, int? pu
 
 	public (int, bool) GetScore(AttackAbility.State attackAbilityState)
 	{
-		return (GetAttackModifierValue(attackAbilityState), false);
+		bool extraEffect = Pierce.HasValue || Push.HasValue || Pull.HasValue || Swing.HasValue || IgnoreRetaliate || 
+			Elements.Count > 0 || ConditionModels.Count > 0 || Abilities.Count > 0;
+		return (GetAttackModifierValue(attackAbilityState), extraEffect);
 	}
 }
