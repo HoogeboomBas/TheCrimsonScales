@@ -184,7 +184,7 @@ public class Scenario005 : ScenarioModel
 
 		ScenarioCheckEvents.SpawnCoinCheckEvent.Unsubscribe(this);
 
-		_gelatinousGiant = await AbilityCmd.SpawnMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
+		_gelatinousGiant = await AbilityCmd.SummonMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
 		
 		_gelatinousGiant.SetMaxHealth(bossHealth);
 		_gelatinousGiant.SetHealth(bossHealth);
