@@ -281,7 +281,9 @@ public partial class Character : Figure
 				{
 					AbilityCard = card,
 					CanPlayTop = true,
-					CanPlayBottom = true
+					CanPlayBottom = true,
+					CanPlayBasicTop = true,
+					CanPlayBasicBottom = true
 				});
 			}
 
@@ -334,6 +336,8 @@ public partial class Character : Figure
 					{
 						cardData.CanPlayTop = false;
 						cardData.CanPlayBottom = false;
+						cardData.CanPlayBasicTop = false;
+						cardData.CanPlayBasicBottom = false;
 					}
 				}
 
@@ -346,6 +350,7 @@ public partial class Character : Figure
 						foreach(CardPlayCardData cardData in cardDatas)
 						{
 							cardData.CanPlayBottom = false;
+							cardData.CanPlayBasicBottom = false;
 						}
 					}
 
@@ -354,6 +359,7 @@ public partial class Character : Figure
 						foreach(CardPlayCardData cardData in cardDatas)
 						{
 							cardData.CanPlayTop = false;
+							cardData.CanPlayBasicTop = false;
 						}
 					}
 				}

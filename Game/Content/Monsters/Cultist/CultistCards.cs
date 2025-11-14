@@ -156,7 +156,7 @@ public class CultistAbilityCard5 : CultistAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 2);
+				await AbilityCmd.SufferDamage(state, state.Performer, 2);
 			})
 			.Build())
 	];
@@ -178,7 +178,7 @@ public class CultistAbilityCard6 : CultistAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 2);
+				await AbilityCmd.SufferDamage(state, state.Performer, 2);
 			})
 			.Build())
 	];

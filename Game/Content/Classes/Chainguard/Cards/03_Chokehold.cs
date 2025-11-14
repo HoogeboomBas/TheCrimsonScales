@@ -93,7 +93,7 @@ public class Chokehold : ChainguardCardModel<Chokehold.CardTop, Chokehold.CardBo
 						return;
 					}
 
-					await AbilityCmd.SufferDamage(null, figure, 1);
+					await AbilityCmd.SufferDamage(state, figure, 1);
 				}
 			)
 			.Build())

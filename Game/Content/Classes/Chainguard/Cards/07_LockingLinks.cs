@@ -28,7 +28,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 							parameters.Figure == attackAbilityState.Target &&
 							parameters.Figure.HasCondition(Chainguard.Shackle) &&
 							RangeHelper.GetFiguresInRange(parameters.Figure.Hex, 1, false, false).Contains(state.Performer),
-						apply: parameters => AbilityCmd.SufferDamage(null, parameters.Figure, 1)
+						apply: parameters => AbilityCmd.SufferDamage(state, parameters.Figure, 1)
 					);
 
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,

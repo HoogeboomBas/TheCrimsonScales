@@ -122,6 +122,18 @@ public abstract class TargetedAbilityState : AbilityState
 		}
 	}
 
+	public void AbilityAddConditionPreAbility(ConditionModel conditionModel)
+	{
+		if(conditionModel.CanStack)
+		{
+			AbilityConditionModels.Add(conditionModel);
+		}
+		else
+		{
+			AbilityConditionModels.AddIfNew(conditionModel);
+		}
+	}
+
 	public void AbilityRemoveCondition(ConditionModel conditionModel)
 	{
 		AbilityConditionModels.Remove(conditionModel);

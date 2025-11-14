@@ -32,7 +32,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 									canApplyParameters.AbilityState == applyParameters.AbilityState,
 								apply: async parameters =>
 								{
-									await AbilityCmd.SufferDamage(null, parameters.Performer, 10);
+									await AbilityCmd.SufferDamage(state, parameters.Performer, 10);
 									await state.AdvanceUseSlot();
 								}
 							);

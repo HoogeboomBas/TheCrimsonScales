@@ -33,7 +33,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 							parameters.PotentialAbilityState.Performer == state.Performer,
 						async parameters =>
 						{
-							await AbilityCmd.SufferDamage(null, state.Performer, 1);
+							await AbilityCmd.SufferDamage(state, state.Performer, 1);
 						},
 						EffectType.MandatoryBeforeOptionals
 					);
@@ -119,7 +119,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 							parameters.AbilityState.Target.EnemiesWith(state.Performer),
 						async parameters =>
 						{
-							await AbilityCmd.SufferDamage(null, parameters.AbilityState.Target, 1);
+							await AbilityCmd.SufferDamage(state, parameters.AbilityState.Target, 1);
 						}
 					);
 

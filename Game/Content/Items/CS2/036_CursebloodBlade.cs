@@ -21,7 +21,7 @@ public class CursebloodBlade : CS2Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.SufferDamage(null, state.Performer, 1);
+					await AbilityCmd.SufferDamage(state, state.Performer, 1);
 					state.AbilityAddCondition(Conditions.Curse);
 
 					await GDTask.CompletedTask;

@@ -301,7 +301,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 		await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 
-		int finalDamage = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
+		int finalDamage = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue, true);
 
 		if(!GameController.FastForward)
 		{
@@ -369,7 +369,18 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 		if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
 		{
-			await AbilityCmd.SufferDamage(null, abilityState.Performer, retaliateParameters.Retaliate);
+			ActionState newActionState = new ActionState(retaliateParameters.RetaliatingFigure,
+			[
+				OtherAbility.Builder()
+					.WithPerformAbility(async state =>
+					{
+						await AbilityCmd.SufferDamage(state, abilityState.Performer, retaliateParameters.Retaliate);
+					}
+				)
+				.WithCanPerformWhileStunned(true)
+				.Build()
+			]);
+			await newActionState.Perform();
 		}
 
 		await ScenarioEvents.AfterAttackPerformedEvent.CreatePrompt(

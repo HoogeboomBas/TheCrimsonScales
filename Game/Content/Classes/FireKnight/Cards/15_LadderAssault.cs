@@ -23,7 +23,7 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 							parameters.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
-							await AbilityCmd.SufferDamage(null, parameters.Figure, 2);
+							await AbilityCmd.SufferDamage(state, parameters.Figure, 2);
 							await AbilityCmd.GainXP(state.Performer, 1);
 						}
 					);

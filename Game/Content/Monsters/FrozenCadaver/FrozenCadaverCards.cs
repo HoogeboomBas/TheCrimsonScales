@@ -58,7 +58,7 @@ public class FrozenCadaverAbilityCard1 : FrozenCadaverAbilityCard
 							.ToList();
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 1);
+						await AbilityCmd.SufferDamage(state, target, 1);
 					}
 				}
 			)

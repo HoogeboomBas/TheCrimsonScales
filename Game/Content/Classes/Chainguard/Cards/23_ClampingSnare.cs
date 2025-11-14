@@ -33,7 +33,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 							{
 								if(state.Authority.EnemiesWith(figure))
 								{
-									await AbilityCmd.SufferDamage(null, figure, 2);
+									await AbilityCmd.SufferDamage(state, figure, 2);
 								}
 							}
 
@@ -65,7 +65,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 				.WithShieldValue(3)
 				.WithCustomCanApply(parameters =>
 					parameters.FromAttack &&
-					parameters.PotentialAttackAbilityState.Performer.HasCondition(Chainguard.Shackle))
+					parameters.AbilityState.Performer.HasCondition(Chainguard.Shackle))
 				.Build()),
 		];
 

@@ -7,6 +7,7 @@ using Godot;
 /// </summary>
 public abstract class AbilityState
 {
+	public List<Figure> DamagedFigures { get; } = new List<Figure>();
 	private bool _blocked;
 	private Dictionary<object, Dictionary<string, object>> _customValues = new Dictionary<object, Dictionary<string, object>>();
 

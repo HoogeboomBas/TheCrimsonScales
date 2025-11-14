@@ -27,7 +27,7 @@ public class EmberCladding : FireKnightItem
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.SufferDamage(null, parameters.Figure, 2);
+					await AbilityCmd.SufferDamage(parameters.AbilityState, parameters.Figure, 2);
 
 					await AbilityCmd.InfuseElement(Element.Fire);
 				});

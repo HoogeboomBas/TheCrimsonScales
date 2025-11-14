@@ -24,8 +24,7 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 								attackAbilityState.ActionState.ParentActionState != null &&
 								attackAbilityState.ActionState.ParentActionState.AbilityStates.Any(potentialProjectileAbility =>
 									potentialProjectileAbility is ProjectileAbility.State &&
-									//TODO: Currently does not work with Unexpected Bombshell's direct suffer damage
-									attackAbilityState.UniqueTargetedFigures.Contains(parameters.AbilityState.Target)
+									attackAbilityState.DamagedFigures.Contains(parameters.AbilityState.Target)
 								)
 							)),
 						async parameters =>

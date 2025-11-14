@@ -60,6 +60,22 @@ public class AMDManager
 		return true;
 	}
 
+	public async GDTask<bool> Empower(IHasEmpower originalOwner, Figure figure)
+	{
+		if(originalOwner.RemainingEmpowerCount == 0)
+		{
+			return false;
+		}
+		originalOwner.RemainingEmpowerCount--;
+		AMDCard card = (AMDCard)Activator.CreateInstance(originalOwner.EmpowerType, originalOwner);
+		ScenarioEvents.EmpowerAdded.Parameters empowerAddedParameters =
+			await ScenarioEvents.EmpowerAddedEvent.CreatePrompt(
+				new ScenarioEvents.EmpowerAdded.Parameters(figure));
+
+		figure.AMDCardDeck.AddCard(card, empowerAddedParameters.ShuffleDrawPile);
+		return true;
+	}
+
 	private void OnBlessDrawn(AMDCard card)
 	{
 		RemainingBlessCount++;

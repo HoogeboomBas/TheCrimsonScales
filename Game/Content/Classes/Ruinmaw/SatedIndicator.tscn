@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://buebj414ucr8h"]
+
+[ext_resource type="Script" uid="uid://c3jr87w3urf0x" path="res://Content/Classes/Ruinmaw/SatedIndicator.cs" id="1_lx6vu"]
+[ext_resource type="Texture2D" uid="uid://bu6vbcem61eo0" path="res://Content/Classes/Ruinmaw/RuinmawSated.png" id="3_hgxwx"]
+
+[node name="SatedIndicator" type="Node2D"]
+modulate = Color(0.117647, 0.113725, 0.113725, 1)
+z_index = 11
+scale = Vector2(0.92, 0.92)
+script = ExtResource("1_lx6vu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(63.3947, 1.33744)
+scale = Vector2(0.132651, 0.132651)
+texture = ExtResource("3_hgxwx")

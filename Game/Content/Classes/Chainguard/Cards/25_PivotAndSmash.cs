@@ -30,7 +30,7 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 				.WithTarget(Target.Enemies)
 				.WithOnAfterTargetConfirmed(async (state, figure) =>
 				{
-					await AbilityCmd.SufferDamage(null, figure, 2);
+					await AbilityCmd.SufferDamage(state, figure, 2);
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{

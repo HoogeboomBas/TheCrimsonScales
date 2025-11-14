@@ -139,7 +139,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 							ScenarioEvents.TrapTriggeredEvent.Unsubscribe(state, this);
 							if(applyParameters.Figure.HasCondition(Chainguard.Shackle))
 							{
-								await AbilityCmd.SufferDamage(null, applyParameters.Figure, 1);
+								await AbilityCmd.SufferDamage(state, applyParameters.Figure, 1);
 								await AbilityCmd.RemoveCondition(applyParameters.Figure, Chainguard.Shackle);
 							}
 

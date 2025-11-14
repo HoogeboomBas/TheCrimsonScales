@@ -158,7 +158,7 @@ public class FrostDemonAbilityCard7 : FrostDemonAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Fire]))
 			.Build())

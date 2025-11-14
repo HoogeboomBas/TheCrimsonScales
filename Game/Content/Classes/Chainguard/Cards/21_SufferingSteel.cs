@@ -19,7 +19,7 @@ public class SufferingSteel : ChainguardLevelUpCardModel<SufferingSteel.CardTop,
 					ScenarioEvents.SufferDamageEvent.Subscribe(state, this,
 						canApply: canApplyParameters => canApplyParameters.FromAttack && 
 							canApplyParameters.Figure == state.Performer && 
-							canApplyParameters.PotentialAttackAbilityState.Performer.HasCondition(Chainguard.Shackle),
+							canApplyParameters.AbilityState.Performer.HasCondition(Chainguard.Shackle),
 						async applyParameters =>
 						{
 							applyParameters.SetDamagePrevented();

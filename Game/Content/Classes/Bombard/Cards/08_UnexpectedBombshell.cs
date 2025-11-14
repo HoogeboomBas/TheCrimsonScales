@@ -40,7 +40,7 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 
 									foreach(Figure enemy in enemies)
 									{
-										await AbilityCmd.SufferDamage(null, enemy, 1);
+										await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 1);
 									}
 								})
 						)

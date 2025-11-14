@@ -111,7 +111,7 @@ public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
 
 				foreach(Figure target in sufferDamageTargets)
 				{
-					await AbilityCmd.SufferDamage(null, target, 1);
+					await AbilityCmd.SufferDamage(state, target, 1);
 				}
 
 				state.SetPerformed();
@@ -227,7 +227,7 @@ public class BloodOozeAbilityCard7 : BloodOozeAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, monster, 2);
+				await AbilityCmd.SufferDamage(state, monster, 2);
 
 				state.SetPerformed();
 			})

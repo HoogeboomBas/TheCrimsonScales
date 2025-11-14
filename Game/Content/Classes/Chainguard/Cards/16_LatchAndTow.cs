@@ -23,7 +23,7 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 											&& canApplyParameters.Figure == state.Target,
 						async applyParameters =>
 						{
-							await AbilityCmd.SufferDamage(null, state.Target, 3);
+							await AbilityCmd.SufferDamage(state, state.Target, 3);
 							await AbilityCmd.AddCondition(state, state.Target, Conditions.Muddle);
 							await AbilityCmd.GainXP(state.Performer, 1);
 

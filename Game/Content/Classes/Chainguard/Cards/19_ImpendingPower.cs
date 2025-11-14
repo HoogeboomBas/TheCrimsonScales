@@ -145,7 +145,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 						canApply: canApplyParameters => state.Performer == canApplyParameters.Authority,
 						async applyParameters =>
 						{
-							await AbilityCmd.SufferDamage(null, applyParameters.Figure, 2);
+							await AbilityCmd.SufferDamage(state, applyParameters.Figure, 2);
 						}
 					);
 

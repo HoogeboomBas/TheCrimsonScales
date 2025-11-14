@@ -52,7 +52,7 @@ public class AncientArtilleryAbilityCard1 : AncientArtilleryAbilityCard
 
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 
 					state.SetPerformed();
@@ -85,7 +85,7 @@ public class AncientArtilleryAbilityCard2 : AncientArtilleryAbilityCard
 
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 
 					state.SetPerformed();

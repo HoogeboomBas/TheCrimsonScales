@@ -88,15 +88,15 @@ public static class AbilityCmd
 			.Build();
 	}
 
-	public static async GDTask<int> SufferDamage(AttackAbility.State potentialAttackAbilityState, Figure target, int damage)
+	public static async GDTask<int> SufferDamage(AbilityState abilityState, Figure target, int damage, bool fromAttack = false)
 	{
 		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters =
-			new ScenarioEvents.SufferDamage.Parameters(potentialAttackAbilityState, target, damage);
+			new ScenarioEvents.SufferDamage.Parameters(abilityState, target, damage, fromAttack);
 		EffectCollection sufferDamageCollection = ScenarioEvents.SufferDamageEvent.CreateEffectCollection(sufferDamageParameters);
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
 
-		potentialAttackAbilityState?.SetPerformed();
+		abilityState?.SetPerformed();
 
 		if(sufferDamageParameters.DamagePrevented)
 		{
@@ -107,13 +107,15 @@ public static class AbilityCmd
 
 		ScenarioEvents.JustBeforeSufferDamage.Parameters justBeforeSufferDamageParameters =
 			await ScenarioEvents.JustBeforeSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters),
-				potentialAttackAbilityState?.Authority ?? target);
+				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, finalDamage, abilityState, sufferDamageParameters),
+				abilityState?.Authority ?? target);
 
 		if(justBeforeSufferDamageParameters.Prevented)
 		{
 			return 0;
 		}
+
+		abilityState.DamagedFigures.Add(target);
 
 		int newHealth = Mathf.Max(target.Health - finalDamage, 0);
 
@@ -121,14 +123,14 @@ public static class AbilityCmd
 
 		if(newHealth == 0)
 		{
-			await KillOrExhaust(potentialAttackAbilityState, target);
+			await KillOrExhaust(abilityState, target);
 		}
 
 		if(finalDamage > 0)
 		{
 			await ScenarioEvents.AfterSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, potentialAttackAbilityState, sufferDamageParameters),
-				potentialAttackAbilityState?.Authority ?? target);
+				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, abilityState, sufferDamageParameters),
+				abilityState?.Authority ?? target);
 		}
 
 		return finalDamage;
@@ -439,7 +441,7 @@ public static class AbilityCmd
 				if(hazardousTerrainParameters.AffectedByHazardousTerrain)
 				{
 					int damage = HazardousTerrain.DamageAmount;
-					await SufferDamage(null, figure, damage);
+					await SufferDamage(state, figure, damage);
 				}
 			}
 		}
@@ -708,7 +710,9 @@ public static class AbilityCmd
 		{
 			AbilityCard = abilityCard,
 			CanPlayTop = true,
-			CanPlayBottom = true
+			CanPlayBottom = true,
+			CanPlayBasicTop = true,
+			CanPlayBasicBottom = true
 		});
 
 		AbilityCardSectionSelectionPrompt.Answer cardSectionAnswer = await PromptManager.Prompt(

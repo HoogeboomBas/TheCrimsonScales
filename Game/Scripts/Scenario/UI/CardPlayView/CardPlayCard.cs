@@ -55,8 +55,8 @@ public partial class CardPlayCard : Control
 			_topButton.SetEnabled(cardData.CanPlayTop);
 			_bottomButton.SetEnabled(cardData.CanPlayBottom);
 
-			_basicTopButton.SetVisible(cardData.CanPlayTop);
-			_basicBottomButton.SetVisible(cardData.CanPlayBottom);
+			_basicTopButton.SetVisible(cardData.CanPlayBasicTop);
+			_basicBottomButton.SetVisible(cardData.CanPlayBasicBottom);
 		}
 	}
 

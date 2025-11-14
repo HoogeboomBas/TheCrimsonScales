@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -12,6 +13,7 @@ public abstract class AbilityCardSide
 
 	protected virtual bool Round => false;
 	protected virtual bool Persistent => false;
+	protected virtual bool RemoveImmediately => false;
 	protected virtual bool Loss => false;
 	protected virtual bool Unrecoverable => false;
 
@@ -19,6 +21,7 @@ public abstract class AbilityCardSide
 	public bool IsBasicTop => AbilityCard.BasicTop == this;
 	public bool IsBottom => AbilityCard.Bottom == this;
 	public bool IsBasicBottom => AbilityCard.BasicBottom == this;
+	protected virtual Action<Figure> ActionPerformed { get; set; }
 
 	public IEnumerable<AbilityCardAbility> Abilities
 	{
@@ -37,7 +40,7 @@ public abstract class AbilityCardSide
 
 	protected abstract IEnumerable<AbilityCardAbility> GetAbilities();
 
-	public async GDTask Perform(Figure performer)
+	public virtual async GDTask Perform(Figure performer)
 	{
 		ScenarioEvents.AbilityCardSideStarted.Parameters startedParameters =
 			await ScenarioEvents.AbilityCardSideStartedEvent.CreatePrompt(
@@ -51,6 +54,8 @@ public abstract class AbilityCardSide
 
 			if(actionState.GetHasPerformed())
 			{
+				ActionPerformed?.Invoke(actionState.Performer);
+
 				await AbilityCmd.GainXP(performer, XP);
 
 				foreach(Element element in Elements)
@@ -72,7 +77,7 @@ public abstract class AbilityCardSide
 				AbilityCard.SetUnrecoverable(Unrecoverable);
 
 				// If no persistent/round ability has been performed, discard or lose it instead
-				if(actionState.HasPerformedActiveAbility)
+				if(actionState.HasPerformedActiveAbility && !RemoveImmediately)
 				{
 					if(round)
 					{
@@ -126,4 +131,9 @@ public abstract class AbilityCardSide
 	{
 		await AbilityCmd.DiscardOrLose(AbilityCard);
 	}
+
+	public bool GetLoss()
+    {
+		return Loss;
+    }
 }
