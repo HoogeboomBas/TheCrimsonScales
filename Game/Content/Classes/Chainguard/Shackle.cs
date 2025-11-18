@@ -55,6 +55,16 @@ public class Shackle : ConditionModel
 				return GDTask.CompletedTask;
 			},
 			EffectType.MandatoryBeforeOptionals);
+
+		// Don't allow monster AI to plan a route passing an ally that is adjacent to the Chainguard
+		ScenarioCheckEvents.CanPassAllyCheckEvent.Subscribe(Owner, this,
+			parameters => parameters.Figure == Owner &&
+				RangeHelper.GetFiguresInRange(parameters.AlliedFigure.Hex, 1).Any(figure => figure == Shackler),
+			parameters =>
+			{
+				parameters.SetCannotPass();
+			}
+		);
 	}
 
 	public override async GDTask Remove()
@@ -65,5 +75,6 @@ public class Shackle : ConditionModel
 
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(Owner, this);
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
+		ScenarioCheckEvents.CanPassAllyCheckEvent.Unsubscribe(Owner, this);
 	}
 }

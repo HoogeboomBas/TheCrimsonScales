@@ -357,20 +357,28 @@ public static class MoveHelper
 			}
 		}
 
-		if(moveType == MoveType.Regular)
+		foreach(Figure otherFigure in hex.GetHexObjectsOfType<Figure>())
 		{
-			foreach(Figure otherFigure in hex.GetHexObjectsOfType<Figure>())
+			if(performer.EnemiesWith(otherFigure) && (moveType == MoveType.Regular))
 			{
-				if(performer.EnemiesWith(otherFigure))
-				{
-					ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
-					ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
-						new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
+				ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
+				ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
+					new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
 
-					if(!canPassEnemyParameters.CanPass)
-					{
-						return false;
-					}
+				if(!canPassEnemyParameters.CanPass)
+				{
+					return false;
+				}
+			}
+			else if(performer.AlliedWith(otherFigure) && !forcedMovement)
+			{
+				ScenarioCheckEvents.CanPassAllyCheck.Parameters canPassAllyParameters =
+					ScenarioCheckEvents.CanPassAllyCheckEvent.Fire(
+						new ScenarioCheckEvents.CanPassAllyCheck.Parameters(abilityState, performer, otherFigure));
+
+				if(!canPassAllyParameters.CanPass)
+				{
+					return false;
 				}
 			}
 		}
