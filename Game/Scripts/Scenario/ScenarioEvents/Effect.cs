@@ -7,7 +7,7 @@ public class Effect
 	private ScenarioEvent.ParametersBase _parameters;
 
 	public ScenarioEvent.Subscription Subscription { get; private set; }
-	public int Index { get; }
+	public int Index { get; private set; }
 
 	public bool CanApply { get; private set; }
 	public bool Applied { get; private set; }
@@ -26,6 +26,11 @@ public class Effect
 	public void Update()
 	{
 		CanApply = Subscription.CanApply(_parameters) && (Subscription.CanApplyMultipleTimesInEffectCollection || !Applied);
+	}
+
+	public void UpdateIndex(int index)
+	{
+		Index = index;
 	}
 
 	public async GDTask Apply()

@@ -141,6 +141,11 @@ public abstract partial class Figure : HexObject
 		HealthChangedEvent?.Invoke(this);
 	}
 
+	public bool IsDamaged()
+    {
+		return Health < MaxHealth;
+    }
+
 	public virtual void UpdateInitiative()
 	{
 		Initiative oldInitiative = Initiative;
@@ -272,14 +277,12 @@ public abstract partial class Figure : HexObject
 	public async GDTask<ConditionNode> AddCondition(ConditionModel condition)
 	{
 		ConditionNode conditionNode = null;
-		if(condition.ShowOnFigure)
+		if(condition.ShouldShowOnFigure(this))
 		{
 			conditionNode = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Condition.tscn").Instantiate<ConditionNode>();
 			_figureViewComponent.ConditionParent.AddChild(conditionNode);
 			conditionNode.Init(condition);
 		}
-
-		Conditions.Add(condition);
 		//ConditionNodes.Add(condition, conditionNode);
 
 		ConditionsChangedEvent?.Invoke(this);
@@ -294,9 +297,6 @@ public abstract partial class Figure : HexObject
 	public async GDTask RemoveCondition(ConditionModel conditionModel)
 	{
 		ConditionModel condition = GetCondition(conditionModel);
-		ConditionNode node = condition.Node;
-		node?.Destroy();
-		Conditions.Remove(condition);
 
 		ConditionsChangedEvent?.Invoke(this);
 

@@ -40,7 +40,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	protected abstract ScenarioGoals CreateScenarioGoals();
 
-	protected void UpdateScenarioText(string text)
+	protected virtual void UpdateScenarioText(string text)
 	{
 		string displayText;
 		if(text != null)

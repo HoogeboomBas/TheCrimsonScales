@@ -198,4 +198,9 @@ public partial class HexObject : Node2D, IReferenced
 	{
 		this.TweenScale(0f, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardable();
 	}
+
+	public void SetCannotBeDestroyed(bool cannotBeDestroyed)
+    {
+		CannotBeDestroyed = cannotBeDestroyed;
+    }
 }

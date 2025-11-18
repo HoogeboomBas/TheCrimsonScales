@@ -10,8 +10,7 @@ public class Shackle : ConditionModel
 	public override bool CanBeUpgraded => false;
 	public override bool IsPositive => false;
 	public override bool IsNegative => false;
-	public override bool ShowOnFigure => false;
-	public override ConditionModel ImmunityCompareBaseCondition => Conditions.Immobilize;
+	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Immobilize];
 
 	public Figure Shackler { get; private set; }
 
@@ -77,4 +76,9 @@ public class Shackle : ConditionModel
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
 		ScenarioCheckEvents.CanPassAllyCheckEvent.Unsubscribe(Owner, this);
 	}
+
+	public override bool ShouldShowOnFigure(Figure figure)
+    {
+		return false;
+    }
 }

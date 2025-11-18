@@ -10,7 +10,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 1,
 			Range = 3,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -18,7 +18,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 1,
 			Range = 3,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -26,7 +26,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 2,
 			Range = 3,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -34,7 +34,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 2,
 			Range = 4,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -42,7 +42,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 2,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -50,7 +50,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 2,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -58,7 +58,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 3,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -66,7 +66,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 3,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 	];
 
@@ -78,7 +78,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 1,
 			Range = 3,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -86,7 +86,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 2,
 			Range = 3,
-			Traits = [new ShieldTrait(1)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
@@ -94,7 +94,7 @@ public class ForestImp : MonsterModel
 			Move = 3,
 			Attack = 2,
 			Range = 3,
-			Traits = [new ShieldTrait(1), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -102,7 +102,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 2,
 			Range = 4,
-			Traits = [new ShieldTrait(1), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(1), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -110,7 +110,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 2,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -118,7 +118,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 3,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -126,7 +126,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 4,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 		new MonsterStats()
 		{
@@ -134,7 +134,7 @@ public class ForestImp : MonsterModel
 			Move = 4,
 			Attack = 4,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
+			Traits = [new FlyingTrait(), new ShieldTrait(2), new ApplyConditionTrait(Conditions.Curse)]
 		},
 	];
 

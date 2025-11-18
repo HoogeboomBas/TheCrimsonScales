@@ -204,6 +204,14 @@ public static class AbilityCmd
 		return false;
 	}
 
+	public static async GDTask RemoveAllChill(Figure target)
+    {
+        while (target.HasCondition(Conditions.Chill))
+        {
+			await RemoveCondition(target, Conditions.Chill);
+        }
+    }
+
 	public static async GDTask GainXP(Figure figure, int xp)
 	{
 		if(figure is Character character)

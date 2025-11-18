@@ -35,7 +35,10 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 			Move = 2,
 			Attack = 3,
 			Range = 4,
-			Traits = [new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
+			Traits =
+			[
+				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
+			]
 		},
 		new MonsterStats()
 		{
@@ -43,7 +46,10 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 			Move = 2,
 			Attack = 4,
 			Range = 4,
-			Traits = [new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
+			Traits =
+			[
+				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
+			]
 		},
 		new MonsterStats()
 		{
@@ -51,7 +57,10 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 			Move = 3,
 			Attack = 4,
 			Range = 4,
-			Traits = [new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
+			Traits =
+			[
+				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
+			]
 		},
 		new MonsterStats()
 		{
@@ -59,7 +68,10 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 			Move = 3,
 			Attack = 4,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
+			Traits =
+			[
+				new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
+			]
 		},
 		new MonsterStats()
 		{
@@ -67,7 +79,10 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 			Move = 3,
 			Attack = 5,
 			Range = 4,
-			Traits = [new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
+			Traits =
+			[
+				new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
+			]
 		},
 	];
 
@@ -85,7 +100,7 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
 
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
-			.WithGetAbilities(grantAbilityState => 
+			.WithGetAbilities(grantAbilityState =>
 			[
 				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1),
 			])
@@ -101,7 +116,8 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: -1, range: 3, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: -1, range: 3,
+			target: Target.Enemies | Target.TargetAll)),
 
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
@@ -113,7 +129,7 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 				int damageSuffered = 0;
 
-				list.ForEach(async monsterGroup => 
+				foreach(IGrouping<MonsterType, Figure> monsterGroup in list)
 				{
 					int damage = monsterGroup.Key == MonsterType.Normal ? 1 : 2;
 
@@ -121,7 +137,7 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 					{
 						damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
 					}
-				});
+				}
 
 				if(damageSuffered > 0)
 				{

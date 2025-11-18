@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://drwupkt4x7cbj"]
 
-[ext_resource type="Texture2D" uid="uid://cuduuf2n7cydr" path="res://Art/Coin.png" id="2_fniu3"]
+[ext_resource type="Texture2D" uid="uid://cuduuf2n7cydr" path="res://Art/Other/Coin.png" id="2_fniu3"]
 [ext_resource type="Script" uid="uid://cuwpwlgp88tq3" path="res://Scripts/Scenario/HexObjects/Coin.cs" id="3_pwcv5"]
 
 [node name="Coin" type="Node2D"]
