@@ -55,7 +55,7 @@ public class Shackle : ConditionModel
 			},
 			EffectType.MandatoryBeforeOptionals);
 
-		// Don't allow monster AI to plan a route passing an ally that is adjacent to the Chainguard
+		// Don't allow movement through an ally that is adjacent to the Chainguard
 		ScenarioCheckEvents.CanPassAllyCheckEvent.Subscribe(Owner, this,
 			parameters => parameters.Figure == Owner &&
 				RangeHelper.GetFiguresInRange(parameters.AlliedFigure.Hex, 1).Any(figure => figure == Shackler),
