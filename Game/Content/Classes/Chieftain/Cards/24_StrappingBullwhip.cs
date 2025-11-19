@@ -30,11 +30,6 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 						{
 							int distance = RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex);
 							parameters.AbilityState.SingleTargetAdjustAttackValue(distance);
-
-							if(distance == 3)
-							{
-								await AbilityCmd.GainXP(parameters.Performer, 1);
-							}
 						}
 					)
 				)

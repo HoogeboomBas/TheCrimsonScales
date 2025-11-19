@@ -14,7 +14,7 @@ public class VenomousMayhem : ChieftainCardModel<VenomousMayhem.CardTop, Venomou
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithSummonStats(new SummonStats()
 				{
-					Health = 4,
+					Health = 5,
 					Move = 4,
 					Attack = 1,
 					Traits = 

@@ -17,7 +17,7 @@ public class OneWithNature : ChieftainCardModel<OneWithNature.CardTop, OneWithNa
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
 						applyFunction: async applyParameters =>
 						{
-							applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
+							applyParameters.AbilityState.AbilityAdjustAttackValue(2);
 
 							await AbilityCmd.GainXP(applyParameters.Performer, 1);
 						},

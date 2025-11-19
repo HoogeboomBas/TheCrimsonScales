@@ -485,9 +485,16 @@ public class ScenarioEvents
 
 			public Figure OtherFigure { get; private set; } = null;
 
+			public bool TriggerHexEffects { get; private set; } = true;
+
 			public void SetOtherFigure(Figure otherFigure)
 			{
 				OtherFigure = otherFigure;
+			}
+
+			public void SetTriggerHexEffects(bool triggerHexEffects)
+			{
+				TriggerHexEffects = triggerHexEffects;
 			}
 		}
 	}

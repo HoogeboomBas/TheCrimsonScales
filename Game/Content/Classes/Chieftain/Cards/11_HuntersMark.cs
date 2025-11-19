@@ -16,7 +16,7 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					// TODO Place character token
+					// TODO: Place character token
 					Figure chosenFigure = await AbilityCmd.SelectFigure(state, list =>
 					{
 						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))

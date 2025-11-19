@@ -17,8 +17,8 @@ public class Resurrection : ChieftainCardModel<Resurrection.CardTop, Resurrectio
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
 						applyFunction: async parameters =>
 						{
-							parameters.AbilityState.SingleTargetAdjustAttackValue(1);
-							parameters.AbilityState.SingleTargetSetHasAdvantage();
+							parameters.AbilityState.AbilityAdjustAttackValue(1);
+							parameters.AbilityState.AbilitySetHasAdvantage();
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},

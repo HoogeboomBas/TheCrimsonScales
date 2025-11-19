@@ -187,7 +187,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 				if(moveTogetherCheckParameters.OtherFigure != null)
 				{
-					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex, triggerHexEffects);
+					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex, moveTogetherCheckParameters.TriggerHexEffects);
 				}
 			}
 

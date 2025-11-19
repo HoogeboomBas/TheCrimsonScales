@@ -17,8 +17,8 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 				.WithRange(3)
 				.WithTargets(2)
 				.WithPierce(2)
-				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.ConsumeElement(Element.Earth,
+				.WithDuringAttackSubscription(
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
 						applyFunction: async applyParameters =>
 						{
 							applyParameters.AbilityState.AbilityAddCondition(Conditions.Poison1);
