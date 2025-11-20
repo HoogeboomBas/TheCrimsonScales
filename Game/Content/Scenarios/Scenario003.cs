@@ -9,8 +9,7 @@ public class Scenario003 : ScenarioModel
 	public override string ScenePath => "res://Content/Scenarios/Scenario003.tscn";
 	public override int ScenarioNumber => 3;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
-	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario007>()];
-	// public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario004>(), new ScenarioConnection<Scenario007>()];
+	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario004>(), new ScenarioConnection<Scenario007>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new KillSpecificEnemyTypeGoals(ModelDB.Monster<HydraSpirit>(), "Kill the Hydra Spirit to win this scenario.");

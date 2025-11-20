@@ -252,6 +252,18 @@ public class ScenarioEvents
 		}
 	}
 
+	public class RemoveCondition : ScenarioEvent<RemoveCondition.Parameters>
+	{
+		public class Parameters(Figure figure, ConditionModel condition) : ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public ConditionModel Condition { get; } = condition;
+		}
+	}
+
+	private readonly RemoveCondition _removeCondition = new RemoveCondition();
+	public static RemoveCondition RemoveConditionEvent => GameController.Instance.ScenarioEvents._removeCondition;
+
 	private readonly DuringGrant _duringGrant = new DuringGrant();
 	public static DuringGrant DuringGrantEvent => GameController.Instance.ScenarioEvents._duringGrant;
 
@@ -921,6 +933,23 @@ public class ScenarioEvents
 	private readonly SwingDirectionCheck _swingDirectionCheck = new SwingDirectionCheck();
 	public static SwingDirectionCheck SwingDirectionCheckEvent => GameController.Instance.ScenarioEvents._swingDirectionCheck;
 
+	public class FigureFoundFocus : ScenarioEvent<FigureFoundFocus.Parameters>
+	{
+		public class Parameters(AbilityState abilityState, Figure focus)
+			: ParametersBase<AbilityState>(abilityState)
+		{
+			public Figure Focus { get; private set; } = focus;
+
+			public void SetNewFocus(Figure newFocus)
+			{
+				Focus = newFocus;
+			}
+		}
+	}
+
+	private readonly FigureFoundFocus _figureFoundFocus = new FigureFoundFocus();
+	public static FigureFoundFocus FigureFoundFocusEvent => GameController.Instance.ScenarioEvents._figureFoundFocus;
+
 	public class NextActiveFigure : ScenarioEvent<NextActiveFigure.Parameters>
 	{
 		public class Parameters(Figure previousActiveFigure, Figure nextActiveFigure)
@@ -940,5 +969,4 @@ public class ScenarioEvents
 
 	private readonly NextActiveFigure _nextActiveFigure = new NextActiveFigure();
 	public static NextActiveFigure NextActiveFigureEvent => GameController.Instance.ScenarioEvents._nextActiveFigure;
-	
 }

@@ -49,7 +49,12 @@ public class RoundPhase : ScenarioPhase
 			}
 
 			Figure figure = _sortedFigures[activeFigureIndex];
-			if(!figure.CanTakeTurn)
+
+			ScenarioCheckEvents.CanTakeTurnCheck.Parameters canTakeTurnCheckParameters =
+				ScenarioCheckEvents.CanTakeTurnCheckEvent.Fire(
+					new ScenarioCheckEvents.CanTakeTurnCheck.Parameters(figure, figure.CanTakeTurn));
+
+			if(!canTakeTurnCheckParameters.CanTakeTurn)
 			{
 				continue;
 			}

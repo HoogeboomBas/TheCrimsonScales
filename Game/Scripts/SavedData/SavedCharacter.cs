@@ -149,11 +149,34 @@ public class SavedCharacter
 		ItemIds.Add(itemModel.Id.ToString());
 	}
 
+	public bool HasItem(ItemModel itemModel)
+	{
+		return ItemIds.Contains(itemModel.Id.ToString());
+	}
+
+	public void RemoveItem(ItemModel itemModel)
+	{
+		UnequipItem(itemModel);
+		ItemIds.Remove(itemModel.Id.ToString());
+	}
+
 	public void SellItem(ItemModel itemModel)
 	{
 		if(ItemIds.Remove(itemModel.Id.ToString()))
 		{
 			AddGold(itemModel.Cost / 2);
+		}
+	}
+
+	public void UnequipItem(ItemModel itemModel)
+	{
+		if(itemModel.ItemType == ItemType.Small)
+		{
+			EquippedSmallItems.Remove(itemModel.Id.ToString());
+		}
+		else if(EquippedBaseSlotItems[(int)itemModel.ItemType] == itemModel.Id.ToString())
+		{
+			SetEquippedBaseSlotItem(itemModel.ItemType, null);
 		}
 	}
 

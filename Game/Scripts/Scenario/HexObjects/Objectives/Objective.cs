@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Fractural.Tasks;
 
 public partial class Objective : Figure
@@ -58,8 +58,13 @@ public partial class Objective : Figure
 			}
 		);
 
-		// Set CanTakeTurn to false, as objectives can never take turns
-		CanTakeTurn = false;
+		ScenarioCheckEvents.CanTakeTurnCheckEvent.Subscribe(this, this,
+			parameters => parameters.Figure == this,
+			parameters =>
+			{
+				parameters.SetCannotTakeTurn();
+			}
+		);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -69,14 +74,7 @@ public partial class Objective : Figure
 		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, this);
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(this, this);
 		ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Unsubscribe(this, this);
-	}
-
-	public override void RoundEnd()
-	{
-		base.RoundEnd();
-
-		// Set CanTakeTurn to false, as objectives can never take turns
-		CanTakeTurn = false;
+		ScenarioCheckEvents.CanTakeTurnCheckEvent.Unsubscribe(this, this);
 	}
 
 	protected override Initiative GetInitiative()

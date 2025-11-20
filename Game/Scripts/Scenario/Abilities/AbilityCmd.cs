@@ -184,6 +184,10 @@ public static class AbilityCmd
 
 	public static async GDTask<bool> RemoveCondition(Figure target, ConditionModel conditionModel)
 	{
+		ScenarioEvents.RemoveCondition.Parameters removeConditionParameters =
+			await ScenarioEvents.RemoveConditionEvent.CreatePrompt(
+				new ScenarioEvents.RemoveCondition.Parameters(target, conditionModel), target);
+
 		if(conditionModel.IsMutable)
 		{
 			conditionModel = conditionModel.ImmutableInstance;
@@ -199,6 +203,14 @@ public static class AbilityCmd
 
 		return false;
 	}
+
+	public static async GDTask RemoveAllChill(Figure target)
+    {
+        while (target.HasCondition(Conditions.Chill))
+        {
+			await RemoveCondition(target, Conditions.Chill);
+        }
+    }
 
 	public static async GDTask GainXP(Figure figure, int xp)
 	{
@@ -267,14 +279,14 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask<Monster> SummonMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex)
+	public static async GDTask<Monster> SummonMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex, int? monsterLevel = null)
 	{
-		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, true);
+		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, true, monsterLevel);
 	}
 
-	public static async GDTask<Monster> SpawnMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex)
+	public static async GDTask<Monster> SpawnMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex, int? monsterLevel = null)
 	{
-		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false);
+		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel);
 	}
 
 	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene)
@@ -731,7 +743,7 @@ public static class AbilityCmd
 		return section;
 	}
 
-	public static async GDTask PermanentlyGiveItem(Character character, ItemModel itemModel, bool staysOnlyIfCompleted = false)
+	public static async GDTask PermanentlyGiveItem(Character character, ItemModel itemModel)
 	{
 		ItemModel item = itemModel.ToMutable();
 		item.Init(character);
@@ -741,11 +753,6 @@ public static class AbilityCmd
 
 		void OnScenarioEnd(bool backToTown, bool won, SavedScenarioProgress savedScenarioProgress)
 		{
-			if(staysOnlyIfCompleted && !won)
-			{
-				return;
-			}
-
 			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
 			savedItem.AddUnlocked(1);
 			character.SavedCharacter.AddItem(itemModel);

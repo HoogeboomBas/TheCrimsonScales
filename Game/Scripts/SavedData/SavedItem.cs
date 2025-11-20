@@ -17,6 +17,11 @@ public class SavedItem
 		UnlockedCount += count;
 	}
 
+	public void RemovedUnlocked(int count)
+	{
+		UnlockedCount -= count;
+	}
+
 	public void AddStock(int count)
 	{
 		StockCount += count;

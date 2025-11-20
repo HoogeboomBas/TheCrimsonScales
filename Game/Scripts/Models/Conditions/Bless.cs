@@ -7,8 +7,6 @@ public class Bless : ConditionModel
 	public override bool CanStack => true;
 	public override bool IsPositive => true;
 	public override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/BlessAnimation.tscn";
-	public override bool ShowOnFigure => false;
-
 	public override async GDTask Add(Figure target, ConditionNode node)
 	{
 		await base.Add(target, node);
@@ -17,4 +15,9 @@ public class Bless : ConditionModel
 
 		await AbilityCmd.RemoveCondition(target, this);
 	}
+
+	public override bool ShouldShowOnFigure(Figure figure)
+    {
+		return false;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -82,6 +83,35 @@ public partial class Summon : Figure
 				.Build();
 			_abilities.Add(attackAbility);
 		}
+
+		ScenarioEvents.FigureFoundFocusEvent.Subscribe(this, characterOwner,
+			parameters =>
+				parameters.Performer == this &&
+				parameters.AbilityState is MoveAbility.State &&
+				parameters.Focus == null,
+			async parameters =>
+			{
+				parameters.SetNewFocus(CharacterOwner);
+
+				ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this, characterOwner,
+					parameters => parameters.Performer == this,
+					parameters =>
+					{
+						parameters.SetRange(1);
+						parameters.SetRangeType(RangeType.Melee);
+						parameters.SetTargets(1);
+						parameters.SetAOEPattern(null);
+
+						ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this, characterOwner);
+					}
+				);
+
+				await GDTask.CompletedTask;
+			},
+			effectType: EffectType.Selectable,
+			effectButtonParameters: new IconEffectButton.Parameters(Icons.Move),
+			effectInfoViewParameters: new TextEffectInfoView.Parameters("Choose for the summon to move towards the summoner")
+		);
 	}
 
 	public void SetSummonIndex(int summonIndex)
@@ -130,6 +160,8 @@ public partial class Summon : Figure
 		}
 
 		await RemoveActionFromActive();
+
+		ScenarioEvents.FigureFoundFocusEvent.Unsubscribe(this, CharacterOwner);
 
 		CharacterOwner.DeregisterSummon(this);
 

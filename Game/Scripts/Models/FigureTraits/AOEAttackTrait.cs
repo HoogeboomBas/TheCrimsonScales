@@ -11,7 +11,7 @@ public class AOEAttackTrait(AOEPattern aoePattern) : FigureTrait
 			async parameters =>
 			{
 				AttackAbility.State attackAbilityState = (AttackAbility.State)parameters.AbilityState;
-				attackAbilityState.AbilityAddAOEPattern(aoePattern);
+				attackAbilityState.AbilitySetAOEPattern(aoePattern);
 
 				await GDTask.CompletedTask;
 			}
@@ -21,7 +21,7 @@ public class AOEAttackTrait(AOEPattern aoePattern) : FigureTrait
 			parameters => parameters.Performer == figure,
 			parameters =>
 			{
-				parameters.AddAOEPattern(aoePattern);
+				parameters.SetAOEPattern(aoePattern);
 			}
 		);
 		

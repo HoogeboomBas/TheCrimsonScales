@@ -6,50 +6,67 @@ public class SavvasIceStorm : MonsterModel
 	[
 		new MonsterStats()
 		{
-			Health = 3,
-			Attack = 2,
-		},
-		new MonsterStats()
-		{
-			Health = 4,
-			Attack = 2,
-			Traits = [new RetaliateTrait(1)]
-		},
-		new MonsterStats()
-		{
-			Health = 4,
-			Attack = 3,
-			Traits = [new RetaliateTrait(1)]
-		},
-		new MonsterStats()
-		{
-			Health = 5,
-			Attack = 3,
-			Traits = [new RetaliateTrait(2)]
-		},
-		new MonsterStats()
-		{
-			Health = 6,
-			Attack = 4,
-			Traits = [new RetaliateTrait(2)]
-		},
-		new MonsterStats()
-		{
 			Health = 7,
+			Move = 2,
+			Attack = 2,
+			Range = 3,
+			Traits = [new PierceTrait(3)]
+		},
+		new MonsterStats()
+		{
+			Health = 10,
+			Move = 2,
+			Attack = 2,
+			Range = 4,
+			Traits = [new PierceTrait(3)]
+		},
+		new MonsterStats()
+		{
+			Health = 12,
+			Move = 3,
+			Attack = 2,
+			Range = 4,
+			Traits = [new PierceTrait(3)]
+		},
+		new MonsterStats()
+		{
+			Health = 12,
+			Move = 3,
+			Attack = 3,
+			Range = 4,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
+		},
+		new MonsterStats()
+		{
+			Health = 14,
+			Move = 3,
+			Attack = 3,
+			Range = 5,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
+		},
+		new MonsterStats()
+		{
+			Health = 16,
+			Move = 3,
 			Attack = 4,
-			Traits = [new RetaliateTrait(3)]
+			Range = 5,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
-			Health = 8,
-			Attack = 5,
-			Traits = [new RetaliateTrait(3)]
+			Health = 16,
+			Move = 3,
+			Attack = 4,
+			Range = 5,
+			Traits = [new PierceTrait(3), new ShieldTrait(2)]
 		},
 		new MonsterStats()
 		{
-			Health = 9,
-			Attack = 5,
-			Traits = [new RetaliateTrait(4)]
+			Health = 17,
+			Move = 4,
+			Attack = 4,
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(2)]
 		},
 	];
 
@@ -57,50 +74,67 @@ public class SavvasIceStorm : MonsterModel
 	[
 		new MonsterStats()
 		{
-			Health = 5,
+			Health = 12,
+			Move = 2,
 			Attack = 3,
+			Range = 4,
+			Traits = [new PierceTrait(3)]
 		},
 		new MonsterStats()
 		{
-			Health = 6,
+			Health = 12,
+			Move = 2,
 			Attack = 3,
-			Traits = [new RetaliateTrait(1)]
-		},
-		new MonsterStats()
-		{
-			Health = 7,
-			Attack = 4,
-			Traits = [new RetaliateTrait(1)]
-		},
-		new MonsterStats()
-		{
-			Health = 8,
-			Attack = 4,
-			Traits = [new RetaliateTrait(2)]
-		},
-		new MonsterStats()
-		{
-			Health = 9,
-			Attack = 5,
-			Traits = [new RetaliateTrait(2)]
-		},
-		new MonsterStats()
-		{
-			Health = 11,
-			Attack = 5,
-			Traits = [new RetaliateTrait(3)]
-		},
-		new MonsterStats()
-		{
-			Health = 13,
-			Attack = 6,
-			Traits = [new RetaliateTrait(3)]
+			Range = 5,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
 		},
 		new MonsterStats()
 		{
 			Health = 15,
+			Move = 3,
+			Attack = 3,
+			Range = 5,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
+		},
+		new MonsterStats()
+		{
+			Health = 18,
+			Move = 3,
+			Attack = 4,
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(1)]
+		},
+		new MonsterStats()
+		{
+			Health = 19,
+			Move = 4,
+			Attack = 4,
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(2)]
+		},
+		new MonsterStats()
+		{
+			Health = 21,
+			Move = 4,
+			Attack = 5,
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(2)]
+		},
+		new MonsterStats()
+		{
+			Health = 23,
+			Move = 4,
 			Attack = 6,
-			Traits = [new RetaliateTrait(4)]
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(2)]
+		},
+		new MonsterStats()
+		{
+			Health = 24,
+			Move = 4,
+			Attack = 6,
+			Range = 6,
+			Traits = [new PierceTrait(3), new ShieldTrait(3)]
 		},
 	];
 
@@ -108,7 +142,7 @@ public class SavvasIceStorm : MonsterModel
 
 	public override string AssetPath => "res://Content/Monsters/SavvasIceStorm";
 
-	public override int MaxStandeeCount => 10;
+	public override int MaxStandeeCount => 4;
 
 	public override IEnumerable<MonsterAbilityCardModel> Deck => SavvasIceStormAbilityCard.Deck;
 }
