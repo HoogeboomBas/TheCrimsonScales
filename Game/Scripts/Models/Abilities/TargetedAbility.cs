@@ -199,7 +199,7 @@ public abstract class TargetedAbilityState : AbilityState
 }
 
 /// <summary>
-/// An <see cref="Ability{T}"/> that is considered a targeted ability as per the rules; that targets figures with given restrictions.
+/// An <see cref="Ability{State}"/> that is considered a targeted ability as per the rules; that targets figures with given restrictions.
 /// </summary>
 public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	where T : TargetedAbilityState<TSingleTargetState>, new()
@@ -209,13 +209,13 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 	private Func<T, string> _getTargetingHintText;
 
-	public int Range { get; private set; } = 1;
-	public RangeType RangeType { get; private set; } = RangeType.Melee;
+	public DynamicInt<TargetedAbilityState> Range { get; private set; } = 1;
+	public DynamicRangeType<TargetedAbilityState> TypeOfRange { get; private set; } = RangeType.Melee;
 	public bool RequiresLineOfSight { get; private set; } = true;
-	public Target Target { get; protected set; } = Target.Enemies;
-	public int Targets { get; private set; } = 1;
+	public DynamicTarget<TargetedAbilityState> TargetType { get; protected set; } = Target.Enemies;
+	public DynamicInt<TargetedAbilityState> Targets { get; private set; } = 1;
 	public Hex TargetHex { get; private set; }
-	public AOEPattern AOEPattern { get; private set; }
+	public DynamicAOEPattern<TargetedAbilityState> AOEPattern { get; private set; }
 	public bool Mandatory { get; private set; }
 	public int Push { get; private set; }
 	public int Pull { get; private set; }
@@ -235,8 +235,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : TargetedAbility<T, TSingleTargetState>, new()
 	{
-		protected Target? _target;
-		protected RangeType? _rangeType;
+		protected DynamicTarget<TargetedAbilityState> _target;
+		protected DynamicRangeType<TargetedAbilityState> _rangeType;
 		protected Func<T, string> GetTargetingHintText;
 
 		public TBuilder WithGetTargetingHintText(Func<T, string> getTargetingHintText)
@@ -246,16 +246,16 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRange(int range)
+		public TBuilder WithRange(DynamicInt<TargetedAbilityState> range)
 		{
 			Obj.Range = range;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRangeType(RangeType rangeType)
+		public TBuilder WithRangeType(DynamicRangeType<TargetedAbilityState> rangeType)
 		{
 			_rangeType = rangeType;
-			Obj.RangeType = rangeType;
+			Obj.TypeOfRange = rangeType;
 			return (TBuilder)this;
 		}
 
@@ -265,14 +265,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithTarget(Target target)
+		public TBuilder WithTarget(DynamicTarget<TargetedAbilityState> target)
 		{
 			_target = target;
-			Obj.Target = target;
+			Obj.TargetType = target;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithTargets(int targets)
+		public TBuilder WithTargets(DynamicInt<TargetedAbilityState> targets)
 		{
 			Obj.Targets = targets;
 			return (TBuilder)this;
@@ -284,7 +284,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAOEPattern(AOEPattern aoePattern)
+		public TBuilder WithAOEPattern(DynamicAOEPattern<TargetedAbilityState> aoePattern)
 		{
 			Obj.AOEPattern = aoePattern;
 			return (TBuilder)this;
@@ -331,8 +331,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 		/// </summary>
 		public override TAbility Build()
 		{
-			Obj.Target = _target ?? Target.Enemies;
-			Obj.RangeType = _rangeType ?? (Obj.Range == 1 ? RangeType.Melee : RangeType.Range);
+			Obj.TargetType = _target ?? Target.Enemies;
+			Obj.TypeOfRange = _rangeType ?? new (figure => Obj.Range.GetValue(figure) == 1 ? RangeType.Melee : RangeType.Range);
 			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();
 		}
@@ -344,17 +344,17 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 	{
 		base.InitializeState(abilityState);
 
-		abilityState.AbilityTarget = Target;
-		abilityState.AbilityTargets = Targets;
-		abilityState.AbilityAOEPattern = AOEPattern;
+		abilityState.AbilityTarget = TargetType.GetValue(abilityState);
+		abilityState.AbilityTargets = Targets.GetValue(abilityState);
+		abilityState.AbilityAOEPattern = AOEPattern.GetValue(abilityState);
 
 		if(abilityState.AbilityTarget.HasFlag(Target.TargetAll))
 		{
 			abilityState.AbilityTargets = int.MaxValue;
 		}
 
-		abilityState.AbilityRange = Range;
-		abilityState.AbilityRangeType = RangeType;
+		abilityState.AbilityRange = Range.GetValue(abilityState);
+		abilityState.AbilityRangeType = TypeOfRange.GetValue(abilityState);
 		abilityState.AbilityConditionModels = Conditions.ToList();
 		abilityState.AbilityPush = Push;
 		abilityState.AbilityPull = Pull;
@@ -367,7 +367,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		//await InitAbilityState(abilityState);
 
-		if(abilityState.AbilityAOEPattern != null)
+		if(abilityState.AbilityAOEPattern.Hexes.Count != 0)
 		{
 			Dictionary<Vector2I, AOEHexType> aoeHexes = new Dictionary<Vector2I, AOEHexType>();
 
@@ -546,7 +546,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			{
 				bool autoSelectIfOne = Mandatory || 
 					abilityState.AbilityTarget == Target.Self || 
-					(TargetHex != null && abilityState.AbilityAOEPattern == null);
+					(TargetHex != null && abilityState.AbilityAOEPattern.Hexes.Count == 0);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
@@ -623,7 +623,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				break;
 			}
 
-			if(abilityState.AbilityAOEPattern != null)
+			if(abilityState.AbilityAOEPattern.Hexes.Count != 0)
 			{
 				if(abilityState.TargetedHexes.Count == abilityState.AbilityAOEPattern.Hexes.Count)
 				{

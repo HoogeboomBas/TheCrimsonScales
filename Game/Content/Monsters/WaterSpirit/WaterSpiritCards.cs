@@ -157,14 +157,14 @@ public class WaterSpiritAbilityCard5 : WaterSpiritAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			state =>
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+			extraDamage: new(state =>
 			{
 				List<Hex> hexes = new List<Hex>();
 				RangeHelper.FindHexesInRange(state.Performer.Hex, 1, false, hexes);
 				int waterHexCount = Mathf.Min(hexes.Count(hex => hex.HasHexObjectOfType<Water>()), 3);
 				return waterHexCount - 1;
-			}
+			})
 		)),
 	];
 }

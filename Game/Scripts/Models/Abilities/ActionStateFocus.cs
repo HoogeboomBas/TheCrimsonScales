@@ -41,11 +41,15 @@ public partial class ActionState
 			{
 				if(Abilities[i] is AttackAbility attackAbility)
 				{
-					aiMoveParameters.Targets = attackAbility.Target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : attackAbility.Targets;
-					aiMoveParameters.TargetAll = attackAbility.Target.HasFlag(Target.TargetAll);
-					aiMoveParameters.Range = attackAbility.Range;
-					aiMoveParameters.RangeType = attackAbility.RangeType;
-					aiMoveParameters.AOEPattern = attackAbility.AOEPattern;
+					AttackAbility.State state = new();
+					Target target = attackAbility.TargetType.GetValue(state);
+
+					aiMoveParameters.Targets = target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : 
+						attackAbility.Targets.GetValue(state);
+					aiMoveParameters.TargetAll = target.HasFlag(Target.TargetAll);
+					aiMoveParameters.Range = attackAbility.Range.GetValue(state);
+					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue(state);
+					aiMoveParameters.AOEPattern = attackAbility.AOEPattern.GetValue(state);
 
 					break;
 				}
@@ -81,9 +85,9 @@ public partial class ActionState
 		int range = aiMoveParameters.Range; // focusParameters.Range ?? ((Stats.Range ?? 1) + focusParameters.ExtraRange);
 
 		bool hasGrayHex = false;
-		if(aiMoveParameters.AOEPattern != null)
+		if(aiMoveParameters.AOEPattern.HasValue)
 		{
-			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Value.Hexes)
 			{
 				if(pivotAOEHex.Type == AOEHexType.Gray)
 				{
@@ -170,7 +174,7 @@ public partial class ActionState
 			//TODO: This can be optimized quite a bit probably
 			foreach(Hex hexInRange in rangeCache)
 			{
-				if(aiMoveParameters.AOEPattern == null)
+				if(!aiMoveParameters.AOEPattern.HasValue)
 				{
 					HandlePotentialTargetHex(hexInRange);
 					continue;
@@ -183,7 +187,7 @@ public partial class ActionState
 
 				for(int i = 0; i < 6; i++)
 				{
-					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Value.Hexes)
 					{
 						if(hasGrayHex && pivotAOEHex.Type != AOEHexType.Gray)
 						{
@@ -191,7 +195,7 @@ public partial class ActionState
 						}
 
 						Vector2I pivotOffset = -pivotAOEHex.LocalCoords;
-						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Hexes)
+						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Value.Hexes)
 						{
 							if(aoeHex.Type != AOEHexType.Red)
 							{

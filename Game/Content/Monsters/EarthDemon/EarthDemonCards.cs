@@ -76,18 +76,8 @@ public class EarthDemonAbilityCard3 : EarthDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 4, 
-			duringAttackSubscriptions:
-			[
-				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Earth],
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.AdjustTargets(1);
-
-						await GDTask.CompletedTask;
-					}
-				)
-			]
-		)),
+			targets: new(state => CheckElementConsumed(monster, [Element.Earth]) ? 2 : 1))
+		)
 	];
 
 	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =

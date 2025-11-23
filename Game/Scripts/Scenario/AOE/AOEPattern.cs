@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class AOEPattern
+public struct AOEPattern
 {
 	public List<AOEHex> Hexes { get; }
 

@@ -54,7 +54,7 @@ public class ControlAbility : TargetedAbility<ControlAbility.State, SingleTarget
 		/// </summary>
 		public override TAbility Build()
 		{
-			Obj.Target = _target ?? Target.Enemies;
+			Obj.TargetType = _target ?? Target.Enemies;
 			return base.Build();
 		}
 	}

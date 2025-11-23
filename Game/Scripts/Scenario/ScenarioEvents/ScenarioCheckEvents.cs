@@ -35,7 +35,7 @@ public class ScenarioCheckEvents
 				AIMoveParameters.RangeType = rangeType;
 			}
 
-			public void SetAOEPattern(AOEPattern aoePattern)
+			public void SetAOEPattern(AOEPattern? aoePattern)
 			{
 				AIMoveParameters.AOEPattern = aoePattern;
 			}

@@ -45,9 +45,9 @@ public class MonsterMovePrompt(
 		_waypoints.Add(_currentNode);
 
 		bool hasGrayHex = false;
-		if(aiMoveParameters.AOEPattern != null)
+		if(aiMoveParameters.AOEPattern.HasValue)
 		{
-			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Value.Hexes)
 			{
 				if(pivotAOEHex.Type == AOEHexType.Gray)
 				{
@@ -107,7 +107,7 @@ public class MonsterMovePrompt(
 			}
 
 			//TODO: This can be optimized quite a bit probably
-			if(aiMoveParameters.AOEPattern == null)
+			if(!aiMoveParameters.AOEPattern.HasValue)
 			{
 				Figure attackableFocus = null;
 				int attackableFigureCount = 0;
@@ -176,7 +176,7 @@ public class MonsterMovePrompt(
 
 					for(int i = 0; i < 6; i++)
 					{
-						foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+						foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Value.Hexes)
 						{
 							if(hasGrayHex && pivotAOEHex.Type != AOEHexType.Gray)
 							{
@@ -188,7 +188,7 @@ public class MonsterMovePrompt(
 							int disadvantageCount = 0;
 
 							Vector2I pivotOffset = -pivotAOEHex.LocalCoords;
-							foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Hexes)
+							foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Value.Hexes)
 							{
 								if(aoeHex.Type != AOEHexType.Red)
 								{
@@ -345,7 +345,7 @@ public class MonsterMovePrompt(
 			//TODO: This can be optimized quite a bit probably
 			foreach(Hex hexInRange in rangeCache)
 			{
-				if(aiMoveParameters.AOEPattern == null)
+				if(!aiMoveParameters.AOEPattern.HasValue)
 				{
 					HandlePotentialTargetHex(hexInRange);
 					continue;
@@ -358,7 +358,7 @@ public class MonsterMovePrompt(
 
 				for(int i = 0; i < 6; i++)
 				{
-					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Value.Hexes)
 					{
 						if(hasGrayHex && pivotAOEHex.Type != AOEHexType.Gray)
 						{
@@ -366,7 +366,7 @@ public class MonsterMovePrompt(
 						}
 
 						Vector2I pivotOffset = -pivotAOEHex.LocalCoords;
-						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Hexes)
+						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Value.Hexes)
 						{
 							if(aoeHex.Type != AOEHexType.Red)
 							{

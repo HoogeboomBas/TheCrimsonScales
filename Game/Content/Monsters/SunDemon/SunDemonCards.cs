@@ -118,16 +118,9 @@ public class SunDemonAbilityCard5 : SunDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4, duringAttackSubscriptions: [
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Light],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityTarget = Target.Enemies | Target.TargetAll;
-					await GDTask.CompletedTask;
-					//TODO: Currently Won't work with monster focusing, move won't optimize multi target
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4, target: new(state =>
+			CheckElementConsumed(monster, [Element.Light]) ? Target.Enemies | Target.TargetAll : Target.Enemies)
+		)),
 	];
 
 	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =

@@ -74,16 +74,17 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 2, duringAttackSubscriptions: [
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustAttackValue(2);
-					parameters.AbilityState.AbilityAdjustRange(1);
-					//TODO: Adjust Range doesn't work properly with monster focusing
-					await GDTask.CompletedTask;
-				}
-			)
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 2, extraRange: 
+				new(state => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
+			duringAttackSubscriptions: [
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(2);
+
+						await GDTask.CompletedTask;
+					}
+				)
 		])),
 	];
 
