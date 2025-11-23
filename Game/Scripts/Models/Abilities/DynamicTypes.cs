@@ -41,7 +41,7 @@ public abstract class DynamicType<T, TArg> where T : struct
 	public T? Value { get; }
 	public GetValueDelegate GetValueFunc { get; }
 
-	public delegate T GetValueDelegate(TArg arg);
+	public delegate T? GetValueDelegate(TArg arg);
 
 	private DynamicType(T? value, GetValueDelegate getValueFunc)
 	{
@@ -61,7 +61,11 @@ public abstract class DynamicType<T, TArg> where T : struct
 	{
 		if(GetValueFunc != null)
 		{
-			return GetValueFunc(arg);
+			T? dynamicValue = GetValueFunc(arg);
+			if(dynamicValue.HasValue)
+			{
+				return dynamicValue.Value;
+			}
 		}
 
 		if(!Value.HasValue)

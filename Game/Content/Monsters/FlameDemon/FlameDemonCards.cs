@@ -70,7 +70,7 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
 				])
-				: new([])
+				: null
 			)
 		))
 	];

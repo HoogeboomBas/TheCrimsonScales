@@ -54,8 +54,8 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
 	{
 		DynamicInt<AttackAbility.State> dynamicAttackValue = new(state => monster.Stats.Attack + extraDamage.GetValue(state));
-		DynamicInt<TargetedAbilityState> dynamicTargets = targets == null ? new(1) : new(targets.GetValue);
-		DynamicTarget<TargetedAbilityState> dynamicTarget = target == null ? new(Target.Enemies) : new(target.GetValue);
+		DynamicInt<TargetedAbilityState> dynamicTargets = targets == null ? new(1) : new(state => targets.GetValue(state));
+		DynamicTarget<TargetedAbilityState> dynamicTarget = target == null ? new(Target.Enemies) : new(state => target.GetValue(state));
 
 		int defaultRange = monster.Stats.Range ?? 1;
 		DynamicInt<TargetedAbilityState> dynamicRange = range ?? (extraRange == null ? new(defaultRange) : new(state => defaultRange + extraRange.GetValue(state)));

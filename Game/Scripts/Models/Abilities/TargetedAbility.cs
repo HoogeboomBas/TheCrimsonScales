@@ -42,7 +42,7 @@ public abstract class TargetedAbilityState : AbilityState
 
 	public Target AbilityTarget { get; set; }
 	public int AbilityTargets { get; set; }
-	public AOEPattern AbilityAOEPattern { get; set; }
+	public AOEPattern? AbilityAOEPattern { get; set; }
 
 	public RangeType AbilityRangeType { get; set; }
 	public int AbilityRange { get; set; }
@@ -346,7 +346,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		abilityState.AbilityTarget = TargetType.GetValue(abilityState);
 		abilityState.AbilityTargets = Targets.GetValue(abilityState);
-		abilityState.AbilityAOEPattern = AOEPattern.GetValue(abilityState);
+		abilityState.AbilityAOEPattern = AOEPattern?.GetValue(abilityState);
 
 		if(abilityState.AbilityTarget.HasFlag(Target.TargetAll))
 		{
@@ -367,7 +367,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 		//await InitAbilityState(abilityState);
 
-		if(abilityState.AbilityAOEPattern.Hexes.Count != 0)
+		if(abilityState.AbilityAOEPattern.HasValue)
 		{
 			Dictionary<Vector2I, AOEHexType> aoeHexes = new Dictionary<Vector2I, AOEHexType>();
 
@@ -375,7 +375,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			if(abilityState.Authority is Character)
 			{
 				AOEPrompt.Answer aoeAnswer =
-					await PromptManager.Prompt(new AOEPrompt(abilityState, abilityState.AbilityAOEPattern, TargetHex, null, () => "Select where to target"),
+					await PromptManager.Prompt(new AOEPrompt(abilityState, abilityState.AbilityAOEPattern.Value, TargetHex, null, () => "Select where to target"),
 						abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
@@ -394,7 +394,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
+						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern.Value, abilityState.AbilityRange, abilityState.AbilityRangeType, focus, null,
 							() => "Select where to target"), abilityState.Authority);
 
 				if(aoeAnswer.Skipped)
@@ -546,7 +546,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 			{
 				bool autoSelectIfOne = Mandatory || 
 					abilityState.AbilityTarget == Target.Self || 
-					(TargetHex != null && abilityState.AbilityAOEPattern.Hexes.Count == 0);
+					(TargetHex != null && !abilityState.AbilityAOEPattern.HasValue);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
@@ -623,9 +623,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>
 				break;
 			}
 
-			if(abilityState.AbilityAOEPattern.Hexes.Count != 0)
+			if(abilityState.AbilityAOEPattern.HasValue)
 			{
-				if(abilityState.TargetedHexes.Count == abilityState.AbilityAOEPattern.Hexes.Count)
+				if(abilityState.TargetedHexes.Count == abilityState.AbilityAOEPattern.Value.Hexes.Count)
 				{
 					break;
 				}

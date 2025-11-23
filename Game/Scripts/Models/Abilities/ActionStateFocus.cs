@@ -49,7 +49,7 @@ public partial class ActionState
 					aiMoveParameters.TargetAll = target.HasFlag(Target.TargetAll);
 					aiMoveParameters.Range = attackAbility.Range.GetValue(state);
 					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue(state);
-					aiMoveParameters.AOEPattern = attackAbility.AOEPattern.GetValue(state);
+					aiMoveParameters.AOEPattern = attackAbility.AOEPattern?.GetValue(state);
 
 					break;
 				}
