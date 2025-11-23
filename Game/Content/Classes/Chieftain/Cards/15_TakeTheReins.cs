@@ -28,11 +28,8 @@ public class TakeTheReins : ChieftainCardModel<TakeTheReins.CardTop, TakeTheRein
 								parameters.AbilityState.SingleTargetAdjustRange(range - 1);
 								parameters.AbilityState.SingleTargetSetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
 
-								ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-									ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-										new ScenarioCheckEvents.IsMountedCheck.Parameters(grantState.Performer));
-
-								if(isMountedCheckParameters.IsMounted && isMountedCheckParameters.Mount == parameters.Performer)
+								Figure mount = Chieftain.GetMount(grantState.Performer);
+								if(mount == parameters.Performer)
 								{
 									parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 								}
@@ -66,11 +63,7 @@ public class TakeTheReins : ChieftainCardModel<TakeTheReins.CardTop, TakeTheRein
 				{
 					await GDTask.CompletedTask;
 
-					ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-						ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-							new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-					return isMountedCheckParameters.IsMounted;
+					return Chieftain.GetIsMounted(state.Performer);
 				})
 				.Build()
 			)

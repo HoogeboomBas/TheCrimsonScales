@@ -38,11 +38,7 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 						parameters => parameters.Performer == chosenFigure && state.Performer == parameters.PotentialTarget,
 						parameters => 
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted)
+							if(Chieftain.GetIsMounted(state.Performer))
 							{
 								parameters.AdjustTargetSortingInitiative(-10);
 							}
@@ -54,11 +50,7 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 						parameters => parameters.AbilityState.Target == chosenFigure,
 						async parameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted && isMountedCheckParameters.Mount == parameters.Performer)
+							if(Chieftain.GetMount(state.Performer) == parameters.Performer)
 							{
 								parameters.AbilityState.SingleTargetAdjustPierce(2);
 							}
@@ -99,13 +91,10 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 				.WithGetAbilities(state => [RetaliateAbility.Builder().WithRetaliateValue(1).Build()])
 				.WithCustomGetTargets((state, figures) =>
 				{
-					ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-						ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-							new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-					if(isMountedCheckParameters.IsMounted)
+					Figure mount = Chieftain.GetMount(state.Performer);
+					if(mount != null)
 					{
-						figures.Add(isMountedCheckParameters.Mount);
+						figures.Add(mount);
 					}
 
 					figures.Add(state.Performer);

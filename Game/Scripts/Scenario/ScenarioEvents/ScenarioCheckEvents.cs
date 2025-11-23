@@ -463,13 +463,7 @@ public class ScenarioCheckEvents
 		{
 			public Figure Figure { get; } = figure;
 
-			public bool IsMounted { get; private set; } = false;
 			public Figure Mount { get; private set; } = null;
-
-			public void SetIsMounted()
-			{
-				IsMounted = true;
-			}
 
 			public void SetMount(Figure mount)
 			{

@@ -20,11 +20,7 @@ public class PositiveReinforcement : ChieftainCardModel<PositiveReinforcement.Ca
 						canApplyParameters => canApplyParameters.Performer == state.Performer,
 						async applyParameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted)
+							if(Chieftain.GetIsMounted(state.Performer))
 							{
 								applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
 							}

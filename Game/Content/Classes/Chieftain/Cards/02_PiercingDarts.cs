@@ -43,11 +43,7 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 						parameters => parameters.Performer == state.Performer,
 						async parameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted)
+							if(Chieftain.GetIsMounted(state.Performer))
 							{
 								parameters.AbilityState.SingleTargetAdjustAttackValue(1);
 								parameters.AbilityState.SingleTargetAdjustPierce(1);

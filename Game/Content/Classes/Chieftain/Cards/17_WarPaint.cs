@@ -17,17 +17,14 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 				{
 					await AbilityCmd.AddCondition(state, state.Performer, Conditions.Invisible);
 
-					ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-						ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-							new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-					if(isMountedCheckParameters.IsMounted)
+					Figure mount = Chieftain.GetMount(state.Performer);
+					if(mount != null)
 					{
-						await AbilityCmd.AddCondition(state, isMountedCheckParameters.Mount, Conditions.Invisible);
-						state.SetCustomValue(this, "Mount", isMountedCheckParameters.Mount);
+						await AbilityCmd.AddCondition(state,mount, Conditions.Invisible);
+						state.SetCustomValue(this, "Mount", mount);
 					}
 
-					state.SetCustomValue(this, "IsMounted", isMountedCheckParameters.IsMounted);
+					state.SetCustomValue(this, "IsMounted", mount != null);
 				})
 				.WithOnDeactivate(async state => 
 				{
@@ -59,11 +56,7 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 						parameters => parameters.PotentialTarget == state.Performer,
 						parameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted)
+							if(Chieftain.GetIsMounted(state.Performer))
 							{
 								parameters.AdjustTargetSortingInitiative(-10);
 							}
@@ -79,15 +72,11 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
                                 return false;
                             }
 
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-							return isMountedCheckParameters.IsMounted && isMountedCheckParameters.Mount == parameters.NextActiveFigure;
+							return Chieftain.GetMount(state.Performer) == parameters.NextActiveFigure;
 						},
 						async parameters =>
 						{
-							Figure mount = ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer)).Mount;
+							Figure mount = Chieftain.GetMount(state.Performer);
 
 							// Choose to act before the mount, mount's initiative increased to owner + 1
 							ScenarioCheckEvents.InitiativeCheckEvent.Subscribe(state, this,

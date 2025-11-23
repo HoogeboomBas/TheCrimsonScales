@@ -17,15 +17,10 @@ public class SpikedMuzzle : ChieftainCardModel<SpikedMuzzle.CardTop, SpikedMuzzl
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
-						canApplyParameters => ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer)).IsMounted,
+						canApplyParameters => Chieftain.GetIsMounted(state.Performer),
 						async applyParameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(applyParameters.Performer == isMountedCheckParameters.Mount)
+							if(applyParameters.Performer == Chieftain.GetMount(state.Performer))
 							{
 								applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
 

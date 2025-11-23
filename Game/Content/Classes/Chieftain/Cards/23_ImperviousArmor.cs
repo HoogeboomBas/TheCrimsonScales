@@ -75,13 +75,10 @@ public class ImperviousArmor : ChieftainCardModel<ImperviousArmor.CardTop, Imper
 				.WithGetAbilities(state => [ShieldAbility.Builder().WithShieldValue(2).Build()])
 				.WithCustomGetTargets((state, figures) =>
 				{
-					ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-						ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-							new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-					if(isMountedCheckParameters.IsMounted)
+					Figure mount = Chieftain.GetMount(state.Performer);
+					if(mount != null)
 					{
-						figures.Add(isMountedCheckParameters.Mount);
+						figures.Add(mount);
 					}
 
 					figures.Add(state.Performer);

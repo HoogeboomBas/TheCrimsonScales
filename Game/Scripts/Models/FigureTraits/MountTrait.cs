@@ -82,7 +82,6 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 			{	
 				if(_mounted) 
 				{
-					parameters.SetIsMounted();
 					parameters.SetMount(figure);
 				}
 

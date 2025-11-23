@@ -30,6 +30,8 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 						{
 							int distance = RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex);
 							parameters.AbilityState.SingleTargetAdjustAttackValue(distance);
+
+							await GDTask.CompletedTask;
 						}
 					)
 				)
@@ -49,11 +51,7 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 							canApplyParameters.AbilityState.AbilityRangeType == RangeType.Melee,
 						async applyParameters =>
 						{
-							ScenarioCheckEvents.IsMountedCheck.Parameters isMountedCheckParameters =
-								ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-									new ScenarioCheckEvents.IsMountedCheck.Parameters(state.Performer));
-
-							if(isMountedCheckParameters.IsMounted)
+							if(Chieftain.GetIsMounted(state.Performer))
 							{
 								applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
 								applyParameters.AbilityState.SingleTargetAdjustPierce(2);
