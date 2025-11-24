@@ -149,7 +149,7 @@ public class Scenario010 : ScenarioModel
 						await actionState.Perform();
 					}
 				}
-			}
+			}, order: 99
 		);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
