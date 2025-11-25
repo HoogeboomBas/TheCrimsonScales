@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bm467436yab76"]
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
-[ext_resource type="Script" path="res://Content/Classes/Chieftain/Chieftain.cs" id="2_4nsoq"]
+[ext_resource type="Script" uid="uid://dk358rlv3qdly" path="res://Content/Classes/Chieftain/Chieftain.cs" id="2_4nsoq"]
 [ext_resource type="Texture2D" uid="uid://kqidvxla5g8b" path="res://Content/Classes/Chieftain/Artwork.jpg" id="2_jk5jr"]
 [ext_resource type="Texture2D" uid="uid://dhoes3577idrw" path="res://Content/Classes/Chieftain/Animation.jpg" id="3_pebit"]
 

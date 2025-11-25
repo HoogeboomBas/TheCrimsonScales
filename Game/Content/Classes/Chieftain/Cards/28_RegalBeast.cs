@@ -74,7 +74,9 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 				{
 					IEnumerable<AbilityCard> selectedAbilityCards =
 						await AbilityCmd.SelectAbilityCards((Character)state.Performer, CardState.Lost, 0, 3, 
-							canSelectFunc: abilityCard => abilityCard.Top.Abilities.Concat(abilityCard.Bottom.Abilities).Any(cardAbility => cardAbility.Ability is SummonAbility),
+							canSelectFunc: abilityCard => abilityCard.Top.Abilities
+								.Concat(abilityCard.Bottom.Abilities)
+								.Any(cardAbility => cardAbility.Ability is SummonAbility),
 							hintText: $"Select up to 3 lost cards with summon abilities to recover");
 
 					foreach(AbilityCard abilityCard in selectedAbilityCards)
@@ -82,15 +84,30 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 						await AbilityCmd.ReturnToHand(abilityCard);
 					}
 
-					IEnumerable<AbilityCardSide> abilitySides = selectedAbilityCards.SelectMany<AbilityCard, AbilityCardSide>(abilityCard => [abilityCard.Top, abilityCard.Bottom]);
-					IEnumerable<AbilityCardSide> abilitySidesToPerform = abilitySides.Where(abilityCardSide => abilityCardSide.Abilities.Any(cardAbility => cardAbility.Ability is SummonAbility));
+					IEnumerable<AbilityCardSide> abilitySides = selectedAbilityCards
+						.SelectMany<AbilityCard, AbilityCardSide>(abilityCard => [abilityCard.Top, abilityCard.Bottom])
+						.Where(abilityCardSide => abilityCardSide.Abilities
+							.Any(cardAbility => cardAbility.Ability is SummonAbility));
 
-					foreach(AbilityCardSide abilitySide in abilitySidesToPerform)
+					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
+						parameters => parameters.Performer == state.Performer && parameters.AbilityState is not SummonAbility.State,
+						async parameters =>
+						{
+							// Allow only summon abilities if there are others on the chosen card side
+							parameters.SetIsBlocked(true);
+
+							await GDTask.CompletedTask;
+						}
+					);
+
+					foreach(AbilityCardSide abilitySide in abilitySides)
 					{
 						await abilitySide.Perform(state.Performer);
-
+						await abilitySide.AbilityCard.SetCardState(abilitySide.AbilityCard.Unrecoverable ? CardState.UnrecoverablyLost : CardState.Lost);
 						state.SetPerformed();
 					}
+
+					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 				})
 				.Build())
 		];
