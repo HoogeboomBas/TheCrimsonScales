@@ -29,12 +29,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
 					figures.AddRange(swingAbilityState.UniqueTargetedFigures);
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 
 			new AbilityCardAbility(SwingAbility.Builder()
@@ -104,12 +99,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 
 					await GDTask.CompletedTask;
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 		];
 
@@ -155,12 +145,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 
 					await GDTask.CompletedTask;
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<CreateTrapAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 

@@ -56,12 +56,7 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 					figures.AddRange(figuresPassedThrough.Where(figure => figure.AlliedWith(state.Performer) && figure != attackAbilityState.Target));
 				})
 				.WithTarget(Target.Allies | Target.TargetAll)
-				.WithConditionalAbilityCheck(async state => 
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()

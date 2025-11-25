@@ -32,12 +32,7 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 				{
 					await AbilityCmd.SufferDamage(null, figure, 2);
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
@@ -49,12 +44,7 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 					figures.Add(swingState.Target);
 				})
 				.WithTarget(Target.Enemies)
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 	}
