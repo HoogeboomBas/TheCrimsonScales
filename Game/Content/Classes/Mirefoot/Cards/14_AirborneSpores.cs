@@ -6,7 +6,7 @@ using Godot;
 public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, AirborneSpores.CardBottom>
 {
 	public override string Name => "Airborne Spores";
-	public override int Level => 1;
+	public override int Level => 2;
 	public override int Initiative => 21;
 	protected override int AtlasIndex => 14;
 
