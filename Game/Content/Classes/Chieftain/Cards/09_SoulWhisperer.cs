@@ -35,8 +35,8 @@ public class SoulWhisperer : ChieftainCardModel<SoulWhisperer.CardTop, SoulWhisp
 								parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
 
 								int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-								parameters.AbilityState.AbilityTargetAdjustRange(range - 1);
-								parameters.AbilityState.AbilityTargetSetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
+								parameters.AbilityState.AbilityAdjustRange(range - 1);
+								parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
 
 								await GDTask.CompletedTask;
 							}
