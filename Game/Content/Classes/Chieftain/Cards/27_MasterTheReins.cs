@@ -32,11 +32,11 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 							parameters => parameters.Performer == grantState.Target,
 							async parameters =>
 							{
-								parameters.AbilityState.SingleTargetAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
+								parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
 
 								int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-								parameters.AbilityState.SingleTargetAdjustRange(range - 1);
-								parameters.AbilityState.SingleTargetSetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
+								parameters.AbilityState.AbilityAdjustRange(range - 1);
+								parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
 
 								await GDTask.CompletedTask;
 							}

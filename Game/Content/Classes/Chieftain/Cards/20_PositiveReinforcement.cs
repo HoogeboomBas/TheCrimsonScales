@@ -67,11 +67,11 @@ public class PositiveReinforcement : ChieftainCardModel<PositiveReinforcement.Ca
 								parameters => parameters.Performer == grantState.Target,
 								async parameters =>
 								{
-									parameters.AbilityState.SingleTargetAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
+									parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
 
 									int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-									parameters.AbilityState.SingleTargetAdjustRange(range - 1);
-									parameters.AbilityState.SingleTargetSetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
+									parameters.AbilityState.AbilityAdjustRange(range - 1);
+									parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
 
 									await GDTask.CompletedTask;
 								}
@@ -79,7 +79,7 @@ public class PositiveReinforcement : ChieftainCardModel<PositiveReinforcement.Ca
 							ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
 								applyFunction: async applyParameters =>
 								{
-									applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
+									applyParameters.AbilityState.AbilityAdjustAttackValue(1);
 
 									await AbilityCmd.GainXP(applyParameters.Performer, 1);
 								},
