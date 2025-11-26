@@ -19,7 +19,8 @@ public class MoundedSight : ChieftainCardModel<MoundedSight.CardTop, MoundedSigh
 					Attack = 1,
 					Traits = 
 					[
-						new IgnoreDifficultAndHazardousTerrainTrait(),
+						new IgnoreDifficultTerrainTrait(),
+						new IgnoreHazardousTerrainTrait(),
 						new MountTrait(),
 					]
 				})

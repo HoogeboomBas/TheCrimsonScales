@@ -41,8 +41,11 @@ public class Scenario006 : ScenarioModel
 			await AbilityCmd.AddCondition(null, character, Conditions.Poison1);
 		}
 
+		object pickSubscriber = new();
+		object placeSubscriber = new();
+
 		// Allow picking up the antidote
-		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, antidoteBottlesPicked,
+		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, pickSubscriber,
 			parameters =>
 				!parameters.ForgoneAction && 
 				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexesWithAntidote.Contains(hex) && 
@@ -98,8 +101,8 @@ public class Scenario006 : ScenarioModel
 		);
 
 		// Allow placing the antidote into the fountain
-		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, antidoteBottlesPlaced,
-			parameters => !parameters.ForgoneAction && 
+		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, placeSubscriber,
+			parameters => !parameters.ForgoneAction &&
 				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexWithFountain == hex) &&
 				characterHasAntidote[parameters.Performer],
 			async parameters =>

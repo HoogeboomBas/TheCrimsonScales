@@ -7,7 +7,7 @@ public class Scenario005 : ScenarioModel
 	public override string ScenePath => "res://Content/Scenarios/Scenario005.tscn";
 	public override int ScenarioNumber => 5;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
-	//public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
+	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals([ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
 
