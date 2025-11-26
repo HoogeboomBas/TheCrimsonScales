@@ -15,7 +15,8 @@ public class EffectCollection
 
 	public bool HasSelectableEffects => ApplicableEffects.Any(effect => effect.EffectType is EffectType.Selectable or EffectType.SelectableMandatory);
 
-	public EffectCollection(ScenarioEvent scenarioEvent, IEnumerable<ScenarioEvent.Subscription> subscriptions, ScenarioEvent.ParametersBase parameters)
+	public EffectCollection(ScenarioEvent scenarioEvent, IEnumerable<ScenarioEvent.Subscription> subscriptions,
+		ScenarioEvent.ParametersBase parameters)
 	{
 		_scenarioEvent = scenarioEvent;
 		_parameters = parameters;
@@ -135,6 +136,12 @@ public class EffectCollection
 			{
 				Effects.RemoveAt(i);
 			}
+		}
+
+		for(int i = 0; i < Effects.Count; i++)
+		{
+			Effect effect = Effects[i];
+			effect.UpdateIndex(i);
 		}
 
 		Update();

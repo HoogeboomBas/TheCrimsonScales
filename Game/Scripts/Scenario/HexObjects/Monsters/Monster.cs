@@ -69,8 +69,8 @@ public partial class Monster : Figure
 		_figureViewComponent.ActivePS.Modulate = _figureViewComponent.Outline.SelfModulate;
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
-		
-		MonsterLevel = monsterLevel.HasValue ? monsterLevel.Value : GameController.Instance.SavedScenario.ScenarioLevel;
+
+		MonsterLevel = monsterLevel ?? GameController.Instance.SavedScenario.ScenarioLevel;
 		Stats = levelStats[MonsterLevel];
 
 		SetMaxHealth(Stats.Health);

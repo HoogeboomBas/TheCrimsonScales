@@ -57,7 +57,7 @@ public class SavedCampaign
 			StartingGroup.Protectors =>
 			[
 				ModelDB.Class<ChainguardModel>(),
-				//ModelDB.Class<ChieftainModel>(),
+				ModelDB.Class<ChieftainModel>(),
 				ModelDB.Class<FireKnightModel>(),
 				ModelDB.Class<HierophantModel>()
 			],
@@ -77,7 +77,7 @@ public class SavedCampaign
 			],
 			StartingGroup.Naturalists =>
 			[
-				//ModelDB.Class<ChieftainModel>(),
+				ModelDB.Class<ChieftainModel>(),
 				//ModelDB.Class<HollowpactModel>(),
 				//ModelDB.Class<LuminaryModel>(),
 				ModelDB.Class<MirefootModel>()

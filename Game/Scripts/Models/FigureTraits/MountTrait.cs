@@ -35,6 +35,7 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 			parameters =>
 			{
 				parameters.SetOtherFigure(characterOwner);
+				parameters.SetTriggerHexEffects(false);
 
 				return GDTask.CompletedTask;
 			}
@@ -81,7 +82,6 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 			{	
 				if(_mounted) 
 				{
-					parameters.SetIsMounted();
 					parameters.SetMount(figure);
 				}
 

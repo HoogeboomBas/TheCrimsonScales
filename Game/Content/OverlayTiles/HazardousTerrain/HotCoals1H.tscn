@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cq2yw4nbs6g6m" path="res://Scenes/Scenario/OverlayTiles/HazardousTerrain1H.tscn" id="1_qf5qq"]
 [ext_resource type="Texture2D" uid="uid://b141slsc5n21l" path="res://Art/OverlayTiles/Hot Coals 1h.png" id="2_rljo1"]
 
-[node name="Thorns1H" instance=ExtResource("1_qf5qq")]
+[node name="HotCoals1H" instance=ExtResource("1_qf5qq")]
 
 [node name="Sprite" parent="." index="2"]
 texture = ExtResource("2_rljo1")

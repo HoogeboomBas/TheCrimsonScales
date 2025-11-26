@@ -12,7 +12,7 @@ public class Scenario003 : ScenarioModel
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario004>(), new ScenarioConnection<Scenario007>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
-		new KillSpecificEnemyTypeGoals(ModelDB.Monster<HydraSpirit>(), "Kill the Hydra Spirit to win this scenario.");
+		new KillSpecificEnemiesTypeGoals(ModelDB.Monster<HydraSpirit>(), "Kill the Hydra Spirit to win this scenario.");
 
 	public override string BGMPath => "res://Audio/BGM/Dark-Abyss.ogg";
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";

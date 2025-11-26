@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Fractural.Tasks;
 
 public partial class Objective : Figure

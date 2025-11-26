@@ -204,6 +204,14 @@ public static class AbilityCmd
 		return false;
 	}
 
+	public static async GDTask RemoveAllChill(Figure target)
+    {
+        while (target.HasCondition(Conditions.Chill))
+        {
+			await RemoveCondition(target, Conditions.Chill);
+        }
+    }
+
 	public static async GDTask GainXP(Figure figure, int xp)
 	{
 		if(figure is Character character)
@@ -243,8 +251,16 @@ public static class AbilityCmd
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
 
-	public static async GDTask SpawnCoin(Hex hex)
+	public static async GDTask SpawnCoin(Hex hex, Figure figure = null)
 	{
+		ScenarioCheckEvents.SpawnCoinCheck.Parameters spawnCoinCheckEventParameters =
+			ScenarioCheckEvents.SpawnCoinCheckEvent.Fire(new ScenarioCheckEvents.SpawnCoinCheck.Parameters(figure));
+
+		if(!spawnCoinCheckEventParameters.SpawnCoin)
+		{
+			return;
+		}
+
 		if(!hex.TryGetHexObjectOfType(out CoinStack coinStack))
 		{
 			PackedScene scene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/CoinStack.tscn");

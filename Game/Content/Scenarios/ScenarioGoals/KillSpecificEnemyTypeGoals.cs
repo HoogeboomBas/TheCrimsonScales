@@ -1,12 +1,20 @@
-﻿public class KillSpecificEnemyTypeGoals : ScenarioGoals
+﻿using System.Collections.Generic;
+
+public class KillSpecificEnemiesTypeGoals : ScenarioGoals
 {
-	private readonly MonsterModel _monsterModel;
+	private readonly IEnumerable<MonsterModel> _monsterModels;
 
 	public override string Text { get; }
 
-	public KillSpecificEnemyTypeGoals(MonsterModel monsterModel, string text)
+	public KillSpecificEnemiesTypeGoals(MonsterModel monsterModel, string text)
 	{
-		_monsterModel = monsterModel;
+		_monsterModels = [monsterModel];
+		Text = text;
+	}
+
+	public KillSpecificEnemiesTypeGoals(IEnumerable<MonsterModel> monsterModels, string text)
+	{
+		_monsterModels = monsterModels;
 		Text = text;
 	}
 
@@ -15,22 +23,25 @@
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
 			parameters =>
 			{
-				string monsterModelId = _monsterModel.Id.ToString();
-				foreach(MonsterSpawner monsterSpawner in GameController.Instance.Map.GetChildrenOfType<MonsterSpawner>())
+				foreach(MonsterModel monsterModel in _monsterModels)
 				{
-					if(monsterSpawner.MonsterModelId == monsterModelId)
+					string monsterModelId = monsterModel.Id.ToString();
+					foreach(MonsterSpawner monsterSpawner in GameController.Instance.Map.GetChildrenOfType<MonsterSpawner>())
 					{
-						// Monster of this type still needs to be spawned
-						return false;
+						if(monsterSpawner.MonsterModelId == monsterModelId)
+						{
+							// Monster of this type still needs to be spawned
+							return false;
+						}
 					}
-				}
 
-				foreach(Figure figure in GameController.Instance.Map.Figures)
-				{
-					if(figure is Monster monster && monster.MonsterModel == _monsterModel)
+					foreach(Figure figure in GameController.Instance.Map.Figures)
 					{
-						// Monster of this type is still alive
-						return false;
+						if(figure is Monster monster && monster.MonsterModel == monsterModel)
+						{
+							// Monster of this type is still alive
+							return false;
+						}
 					}
 				}
 
