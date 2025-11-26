@@ -484,13 +484,7 @@ public class ScenarioCheckEvents
 		{
 			public Figure Figure { get; } = figure;
 
-			public bool IsMounted { get; private set; } = false;
 			public Figure Mount { get; private set; } = null;
-
-			public void SetIsMounted()
-			{
-				IsMounted = true;
-			}
 
 			public void SetMount(Figure mount)
 			{
@@ -559,4 +553,22 @@ public class ScenarioCheckEvents
 
 	private readonly CanTakeTurnCheck _canTakeTurnCheck = new CanTakeTurnCheck();
 	public static CanTakeTurnCheck CanTakeTurnCheckEvent => GameController.Instance.ScenarioCheckEvents._canTakeTurnCheck;
+
+	public class SpawnCoinCheck : ScenarioCheckEvent<SpawnCoinCheck.Parameters>
+	{
+		public class Parameters(Figure figure)
+			: ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public bool SpawnCoin { get; private set; } = true;
+
+			public void SetSpawnCoin(bool spawnCoin)
+			{
+				SpawnCoin = spawnCoin;
+			}
+		}
+	}
+
+	private readonly SpawnCoinCheck _spawnCoinCheck = new SpawnCoinCheck();
+	public static SpawnCoinCheck SpawnCoinCheckEvent => GameController.Instance.ScenarioCheckEvents._spawnCoinCheck;
 }

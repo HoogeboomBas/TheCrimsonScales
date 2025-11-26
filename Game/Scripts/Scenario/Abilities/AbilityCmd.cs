@@ -251,8 +251,16 @@ public static class AbilityCmd
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
 
-	public static async GDTask SpawnCoin(Hex hex)
+	public static async GDTask SpawnCoin(Hex hex, Figure figure = null)
 	{
+		ScenarioCheckEvents.SpawnCoinCheck.Parameters spawnCoinCheckEventParameters =
+			ScenarioCheckEvents.SpawnCoinCheckEvent.Fire(new ScenarioCheckEvents.SpawnCoinCheck.Parameters(figure));
+
+		if(!spawnCoinCheckEventParameters.SpawnCoin)
+		{
+			return;
+		}
+
 		if(!hex.TryGetHexObjectOfType(out CoinStack coinStack))
 		{
 			PackedScene scene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/CoinStack.tscn");

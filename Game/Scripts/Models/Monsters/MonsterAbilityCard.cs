@@ -49,16 +49,25 @@ public class MonsterAbilityCard : IDeckCard
 		bool hasValidAbility = false;
 		if(!performer.HasCondition(Conditions.Stun))
 		{
-			foreach(Ability ability in actionState.Abilities)
+			if(actionState.Abilities.Any(ability => ability is not MoveAbility || ability is not AttackAbility))
 			{
-				if(ability is MoveAbility && !performer.HasCondition(Conditions.Immobilize))
+				hasValidAbility = true;
+			}
+			else
+			{
+				foreach(Ability ability in actionState.Abilities)
 				{
-					hasValidAbility = true;
-				}
+					if(ability is MoveAbility && !performer.HasCondition(Conditions.Immobilize))
+					{
+						hasValidAbility = true;
+						break;
+					}
 
-				if(ability is AttackAbility && !performer.HasCondition(Conditions.Disarm))
-				{
-					hasValidAbility = true;
+					if(ability is AttackAbility && !performer.HasCondition(Conditions.Disarm))
+					{
+						hasValidAbility = true;
+						break;
+					}
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 ﻿using Fractural.Tasks;
 
-public abstract class PushTrait(int amount) : FigureTrait
+public class PushTrait(int amount) : FigureTrait
 {
 	public override void Activate(Figure figure)
 	{

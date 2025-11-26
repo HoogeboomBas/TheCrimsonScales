@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 
 public class GelatinousGiant : MonsterModel, IBossMonsterModel
 {
@@ -102,7 +103,7 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
 			.WithGetAbilities(grantAbilityState =>
 			[
-				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1),
+				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1, range: 1, rangeType: RangeType.Melee),
 			])
 			.WithTarget(Target.Allies | Target.TargetAll)
 			.WithCustomGetTargets((state, list) =>
@@ -146,6 +147,8 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 					state.SetPerformed();
 				}
+
+				await GDTask.CompletedTask;
 			})
 			.Build())
 	];
