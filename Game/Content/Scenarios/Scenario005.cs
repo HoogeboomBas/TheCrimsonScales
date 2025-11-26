@@ -11,10 +11,10 @@ public class Scenario005 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals([ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
 
-	int _markersLeftToRemove;
-	List<Marker> _markers = null;
-	Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
-	Figure _gelatinousGiant = null;
+	private int _markersLeftToRemove;
+	private List<Marker> _markers = null;
+	private Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
+	private Figure _gelatinousGiant = null;
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -30,8 +30,11 @@ public class Scenario005 : ScenarioModel
 		}
 
 		GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) => 
-		{ 
-			if(won) { GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.OozeDestroyed); }
+		{
+			if(won) 
+			{
+				GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.OozeDestroyed);
+			}
 		};
 	}
 
@@ -149,7 +152,7 @@ public class Scenario005 : ScenarioModel
 			list =>
 			{
 				foreach(Marker marker in _markers)
-				{	
+				{
 					if(marker.Hex.IsUnoccupied())
 					{
 						list.Add(marker.Hex);
@@ -203,7 +206,7 @@ public class Scenario005 : ScenarioModel
 		}
 		else
 		{
-			UpdateScenarioText("");
+			UpdateScenarioText(null);
 		}
 	}
 }
