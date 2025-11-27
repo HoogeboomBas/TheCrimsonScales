@@ -46,7 +46,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.3f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48800015f, 0.34248334f)))
 				.Build())
 		];
 
@@ -119,7 +119,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.857998f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48800015f, 0.89949995f)))
 				.Build())
 		];
 

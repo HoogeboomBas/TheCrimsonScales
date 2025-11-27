@@ -161,16 +161,16 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription movementSubscription)
+		public TBuilder WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription duringAttackSubscription)
 		{
-			Obj.DuringAttackSubscriptions.Add(movementSubscription);
+			Obj.DuringAttackSubscriptions.Add(duringAttackSubscription);
 			return (TBuilder)this;
 		}
 
 		public TBuilder WithDuringAttackSubscriptions(
-			List<ScenarioEvents.DuringAttack.Subscription> movementSubscriptions)
+			List<ScenarioEvents.DuringAttack.Subscription> duringAttackSubscriptions)
 		{
-			Obj.DuringAttackSubscriptions = movementSubscriptions;
+			Obj.DuringAttackSubscriptions = duringAttackSubscriptions;
 			return (TBuilder)this;
 		}
 

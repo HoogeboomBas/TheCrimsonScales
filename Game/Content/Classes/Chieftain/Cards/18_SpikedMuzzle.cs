@@ -17,22 +17,28 @@ public class SpikedMuzzle : ChieftainCardModel<SpikedMuzzle.CardTop, SpikedMuzzl
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
-						canApplyParameters => Chieftain.GetIsMounted(state.Performer),
+						canApplyParameters => canApplyParameters.Performer == Chieftain.GetMount(state.Performer),
 						async applyParameters =>
 						{
-							if(applyParameters.Performer == Chieftain.GetMount(state.Performer))
-							{
-								applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
+							applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
 
-								await state.AdvanceUseSlot();
-							}
+							await GDTask.CompletedTask;
 						});
+
+					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
+						canApplyParameters => canApplyParameters.Performer == Chieftain.GetMount(state.Performer),
+						async applyParameters =>
+						{
+							await state.AdvanceUseSlot();
+						}
+					);
 
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})

@@ -802,18 +802,18 @@ public static class AbilityCmd
 
 	private static ItemModel GetRandomAvailableItem(IEnumerable<ItemModel> itemModels)
 	{
-		List<ItemModel> availableOrbs = new List<ItemModel>();
-		foreach(ItemModel orbModel in itemModels)
+		List<ItemModel> availableItems = new List<ItemModel>();
+		foreach(ItemModel itemModel in itemModels)
 		{
-			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(orbModel);
+			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
 			int unlockedCount = savedItem.UnlockedCount;
-			for(int i = 0; i < 2 - unlockedCount; i++)
+			for(int i = 0; i < itemModel.ShopCount - unlockedCount; i++)
 			{
-				availableOrbs.Add(orbModel);
+				availableItems.Add(itemModel);
 			}
 		}
 
-		return availableOrbs.Count == 0 ? null : availableOrbs.PickRandom(GameController.Instance.StateRNG);
+		return availableItems.Count == 0 ? null : availableItems.PickRandom(GameController.Instance.StateRNG);
 	}
 
 	public static GDTask Lose()

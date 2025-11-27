@@ -139,6 +139,27 @@ public class ScenarioCheckEvents
 	private readonly CanPassEnemyCheck _canPassEnemyCheck = new CanPassEnemyCheck();
 	public static CanPassEnemyCheck CanPassEnemyCheckEvent => GameController.Instance.ScenarioCheckEvents._canPassEnemyCheck;
 
+	public class CanPassAllyCheck : ScenarioCheckEvent<CanPassAllyCheck.Parameters>
+	{
+		public class Parameters(AbilityState abilityState, Figure figure, Figure alliedFigure)
+			: ParametersBase
+		{
+			public AbilityState AbilityState { get; } = abilityState;
+			public Figure Figure { get; } = figure;
+			public Figure AlliedFigure { get; } = alliedFigure;
+
+			public bool CanPass { get; private set; } = true;
+
+			public void SetCannotPass()
+			{
+				CanPass = false;
+			}
+		}
+	}
+
+	private readonly CanPassAllyCheck _canPassAllyCheck = new CanPassAllyCheck();
+	public static CanPassAllyCheck CanPassAllyCheckEvent => GameController.Instance.ScenarioCheckEvents._canPassAllyCheck;
+
 	public class MoveCanStopAtCheck : ScenarioCheckEvent<MoveCanStopAtCheck.Parameters>
 	{
 		public class Parameters(MoveAbility.State abilityState, Hex hex)

@@ -101,8 +101,17 @@ public partial class Summon : Figure
 						parameters.SetRangeType(RangeType.Melee);
 						parameters.SetTargets(1);
 						parameters.SetAOEPattern(null);
+					}
+				);
 
+				ScenarioEvents.AbilityEndedEvent.Subscribe(this, characterOwner,
+					parameters => parameters.Performer == this,
+					async parameters =>
+					{
+						ScenarioEvents.AbilityEndedEvent.Unsubscribe(this, characterOwner);
 						ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this, characterOwner);
+
+						await GDTask.CompletedTask;
 					}
 				);
 
