@@ -50,7 +50,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 
 					await GDTask.CompletedTask;
 				})
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.4f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.39850003f)))
 				.Build())
 		];
 
