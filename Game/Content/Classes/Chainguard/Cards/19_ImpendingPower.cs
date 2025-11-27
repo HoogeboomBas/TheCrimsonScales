@@ -96,11 +96,11 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 				})
 				.WithUseSlots(
 				[
-					new UseSlot(new Vector2(0.2869934f, 0.30899984f)),
-					new UseSlot(new Vector2(0.49549526f, 0.30899984f)),
-					new UseSlot(new Vector2(0.70750487f, 0.30899984f)),
-					new UseSlot(new Vector2(0.603f, 0.43299824f)),
-					new UseSlot(new Vector2(0.39799652f, 0.43299824f))
+					new UseSlot(new Vector2(0.2794935f, 0.31649974f)),
+					new UseSlot(new Vector2(0.4834954f, 0.31649974f)),
+					new UseSlot(new Vector2(0.68350375f, 0.31649974f)),
+					new UseSlot(new Vector2(0.36449695f, 0.43299824f)),
+					new UseSlot(new Vector2(0.57449996f, 0.43299824f))
 				])
 				.Build())
 		];
