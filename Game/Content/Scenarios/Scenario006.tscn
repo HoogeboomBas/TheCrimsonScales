@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwb5mli65oh18"]
+[gd_scene load_steps=17 format=3 uid="uid://dwb5mli65oh18"]
 
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_kdsd8"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_nxabk"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://chbkwa02hv3b8" path="res://Content/OverlayTiles/Obstacles/Fountain1H.tscn" id="11_1mlcp"]
 [ext_resource type="PackedScene" uid="uid://nc1epxsho0mr" path="res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn" id="12_25atf"]
 [ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="13_fupj6"]
+[ext_resource type="PackedScene" uid="uid://66brdtbbrdoj" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="15_ia8xb"]
+[ext_resource type="PackedScene" uid="uid://b5hfgmgusycc8" path="res://Content/OverlayTiles/DifficultTerrain/Log2H.tscn" id="16_gs34s"]
 
 [node name="Scenario" instance=ExtResource("1_kdsd8")]
 
@@ -230,6 +232,18 @@ position = Vector2(982.073, -1701)
 MonsterModelId = "FOREST_IMP.TOXIC_IMP"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
+
+[node name="Tree3H" parent="Map/Rooms/Room" index="40" instance=ExtResource("15_ia8xb")]
+position = Vector2(-436.477, -1134)
+rotation = 1.0472
+
+[node name="Log2H" parent="Map/Rooms/Room" index="41" instance=ExtResource("16_gs34s")]
+position = Vector2(218.238, -756)
+rotation = -1.0472
+
+[node name="Log2H2" parent="Map/Rooms/Room" index="42" instance=ExtResource("16_gs34s")]
+position = Vector2(-436.477, 0)
+rotation = -1.0472
 
 [node name="Doors" parent="Map" index="1"]
 position = Vector2(635, 749)
