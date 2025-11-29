@@ -42,8 +42,8 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.314f)),
-						new UseSlot(new Vector2(0.603f, 0.314f))
+						new UseSlot(new Vector2(0.38150153f, 0.3129901f)),
+						new UseSlot(new Vector2(0.58650404f, 0.3129901f))
 					]
 				)
 				.Build())
@@ -85,7 +85,7 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.764f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.4855002f, 0.79300135f)))
 				.Build())
 		];
 

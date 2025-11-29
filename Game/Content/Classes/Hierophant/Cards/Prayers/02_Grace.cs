@@ -33,7 +33,7 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.308f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48700017f, 0.31299993f)))
 				.Build())
 		];
 

@@ -46,8 +46,8 @@ public class Salvation : HierophantPrayerCardModel<Salvation.CardTop, Salvation.
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.296f)),
-						new UseSlot(new Vector2(0.603f, 0.296f))
+						new UseSlot(new Vector2(0.38400018f, 0.29450002f)),
+						new UseSlot(new Vector2(0.58900285f, 0.29450002f))
 					]
 				)
 				.Build())

@@ -35,8 +35,8 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.306f)),
-						new UseSlot(new Vector2(0.603f, 0.306f))
+						new UseSlot(new Vector2(0.38550016f, 0.3134999f)),
+						new UseSlot(new Vector2(0.5900029f, 0.3134999f))
 					]
 				)
 				.Build())
@@ -73,8 +73,8 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.772f)),
-						new UseSlot(new Vector2(0.603f, 0.772f))
+						new UseSlot(new Vector2(0.38550016f, 0.7950113f)),
+						new UseSlot(new Vector2(0.5900029f, 0.7950113f))
 					]
 				)
 				.Build())

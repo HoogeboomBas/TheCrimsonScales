@@ -38,8 +38,8 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.306f)),
-						new UseSlot(new Vector2(0.603f, 0.306f))
+						new UseSlot(new Vector2(0.38450018f, 0.3129999f)),
+						new UseSlot(new Vector2(0.5899994f, 0.3124999f))
 					]
 				)
 				.Build())
@@ -79,8 +79,8 @@ public class Penitence : HierophantPrayerCardModel<Penitence.CardTop, Penitence.
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.772f)),
-						new UseSlot(new Vector2(0.603f, 0.772f))
+						new UseSlot(new Vector2(0.38450018f, 0.7780105f)),
+						new UseSlot(new Vector2(0.5899994f, 0.7780105f))
 					]
 				)
 				.Build())
