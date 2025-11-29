@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://biv5sw06a7dxd" path="res://Scenes/Scenario/OverlayTiles/OverlayTile.tscn" id="1_kgl1h"]
 [ext_resource type="Texture2D" uid="uid://ctnkep3e416ds" path="res://Art/Other/OverlayTileHexagonOutline3H.svg" id="2_kgl1h"]
-[ext_resource type="Texture2D" uid="uid://c87uj6rykbfrs" path="res://Art/OverlayTiles/Corridor - Earth 2h.png" id="3_ovip4"]
+[ext_resource type="Texture2D" uid="uid://1qfkl5yfsjro" path="res://Art/OverlayTiles/Tree 3h.png" id="3_kgl1h"]
 
 [node name="OverlayTile3H" instance=ExtResource("1_kgl1h")]
 
@@ -12,5 +12,5 @@ scale = Vector2(1, -1)
 texture = ExtResource("2_kgl1h")
 
 [node name="Sprite" parent="." index="2"]
-position = Vector2(129, 0)
-texture = ExtResource("3_ovip4")
+position = Vector2(110.5, -94)
+texture = ExtResource("3_kgl1h")

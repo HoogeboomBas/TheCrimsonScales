@@ -13,10 +13,10 @@ public class Scenario024 : ScenarioModel
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario026>(true)];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
-		new CustomScenarioGoals("Place " + GameController.Instance.SavedCampaign.Characters.Count + " orbs in the dome to win this scenario." + 
-			System.Environment.NewLine + System.Environment.NewLine +
-			"Any character may forgo the top or bottom action of their turn to remove all " + 
-			$"{Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one summon they own within {Icons.Inline(Icons.Range)} 2.");
+		new CustomScenarioGoals("Place " + GameController.Instance.SavedCampaign.Characters.Count + " orbs in the dome to win this scenario." +
+		                        System.Environment.NewLine + System.Environment.NewLine +
+		                        "Any character may forgo the top or bottom action of their turn to remove all " +
+		                        $"{Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one summon they own within {Icons.Inline(Icons.Range)} 2.");
 
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 
@@ -57,9 +57,9 @@ public class Scenario024 : ScenarioModel
 		_hotCoals = GameController.Instance.Map.GetChildrenOfType<HazardousTerrain>();
 
 		foreach(HazardousTerrain hotCoal in _hotCoals)
-        {
+		{
 			hotCoal.SetCannotBeDestroyed(true);
-        }
+		}
 
 		List<Obstacle> obstacles = GameController.Instance.Map.GetChildrenOfType<Obstacle>();
 		_dome = obstacles[obstacles.Count() - 1];
@@ -80,34 +80,38 @@ public class Scenario024 : ScenarioModel
 		//Remove Chill forgo action
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
 			parameters => !parameters.ForgoneAction && RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 2)
-								.Where(figure => figure.HasCondition(Conditions.Chill) &&
-								((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)).Any(),
+				.Where(figure => figure.HasCondition(Conditions.Chill) &&
+				                 ((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)).Any(),
 			async parameters =>
 			{
 				parameters.ForgoAction();
 
-				ActionState actionState = new ActionState(parameters.Performer, [OtherAbility.Builder()
-					.WithPerformAbility(async state =>
-					{
-						Figure figure = await AbilityCmd.SelectFigure(state, list =>
+				ActionState actionState = new ActionState(parameters.Performer, [
+					OtherAbility.Builder()
+						.WithPerformAbility(async state =>
 						{
-							list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 2)
-								.Where(figure => (figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure));
-						});
+							Figure figure = await AbilityCmd.SelectFigure(state, list =>
+							{
+								list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 2)
+									.Where(figure =>
+										(figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure));
+							});
 
-						if(figure == null)
-						{
-							return;
-						}
+							if(figure == null)
+							{
+								return;
+							}
 
-						await AbilityCmd.RemoveAllChill(figure);
-					})
-					.Build()]);
+							await AbilityCmd.RemoveAllChill(figure);
+						})
+						.Build()
+				]);
 				await actionState.Perform();
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Chill)),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)} 2.")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters(
+				$"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)} 2.")
 		);
 	}
 
@@ -118,18 +122,19 @@ public class Scenario024 : ScenarioModel
 		if(parameters.OpenedDoor == _door1)
 		{
 			UpdateScenarioText($"""
-				While adjacent to the hexes marked {Icons.Marker(Marker.Type.a)}, {Icons.Marker(Marker.Type.b)}, {Icons.Marker(Marker.Type.c)}, {Icons.Marker(Marker.Type.d)}, each character may forgo the top or bottom action of their turn to pick up the letter representing each Orb and gain the following bonus:
-				{Icons.Marker(Marker.Type.a)}: Add +1{Icons.Inline(Icons.Move)} to all your move abilities
-				{Icons.Marker(Marker.Type.b)}: Add {Icons.Inline(Icons.Pierce)} 2 to all your attack abilities
-				{Icons.Marker(Marker.Type.c)}: You are unaffected by {Icons.Inline(Icons.Retaliate)}
-				{Icons.Marker(Marker.Type.d)}: Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all your attack abilities
-				Each character may only hold a maximum of one orb. If any character exhausts while holding an orb, the scenario is lost.
-				While occupying the K1b tile, at the end of each character and character summons turn, if they have no {Icons.Inline(Icons.GetCondition(Conditions.Chill))} tokens they gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}.
-				The Hot Coal hexes represents Warm Fires and cannot be removed. If a character ends their turn within {Icons.Inline(Icons.Range)} 1 of a Warm Fire, they ignore this effect.
-				""");
+			                    While adjacent to the hexes marked {Icons.InlineMarker(Marker.Type.a)}, {Icons.InlineMarker(Marker.Type.b)}, {Icons.InlineMarker(Marker.Type.c)}, {Icons.InlineMarker(Marker.Type.d)}, each character may forgo the top or bottom action of their turn to pick up the letter representing each Orb and gain the following bonus:
+			                    {Icons.InlineMarker(Marker.Type.a)}: Add +1{Icons.Inline(Icons.Move)} to all your move abilities
+			                    {Icons.InlineMarker(Marker.Type.b)}: Add {Icons.Inline(Icons.Pierce)} 2 to all your attack abilities
+			                    {Icons.InlineMarker(Marker.Type.c)}: You are unaffected by {Icons.Inline(Icons.Retaliate)}
+			                    {Icons.InlineMarker(Marker.Type.d)}: Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all your attack abilities
+			                    Each character may only hold a maximum of one orb. If any character exhausts while holding an orb, the scenario is lost.
+			                    While occupying the K1b tile, at the end of each character and character summons turn, if they have no {Icons.Inline(Icons.GetCondition(Conditions.Chill))} tokens they gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}.
+			                    The Hot Coal hexes represents Warm Fires and cannot be removed. If a character ends their turn within {Icons.Inline(Icons.Range)} 1 of a Warm Fire, they ignore this effect.
+			                    """);
 
 			//lose if character exhausts with an orb
-			ScenarioEvents.FigureKilledEvent.Subscribe(this, canApplyParamaters => canApplyParamaters.Figure is Character character && _charactersWithOrbs.ContainsKey(character),
+			ScenarioEvents.FigureKilledEvent.Subscribe(this,
+				canApplyParamaters => canApplyParamaters.Figure is Character character && _charactersWithOrbs.ContainsKey(character),
 				async parameters =>
 				{
 					await AbilityCmd.Lose();
@@ -144,8 +149,9 @@ public class Scenario024 : ScenarioModel
 				},
 				async applyParameters =>
 				{
-					if(GameController.Instance.Map.Rooms[1].Hexes.Contains(applyParameters.Figure.Hex) && !applyParameters.Figure.HasCondition(Conditions.Chill) &&
-						!RangeHelper.GetHexesInRange(applyParameters.Figure.Hex, 1).Any(hex => hex.HexObjects.Any(obj => _hotCoals.Contains(obj))))
+					if(GameController.Instance.Map.Rooms[1].Hexes.Contains(applyParameters.Figure.Hex) &&
+					   !applyParameters.Figure.HasCondition(Conditions.Chill) &&
+					   !RangeHelper.GetHexesInRange(applyParameters.Figure.Hex, 1).Any(hex => hex.HexObjects.Any(obj => _hotCoals.Contains(obj))))
 					{
 						await AbilityCmd.AddCondition(null, applyParameters.Figure, Conditions.Chill);
 					}
@@ -154,93 +160,99 @@ public class Scenario024 : ScenarioModel
 
 			//forgo action to take an orb
 			ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, _door1,
-				parameters => !parameters.ForgoneAction && RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => _markers.Any(marker => marker.Hex == hex)
+				parameters => !parameters.ForgoneAction && RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex =>
+					_markers.Any(marker => marker.Hex == hex)
 					&& !_charactersWithOrbs.ContainsKey(parameters.Performer)),
 				async parameters =>
 				{
 					parameters.ForgoAction();
 
-					ActionState actionState = new ActionState(parameters.Performer, [OtherAbility.Builder()
-						.WithPerformAbility(async state =>
-						{
-							await AbilityCmd.GenericChoice(parameters.Performer,
-							[
-								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => GameController.Instance.Map.GetMarker(Marker.Type.a) != null &&
-									RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerA.Hex),
-									applyFunction: async applyParameters =>
-									{
-										SubscribeToMarkerA(parameters.Performer);
-										GameController.Instance.Map.Markers.Remove(_markerA);
-										_markers.Remove(_markerA);
-										_markerA.Hide();
-										_charactersWithOrbs.Add(parameters.Performer, _markerA);
-										await GDTask.CompletedTask;
-									},
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb A"),
-									effectType: EffectType.Selectable
-								),
-								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => GameController.Instance.Map.GetMarker(Marker.Type.b) != null &&
-									RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerB.Hex),
-									applyFunction: async applyParameters =>
-									{
-										SubscribeToMarkerB(parameters.Performer);
-										GameController.Instance.Map.Markers.Remove(_markerB);
-										_markers.Remove(_markerB);
-										_markerB.Hide();
-										_charactersWithOrbs.Add(parameters.Performer, _markerB);
-										await GDTask.CompletedTask;
-									},
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb B"),
-									effectType: EffectType.Selectable
-								),
-								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => GameController.Instance.Map.GetMarker(Marker.Type.c) != null &&
-									RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerC.Hex),
-									applyFunction: async applyParameters =>
-									{
-										SubscribeToMarkerC(parameters.Performer);
-										GameController.Instance.Map.Markers.Remove(_markerC);
-										_markers.Remove(_markerC);
-										_markerC.Hide();
-										_charactersWithOrbs.Add(parameters.Performer, _markerC);
-										await GDTask.CompletedTask;
-									},
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb C"),
-									effectType: EffectType.Selectable
-								),
-								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => GameController.Instance.Map.GetMarker(Marker.Type.d) != null &&
-									RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerD.Hex),
-									applyFunction: async applyParameters =>
-									{
-										SubscribeToMarkerD(parameters.Performer);
-										GameController.Instance.Map.Markers.Remove(_markerD);
-										_markers.Remove(_markerD);
-										_markerD.Hide();
-										_charactersWithOrbs.Add(parameters.Performer, _markerD);
-										await GDTask.CompletedTask;
-									},
-									effectButtonParameters: new IconEffectButton.Parameters(null),
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb D"),
-									effectType: EffectType.Selectable
-								),
-							], hintText: "Choose an Orb to take");
-						})
-						.Build()]);
+					ActionState actionState = new ActionState(parameters.Performer, [
+						OtherAbility.Builder()
+							.WithPerformAbility(async state =>
+							{
+								await AbilityCmd.GenericChoice(parameters.Performer,
+								[
+									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
+											GameController.Instance.Map.GetMarker(Marker.Type.a) != null &&
+											RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerA.Hex),
+										applyFunction: async applyParameters =>
+										{
+											SubscribeToMarkerA(parameters.Performer);
+											GameController.Instance.Map.Markers.Remove(_markerA);
+											_markers.Remove(_markerA);
+											_markerA.Hide();
+											_charactersWithOrbs.Add(parameters.Performer, _markerA);
+											await GDTask.CompletedTask;
+										},
+										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb A"),
+										effectType: EffectType.Selectable
+									),
+									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
+											GameController.Instance.Map.GetMarker(Marker.Type.b) != null &&
+											RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerB.Hex),
+										applyFunction: async applyParameters =>
+										{
+											SubscribeToMarkerB(parameters.Performer);
+											GameController.Instance.Map.Markers.Remove(_markerB);
+											_markers.Remove(_markerB);
+											_markerB.Hide();
+											_charactersWithOrbs.Add(parameters.Performer, _markerB);
+											await GDTask.CompletedTask;
+										},
+										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb B"),
+										effectType: EffectType.Selectable
+									),
+									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
+											GameController.Instance.Map.GetMarker(Marker.Type.c) != null &&
+											RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerC.Hex),
+										applyFunction: async applyParameters =>
+										{
+											SubscribeToMarkerC(parameters.Performer);
+											GameController.Instance.Map.Markers.Remove(_markerC);
+											_markers.Remove(_markerC);
+											_markerC.Hide();
+											_charactersWithOrbs.Add(parameters.Performer, _markerC);
+											await GDTask.CompletedTask;
+										},
+										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb C"),
+										effectType: EffectType.Selectable
+									),
+									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
+											GameController.Instance.Map.GetMarker(Marker.Type.d) != null &&
+											RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_markerD.Hex),
+										applyFunction: async applyParameters =>
+										{
+											SubscribeToMarkerD(parameters.Performer);
+											GameController.Instance.Map.Markers.Remove(_markerD);
+											_markers.Remove(_markerD);
+											_markerD.Hide();
+											_charactersWithOrbs.Add(parameters.Performer, _markerD);
+											await GDTask.CompletedTask;
+										},
+										effectButtonParameters: new IconEffectButton.Parameters(null),
+										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb D"),
+										effectType: EffectType.Selectable
+									),
+								], hintText: "Choose an Orb to take");
+							})
+							.Build()
+					]);
 					await actionState.Perform();
 				},
 				EffectType.Selectable,
 				effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take an Orb from an adjacent hex")
 			);
-
 		}
 
 		if(parameters.OpenedDoor == _door3)
 		{
 			UpdateScenarioText($"""
-				While occupying the K2b tile, all characters gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))} at the end of their turn
+			                    While occupying the K2b tile, all characters gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))} at the end of their turn
 
-				The Hot Coal hexes represents Warm Fires and cannot be removed. If a character ends their turn within {Icons.Inline(Icons.Range)} 1 of a Warm Fire, they ignore this effect
-				The dome is represented by the altar. The altar cannot be destroyed. Each character may forgo the top or bottom action of their turn while adjacent to the dome to place the orb in the dome.
-				""");
+			                    The Hot Coal hexes represents Warm Fires and cannot be removed. If a character ends their turn within {Icons.Inline(Icons.Range)} 1 of a Warm Fire, they ignore this effect
+			                    The dome is represented by the altar. The altar cannot be destroyed. Each character may forgo the top or bottom action of their turn while adjacent to the dome to place the orb in the dome.
+			                    """);
 
 			//Gain Chill at end of round
 			ScenarioEvents.FigureTurnEndedEvent.Subscribe(this, _door3,
@@ -251,7 +263,7 @@ public class Scenario024 : ScenarioModel
 				async applyParameters =>
 				{
 					if(GameController.Instance.Map.Rooms[1].Hexes.Contains(applyParameters.Figure.Hex) &&
-						!RangeHelper.GetHexesInRange(applyParameters.Figure.Hex, 1).Any(hex => hex.HexObjects.Any(obj => _hotCoals.Contains(obj))))
+					   !RangeHelper.GetHexesInRange(applyParameters.Figure.Hex, 1).Any(hex => hex.HexObjects.Any(obj => _hotCoals.Contains(obj))))
 					{
 						await AbilityCmd.AddCondition(null, applyParameters.Figure, Conditions.Chill);
 					}
@@ -260,46 +272,50 @@ public class Scenario024 : ScenarioModel
 
 			//forgo action to place orb
 			ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, _door3,
-				parameters => !parameters.ForgoneAction && _charactersWithOrbs.ContainsKey(parameters.Performer) && RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_dome.Hex),
+				parameters => !parameters.ForgoneAction && _charactersWithOrbs.ContainsKey(parameters.Performer) &&
+				              RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Contains(_dome.Hex),
 				async parameters =>
 				{
 					parameters.ForgoAction();
 
-					ActionState actionState = new ActionState(parameters.Performer, [OtherAbility.Builder()
-						.WithPerformAbility(async state =>
-						{
-							Marker orbPlaced = _charactersWithOrbs[parameters.Performer];
-							_charactersWithOrbs.Remove(parameters.Performer);
-							_orbsPlaced++;
-							if (orbPlaced == _markerA)
+					ActionState actionState = new ActionState(parameters.Performer, [
+						OtherAbility.Builder()
+							.WithPerformAbility(async state =>
 							{
-								ScenarioEvents.DuringMovementEvent.Unsubscribe(parameters.Performer, _markerA);
-								ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerA);
-							}
-							else if (orbPlaced == _markerB)
-							{
-								ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerB);
-								ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerB);
-							}
-							else if (orbPlaced == _markerB)
-							{
-								ScenarioEvents.RetaliateEvent.Unsubscribe(parameters.Performer, _markerC);
-								ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerC);
-							}
-							else if (orbPlaced == _markerB)
-							{
-								ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerD);
-								ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerD);
-							}
-							await GDTask.CompletedTask;
-						})
-						.Build()]);
+								Marker orbPlaced = _charactersWithOrbs[parameters.Performer];
+								_charactersWithOrbs.Remove(parameters.Performer);
+								_orbsPlaced++;
+								if(orbPlaced == _markerA)
+								{
+									ScenarioEvents.DuringMovementEvent.Unsubscribe(parameters.Performer, _markerA);
+									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerA);
+								}
+								else if(orbPlaced == _markerB)
+								{
+									ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerB);
+									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerB);
+								}
+								else if(orbPlaced == _markerB)
+								{
+									ScenarioEvents.RetaliateEvent.Unsubscribe(parameters.Performer, _markerC);
+									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerC);
+								}
+								else if(orbPlaced == _markerB)
+								{
+									ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerD);
+									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerD);
+								}
+
+								await GDTask.CompletedTask;
+							})
+							.Build()
+					]);
 					await actionState.Perform();
 				},
 				EffectType.Selectable,
 				effectInfoViewParameters: new TextEffectInfoView.Parameters($"Place an Orb in the dome.")
 			);
-        }
+		}
 	}
 
 	private void SubscribeToMarkerA(Figure figure)
@@ -312,7 +328,7 @@ public class Scenario024 : ScenarioModel
 				return GDTask.CompletedTask;
 			},
 			EffectType.MandatoryBeforeOptionals);
-		
+
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, _markerA,
 			parameters => parameters.Figure == figure,
 			parameters =>
@@ -321,6 +337,7 @@ public class Scenario024 : ScenarioModel
 			}
 		);
 	}
+
 	private void SubscribeToMarkerB(Figure figure)
 	{
 		ScenarioEvents.DuringAttackEvent.Subscribe(figure, _markerB, canApplyParameters => canApplyParameters.Performer == figure,
@@ -358,7 +375,7 @@ public class Scenario024 : ScenarioModel
 			}
 		);
 	}
-	
+
 	private void SubscribeToMarkerD(Figure figure)
 	{
 		ScenarioEvents.DuringAttackEvent.Subscribe(figure, _markerD, canApplyParameters => canApplyParameters.Performer == figure,
@@ -373,7 +390,8 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
+				parameters.Add(
+					new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
 			}
 		);
 	}

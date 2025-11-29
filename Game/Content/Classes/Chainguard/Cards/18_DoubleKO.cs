@@ -61,7 +61,7 @@ public class DoubleKO : ChainguardLevelUpCardModel<DoubleKO.CardTop, DoubleKO.Ca
 
 					await GDTask.CompletedTask;
 				})
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.85f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.49050012f, 0.87600124f)))
 				.Build())
 		];
 

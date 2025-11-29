@@ -22,7 +22,7 @@ public class Scenario007 : ScenarioModel
 		await base.StartAfterFirstRoomRevealed();
 
 		UpdateScenarioText(
-			$"Once per round, when a character ends their turn on a water tile marked {Icons.Marker(Marker.Type.a)}, " +
+			$"Once per round, when a character ends their turn on a water tile marked {Icons.InlineMarker(Marker.Type.a)}, " +
 			"the water tile is removed and various things might happen, such as monsters spawning and conditions being applied to the character." +
 			"\nThe water tiles cannot be removed in any other way.");
 

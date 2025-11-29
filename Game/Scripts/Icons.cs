@@ -41,9 +41,14 @@
 		return conditionModel.IconPath;
 	}
 
-	public static string Marker(Marker.Type markerType)
+	public static string InlineMarker(Marker.Type markerType, int size = 30)
 	{
-		return $"[color=red]([/color]{markerType.ToString().Replace("_", string.Empty)}[color=red])[/color]";
+		return Inline(GetMarker(markerType), size);
+	}
+
+	public static string GetMarker(Marker.Type markerType)
+	{
+		return $"res://Art/Markers/{markerType.ToString().Replace("_", string.Empty)}.png";
 	}
 
 	public static string Inline(string iconPath, int size = 30)

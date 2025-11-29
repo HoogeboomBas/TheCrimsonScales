@@ -177,7 +177,6 @@ public partial class GameController : SceneController<GameController>
 				{
 					Id = Guid.NewGuid(),
 					AppVersion = AppController.Instance.SaveFile.SaveData.AppVersion,
-					//ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
 					ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
 					//Seed = GD.RandRange(0, int.MaxValue),
 					Seed = 0,
@@ -468,7 +467,7 @@ public partial class GameController : SceneController<GameController>
 
 				if(undoType == UndoType.Turn &&
 				   (newScenario.PromptAnswers.Count + 1 == CurrentTurnTakerPromptIndex ||
-					newScenario.PromptAnswers.Count + 1 == PreviousTurnTakerPromptIndex))
+				    newScenario.PromptAnswers.Count + 1 == PreviousTurnTakerPromptIndex))
 				{
 					break;
 				}

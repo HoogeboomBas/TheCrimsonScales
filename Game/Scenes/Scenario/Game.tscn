@@ -216,7 +216,7 @@ _line2D = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="TeleportPath"]
 z_index = 100
-points = PackedVector2Array(0, 0, 256, -256)
+points = PackedVector2Array(0, 0, 100, -100)
 width = 12.0
 joint_mode = 2
 begin_cap_mode = 2

@@ -44,11 +44,11 @@ public class SpikedMuzzle : ChieftainCardModel<SpikedMuzzle.CardTop, SpikedMuzzl
 				})
 				.WithUseSlots(
 				[
-					new UseSlot(new Vector2(0.2869934f, 0.30899984f)),
-					new UseSlot(new Vector2(0.49549526f, 0.30899984f)),
-					new UseSlot(new Vector2(0.70750487f, 0.30899984f)),
-					new UseSlot(new Vector2(0.603f, 0.43299824f)),
-					new UseSlot(new Vector2(0.39799652f, 0.43299824f), GainXP),
+					new UseSlot(new Vector2(0.28949338f, 0.2740003f)),
+					new UseSlot(new Vector2(0.49549526f, 0.2740003f)),
+					new UseSlot(new Vector2(0.70750487f, 0.2740003f)),
+					new UseSlot(new Vector2(0.39499655f, 0.4039986f)),
+					new UseSlot(new Vector2(0.59799652f, 0.4039986f), GainXP),
 				])
 				.Build())
 		];
