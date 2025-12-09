@@ -10,12 +10,13 @@ public class ChieftainAMDCard02 : ChieftainAMDCardModel
 	[
 		HealAbility.Builder()
 			.WithHealValue(1)
-			.WithCustomGetTargets((state, figures) =>
+			.WithCustomGetTargets((healState, figures) =>
 			{
-				Character character = 
+				Character character =
 					state.Performer is Character performer ? performer : 
 					state.Performer is Summon summon ? summon.CharacterOwner : 
 					(Character)state.Authority;
+
 				figures.AddRange(character.Summons);
 			})
 			.WithTarget(Target.SelfOrAllies | Target.TargetAll)

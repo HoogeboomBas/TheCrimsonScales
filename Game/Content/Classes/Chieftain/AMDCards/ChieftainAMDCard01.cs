@@ -10,28 +10,16 @@ public class ChieftainAMDCard01 : ChieftainAMDCardModel
 	[
 		HealAbility.Builder()
 			.WithHealValue(1)
-			.WithConditionalAbilityCheck(async state =>
+			.WithCustomGetTargets((healState, figures) =>
 			{
 				Character character = 
 					state.Performer is Character performer ? performer : 
-					state.Performer is Summon summon ? summon.CharacterOwner : null;
+					state.Performer is Summon summon ? summon.CharacterOwner : 
+					(Character)state.Authority;
 
-				return character != null ? ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-						new ScenarioCheckEvents.IsMountedCheck.Parameters(character)).IsMounted : false;
+				figures.Add(character);
 			})
-			.WithCustomGetTargets((state, figures) =>
-			{
-				Character character = 
-					state.Performer is Character performer ? performer : 
-					state.Performer is Summon summon ? summon.CharacterOwner : null;
-
-				if(character != null)
-				{
-					figures.Add(ScenarioCheckEvents.IsMountedCheckEvent.Fire(
-						new ScenarioCheckEvents.IsMountedCheck.Parameters(character)).Mount);
-				}
-			})
-			.WithTarget(Target.Allies)
+			.WithTarget(Target.SelfOrAllies)
 			.Build()
 	];
 }
