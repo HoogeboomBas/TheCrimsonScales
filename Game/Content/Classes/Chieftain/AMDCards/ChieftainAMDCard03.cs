@@ -2,7 +2,7 @@
 
 public class ChieftainAMDCard03 : ChieftainAMDCardModel
 {
-	protected override int AtlasIndex => 3;
+	protected override int AtlasIndex => 5;
 
 	public override int? GetValue(AttackAbility.State state) => -2;
 

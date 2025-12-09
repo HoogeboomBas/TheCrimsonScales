@@ -1,8 +1,8 @@
 ﻿public abstract class ChieftainAMDCardModel : AMDCardModel
 {
-	protected override string TexturePath => throw new System.NotImplementedException();
-	protected override int ColumnCount => throw new System.NotImplementedException();
-	protected override int RowCount => throw new System.NotImplementedException();
+	protected override string TexturePath => "res://Art/AMDs/ChieftainAMD.jpg";
+	protected override int ColumnCount => 4;
+	protected override int RowCount => 5;
 
 	public override AMDCardType Type => AMDCardType.Value;
 }

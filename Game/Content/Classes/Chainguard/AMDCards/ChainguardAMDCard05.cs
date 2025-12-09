@@ -2,7 +2,7 @@
 
 public class ChainguardAMDCard05 : ChainguardAMDCardModel
 {
-	protected override int AtlasIndex => 5;
+	protected override int AtlasIndex => 12;
 
 	public override int? GetValue(AttackAbility.State state) => 2;
 

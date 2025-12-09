@@ -3,7 +3,7 @@ using Fractural.Tasks;
 
 public class ChieftainAMDCard09 : ChieftainAMDCardModel
 {
-	protected override int AtlasIndex => 9;
+	protected override int AtlasIndex => 14;
 
 	public override bool GetRolling(AttackAbility.State state) => true;
 

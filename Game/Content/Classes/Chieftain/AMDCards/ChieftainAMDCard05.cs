@@ -1,6 +1,6 @@
 ﻿public class ChieftainAMDCard05 : ChieftainAMDCardModel
 {
-	protected override int AtlasIndex => 5;
+	protected override int AtlasIndex => 7;
 
 	public override int? GetValue(AttackAbility.State state) =>
 		state.Performer is Character performer ? performer.Summons.Count : 

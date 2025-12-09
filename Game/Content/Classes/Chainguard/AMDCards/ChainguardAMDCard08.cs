@@ -2,7 +2,7 @@
 
 public class ChainguardAMDCard08 : ChainguardAMDCardModel
 {
-	protected override int AtlasIndex => 8;
+	protected override int AtlasIndex => 15;
 
 	public override bool GetRolling(AttackAbility.State state) => true;
 
