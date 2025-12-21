@@ -333,7 +333,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Add +1{Icons.Inline(Icons.Move)} to all move abilities"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Add +1{Icons.Inline(Icons.Move)} to all move abilities"));
 			}
 		);
 	}
@@ -352,7 +352,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.Pierce)} 2 to all attack abilities"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.Pierce)} 2 to all attack abilities"));
 			}
 		);
 	}
@@ -371,7 +371,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Unaffected by {Icons.Inline(Icons.Retaliate)}"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Unaffected by {Icons.Inline(Icons.Retaliate)}"));
 			}
 		);
 	}
@@ -391,7 +391,7 @@ public class Scenario024 : ScenarioModel
 			parameters =>
 			{
 				parameters.Add(
-					new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
+					new InfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
 			}
 		);
 	}

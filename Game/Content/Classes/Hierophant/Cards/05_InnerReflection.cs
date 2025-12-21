@@ -42,7 +42,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 									list.Add(otherFigure);
 								}
 							}
-						}, autoSelectIfOne: false, hintText: "Select a character ally to receive a coin");
+						}, autoSelectIfOne: false, hintText: () => "Select a character ally to receive a coin");
 
 						if(figure != null)
 						{

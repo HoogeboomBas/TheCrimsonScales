@@ -2,9 +2,9 @@
 
 public class ShieldTrait(int shield) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioCheckEvents.ShieldCheckEvent.Subscribe(figure, this,
 			canApplyParameters => canApplyParameters.Figure == figure,
@@ -21,9 +21,9 @@ public class ShieldTrait(int shield) : FigureTrait
 		//figure.UpdateShield();
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(figure, this);
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(figure, this);

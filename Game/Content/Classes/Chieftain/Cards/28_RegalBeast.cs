@@ -19,11 +19,11 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 					Health = 8,
 					Move = 3,
 					Attack = 3,
-					Traits = 
+					Traits =
 					[
 						new AllAttacksGainAdvantageTrait(),
 						new MountTrait(
-							async (owner, mount) => 
+							async (owner, mount) =>
 							{
 								ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(owner, this,
 									parameters => parameters.AbilityState.Performer == owner,
@@ -43,8 +43,8 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 
 								await GDTask.CompletedTask;
 							},
-							async (owner, mount) => 
-							{ 
+							async (owner, mount) =>
+							{
 								ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(owner, this);
 								ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(owner, this);
 
@@ -54,7 +54,7 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 					]
 				})
 				.WithName("Sabretooth Tiger")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/sabretooth_tiger_edit.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/sabretooth_tiger.png")
 				.Build()
 			),
 		];
@@ -73,7 +73,7 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 				.WithPerformAbility(async state =>
 				{
 					IEnumerable<AbilityCard> selectedAbilityCards =
-						await AbilityCmd.SelectAbilityCards((Character)state.Performer, CardState.Lost, 0, 3, 
+						await AbilityCmd.SelectAbilityCards((Character)state.Performer, CardState.Lost, 0, 3,
 							canSelectFunc: abilityCard => abilityCard.Top.Abilities
 								.Concat(abilityCard.Bottom.Abilities)
 								.Any(cardAbility => cardAbility.Ability is SummonAbility),
@@ -103,7 +103,9 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 					foreach(AbilityCardSide abilitySide in abilitySides)
 					{
 						await abilitySide.Perform(state.Performer);
-						await abilitySide.AbilityCard.SetCardState(abilitySide.AbilityCard.Unrecoverable ? CardState.UnrecoverablyLost : CardState.Lost);
+						await abilitySide.AbilityCard.SetCardState(abilitySide.AbilityCard.Unrecoverable
+							? CardState.UnrecoverablyLost
+							: CardState.Lost);
 						state.SetPerformed();
 					}
 

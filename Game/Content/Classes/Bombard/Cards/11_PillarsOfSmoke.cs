@@ -17,16 +17,16 @@ public class PillarsOfSmoke : BombardCardModel<PillarsOfSmoke.CardTop, PillarsOf
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						parameters =>
-							state.Performer.AlliedWith(parameters.Performer) &&
+							state.Performer.AlliedWith(parameters.Figure) &&
 							(!state.TryGetCustomValue(this, "LastUseRoundIndex", out int lastUseRoundIndex) ||
 							 lastUseRoundIndex != GameController.Instance.ScenarioPhaseManager.RoundIndex) &&
-							RangeHelper.Distance(parameters.Performer.Hex, state.Performer.Hex) <= 1,
+							RangeHelper.Distance(parameters.Figure.Hex, state.Performer.Hex) <= 1,
 						async parameters =>
 						{
 							state.SetCustomValue(this, "LastUseRoundIndex", GameController.Instance.ScenarioPhaseManager.RoundIndex);
 
-							await AbilityCmd.AddCondition(null, parameters.Performer, Conditions.Immobilize);
-							await AbilityCmd.AddCondition(null, parameters.Performer, Conditions.Invisible);
+							await AbilityCmd.AddCondition(null, parameters.Figure, Conditions.Immobilize);
+							await AbilityCmd.AddCondition(null, parameters.Figure, Conditions.Invisible);
 						},
 						EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Invisible)),

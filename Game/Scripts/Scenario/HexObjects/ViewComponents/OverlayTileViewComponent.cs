@@ -28,7 +28,7 @@ public sealed partial class OverlayTileViewComponent : HexObjectViewComponent
 			}
 		}
 
-		_icon.GlobalPosition = bestHexPosition + 90f * Vector2.Down;
-		_icon.GlobalRotation = 0f;
+		_icon.SetGlobalPosition(bestHexPosition + 90f * Vector2.Down);
+		_icon.SetGlobalRotation(0f);
 	}
 }

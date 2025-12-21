@@ -19,7 +19,7 @@ public abstract class AbstractModel : IComparable<AbstractModel>
 	private bool _idSet;
 	private ModelId _id;
 
-	public bool IsMutable { get; protected set; }
+	public bool IsMutable { get; private set; }
 
 	public ModelId Id
 	{

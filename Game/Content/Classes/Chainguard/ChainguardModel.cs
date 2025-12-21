@@ -6,6 +6,8 @@ public class ChainguardModel : ClassModel
 	public override string Name => "Chainguard";
 	public override MaxHealthValues MaxHealthValues => MaxHealthValues.High;
 	public override int HandSize => 10;
+	public override Ancestry Ancestry => Ancestry.Inox;
+
 	public override string AssetPath => "res://Content/Classes/Chainguard";
 	public override Color PrimaryColor => Color.FromHtml("ce6d30");
 	public override Color SecondaryColor => Color.FromHtml("1e1d1d");

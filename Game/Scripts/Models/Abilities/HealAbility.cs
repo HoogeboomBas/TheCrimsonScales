@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -164,13 +166,6 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		ScenarioEvents.AfterHealPerformedEvent.Unsubscribe(AfterHealPerformedSubscriptions);
 	}
 
-	// protected override async GDTask InitAbilityState(State abilityState)
-	// {
-	// 	await base.InitAbilityState(abilityState);
-	//
-	// 	abilityState.AbilityHealValue = HealValue.GetValue(abilityState);
-	// }
-
 	protected override void InitAbilityStateForSingleTarget(State abilityState)
 	{
 		base.InitAbilityStateForSingleTarget(abilityState);
@@ -182,14 +177,6 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	{
 		return ScenarioEvents.DuringHealEvent.CreateEffectCollection(new ScenarioEvents.DuringHeal.Parameters(abilityState));
 	}
-
-	// protected override void SyncDuringTargetedAbilityParameters(State abilityState, ScenarioEvents.DuringTargetedAbilityParametersBase<State> abilityStateParameters)
-	// {
-	// 	base.SyncDuringTargetedAbilityParameters(abilityState, abilityStateParameters);
-	//
-	// 	ScenarioEvents.DuringHeal.Parameters castAbilityStateParameters = (ScenarioEvents.DuringHeal.Parameters)abilityStateParameters;
-	// 	abilityState.AbilityHealValue = castAbilityStateParameters.HealValue;
-	// }
 
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
@@ -221,6 +208,17 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 		await ScenarioEvents.AfterHealPerformedEvent.CreatePrompt(
 			new ScenarioEvents.AfterHealPerformed.Parameters(abilityState, blockedAbilityStateParameters.IsBlocked), abilityState);
+	}
+
+	protected override void GetValidTargets(State abilityState, List<Figure> figures)
+	{
+		base.GetValidTargets(abilityState, figures);
+
+		if(abilityState.Authority is not Character)
+		{
+			int mostHealthLost = figures.Select(figure => figure.MaxHealth - figure.Health).Max();
+			figures.RemoveAll(figure => figure.MaxHealth - figure.Health < mostHealthLost);
+		}
 	}
 
 	protected override string DefaultTargetingHintText(State abilityState)

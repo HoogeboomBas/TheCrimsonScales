@@ -96,27 +96,29 @@ public class ScenarioCheckEvents
 	private readonly CanEnterObstacleCheck _canEnterObstacleCheck = new CanEnterObstacleCheck();
 	public static CanEnterObstacleCheck CanEnterObstacleCheckEvent => GameController.Instance.ScenarioCheckEvents._canEnterObstacleCheck;
 
-	public class CanEnterHexWithFigureCheck : ScenarioCheckEvent<CanEnterHexWithFigureCheck.Parameters>
+	public class CanStopMoveAtHexWithFigureCheck : ScenarioCheckEvent<CanStopMoveAtHexWithFigureCheck.Parameters>
 	{
-		public class Parameters(Figure figure, Hex hex, Figure otherFigure, bool tryingToStopAt)
+		public class Parameters(AbilityState potentialAbilityState, Figure figure, Hex hex, Figure otherFigure)
 			: ParametersBase
 		{
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Figure Figure { get; } = figure;
 			public Hex Hex { get; } = hex;
 			public Figure OtherFigure { get; } = otherFigure;
-			public bool TryingToStopAt { get; } = tryingToStopAt;
 
-			public bool CanEnter { get; private set; } = false;
+			public bool CanStopAt { get; private set; } = false;
 
-			public void SetCanEnter()
+			public void SetCanStopAt()
 			{
-				CanEnter = true;
+				CanStopAt = true;
 			}
 		}
 	}
 
-	private readonly CanEnterHexWithFigureCheck _canEnterHexWithFigureCheck = new CanEnterHexWithFigureCheck();
-	public static CanEnterHexWithFigureCheck CanEnterHexWithFigureCheckEvent => GameController.Instance.ScenarioCheckEvents._canEnterHexWithFigureCheck;
+	private readonly CanStopMoveAtHexWithFigureCheck _canStopMoveAtHexWithFigureCheck = new CanStopMoveAtHexWithFigureCheck();
+
+	public static CanStopMoveAtHexWithFigureCheck CanStopMoveAtHexWithFigureCheckEvent =>
+		GameController.Instance.ScenarioCheckEvents._canStopMoveAtHexWithFigureCheck;
 
 	public class CanPassEnemyCheck : ScenarioCheckEvent<CanPassEnemyCheck.Parameters>
 	{
@@ -321,6 +323,27 @@ public class ScenarioCheckEvents
 	private readonly AppliesVisualCheck _appliesVisualCheck = new AppliesVisualCheck();
 	public static AppliesVisualCheck AppliesVisualCheckEvent => GameController.Instance.ScenarioCheckEvents._appliesVisualCheck;
 
+	public class GenericInfoItemExtraEffectsCheck : ScenarioCheckEvent<GenericInfoItemExtraEffectsCheck.Parameters>
+	{
+		public class Parameters(HexObject hexObject)
+			: ParametersBase
+		{
+			public HexObject HexObject { get; } = hexObject;
+
+			public List<InfoExtraEffectParameters> InfoExtraEffectsParameters { get; } = new List<InfoExtraEffectParameters>();
+
+			public void Add(InfoExtraEffectParameters infoExtraEffectParameters)
+			{
+				InfoExtraEffectsParameters.Add(infoExtraEffectParameters);
+			}
+		}
+	}
+
+	private readonly GenericInfoItemExtraEffectsCheck _genericInfoItemExtraEffectsCheck = new GenericInfoItemExtraEffectsCheck();
+
+	public static GenericInfoItemExtraEffectsCheck GenericInfoItemExtraEffectsCheckEvent =>
+		GameController.Instance.ScenarioCheckEvents._genericInfoItemExtraEffectsCheck;
+
 	public class FigureInfoItemExtraEffectsCheck : ScenarioCheckEvent<FigureInfoItemExtraEffectsCheck.Parameters>
 	{
 		public class Parameters(Figure figure)
@@ -328,11 +351,11 @@ public class ScenarioCheckEvents
 		{
 			public Figure Figure { get; } = figure;
 
-			public List<FigureInfoExtraEffectParameters> FigureInfoExtraEffectsParameters { get; } = new List<FigureInfoExtraEffectParameters>();
+			public List<InfoExtraEffectParameters> InfoExtraEffectsParameters { get; } = new List<InfoExtraEffectParameters>();
 
-			public void Add(FigureInfoExtraEffectParameters figureInfoExtraEffectParameters)
+			public void Add(InfoExtraEffectParameters infoExtraEffectParameters)
 			{
-				FigureInfoExtraEffectsParameters.Add(figureInfoExtraEffectParameters);
+				InfoExtraEffectsParameters.Add(infoExtraEffectParameters);
 			}
 		}
 	}
@@ -444,6 +467,15 @@ public class ScenarioCheckEvents
 				};
 			}
 
+			public void SetInitiative(int initiative)
+			{
+				Initiative = new Initiative
+				{
+					MainInitiative = initiative,
+					SortingInitiative = initiative * 10000000
+				};
+			}
+
 			public void SetSortingInitiative(int sortingInitiative)
 			{
 				Initiative = new Initiative
@@ -485,6 +517,8 @@ public class ScenarioCheckEvents
 			public Figure Figure { get; } = figure;
 
 			public Figure Mount { get; private set; } = null;
+
+			public bool IsMounted => Mount != null;
 
 			public void SetMount(Figure mount)
 			{
@@ -571,4 +605,21 @@ public class ScenarioCheckEvents
 
 	private readonly SpawnCoinCheck _spawnCoinCheck = new SpawnCoinCheck();
 	public static SpawnCoinCheck SpawnCoinCheckEvent => GameController.Instance.ScenarioCheckEvents._spawnCoinCheck;
+
+	public class MoneyTokenValueCheck : ScenarioCheckEvent<MoneyTokenValueCheck.Parameters>
+	{
+		public class Parameters(int value)
+			: ParametersBase
+		{
+			public int Value { get; private set; } = value;
+
+			public void AdjustValue(int delta)
+			{
+				Value += delta;
+			}
+		}
+	}
+
+	private readonly MoneyTokenValueCheck _moneyTokenValueCheck = new MoneyTokenValueCheck();
+	public static MoneyTokenValueCheck MoneyTokenValueCheckEvent => GameController.Instance.ScenarioCheckEvents._moneyTokenValueCheck;
 }

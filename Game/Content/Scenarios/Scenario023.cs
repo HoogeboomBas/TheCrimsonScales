@@ -17,38 +17,45 @@ public class Scenario023 : ScenarioModel
 	{
 		await base.StartAfterFirstRoomRevealed();
 
-		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<IronSnare>()); 
+		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<IronSnare>());
 
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
-			parameters => !parameters.ForgoneAction && RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 2)
-								.Where(figure => figure.HasCondition(Conditions.Chill) &&
-								((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)).Any(),
+			parameters =>
+				!parameters.ForgoneAction && RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 2)
+					.Any(figure =>
+						figure.HasCondition(Conditions.Chill) &&
+						((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)),
 			async parameters =>
 			{
 				parameters.ForgoAction();
 
-				ActionState actionState = new ActionState(parameters.Performer, [OtherAbility.Builder()
-					.WithPerformAbility(async state =>
-					{
-						Figure figure = await AbilityCmd.SelectFigure(state, list =>
+				ActionState actionState = new ActionState(parameters.Performer,
+				[
+					OtherAbility.Builder()
+						.WithPerformAbility(async state =>
 						{
-							list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 2)
-								.Where(figure => (figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure));
-						});
+							Figure figure = await AbilityCmd.SelectFigure(state, list =>
+							{
+								list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 2)
+									.Where(figure =>
+										(figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure));
+							});
 
-						if(figure == null)
-						{
-							return;
-						}
+							if(figure == null)
+							{
+								return;
+							}
 
-						await AbilityCmd.RemoveAllChill(figure);
-					})
-					.Build()]);
+							await AbilityCmd.RemoveAllChill(figure);
+						})
+						.Build()
+				]);
 				await actionState.Perform();
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Chill)),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)} 2.")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters(
+				$"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)} 2.")
 		);
 	}
 }

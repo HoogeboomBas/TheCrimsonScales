@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://chrb82kx22js2"]
+
+[ext_resource type="Texture2D" uid="uid://djeiqd2ojba04" path="res://Content/Classes/Chieftain/Summons/cottonmouth_snake_AI.png" id="1_yumkj"]
+
+[resource]
+atlas = ExtResource("1_yumkj")
+region = Rect2(60, 150, 400, 400)

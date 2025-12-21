@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
+[IgnoreModelId]
 public class GelatinousGiant : MonsterModel, IBossMonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>

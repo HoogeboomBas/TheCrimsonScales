@@ -72,7 +72,9 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 				{
 					AbilityCard selectedAbilityCard =
 						await AbilityCmd.SelectAbilityCard((Character)state.Performer, CardState.PersistentLoss,
-							canSelectFunc: abilityCard => abilityCard.Top.Abilities.Concat(abilityCard.Bottom.Abilities).Any(cardAbility => cardAbility.Ability is SummonAbility),
+							canSelectFunc: abilityCard =>
+								abilityCard.Top.Abilities.Concat(abilityCard.Bottom.Abilities)
+									.Any(cardAbility => cardAbility.Ability is SummonAbility),
 							hintText: $"Select an active card with summon ability to attach to");
 
 					if(selectedAbilityCard == null)
@@ -117,7 +119,8 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Figure),
 						parameters => parameters.Add(
-							new FigureInfoTextExtraEffect.Parameters($"This summon adds +1{Icons.Inline(Icons.Attack)} to all its attacks and you control its abilities"))
+							new InfoTextExtraEffect.Parameters(
+								$"This summon adds +1{Icons.Inline(Icons.Attack)} to all its attacks and you control its abilities"))
 					);
 				})
 				.WithOnDeactivate(async state =>

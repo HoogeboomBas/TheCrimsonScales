@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://dei7t8yn4p0ba"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_4vxda"]
+[ext_resource type="Script" uid="uid://cls0x1eoqs1pa" path="res://Scripts/UI/Popups/GoldDistributionPopup/GoldDistributionPopup.cs" id="2_cchhp"]
+[ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="3_qd313"]
+[ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="4_5488v"]
+[ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="5_5488v"]
+[ext_resource type="PackedScene" uid="uid://dpb365jh40ewc" path="res://Scenes/UI/Popups/GoldDistributionPopup/GoldDistributionPopupCharacter.tscn" id="5_cchhp"]
+[ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="7_cchhp"]
+
+[node name="GoldDistributionPopup" node_paths=PackedStringArray("_distributionAmountLabel", "_characterParent", "_confirmButton") instance=ExtResource("1_4vxda")]
+script = ExtResource("2_cchhp")
+_distributionAmountLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount/Gold/Label")
+_characterScene = ExtResource("5_cchhp")
+_characterParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/Characters")
+_confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer/ConfirmButton")
+
+[node name="Button" parent="Background" index="0"]
+visible = false
+
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" index="0"]
+visible = false
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+text = "Distribute Gold"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0"]
+layout_mode = 2
+theme_override_constants/margin_top = 255
+
+[node name="Control" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="DistributionAmount" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control" index="0"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount" index="0"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_5488v")
+
+[node name="Gold" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount" index="1"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount/Gold" index="0"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_qd313")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount/Gold" index="1"]
+layout_mode = 2
+text = "20/40"
+label_settings = ExtResource("4_5488v")
+
+[node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ConfirmButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer" index="0" instance=ExtResource("7_cchhp")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2

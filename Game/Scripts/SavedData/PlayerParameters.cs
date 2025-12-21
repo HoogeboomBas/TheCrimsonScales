@@ -9,7 +9,4 @@ public class PlayerParameters
 
 	[JsonProperty]
 	public Guid PlayerDeviceGuid { get; set; }
-
-	// [JsonProperty]
-	// public PlayerType PlayerType { get; set; }
 }

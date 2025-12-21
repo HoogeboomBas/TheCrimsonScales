@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwe2ry8s1wyke"]
 
-[ext_resource type="Texture2D" uid="uid://cvxentaxnsw52" path="res://Art/BetweenScenarios/PaperTexture.jpg" id="1_gbx1b"]
+[ext_resource type="Texture2D" uid="uid://cvxentaxnsw52" path="res://Art/BetweenScenarios/ItemShop/PaperTexture.jpg" id="1_gbx1b"]
 [ext_resource type="Script" uid="uid://8qikv5qr6ies" path="res://Scripts/BetweenScenarios/ItemShop/ItemShopPage.cs" id="1_rjcet"]
 [ext_resource type="PackedScene" uid="uid://corqpq2v7rvh4" path="res://Scenes/BetweenScenarios/ItemShop/ItemShopItem.tscn" id="2_je2rg"]
 

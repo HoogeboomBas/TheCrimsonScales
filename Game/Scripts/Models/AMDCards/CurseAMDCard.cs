@@ -1,11 +1,8 @@
-﻿public class CurseAMDCard : AMDCard
+﻿public class CurseAMDCard : DefaultOtherAMDCardModel
 {
+	protected override int AtlasIndex => 2;
+
+	public override bool Reshuffles => true;
 	public override bool RemoveAfterDraw => true;
 	public override AMDCardType Type => AMDCardType.Null;
-	public override int? Value => null;
-
-	public CurseAMDCard(string textureAtlasPath, int atlasIndex, int textureAtlasColumnCount, int textureAtlasRowsCount)
-		: base(textureAtlasPath, atlasIndex, textureAtlasColumnCount, textureAtlasRowsCount)
-	{
-	}
 }

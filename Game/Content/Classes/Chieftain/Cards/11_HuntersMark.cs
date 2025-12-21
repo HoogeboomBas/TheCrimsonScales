@@ -26,8 +26,8 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 								list.Add(figure);
 							}
 						}
-					}, hintText: $"Choose an enemy within range {Icons.Inline(Icons.Range)}3 ");
-					
+					}, hintText: () => $"Choose an enemy within range {Icons.Inline(Icons.Range)}3 ");
+
 					if(chosenFigure == null)
 					{
 						return;
@@ -36,7 +36,7 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 					// If targeted by chosen enemy, reduce own sorting initiative for targeting purposes
 					ScenarioCheckEvents.PotentialTargetCheckEvent.Subscribe(state, this,
 						parameters => parameters.Performer == chosenFigure && state.Performer == parameters.PotentialTarget,
-						parameters => 
+						parameters =>
 						{
 							if(Chieftain.GetIsMounted(state.Performer))
 							{
@@ -74,7 +74,7 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 					ScenarioCheckEvents.PotentialTargetCheckEvent.Unsubscribe(state, this);
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
-					
+
 					await GDTask.CompletedTask;
 				})
 				.Build())

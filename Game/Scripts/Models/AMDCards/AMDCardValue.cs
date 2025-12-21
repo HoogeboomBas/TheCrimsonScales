@@ -1,16 +1,25 @@
+using System;
+using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
-public class AMDCardValue
+public class AMDCardValue(
+	bool rolling, AMDCardType cardType, int? value, int? pierce, int? push, int? pull, int? swing,
+	List<CardElementInfusion> elementInfusions, List<ConditionModel> conditionModels, List<Ability> abilities,
+	Func<AttackAbility.State, GDTask> extraEffects)
 {
-	public AMDCardType CardType { get; private set; }
-	public int? Value { get; private set; }
+	public bool Rolling { get; } = rolling;
 
-	public AMDCardValue(AMDCardType cardType, int? value)
-	{
-		CardType = cardType;
-		Value = value;
-	}
+	public AMDCardType CardType { get; } = cardType;
+	public int? Value { get; } = value;
+
+	public int? Pierce { get; } = pierce;
+	public int? Push { get; } = push;
+	public int? Pull { get; } = pull;
+	public int? Swing { get; } = swing;
+	public List<CardElementInfusion> ElementInfusions { get; } = elementInfusions;
+	public List<ConditionModel> ConditionModels { get; } = conditionModels;
+	public List<Ability> Abilities { get; } = abilities;
+	public Func<AttackAbility.State, GDTask> ExtraEffects { get; } = extraEffects;
 
 	public async GDTask Apply(AttackAbility.State attackAbilityState)
 	{
@@ -18,11 +27,79 @@ public class AMDCardValue
 			await ScenarioEvents.AMDCardValueAppliedEvent.CreatePrompt(
 				new ScenarioEvents.AMDCardValueApplied.Parameters(attackAbilityState, this), attackAbilityState);
 
-			int adjustedValue = amdCardValueAppliedParameters.AMDCardValue.GetAttackModifierValue(attackAbilityState);
-			attackAbilityState.SingleTargetAdjustAttackValue(adjustedValue);
+		int adjustedValue = amdCardValueAppliedParameters.AMDCardValue.GetAttackModifierValue(attackAbilityState);
+		attackAbilityState.SingleTargetAdjustAttackValue(adjustedValue);
+
+		if(Pierce.HasValue)
+		{
+			attackAbilityState.SingleTargetAdjustPierce(Pierce.Value);
+		}
+
+		if(Push.HasValue)
+		{
+			attackAbilityState.SingleTargetAdjustPush(Push.Value);
+		}
+
+		if(Pull.HasValue)
+		{
+			attackAbilityState.SingleTargetAdjustPull(Pull.Value);
+		}
+
+		if(Swing.HasValue)
+		{
+			attackAbilityState.SingleTargetAdjustSwing(Swing.Value);
+		}
+
+		foreach(CardElementInfusion elementInfusion in ElementInfusions)
+		{
+			bool canInfuse = false;
+			if(elementInfusion.ConsumableElements == null)
+			{
+				canInfuse = true;
+			}
+			else
+			{
+				Element? consumedElement = await AbilityCmd.AskConsumeElement(attackAbilityState.Performer, elementInfusion.ConsumableElements, true);
+				if(consumedElement.HasValue)
+				{
+					canInfuse = true;
+				}
+			}
+
+			if(canInfuse)
+			{
+				await AbilityCmd.InfuseElement(attackAbilityState.Performer, elementInfusion.PossibleInfusedElements);
+			}
+		}
+
+		foreach(ConditionModel condition in ConditionModels)
+		{
+			attackAbilityState.SingleTargetAddCondition(condition);
+		}
+
+		if(Abilities.Count > 0)
+		{
+			ScenarioEvents.AfterAttackPerformedEvent.Subscribe(attackAbilityState, this,
+				parameters =>
+					attackAbilityState == parameters.AbilityState &&
+					parameters.AbilityState.Target == attackAbilityState.Target,
+				async parameters =>
+				{
+					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(attackAbilityState, this);
+
+					ActionState actionState = new ActionState(attackAbilityState.Performer, Abilities);
+					await actionState.Perform();
+				}
+			);
+		}
+
+		if(ExtraEffects != null)
+		{
+			await ExtraEffects.Invoke(attackAbilityState);
+		}
 	}
 
-	protected int GetAttackModifierValue(AttackAbility.State attackAbilityState)
+	public int GetAttackModifierValue(AttackAbility.State attackAbilityState)
 	{
 		int attackModifierValue = 0;
 		if(CardType == AMDCardType.Crit)
@@ -33,15 +110,17 @@ public class AMDCardValue
 		{
 			attackModifierValue = -attackAbilityState.SingleTargetAttackValue;
 		}
-		else if(Value.HasValue)
+		else if(CardType == AMDCardType.Value && Value.HasValue)
 		{
 			attackModifierValue = Value.Value;
 		}
+
 		return attackModifierValue;
 	}
 
-	public (int, bool) GetScore(AttackAbility.State attackAbilityState)
+	public bool GetHasExtraEffects(AttackAbility.State attackAbilityState)
 	{
-		return (GetAttackModifierValue(attackAbilityState), false);
+		return Pierce.HasValue || Push.HasValue || Pull.HasValue || Swing.HasValue ||
+		       ElementInfusions.Count > 0 || ConditionModels.Count > 0 || Abilities.Count > 0 || ExtraEffects != null;
 	}
 }

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bnbcetf0xqwh4"]
+
+[ext_resource type="Texture2D" uid="uid://c1d7hufe2cet6" path="res://Content/Classes/Chieftain/Summons/black_panther_AI.png" id="1_2sw0j"]
+
+[resource]
+atlas = ExtResource("1_2sw0j")
+region = Rect2(70, 230, 400, 400)

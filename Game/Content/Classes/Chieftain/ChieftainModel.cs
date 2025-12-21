@@ -6,6 +6,8 @@ public class ChieftainModel : ClassModel
 	public override string Name => "Chieftain";
 	public override MaxHealthValues MaxHealthValues => MaxHealthValues.Medium;
 	public override int HandSize => 10;
+	public override Ancestry Ancestry => Ancestry.Orchid;
+
 	public override string AssetPath => "res://Content/Classes/Chieftain";
 	public override Color PrimaryColor => Color.FromHtml("76c7c3");
 	public override Color SecondaryColor => Color.FromHtml("5e7574");

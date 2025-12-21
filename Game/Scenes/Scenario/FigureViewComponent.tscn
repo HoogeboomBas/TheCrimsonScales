@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://2cvn7adxaika"]
+[gd_scene load_steps=18 format=3 uid="uid://2cvn7adxaika"]
 
 [ext_resource type="Script" uid="uid://dqlt5qoskoteg" path="res://Scripts/Scenario/HexObjects/ViewComponents/FigureViewComponent.cs" id="1_akne4"]
 [ext_resource type="Texture2D" uid="uid://bgv3secgxmvit" path="res://Art/Icons/Abilities/DropSolid.svg" id="2_6qsfo"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://b52qno1r2b0cb" path="res://Art/Icons/Abilities/Shield.svg" id="5_mf4sv"]
 [ext_resource type="Texture2D" uid="uid://vgdnn7dqdiiv" path="res://Art/Icons/Abilities/Flying.svg" id="7_etyjo"]
 [ext_resource type="PackedScene" uid="uid://bpwuqcoowtyi0" path="res://Scenes/Scenario/FigureActiveParticleSystemEdge.tscn" id="8_y46q5"]
+
+[sub_resource type="Curve" id="Curve_mf4sv"]
+_data = [Vector2(0, 0), 0.0, 0.666616, 0, 0, Vector2(1, 1), 2.06045, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_dcrig"]
 font = ExtResource("3_4xl1m")
@@ -47,6 +51,7 @@ z_index = 10
 script = ExtResource("1_akne4")
 Health = NodePath("Health")
 HealthProgressBar = NodePath("Health/TextureProgressBar")
+HealthProgressBarCurve = SubResource("Curve_mf4sv")
 HealthLabel = NodePath("Health/Label")
 Shield = NodePath("Shield")
 ShieldLabel = NodePath("Shield/Label")
@@ -179,6 +184,7 @@ visibility_rect = Rect2(-10000, -10000, 20000, 20000)
 process_material = SubResource("ParticleProcessMaterial_u5ejh")
 
 [node name="FigureActiveParticleSystem" type="Node2D" parent="."]
+visible = false
 
 [node name="FigureActiveParticleSystemEdge" parent="FigureActiveParticleSystem" instance=ExtResource("8_y46q5")]
 

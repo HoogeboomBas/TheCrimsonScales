@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://s6bf1i55mvmv"]
+[gd_scene load_steps=6 format=3 uid="uid://s6bf1i55mvmv"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_h70qi"]
 [ext_resource type="Script" uid="uid://j2g23qwspah3" path="res://Scripts/Scenario/UI/InfoView/GenericInfoItem.cs" id="2_ufmcx"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="3_ujst0"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="4_3nf0c"]
+[ext_resource type="PackedScene" uid="uid://bmmrjlw6yb3gg" path="res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoExtraEffectsView.tscn" id="5_ujst0"]
 
-[node name="GenericInfoItem" node_paths=PackedStringArray("_container", "_sceneAnchor", "_descriptionLabel") instance=ExtResource("1_h70qi")]
+[node name="GenericInfoItem" node_paths=PackedStringArray("_container", "_sceneAnchor", "_descriptionLabel", "_infoExtraEffectsView") instance=ExtResource("1_h70qi")]
 script = ExtResource("2_ufmcx")
 _container = NodePath("MarginContainer/Content/Container")
 _sceneAnchor = NodePath("MarginContainer/Content/Container/SceneAnchor")
 _descriptionLabel = NodePath("MarginContainer/Content/Description")
+_infoExtraEffectsView = NodePath("MarginContainer/Content/InfoExtraEffectsView")
 
 [node name="Container" type="Control" parent="MarginContainer/Content" index="1"]
 custom_minimum_size = Vector2(0, 176)
@@ -38,3 +40,6 @@ theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
+
+[node name="InfoExtraEffectsView" parent="MarginContainer/Content" index="3" instance=ExtResource("5_ujst0")]
+layout_mode = 2

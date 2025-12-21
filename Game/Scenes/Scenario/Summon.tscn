@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ccxgjc6nyik0x" path="res://Scripts/Scenario/HexObjects/Summons/Summon.cs" id="1_qggrl"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_awojk"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_iwudd"]
-[ext_resource type="Texture2D" uid="uid://d7l0ylkan488" path="res://Art/water-spirit.png" id="4_rm1md"]
+[ext_resource type="Texture2D" uid="uid://d7l0ylkan488" path="res://Art/Other/water-spirit.png" id="4_rm1md"]
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="5_ex5sq"]
 [ext_resource type="Script" uid="uid://ekilhimkil1g" path="res://Scripts/Scenario/HexObjects/ViewComponents/SummonViewComponent.cs" id="6_rpkou"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="7_8nnge"]

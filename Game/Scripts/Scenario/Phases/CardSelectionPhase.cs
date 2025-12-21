@@ -230,7 +230,7 @@ public class CardSelectionPhase : ScenarioPhase
 
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
-			if(character.IsDead)
+			if(character.IsDead || character.Hex == null)
 			{
 				continue;
 			}

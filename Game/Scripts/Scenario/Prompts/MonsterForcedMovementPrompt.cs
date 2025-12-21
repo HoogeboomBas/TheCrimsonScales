@@ -34,14 +34,15 @@ public class MonsterForcedMovementPrompt(
 		_waypoints.Add(_currentNode);
 
 		// Find all hexes this AI can push/pull/swing into to
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_bestNodes.Clear();
 
 		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(target, hex))
+			if(!MoveHelper.CanStopAt(abilityState, target, hex))
 			{
 				continue;
 			}
@@ -77,14 +78,15 @@ public class MonsterForcedMovementPrompt(
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
 		HashSet<Hex> reachableHexes = new HashSet<Hex>();
 
 		// Swing requires recreating possible routes on update
-		if(type == ForcedMovementType.Swing) 
+		if(type == ForcedMovementType.Swing)
 		{
 			_bestNodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)

@@ -2,6 +2,7 @@
 {
 	Spend = 0,
 	Consume = 1,
-	Always = 2,
-	Flip = 3,
+	ConsumeUnrecoverable = 2,
+	Always = 3,
+	Flip = 4,
 }

@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://4gnhl0ponwls"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_ry06u"]
+[ext_resource type="Script" uid="uid://cd6ibmd4s7kf0" path="res://Scripts/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopup.cs" id="2_1eo3j"]
+[ext_resource type="PackedScene" uid="uid://b7kiayarr1vsm" path="res://Scenes/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopupCharacter.tscn" id="3_ry06u"]
+[ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="3_x31xv"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="4_tib2c"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_irvjn"]
+
+[node name="ItemRewardCharacterSelectionPopup" node_paths=PackedStringArray("_itemView", "_label", "_characterParent", "_confirmButton") instance=ExtResource("1_ry06u")]
+script = ExtResource("2_1eo3j")
+_itemView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ItemView")
+_label = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Label")
+_characterScene = ExtResource("3_ry06u")
+_characterParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Characters")
+_confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer/ConfirmButton")
+
+[node name="Button" parent="Background" index="0"]
+visible = false
+
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" index="0"]
+visible = false
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+text = "Item Reward"
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" instance=ExtResource("4_tib2c")]
+custom_minimum_size = Vector2(270, 413.1)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_irvjn")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Select who will receive the Boots of Striding.
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ConfirmButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer" index="0" instance=ExtResource("3_x31xv")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+_startActive = true

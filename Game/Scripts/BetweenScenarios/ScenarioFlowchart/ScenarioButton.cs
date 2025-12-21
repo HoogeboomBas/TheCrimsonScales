@@ -66,12 +66,13 @@ public partial class ScenarioButton : Control
 		{
 			ScenarioFlowchartArrow arrow = _scenarioFlowchartArrowScene.Instantiate<ScenarioFlowchartArrow>();
 			AddChild(arrow);
-			ScenarioButton destinationScenarioButton = BetweenScenariosController.Instance.ScenarioFlowchart.GetScenarioButton(connection.To.ScenarioNumber);
+			ScenarioButton destinationScenarioButton =
+				BetweenScenariosController.Instance.ScenarioFlowchart.GetScenarioButton(connection.To.ScenarioNumber);
 			arrow.Init(this, destinationScenarioButton, connection.Linked);
 			Arrows.Add(arrow);
 		}
 
-		if(!SavedScenarioProgress.Discovered)
+		if(!SavedScenarioProgress.ShownOnMap)
 		{
 			ScenarioButtonOutline.SetVisible(false);
 			_betterButton.SetVisible(false);
@@ -105,42 +106,6 @@ public partial class ScenarioButton : Control
 
 	private void OnButtonPressed()
 	{
-		if(BetweenScenariosController.Instance.SavedCampaign.Characters.Count < 2)
-		{
-			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Cannot start scenario",
-				"You need at least 2 characters in order to start a scenario.\n"));
-
-			return;
-		}
-
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {ScenarioNumber}", $"Start scenario {ScenarioNumber}?",
-			new TextButton.Parameters("Cancel",
-				() =>
-				{
-				}
-			),
-			new TextButton.Parameters("Confirm",
-				() =>
-				{
-					SavedCampaign savedCampaign = BetweenScenariosController.Instance.SavedCampaign;
-					float characterLevelSum = savedCampaign.Characters.Sum(character => character.Level);
-					int scenarioLevel = Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) + AppController.Instance.SaveFile.SaveData.Options.Difficulty.Value;
-					scenarioLevel = Mathf.Clamp(scenarioLevel, 0, 7);
-					savedCampaign.SavedScenario = new SavedScenario()
-					{
-						Id = Guid.NewGuid(),
-						AppVersion = AppController.Instance.SaveFile.SaveData.AppVersion,
-						ScenarioModelId = ModelId,
-						Seed = GD.RandRange(0, int.MaxValue),
-						ScenarioLevel = scenarioLevel,
-						IsOnline = false
-					};
-
-					AppController.Instance.SaveFile.SaveData.SavedCampaign = savedCampaign;
-					AppController.Instance.SceneLoader.RequestSceneChange(new GameSceneRequest(savedCampaign));
-				},
-				TextButton.ColorType.Green
-			)
-		));
+		BetweenScenariosController.Instance.TryStartScenario(Model);
 	}
 }

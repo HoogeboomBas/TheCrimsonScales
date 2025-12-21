@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cbtuwtadxyfut"]
+[gd_scene load_steps=32 format=3 uid="uid://cbtuwtadxyfut"]
 
 [ext_resource type="Script" uid="uid://x4kpb6u0l25u" path="res://Scripts/AppController.cs" id="1_6s6iu"]
 [ext_resource type="Script" uid="uid://bn4208bsiittm" path="res://Scripts/InputController.cs" id="2_2vstq"]
@@ -9,12 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://da55w54r560l" path="res://Scenes/UI/Popups/EquipmentPopup/EquipmentPopup.tscn" id="7_tfguv"]
 [ext_resource type="PackedScene" uid="uid://b1j0wxttvh7o5" path="res://Scenes/UI/Popups/EquipItemPopup/EquipItemPopup.tscn" id="8_sayhj"]
 [ext_resource type="PackedScene" uid="uid://dxp55frmphxfv" path="res://Scenes/UI/Popups/TreasureItemRewardPopup.tscn" id="9_il2vn"]
+[ext_resource type="PackedScene" uid="uid://2frm5bwfain6" path="res://Scenes/UI/Popups/TemporaryAMDCardsPopup/TemporaryAMDCardsPopup.tscn" id="9_nrl2y"]
 [ext_resource type="PackedScene" uid="uid://cgth2uvply7hc" path="res://Scenes/UI/Popups/CreateCharacterPopup/CreateCharacterPopup.tscn" id="10_qiebr"]
 [ext_resource type="PackedScene" uid="uid://61fxgg6lkbhf" path="res://Scenes/UI/Popups/CharacterInfoPopup.tscn" id="11_sayhj"]
 [ext_resource type="PackedScene" uid="uid://6c3csquaapgj" path="res://Scenes/UI/Popups/TextPopup.tscn" id="11_tfguv"]
 [ext_resource type="PackedScene" uid="uid://bk4q5mr73oy4u" path="res://Scenes/UI/Popups/CardSelectionPopup/CardSelectionPopup.tscn" id="12_6akjg"]
 [ext_resource type="PackedScene" uid="uid://dcd5fl2d7glct" path="res://Scenes/UI/Popups/CardSelectionPopup/LevelUpCardSelectionPopup.tscn" id="13_6akjg"]
+[ext_resource type="PackedScene" uid="uid://dei7t8yn4p0ba" path="res://Scenes/UI/Popups/GoldDistributionPopup/GoldDistributionPopup.tscn" id="13_admbk"]
 [ext_resource type="PackedScene" uid="uid://fhktc7hrkay6" path="res://Scenes/UI/Popups/MenuPopup.tscn" id="13_gkkkd"]
+[ext_resource type="PackedScene" uid="uid://4gnhl0ponwls" path="res://Scenes/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopup.tscn" id="14_i0olc"]
 [ext_resource type="PackedScene" uid="uid://fokaq7yvwl8m" path="res://Scenes/UI/Popups/CreateCampaignPopup.tscn" id="15_gd3oa"]
 [ext_resource type="PackedScene" uid="uid://b301gw0ephxqc" path="res://Scenes/UI/Popups/OptionsPopup/OptionsPopup.tscn" id="16_448tb"]
 [ext_resource type="Script" uid="uid://bu37eqpl075ak" path="res://Scripts/Audio/AudioController.cs" id="16_u3jyv"]
@@ -69,6 +72,9 @@ layout_mode = 1
 [node name="EquipItemPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("8_sayhj")]
 layout_mode = 1
 
+[node name="TemporaryAMDCardsPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("9_nrl2y")]
+layout_mode = 1
+
 [node name="TreasureItemRewardPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("9_il2vn")]
 layout_mode = 1
 
@@ -76,6 +82,12 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="CharacterInfoPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("11_sayhj")]
+layout_mode = 1
+
+[node name="GoldDistributionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("13_admbk")]
+layout_mode = 1
+
+[node name="ItemRewardCharacterSelectionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("14_i0olc")]
 layout_mode = 1
 
 [node name="LevelUpCardSelectionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("13_6akjg")]

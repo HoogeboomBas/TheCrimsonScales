@@ -68,7 +68,7 @@ public class TraumaCare : FireKnightLevelUpCardModel<TraumaCare.CardTop, TraumaC
 					);
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(abilityState, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == abilityState.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == abilityState.Performer,
 						async applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

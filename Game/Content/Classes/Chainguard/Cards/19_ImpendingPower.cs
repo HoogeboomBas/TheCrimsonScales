@@ -142,7 +142,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 				.WithOnActivate(async state => 
 				{
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
-						canApply: canApplyParameters => state.Performer == canApplyParameters.Authority,
+						canApply: canApplyParameters => state.Performer == canApplyParameters.PotentialAbilityState?.Authority,
 						async applyParameters =>
 						{
 							await AbilityCmd.SufferDamage(null, applyParameters.Figure, 2);

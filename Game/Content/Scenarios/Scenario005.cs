@@ -9,7 +9,8 @@ public class Scenario005 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals([ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
+	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals(
+		[ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
 
 	private int _markersLeftToRemove;
 	private List<Marker> _markers = null;
@@ -29,9 +30,9 @@ public class Scenario005 : ScenarioModel
 			await AbilityCmd.AddCondition(null, character, Conditions.Infect);
 		}
 
-		GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) => 
+		GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) =>
 		{
-			if(won) 
+			if(won)
 			{
 				GameController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.OozeDestroyed);
 			}
@@ -44,7 +45,8 @@ public class Scenario005 : ScenarioModel
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(AbilityCmd.GetRandomAvailableStone());
 
-		_gelatinousGiant = GameController.Instance.Map.Figures.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant).First();
+		_gelatinousGiant =
+			GameController.Instance.Map.Figures.First(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant);
 
 		_markers = GameController.Instance.Map.Markers;
 
@@ -77,7 +79,7 @@ public class Scenario005 : ScenarioModel
 
 		int doorOpenedRoundNumber = GameController.Instance.ScenarioPhaseManager.RoundIndex + 1;
 		int doorOpenedRoundNumberOddness = doorOpenedRoundNumber % 2;
-		
+
 		// Every other round spawn an ooze on the marker closest to the boss
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
 			parameters => parameters.RoundNumber % 2 != doorOpenedRoundNumberOddness,
@@ -89,7 +91,8 @@ public class Scenario005 : ScenarioModel
 
 		// When elite ooze is killed, prompt to destroy one of the markers and all connected water tiles
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => parameters.Figure is Monster monsterFigure && 
+			parameters =>
+				parameters.Figure is Monster monsterFigure &&
 				monsterFigure.MonsterModel is BloodOoze &&
 				monsterFigure.MonsterType == MonsterType.Elite,
 			async parameters =>
@@ -128,10 +131,10 @@ public class Scenario005 : ScenarioModel
 
 	private async GDTask DrainAllConnectedWater(Marker infectedWaterMarker)
 	{
-		_infectedWaterSources[infectedWaterMarker].ForEach(async hex =>
+		foreach(Hex hex in _infectedWaterSources[infectedWaterMarker])
 		{
 			await hex.GetHexObjectOfType<Water>().Destroy(forceDestroy: true);
-		});
+		}
 
 		_infectedWaterSources.Remove(infectedWaterMarker);
 
@@ -142,7 +145,7 @@ public class Scenario005 : ScenarioModel
 	{
 		// Sort the markers by distance to the boss
 		_markers.Sort(Comparer<Marker>.Create(
-			(marker0, marker1) => 
+			(marker0, marker1) =>
 				RangeHelper.Distance(marker0.Hex, _gelatinousGiant.Hex) - RangeHelper.Distance(marker1.Hex, _gelatinousGiant.Hex)
 		));
 
@@ -158,7 +161,7 @@ public class Scenario005 : ScenarioModel
 						list.Add(marker.Hex);
 						break;
 					}
-					
+
 					if(_infectedWaterSources[marker].Any(hex => hex.IsUnoccupied()))
 					{
 						list.AddRange(_infectedWaterSources[marker].Where(hex => hex.IsUnoccupied()));
@@ -179,7 +182,7 @@ public class Scenario005 : ScenarioModel
 		int bossHealth = _gelatinousGiant.Health;
 		Hex bossHex = _gelatinousGiant.Hex;
 
-		ScenarioCheckEvents.SpawnCoinCheckEvent.Subscribe(this, 
+		ScenarioCheckEvents.SpawnCoinCheckEvent.Subscribe(this,
 			parameters => parameters.Figure == _gelatinousGiant,
 			parameters => parameters.SetSpawnCoin(false));
 
@@ -188,7 +191,7 @@ public class Scenario005 : ScenarioModel
 		ScenarioCheckEvents.SpawnCoinCheckEvent.Unsubscribe(this);
 
 		_gelatinousGiant = await AbilityCmd.SummonMonster(ModelDB.Monster<GelatinousGiantSecondStage>(), MonsterType.Boss, bossHex);
-		
+
 		_gelatinousGiant.SetMaxHealth(bossHealth);
 		_gelatinousGiant.SetHealth(bossHealth);
 	}

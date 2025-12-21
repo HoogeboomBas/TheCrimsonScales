@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dddbvq6de0sc1"]
+
+[ext_resource type="Texture2D" uid="uid://b6mix1lnvb5jj" path="res://Content/Classes/Chainguard/Artwork.jpg" id="1_c2c5r"]
+
+[resource]
+atlas = ExtResource("1_c2c5r")
+region = Rect2(170, 200, 600, 600)

@@ -28,10 +28,10 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
-			extraDamage: -1, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+			extraDamage: -1,
 			range: 5
-			)),
+		)),
 
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<BloodOoze>())
@@ -41,14 +41,14 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 				int level = state.Performer is Monster performingMonster
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
-				
+
 				int health = Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2);
 
 				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2));
 
 				await GDTask.CompletedTask;
 			})
-			.WithConditionalAbilityCheck(async state => 
+			.WithConditionalAbilityCheck(async state =>
 			{
 				return state.Performer.Health > 2 && await AbilityCmd.HasPerformedAbility(state, 0);
 			})
@@ -92,8 +92,8 @@ public class BloodOozeAbilityCard1 : BloodOozeAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
@@ -139,11 +139,12 @@ public class BloodOozeAbilityCard3 : BloodOozeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
 			extraDamage: +0,
 			range: 1,
 			rangeType: RangeType.Melee,
-			afterTargetConfirmedSubscriptions: [
+			afterTargetConfirmedSubscriptions:
+			[
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					parameters => RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
 						.Count(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze) >= 2,
@@ -165,10 +166,11 @@ public class BloodOozeAbilityCard4 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 1, rangeType: RangeType.Melee, conditions: [Conditions.Poison1])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
-			extraDamage: +0, 
-			customGetTargets: (state, figures) =>
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 1, rangeType: RangeType.Melee,
+			conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+				extraDamage: +0,
+				customGetTargets: (state, figures) =>
 				{
 					figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 2, false)
 						.Except(RangeHelper.GetFiguresInRange(monster.Hex, 1, false))
@@ -188,9 +190,9 @@ public class BloodOozeAbilityCard5 : BloodOozeAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
 			extraDamage: +1,
-			conditionalAbilityCheck: async state => 
+			conditionalAbilityCheck: async state =>
 			{
 				await GDTask.CompletedTask;
 

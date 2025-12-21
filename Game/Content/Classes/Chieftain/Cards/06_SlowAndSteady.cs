@@ -18,27 +18,25 @@ public class SlowAndSteady : ChieftainCardModel<SlowAndSteady.CardTop, SlowAndSt
 					Health = 6,
 					Move = 1,
 					Attack = 1,
-					Traits = 
+					Traits =
 					[
 						new ShieldTrait(1),
 						new MountTrait(
-							async (owner, mount) => 
+							async (owner, mount) =>
 							{
 								ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Subscribe(mount, this,
-									canApply: parameters => 
+									canApply: parameters =>
 										parameters.Figure == owner ||
 										parameters.Figure == mount,
-									async parameters => 
+									parameters =>
 									{
 										parameters.SetImmuneToForcedMovement();
-
-										await GDTask.CompletedTask;
 									}
 								);
 								await GDTask.CompletedTask;
 							},
-							async (owner, mount) => 
-							{ 
+							async (owner, mount) =>
+							{
 								ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Unsubscribe(mount, this);
 
 								await GDTask.CompletedTask;

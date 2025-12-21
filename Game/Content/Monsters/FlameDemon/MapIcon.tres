@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://csmpcncevh5cm"]
+
+[ext_resource type="Texture2D" uid="uid://dlkwc53pmeci0" path="res://Content/Monsters/FlameDemon/Icon.jpg" id="1_5h3le"]
+
+[resource]
+atlas = ExtResource("1_5h3le")
+region = Rect2(65, 65, 370, 370)

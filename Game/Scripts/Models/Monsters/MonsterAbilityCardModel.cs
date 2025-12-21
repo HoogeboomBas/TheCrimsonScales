@@ -10,8 +10,8 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 	public abstract string CardsAtlasPath { get; }
 
 	public virtual bool Reshuffles => false;
-	public virtual IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } = [];
-	public virtual IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } = [];
+	public virtual IEnumerable<CardElementInfusion> ElementInfusions { get; } = [];
+	public virtual IEnumerable<CardElementConsumption> ElementConsumptions { get; } = [];
 
 	public bool RemoveAfterDraw => false;
 

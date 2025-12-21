@@ -37,14 +37,19 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState => 
+				.WithGetAbilities(grantAbilityState =>
 				[
 					AttackAbility.Builder()
 						.WithDamage(2)
-						.WithCustomGetTargets((attackAbilityState, figures) => 
+						.WithCustomGetTargets((attackAbilityState, figures) =>
 						{
 							figures.AddRange(grantAbilityState.ActionState.GetAbilityState<AttackAbility.State>(0).UniqueTargetedFigures);
 						})
+						.Build(),
+					ConditionAbility.Builder()
+						.WithConditions(Conditions.Muddle)
+						.WithTarget(Target.Self)
+						.WithMandatory(true)
 						.Build()
 				])
 				.WithCustomGetTargets((state, figures) =>
@@ -58,12 +63,6 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 				.WithTarget(Target.Allies | Target.TargetAll)
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
-
-			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Muddle)
-				.WithTarget(Target.Self)
-				.WithMandatory(true)
-				.Build())
 		];
 
 		protected override int XP => 1;

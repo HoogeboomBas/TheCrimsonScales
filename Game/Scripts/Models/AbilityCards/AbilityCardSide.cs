@@ -14,6 +14,7 @@ public abstract class AbilityCardSide
 	protected virtual bool Persistent => false;
 	protected virtual bool Loss => false;
 	protected virtual bool Unrecoverable => false;
+	protected virtual bool CanDeactivate => true;
 
 	public bool IsTop => AbilityCard.Top == this;
 	public bool IsBasicTop => AbilityCard.BasicTop == this;
@@ -80,7 +81,7 @@ public abstract class AbilityCardSide
 					}
 					else if(persistent)
 					{
-						resultingState = loss ? CardState.PersistentLoss : CardState.Persistent;
+						resultingState = loss ? CardState.PersistentLoss : (CanDeactivate ? CardState.Persistent : CardState.PersistentNoDeactivate);
 					}
 					else
 					{

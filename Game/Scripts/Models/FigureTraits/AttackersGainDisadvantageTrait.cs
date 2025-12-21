@@ -2,9 +2,9 @@
 
 public class AttackersGainDisadvantageTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(figure, this,
 			parameters => parameters.AbilityState.Target == figure,
@@ -20,14 +20,14 @@ public class AttackersGainDisadvantageTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
+				parameters.Add(new InfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
 			}
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);

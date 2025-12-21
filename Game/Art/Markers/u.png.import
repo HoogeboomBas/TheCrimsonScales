@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctf7u5he5tbrx"
-path="res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.ctex"
+path.s3tc="res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.s3tc.ctex"
+path.etc2="res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Art/Markers/u.png"
-dest_files=["res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.ctex"]
+dest_files=["res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.s3tc.ctex", "res://.godot/imported/u.png-7d3f2711a86f82ef819677fb0065cd06.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

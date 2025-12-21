@@ -95,7 +95,7 @@ public class Scenario002 : ScenarioModel
 
 			UpdateScenarioText(
 				$"The door is locked. When a character ends their turn on the pressure plate marked {Icons.InlineMarker(Marker.Type.b)} the door is permanently unlocked " +
-				$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)} 2, Self” ability.");
+				$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)}2, self” ability.");
 		}
 
 		if(parameters.OpenedDoor == _door2)

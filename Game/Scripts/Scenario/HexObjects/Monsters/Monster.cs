@@ -10,6 +10,7 @@ public partial class Monster : Figure
 	private static readonly Color EliteColor = Color.FromHtml("#edc916");
 	private static readonly Color BossColor = Color.FromHtml("#bc1515");
 
+	private Sprite2D _staticSprite;
 	private MonsterViewComponent _monsterViewComponent;
 
 	public override string DisplayName => $"{(MonsterType == MonsterType.Elite ? $"{MonsterType} " : string.Empty)}{MonsterGroup.MonsterModel.Name}";
@@ -24,6 +25,14 @@ public partial class Monster : Figure
 	public Color TypeColor { get; private set; }
 
 	public override AMDCardDeck AMDCardDeck => GameController.Instance.MonsterAMDCardDeck;
+	public override Texture2D MapIconTexture => _staticSprite.Texture;
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_staticSprite = GetNode<Sprite2D>("Mask/Sprite2D");
+	}
 
 	public void SetMonsterModel(MonsterModel monsterModel)
 	{
@@ -37,7 +46,7 @@ public partial class Monster : Figure
 		_monsterViewComponent = GetViewComponent<MonsterViewComponent>();
 	}
 
-	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, int? monsterLevel)
+	public async GDTask Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, int? monsterLevel)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -70,6 +79,15 @@ public partial class Monster : Figure
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
 
+		Texture2D mapIconTexture = ResourceLoader.Load<Texture2D>(MonsterModel.MapIconTexturePath);
+		_staticSprite.SetTexture(mapIconTexture);
+
+		if(mapIconTexture != null)
+		{
+			float textureWidth = mapIconTexture.GetWidth();
+			_staticSprite.SetScale((250f / textureWidth) * Vector2.One);
+		}
+
 		MonsterLevel = monsterLevel ?? GameController.Instance.SavedScenario.ScenarioLevel;
 		Stats = levelStats[MonsterLevel];
 
@@ -83,7 +101,7 @@ public partial class Monster : Figure
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				trait.Activate(this);
+				await trait.Activate(this);
 			}
 		}
 
@@ -115,7 +133,7 @@ public partial class Monster : Figure
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				trait.Deactivate(this);
+				await trait.Deactivate(this);
 			}
 		}
 

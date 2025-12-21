@@ -67,6 +67,8 @@ public sealed partial class ActionState
 			Performer.TurnPerformedActionStates.Add(this);
 		}
 
+		Performer.RoundPerformedActionStates.Add(this);
+
 		await ScenarioEvents.ActionStartedEvent.CreatePrompt(new ScenarioEvents.ActionStarted.Parameters(this));
 
 		foreach(Ability ability in Abilities)

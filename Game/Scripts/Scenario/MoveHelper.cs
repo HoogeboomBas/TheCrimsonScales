@@ -45,7 +45,8 @@ public static class MoveHelper
 
 					ScenarioCheckEvents.MoveCheck.Parameters moveCheckParameters =
 						ScenarioCheckEvents.MoveCheckEvent.Fire(
-							new ScenarioCheckEvents.MoveCheck.Parameters(abilityState, performer, newHex, nodeToHandle.Hex, moveCost, affectedByNegativeHex));
+							new ScenarioCheckEvents.MoveCheck.Parameters(abilityState, performer, newHex, nodeToHandle.Hex, moveCost,
+								affectedByNegativeHex));
 
 					int newMoveLeft = nodeToHandle.MoveLeft - moveCheckParameters.MoveCost;
 
@@ -54,7 +55,7 @@ public static class MoveHelper
 						continue;
 					}
 
-					if(newMoveLeft == 0 && !CanStopAt(performer, newHex, moveType))
+					if(newMoveLeft == 0 && !CanStopAt(abilityState, performer, newHex, moveType))
 					{
 						continue;
 					}
@@ -64,7 +65,8 @@ public static class MoveHelper
 						newNegativeHexEncounteredCount++;
 					}
 
-					MoveNode newNode = new MoveNode(newHex, nodeToHandle.MoveSpent + moveCheckParameters.MoveCost, newMoveLeft, newNegativeHexEncounteredCount);
+					MoveNode newNode = new MoveNode(newHex, nodeToHandle.MoveSpent + moveCheckParameters.MoveCost, newMoveLeft,
+						newNegativeHexEncounteredCount);
 
 					newNode.Parents.Add(nodeToHandle);
 
@@ -104,7 +106,7 @@ public static class MoveHelper
 	{
 		closedList.Clear();
 
-		if(!CanStopAt(performer, firstNode.Hex, moveType))
+		if(!CanStopAt(abilityState, performer, firstNode.Hex, moveType))
 		{
 			return;
 		}
@@ -140,7 +142,7 @@ public static class MoveHelper
 					int newNegativeHexEncounteredCount = nodeToHandle.NegativeHexEncounteredCount;
 
 					bool affectedByNegativeHex =
-						(fromHex.HasHexObjectOfType<HazardousTerrain>() || fromHex.HasHexObjectOfType<Trap>()) && 
+						(fromHex.HasHexObjectOfType<HazardousTerrain>() || fromHex.HasHexObjectOfType<Trap>()) &&
 						(moveType == MoveType.Regular || (moveType == MoveType.Jump && nodeToHandle == firstNode));
 
 					ScenarioCheckEvents.MoveCheck.Parameters moveCheckParameters =
@@ -159,7 +161,8 @@ public static class MoveHelper
 						newNegativeHexEncounteredCount++;
 					}
 
-					MoveNode newNode = new MoveNode(newHex, nodeToHandle.MoveSpent + moveCheckParameters.MoveCost, newMoveLeft, newNegativeHexEncounteredCount);
+					MoveNode newNode = new MoveNode(newHex, nodeToHandle.MoveSpent + moveCheckParameters.MoveCost, newMoveLeft,
+						newNegativeHexEncounteredCount);
 
 					newNode.Parents.Add(nodeToHandle);
 
@@ -204,7 +207,8 @@ public static class MoveHelper
 		return angle > 0.0f;
 	}
 
-	public static void FindReachableForcedMovementHexes(AbilityState abilityState, ForcedMovementNode firstNode, Figure target, Hex origin, ForcedMovementType type,
+	public static void FindReachableForcedMovementHexes(AbilityState abilityState, ForcedMovementNode firstNode, Figure target, Hex origin,
+		ForcedMovementType type,
 		Dictionary<Hex, ForcedMovementNode> closedList, bool addFirstNodeToClosedList = false, SwingDirectionType? requiredDirection = null)
 	{
 		closedList.Clear();
@@ -265,7 +269,8 @@ public static class MoveHelper
 							continue;
 						}
 
-						if(requiredDirection.HasValue && ((requiredDirection == SwingDirectionType.Clockwise) ^ IsClockwise(origin, nodeToHandle.Hex, newHex)))
+						if(requiredDirection.HasValue &&
+						   ((requiredDirection == SwingDirectionType.Clockwise) ^ IsClockwise(origin, nodeToHandle.Hex, newHex)))
 						{
 							continue;
 						}
@@ -278,7 +283,7 @@ public static class MoveHelper
 						continue;
 					}
 
-					if(newMoveLeft == 0 && !CanStopAt(target, newHex))
+					if(newMoveLeft == 0 && !CanStopAt(abilityState, target, newHex))
 					{
 						continue;
 					}
@@ -308,6 +313,7 @@ public static class MoveHelper
 								{
 									oldNode.Parents.Add(nodeToHandle);
 								}
+
 								break;
 						}
 					}
@@ -362,8 +368,8 @@ public static class MoveHelper
 			if(performer.EnemiesWith(otherFigure) && (moveType == MoveType.Regular))
 			{
 				ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
-				ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
-					new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
+					ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
+						new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
 
 				if(!canPassEnemyParameters.CanPass)
 				{
@@ -402,10 +408,10 @@ public static class MoveHelper
 			return false;
 		}
 
-		return CanStopAt(moveAbilityState.Performer, hex, moveAbilityState.MoveType);
+		return CanStopAt(moveAbilityState, moveAbilityState.Performer, hex, moveAbilityState.MoveType);
 	}
 
-	public static bool CanStopAt(Figure performer, Hex hex, MoveType moveType)
+	public static bool CanStopAt(AbilityState potentialAbilityState, Figure performer, Hex hex, MoveType moveType)
 	{
 		if(hex.TryGetHexObjectOfType(out Obstacle obstacle) && moveType != MoveType.Flying)
 		{
@@ -422,11 +428,11 @@ public static class MoveHelper
 		Figure otherFigure = hex.GetHexObjectOfType<Figure>();
 		if(otherFigure != null && otherFigure != performer)
 		{
-			ScenarioCheckEvents.CanEnterHexWithFigureCheck.Parameters canEnterHexWithFigureCheckParameters =
-				ScenarioCheckEvents.CanEnterHexWithFigureCheckEvent.Fire(
-					new ScenarioCheckEvents.CanEnterHexWithFigureCheck.Parameters(performer, hex, otherFigure, true));
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheck.Parameters canEnterHexWithFigureCheckParameters =
+				ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Fire(
+					new ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheck.Parameters(potentialAbilityState, performer, hex, otherFigure));
 
-			if(!canEnterHexWithFigureCheckParameters.CanEnter)
+			if(!canEnterHexWithFigureCheckParameters.CanStopAt)
 			{
 				return false;
 			}
@@ -435,9 +441,9 @@ public static class MoveHelper
 		return true;
 	}
 
-	public static bool CanStopAt(Figure performer, Hex hex)
+	public static bool CanStopAt(AbilityState potentialAbilityState, Figure performer, Hex hex)
 	{
-		return CanStopAt(performer, hex, MoveType.Regular);
+		return CanStopAt(potentialAbilityState, performer, hex, MoveType.Regular);
 	}
 
 	public static int GetMoveCost(Figure performer, Hex hex, MoveType moveType)

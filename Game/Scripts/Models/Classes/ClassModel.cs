@@ -9,6 +9,7 @@ public abstract class ClassModel : AbstractModel<ClassModel>
 	public abstract string Name { get; }
 	public abstract MaxHealthValues MaxHealthValues { get; }
 	public abstract int HandSize { get; }
+	public abstract Ancestry Ancestry { get; }
 
 	public abstract string AssetPath { get; }
 	public abstract Color PrimaryColor { get; }

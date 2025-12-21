@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d18uhspn28n56"]
+
+[ext_resource type="PackedScene" uid="uid://ctftheln1a6pb" path="res://Scenes/Scenario/OverlayTiles/Objective2H.tscn" id="1_0vm37"]
+[ext_resource type="Texture2D" uid="uid://b0sj61sk5pnt" path="res://Art/OverlayTiles/Dark Pit 2h.png" id="2_46q25"]
+
+[node name="DarkPitObjective2H" instance=ExtResource("1_0vm37")]
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource("2_46q25")
+
+[editable path="FigureViewComponent"]

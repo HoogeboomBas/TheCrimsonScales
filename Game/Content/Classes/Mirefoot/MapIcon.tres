@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b2ovfdm40bjmj"]
+
+[ext_resource type="Texture2D" uid="uid://ccaclqw4klh5w" path="res://Content/Classes/Mirefoot/Artwork.jpg" id="1_qplif"]
+
+[resource]
+atlas = ExtResource("1_qplif")
+region = Rect2(160, 200, 600, 600)

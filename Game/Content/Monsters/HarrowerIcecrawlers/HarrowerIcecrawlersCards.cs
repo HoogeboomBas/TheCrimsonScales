@@ -31,9 +31,9 @@ public class HarrowerIcecrawlersAbilityCard0 : HarrowerIcecrawlersAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
 	];
-	
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class HarrowerIcecrawlersAbilityCard1 : HarrowerIcecrawlersAbilityCard
@@ -47,9 +47,9 @@ public class HarrowerIcecrawlersAbilityCard1 : HarrowerIcecrawlersAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
-	
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
@@ -65,18 +65,18 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 			.WithOnActivate(async state =>
 			{
 				ScenarioEvents.RetaliateEvent.Subscribe(monster, this,
-						canApplyParameters =>
-							RangeHelper.Distance(state.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 2,
-						async parameters =>
-						{
-							await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Chill);
-						});
+					canApplyParameters =>
+						RangeHelper.Distance(state.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 2,
+					async parameters =>
+					{
+						await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Chill);
+					});
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}"
-							+ $" after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
+						parameters.Add(new InfoTextExtraEffect.Parameters($"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}"
+						                                                  + $" after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
 					}
 				);
 				await GDTask.CompletedTask;
@@ -107,19 +107,21 @@ public class HarrowerIcecrawlersAbilityCard3 : HarrowerIcecrawlersAbilityCard
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 			]),
-			duringAttackSubscriptions: [
+			duringAttackSubscriptions:
+			[
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustPierce(2);
-					await GDTask.CompletedTask;
-				}
-			)]
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustPierce(2);
+						await GDTask.CompletedTask;
+					}
+				)
+			]
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class HarrowerIcecrawlersAbilityCard4 : HarrowerIcecrawlersAbilityCard
@@ -131,19 +133,20 @@ public class HarrowerIcecrawlersAbilityCard4 : HarrowerIcecrawlersAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3,
-			duringAttackSubscriptions: [
+			duringAttackSubscriptions:
+			[
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustPierce(2);
-					await GDTask.CompletedTask;
-				})
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustPierce(2);
+						await GDTask.CompletedTask;
+					})
 			]
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class HarrowerIcecrawlersAbilityCard5 : HarrowerIcecrawlersAbilityCard
@@ -153,7 +156,8 @@ public class HarrowerIcecrawlersAbilityCard5 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 5, afterAttackPerformedSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 5, afterAttackPerformedSubscriptions:
+		[
 			ScenarioEvents.AfterAttackPerformed.Subscription.New(canApplyFunction: canApply => CheckElementConsumed(monster, [Element.Ice]),
 				applyFunction: async applyParameters =>
 				{
@@ -176,8 +180,8 @@ public class HarrowerIcecrawlersAbilityCard5 : HarrowerIcecrawlersAbilityCard
 		]))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class HarrowerIcecrawlersAbilityCard6 : HarrowerIcecrawlersAbilityCard

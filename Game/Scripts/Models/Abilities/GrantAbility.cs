@@ -8,8 +8,9 @@ using Fractural.Tasks;
 public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
-	{
-	}
+    {
+		public List<ActionState> GrantAbilityActionStates { get; } = new List<ActionState>();
+    }
 
 	private Func<State, List<Ability>> _getAbilities;
 
@@ -105,6 +106,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 		// Perform the actual abilities
 		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(abilityState),
 			abilityState.ActionState);
+		abilityState.GrantAbilityActionStates.Add(actionState);
 		await actionState.Perform();
 	}
 }

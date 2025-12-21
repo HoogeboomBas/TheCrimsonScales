@@ -50,10 +50,10 @@ public class Scenario004 : ScenarioModel
 		{
 			character = (Character)await AbilityCmd.SelectFigure(authority: null,
 				figures => figures.AddRange(GameController.Instance.Map.Figures.Where(figure => figure is Character)),
-				mandatory: true, autoSelectIfOne: true, hintText:
-				$"Select a character to receive Pox Antidote." + System.Environment.NewLine + System.Environment.NewLine +
-				"During this scenario, this item is equipped" + System.Environment.NewLine +
-				$"without it occupying an {Icons.Inline(Icons.GetItem(ItemType.Small))} item slot.");
+				mandatory: true, autoSelectIfOne: true, hintText: () =>
+					$"Select a character to receive Pox Antidote." + System.Environment.NewLine + System.Environment.NewLine +
+					"During this scenario, this item is equipped" + System.Environment.NewLine +
+					$"without it occupying an {Icons.Inline(Icons.GetItem(ItemType.Small))} item slot.");
 
 			GameController.Instance.EndEvent += (backToTown, won, savedScenarioProgress) =>
 			{

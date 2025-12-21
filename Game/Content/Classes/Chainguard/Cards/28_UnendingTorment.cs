@@ -17,7 +17,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 				.WithOnActivate(async state => 
 				{
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
-						canApply: canApplyParameters => canApplyParameters.Authority == state.Performer &&
+						canApply: canApplyParameters => canApplyParameters.PotentialAbilityState?.Authority == state.Performer &&
 							canApplyParameters.Figure.HasCondition(Chainguard.Shackle),
 						async applyParameters =>
 						{

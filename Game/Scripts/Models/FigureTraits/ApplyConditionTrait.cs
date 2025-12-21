@@ -2,9 +2,9 @@
 
 public class ApplyConditionTrait(ConditionModel conditionModel) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(figure, this,
 			parameters => parameters.Performer == figure,
@@ -25,9 +25,9 @@ public class ApplyConditionTrait(ConditionModel conditionModel) : FigureTrait
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(figure, this);
 	}

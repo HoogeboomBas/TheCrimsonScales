@@ -100,7 +100,7 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 					);
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(abilityState, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == abilityState.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == abilityState.Performer,
 						async applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

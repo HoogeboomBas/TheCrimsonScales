@@ -24,7 +24,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApply: canApplyParameters =>
 							state.Performer.EnemiesWith(canApplyParameters.Performer) &&
-							canApplyParameters.AMDCard is CurseAMDCard,
+							canApplyParameters.AMDCard.Model is CurseAMDCard,
 						apply: async applyParameters =>
 						{
 							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
@@ -46,7 +46,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
-					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this); 
+					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})

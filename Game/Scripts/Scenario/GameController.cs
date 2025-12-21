@@ -30,6 +30,9 @@ public partial class GameController : SceneController<GameController>
 	public CardPlayView CardPlayView { get; private set; }
 
 	[Export]
+	public SelectFigureView SelectFigureView { get; private set; }
+
+	[Export]
 	public ChoiceButtonsView ChoiceButtonsView { get; private set; }
 
 	[Export]
@@ -49,6 +52,9 @@ public partial class GameController : SceneController<GameController>
 
 	[Export]
 	public AOEView AOEView { get; private set; }
+
+	[Export]
+	public AOEButtonView AOEButtonView { get; private set; }
 
 	[Export]
 	public SufferDamageView SufferDamageView { get; private set; }
@@ -173,7 +179,7 @@ public partial class GameController : SceneController<GameController>
 			{
 				savedCampaign = SavedCampaign.Test();
 				float characterLevelSum = savedCampaign.Characters.Sum(character => character.Level);
-				savedCampaign.SavedScenario = new SavedScenario
+				savedCampaign.SetSavedScenario(new SavedScenario
 				{
 					Id = Guid.NewGuid(),
 					AppVersion = AppController.Instance.SaveFile.SaveData.AppVersion,
@@ -183,7 +189,7 @@ public partial class GameController : SceneController<GameController>
 					ScenarioLevel =
 						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) + AppController.Instance.Options.Difficulty.Value,
 					IsOnline = false
-				};
+				});
 			}
 			else
 			{
@@ -233,8 +239,8 @@ public partial class GameController : SceneController<GameController>
 		ScenarioPhaseManager = new ScenarioPhaseManager();
 
 		// Create monster AMD
-		List<AMDCard> amdCards = AMDCardDeck.GetDefaultDeckCards("res://Art/AMDs/MonsterAMD.jpg");
-		MonsterAMDCardDeck = new AMDCardDeck(amdCards, false);
+		List<AMDCard> amdCards = AMDCardDeck.GetDefaultDeckCards(AMDCardOwner.Monsters);
+		MonsterAMDCardDeck = new AMDCardDeck(amdCards, AMDCardOwner.Monsters);
 
 		PortraitView.Open();
 
@@ -479,7 +485,7 @@ public partial class GameController : SceneController<GameController>
 			newScenario.ScenarioSetupState.Completed = false;
 		}
 
-		savedCampaign.SavedScenario = newScenario;
+		savedCampaign.SetSavedScenario(newScenario);
 
 		AppController.Instance.SceneLoader.RequestSceneChange(new GameSceneRequest(savedCampaign, true));
 	}
@@ -522,22 +528,24 @@ public partial class GameController : SceneController<GameController>
 		{
 			character.SavedCharacter.AddGold(character.ObtainedCoins * goldConversion);
 			character.SavedCharacter.AddXP(character.ObtainedXP + (won ? bonusExperience : 0));
+
+			SavedCampaign.SanctuaryOfTheGreatOak.ReturnCards(character.SavedCharacter);
 		}
 
-		SavedScenarioProgress.Unlocked = true;
+		//SavedScenarioProgress.Unlocked = true;
 
 		if(won)
 		{
-			SavedScenarioProgress.Completed = true;
+			SavedScenarioProgress.Complete();
 		}
 
 		if(backToTown)
 		{
-			SavedCampaign.SavedScenario = null;
+			SavedCampaign.SetSavedScenario(null);
 		}
 		else
 		{
-			SavedCampaign.SavedScenario = new SavedScenario
+			SavedCampaign.SetSavedScenario(new SavedScenario
 			{
 				Id = Guid.NewGuid(),
 				AppVersion = SavedCampaign.SavedScenario.AppVersion,
@@ -545,10 +553,13 @@ public partial class GameController : SceneController<GameController>
 				Seed = GD.RandRange(0, int.MaxValue),
 				ScenarioLevel = SavedCampaign.SavedScenario.ScenarioLevel,
 				IsOnline = SavedCampaign.SavedScenario.IsOnline
-			};
+			});
 		}
 
 		EndEvent?.Invoke(backToTown, won, SavedScenarioProgress);
+
+		// Clear any event rewards and allow a new city event card to be drawn
+		SavedCampaign.SavedEvents.OnScenarioEnded();
 
 		AppController.Instance.SaveFile.Save();
 
@@ -601,24 +612,35 @@ public partial class GameController : SceneController<GameController>
 	private int GoldConversion()
 	{
 		int scenarioLevel = SavedScenario.ScenarioLevel;
+
+		int value = 0;
 		switch(scenarioLevel)
 		{
 			case 0:
 			case 1:
-				return 2;
+				value = 2;
+				break;
 			case 2:
 			case 3:
-				return 3;
+				value = 3;
+				break;
 			case 4:
 			case 5:
-				return 4;
+				value = 4;
+				break;
 			case 6:
-				return 5;
+				value = 5;
+				break;
 			case 7:
-				return 6;
+				value = 6;
+				break;
 		}
 
-		return 0;
+		ScenarioCheckEvents.MoneyTokenValueCheck.Parameters parameters =
+			ScenarioCheckEvents.MoneyTokenValueCheckEvent.Fire(
+				new ScenarioCheckEvents.MoneyTokenValueCheck.Parameters(value));
+
+		return parameters.Value;
 	}
 
 	private int BonusExperience()

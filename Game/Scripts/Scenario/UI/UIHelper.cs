@@ -67,6 +67,7 @@ public static class UIHelper
 				grayscaleFactor = 1f;
 				break;
 			case ItemState.Consumed:
+			case ItemState.UnrecoverablyConsumed:
 				grayscaleFactor = 1f;
 				modulateColor = LostColor;
 				break;

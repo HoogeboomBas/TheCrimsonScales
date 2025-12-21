@@ -40,8 +40,8 @@ public class SavvasIceStormAbilityCard0 : SavvasIceStormAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class SavvasIceStormAbilityCard1 : SavvasIceStormAbilityCard
@@ -57,8 +57,8 @@ public class SavvasIceStormAbilityCard1 : SavvasIceStormAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 }
 
 public class SavvasIceStormAbilityCard2 : SavvasIceStormAbilityCard
@@ -68,15 +68,14 @@ public class SavvasIceStormAbilityCard2 : SavvasIceStormAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<FrostDemon>())
 			.WithMonsterType(MonsterType.Normal)
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
@@ -92,18 +91,18 @@ public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
 			.WithOnActivate(async state =>
 			{
 				ScenarioEvents.SufferDamageEvent.Subscribe(monster, this,
-						canApplyParameters =>
-							RangeHelper.Distance(state.Performer.Hex, canApplyParameters.Figure.Hex) <= 2,
-						async parameters =>
-						{
-							parameters.AdjustShield(1);
-							await GDTask.CompletedTask;
-						});
+					canApplyParameters =>
+						RangeHelper.Distance(state.Performer.Hex, canApplyParameters.Figure.Hex) <= 2,
+					async parameters =>
+					{
+						parameters.AdjustShield(1);
+						await GDTask.CompletedTask;
+					});
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+						parameters.Add(new InfoTextExtraEffect.Parameters(
 							$"Self and all allies within {Icons.Inline(Icons.Range)}2 gain {Icons.Inline(Icons.Shield)}1"));
 					}
 				);
@@ -120,8 +119,8 @@ public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
 		),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class SavvasIceStormAbilityCard4 : SavvasIceStormAbilityCard
@@ -131,7 +130,8 @@ public class SavvasIceStormAbilityCard4 : SavvasIceStormAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions:
+		[
 			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
 				applyFunction: async parameters =>
 				{
@@ -144,11 +144,11 @@ public class SavvasIceStormAbilityCard4 : SavvasIceStormAbilityCard
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class SavvasIceStormAbilityCard5 : SavvasIceStormAbilityCard
@@ -174,8 +174,8 @@ public class SavvasIceStormAbilityCard5 : SavvasIceStormAbilityCard
 			conditionalAbilityCheck: ConsumeElementAbilityCheck<AttackAbility.State>([Element.Air])))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume([Element.Ice, Element.Air])];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume([Element.Ice, Element.Air])];
 }
 
 public class SavvasIceStormAbilityCard6 : SavvasIceStormAbilityCard
@@ -195,8 +195,8 @@ public class SavvasIceStormAbilityCard6 : SavvasIceStormAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 }
 
 public class SavvasIceStormAbilityCard7 : SavvasIceStormAbilityCard
@@ -218,6 +218,6 @@ public class SavvasIceStormAbilityCard7 : SavvasIceStormAbilityCard
 		])))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }

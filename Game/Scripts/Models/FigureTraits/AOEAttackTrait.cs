@@ -2,9 +2,9 @@
 
 public class AOEAttackTrait(AOEPattern aoePattern) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(figure, this,
 			parameters => parameters.Performer == figure && parameters.AbilityState is AttackAbility.State,
@@ -24,12 +24,11 @@ public class AOEAttackTrait(AOEPattern aoePattern) : FigureTrait
 				parameters.SetAOEPattern(aoePattern);
 			}
 		);
-		
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(figure, this);
