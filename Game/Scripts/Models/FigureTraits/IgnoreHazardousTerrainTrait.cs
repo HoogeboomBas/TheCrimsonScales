@@ -29,7 +29,7 @@ public class IgnoreHazardousTerrainTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(
 					$"This figure ignores the effects of hazardous terrain."));
 			}
 		);

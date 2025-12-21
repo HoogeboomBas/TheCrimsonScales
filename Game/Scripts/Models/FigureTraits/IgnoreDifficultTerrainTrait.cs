@@ -1,8 +1,10 @@
-﻿public class IgnoreDifficultTerrainTrait() : FigureTrait
+﻿using Fractural.Tasks;
+
+public class IgnoreDifficultTerrainTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioCheckEvents.MoveCheckEvent.Subscribe(figure, this,
 			canApplyParameters =>
@@ -18,15 +20,15 @@
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(
 					$"This figure ignores the effects of difficult terrain."));
 			}
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);

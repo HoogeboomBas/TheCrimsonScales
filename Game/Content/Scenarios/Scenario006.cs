@@ -71,7 +71,7 @@ public class Scenario006 : ScenarioModel
 					infoParameters => infoParameters.Figure == parameters.Performer,
 					infoParameters =>
 					{
-						infoParameters.Add(new FigureInfoTextExtraEffect.Parameters(
+						infoParameters.Add(new InfoTextExtraEffect.Parameters(
 							$"This character carries an antidote bottle."));
 					}
 				);
