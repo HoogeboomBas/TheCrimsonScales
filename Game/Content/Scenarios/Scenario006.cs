@@ -80,7 +80,7 @@ public class Scenario006 : ScenarioModel
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters("Pick up a bottle of antidote")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters("Pick up a bottle of antidote.")
 		);
 
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
@@ -118,7 +118,7 @@ public class Scenario006 : ScenarioModel
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters("Place the bottle of antidote in the fountain")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters("Place the bottle of antidote in the fountain.")
 		);
 
 		// If a character exhausts while holding an antidote, the scenario is immediately lost
