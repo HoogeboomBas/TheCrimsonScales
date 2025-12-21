@@ -55,8 +55,8 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.296f)),
-						new UseSlot(new Vector2(0.603f, 0.296f))
+						new UseSlot(new Vector2(0.3835002f, 0.2875001f)),
+						new UseSlot(new Vector2(0.5855027f, 0.2875001f))
 					]
 				)
 				.Build())

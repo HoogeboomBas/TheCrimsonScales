@@ -32,7 +32,7 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.29350019f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.2990001f)))
 				.Build())
 		];
 
@@ -64,7 +64,7 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.7730004f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.7785105f)))
 				.Build())
 		];
 

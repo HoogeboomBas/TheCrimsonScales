@@ -85,7 +85,7 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.4855002f, 0.79300135f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.4855002f, 0.78900117f)))
 				.Build())
 		];
 
