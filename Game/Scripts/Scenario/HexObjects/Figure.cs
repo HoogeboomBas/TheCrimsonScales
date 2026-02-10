@@ -335,6 +335,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		_figureViewComponent.EffectParent.AddChild(effectView);
 		effectView.Init(parameters);
 		Effects.Add(effectView);
+		ReorderEffects();
 
 		return (T)effectView;
 	}
@@ -343,6 +344,7 @@ public abstract partial class Figure : HexObject, IActionSource
 	{
 		Effects.Remove(effectView);
 		effectView.Destroy();
+		ReorderEffects();
 	}
 
 	public void SetAlignment(Alignment alignment)

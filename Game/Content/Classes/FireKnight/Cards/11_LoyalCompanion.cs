@@ -27,7 +27,7 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 				.WithPerformAbility(async state =>
 				{
 					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
-					ActionState actionState = new ActionState(state.ActionState, summonAbilityState.Summon,
+					ActionState actionState = new ActionState(state.ActionState, summonAbilityState.Summons[0],
 					[
 						ConditionAbility.Builder()
 							.WithConditions(Conditions.Bless)

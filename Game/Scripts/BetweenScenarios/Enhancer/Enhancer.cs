@@ -227,6 +227,14 @@ public partial class Enhancer : BetweenScenariosAction
 			{
 				enhancementCostType |= EnhancementCostType.LossNoPersistent;
 			}
+
+			if(mark.Abilities.FirstOrDefault(ability => ability is SummonAbility) is SummonAbility summonAbility)
+			{
+				if(summonAbility.Count > 1)
+				{
+					enhancementCostType |= EnhancementCostType.MultiTarget;
+				}
+			}
 		}
 
 		if(enhancementCostType.HasFlag(EnhancementCostType.MultiTarget))

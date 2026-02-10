@@ -34,7 +34,7 @@ public class Flashover : FireKnightLevelUpCardModel<Flashover.CardTop, Flashover
 					int characterTokens = 0;
 
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Figure == summonAbilityState.Summon,
+						canApplyParameters => canApplyParameters.Figure is Summon summon && summonAbilityState.Summons.Contains(summon),
 						async parameters =>
 						{
 							if(characterTokens < 2)

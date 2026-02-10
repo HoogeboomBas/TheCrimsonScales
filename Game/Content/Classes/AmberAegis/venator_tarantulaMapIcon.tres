@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bh6kvngdre8av"]
+
+[ext_resource type="Texture2D" uid="uid://qhyw4lx5e4aj" path="res://Content/Classes/AmberAegis/venator_tarantula.png" id="1_arc35"]
+
+[resource]
+atlas = ExtResource("1_arc35")
+region = Rect2(30, 130, 400, 400)

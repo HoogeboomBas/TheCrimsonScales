@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://duie0rmlr51ql"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_rd461"]
+[ext_resource type="Script" uid="uid://rwebr7bpgn7i" path="res://Content/Classes/AmberAegis/AmberAegis.cs" id="2_bd570"]
+[ext_resource type="Texture2D" uid="uid://cftyywc7s5g11" path="res://Content/Classes/AmberAegis/MapIcon.tres" id="2_kd1xg"]
+[ext_resource type="Texture2D" uid="uid://bq4gy6o1v20ma" path="res://Content/Classes/AmberAegis/Animation.jpg" id="3_bd570"]
+
+[node name="AmberAegis" instance=ExtResource("1_rd461")]
+script = ExtResource("2_bd570")
+
+[node name="Sprite2D" parent="Mask" index="0"]
+visible = false
+texture = ExtResource("2_kd1xg")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+visible = true
+texture = ExtResource("3_bd570")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.992157, 0.686275, 0.0901961, 1)

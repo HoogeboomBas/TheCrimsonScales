@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -40,6 +41,7 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 
+		//TODO: Some issues when undoing (consumelement button an disappear)
 		public static Subscription ConsumeElement(Element element,
 			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
 			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
@@ -93,7 +95,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 				},
 				async parameters =>
 				{
-					Element? wildConsume = await AbilityCmd.AskConsumeWildElement(new Character(), true);
+					if(parameters is not ParametersBaseWithAbilityState abilityStateParameters)
+					{
+						Log.Error("Tried consuming an element without an Ability State");
+						return;
+					}
+
+					AbilityState abilityState = abilityStateParameters.BaseAbilityState;
+					Element? wildConsume = await AbilityCmd.AskConsumeWildElement(abilityState.Authority, true);
 					if(wildConsume.HasValue)
 					{
 						if(applyFunction != null)
@@ -141,6 +150,45 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 					}
 				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
 				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(elements),
+				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
+		}
+
+		public static Subscription ConsumeChoiceElement(List<Element> elements,
+			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+		{
+			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
+			return new Subscription(
+				parameters => elements.Any(element => GameController.Instance.ElementManager.GetState(element) != ElementState.Inert) &&
+				              (canApplyFunction == null || canApplyFunction.Invoke(parameters)),
+				async parameters =>
+				{
+					if(parameters is not ParametersBaseWithAbilityState abilityStateParameters)
+					{
+						Log.Error("Tried consuming an element without an Ability State");
+						return;
+					}
+
+					AbilityState abilityState = abilityStateParameters.BaseAbilityState;
+
+					await AbilityCmd.AskConsumeElement(abilityState.Authority, elements, true);
+
+					if(applyFunction != null)
+					{
+						// if(parameters is ParametersBaseWithAbilityState parametersBaseWithAbilityState)
+						// {
+						// 	parametersBaseWithAbilityState.BaseAbilityState.SetElementConsumed(element);
+						// }
+						await applyFunction.Invoke(parameters);
+					}
+				},
+				effectType,
+				order,
+				canApplyMultipleTimesDuringSubscription,
+				canApplyMultipleTimesInEffectCollection,
+				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(elements),
+				//TODO: Add visual indicator that it is a choice
 				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 

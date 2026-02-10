@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://s2mlb8g7tbqi"]
+
+[ext_resource type="Script" uid="uid://c8wxfauevlsk5" path="res://Content/Classes/AmberAegis/ColonyTokens/DeathshroudSpiderColony.cs" id="1_2vx8o"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_6qw7a"]
+[ext_resource type="Texture2D" uid="uid://c5h1gpcfg5b1c" path="res://Content/Classes/AmberAegis/ColonyTokens/DeathshroudSpiderColony.svg" id="3_2vx8o"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="5_0w4ls"]
+
+[node name="DeathshroudSpiderColony" type="Node2D"]
+script = ExtResource("1_2vx8o")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_6qw7a")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_2vx8o")
+
+[node name="Hex" parent="." instance=ExtResource("5_0w4ls")]

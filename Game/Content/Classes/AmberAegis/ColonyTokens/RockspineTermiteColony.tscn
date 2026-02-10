@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcgfp58cfya5h"]
+
+[ext_resource type="Script" uid="uid://dlu5icjddxhgn" path="res://Content/Classes/AmberAegis/ColonyTokens/RockspineTermiteColony.cs" id="1_bluvk"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_57hk8"]
+[ext_resource type="Texture2D" uid="uid://7ntbjyr3y6r1" path="res://Content/Classes/AmberAegis/ColonyTokens/RockspineTermiteColony.svg" id="3_nj8oa"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="4_naoaj"]
+
+[node name="RockspineTermiteColony" type="Node2D"]
+script = ExtResource("1_bluvk")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_57hk8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_nj8oa")
+
+[node name="Hex" parent="." instance=ExtResource("4_naoaj")]

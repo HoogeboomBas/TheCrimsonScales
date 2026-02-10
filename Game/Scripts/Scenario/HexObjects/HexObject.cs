@@ -27,7 +27,7 @@ public partial class HexObject : Node2D, IReferenced
 
 	private readonly Dictionary<Type, HexObjectViewComponent> _hexObjectComponentCache = new Dictionary<Type, HexObjectViewComponent>();
 
-	public event Action<HexObject> DestroyEvent;
+	public event Func<HexObject, GDTask> DestroyEvent;
 	public event Action<HexObject> HexesChangedEvent;
 
 	public override void _Ready()
@@ -99,7 +99,10 @@ public partial class HexObject : Node2D, IReferenced
 			DestroyAnimation();
 		}
 
-		DestroyEvent?.Invoke(this);
+		if(DestroyEvent != null)
+		{
+			await DestroyEvent.Invoke(this);
+		}
 
 		ScenarioEvents.HexObjectDestroyed.Parameters parameters =
 			await ScenarioEvents.HexObjectDestroyedEvent.CreatePrompt(

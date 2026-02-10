@@ -11,7 +11,7 @@ public class Ward : ConditionModel
 		await base.OnAdded(condition);
 
 		ScenarioEvents.SufferDamageEvent.Subscribe(condition,
-			parameters => parameters.Figure == condition.Owner,
+			parameters => parameters.Figure == condition.Owner && parameters.WouldSufferDamage,
 			async parameters =>
 			{
 				condition.Flash();

@@ -7,7 +7,7 @@ public class Condition : IEventSubscriber
 	private readonly EventSubscriberPair _subscriberPair;
 	private readonly Dictionary<string, object> _customValues = new Dictionary<string, object>();
 
-	private bool _appliedDuringThisTurn;
+	public bool AppliedDuringThisTurn { get; set; }
 
 	public ConditionModel ConditionModel { get; private set; }
 	public ConditionHexObjectEffectView EffectView { get; private set; }
@@ -42,7 +42,7 @@ public class Condition : IEventSubscriber
 
 		if(Owner.TakingTurn)
 		{
-			_appliedDuringThisTurn = true;
+			AppliedDuringThisTurn = true;
 		}
 
 		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Subscribe(_subscriberPair,
@@ -76,7 +76,7 @@ public class Condition : IEventSubscriber
 
 				if(parameters.Target.TakingTurn)
 				{
-					_appliedDuringThisTurn = true;
+					AppliedDuringThisTurn = true;
 				}
 
 				await GDTask.CompletedTask;
@@ -102,12 +102,17 @@ public class Condition : IEventSubscriber
 					}
 					else
 					{
-						if(_appliedDuringThisTurn)
+						if(AppliedDuringThisTurn)
 						{
-							_appliedDuringThisTurn = false;
+							AppliedDuringThisTurn = false;
 						}
 						else
 						{
+							if(ConditionModel.OnRemovedAtEndOfTurn != null)
+							{
+								await ConditionModel.OnRemovedAtEndOfTurn(this);
+							}
+
 							await AbilityCmd.RemoveCondition(this);
 						}
 					}

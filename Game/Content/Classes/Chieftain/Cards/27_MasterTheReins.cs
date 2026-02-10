@@ -51,12 +51,12 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 						return;
 					}
 
-					Summon summon = ((SummonAbility.State)selectedAbilityCard.ActiveActionStates
+					List<Summon> summons = ((SummonAbility.State)selectedAbilityCard.ActiveActionStates
 						.SelectMany(actionState => actionState.AbilityStates)
-						.First(abilityState => abilityState is SummonAbility.State)).Summon;
+						.First(abilityState => abilityState is SummonAbility.State)).Summons;
 
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
-						canApplyParameters => summon == canApplyParameters.Performer,
+						canApplyParameters => summons.Contains(canApplyParameters.Performer),
 						async applyParameters =>
 						{
 							applyParameters.AbilityState.SingleTargetAdjustAttackValue(1);
@@ -66,7 +66,7 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 					);
 
 					ScenarioCheckEvents.IsSummonControlledCheckEvent.Subscribe(state, this,
-						parameters => parameters.Summon == summon,
+						parameters => summons.Contains(parameters.Summon),
 						parameters =>
 						{
 							parameters.SetIsControlled();
@@ -74,17 +74,15 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 					);
 
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
-						canApply: parameters => parameters.Figure == summon,
+						canApply: parameters => summons.Contains(parameters.Figure),
 						apply: async parameters =>
 						{
-							ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
-
 							await state.ActionState.RequestDiscardOrLose();
 						}
 					);
 
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
-						parameters => state.Performer.AlliedWith(parameters.Figure),
+						parameters => state.Performer.AlliedWith(parameters.Figure) && summons.Contains(parameters.Figure),
 						parameters => parameters.Add(
 							new InfoTextExtraEffect.Parameters(
 								$"This summon adds +1{Icons.Inline(Icons.Attack)} to all its attacks and you control its abilities"))

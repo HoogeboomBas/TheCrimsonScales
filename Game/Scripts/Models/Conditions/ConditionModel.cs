@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 using Godot;
 
 public abstract class ConditionModel : AbstractModel
@@ -9,6 +10,7 @@ public abstract class ConditionModel : AbstractModel
 	public virtual bool CanBeAppliedMultipleTimesOnSingleTarget => false;
 	public virtual ConditionModel[] ImmunityCompareBaseConditions => [this];
 	public virtual bool RemovedAtEndOfTurn => false;
+	public virtual Func<Condition, GDTask> OnRemovedAtEndOfTurn => null;
 	public virtual bool ImmediatelyRemovedOnApply => false;
 	public virtual bool RemovedByHeal => false;
 	public virtual ConditionModel BaseLevelCondition => this;

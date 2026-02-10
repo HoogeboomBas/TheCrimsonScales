@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpbpceym6exsv"]
+
+[ext_resource type="Script" uid="uid://dv1l7ci1u1w70" path="res://Content/Classes/AmberAegis/ColonyTokens/FirespitterAntColony.cs" id="1_tyos5"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_6qw7a"]
+[ext_resource type="Texture2D" uid="uid://d1tmwdouh1wfe" path="res://Content/Classes/AmberAegis/ColonyTokens/FirespitterAntColony.svg" id="3_3d40a"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="5_0w4ls"]
+
+[node name="FirespitterAntColony" type="Node2D"]
+script = ExtResource("1_tyos5")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_6qw7a")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_3d40a")
+
+[node name="Hex" parent="." instance=ExtResource("5_0w4ls")]

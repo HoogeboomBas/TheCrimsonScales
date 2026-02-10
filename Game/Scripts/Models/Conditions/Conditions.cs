@@ -22,6 +22,8 @@ public static class Conditions
 
 	public static Rupture Rupture { get; } = ModelDB.Condition<Rupture>();
 
+	public static Bane Bane { get; } = ModelDB.Condition<Bane>();
+
 	public static Regenerate Regenerate { get; } = ModelDB.Condition<Regenerate>();
 
 	public static Strengthen Strengthen { get; } = ModelDB.Condition<Strengthen>();

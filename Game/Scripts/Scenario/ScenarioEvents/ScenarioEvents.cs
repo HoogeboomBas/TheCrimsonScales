@@ -426,6 +426,8 @@ public partial class ScenarioEvents
 			public AbilityState PotentialAbilityState { get; } = abilityState;
 			public SufferDamage.Parameters SufferDamageParameters { get; } = sufferDamageParameters;
 
+			public bool WouldSufferDamage => Damage > 0 && !Prevented;
+
 			public bool Prevented { get; private set; }
 
 			public void SetPrevented()

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://o5pjjq22314a"]
+
+[ext_resource type="Script" uid="uid://xsg51r10op0s" path="res://Content/Classes/AmberAegis/ColonyTokens/GhostshimmerBeeColony.cs" id="1_wxqu7"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_6qw7a"]
+[ext_resource type="Texture2D" uid="uid://bwd7asmwr3m03" path="res://Content/Classes/AmberAegis/ColonyTokens/GhostshimmerBeeColony.svg" id="3_wxqu7"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="5_0w4ls"]
+
+[node name="GhostshimmerBeeColony" type="Node2D"]
+script = ExtResource("1_wxqu7")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_6qw7a")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_wxqu7")
+
+[node name="Hex" parent="." instance=ExtResource("5_0w4ls")]
