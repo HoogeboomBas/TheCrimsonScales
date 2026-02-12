@@ -8,7 +8,7 @@ using Godot;
 public abstract class AbilityState
 {
 	private bool _blocked;
-	private Dictionary<object, Dictionary<string, object>> _customValues = new Dictionary<object, Dictionary<string, object>>();
+	private readonly Dictionary<object, Dictionary<string, object>> _customValues = new Dictionary<object, Dictionary<string, object>>();
 
 	//TODO: Change this into a weak reference to make sure GC works correctly because of cyclic referencing?
 	public ActionState ActionState { get; init; }
@@ -66,7 +66,8 @@ public abstract class AbilityState
 
 	public bool TryGetCustomValue<T>(object source, string key, out T value)
 	{
-		if(!_customValues.TryGetValue(source, out Dictionary<string, object> sourceValues) || !sourceValues.TryGetValue(key, out object retrievedValue))
+		if(!_customValues.TryGetValue(source, out Dictionary<string, object> sourceValues) ||
+		   !sourceValues.TryGetValue(key, out object retrievedValue))
 		{
 			//Log.Error($"Could not find custom value for: {source} with key: {key}");
 			value = default;

@@ -71,7 +71,7 @@ public class ExplodingCannonball : BombardCardModel<ExplodingCannonball.CardTop,
 						});
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(abilityState, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == abilityState.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == abilityState.Performer,
 						applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

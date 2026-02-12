@@ -37,8 +37,8 @@ public class WrappedInMetal : ChainguardCardModel<WrappedInMetal.CardTop, Wrappe
 								list.Add(figure);
 							}
 						}
-					}, hintText: $"Designate an adjacent enemy with {Icons.Inline(Icons.GetCondition(Chainguard.Shackle))}");
-					
+					}, hintText: () => $"Designate an adjacent enemy with {Icons.Inline(Icons.GetCondition(Chainguard.Shackle))}");
+
 					state.SetCustomValue(this, "DesignatedEnemy", figure);
 					state.SetCustomValue(this, "DesignatedEnemyIsChosen", figure != null);
 				})

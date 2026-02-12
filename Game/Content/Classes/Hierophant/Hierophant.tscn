@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
 [ext_resource type="Script" uid="uid://btnl6iuqryl2q" path="res://Content/Classes/Hierophant/Hierophant.cs" id="2_7s24i"]
-[ext_resource type="Texture2D" uid="uid://g3xhp6yc14k1" path="res://Content/Classes/Hierophant/Artwork.png" id="2_jk5jr"]
+[ext_resource type="Texture2D" uid="uid://chwplx0jnbpur" path="res://Content/Classes/Hierophant/MapIcon.tres" id="3_k43rb"]
 [ext_resource type="Texture2D" uid="uid://c1g6lexhcux7d" path="res://Content/Classes/Hierophant/Animation.jpg" id="3_pebit"]
 
 [node name="Hierophant" instance=ExtResource("1_q7cyt")]
@@ -12,8 +12,7 @@ script = ExtResource("2_7s24i")
 self_modulate = Color(0.866667, 0.870588, 0.541176, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]
-position = Vector2(-1.25, 8.75)
-texture = ExtResource("2_jk5jr")
+texture = ExtResource("3_k43rb")
 
 [node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
 texture = ExtResource("3_pebit")

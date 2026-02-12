@@ -1,11 +1,7 @@
-﻿public class NullAMDCard : AMDCard
+﻿public class NullAMDCard : DefaultAMDCardModel
 {
+	protected override int AtlasIndex => 18;
+
 	public override bool Reshuffles => true;
 	public override AMDCardType Type => AMDCardType.Null;
-	public override int? Value => null;
-
-	public NullAMDCard(string textureAtlasPath, int atlasIndex, int textureAtlasColumnCount, int textureAtlasRowsCount)
-		: base(textureAtlasPath, atlasIndex, textureAtlasColumnCount, textureAtlasRowsCount)
-	{
-	}
 }

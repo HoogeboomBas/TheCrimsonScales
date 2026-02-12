@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://clebwd8njsv5v"]
+
+[ext_resource type="PackedScene" uid="uid://c2tf1larqvhla" path="res://Scenes/Scenario/OverlayTiles/Obstacle2H.tscn" id="1_ydj5c"]
+[ext_resource type="Texture2D" uid="uid://b0sj61sk5pnt" path="res://Art/OverlayTiles/Dark Pit 2h.png" id="2_ydj5c"]
+
+[node name="DarkPit2H" instance=ExtResource("1_ydj5c")]
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource("2_ydj5c")
+
+[node name="Hex2" parent="." index="5"]
+position = Vector2(218.238, 0)

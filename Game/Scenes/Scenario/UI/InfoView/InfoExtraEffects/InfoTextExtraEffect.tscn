@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv8vmd6iggg0h"]
+
+[ext_resource type="Script" uid="uid://comxjvoamq4xi" path="res://Scripts/Scenario/UI/InfoView/InfoExtraEffects/InfoTextExtraEffect.cs" id="1_g5a0a"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_vrho1"]
+
+[node name="InfoTextExtraEffect" type="MarginContainer" node_paths=PackedStringArray("_label")]
+offset_right = 1.0
+offset_bottom = 1560.0
+script = ExtResource("1_g5a0a")
+_label = NodePath("Text")
+
+[node name="Text" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_vrho1")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "All attacks targeting this figure gain disadvantage."
+fit_content = true

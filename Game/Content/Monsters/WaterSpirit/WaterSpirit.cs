@@ -125,7 +125,6 @@ public class WaterSpirit : MonsterModel
 	public override string Name => "Water Spirit";
 
 	public override string AssetPath => "res://Content/Monsters/WaterSpirit";
-	public override string ScenePath => $"{AssetPath}/Scene.tscn";
 	public override string PortraitTexturePath => $"{AssetPath}/Portrait.tres";
 	public override string MapIconTexturePath => $"{AssetPath}/Icon.tres";
 

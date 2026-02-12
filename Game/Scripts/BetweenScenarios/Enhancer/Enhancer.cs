@@ -20,9 +20,9 @@ public partial class Enhancer : BetweenScenariosAction
 
 	protected override bool SelectCharacter => true;
 
-	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder)
+	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder, BetweenScenariosAction previousActiveAction)
 	{
-		base.AnimateIn(sequenceBuilder);
+		base.AnimateIn(sequenceBuilder, previousActiveAction);
 
 		_3dRoot.SetVisible(true);
 

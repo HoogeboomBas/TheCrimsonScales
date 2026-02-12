@@ -5,7 +5,7 @@ public partial class PartyInfoPopup : Popup<PartyInfoPopup.Request>
 {
 	public class Request : PopupRequest
 	{
-		public List<Character> Characters { get; set; }
+		public List<Character> Characters { get; init; }
 	}
 
 	[Export]

@@ -49,7 +49,7 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state.Performer, this,
-						canApply: parameters => parameters.AbilityState == state,
+						canApply: parameters => parameters.PotentialAbilityState == state,
 						async parameters =>
 						{
 							await AbilityCmd.LootHex(state.Performer, parameters.Figure.Hex);

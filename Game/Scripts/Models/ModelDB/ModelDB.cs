@@ -18,7 +18,7 @@ public static class ModelDB
 		return new ModelId()
 		{
 			Category = SlugHelper.GetSlug(type.BaseType?.Name),
-			Entry = SlugHelper.GetSlug(type.Name)
+			Entry = SlugHelper.GetSlug(type.FullName)
 		};
 	}
 
@@ -121,6 +121,21 @@ public static class ModelDB
 		return GetOrCreate<T>();
 	}
 
+	public static T AMDCard<T>() where T : AMDCardModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T Event<T>() where T : EventModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T EventChoice<T>() where T : EventChoiceModel
+	{
+		return GetOrCreate<T>();
+	}
+
 	public static IEnumerable<Type> GetSubtypes<T>()
 	{
 		return GetSubtypes(typeof(T));
@@ -129,6 +144,8 @@ public static class ModelDB
 	public static IEnumerable<Type> GetSubtypes(Type type)
 	{
 		Assembly assembly = Assembly.GetAssembly(type);
-		return (object)assembly == null ? null : (assembly.GetTypes()).Where((Func<Type, bool>)(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(type)));
+		return (object)assembly == null
+			? null
+			: (assembly.GetTypes()).Where((Func<Type, bool>)(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(type)));
 	}
 }

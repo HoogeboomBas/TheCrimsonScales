@@ -80,7 +80,7 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 						parameters =>
 						{
 							parameters.Add(
-								new FigureInfoTextExtraEffect.Parameters(
+								new InfoTextExtraEffect.Parameters(
 									$"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
 						}
 					);

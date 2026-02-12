@@ -54,7 +54,7 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 						});
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == state.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == state.Performer,
 						applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

@@ -2,9 +2,9 @@
 
 public class AdjacentAlliesGainAdvantageTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(figure, this,
 			parameters => figure.AlliedWith(parameters.Performer) && RangeHelper.Distance(parameters.Performer.Hex, figure.Hex) == 1,
@@ -20,14 +20,14 @@ public class AdjacentAlliesGainAdvantageTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters("All adjacent allies gain advantage on all their attacks."));
+				parameters.Add(new InfoTextExtraEffect.Parameters("All adjacent allies gain advantage on all their attacks."));
 			}
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);

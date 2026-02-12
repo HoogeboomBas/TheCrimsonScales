@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 public class SavedAbilityCard
 {
 	[JsonProperty]
-	public string ModelId { get; set; }
+	public string ModelId { get; private set; }
 
 	public AbilityCardModel Model => ModelDB.GetById<AbilityCardModel>(ModelId);
 

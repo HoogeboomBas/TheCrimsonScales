@@ -1,8 +1,10 @@
-﻿public class TrapDisarmTrait(int range) : FigureTrait
+﻿using Fractural.Tasks;
+
+public class TrapDisarmTrait(int range) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(figure, this,
 			parameters => figure == parameters.Figure,
@@ -22,15 +24,15 @@
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(
 					$"Whenever this figure enters a hex, immediately destroy all traps in range {range}."));
 			}
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);

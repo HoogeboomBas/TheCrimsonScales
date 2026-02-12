@@ -54,9 +54,9 @@ public class Chokehold : ChainguardCardModel<Chokehold.CardTop, Chokehold.CardBo
 				})
 				.WithUseSlots(
 				[
-					new UseSlot(new Vector2(0.2889934f, 0.38399956f)),
-					new UseSlot(new Vector2(0.5f, 0.38399956f)),
-					new UseSlot(new Vector2(0.7025001f, 0.38399956f))
+					new UseSlot(new Vector2(0.28449345f, 0.39049947f)),
+					new UseSlot(new Vector2(0.48700017f, 0.39049947f)),
+					new UseSlot(new Vector2(0.69299966f, 0.39049947f))
 				])
 				.Build())
 		];

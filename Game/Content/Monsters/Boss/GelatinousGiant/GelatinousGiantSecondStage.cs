@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+[IgnoreModelId]
 public class GelatinousGiantSecondStage : GelatinousGiant
 {
 	public override MonsterStats[] BossLevelStats =>

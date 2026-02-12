@@ -4,7 +4,7 @@ using Godot;
 
 public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.CardBottom>
 {
-	public override string Name => "Oaks Embrace";
+	public override string Name => "Oak's Embrace";
 	public override int Level => 1;
 	public override int Initiative => 84;
 	protected override int AtlasIndex => 13 - 10;

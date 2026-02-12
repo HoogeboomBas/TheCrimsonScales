@@ -25,7 +25,7 @@ public class MonsterGroup
 
 	public event Action<MonsterGroup> InitiativeChangedEvent;
 
-	public MonsterGroup(MonsterModel monsterModel, int groupIndex)
+	public MonsterGroup(MonsterModel monsterModel, int groupIndex, MonsterAbilityCardDeck existingDeckToUse = null)
 	{
 		MonsterModel = monsterModel;
 		GroupIndex = groupIndex;
@@ -41,9 +41,16 @@ public class MonsterGroup
 		// 	monsterAbilityCard.Init(MonsterModel);
 		// }
 
-		IEnumerable<MonsterAbilityCard> abilityCards = monsterModel.Deck.Select(model => new MonsterAbilityCard(model));
+		if(existingDeckToUse == null)
+		{
+			IEnumerable<MonsterAbilityCard> abilityCards = monsterModel.Deck.Select(model => new MonsterAbilityCard(model));
 
-		MonsterAbilityCardDeck = new MonsterAbilityCardDeck(abilityCards);
+			MonsterAbilityCardDeck = new MonsterAbilityCardDeck(abilityCards);
+		}
+		else
+		{
+			MonsterAbilityCardDeck = existingDeckToUse;
+		}
 
 		Initiative = new Initiative()
 		{

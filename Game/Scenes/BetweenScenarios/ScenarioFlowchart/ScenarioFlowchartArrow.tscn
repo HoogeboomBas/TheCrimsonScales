@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bimsg5rdgpeya" path="res://Scripts/BetweenScenarios/ScenarioFlowchart/ScenarioFlowchartArrow.cs" id="1_s57gh"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_gg0tp"]
-[ext_resource type="Texture2D" uid="uid://dwfv0qnw411xy" path="res://Art/ScenarioFlowchart/ScenarioArrowHead.svg" id="3_wxnro"]
-[ext_resource type="Texture2D" uid="uid://bmb4kpbmfm5mb" path="res://Art/ScenarioFlowchart/LinkedScenariosIcon.svg" id="4_rupy6"]
+[ext_resource type="Texture2D" uid="uid://dwfv0qnw411xy" path="res://Art/BetweenScenarios/ScenarioFlowchart/ScenarioArrowHead.svg" id="3_wxnro"]
+[ext_resource type="Texture2D" uid="uid://bmb4kpbmfm5mb" path="res://Art/BetweenScenarios/ScenarioFlowchart/LinkedScenariosIcon.svg" id="4_rupy6"]
 
 [node name="ScenarioFlowchartArrow" type="Control" node_paths=PackedStringArray("_container", "_linkContainer")]
 layout_mode = 3

@@ -70,7 +70,7 @@ public class WeakenedWill : HierophantLevelUpCardModel<WeakenedWill.CardTop, Wea
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Figure),
 						parameters => parameters.Add(
-							new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+							new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 					);
 
 					return GDTask.CompletedTask;

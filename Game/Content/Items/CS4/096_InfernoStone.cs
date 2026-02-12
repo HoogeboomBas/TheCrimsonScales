@@ -2,7 +2,7 @@ public class InfernoStone : CS4Item
 {
 	public override string Name => "Inferno Stone";
 	public override int ItemNumber => 96;
-	public override int ShopCount => 2;
+	public override int ShopCount => 1;
 	public override int Cost => 25;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;

@@ -1,17 +1,19 @@
-﻿public class FlyingTrait() : FigureTrait
+﻿using Fractural.Tasks;
+
+public class FlyingTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioCheckEvents.FlyingCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
 			parameters => parameters.SetFlying(true));
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioCheckEvents.FlyingCheckEvent.Unsubscribe(figure, this);
 	}

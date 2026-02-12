@@ -106,8 +106,8 @@ public class LivingSpiritAbilityCard6 : LivingSpiritAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class LivingSpiritAbilityCard7 : LivingSpiritAbilityCard
@@ -133,6 +133,6 @@ public class LivingSpiritAbilityCard7 : LivingSpiritAbilityCard
 		),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }

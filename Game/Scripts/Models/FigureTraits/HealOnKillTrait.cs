@@ -1,11 +1,14 @@
-﻿public class HealOnKillTrait(int heal) : FigureTrait
+﻿using Fractural.Tasks;
+
+public class HealOnKillTrait(int heal) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(figure, this,
-			parameters => parameters.PotentialAbilityState != null && 
+			parameters =>
+				parameters.PotentialAbilityState != null &&
 				parameters.PotentialAbilityState.Performer == figure,
 			async parameters =>
 			{
@@ -16,9 +19,9 @@
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.FigureKilledEvent.Unsubscribe(figure, this);
 	}

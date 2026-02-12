@@ -19,7 +19,7 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 				.WithOnAbilityStarted(async state => 
 				{
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Authority == state.Performer 
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Authority == state.Performer 
 											&& canApplyParameters.Figure == state.Target,
 						async applyParameters =>
 						{

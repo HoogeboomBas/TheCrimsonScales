@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+[IgnoreModelId]
 public class Granurso : MonsterModel
 {
 	public override MonsterStats[] NormalLevelStats =>

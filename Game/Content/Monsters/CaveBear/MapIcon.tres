@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dgxxj3udeows6"]
+
+[ext_resource type="Texture2D" uid="uid://0vqado2sm87d" path="res://Content/Monsters/CaveBear/Icon.jpg" id="1_dnklt"]
+
+[resource]
+atlas = ExtResource("1_dnklt")
+region = Rect2(65, 65, 370, 370)

@@ -6,14 +6,19 @@ public class SavedClass
 {
 	// Whether the class has been unlocked
 	[JsonProperty]
-	public bool Unlocked { get; set; }
+	public bool Unlocked { get; private set; }
 
 	// Whether the class has been retired at some point
 	[JsonProperty]
-	public bool Retired { get; set; }
+	public bool Retired { get; private set; }
 
 	public void Unlock()
 	{
 		Unlocked = true;
+	}
+
+	public void Retire()
+	{
+		Retired = true;
 	}
 }

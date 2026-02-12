@@ -20,6 +20,7 @@ public class MonsterForcedMovementPrompt(
 	private readonly List<Hex> _path = new List<Hex>();
 
 	private readonly List<ForcedMovementNode> _bestNodes = new List<ForcedMovementNode>();
+	private int _bestSwing = 0;
 
 	protected override bool CanConfirm => _bestNodes.Any(bestNode => bestNode.Hex == _currentNode.Hex);
 	protected override bool CanSkip => false;
@@ -33,14 +34,15 @@ public class MonsterForcedMovementPrompt(
 		_waypoints.Add(_currentNode);
 
 		// Find all hexes this AI can push/pull/swing into to
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_bestNodes.Clear();
 
 		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(target, hex))
+			if(!MoveHelper.CanStopAt(abilityState, target, hex))
 			{
 				continue;
 			}
@@ -67,7 +69,7 @@ public class MonsterForcedMovementPrompt(
 
 		if(_bestNodes.Count == 0 || _bestNodes[0].Hex == _currentNode.Hex)
 		{
-			// Cannot push/pull further
+			// Cannot push/pull/swing further
 			Skip();
 		}
 	}
@@ -76,19 +78,30 @@ public class MonsterForcedMovementPrompt(
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
 		HashSet<Hex> reachableHexes = new HashSet<Hex>();
 
 		// Swing requires recreating possible routes on update
-		if(type == ForcedMovementType.Swing) 
+		if(type == ForcedMovementType.Swing)
 		{
 			_bestNodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)
 			{
+				if(node.MoveSpent > _bestSwing)
+				{
+					_bestSwing = node.MoveSpent;
+				}
+
 				_bestNodes.Add(node);
+			}
+
+			if(!_bestNodes.Any() && _currentNode.MoveSpent >= _bestSwing)
+			{
+				_bestNodes.Add(_currentNode);
 			}
 		}
 

@@ -29,7 +29,7 @@ public partial class TreasureItemRewardPopup : Popup<TreasureItemRewardPopup.Req
 
 		_itemView.SetItem(PopupRequest.ItemModel);
 
-		_itemAndLooterLabel.Text = $"Found {PopupRequest.ItemModel.Name} for {PopupRequest.Looter.GetNameAndIcon()}";
+		_itemAndLooterLabel.Text = $"Found {PopupRequest.ItemModel.Name} for {PopupRequest.Looter.GetNameAndIcon()}.";
 	}
 
 	private void OnConfirmPressed()

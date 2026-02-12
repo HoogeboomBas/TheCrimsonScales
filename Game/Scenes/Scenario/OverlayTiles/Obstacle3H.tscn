@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc2j2ivccsy74"]
+
+[ext_resource type="PackedScene" uid="uid://5437b8ot5m74" path="res://Scenes/Scenario/OverlayTiles/OverlayTile3H.tscn" id="1_4j62c"]
+[ext_resource type="Script" uid="uid://dmrnnnyy3fyuf" path="res://Scripts/Scenario/HexObjects/Obstacle.cs" id="2_6imqf"]
+[ext_resource type="Texture2D" uid="uid://6g27w1e1p3nr" path="res://Art/Icons/Other/Cross.svg" id="2_7oo06"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="4_gc4lj"]
+
+[node name="Obstacle3H" instance=ExtResource("1_4j62c")]
+script = ExtResource("2_6imqf")
+HexObjectShape = 2
+
+[node name="Hexagon" parent="." index="1"]
+self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
+
+[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
+
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+self_modulate = Color(1, 1, 1, 0.313726)
+texture = ExtResource("2_7oo06")
+
+[node name="Hex" parent="." index="4" instance=ExtResource("4_gc4lj")]
+
+[node name="Hex2" parent="." index="5" instance=ExtResource("4_gc4lj")]
+position = Vector2(218.238, 0)
+
+[node name="Hex3" parent="." index="6" instance=ExtResource("4_gc4lj")]
+position = Vector2(109.119, -189)

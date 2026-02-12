@@ -68,7 +68,7 @@ public class MonsterMovePrompt(
 
 		foreach((Hex moveHex, MoveNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(performer, moveHex, aiMoveParameters.MoveType))
+			if(!MoveHelper.CanStopAt(moveAbilityState, performer, moveHex, aiMoveParameters.MoveType))
 			{
 				continue;
 			}
@@ -132,7 +132,8 @@ public class MonsterMovePrompt(
 						}
 
 						ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-							ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+							ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
+								new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
 
 						if(!canBeFocusedParameters.CanBeFocused)
 						{
@@ -220,7 +221,8 @@ public class MonsterMovePrompt(
 									}
 
 									ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-										ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+										ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
+											new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
 
 									if(!canBeFocusedParameters.CanBeFocused)
 									{
@@ -277,7 +279,7 @@ public class MonsterMovePrompt(
 		bestFocusNodes.Clear();
 		foreach((Hex moveHex, MoveNode node) in _moreMoveClosedList)
 		{
-			if(!MoveHelper.CanStopAt(performer, moveHex, moveAbilityState.MoveType))
+			if(!MoveHelper.CanStopAt(moveAbilityState, performer, moveHex, moveAbilityState.MoveType))
 			{
 				continue;
 			}
@@ -310,10 +312,11 @@ public class MonsterMovePrompt(
 					// }
 
 					ScenarioCheckEvents.PotentialTargetCheck.Parameters potentialTargetCheckParameters =
-								ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
-									new ScenarioCheckEvents.PotentialTargetCheck.Parameters(performer, potentialTarget));
+						ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
+							new ScenarioCheckEvents.PotentialTargetCheck.Parameters(performer, potentialTarget));
 
-					int adjustedSortingInitiative = potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
+					int adjustedSortingInitiative =
+						potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
 					int distanceFromCurrentHex = RangeHelper.Distance(performer.Hex, potentialTargetHex);
 
 					FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
@@ -403,7 +406,7 @@ public class MonsterMovePrompt(
 
 				foreach((Hex hex, MoveNode moveNode) in _closedList)
 				{
-					if(!MoveHelper.CanStopAt(performer, hex, moveAbilityState.MoveType))
+					if(!MoveHelper.CanStopAt(moveAbilityState, performer, hex, moveAbilityState.MoveType))
 					{
 						continue;
 					}

@@ -36,8 +36,8 @@ public class EarthDemonAbilityCard0 : EarthDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class EarthDemonAbilityCard1 : EarthDemonAbilityCard
@@ -64,8 +64,8 @@ public class EarthDemonAbilityCard2 : EarthDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class EarthDemonAbilityCard3 : EarthDemonAbilityCard
@@ -80,8 +80,8 @@ public class EarthDemonAbilityCard3 : EarthDemonAbilityCard
 		)
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class EarthDemonAbilityCard4 : EarthDemonAbilityCard
@@ -95,8 +95,8 @@ public class EarthDemonAbilityCard4 : EarthDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class EarthDemonAbilityCard5 : EarthDemonAbilityCard
@@ -107,7 +107,7 @@ public class EarthDemonAbilityCard5 : EarthDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, target: Target.Enemies | Target.TargetAll, 
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, target: Target.Enemies | Target.TargetAll,
 			duringAttackSubscriptions:
 			[
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Earth],
@@ -122,8 +122,8 @@ public class EarthDemonAbilityCard5 : EarthDemonAbilityCard
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class EarthDemonAbilityCard6 : EarthDemonAbilityCard
@@ -134,7 +134,7 @@ public class EarthDemonAbilityCard6 : EarthDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, 
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0,
 			duringAttackSubscriptions:
 			[
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
@@ -149,8 +149,8 @@ public class EarthDemonAbilityCard6 : EarthDemonAbilityCard
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class EarthDemonAbilityCard7 : EarthDemonAbilityCard
@@ -161,7 +161,7 @@ public class EarthDemonAbilityCard7 : EarthDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, 
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1,
 			aoePattern: new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
@@ -171,6 +171,6 @@ public class EarthDemonAbilityCard7 : EarthDemonAbilityCard
 		))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Earth)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Earth)];
 }

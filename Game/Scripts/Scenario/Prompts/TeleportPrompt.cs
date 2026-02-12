@@ -31,7 +31,7 @@ public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure p
 			}
 
 			int distance = Map.SimpleDistance(coords, performer.Hex.Coords);
-			if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(performer, hex))
+			if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
 			{
 				_possibleHexes.Add(hex);
 			}

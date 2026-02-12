@@ -1,31 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 
 public class AllNegativeConditionImmunityTrait : FigureTrait
 {
-	private static readonly List<ConditionModel> NegativeConditionModels =
-	[
-		Conditions.Poison1,
-		Conditions.Wound1,
-		Conditions.Muddle,
-		Conditions.Immobilize,
-		Conditions.Disarm,
-		Conditions.Stun,
-		Conditions.Curse,
-	];
-
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this, parameters =>
 			{
-				return parameters.Target == figure &&
+				return
+					parameters.Target == figure &&
 					parameters.Condition?.ImmunityCompareBaseConditions != null &&
-					NegativeConditionModels != null &&
 					parameters.Condition.ImmunityCompareBaseConditions
-						.Any(c1 => NegativeConditionModels.Contains(c1));
+						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1));
 			},
 			async parameters =>
 			{
@@ -39,7 +27,7 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				foreach(ConditionModel conditionModel in NegativeConditionModels)
+				foreach(ConditionModel conditionModel in Conditions.NegativeBaseConditionModels)
 				{
 					parameters.AddImmunity(conditionModel);
 				}
@@ -47,9 +35,9 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.InflictConditionEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(figure, this);

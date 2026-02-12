@@ -109,7 +109,7 @@ public partial class ActionState
 
 		foreach((Hex moveHex, MoveNode node) in moreMoveClosedList)
 		{
-			if(!MoveHelper.CanStopAt(Performer, moveHex, aiMoveParameters.MoveType))
+			if(!MoveHelper.CanStopAt(null, Performer, moveHex, aiMoveParameters.MoveType))
 			{
 				continue;
 			}
@@ -132,7 +132,8 @@ public partial class ActionState
 					}
 
 					ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-						ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(Performer, potentialTarget));
+						ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
+							new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(Performer, potentialTarget));
 
 					if(!canBeFocusedParameters.CanBeFocused)
 					{
@@ -143,7 +144,8 @@ public partial class ActionState
 						ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
 							new ScenarioCheckEvents.PotentialTargetCheck.Parameters(Performer, potentialTarget));
 
-					int adjustedSortingInitiative = potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
+					int adjustedSortingInitiative =
+						potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
 					int distanceFromCurrentHex = RangeHelper.Distance(Performer.Hex, potentialTargetHex);
 					FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
 						distanceFromCurrentHex, adjustedSortingInitiative, node);

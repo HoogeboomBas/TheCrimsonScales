@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jflaun2fecvo" path="res://Art/Icons/Abilities/Health.svg" id="4_uplxl"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="5_gyvkv"]
 [ext_resource type="PackedScene" uid="uid://27n2d0vaa0s" path="res://Scenes/Scenario/UI/InfoView/FigureEffects/FigureInfoConditionsEffect.tscn" id="5_jfqbu"]
-[ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="7_e5o5d"]
+[ext_resource type="PackedScene" uid="uid://bmmrjlw6yb3gg" path="res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoExtraEffectsView.tscn" id="7_e5o5d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncvji"]
 bg_color = Color(1, 1, 1, 1)
@@ -82,6 +82,7 @@ texture = ExtResource("4_uplxl")
 [node name="Effects" type="VBoxContainer" parent="MarginContainer/Content" index="2"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 0
 
 [node name="SimpleEffects" type="Control" parent="MarginContainer/Content/Effects" index="0"]
 custom_minimum_size = Vector2(0, 40)
@@ -117,18 +118,7 @@ layout_mode = 2
 [node name="Label" parent="MarginContainer/Content/Effects/Applies/HBoxContainer" index="0"]
 text = "Applies:"
 
-[node name="ExtraEffects" type="VBoxContainer" parent="MarginContainer/Content/Effects" index="4"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/Content/Effects/ExtraEffects" index="0"]
-layout_mode = 2
-text = "Active Effects:"
-label_settings = ExtResource("7_e5o5d")
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/Effects/ExtraEffects" index="1"]
-layout_mode = 2
-
-[node name="Effects" type="VBoxContainer" parent="MarginContainer/Content/Effects/ExtraEffects/MarginContainer" index="0"]
+[node name="InfoExtraEffectsView" parent="MarginContainer/Content/Effects" index="4" instance=ExtResource("7_e5o5d")]
 layout_mode = 2
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]

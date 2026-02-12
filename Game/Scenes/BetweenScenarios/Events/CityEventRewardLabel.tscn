@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://hux023lpvkr0"]
+
+[ext_resource type="FontFile" uid="uid://djm7xa0rh5wqv" path="res://Fonts/HTOWERT.TTF" id="1_4vkpj"]
+
+[node name="EventRewardLabel" type="RichTextLabel"]
+offset_right = 1.0
+offset_bottom = 1914.0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/normal_font = ExtResource("1_4vkpj")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "All players may select 3 battle goals to choose from instead of 2."
+fit_content = true
+visible_characters_behavior = 1

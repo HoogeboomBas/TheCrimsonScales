@@ -42,8 +42,8 @@ public class HarrowerInfesterAbilityCard1 : HarrowerInfesterAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Poison1])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Dark)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Dark)];
 }
 
 public class HarrowerInfesterAbilityCard2 : HarrowerInfesterAbilityCard
@@ -114,9 +114,8 @@ public class HarrowerInfesterAbilityCard5 : HarrowerInfesterAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
-
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class HarrowerInfesterAbilityCard6 : HarrowerInfesterAbilityCard
@@ -127,7 +126,8 @@ public class HarrowerInfesterAbilityCard6 : HarrowerInfesterAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, targets: 2, duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, targets: 2, duringAttackSubscriptions:
+		[
 			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
 				applyFunction: async parameters =>
 				{
@@ -139,8 +139,8 @@ public class HarrowerInfesterAbilityCard6 : HarrowerInfesterAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class HarrowerInfesterAbilityCard7 : HarrowerInfesterAbilityCard

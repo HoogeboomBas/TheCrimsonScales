@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://ciy2q5rti2m6m"]
+
+[ext_resource type="FontFile" uid="uid://b8midaa8ilaan" path="res://Fonts/Markazi Text SemiBold.ttf" id="1_0ojyo"]
+
+[resource]
+base_font = ExtResource("1_0ojyo")
+spacing_top = -4
+spacing_bottom = -4

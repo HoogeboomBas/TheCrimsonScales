@@ -58,7 +58,7 @@ public class ShoesOfHappiness : GHDesignsItem
 			parameters => parameters.Figure == Owner,
 			async parameters =>
 			{
-				if(parameters.Figure.TurnMovedHexCount >= 6)
+				if(parameters.Figure.TurnMovedHexes.Count >= 6)
 				{
 					await Use(async user =>
 					{

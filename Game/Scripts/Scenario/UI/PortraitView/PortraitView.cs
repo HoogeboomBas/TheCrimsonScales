@@ -44,34 +44,6 @@ public partial class PortraitView : Control
 		Portraits.Sort((portraitA, portraitB) =>
 		{
 			return portraitA.Initiative.SortingInitiative.CompareTo(portraitB.Initiative.SortingInitiative);
-
-			// Initiative initiativeA = portraitA.Initiative;
-			// Initiative initiativeB = portraitB.Initiative;
-
-			// if(initiativeA.Equals(initiativeB))
-			// {
-			// 	initiativeA = portraitA is PortraitViewCharacterPortrait ? 0 : 1;
-			// 	initiativeB = portraitB is PortraitViewCharacterPortrait ? 0 : 1;
-			// }
-			// else
-			// {
-			// 	if(!initiativeA.HasValue)
-			// 	{
-			// 		initiativeA = 1000;
-			// 	}
-			//
-			// 	if(!initiativeB.HasValue)
-			// 	{
-			// 		initiativeB = 1000;
-			// 	}
-			// }
-			//
-			// if(initiativeA == initiativeB && portraitA is PortraitViewCharacterPortrait characterPortraitA && portraitB is PortraitViewCharacterPortrait characterPortraitB)
-			// {
-			// 	return characterPortraitA.Character.Index.CompareTo(characterPortraitB.Character.Index);
-			// }
-			//
-			// return initiativeA.Value.CompareTo(initiativeB.Value);
 		});
 
 		const float separation = 20f;
@@ -91,16 +63,36 @@ public partial class PortraitView : Control
 		}
 	}
 
+	public PortraitViewPortrait CreatePortrait(Figure figure)
+	{
+		if(figure is Monster monster)
+		{
+			PortraitViewMonsterGroupPortrait portrait = _monsterGroupPortraitScene.Instantiate<PortraitViewMonsterGroupPortrait>();
+			portrait.Init(monster.MonsterGroup);
+
+			return portrait;
+		}
+		else if(figure is Character character)
+		{
+			PortraitViewCharacterPortrait portrait = _characterPortraitScene.Instantiate<PortraitViewCharacterPortrait>();
+			portrait.Init(character);
+
+			return portrait;
+		}
+
+		return null;
+	}
+
 	private void OnFigureAdded(Figure figure)
 	{
 		if(figure is Monster monster)
 		{
-			PortraitViewMonsterGroupPortrait portrait = MonsterGroupPortraits.FirstOrDefault(portrait => portrait.MonsterGroup == monster.MonsterGroup);
+			PortraitViewMonsterGroupPortrait portrait =
+				MonsterGroupPortraits.FirstOrDefault(portrait => portrait.MonsterGroup == monster.MonsterGroup);
 			if(portrait == null)
 			{
-				portrait = _monsterGroupPortraitScene.Instantiate<PortraitViewMonsterGroupPortrait>();
+				portrait = (PortraitViewMonsterGroupPortrait)CreatePortrait(figure);
 				_portraitParent.AddChild(portrait);
-				portrait.Init(monster.MonsterGroup);
 				Portraits.Add(portrait);
 				MonsterGroupPortraits.Add(portrait);
 
@@ -109,9 +101,8 @@ public partial class PortraitView : Control
 		}
 		else if(figure is Character character)
 		{
-			PortraitViewCharacterPortrait portrait = _characterPortraitScene.Instantiate<PortraitViewCharacterPortrait>();
+			PortraitViewCharacterPortrait portrait = (PortraitViewCharacterPortrait)CreatePortrait(figure);
 			_portraitParent.AddChild(portrait);
-			portrait.Init(character);
 			Portraits.Add(portrait);
 			CharacterPortraits.Add(portrait);
 
@@ -125,7 +116,8 @@ public partial class PortraitView : Control
 		{
 			if(monster.MonsterGroup.Monsters.Count == 0)
 			{
-				PortraitViewMonsterGroupPortrait portrait = MonsterGroupPortraits.FirstOrDefault(portrait => portrait.MonsterGroup == monster.MonsterGroup);
+				PortraitViewMonsterGroupPortrait portrait =
+					MonsterGroupPortraits.FirstOrDefault(portrait => portrait.MonsterGroup == monster.MonsterGroup);
 				if(portrait != null)
 				{
 					Portraits.Remove(portrait);

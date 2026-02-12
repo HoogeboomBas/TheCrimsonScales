@@ -12,7 +12,7 @@ public class Scenario003 : ScenarioModel
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario004>(), new ScenarioConnection<Scenario007>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
-		new KillSpecificEnemyTypeGoals(ModelDB.Monster<HydraSpirit>(), "Kill the Hydra Spirit to win this scenario.");
+		new KillSpecificEnemiesTypeGoals(ModelDB.Monster<HydraSpirit>(), "Kill the Hydra Spirit to win this scenario.");
 
 	public override string BGMPath => "res://Audio/BGM/Dark-Abyss.ogg";
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
@@ -25,10 +25,10 @@ public class Scenario003 : ScenarioModel
 		await base.StartAfterFirstRoomRevealed();
 
 		UpdateScenarioText(
-			$"At the end of each round, the water tiles marked {Icons.Marker(Marker.Type.a)} " +
-			$"and all spawned water tiles to the right of them move one hex toward the hexes marked {Icons.Marker(Marker.Type.b)}. " +
+			$"At the end of each round, the water tiles marked {Icons.InlineMarker(Marker.Type.a)} " +
+			$"and all spawned water tiles to the right of them move one hex toward the hexes marked {Icons.InlineMarker(Marker.Type.b)}. " +
 			"These water tiles cannot be removed. After every round, a new column of water tiles will spawn to the right of the other columns." +
-			$"\nWhen all hexes marked {Icons.Marker(Marker.Type.b)} are occupied by water tiles, the scenario is immediately lost.");
+			$"\nWhen all hexes marked {Icons.InlineMarker(Marker.Type.b)} are occupied by water tiles, the scenario is immediately lost.");
 
 		foreach(Marker marker in GameController.Instance.Map.Markers)
 		{

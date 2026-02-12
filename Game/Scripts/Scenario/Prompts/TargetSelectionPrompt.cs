@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class TargetSelectionPrompt(Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool mandatory, EffectCollection effectCollection, Func<string> getHintText)
+public class TargetSelectionPrompt(
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool mandatory, EffectCollection effectCollection, Func<string> getHintText)
 	: Prompt<TargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -40,9 +42,12 @@ public class TargetSelectionPrompt(Action<List<Figure>> getValidTargets, bool au
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
-		foreach(Figure figure in _validTargets)
+		HashSet<Hex> hexes = _validTargets.Select(figure => figure.Hex).ToHashSet();
+		foreach(Hex hex in hexes)
 		{
-			GameController.Instance.HexIndicatorManager.SetIndicator(figure.Hex, figure == _selectedFigure ? HexIndicatorType.Selected : HexIndicatorType.Normal, OnIndicatorPressed);
+			GameController.Instance.HexIndicatorManager.SetIndicator(hex,
+				hex == _selectedFigure?.Hex ? HexIndicatorType.Selected : HexIndicatorType.Normal,
+				OnIndicatorPressed);
 		}
 
 		GameController.Instance.HexIndicatorManager.EndSettingIndicators();
@@ -53,6 +58,7 @@ public class TargetSelectionPrompt(Action<List<Figure>> getValidTargets, bool au
 		base.Disable();
 
 		GameController.Instance.HexIndicatorManager.ClearIndicators();
+		GameController.Instance.SelectFigureView.Close();
 	}
 
 	protected override Answer CreateAnswer()
@@ -71,9 +77,25 @@ public class TargetSelectionPrompt(Action<List<Figure>> getValidTargets, bool au
 		}
 		else
 		{
-			//TODO: Decide between overlapping figures
-			_selectedFigure = hexIndicator.Hex.GetHexObjectOfType<Figure>();
+			List<Figure> figures = hexIndicator.Hex.GetHexObjectsOfType<Figure>().Where(_validTargets.Contains).ToList();
+			if(figures.Count > 1)
+			{
+				GameController.Instance.SelectFigureView.Open(figures, OnFigurePressed);
+			}
+			else
+			{
+				_selectedFigure = figures.FirstOrDefault();
+			}
 		}
+
+		FullUpdateState();
+	}
+
+	private void OnFigurePressed(Figure figure)
+	{
+		GameController.Instance.SelectFigureView.Close();
+
+		_selectedFigure = figure;
 
 		FullUpdateState();
 	}

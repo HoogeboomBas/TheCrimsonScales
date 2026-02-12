@@ -1,14 +1,25 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public partial class Objective : Figure
 {
+	private Sprite2D _staticSprite;
+
 	private string _name;
 
 	public override string DisplayName => _name;
 	public override string DebugName => _name;
 
 	public override AMDCardDeck AMDCardDeck => null;
+	public override Texture2D MapIconTexture => _staticSprite.Texture;
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_staticSprite = GetNode<Sprite2D>("Sprite");
+	}
 
 	public void Init(int health, string name)
 	{

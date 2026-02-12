@@ -40,8 +40,8 @@ public class SunDemonAbilityCard0 : SunDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Light)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Light)];
 }
 
 public class SunDemonAbilityCard1 : SunDemonAbilityCard
@@ -55,8 +55,8 @@ public class SunDemonAbilityCard1 : SunDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, target: Target.Enemies | Target.TargetAll))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Light)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Light)];
 }
 
 public class SunDemonAbilityCard2 : SunDemonAbilityCard
@@ -70,8 +70,8 @@ public class SunDemonAbilityCard2 : SunDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, target: Target.Enemies | Target.TargetAll))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Light)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Light)];
 }
 
 public class SunDemonAbilityCard3 : SunDemonAbilityCard
@@ -85,8 +85,8 @@ public class SunDemonAbilityCard3 : SunDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Light)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Light)];
 }
 
 public class SunDemonAbilityCard4 : SunDemonAbilityCard
@@ -106,8 +106,8 @@ public class SunDemonAbilityCard4 : SunDemonAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Light)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Light)];
 }
 
 public class SunDemonAbilityCard5 : SunDemonAbilityCard
@@ -123,8 +123,8 @@ public class SunDemonAbilityCard5 : SunDemonAbilityCard
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Light)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Light)];
 }
 
 public class SunDemonAbilityCard6 : SunDemonAbilityCard
@@ -143,8 +143,8 @@ public class SunDemonAbilityCard6 : SunDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class SunDemonAbilityCard7 : SunDemonAbilityCard
@@ -158,6 +158,6 @@ public class SunDemonAbilityCard7 : SunDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Light)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Light)];
 }

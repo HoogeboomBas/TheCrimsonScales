@@ -1,10 +1,14 @@
-﻿public abstract class FigureTrait
+﻿using Fractural.Tasks;
+
+public abstract class FigureTrait
 {
-	public virtual void Activate(Figure figure)
+	public virtual async GDTask Activate(Figure figure)
 	{
+		await GDTask.CompletedTask;
 	}
 
-	public virtual void Deactivate(Figure figure)
+	public virtual async GDTask Deactivate(Figure figure)
 	{
+		await GDTask.CompletedTask;
 	}
 }

@@ -61,17 +61,18 @@ public partial class AMDDrawView : Control
 
 			_discardContainer.Visible = true;
 			_discardTopCardTextureRect.Texture = newCard.GetTexture();
-			
+
 			// A drawn card can be overridden by an item or ability
 			AMDCardValue newCardValue = await newCard.Draw(attackAbilityState);
 
 			if(terminalCardValue == null)
 			{
-				if(newCard.Rolling)
+				if(newCard.Model.GetRolling(attackAbilityState))
 				{
 					//rollingCards.Add(newCard);
 
-					if(!attackAbilityState.SingleTargetHasDisadvantage || attackAbilityState.SingleTargetHasAdvantage == attackAbilityState.SingleTargetHasDisadvantage)
+					if(!attackAbilityState.SingleTargetHasDisadvantage ||
+					   attackAbilityState.SingleTargetHasAdvantage == attackAbilityState.SingleTargetHasDisadvantage)
 					{
 						await newCardValue.Apply(attackAbilityState);
 					}
@@ -96,8 +97,10 @@ public partial class AMDDrawView : Control
 			else
 			{
 				// Had a previous terminal, so no more rolling allowed, and decide on which terminal to use
-				(int currentTerminalScore, bool currentTerminalExtraEffect) = terminalCardValue.GetScore(attackAbilityState);
-				(int newTerminalScore, bool newTerminalExtraEffect) = newCardValue.GetScore(attackAbilityState);
+				int currentTerminalScore = terminalCardValue.GetAttackModifierValue(attackAbilityState);
+				bool currentTerminalExtraEffect = terminalCardValue.GetHasExtraEffects(attackAbilityState);
+				int newTerminalScore = newCardValue.GetAttackModifierValue(attackAbilityState);
+				bool newTerminalExtraEffect = newCardValue.GetHasExtraEffects(attackAbilityState);
 
 				if(currentTerminalScore > newTerminalScore)
 				{

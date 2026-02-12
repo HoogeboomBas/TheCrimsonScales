@@ -55,7 +55,7 @@ public partial class ShortRestView : Control
 		List<AbilityCard> discardedCards = _selectedCharacter.Cards.Where(card => card.CardState == CardState.Discarded).ToList();
 		_abilityCard = discardedCards.PickRandom(_rng);
 
-		_cardView.SetCard(_abilityCard.Model);
+		_cardView.SetCard(_abilityCard.SavedAbilityCard);
 	}
 
 	public void Close()

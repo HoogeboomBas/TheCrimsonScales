@@ -30,7 +30,7 @@ public static class AbilityCmd
 
 	public static async GDTask DiscardOrLose(AbilityCard card)
 	{
-		if(card.CardState == CardState.Round || card.CardState == CardState.Persistent)
+		if(card.CardState == CardState.Round || card.CardState == CardState.Persistent || card.CardState == CardState.PersistentNoDeactivate)
 		{
 			await DiscardCard(card);
 		}
@@ -71,7 +71,7 @@ public static class AbilityCmd
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
-						new FigureInfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+						new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 				);
 
 				return GDTask.CompletedTask;
@@ -205,12 +205,12 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask RemoveAllChill(Figure target)
-    {
-        while (target.HasCondition(Conditions.Chill))
-        {
+	{
+		while(target.HasCondition(Conditions.Chill))
+		{
 			await RemoveCondition(target, Conditions.Chill);
-        }
-    }
+		}
+	}
 
 	public static async GDTask GainXP(Figure figure, int xp)
 	{
@@ -222,12 +222,15 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask DestroyObstacle(Obstacle obstacle)
+	public static async GDTask<bool> TryDestroyObstacle(Obstacle obstacle)
 	{
 		if(!obstacle.CannotBeDestroyed)
 		{
 			await obstacle.Destroy();
+			return true;
 		}
+
+		return false;
 	}
 
 	public static async GDTask DestroyDifficultTerrain(DifficultTerrain difficultTerrain)
@@ -251,8 +254,16 @@ public static class AbilityCmd
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
 
-	public static async GDTask SpawnCoin(Hex hex)
+	public static async GDTask SpawnCoin(Hex hex, Figure figure = null)
 	{
+		ScenarioCheckEvents.SpawnCoinCheck.Parameters spawnCoinCheckEventParameters =
+			ScenarioCheckEvents.SpawnCoinCheckEvent.Fire(new ScenarioCheckEvents.SpawnCoinCheck.Parameters(figure));
+
+		if(!spawnCoinCheckEventParameters.SpawnCoin)
+		{
+			return;
+		}
+
 		if(!hex.TryGetHexObjectOfType(out CoinStack coinStack))
 		{
 			PackedScene scene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/CoinStack.tscn");
@@ -357,16 +368,17 @@ public static class AbilityCmd
 	}
 
 	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, string hintText = "Select a target")
+		bool autoSelectIfOne = true, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
-		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, hintText);
+		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, effectCollection, hintText);
 	}
 
 	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, string hintText = "Select a target")
+		bool autoSelectIfOne = true, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, mandatory, null, () => hintText), authority);
+			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, mandatory, effectCollection, hintText ?? (() => "Select a target")),
+			authority);
 
 		if(targetAnswer.Skipped)
 		{
@@ -419,11 +431,19 @@ public static class AbilityCmd
 				.Select(referenceId => GameController.Instance.ReferenceManager.Get<AbilityCard>(referenceId)).ToList();
 	}
 
-	public static async GDTask EnterHex(AbilityState state, Figure figure, Figure authority, Hex hex, bool triggerHexEffects)
+	public static async GDTask ExitHex(AbilityState potentialAbilityState, Figure figure, Figure authority)
 	{
-		figure.SetOriginHexAndRotation(hex);
+		await ScenarioEvents.FigureExitingHexEvent.CreatePrompt(
+			new ScenarioEvents.FigureExitingHex.Parameters(potentialAbilityState, figure), authority);
+	}
 
-		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(state, figure), authority);
+	public static async GDTask EnterHex(AbilityState potentialAbilityState, Figure figure, Figure authority, Hex hex, bool triggerHexEffects,
+		bool setPosition)
+	{
+		figure.SetOriginHexAndRotation(hex, setPosition: setPosition);
+
+		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(potentialAbilityState, figure),
+			authority);
 
 		HazardousTerrain hazardousTerrain = hex.GetHexObjectOfType<HazardousTerrain>();
 		if(hazardousTerrain != null && triggerHexEffects)
@@ -435,7 +455,7 @@ public static class AbilityCmd
 			{
 				ScenarioEvents.HazardousTerrainTriggered.Parameters hazardousTerrainParameters =
 					await ScenarioEvents.HazardousTerrainTriggeredEvent.CreatePrompt(
-						new ScenarioEvents.HazardousTerrainTriggered.Parameters(state, hex, hazardousTerrain, true), authority);
+						new ScenarioEvents.HazardousTerrainTriggered.Parameters(potentialAbilityState, hex, hazardousTerrain, true), authority);
 				if(hazardousTerrainParameters.AffectedByHazardousTerrain)
 				{
 					int damage = HazardousTerrain.DamageAmount;
@@ -454,13 +474,54 @@ public static class AbilityCmd
 			{
 				ScenarioEvents.TrapTriggered.Parameters trapTriggeredParameters =
 					await ScenarioEvents.TrapTriggeredEvent.CreatePrompt(
-						new ScenarioEvents.TrapTriggered.Parameters(state, hex, trap, figure, true), authority);
+						new ScenarioEvents.TrapTriggered.Parameters(potentialAbilityState, hex, trap, figure, true), authority);
 				if(trapTriggeredParameters.TriggersTrap)
 				{
-					await trap.Trigger(state, figure);
+					await trap.Trigger(potentialAbilityState, figure);
 				}
 			}
 		}
+	}
+
+	public static GDTask<bool> TrySwap(Figure authority, Figure figureA, Figure figureB)
+	{
+		return TrySwap(null, authority, figureA, figureB);
+	}
+
+	public static GDTask<bool> TrySwap(AbilityState abilityState, Figure figureA, Figure figureB)
+	{
+		return TrySwap(abilityState, abilityState.Authority, figureA, figureB);
+	}
+
+	public static bool CanSwap(Figure figureA, Figure figureB)
+	{
+		if(figureA.Hex.TryGetHexObjectOfType(out Obstacle obstacle) &&
+		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureB)).HasFlying)
+		{
+			ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
+				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
+					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureB, figureA.Hex, obstacle, true));
+
+			if(!canEnterObstacleParameters.CanEnter)
+			{
+				return false;
+			}
+		}
+
+		if(figureB.Hex.TryGetHexObjectOfType(out Obstacle obstacle2) &&
+		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureA)).HasFlying)
+		{
+			ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
+				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
+					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureA, figureB.Hex, obstacle2, true));
+
+			if(!canEnterObstacleParameters.CanEnter)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public static async GDTask<bool> HasPerformedAbility(AbilityState abilityState, int abilityIndex)
@@ -516,8 +577,10 @@ public static class AbilityCmd
 		return InfuseElement(authority, Elements.All);
 	}
 
-	public static GDTask InfuseElement(Figure authority, IReadOnlyCollection<Element> possibleElements)
+	public static async GDTask<Element?> InfuseElement(Figure authority, IReadOnlyCollection<Element> possibleElements)
 	{
+		Element? element = null;
+
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
 			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 		foreach(Element possibleElement in possibleElements)
@@ -525,6 +588,7 @@ public static class AbilityCmd
 			subscriptions.Add(ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(
 				applyFunction: async parameters =>
 				{
+					element = possibleElement;
 					await InfuseElement(possibleElement);
 				},
 				effectType: EffectType.SelectableMandatory,
@@ -533,7 +597,9 @@ public static class AbilityCmd
 			));
 		}
 
-		return GenericChoice(authority, subscriptions);
+		await GenericChoice(authority, subscriptions);
+
+		return element;
 	}
 
 	public static async GDTask InfuseElement(Element element, bool immediately = false)
@@ -700,6 +766,11 @@ public static class AbilityCmd
 		await item.Refresh();
 	}
 
+	public static async GDTask SpendItem(ItemModel item)
+	{
+		await item.SetItemState(ItemState.Spent);
+	}
+
 	public static async GDTask<AbilityCardSection> PerformAbilityCardTopOrBottom(Figure performer, AbilityCard abilityCard)
 	{
 		List<CardPlayCardData> cardDatas = new List<CardPlayCardData>();
@@ -794,18 +865,18 @@ public static class AbilityCmd
 
 	private static ItemModel GetRandomAvailableItem(IEnumerable<ItemModel> itemModels)
 	{
-		List<ItemModel> availableOrbs = new List<ItemModel>();
-		foreach(ItemModel orbModel in itemModels)
+		List<ItemModel> availableItems = new List<ItemModel>();
+		foreach(ItemModel itemModel in itemModels)
 		{
-			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(orbModel);
+			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
 			int unlockedCount = savedItem.UnlockedCount;
-			for(int i = 0; i < 2 - unlockedCount; i++)
+			for(int i = 0; i < itemModel.ShopCount - unlockedCount; i++)
 			{
-				availableOrbs.Add(orbModel);
+				availableItems.Add(itemModel);
 			}
 		}
 
-		return availableOrbs.Count == 0 ? null : availableOrbs.PickRandom(GameController.Instance.StateRNG);
+		return availableItems.Count == 0 ? null : availableItems.PickRandom(GameController.Instance.StateRNG);
 	}
 
 	public static GDTask Lose()
@@ -820,5 +891,92 @@ public static class AbilityCmd
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioWonView.Open();
 		return GDTask.Never(GameController.CancellationToken);
+	}
+
+	public static void SubscribeDuringCharacterTurn(IEventSubscriber eventSubscriber, EffectType effectType, Func<Character, bool> canApply,
+		Func<Character, GDTask> apply,
+		EffectButtonParameters effectButtonParameters, EffectInfoViewParameters effectInfoViewParameters,
+		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+	{
+		ScenarioEvents.CardSideSelectionEvent.Subscribe(eventSubscriber,
+			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters.Character);
+				}
+			},
+			effectType,
+			order: order,
+			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
+			effectButtonParameters: effectButtonParameters,
+			effectInfoViewParameters: effectInfoViewParameters);
+
+		ScenarioEvents.AfterCardsPlayedEvent.Subscribe(eventSubscriber,
+			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters.Character);
+				}
+			},
+			effectType,
+			order: order,
+			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
+			effectButtonParameters: effectButtonParameters,
+			effectInfoViewParameters: effectInfoViewParameters);
+
+		ScenarioEvents.LongRestCardSelectionEvent.Subscribe(eventSubscriber,
+			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			async applyParameters =>
+			{
+				if(apply != null)
+				{
+					await apply(applyParameters.Character);
+				}
+			},
+			effectType,
+			order: order,
+			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
+			effectButtonParameters: effectButtonParameters,
+			effectInfoViewParameters: effectInfoViewParameters);
+	}
+
+	public static void UnsubscribeDuringTurn(IEventSubscriber eventSubscriber)
+	{
+		ScenarioEvents.CardSideSelectionEvent.Unsubscribe(eventSubscriber);
+		ScenarioEvents.AfterCardsPlayedEvent.Unsubscribe(eventSubscriber);
+		ScenarioEvents.LongRestCardSelectionEvent.Unsubscribe(eventSubscriber);
+	}
+
+	public static async GDTask<bool> CurseMonsters()
+	{
+		await GDTask.CompletedTask;
+
+		bool success = GameController.Instance.AMDManager.CurseMonsters();
+		return success;
+	}
+
+	private static async GDTask<bool> TrySwap(AbilityState potentialAbilityState, Figure authority, Figure figureA, Figure figureB)
+	{
+		if(!CanSwap(figureA, figureB))
+		{
+			return false;
+		}
+
+		if(!GameController.FastForward)
+		{
+			await GameController.Instance.ScreenDistortion.Swap(figureA, figureB, 1.4f).PlayFastForwardableAsync();
+		}
+
+		Hex hexA = figureA.Hex;
+		Hex hexB = figureB.Hex;
+		await EnterHex(potentialAbilityState, figureB, authority, hexA, true, true);
+		await EnterHex(potentialAbilityState, figureA, authority, hexB, true, true);
+		potentialAbilityState?.SetPerformed();
+
+		return true;
 	}
 }

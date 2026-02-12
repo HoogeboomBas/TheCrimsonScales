@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+[IgnoreModelId]
 public class HydraSpirit : MonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>
@@ -121,7 +122,6 @@ public class HydraSpirit : MonsterModel
 	public override string Name => "Hydra Spirit";
 
 	public override string AssetPath => "res://Content/Monsters/WaterSpirit";
-	public override string ScenePath => $"{AssetPath}/Scene.tscn";
 	public override string PortraitTexturePath => $"{AssetPath}/Portrait.tres";
 	public override string MapIconTexturePath => $"{AssetPath}/Icon.tres";
 

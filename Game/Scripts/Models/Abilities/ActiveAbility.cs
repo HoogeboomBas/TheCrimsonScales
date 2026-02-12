@@ -28,6 +28,7 @@ public abstract class ActiveAbilityState : AbilityState
 public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState, new()
 {
 	private Func<T, string> _getHintText;
+	public bool Mandatory { get; private set; }
 
 	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<T>.AbstractBuilder<TBuilder, TAbility>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
@@ -50,12 +51,18 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 			Obj._getHintText = _getHintText ?? Obj.DefaultHintText;
 			return base.Build();
 		}
+
+		public TBuilder WithMandatory(bool mandatory)
+		{
+			Obj.Mandatory = mandatory;
+			return (TBuilder)this;
+		}
 	}
 
 	protected async GDTask AskConfirmAndActivate(T abilityState)
 	{
 		ConfirmPrompt.Answer confirmAnswer =
-			await PromptManager.Prompt(new ConfirmPrompt(null, () => _getHintText(abilityState)), abilityState.Authority);
+			await PromptManager.Prompt(new ConfirmPrompt(null, () => _getHintText(abilityState), Mandatory), abilityState.Authority);
 		if(confirmAnswer.Confirmed)
 		{
 			await Activate(abilityState);

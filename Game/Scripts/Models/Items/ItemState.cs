@@ -2,5 +2,6 @@
 {
 	Available = 0,
 	Spent = 1,
-	Consumed = 2
+	Consumed = 2,
+	UnrecoverablyConsumed = 3,
 }

@@ -20,5 +20,13 @@ public class ScenarioInitializationPhase : ScenarioPhase
 		await GameController.Instance.CharacterManager.PlaceCharacters();
 
 		await GameController.Instance.ScenarioModel.StartAfterFirstRoomRevealed();
+
+		// foreach(SavedEventState savedEventState in GameController.Instance.SavedCampaign.SavedEvents.SavedEventStates)
+		// {
+		// 	foreach(EventReward eventReward in savedEventState.Choice.GetRewards(savedEventState))
+		// 	{
+		// 		await eventReward.OnAfterFirstRoomRevealed();
+		// 	}
+		// }
 	}
 }

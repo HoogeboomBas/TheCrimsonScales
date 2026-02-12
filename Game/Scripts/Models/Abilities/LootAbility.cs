@@ -11,6 +11,7 @@ public class LootAbility : Ability<LootAbility.State>
 	public class State : AbilityState
 	{
 		public List<LootableObject> LootedObjects { get; } = new List<LootableObject>();
+		public List<Hex> LootedHexes { get; } = new List<Hex>();
 		public int LootedCoinCount { get; set; }
 		public int TotalLootedCount { get; set; }
 	}
@@ -95,6 +96,7 @@ public class LootAbility : Ability<LootAbility.State>
 			foreach(Vector2I coords in confirmAnswer.HexCoords)
 			{
 				Hex hex = GameController.Instance.Map.GetHex(coords);
+				abilityState.LootedHexes.Add(hex);
 
 				await LootHex(abilityState, hex, lootObtainer);
 			}

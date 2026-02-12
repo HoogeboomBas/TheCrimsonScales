@@ -40,8 +40,11 @@ public abstract partial class Figure : HexObject
 
 	public abstract AMDCardDeck AMDCardDeck { get; }
 
-	public int TurnMovedHexCount { get; private set; }
+	public List<Hex> TurnMovedHexes { get; private set; } = new List<Hex>();
 	public List<ActionState> TurnPerformedActionStates { get; } = new List<ActionState>();
+	public List<ActionState> RoundPerformedActionStates { get; } = new List<ActionState>();
+
+	public abstract Texture2D MapIconTexture { get; }
 
 	public Color OutlineColor => _figureViewComponent.Outline.SelfModulate;
 
@@ -77,10 +80,10 @@ public abstract partial class Figure : HexObject
 
 		object figureEnteredHexEventSubscriber = new object();
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this, figureEnteredHexEventSubscriber,
-			enteredHexParameters => enteredHexParameters.AbilityState is MoveAbility.State or PullSelfAbility.State,
+			enteredHexParameters => enteredHexParameters.PotentialAbilityState is MoveAbility.State or PullSelfAbility.State,
 			async enteredHexParameters =>
 			{
-				TurnMovedHexCount++;
+				TurnMovedHexes.Add(enteredHexParameters.Hex);
 
 				await GDTask.CompletedTask;
 			}
@@ -89,10 +92,13 @@ public abstract partial class Figure : HexObject
 		ScenarioCheckEvents.ShieldCheckEvent.SubscribersChangedEvent += OnShieldSubscriptionsChanged;
 		ScenarioCheckEvents.RetaliateCheckEvent.SubscribersChangedEvent += OnRetaliateSubscriptionsChanged;
 		ScenarioCheckEvents.FlyingCheckEvent.SubscribersChangedEvent += OnFlyingSubscriptionsChanged;
+		ScenarioCheckEvents.InitiativeCheckEvent.SubscribersChangedEvent += OnInitiativeSubscriptionsChanged;
+		//ScenarioCheckEvents.IsMountedCheckEvent.SubscribersChangedEvent += OnIsMountedSubscriptionsChanged;
 
 		OnShieldSubscriptionsChanged();
 		OnRetaliateSubscriptionsChanged();
 		OnFlyingSubscriptionsChanged();
+		//OnIsMountedSubscriptionsChanged();
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -106,6 +112,8 @@ public abstract partial class Figure : HexObject
 		ScenarioCheckEvents.ShieldCheckEvent.SubscribersChangedEvent -= OnShieldSubscriptionsChanged;
 		ScenarioCheckEvents.RetaliateCheckEvent.SubscribersChangedEvent -= OnRetaliateSubscriptionsChanged;
 		ScenarioCheckEvents.FlyingCheckEvent.SubscribersChangedEvent -= OnFlyingSubscriptionsChanged;
+		ScenarioCheckEvents.InitiativeCheckEvent.SubscribersChangedEvent -= OnInitiativeSubscriptionsChanged;
+		//ScenarioCheckEvents.IsMountedCheckEvent.SubscribersChangedEvent -= OnIsMountedSubscriptionsChanged;
 	}
 
 	public void SetMaxHealth(int maxHealth)
@@ -142,9 +150,9 @@ public abstract partial class Figure : HexObject
 	}
 
 	public bool IsDamaged()
-    {
+	{
 		return Health < MaxHealth;
-    }
+	}
 
 	public virtual void UpdateInitiative()
 	{
@@ -196,7 +204,7 @@ public abstract partial class Figure : HexObject
 		}
 
 		TakingTurn = true;
-		TurnMovedHexCount = 0;
+		TurnMovedHexes.Clear();
 		TurnPerformedActionStates.Clear();
 
 		_figureViewComponent.ActivePS.Show();
@@ -218,7 +226,10 @@ public abstract partial class Figure : HexObject
 			new ScenarioEvents.FigureTurnEnding.Parameters(this), this);
 
 		// Little hack here to make sure looting is performed at the right time
-		await EndOfTurnLooting();
+		if(Hex != null)
+		{
+			await EndOfTurnLooting();
+		}
 
 		await ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.CreatePrompt(
 			new ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters(this), this);
@@ -255,11 +266,6 @@ public abstract partial class Figure : HexObject
 	{
 		return HasCondition(global::Conditions.Wound1) || HasCondition(global::Conditions.Wound2);
 	}
-
-	// public bool HasInvisible()
-	// {
-	// 	return HasCondition(global::Conditions.Invisible);
-	// }
 
 	public ConditionModel GetCondition(ConditionModel conditionModel)
 	{
@@ -353,11 +359,14 @@ public abstract partial class Figure : HexObject
 	public virtual void RoundEnd()
 	{
 		CanTakeTurn = true;
+		RoundPerformedActionStates.Clear();
 	}
 
 	private void UpdateHealthProgressBar()
 	{
-		_figureViewComponent.HealthProgressBar.Value = (float)Health / MaxHealth;
+		float t = (float)Health / MaxHealth;
+		float fill = _figureViewComponent.HealthProgressBarCurve.Sample(t);
+		_figureViewComponent.HealthProgressBar.SetValue(fill);
 	}
 
 	private void OnShieldSubscriptionsChanged()
@@ -388,6 +397,11 @@ public abstract partial class Figure : HexObject
 			ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(this));
 
 		SetFlying(parameters.HasFlying);
+	}
+
+	private void OnInitiativeSubscriptionsChanged()
+	{
+		UpdateInitiative();
 	}
 
 	private void SetShield(int shield, bool extraValue)
@@ -502,5 +516,10 @@ public abstract partial class Figure : HexObject
 
 			index++;
 		}
+	}
+
+	public void SetTakingTurn(bool takingTurn)
+	{
+		TakingTurn = takingTurn;
 	}
 }

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://di67yg842jxvq"]
+
+[ext_resource type="Texture2D" uid="uid://db5ckb1uyoynj" path="res://Content/Classes/FireKnight/SpottedHound.jpg" id="1_3a0ku"]
+
+[resource]
+atlas = ExtResource("1_3a0ku")
+region = Rect2(140, 250, 600, 600)

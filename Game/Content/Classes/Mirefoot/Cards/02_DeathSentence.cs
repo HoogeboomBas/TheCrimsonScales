@@ -32,7 +32,7 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						canApplyParameters =>
-							canApplyParameters.AbilityState == state &&
+							canApplyParameters.PotentialAbilityState == state &&
 							canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async applyParameters =>
 						{

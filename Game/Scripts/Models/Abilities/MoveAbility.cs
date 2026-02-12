@@ -150,6 +150,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
 
+				await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
+
 				if(abilityState.MoveType == MoveType.Regular)
 				{
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetStep(hex), delay: 0.1f);
@@ -173,21 +175,23 @@ public class MoveAbility : Ability<MoveAbility.State>
 				ScenarioEvents.MoveTogetherCheck.Parameters moveTogetherCheckParameters =
 					await ScenarioEvents.MoveTogetherCheckEvent.CreatePrompt(new ScenarioEvents.MoveTogetherCheck.Parameters(performer));
 
-				if(moveTogetherCheckParameters.OtherFigure != null)
-				{
-					moveTogetherCheckParameters.OtherFigure.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardable();
-				}
+				// if(moveTogetherCheckParameters.OtherFigure != null)
+				// {
+				// 	moveTogetherCheckParameters.OtherFigure.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardable();
+				// }
 
 				await performer.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine)
 					.PlayFastForwardableAsync();
-				
+
 				await GDTask.DelayFastForwardable(0.03f);
 				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
-				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects);
+				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects, true);
 
 				if(moveTogetherCheckParameters.OtherFigure != null)
 				{
-					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex, triggerHexEffects);
+					await AbilityCmd.ExitHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority);
+					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex,
+						moveTogetherCheckParameters.TriggerHexEffects, false);
 				}
 			}
 

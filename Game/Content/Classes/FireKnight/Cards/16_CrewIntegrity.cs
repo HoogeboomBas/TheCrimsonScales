@@ -75,7 +75,7 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 						{
 							parameters.AbilityState.AdjustTargets(1);
 
-							await GDTask.CompletedTask;
+							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
 				)

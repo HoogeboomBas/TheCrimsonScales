@@ -28,8 +28,8 @@ public class FlamingDrakeAbilityCard0 : FlamingDrakeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
-			extraDamage: -1, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+			extraDamage: -1,
 			aoePattern: new AOEPattern(
 			[
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
@@ -37,8 +37,8 @@ public class FlamingDrakeAbilityCard0 : FlamingDrakeAbilityCard
 			]))),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlamingDrakeAbilityCard1 : FlamingDrakeAbilityCard
@@ -50,8 +50,8 @@ public class FlamingDrakeAbilityCard1 : FlamingDrakeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
-			extraDamage: +0, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+			extraDamage: +0,
 			aoePattern: new AOEPattern(
 			[
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
@@ -59,8 +59,8 @@ public class FlamingDrakeAbilityCard1 : FlamingDrakeAbilityCard
 			]))),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlamingDrakeAbilityCard2 : FlamingDrakeAbilityCard
@@ -88,23 +88,23 @@ public class FlamingDrakeAbilityCard3 : FlamingDrakeAbilityCard
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder()
-		.WithHealValue(2)
-		.WithTarget(Target.Self)
-		.WithDuringHealSubscription(
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringHeal.Parameters>(monster, [Element.Fire],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.SingleTargetAdjustHealValue(2);
+			.WithHealValue(2)
+			.WithTarget(Target.Self)
+			.WithDuringHealSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringHeal.Parameters>(monster, [Element.Fire],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.SingleTargetAdjustHealValue(2);
 
-					await GDTask.CompletedTask;
-				}
+						await GDTask.CompletedTask;
+					}
+				)
 			)
-		)
-		.Build()),
+			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
@@ -137,8 +137,8 @@ public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlamingDrakeAbilityCard5 : FlamingDrakeAbilityCard
@@ -154,8 +154,8 @@ public class FlamingDrakeAbilityCard5 : FlamingDrakeAbilityCard
 		)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlamingDrakeAbilityCard6 : FlamingDrakeAbilityCard

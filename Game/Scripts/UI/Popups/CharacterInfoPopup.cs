@@ -66,7 +66,8 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 
 	private void OnDeletePressed()
 	{
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?", "Are you sure you want to delete this character?\nThis can not be undone!",
+		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?",
+			"Are you sure you want to delete this character?\nThis can not be undone!",
 			new TextButton.Parameters("Cancel",
 				() =>
 				{

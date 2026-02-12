@@ -82,7 +82,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 								}
 
 								list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1));
-							}, hintText: $"Select an ally to give {itemModel.Name} to"
+							}, hintText: () => $"Select an ally to give {itemModel.Name} to"
 						);
 
 						if(figure == null)
@@ -154,7 +154,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 												list.RemoveAt(itemIndex);
 											}
 										}
-									}, hintText: $"Select an ally to give {itemModel.Name} to"
+									}, hintText: () => $"Select an ally to give {itemModel.Name} to"
 								);
 
 								if(figure == null)

@@ -1,10 +1,10 @@
 ﻿using Fractural.Tasks;
 
-public abstract class PullTrait(int amount) : FigureTrait
+public class PullTrait(int amount) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.DuringAttackEvent.Subscribe(figure, this,
 			parameters =>
@@ -18,9 +18,9 @@ public abstract class PullTrait(int amount) : FigureTrait
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.DuringAttackEvent.Unsubscribe(figure, this);
 	}

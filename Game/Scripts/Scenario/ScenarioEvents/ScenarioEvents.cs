@@ -44,16 +44,16 @@ public class ScenarioEvents
 	private readonly GenericChoice _genericChoice = new GenericChoice();
 	public static GenericChoice GenericChoiceEvent => GameController.Instance.ScenarioEvents._genericChoice;
 
-	// public class AttackAbilityStart : ScenarioEvent<AttackAbilityStart.Parameters>
-	// {
-	// 	public class Parameters(AttackAbility.State abilityState)
-	// 		: ParametersBase<AttackAbility.State>(abilityState)
-	// 	{
-	// 	}
-	// }
-	//
-	// private readonly AttackAbilityStart _attackAbilityStart = new AttackAbilityStart();
-	// public static AttackAbilityStart AttackAbilityStartEvent => GameController.Instance.ScenarioEvents._attackAbilityStart;
+	public class HexObjectDestroyed : ScenarioEvent<HexObjectDestroyed.Parameters>
+	{
+		public class Parameters(HexObject hexObject) : ParametersBase
+		{
+			public HexObject HexObject { get; } = hexObject;
+		}
+	}
+
+	private readonly HexObjectDestroyed _hexObjectDestroyed = new HexObjectDestroyed();
+	public static HexObjectDestroyed HexObjectDestroyedEvent => GameController.Instance.ScenarioEvents._hexObjectDestroyed;
 
 	public class DuringAttack : ScenarioEvent<DuringAttack.Parameters>
 	{
@@ -68,14 +68,14 @@ public class ScenarioEvents
 	public class AttackAfterTargetConfirmed : ScenarioEvent<AttackAfterTargetConfirmed.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState) : ParametersBase<AttackAbility.State>(abilityState)
-        {
-        	public bool CannotGainDisadvantage { get; private set; } = false;
+		{
+			public bool CannotGainDisadvantage { get; private set; } = false;
 
 			public void SetCannotGainDisadvantage()
 			{
 				CannotGainDisadvantage = true;
 			}
-        }
+		}
 	}
 
 	private readonly AttackAfterTargetConfirmed _attackAfterTargetConfirmed = new AttackAfterTargetConfirmed();
@@ -97,8 +97,8 @@ public class ScenarioEvents
 			: ParametersBase<AttackAbility.State>(abilityState)
 		{
 			public AMDCard AMDCard = amdCard;
-			public AMDCardType Type { get; private set; } = amdCard.Type;
-			public int? Value { get; private set; } = amdCard.Value;
+			public AMDCardType Type { get; private set; } = amdCard.Model.Type;
+			public int? Value { get; private set; } = amdCard.Model.GetValue(abilityState);
 
 			public void SetType(AMDCardType type)
 			{
@@ -126,7 +126,7 @@ public class ScenarioEvents
 
 	private readonly AMDCardValueApplied _amdCardValueApplied = new AMDCardValueApplied();
 	public static AMDCardValueApplied AMDCardValueAppliedEvent => GameController.Instance.ScenarioEvents._amdCardValueApplied;
-	
+
 	public class DuringHeal : ScenarioEvent<DuringHeal.Parameters>
 	{
 		public class Parameters(HealAbility.State abilityState) : ParametersBase<HealAbility.State>(abilityState)
@@ -184,7 +184,9 @@ public class ScenarioEvents
 	}
 
 	private readonly ConditionAfterTargetConfirmed _conditionAfterTargetConfirmed = new ConditionAfterTargetConfirmed();
-	public static ConditionAfterTargetConfirmed ConditionAfterTargetConfirmedEvent => GameController.Instance.ScenarioEvents._conditionAfterTargetConfirmed;
+
+	public static ConditionAfterTargetConfirmed ConditionAfterTargetConfirmedEvent =>
+		GameController.Instance.ScenarioEvents._conditionAfterTargetConfirmed;
 
 	public class InflictConditions : ScenarioEvent<InflictConditions.Parameters>
 	{
@@ -243,7 +245,9 @@ public class ScenarioEvents
 	}
 
 	private readonly InflictConditionDuplicatesCheck _inflictConditionDuplicatesCheck = new InflictConditionDuplicatesCheck();
-	public static InflictConditionDuplicatesCheck InflictConditionDuplicatesCheckEvent => GameController.Instance.ScenarioEvents._inflictConditionDuplicatesCheck;
+
+	public static InflictConditionDuplicatesCheck InflictConditionDuplicatesCheckEvent =>
+		GameController.Instance.ScenarioEvents._inflictConditionDuplicatesCheck;
 
 	public class DuringGrant : ScenarioEvent<DuringGrant.Parameters>
 	{
@@ -376,7 +380,9 @@ public class ScenarioEvents
 
 	public class JustBeforeSufferDamage : ScenarioEvent<JustBeforeSufferDamage.Parameters>
 	{
-		public class Parameters(Figure figure, int damage, AttackAbility.State potentialAttackAbilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
+		public class Parameters(
+			Figure figure, int damage, AttackAbility.State potentialAttackAbilityState, SufferDamage.Parameters sufferDamageParameters)
+			: ParametersBase
 		{
 			public Figure Figure { get; } = figure;
 			public int Damage { get; } = damage;
@@ -397,7 +403,9 @@ public class ScenarioEvents
 
 	public class AfterSufferDamage : ScenarioEvent<AfterSufferDamage.Parameters>
 	{
-		public class Parameters(Figure figure, int damage, AttackAbility.State potentialAttackAbilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
+		public class Parameters(
+			Figure figure, int damage, AttackAbility.State potentialAttackAbilityState, SufferDamage.Parameters sufferDamageParameters)
+			: ParametersBase
 		{
 			public Figure Figure { get; } = figure;
 			public int Damage { get; } = damage;
@@ -474,11 +482,26 @@ public class ScenarioEvents
 	private readonly CanMoveFurtherCheck _canMoveFurtherCheck = new CanMoveFurtherCheck();
 	public static CanMoveFurtherCheck CanMoveFurtherCheckEvent => GameController.Instance.ScenarioEvents._canMoveFurtherCheck;
 
-	public class FigureEnteredHex : ScenarioEvent<FigureEnteredHex.Parameters>
+	public class FigureExitingHex : ScenarioEvent<FigureExitingHex.Parameters>
 	{
 		public class Parameters(AbilityState abilityState, Figure figure)
-			: ParametersBase<AbilityState>(abilityState)
+			: ParametersBase
 		{
+			public AbilityState PotentialAbilityState { get; } = abilityState;
+			public Figure Figure { get; } = figure;
+
+			public Hex Hex => Figure.Hex;
+		}
+	}
+
+	private readonly FigureExitingHex _figureExitingHex = new FigureExitingHex();
+	public static FigureExitingHex FigureExitingHexEvent => GameController.Instance.ScenarioEvents._figureExitingHex;
+
+	public class FigureEnteredHex : ScenarioEvent<FigureEnteredHex.Parameters>
+	{
+		public class Parameters(AbilityState potentialAbilityState, Figure figure) : ParametersBase
+		{
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Figure Figure { get; } = figure;
 
 			public Hex Hex => Figure.Hex;
@@ -497,9 +520,16 @@ public class ScenarioEvents
 
 			public Figure OtherFigure { get; private set; } = null;
 
+			public bool TriggerHexEffects { get; private set; } = true;
+
 			public void SetOtherFigure(Figure otherFigure)
 			{
 				OtherFigure = otherFigure;
+			}
+
+			public void SetTriggerHexEffects(bool triggerHexEffects)
+			{
+				TriggerHexEffects = triggerHexEffects;
 			}
 		}
 	}
@@ -509,9 +539,10 @@ public class ScenarioEvents
 
 	public class HazardousTerrainTriggered : ScenarioEvent<HazardousTerrainTriggered.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Hex hex, HazardousTerrain hazardousTerrain, bool affectedByHazardousTerrain)
-			: ParametersBase<AbilityState>(abilityState)
+		public class Parameters(AbilityState potentialAbilityState, Hex hex, HazardousTerrain hazardousTerrain, bool affectedByHazardousTerrain)
+			: ParametersBase
 		{
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Hex Hex { get; } = hex;
 			public HazardousTerrain HazardousTerrain { get; } = hazardousTerrain;
 			public bool AffectedByHazardousTerrain { get; private set; } = affectedByHazardousTerrain;
@@ -528,9 +559,10 @@ public class ScenarioEvents
 
 	public class TrapTriggered : ScenarioEvent<TrapTriggered.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Hex hex, Trap trap, Figure figure, bool triggersTrap)
-			: ParametersBase<AbilityState>(abilityState)
+		public class Parameters(AbilityState potentialAbilityState, Hex hex, Trap trap, Figure figure, bool triggersTrap)
+			: ParametersBase
 		{
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Hex Hex { get; } = hex;
 			public Trap Trap { get; } = trap;
 			public Figure Figure { get; } = figure;
@@ -738,39 +770,11 @@ public class ScenarioEvents
 			: ParametersBase
 		{
 			public Character Character { get; } = character;
-
-			// public bool ForgoneTopAction { get; private set; }
-			//
-			// public void SetForgoneTopAction()
-			// {
-			// 	ForgoneTopAction = true;
-			// }
 		}
 	}
 
 	private readonly CardSideSelection _cardSideSelectionStarted = new CardSideSelection();
 	public static CardSideSelection CardSideSelectionEvent => GameController.Instance.ScenarioEvents._cardSideSelectionStarted;
-
-	// public class BeforeCardSidePerform : ScenarioEvent<BeforeCardSidePerform.Parameters>
-	// {
-	// 	public class Parameters(Character character)
-	// 		: ParametersBase
-	// 	{
-	// 		public Character Character { get; } = character;
-	//
-	// 		public AbilityCardSide AbilityCardSide { get; private set; }
-	//
-	// 		public bool ForgoneAction { get; private set; }
-	//
-	// 		public void ForgoAction()
-	// 		{
-	// 			ForgoneAction = true;
-	// 		}
-	// 	}
-	// }
-	//
-	// private readonly BeforeCardSidePerform _beforeCardSidePerform = new BeforeCardSidePerform();
-	// public static BeforeCardSidePerform BeforeCardSidePerformEvent => GameController.Instance.ScenarioEvents._beforeCardSidePerform;
 
 	public class AfterCardsPlayed : ScenarioEvent<AfterCardsPlayed.Parameters>
 	{
@@ -806,7 +810,9 @@ public class ScenarioEvents
 	}
 
 	private readonly FigureTurnEndedConditionsFallOff _figureTurnEndedConditionsFallOff = new FigureTurnEndedConditionsFallOff();
-	public static FigureTurnEndedConditionsFallOff FigureTurnEndedConditionsFallOffEvent => GameController.Instance.ScenarioEvents._figureTurnEndedConditionsFallOff;
+
+	public static FigureTurnEndedConditionsFallOff FigureTurnEndedConditionsFallOffEvent =>
+		GameController.Instance.ScenarioEvents._figureTurnEndedConditionsFallOff;
 
 	public class FigureTurnEnded : ScenarioEvent<FigureTurnEnded.Parameters>
 	{
@@ -829,7 +835,9 @@ public class ScenarioEvents
 	}
 
 	private readonly RoundStartBeforeCardSelection _roundStartBeforeCardSelection = new RoundStartBeforeCardSelection();
-	public static RoundStartBeforeCardSelection RoundStartBeforeCardSelectionEvent => GameController.Instance.ScenarioEvents._roundStartBeforeCardSelection;
+
+	public static RoundStartBeforeCardSelection RoundStartBeforeCardSelectionEvent =>
+		GameController.Instance.ScenarioEvents._roundStartBeforeCardSelection;
 
 	public class RoundStartedBeforeInitiativesSorted : ScenarioEvent<RoundStartedBeforeInitiativesSorted.Parameters>
 	{
@@ -843,7 +851,9 @@ public class ScenarioEvents
 	}
 
 	private readonly RoundStartedBeforeInitiativesSorted _roundStartedBeforeInitiativesSorted = new RoundStartedBeforeInitiativesSorted();
-	public static RoundStartedBeforeInitiativesSorted RoundStartedBeforeInitiativesSortedEvent => GameController.Instance.ScenarioEvents._roundStartedBeforeInitiativesSorted;
+
+	public static RoundStartedBeforeInitiativesSorted RoundStartedBeforeInitiativesSortedEvent =>
+		GameController.Instance.ScenarioEvents._roundStartedBeforeInitiativesSorted;
 
 	public class InitiativesSorted : ScenarioEvent<InitiativesSorted.Parameters>
 	{

@@ -6,6 +6,8 @@ public class HierophantModel : ClassModel
 	public override string Name => "Hierophant";
 	public override MaxHealthValues MaxHealthValues => MaxHealthValues.Low;
 	public override int HandSize => 11;
+	public override Ancestry Ancestry => Ancestry.Human;
+
 	public override string AssetPath => "res://Content/Classes/Hierophant";
 	public override Color PrimaryColor => Color.FromHtml("ddde8a");
 	public override Color SecondaryColor => Color.FromHtml("a9a5ad");

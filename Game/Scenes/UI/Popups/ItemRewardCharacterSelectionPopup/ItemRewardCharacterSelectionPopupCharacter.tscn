@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7kiayarr1vsm"]
+
+[ext_resource type="Script" uid="uid://bdc45aq32xo11" path="res://Scripts/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopupCharacter.cs" id="1_cnsln"]
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ClassToggleButton.tscn" id="2_uvlkq"]
+
+[node name="ItemRewardCharacterSelectionPopupCharacter" type="Control" node_paths=PackedStringArray("_classToggleButton")]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cnsln")
+_classToggleButton = NodePath("ClassToggleButton")
+
+[node name="ClassToggleButton" parent="." instance=ExtResource("2_uvlkq")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

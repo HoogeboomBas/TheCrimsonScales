@@ -19,6 +19,5 @@ rotation = 3.14159
 scale = Vector2(1.03, 1.03)
 texture = ExtResource("3_m4cug")
 
-[node name="WorldButton" parent="." node_paths=PackedStringArray("_collisionObject2D") instance=ExtResource("5_x6jk0")]
+[node name="WorldButton" parent="." instance=ExtResource("5_x6jk0")]
 _canDrag = true
-_collisionObject2D = NodePath("StaticBody2D")

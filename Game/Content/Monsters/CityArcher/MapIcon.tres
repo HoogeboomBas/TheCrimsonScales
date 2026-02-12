@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b8lw1oe8i0fmn"]
+
+[ext_resource type="Texture2D" uid="uid://cid7chcink4sw" path="res://Content/Monsters/CityArcher/Icon.jpg" id="1_ne1dm"]
+
+[resource]
+atlas = ExtResource("1_ne1dm")
+region = Rect2(65, 65, 370, 370)

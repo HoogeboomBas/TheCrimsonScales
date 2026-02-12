@@ -24,7 +24,8 @@ public class BonecladShawl : CS1Item
 		base.Subscribe();
 
 		SubscribeRetaliate(
-			canApply: state => state.RetaliatingFigure == Owner && 
+			canApply: state =>
+				state.RetaliatingFigure == Owner &&
 				RangeHelper.Distance(state.AbilityState.Performer.Hex, state.RetaliatingFigure.Hex) <= 1,
 			apply: async state =>
 			{

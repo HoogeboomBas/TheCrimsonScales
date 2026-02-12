@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0tqt5fvbsn2x"]
+
+[ext_resource type="Script" uid="uid://kc34l1um7gri" path="res://Scripts/BetweenScenarios/BetweenScenariosPartyStat.cs" id="1_6jx7e"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="2_y0b1e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blvf2"]
+bg_color = Color(0, 0, 0, 0.588235)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuydi"]
+bg_color = Color(1, 1, 1, 0.784314)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_seeb3"]
+font = ExtResource("2_y0b1e")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_1n38g"]
+font = ExtResource("2_y0b1e")
+font_size = 20
+
+[node name="Prosperity" type="Control" node_paths=PackedStringArray("_progressBarContainer", "_progressBarFill", "_valueLabel")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_6jx7e")
+_progressBarContainer = NodePath(".")
+_progressBarFill = NodePath("ProgressBar")
+_valueLabel = NodePath("Amount")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_blvf2")
+
+[node name="ProgressBar" type="Panel" parent="."]
+self_modulate = Color(0.78451, 0.253912, 0.268934, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wuydi")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = 93.0
+grow_vertical = 2
+text = "Prosperity"
+label_settings = SubResource("LabelSettings_seeb3")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_1n38g")
+horizontal_alignment = 2
+vertical_alignment = 1

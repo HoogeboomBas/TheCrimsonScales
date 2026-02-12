@@ -37,8 +37,8 @@ public partial class Chainguard : Character
 
 	private async GDTask PromptAndRemoveAllButXShackles(int shacklesToKeep)
 	{
-		IEnumerable<Figure> shackledFigures = GameController.Instance.Map.Figures.FindAll(figure => figure.HasCondition(Shackle));
-		int shacklesToRemove = shackledFigures.Count() - shacklesToKeep;
+		List<Figure> shackledFigures = GameController.Instance.Map.Figures.FindAll(figure => figure.HasCondition(Shackle));
+		int shacklesToRemove = shackledFigures.Count - shacklesToKeep;
 
 		if(shacklesToKeep == 0)
 		{
@@ -51,15 +51,14 @@ public partial class Chainguard : Character
 		{
 			for(int extraShacklesIndex = 1; extraShacklesIndex <= shacklesToRemove; extraShacklesIndex++)
 			{
-				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new TargetSelectionPrompt(figures => figures.AddRange(shackledFigures),
-						true, true, null,
-						() => $"Select an enemy to lose {Icons.Inline(Icons.GetCondition(Shackle))}, {extraShacklesIndex}/{shacklesToRemove}"),
-					this);
+				int index = extraShacklesIndex;
 
-				await AbilityCmd.RemoveCondition(GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId), Shackle);
+				Figure figure = await AbilityCmd.SelectFigure(this,
+					figures => figures.AddRange(shackledFigures),
+					true,
+					hintText: () => $"Select an enemy to lose {Icons.Inline(Icons.GetCondition(Shackle))}, {index}/{shacklesToRemove}");
 
-				extraShacklesIndex++;
+				await AbilityCmd.RemoveCondition(figure, Shackle);
 			}
 		}
 	}

@@ -79,6 +79,6 @@ public partial class Door : OverlayTile, IEventSubscriber
 		parametersList.Add(new GenericInfoItem.Parameters(this, "Door",
 			Locked
 				? "This door is locked. It will open once specific conditions are met."
-				: "A character can move on top a door to open it."));
+				: "A character can move on top of a door to open it."));
 	}
 }
