@@ -315,10 +315,10 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
 	public Func<T, Figure, bool> FilterTargets { get; private set; }
 
-	public bool IsMultiTarget =>
-		Targets > 1 ||
-		Target.HasFlag(Target.TargetAll) ||
-		(AOEPattern != null && AOEPattern.LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
+	public bool IsMultiTarget(TargetedAbilityState abilityState) =>
+		Targets.GetValue(abilityState) > 1 ||
+		TargetType.GetValue(abilityState).HasFlag(Target.TargetAll) ||
+		(AOEPattern != null && AOEPattern.GetValue(abilityState).LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -488,7 +488,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 		//await InitAbilityState(abilityState);
 
-		if(abilityState.AbilityAOEPattern.HasValue)
+		if(abilityState.AbilityAOEPattern != null)
 		{
 			List<AOEHex> aoeHexes = [];
 
@@ -514,7 +514,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern.Value, abilityState.AbilityRange, abilityState.AbilityRangeType, 
+						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, 
 							focus, null,
 							() => "Select where to target"), abilityState.Authority);
 
@@ -544,13 +544,13 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 			EffectCollection duringTargetedAbilityEffectCollection = CreateDuringTargetedAbilityEffectCollection(abilityState);
 
-			Figure target;
+			Figure target = null;
 
 			if(abilityState.Authority is Character)
 			{
 				bool autoSelectIfOne = Mandatory || 
 					abilityState.AbilityTarget == Target.Self || 
-					(TargetHex != null && !abilityState.AbilityAOEPattern.HasValue);
+					(TargetHex != null && abilityState.AbilityAOEPattern == null);
 				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
@@ -559,8 +559,6 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 				{
 					break;
 				}
-
-				figureReferenceId = targetAnswer.FigureReferenceId;
 			}
 			else
 			{
@@ -622,7 +620,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 				break;
 			}
 
-			if(abilityState.AbilityAOEPattern.HasValue)
+			if(abilityState.AbilityAOEPattern != null)
 			{
 				if(abilityState.TargetedHexes.Count == abilityState.AbilityAOEPattern.LocalHexes.Count &&
 				   targetsOutOfAOE == abilityState.AbilityTargets - 1)

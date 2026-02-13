@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public struct AOEPattern
+public class AOEPattern
 {
 	public List<AOEHex> LocalHexes { get; }
 

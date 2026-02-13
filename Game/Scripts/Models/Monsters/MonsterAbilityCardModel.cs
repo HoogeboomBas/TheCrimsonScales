@@ -63,7 +63,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 		DynamicInt<TargetedAbilityState> dynamicRange = range ?? (extraRange == null ? new(defaultRange) : new(state => defaultRange + extraRange.GetValue(state)));
 		DynamicRangeType<TargetedAbilityState> dynamicRangeType = 
 			rangeType ?? new(state =>
-				aoePattern != null && aoePattern.GetValue(state).Hexes.Any(hex => hex.Type == AOEHexType.Gray)
+				aoePattern != null && aoePattern.GetValue(state).LocalHexes.Any(hex => hex.Type == AOEHexType.Gray)
 					? RangeType.Melee
 					: (dynamicRange.GetValue(state) > 1 ? RangeType.Range : monster.Stats.RangeType));
 

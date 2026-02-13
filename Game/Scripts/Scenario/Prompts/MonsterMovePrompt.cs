@@ -46,7 +46,7 @@ public class MonsterMovePrompt(
 		_waypoints.Add(_currentNode);
 
 		bool hasGrayHex = false;
-		if(aiMoveParameters.AOEPattern.HasValue)
+		if(aiMoveParameters.AOEPattern != null)
 		{
 			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.LocalHexes)
 			{
@@ -108,7 +108,7 @@ public class MonsterMovePrompt(
 			}
 
 			//TODO: This can be optimized quite a bit probably
-			if(!aiMoveParameters.AOEPattern.HasValue)
+			if(aiMoveParameters.AOEPattern == null)
 			{
 				Figure attackableFocus = null;
 				int disadvantageCount = 0;
@@ -379,7 +379,7 @@ public class MonsterMovePrompt(
 			//TODO: This can be optimized quite a bit probably
 			foreach(Hex hexInRange in rangeCache)
 			{
-				if(!aiMoveParameters.AOEPattern.HasValue)
+				if(aiMoveParameters.AOEPattern == null)
 				{
 					HandlePotentialTargetHex(hexInRange);
 					continue;

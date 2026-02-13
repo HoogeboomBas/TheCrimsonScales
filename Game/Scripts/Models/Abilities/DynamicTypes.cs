@@ -9,15 +9,6 @@ public class DynamicTarget<TArg> : DynamicType<Target, TArg>
 	public static implicit operator DynamicTarget<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);
 }
 
-public class DynamicAOEPattern<TArg> : DynamicType<AOEPattern, TArg>
-{
-	public DynamicAOEPattern(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicAOEPattern(AOEPattern? value) : base(value) {}
-
-	public static implicit operator DynamicAOEPattern<TArg>(AOEPattern value) => new(value);
-	public static implicit operator DynamicAOEPattern<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);
-}
-
 public class DynamicRangeType<TArg> : DynamicType<RangeType, TArg>
 {
 	public DynamicRangeType(GetValueDelegate getValueFunc) : base(getValueFunc) {}
@@ -36,10 +27,19 @@ public class DynamicInt<TArg> : DynamicType<int, TArg>
 	public static implicit operator DynamicInt<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);
 }
 
+public class DynamicAOEPattern<TArg> : DynamicClassType<AOEPattern, TArg>
+{
+	public DynamicAOEPattern(GetValueDelegate getValueFunc) : base(getValueFunc) {}
+	public DynamicAOEPattern(AOEPattern? value) : base(value) {}
+
+	public static implicit operator DynamicAOEPattern<TArg>(AOEPattern value) => new(value);
+	public static implicit operator DynamicAOEPattern<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);
+}
+
 public abstract class DynamicType<T, TArg> where T : struct
 {
-	public T? Value { get; }
-	public GetValueDelegate GetValueFunc { get; }
+	private T? Value { get; }
+	private GetValueDelegate GetValueFunc { get; }
 
 	public delegate T? GetValueDelegate(TArg arg);
 
@@ -49,31 +49,67 @@ public abstract class DynamicType<T, TArg> where T : struct
 		GetValueFunc = getValueFunc;
 	}
 
-	public DynamicType(GetValueDelegate getValueFunc) : this(null, getValueFunc)
+	protected DynamicType(GetValueDelegate getValueFunc) : this(null, getValueFunc)
 	{
 	}
 
-	public DynamicType(T? value) : this(value, null)
+	protected DynamicType(T? value) : this(value, null)
 	{
 	}
 
 	public T GetValue(TArg arg)
 	{
-		if(GetValueFunc != null)
+		T? dynamicValue = GetValueFunc?.Invoke(arg);
+		if(dynamicValue.HasValue)
 		{
-			T? dynamicValue = GetValueFunc(arg);
-			if(dynamicValue.HasValue)
-			{
-				return dynamicValue.Value;
-			}
+			return dynamicValue.Value;
 		}
 
-		if(!Value.HasValue)
+		if(Value.HasValue)
 		{
-			Log.Error("Both Value and GetValue are null for this dynamic value.");
-			return default;
+			return Value.Value;
 		}
 
-		return Value.Value;
+		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		return default;
+	}
+}
+
+public abstract class DynamicClassType<T, TArg> where T : class
+{
+	private T Value { get; }
+	private GetValueDelegate GetValueFunc { get; }
+
+	public delegate T GetValueDelegate(TArg arg);
+
+	private DynamicClassType(T value, GetValueDelegate getValueFunc)
+	{
+		Value = value;
+		GetValueFunc = getValueFunc;
+	}
+
+	protected DynamicClassType(GetValueDelegate getValueFunc) : this(null, getValueFunc)
+	{
+	}
+
+	protected DynamicClassType(T value) : this(value, null)
+	{
+	}
+
+	public T GetValue(TArg arg)
+	{
+		T dynamicValue = GetValueFunc?.Invoke(arg);
+		if(dynamicValue != null)
+		{
+			return dynamicValue;
+		}
+
+		if(Value != null)
+		{
+			return Value;
+		}
+
+		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		return null;
 	}
 }

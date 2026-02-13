@@ -85,7 +85,7 @@ public partial class ActionState
 		int range = aiMoveParameters.Range; // focusParameters.Range ?? ((Stats.Range ?? 1) + focusParameters.ExtraRange);
 
 		bool hasGrayHex = false;
-		if(aiMoveParameters.AOEPattern.HasValue)
+		if(aiMoveParameters.AOEPattern != null)
 		{
 			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.LocalHexes)
 			{
@@ -176,7 +176,7 @@ public partial class ActionState
 			//TODO: This can be optimized quite a bit probably
 			foreach(Hex hexInRange in rangeCache)
 			{
-				if(!aiMoveParameters.AOEPattern.HasValue)
+				if(aiMoveParameters.AOEPattern == null)
 				{
 					HandlePotentialTargetHex(hexInRange);
 					continue;
