@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.CardBottom>
 {
@@ -9,7 +10,7 @@ public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(3)
@@ -18,15 +19,15 @@ public class RustySpikes : ChainguardCardModel<RustySpikes.CardTop, RustySpikes.
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2)
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.6204333f, 0.7188443f)))
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()

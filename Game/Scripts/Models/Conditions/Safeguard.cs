@@ -5,19 +5,20 @@ public class Safeguard : ConditionModel
 {
 	public override string Name => "Safeguard";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Safeguard.svg";
-	public override bool IsPositive => true;
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioEvents.InflictConditionsEvent.Subscribe(this,
-			parameters => parameters.Target == Owner && parameters.ConditionModels.Count > 0,
+		ScenarioEvents.InflictConditionsEvent.Subscribe(condition,
+			parameters => parameters.Target == condition.Owner && parameters.ConditionModels.Count > 0,
 			async parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 
-				List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
+				List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
+					new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 				foreach(ConditionModel conditionModel in parameters.ConditionModels)
 				{
 					subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.New(
@@ -33,18 +34,18 @@ public class Safeguard : ConditionModel
 					));
 				}
 
-				await AbilityCmd.GenericChoice(Owner, subscriptions, hintText: "Select a condition to prevent");
+				await AbilityCmd.GenericChoice(condition.Owner, subscriptions, hintText: "Select a condition to prevent");
 
-				await AbilityCmd.RemoveCondition(target, this);
+				await AbilityCmd.RemoveCondition(condition);
 			},
-			EffectType.MandatoryBeforeOptionals, 100
+			order: 100
 		);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioEvents.InflictConditionsEvent.Unsubscribe(this);
+		ScenarioEvents.InflictConditionsEvent.Unsubscribe(condition);
 	}
 }

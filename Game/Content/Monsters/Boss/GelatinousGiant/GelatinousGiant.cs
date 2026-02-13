@@ -2,97 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-[IgnoreModelId]
-public class GelatinousGiant : MonsterModel, IBossMonsterModel
+public class GelatinousGiant : Ooze, IBossMonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>
-	[
-		new MonsterStats()
-		{
-			Health = 8 * CharacterCount,
-			Move = 1,
-			Attack = 2,
-			Range = 3,
-			Traits = [new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
-		},
-		new MonsterStats()
-		{
-			Health = 9 * CharacterCount,
-			Move = 1,
-			Attack = 2,
-			Range = 3,
-			Traits = [new ShieldTrait(1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
-		},
-		new MonsterStats()
-		{
-			Health = 11 * CharacterCount,
-			Move = 1,
-			Attack = 3,
-			Range = 3,
-			Traits = [new ShieldTrait(1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()]
-		},
-		new MonsterStats()
-		{
-			Health = 11 * CharacterCount,
-			Move = 2,
-			Attack = 3,
-			Range = 4,
-			Traits =
-			[
-				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
-			]
-		},
-		new MonsterStats()
-		{
-			Health = 13 * CharacterCount,
-			Move = 2,
-			Attack = 4,
-			Range = 4,
-			Traits =
-			[
-				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
-			]
-		},
-		new MonsterStats()
-		{
-			Health = 15 * CharacterCount,
-			Move = 3,
-			Attack = 4,
-			Range = 4,
-			Traits =
-			[
-				new ShieldTrait(1), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
-			]
-		},
-		new MonsterStats()
-		{
-			Health = 16 * CharacterCount,
-			Move = 3,
-			Attack = 4,
-			Range = 4,
-			Traits =
-			[
-				new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
-			]
-		},
-		new MonsterStats()
-		{
-			Health = 18 * CharacterCount,
-			Move = 3,
-			Attack = 5,
-			Range = 4,
-			Traits =
-			[
-				new ShieldTrait(2), new ApplyConditionTrait(Conditions.Poison1), new AllDamageImmunityTrait(), new AllNegativeConditionImmunityTrait()
-			]
-		},
-	];
+		base.EliteLevelStats
+			.Select(stats => stats with
+			{
+				Health = stats.Health * CharacterCount,
+				Traits = (stats.Traits ?? [])
+					.Append(new AllDamageImmunityTrait())
+					.Append(new AllNegativeConditionImmunityTrait())
+					.ToArray()
+			})
+			.ToArray();
 
 	public override string Name => "Gelatinous Giant";
-
-	public override string AssetPath => "res://Content/Monsters/Ooze";
-
-	public override int MaxStandeeCount => 1;
+	public override MonsterModel ParentMonsterModel => ModelDB.Monster<Ooze>();
 
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
 
@@ -137,7 +62,7 @@ public class GelatinousGiant : MonsterModel, IBossMonsterModel
 
 					foreach(Figure figure in monsterGroup)
 					{
-						damageSuffered += await AbilityCmd.SufferDamage(null, figure, damage);
+						damageSuffered += await AbilityCmd.SufferDamage(state, figure, damage);
 					}
 				}
 

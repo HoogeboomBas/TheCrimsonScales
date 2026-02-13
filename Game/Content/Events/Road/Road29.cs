@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Road29 : CityEventModel<Road29.ChoiceA, Road29.ChoiceB>
+public class Road29 : RoadEventModel<Road29.ChoiceA, Road29.ChoiceB>
 {
 	public override int Number => 29;
 

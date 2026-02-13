@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public abstract class EventChoiceModel : AbstractModel<EventChoiceModel>
+public abstract class EventChoiceModel : AbstractModel
 {
 	public abstract string ChoiceText { get; }
 

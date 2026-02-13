@@ -14,7 +14,7 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -130,16 +130,16 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool CanDeactivate => false;
+		public override bool Persistent => true;
+		public override bool CanDeactivate => false;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(6)
+				.WithDistance(6, new MoveCircle(this, new Vector2(0.5229555f, 0.61705536f)))
 				.WithMoveType(MoveType.Jump)
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
@@ -168,7 +168,7 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

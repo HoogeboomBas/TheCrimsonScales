@@ -43,6 +43,9 @@ public class SavedCampaign
 	public List<SavedCharacter> Characters { get; private set; } = new List<SavedCharacter>();
 
 	[JsonProperty]
+	public List<SavedCharacter> RetiredCharacters { get; private set; } = new List<SavedCharacter>();
+
+	[JsonProperty]
 	public Dictionary<string, SavedClass> SavedClasses { get; private set; } = new Dictionary<string, SavedClass>();
 
 	[JsonProperty]
@@ -62,6 +65,9 @@ public class SavedCampaign
 
 	[JsonProperty]
 	public SavedEvents SavedEvents { get; private set; } = new SavedEvents();
+
+	[JsonProperty]
+	public SavedPersonalQuests SavedPersonalQuests { get; private set; } = new SavedPersonalQuests();
 
 	[JsonProperty]
 	public int Reputation { get; private set; }
@@ -88,49 +94,11 @@ public class SavedCampaign
 			},
 		};
 
-		ClassModel[] unlockedClassModels = savedCampaign.StartingGroup switch
-		{
-			StartingGroup.Militants =>
-			[
-				ModelDB.Class<BombardModel>(),
-				ModelDB.Class<FireKnightModel>(),
-				ModelDB.Class<HierophantModel>(),
-				ModelDB.Class<MirefootModel>()
-			],
-			StartingGroup.Protectors =>
-			[
-				ModelDB.Class<ChainguardModel>(),
-				ModelDB.Class<ChieftainModel>(),
-				ModelDB.Class<FireKnightModel>(),
-				ModelDB.Class<HierophantModel>()
-			],
-			StartingGroup.Explorers =>
-			[
-				//ModelDB.Class<BrightsparkModel>(),
-				ModelDB.Class<ChainguardModel>(),
-				//ModelDB.Class<HollowpactModel>(),
-				ModelDB.Class<StarslingerModel>()
-			],
-			StartingGroup.Trailblazers =>
-			[
-				ModelDB.Class<BombardModel>(),
-				//ModelDB.Class<BrightsparkModel>(),
-				//ModelDB.Class<LuminaryModel>(),
-				ModelDB.Class<StarslingerModel>()
-			],
-			StartingGroup.Naturalists =>
-			[
-				ModelDB.Class<ChieftainModel>(),
-				//ModelDB.Class<HollowpactModel>(),
-				//ModelDB.Class<LuminaryModel>(),
-				ModelDB.Class<MirefootModel>()
-			],
-			_ => throw new ArgumentOutOfRangeException(nameof(startingGroup), startingGroup, null)
-		};
-
+		ClassModel[] unlockedClassModels = GetStartingClasses(savedCampaign.StartingGroup);
 		foreach(ClassModel unlockedClassModel in unlockedClassModels)
 		{
 			savedCampaign.UnlockClass(unlockedClassModel);
+			savedCampaign.SavedPersonalQuests.FilterOutClassPersonalQuests(unlockedClassModel);
 		}
 
 		// Unlock the first scenario
@@ -148,18 +116,25 @@ public class SavedCampaign
 	{
 		SavedCampaign savedCampaign = New("Party Time", StartingGroup.Militants);
 
-		savedCampaign.AddCharacter(ModelDB.Class<MirefootModel>(), "Swampguy");
-		//savedCampaign.AddCharacter(ModelDB.Class<BombardModel>(), "Bombo");
-		//savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), "Conclave Man");
-		//savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), "Vuur Knecht");
-		savedCampaign.AddCharacter(ModelDB.Class<StarslingerModel>(), "Sterrenwerper");
-		//savedCampaign.AddCharacter(ModelDB.Class<ChieftainModel>(), "Dierenzitter");
+		//savedCampaign.AddCharacter(ModelDB.Class<MirefootModel>(), null, "Moerasvoet");
+		//savedCampaign.AddCharacter(ModelDB.Class<BombardModel>(), null, "Beschieter");
+		savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), ModelDB.PersonalQuest<SpiritualGainsPersonalQuest>(), "Opperpriester");
+		//savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), null, "Vuur Knecht");
+		//savedCampaign.AddCharacter(ModelDB.Class<ChainguardModel>(), null, "Ketting Garde");
+		//savedCampaign.AddCharacter(ModelDB.Class<ChieftainModel>(), null, "Dierenzitter");
+		//savedCampaign.AddCharacter(ModelDB.Class<StarslingerModel>(), ModelDB.PersonalQuest<ExperiencedLeader>(), "Sterrenwerper");
+		//savedCampaign.AddCharacter(ModelDB.Class<RuinmawModel>(), null, "Ruineerkaak");
 
 		//savedCampaign.Characters[0].AddItem(ModelDB.Item<MinorManaPotion>());
-		savedCampaign.Characters[0].SetEquippedSmallSlotItem(0, ModelDB.Item<TranslocationDevice>());
+		savedCampaign.Characters[0].SetEquippedSmallSlotItem(0, ModelDB.Item<FalconFigurine>());
 		//savedCampaign.Characters[1].SetEquippedSmallSlotItem(0, ModelDB.Item<ScrollOfCharisma>());
 		//savedCampaign.Characters[1].AddItem(ModelDB.Item<MinorManaPotion>());
 		savedCampaign.Characters[0].AddItem(ModelDB.Item<PoisonDagger>());
+		savedCampaign.Characters[0].AddItem(ModelDB.Item<Chainmail>());
+		// savedCampaign.Characters[0].SavedPersonalQuest.PersonalQuestData.AdjustProgress(
+		// 	30, savedCampaign.Characters[0].ClassModel, savedCampaign.Characters[0].SavedPersonalQuest.Model);
+
+		savedCampaign.Characters[0].AddGold(1000);
 
 		// SavedScenarioProgress testScenario = new SavedScenarioProgress();
 		// testScenario.Discover();
@@ -201,9 +176,14 @@ public class SavedCampaign
 		savedClass.Unlock();
 	}
 
-	public void AddCharacter(ClassModel classModel, string name)
+	public bool CheckClassUnlocked(ClassModel classModel)
 	{
-		SavedCharacter character = new SavedCharacter(classModel, name);
+		return SavedClasses.TryGetValue(classModel.Id.ToString(), out SavedClass savedClass) && savedClass.Unlocked;
+	}
+
+	public void AddCharacter(ClassModel classModel, PersonalQuestModel personalQuestModel, string name)
+	{
+		SavedCharacter character = new SavedCharacter(classModel, personalQuestModel, name);
 		Characters.Add(character);
 
 		CharactersChangedEvent?.Invoke();
@@ -211,17 +191,30 @@ public class SavedCampaign
 
 	public void DeleteCharacter(SavedCharacter savedCharacter)
 	{
-		// Move all items from this character (back) to the shop
-		foreach(string itemId in savedCharacter.ItemIds)
-		{
-			ItemModel itemModel = ModelDB.GetById<ItemModel>(itemId);
-			SavedItem savedItem = GetSavedItem(itemModel);
-			savedItem.AddStock(1);
-		}
+		ReturnCards(savedCharacter);
 
-		SanctuaryOfTheGreatOak.ReturnCards(savedCharacter);
+		// Return personal quest
+		SavedPersonalQuests.AddPersonalQuest(savedCharacter.SavedPersonalQuest.Model);
 
 		Characters.Remove(savedCharacter);
+
+		CharactersChangedEvent?.Invoke();
+	}
+
+	public void RetireCharacter(SavedCharacter savedCharacter)
+	{
+		ReturnCards(savedCharacter);
+
+		AdjustProsperity(1);
+
+		Characters.Remove(savedCharacter);
+		RetiredCharacters.Add(savedCharacter);
+
+		ClassModel unlockedClass = GetUnlockedClass(savedCharacter);
+		if(unlockedClass != null)
+		{
+			UnlockClass(unlockedClass);
+		}
 
 		CharactersChangedEvent?.Invoke();
 	}
@@ -285,10 +278,66 @@ public class SavedCampaign
 		return ReputationPriceCostThresholds.Length;
 	}
 
-	public int GetItemPriceChange()
+	public int GetReputationItemPriceChange()
 	{
 		int thresholdIndex = GetReputationThresholdIndex();
 		return 5 - thresholdIndex;
+	}
+
+	public static ClassModel[] GetStartingClasses(StartingGroup startingGroup)
+	{
+		return startingGroup switch
+		{
+			StartingGroup.Militants =>
+			[
+				ModelDB.Class<BombardModel>(),
+				ModelDB.Class<FireKnightModel>(),
+				ModelDB.Class<HierophantModel>(),
+				ModelDB.Class<MirefootModel>()
+			],
+			StartingGroup.Protectors =>
+			[
+				ModelDB.Class<ChainguardModel>(),
+				ModelDB.Class<ChieftainModel>(),
+				ModelDB.Class<FireKnightModel>(),
+				ModelDB.Class<HierophantModel>()
+			],
+			StartingGroup.Explorers =>
+			[
+				ModelDB.Class<BrightsparkModel>(),
+				ModelDB.Class<ChainguardModel>(),
+				ModelDB.Class<HollowpactModel>(),
+				ModelDB.Class<StarslingerModel>()
+			],
+			StartingGroup.Trailblazers =>
+			[
+				ModelDB.Class<BombardModel>(),
+				ModelDB.Class<BrightsparkModel>(),
+				ModelDB.Class<LuminaryModel>(),
+				ModelDB.Class<StarslingerModel>()
+			],
+			StartingGroup.Naturalists =>
+			[
+				ModelDB.Class<ChieftainModel>(),
+				ModelDB.Class<HollowpactModel>(),
+				ModelDB.Class<LuminaryModel>(),
+				ModelDB.Class<MirefootModel>()
+			],
+			_ => throw new ArgumentOutOfRangeException(nameof(startingGroup), startingGroup, null)
+		};
+	}
+
+	public ClassModel GetUnlockedClass(SavedCharacter savedCharacter)
+	{
+		SavedPersonalQuest savedPersonalQuest = savedCharacter.SavedPersonalQuest;
+		if(savedPersonalQuest != null &&
+		   savedPersonalQuest.Model.ClassToUnlock != null &&
+		   !CheckClassUnlocked(savedPersonalQuest.Model.ClassToUnlock))
+		{
+			return savedPersonalQuest.Model.ClassToUnlock;
+		}
+
+		return null;
 	}
 
 	private void UnlockItems(int prosperityLevel)
@@ -301,5 +350,22 @@ public class SavedCampaign
 			savedItem.AddUnlocked(itemModel.ShopCount - currentlyUnlockedCount);
 			savedItem.AddStock(itemModel.ShopCount - currentlyUnlockedCount);
 		}
+	}
+
+	private void ReturnCards(SavedCharacter savedCharacter)
+	{
+		// Move all items from this character (back) to the shop
+		foreach(string itemId in savedCharacter.ItemIds)
+		{
+			ItemModel itemModel = ModelDB.GetById<ItemModel>(itemId);
+			SavedItem savedItem = GetSavedItem(itemModel);
+			savedItem.AddStock(1);
+		}
+
+		// Return temporary AMD cards
+		SanctuaryOfTheGreatOak.ReturnCards(savedCharacter);
+
+		// Unsubscribe personal quest events
+		savedCharacter.SavedPersonalQuest?.Model.OnBetweenScenariosEnded(savedCharacter);
 	}
 }

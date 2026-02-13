@@ -11,7 +11,7 @@ public class SaveFile
 		TypeNameHandling = TypeNameHandling.Auto,
 		NullValueHandling = NullValueHandling.Ignore,
 		ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-		ContractResolver = PromptManager.PromptContractResolver.Instance,
+		ContractResolver = SaveFileContractResolver.Instance,
 		ObjectCreationHandling = ObjectCreationHandling.Replace
 	};
 

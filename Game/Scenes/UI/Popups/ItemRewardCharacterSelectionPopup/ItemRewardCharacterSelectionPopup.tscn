@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cd6ibmd4s7kf0" path="res://Scripts/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopup.cs" id="2_1eo3j"]
 [ext_resource type="PackedScene" uid="uid://b7kiayarr1vsm" path="res://Scenes/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopupCharacter.tscn" id="3_ry06u"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="3_x31xv"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="4_tib2c"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="4_tib2c"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_irvjn"]
 
 [node name="ItemRewardCharacterSelectionPopup" node_paths=PackedStringArray("_itemView", "_label", "_characterParent", "_confirmButton") instance=ExtResource("1_ry06u")]

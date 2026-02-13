@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class OneWithNature : ChieftainCardModel<OneWithNature.CardTop, OneWithNature.CardBottom>
 {
@@ -9,10 +10,10 @@ public class OneWithNature : ChieftainCardModel<OneWithNature.CardTop, OneWithNa
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.6164321f, 0.23193833f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
 						applyFunction: async applyParameters =>
@@ -31,11 +32,13 @@ public class OneWithNature : ChieftainCardModel<OneWithNature.CardTop, OneWithNa
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(5, new MoveCircle(this, new Vector2(0.6217602f, 0.7227138f)))
+				.Build()),
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
 	}
 }

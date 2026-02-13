@@ -4,7 +4,7 @@ using Godot;
 using Newtonsoft.Json;
 
 [Serializable, JsonObject(MemberSerialization.OptIn)]
-public abstract class ClassModel : AbstractModel<ClassModel>
+public abstract class ClassModel : AbstractModel
 {
 	public abstract string Name { get; }
 	public abstract MaxHealthValues MaxHealthValues { get; }

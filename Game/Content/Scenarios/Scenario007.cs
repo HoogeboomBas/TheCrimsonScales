@@ -88,20 +88,13 @@ public class Scenario007 : ScenarioModel
 				{
 					if(tokenNumber % 2 == 0)
 					{
-						for(int i = character.Conditions.Count - 1; i >= 0; i--)
-						{
-							ConditionModel condition = character.Conditions[i];
-							if(condition.IsNegative)
-							{
-								await AbilityCmd.RemoveCondition(character, condition);
-							}
-						}
+						await AbilityCmd.RemoveAllNegativeConditions(character);
 
 						await AbilityCmd.GainXP(character, 5);
 					}
 					else
 					{
-						await AbilityCmd.SufferDamage(null, character, HazardousTerrain.DamageAmount);
+						await AbilityCmd.SufferDamage(character, HazardousTerrain.DamageAmount, character);
 					}
 
 					break;
@@ -426,7 +419,7 @@ public class Scenario007 : ScenarioModel
 			}
 			case 8: // 9C
 			{
-				await AbilityCmd.InfuseWildElement(character);
+				await AbilityCmd.InfuseWildElement(null, character);
 
 				switch(GameController.Instance.CharacterManager.Characters.Count)
 				{
@@ -518,11 +511,11 @@ public class Scenario007 : ScenarioModel
 			{
 				foreach(Character otherCharacter in GameController.Instance.CharacterManager.Characters)
 				{
-					await AbilityCmd.SufferDamage(null, otherCharacter, 2);
+					await AbilityCmd.SufferDamage(otherCharacter, 2, otherCharacter);
 
 					foreach(Summon summon in otherCharacter.Summons)
 					{
-						await AbilityCmd.SufferDamage(null, summon, 2);
+						await AbilityCmd.SufferDamage(summon, 2, summon);
 					}
 				}
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillRiverAlgae.CardBottom>
 {
@@ -9,7 +10,7 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
@@ -21,7 +22,7 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>
@@ -42,7 +43,9 @@ public class StillRiverAlgae : MirefootCardModel<StillRiverAlgae.CardTop, StillR
 				})
 				.Build()),
 
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build())
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6214359f, 0.82702506f)))
+				.Build())
 		];
 	}
 }

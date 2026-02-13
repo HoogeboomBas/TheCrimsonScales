@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, RoundhouseSwing.CardBottom>
 {
@@ -10,13 +11,13 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder()
 				.WithRange(1)
 				.WithOnAbilityStarted(async state =>
 				{
-					await AbilityCmd.GenericChoice(state.Performer, 
+					await AbilityCmd.GenericChoice(state.Performer,
 					[
 						ScenarioEvents.GenericChoice.Subscription.New(
 							applyFunction: async applyParameters =>
@@ -64,7 +65,7 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 
 					await GDTask.CompletedTask;
 				})
-				.WithConditionalAbilityCheck(async state => 
+				.WithConditionalAbilityCheck(async state =>
 				{
 					await GDTask.CompletedTask;
 
@@ -76,19 +77,19 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.61970896f, 0.70699817f)))
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
-						canApply: parameters => parameters.Performer == state.Performer && 
-								parameters.AbilityState is TargetedAbilityState && 
-								((TargetedAbilityState)parameters.AbilityState).AbilitySwing > 0,
+						canApply: parameters => parameters.Performer == state.Performer &&
+						                        parameters.AbilityState is TargetedAbilityState &&
+						                        ((TargetedAbilityState)parameters.AbilityState).AbilitySwing > 0,
 						async parameters =>
 						{
 							((TargetedAbilityState)parameters.AbilityState).AbilityAdjustSwing(2);
@@ -108,6 +109,6 @@ public class RoundhouseSwing : ChainguardCardModel<RoundhouseSwing.CardTop, Roun
 			)
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

@@ -19,7 +19,7 @@ public class WandOfTremors : GHDesignsItem
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Owner, [Element.Earth]);
+					await AbilityCmd.InfuseElement(null, Element.Earth, Owner);
 				});
 			}
 		);

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 
-public abstract class MonsterModel : AbstractModel<MonsterModel>
+public abstract class MonsterModel : AbstractModel
 {
 	protected static int CharacterCount => GameController.Instance.SavedCampaign.Characters.Count;
 
 	public virtual MonsterStats[] NormalLevelStats => null;
 	public virtual MonsterStats[] EliteLevelStats => null;
 	public virtual MonsterStats[] BossLevelStats => null;
+	public virtual MonsterStats[] NamedLevelStats => null;
+	public virtual MonsterModel ParentMonsterModel => null;
 
 	public abstract string Name { get; }
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Fractural.Tasks;
 
 public class WovenPlateArmor : CS1Item
@@ -9,10 +8,11 @@ public class WovenPlateArmor : CS1Item
 	public override int Cost => 50;
 	public override ItemType ItemType => ItemType.Body;
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
-	private object _subscriber;
 
 	protected override int AtlasIndex => 39;
-	
+
+	private object _subscriber;
+
 	public override void Init(Character owner)
 	{
 		_subscriber = new object();
@@ -31,9 +31,10 @@ public class WovenPlateArmor : CS1Item
 				await Use(async user =>
 				{
 					state.SingleTargetSetHasDisadvantage();
-					SingleTargetState singleTargetState = state.SingleTargetStates.FirstOrDefault(s => s.Target == Owner);
+
 					ScenarioEvents.SufferDamageEvent.Subscribe(this, _subscriber,
-						canApply: parameters => parameters.FromAttack && parameters.PotentialAttackAbilityState == state && parameters.Figure == Owner,
+						canApply: parameters =>
+							parameters.FromAttack && parameters.PotentialAbilityState == state && parameters.Figure == Owner,
 						apply: async parameters =>
 						{
 							parameters.AdjustShield(2);

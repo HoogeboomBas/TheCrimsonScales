@@ -1,6 +1,6 @@
 ﻿using Fractural.Tasks;
 
-public class ExplosiveTonic : FireKnightItem
+public class FireKnightExplosiveTonic : FireKnightItem
 {
 	public override string Name => "Explosive Tonic";
 	public override int ItemNumber => 7;
@@ -16,7 +16,7 @@ public class ExplosiveTonic : FireKnightItem
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Element.Fire);
+					await AbilityCmd.InfuseElement(null, Element.Fire, user);
 
 					ActionState actionState = new ActionState(user,
 						[

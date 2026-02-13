@@ -46,14 +46,14 @@ public partial class UndoView : Control
 
 	private void UpdateButtons()
 	{
-		_undoButton.SetActive(_requesters.Count > 0 && _blockers.Count == 0 && GameController.Instance.CanUndo(UndoType.Basic));
+		_undoButton.SetActive(_requesters.Count > 0 && _blockers.Count == 0 && GameController.Instance.UndoManager.CanUndo);
 	}
 
 	private void OnUndoPressed()
 	{
-		if(GameController.Instance.CanUndo(UndoType.Basic))
+		if(GameController.Instance.UndoManager.CanUndo)
 		{
-			GameController.Instance.Undo(UndoType.Basic);
+			GameController.Instance.UndoManager.Undo();
 		}
 	}
 }

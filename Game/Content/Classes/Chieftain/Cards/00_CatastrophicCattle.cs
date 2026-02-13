@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class CatastrophicCattle : ChieftainCardModel<CatastrophicCattle.CardTop, CatastrophicCattle.CardBottom>
 {
@@ -9,38 +10,33 @@ public class CatastrophicCattle : ChieftainCardModel<CatastrophicCattle.CardTop,
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 4,
-					Move = 2,
-					Attack = 2,
-					Traits = 
-					[
-						new MountTrait(),
-						new PushTrait(1),
-					]
-				})
 				.WithName("Fighting Bull")
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/fighting_bull_AI.png")
+				.WithHealth(4, new SummonHealthSquare(this, new Vector2(0.44718847f, 0.23893806f)))
+				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.67835045f, 0.23893806f)))
+				.WithAttack(2, new SummonAttackSquare(this, new Vector2(0.44718847f, 0.31493726f)))
+				.WithTraits(new MountTrait(), new PushTrait(1))
 				.Build()
 			),
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveSquare(this, new Vector2(0.6224222f, 0.723211f)))
+				.Build()),
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
 	}
 }

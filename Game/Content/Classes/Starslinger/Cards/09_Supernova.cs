@@ -11,11 +11,11 @@ public class Supernova : StarslingerCardModel<Supernova.CardTop, Supernova.CardB
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
-				.WithRange(3)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.61888397f, 0.2104228f), EnhancementCostType.MultiTarget))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => !parameters.Performer.IsDamaged(),
@@ -45,7 +45,7 @@ public class Supernova : StarslingerCardModel<Supernova.CardTop, Supernova.CardB
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -78,12 +78,12 @@ public class Supernova : StarslingerCardModel<Supernova.CardTop, Supernova.CardB
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 
 		private async GDTask Light(AbilityState state)
-        {
-			await AbilityCmd.InfuseElement(Element.Light);
-        }
+		{
+			await AbilityCmd.InfuseElement(state, Element.Light);
+		}
 	}
 }

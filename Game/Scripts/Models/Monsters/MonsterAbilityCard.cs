@@ -122,7 +122,7 @@ public class MonsterAbilityCard : IDeckCard
 		//if(!performer.MonsterGroup.AbilityCardInfusedElements.Contains(element))
 		if(!performer.MonsterGroup.AbilityCardInfusedElements.Any())
 		{
-			Element? element = await AbilityCmd.InfuseElement(performer, possibleElements);
+			Element? element = await AbilityCmd.InfuseElement(null, possibleElements, performer);
 			if(element.HasValue)
 			{
 				performer.MonsterGroup.AbilityCardInfusedElements.Add(element.Value);

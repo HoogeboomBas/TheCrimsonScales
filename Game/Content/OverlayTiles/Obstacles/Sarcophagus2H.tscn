@@ -1,17 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1kjfjwte84n3"]
+[gd_scene load_steps=4 format=3 uid="uid://c1kjfjwte84n3"]
 
 [ext_resource type="PackedScene" uid="uid://c2tf1larqvhla" path="res://Scenes/Scenario/OverlayTiles/Obstacle2H.tscn" id="1_k7g65"]
+[ext_resource type="Script" uid="uid://dc76gi7qnos5i" path="res://Scripts/Scenario/HexObjects/SarcophagusObstacle.cs" id="2_fwx7g"]
 [ext_resource type="Texture2D" uid="uid://6uxeh7a8hk2p" path="res://Art/OverlayTiles/Sarcophagus 2h.png" id="2_k7g65"]
 
 [node name="Sarcophagus2H" instance=ExtResource("1_k7g65")]
+script = ExtResource("2_fwx7g")
 
-[node name="Shadow" type="Sprite2D" parent="." index="2"]
+[node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)
-position = Vector2(108, 3)
+z_index = 1
+position = Vector2(108, 1)
 scale = Vector2(0.57, 0.57)
 texture = ExtResource("2_k7g65")
 
-[node name="Sprite" parent="." index="3"]
-position = Vector2(107, 0)
+[node name="Sprite" parent="." index="2"]
+z_index = 1
+position = Vector2(107, -2)
 scale = Vector2(0.57, 0.57)
 texture = ExtResource("2_k7g65")
+
+[node name="Hex2" parent="." index="7"]
+position = Vector2(218.238, 0)

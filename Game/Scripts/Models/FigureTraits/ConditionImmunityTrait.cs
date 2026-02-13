@@ -27,14 +27,8 @@ public class ConditionImmunityTrait : FigureTrait
 
 		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this,
 			parameters =>
-			{
-				return
-					parameters.Target == figure &&
-					parameters.Condition?.ImmunityCompareBaseConditions != null &&
-					_conditionModel?.ImmunityCompareBaseConditions != null &&
-					parameters.Condition.ImmunityCompareBaseConditions
-						.Any(condition => _conditionModel.ImmunityCompareBaseConditions.Contains(condition));
-			},
+				parameters.Target == figure &&
+				AbilityCmd.CheckImmunity(parameters.ConditionModel, _conditionModel),
 			async parameters =>
 			{
 				parameters.SetPrevented(true);

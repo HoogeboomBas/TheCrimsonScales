@@ -12,7 +12,7 @@ public class AdjacentEnemiesSufferSanctuaryCritAMDCard : SanctuaryCritAMDCardMod
 			{
 				if(attackAbilityState.Performer.EnemiesWith(figure) && figure != attackAbilityState.Target)
 				{
-					await AbilityCmd.SufferDamage(null, figure, 1);
+					await AbilityCmd.SufferDamage(attackAbilityState, figure, 1);
 				}
 			}
 		};

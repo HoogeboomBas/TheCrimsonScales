@@ -88,7 +88,13 @@ public partial class ItemShopItem : Control
 
 		_stockLabel.Text = $"{SavedItem.StockCount} / {SavedItem.UnlockedCount}";
 
-		_itemView.TextureRect.SetInstanceShaderParameter("grayscaleFactor", hasItem || SavedItem.StockCount == 0 ? 1f : 0f);
+		foreach(TextureRect textureRect in _itemView.TextureRects)
+		{
+			textureRect.SetInstanceShaderParameter("grayscaleFactor", hasItem || SavedItem.StockCount == 0 ? 1f : 0f);
+		}
+
+		_itemView.SetCost(BetweenScenariosController.Instance.ItemShop.GetBuyPrice(selectedCharacter, ItemModel));
+		_itemView.SetItemCount(SavedItem.StockCount, SavedItem.UnlockedCount);
 	}
 
 	private bool GetCanAfford()

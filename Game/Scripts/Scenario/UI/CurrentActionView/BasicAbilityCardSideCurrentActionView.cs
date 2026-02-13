@@ -13,7 +13,7 @@ public partial class BasicAbilityCardSideCurrentActionView : CurrentActionView<B
 		public Parameters(AbilityCardSide abilityCardSide)
 		{
 			AbilityCardSide = abilityCardSide;
-			ShowTop = abilityCardSide.AbilityCard.BasicTop == abilityCardSide;
+			ShowTop = abilityCardSide.AbilityCardSideType == AbilityCardSideType.BasicTop;
 		}
 	}
 

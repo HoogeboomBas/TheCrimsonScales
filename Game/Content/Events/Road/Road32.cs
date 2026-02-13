@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class Road32 : CityEventModel<Road32.ChoiceA, Road32.ChoiceB>
+public class Road32 : RoadEventModel<Road32.ChoiceA, Road32.ChoiceB>
 {
 	public override int Number => 32;
 

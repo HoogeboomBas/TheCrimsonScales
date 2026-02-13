@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class SlammingShove : ChainguardCardModel<SlammingShove.CardTop, SlammingShove.CardBottom>
 {
@@ -9,10 +10,10 @@ public class SlammingShove : ChainguardCardModel<SlammingShove.CardTop, Slamming
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.4923463f, 0.18387413f)))
 				.WithPush(2)
 				.Build()),
 
@@ -21,20 +22,20 @@ public class SlammingShove : ChainguardCardModel<SlammingShove.CardTop, Slamming
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6214893f, 0.4041298f)))
 				.Build()),
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2)
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.619809f, 0.72228116f)))
 				.Build()),
 
 			new AbilityCardAbility(HealAbility.Builder()

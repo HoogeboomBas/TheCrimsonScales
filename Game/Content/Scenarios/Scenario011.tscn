@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://bdxpumrpt4s34"]
+
+[ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_fwwrk"]
+[ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_0fttf"]
+[ext_resource type="PackedScene" uid="uid://bfj620m56mtuo" path="res://Content/OverlayTiles/Obstacles/Barrel1H.tscn" id="5_h6w5p"]
+[ext_resource type="PackedScene" uid="uid://clebwd8njsv5v" path="res://Content/OverlayTiles/Obstacles/DarkPit2H.tscn" id="6_hwybe"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="6_jtiwx"]
+[ext_resource type="PackedScene" uid="uid://djgruowsq51gq" path="res://Content/MapTiles/B2a.tscn" id="7_jtiwx"]
+[ext_resource type="PackedScene" uid="uid://duex73di33xhs" path="res://Content/MapTiles/B3a.tscn" id="8_5tlut"]
+[ext_resource type="PackedScene" uid="uid://dw87gtssfd51x" path="res://Content/MapTiles/B1a.tscn" id="8_tbcxq"]
+[ext_resource type="PackedScene" uid="uid://bi5okxoh13fux" path="res://Content/MapTiles/B4a.tscn" id="9_2lgbt"]
+[ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="9_llbor"]
+
+[node name="Scenario" instance=ExtResource("1_fwwrk")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" index="0"]
+script = ExtResource("2_0fttf")
+StartsRevealed = true
+
+[node name="B1a" parent="Map/Rooms/Room" index="0" instance=ExtResource("8_tbcxq")]
+
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="1" instance=ExtResource("9_llbor")]
+position = Vector2(-218.238, -378)
+
+[node name="Barrel1H4" parent="Map/Rooms/Room" index="2" instance=ExtResource("5_h6w5p")]
+position = Vector2(218.238, 0)
+
+[node name="Marker" parent="Map/Rooms/Room/Barrel1H4" index="6" instance=ExtResource("6_jtiwx")]
+_hideDuringPlay = true
+
+[node name="DarkPit2H" parent="Map/Rooms/Room" index="3" instance=ExtResource("6_hwybe")]
+position = Vector2(545.596, -189)
+
+[node name="Room2" type="Node2D" parent="Map/Rooms" index="1"]
+script = ExtResource("2_0fttf")
+StartsRevealed = true
+
+[node name="B2a" parent="Map/Rooms/Room2" index="0" instance=ExtResource("7_jtiwx")]
+position = Vector2(1091.19, 0)
+
+[node name="CharacterStartHex2" parent="Map/Rooms/Room2" index="1" instance=ExtResource("9_llbor")]
+position = Vector2(1527.67, -378)
+
+[node name="Barrel1H3" parent="Map/Rooms/Room2" index="2" instance=ExtResource("5_h6w5p")]
+position = Vector2(1091.19, 0)
+
+[node name="Marker" parent="Map/Rooms/Room2/Barrel1H3" index="6" instance=ExtResource("6_jtiwx")]
+_hideDuringPlay = true
+
+[node name="DarkPit2H" parent="Map/Rooms/Room2" index="3" instance=ExtResource("6_hwybe")]
+position = Vector2(1309.43, 378)
+rotation = 2.0944
+
+[node name="Room3" type="Node2D" parent="Map/Rooms" index="2"]
+script = ExtResource("2_0fttf")
+StartsRevealed = true
+
+[node name="B3a" parent="Map/Rooms/Room3" index="0" instance=ExtResource("8_5tlut")]
+position = Vector2(0, 1134)
+
+[node name="CharacterStartHex3" parent="Map/Rooms/Room3" index="1" instance=ExtResource("9_llbor")]
+position = Vector2(-109.119, 1323)
+
+[node name="Barrel1H2" parent="Map/Rooms/Room3" index="2" instance=ExtResource("5_h6w5p")]
+position = Vector2(109.119, 945)
+
+[node name="Marker" parent="Map/Rooms/Room3/Barrel1H2" index="6" instance=ExtResource("6_jtiwx")]
+_hideDuringPlay = true
+
+[node name="DarkPit2H3" parent="Map/Rooms/Room3" index="3" instance=ExtResource("6_hwybe")]
+position = Vector2(0, 378)
+rotation = 1.0472
+
+[node name="Room4" type="Node2D" parent="Map/Rooms" index="3"]
+script = ExtResource("2_0fttf")
+StartsRevealed = true
+
+[node name="B4a" parent="Map/Rooms/Room4" index="0" instance=ExtResource("9_2lgbt")]
+position = Vector2(1091.19, 1134)
+
+[node name="CharacterStartHex4" parent="Map/Rooms/Room4" index="1" instance=ExtResource("9_llbor")]
+position = Vector2(1418.55, 1323)
+
+[node name="Barrel1H" parent="Map/Rooms/Room4" index="2" instance=ExtResource("5_h6w5p")]
+position = Vector2(1200.31, 945)
+
+[node name="Marker" parent="Map/Rooms/Room4/Barrel1H" index="6" instance=ExtResource("6_jtiwx")]
+_hideDuringPlay = true
+
+[node name="DarkPit2H2" parent="Map/Rooms/Room4" index="3" instance=ExtResource("6_hwybe")]
+position = Vector2(763.834, 945)
+rotation = -3.14159

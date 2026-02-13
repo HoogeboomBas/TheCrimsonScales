@@ -12,7 +12,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -25,7 +25,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 						await AbilityCmd.GainXP(state.Performer, 1);
 					}
 
-					FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
+					FireKnight fireKnight = GetOriginalOwner(state);
 					List<ItemModel> remainingItemModels = fireKnight.FireKnightItems.Select(item => item.ImmutableInstance).ToList();
 					remainingItemModels.Shuffle(GameController.Instance.StateRNG);
 					remainingItemModels = remainingItemModels.Take(Mathf.Min(fireKnight.FireKnightItems.Count, itemCount)).ToList();
@@ -80,17 +80,19 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Loss => true;
+		public override int XP => 1;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.61780804f, 0.7116977f)))
+				.Build()),
 
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<PikeHook>(), ModelDB.Item<FireproofHelm>()]))
+			new AbilityCardAbility(GiveFireKnightItemAbility(state => [ModelDB.Item<FireKnightPikeHook>(), ModelDB.Item<FireKnightFireproofHelm>()]))
 		];
 	}
 }

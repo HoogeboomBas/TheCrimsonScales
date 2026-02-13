@@ -11,7 +11,7 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
@@ -41,14 +41,14 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Performer == state.Performer && 
-							canApplyParameters.AbilityState.AbilityRangeType == RangeType.Melee,
+						canApplyParameters => canApplyParameters.Performer == state.Performer &&
+						                      canApplyParameters.AbilityState.AbilityRangeType == RangeType.Melee,
 						async applyParameters =>
 						{
 							if(Chieftain.GetIsMounted(state.Performer))
@@ -71,6 +71,6 @@ public class StrappingBullwhip : ChieftainCardModel<StrappingBullwhip.CardTop, S
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

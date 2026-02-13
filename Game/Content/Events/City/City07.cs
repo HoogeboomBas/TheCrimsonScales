@@ -66,18 +66,13 @@ public class City07 : CityEventModel<City07.ChoiceA, City07.ChoiceB>
 				[
 					new LoseCollectiveGoldEventReward(10),
 					new SummonEventReward(
-						SummonAbility.Builder().WithSummonStats(new SummonStats()
-							{
-								Health = 5,
-								Move = 2,
-								Attack = 2,
-								Traits =
-								[
-									new PierceTrait(2)
-								]
-							})
+						SummonAbility.Builder()
 							.WithName("Battle Turkey")
 							.WithTexturePath("res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png") //TODO: Generic or AI summon visual?
+							.WithHealth(5)
+							.WithMove(2)
+							.WithAttack(2)
+							.WithTraits(new PierceTrait(2))
 							.Build()
 					)
 				];

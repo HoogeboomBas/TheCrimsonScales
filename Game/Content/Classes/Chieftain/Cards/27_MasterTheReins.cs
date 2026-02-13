@@ -11,47 +11,14 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(grantState =>
 				[
-					MoveAbility.Builder()
-						.WithDistance(1)
-						.WithOnAbilityStarted(async moveState =>
-						{
-							moveState.AdjustMoveValue(((Summon)moveState.Performer).Stats.Move ?? 0);
-
-							await GDTask.CompletedTask;
-						})
-						.Build(),
-
-					AttackAbility.Builder()
-						.WithDamage(1)
-						.WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription.New(
-							parameters => parameters.Performer == grantState.Target,
-							async parameters =>
-							{
-								parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
-
-								int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-								parameters.AbilityState.AbilityAdjustRange(range - 1);
-								parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
-
-								await GDTask.CompletedTask;
-							}
-						))
-						.Build(),
-
-					MoveAbility.Builder()
-						.WithDistance(1)
-						.WithOnAbilityStarted(async moveState =>
-						{
-							moveState.AdjustMoveValue(((Summon)moveState.Performer).Stats.Move ?? 0);
-
-							await GDTask.CompletedTask;
-						})
-						.Build(),
+					AbilityCmd.SummonMovePlusX(1).Build(),
+					AbilityCmd.SummonAttackPlusX(1).Build(),
+					AbilityCmd.SummonMovePlusX(1).Build(),
 				])
 				.WithCustomGetTargets((grantState, figures) =>
 				{
@@ -65,7 +32,7 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -73,7 +40,7 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 					AbilityCard selectedAbilityCard =
 						await AbilityCmd.SelectAbilityCard((Character)state.Performer, CardState.PersistentLoss,
 							canSelectFunc: abilityCard =>
-								abilityCard.Top.Abilities.Concat(abilityCard.Bottom.Abilities)
+								abilityCard.Top.Model.Abilities.Concat(abilityCard.Bottom.Model.Abilities)
 									.Any(cardAbility => cardAbility.Ability is SummonAbility),
 							hintText: $"Select an active card with summon ability to attach to");
 
@@ -86,7 +53,7 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 
 					Summon summon = ((SummonAbility.State)selectedAbilityCard.ActiveActionStates
 						.SelectMany(actionState => actionState.AbilityStates)
-						.FirstOrDefault(abilityState => abilityState is SummonAbility.State)).Summon;
+						.First(abilityState => abilityState is SummonAbility.State)).Summon;
 
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						canApplyParameters => summon == canApplyParameters.Performer,
@@ -135,6 +102,6 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

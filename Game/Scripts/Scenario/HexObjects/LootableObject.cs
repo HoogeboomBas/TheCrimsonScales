@@ -15,6 +15,8 @@ public abstract partial class LootableObject : HexObject
 		this.TweenGlobalJump(lootObtainer.Hex.GlobalPosition, 0.5f * Map.HexSize, 0.3f).PlayFastForwardable();
 		this.TweenScale(0f, 0.35f).SetEasing(Easing.InBack).PlayFastForwardable();
 
+		await ScenarioEvents.LootableObjectLootedEvent.CreatePrompt(new ScenarioEvents.LootableObjectLooted.Parameters(lootObtainer, this));
+
 		await GDTask.DelayFastForwardable(0.3f);
 
 		await Destroy();

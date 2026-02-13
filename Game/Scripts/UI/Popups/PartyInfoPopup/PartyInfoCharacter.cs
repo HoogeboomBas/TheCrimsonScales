@@ -172,6 +172,12 @@ public partial class PartyInfoCharacter : Control
 
 	private void OnCardPressed(CardSelectionCard cardSelectionCard)
 	{
+		if(GameController.Instance.ScenarioPhaseManager.ActivePhase is not RoundPhase)
+		{
+			//TODO: Allow deactivating cards via this popup during card selection phase and such?
+			return;
+		}
+
 		AbilityCard card = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
 
 		if(card.CardState == CardState.Persistent || card.CardState == CardState.PersistentLoss)

@@ -37,7 +37,7 @@ public class FlameDemonAbilityCard0 : FlameDemonAbilityCard
 
 public class FlameDemonAbilityCard1 : FlameDemonAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 24;
 	public override int CardIndex => 1;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
@@ -129,7 +129,7 @@ public class FlameDemonAbilityCard5 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Ice]))
 			.Build())
@@ -155,7 +155,7 @@ public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
 							.ToList();
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 				}
 			)

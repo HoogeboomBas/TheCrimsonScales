@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, InspiredRemedy.CardBottom>
 {
@@ -10,11 +11,11 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(3)
-				.WithRange(2)
+				.WithRange(2, new RangeSquare(this, new Vector2(0.6105665f, 0.16249998f)))
 				.WithDuringHealSubscription(
 					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async applyParameters =>
@@ -38,8 +39,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 				)
 				.WithAfterHealPerformedSubscription(
 					ScenarioEvents.AfterHealPerformed.Subscription.New(
-						canApplyFunction: canApplyParameters => 
-							canApplyParameters.Performer.AlliedWith(canApplyParameters.AbilityState.Target) && 
+						canApplyFunction: canApplyParameters =>
+							canApplyParameters.Performer.AlliedWith(canApplyParameters.AbilityState.Target) &&
 							canApplyParameters.AbilityState.Target is Character &&
 							canApplyParameters.AbilityState.GetCustomValue<bool>(this, "UnderHalfHP"),
 						applyFunction: async applyParameters =>
@@ -54,7 +55,7 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -85,8 +86,8 @@ public class InspiredRemedy : HierophantCardModel<InspiredRemedy.CardTop, Inspir
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

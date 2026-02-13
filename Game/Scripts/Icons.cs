@@ -1,3 +1,4 @@
+﻿using System;
 ﻿using Godot;
 
 public static class Icons
@@ -30,6 +31,11 @@ public static class Icons
 	public const string XP = "res://Art/Icons/Abilities/XP.svg";
 	public const string Checkmark = "res://Art/Icons/Other/CheckMark.svg";
 	public const string Obstacle = "res://Art/Icons/Other/Cross.svg";
+	public const string StartHexMove = "res://Art/Icons/Other/StartHexMoveIcon.svg";
+	public const string WildElement = "res://Art/Icons/Elements/Wild.svg";
+	public const string RedAOEHex = "res://Art/Icons/Other/RedAOEHex.svg";
+	public const string PlusOneEnhancement = "res://Art/Icons/Other/PlusOneEnhancement.svg";
+	public const string JumpEnhancement = "res://Art/Icons/Other/JumpEnhancement.svg";
 
 	public static string GetElement(Element element)
 	{
@@ -44,6 +50,11 @@ public static class Icons
 	public static string GetCondition(ConditionModel conditionModel)
 	{
 		return conditionModel.IconPath;
+	}
+
+	public static string GetAMDValue(string amdValue)
+	{
+		return $"res://Art/Icons/AMDs/{amdValue}.png";
 	}
 
 	public static string InlineMarker(Marker.Type markerType, int size = 30)

@@ -19,6 +19,8 @@ public partial class HexObject : Node2D, IReferenced
 
 	public bool IsDestroyed { get; private set; }
 
+	public bool Revealed { get; protected set; }
+
 	public int DefaultZIndex { get; private set; }
 
 	public int ReferenceId { get; set; }
@@ -44,6 +46,7 @@ public partial class HexObject : Node2D, IReferenced
 	public virtual async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
 		this.InitReference();
+		Revealed = true;
 
 		DefaultZIndex = ZIndex;
 

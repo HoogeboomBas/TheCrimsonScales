@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://jv65udtnptg8"]
+
+[ext_resource type="PackedScene" uid="uid://cx5mkt1ahuklt" path="res://Scenes/Scenario/HexObjectEffectViews/HexObjectEffectView.tscn" id="1_r6e7c"]
+[ext_resource type="Script" uid="uid://breiqrqhs3k56" path="res://Scripts/Scenario/HexObjects/HexObjectEffectViews/ConditionHexObjectEffectView.cs" id="2_m63jk"]
+[ext_resource type="PackedScene" uid="uid://b3yfqgp66ss0d" path="res://Scenes/UI/ConditionView.tscn" id="3_1sjfw"]
+
+[node name="ConditionHexObjectEffectView" node_paths=PackedStringArray("_conditionView") instance=ExtResource("1_r6e7c")]
+script = ExtResource("2_m63jk")
+_conditionView = NodePath("Container/ConditionView")
+
+[node name="ConditionView" parent="Container" index="0" instance=ExtResource("3_1sjfw")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2

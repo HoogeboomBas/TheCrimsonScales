@@ -13,7 +13,7 @@ public partial class Trap : OverlayTile
 	[Export]
 	public ConditionModelResource[] ConditionModels { get; set; }
 
-	private readonly List<ConditionNode> _conditionNodes = new List<ConditionNode>();
+	private readonly List<TrapCondition> _conditions = new List<TrapCondition>();
 
 	private TrapViewComponent _trapViewComponent;
 
@@ -53,12 +53,12 @@ public partial class Trap : OverlayTile
 		UpdateVisuals();
 	}
 
-	public async GDTask Trigger(AbilityState state, Figure figure)
+	public async GDTask Trigger(AbilityState potentialAbilityState, Figure figure)
 	{
 		int damage = Damage;
 		if(damage > 0)
 		{
-			await AbilityCmd.SufferDamage(null, figure, damage);
+			await AbilityCmd.SufferDamage(potentialAbilityState, figure, damage);
 		}
 
 		if(ConditionModels != null)
@@ -85,33 +85,33 @@ public partial class Trap : OverlayTile
 		_trapViewComponent.DamageLabel.Scale = (damage >= 10 ? 0.8f : 1f) * Vector2.One;
 		_trapViewComponent.DamageContainer.Position = new Vector2(0f, ConditionModels == null || ConditionModels.Length == 0 ? 0f : 10f);
 
-		foreach(ConditionNode conditionNode in _conditionNodes)
+		foreach(TrapCondition condition in _conditions)
 		{
-			conditionNode.QueueFree();
+			condition.QueueFree();
 		}
 
-		_conditionNodes.Clear();
+		_conditions.Clear();
 
 		if(ConditionModels != null)
 		{
 			foreach(ConditionModelResource conditionModelResource in ConditionModels)
 			{
-				ConditionNode conditionNode = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Condition.tscn").Instantiate<ConditionNode>();
-				_trapViewComponent.ConditionContainer.AddChild(conditionNode);
-				conditionNode.Init(conditionModelResource.Model, true);
-				_conditionNodes.Add(conditionNode);
+				TrapCondition condition = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/TrapCondition.tscn").Instantiate<TrapCondition>();
+				_trapViewComponent.ConditionContainer.AddChild(condition);
+				condition.Init(conditionModelResource.Model);
+				_conditions.Add(condition);
 			}
 		}
 
-		int conditionCount = _conditionNodes.Count;
+		int conditionCount = _conditions.Count;
 		const float maxOffset = 80f;
-		for(int i = 0; i < _conditionNodes.Count; i++)
+		for(int i = 0; i < _conditions.Count; i++)
 		{
-			ConditionNode conditionNode = _conditionNodes[i];
+			TrapCondition condition = _conditions[i];
 			float progress = (i + 1f) / (conditionCount + 1);
 			float posX = Mathf.Lerp(-maxOffset, maxOffset, progress);
-			conditionNode.Move(new Vector2(posX, 0f));
-			_trapViewComponent.ConditionContainer.MoveChild(conditionNode, i);
+			condition.SetPosition(new Vector2(posX, 0f));
+			_trapViewComponent.ConditionContainer.MoveChild(condition, i);
 		}
 
 		_trapViewComponent.ConditionContainer.Position = new Vector2(0f, damage > 0 ? -60f : 0f);

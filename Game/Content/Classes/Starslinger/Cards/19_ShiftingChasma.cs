@@ -11,10 +11,10 @@ public class ShiftingChasma : StarslingerCardModel<ShiftingChasma.CardTop, Shift
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.44563636f, 0.17640786f)))
 				.WithAOEPattern(new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -53,7 +53,7 @@ public class ShiftingChasma : StarslingerCardModel<ShiftingChasma.CardTop, Shift
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -80,7 +80,7 @@ public class ShiftingChasma : StarslingerCardModel<ShiftingChasma.CardTop, Shift
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 }

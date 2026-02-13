@@ -11,7 +11,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -34,7 +34,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 												await GDTask.CompletedTask;
 											}
 										);
-										
+
 										await GDTask.CompletedTask;
 									},
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Shield),
@@ -50,7 +50,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 											canApplyParameters =>
 											{
 												return canApplyParameters.RetaliatingFigure == state.Performer &&
-													RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
+												       RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
 											},
 											async applyParameters =>
 											{
@@ -64,13 +64,14 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 										await GDTask.CompletedTask;
 									},
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Retaliate),
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"Gain {Icons.Inline(Icons.Retaliate)}1 for the attack"),
+									effectInfoViewParameters: new TextEffectInfoView.Parameters(
+										$"Gain {Icons.Inline(Icons.Retaliate)}1 for the attack"),
 									effectType: EffectType.SelectableMandatory
 								);
 
-							await AbilityCmd.GenericChoice(state.Performer, 
-								[shieldChosenSubscription, retaliateChosenSubscription], 
-								hintText: "Select an effect to gain for the attack:");
+							await AbilityCmd.GenericChoice(state.Performer,
+								[shieldChosenSubscription, retaliateChosenSubscription],
+								hintText: "Select an effect to gain for the attack");
 
 							await state.AdvanceUseSlot();
 						}
@@ -84,7 +85,7 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
 					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
-					ActionState actionState = new ActionState(state.Performer,
+					ActionState actionState = new ActionState(state.ActionState, state.Performer,
 					[
 						HealAbility.Builder()
 							.WithHealValue(state.Slots.Count - state.UseSlotIndex)
@@ -105,32 +106,32 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
-				.WithOnActivate(async state => 
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
-						canApply: parameters => parameters.Performer == state.Performer && 
-								parameters.AbilityState is CreateTrapAbility.State && 
-								((CreateTrapAbility.State)parameters.AbilityState).AbilityRange == 1,
+						canApply: parameters => parameters.Performer == state.Performer &&
+						                        parameters.AbilityState is CreateTrapAbility.State &&
+						                        ((CreateTrapAbility.State)parameters.AbilityState).AbilityRange == 1,
 						async parameters =>
-							{
-								((CreateTrapAbility.State)parameters.AbilityState).AbilityAdjustRange(1);
-								ScenarioEvents.AbilityStartedEvent.Unsubscribe(state.Performer, this);
+						{
+							((CreateTrapAbility.State)parameters.AbilityState).AbilityAdjustRange(1);
+							ScenarioEvents.AbilityStartedEvent.Unsubscribe(state.Performer, this);
 
-								await GDTask.CompletedTask;
-							}
-						);
+							await GDTask.CompletedTask;
+						}
+					);
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state.Performer, this);
 
@@ -139,19 +140,19 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
-				.WithOnActivate(async state => 
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
 						canApply: canApplyParameters => state.Performer == canApplyParameters.PotentialAbilityState?.Authority,
 						async applyParameters =>
 						{
-							await AbilityCmd.SufferDamage(null, applyParameters.Figure, 2);
+							await AbilityCmd.SufferDamage(state, applyParameters.Figure, 2);
 						}
 					);
 
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.TrapTriggeredEvent.Unsubscribe(state, this);
 
@@ -160,9 +161,8 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
-
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

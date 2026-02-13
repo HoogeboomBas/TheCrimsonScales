@@ -115,11 +115,6 @@ public partial class SanctuaryOfTheGreatOak : BetweenScenariosAction
 			.AppendTime(1f);
 	}
 
-	protected override void AfterAnimateIn()
-	{
-		base.AfterAnimateIn();
-	}
-
 	protected override void AnimateOut(GTweenSequenceBuilder sequenceBuilder)
 	{
 		_donationButtonAvailable = false;

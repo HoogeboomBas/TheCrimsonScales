@@ -2,7 +2,7 @@
 using Godot;
 
 public class DowntimeShopPriceEventReward(
-	Func<EventReward, BetweenScenariosEvents.CalculateBuyPrice.ApplyFunction> calculatePriceApplyFunction,
+	Func<EventReward, BetweenScenariosEvents.CalculateItemBuyPrice.ApplyFunction> calculatePriceApplyFunction,
 	Func<EventReward, BetweenScenariosEvents.ItemBought.ApplyFunction> itemBoughtApplyFunction,
 	Func<Color, string> getLabelText)
 	: EventReward
@@ -14,7 +14,7 @@ public class DowntimeShopPriceEventReward(
 	{
 		base.SubscribeDuringDowntime(savedEventState);
 
-		BetweenScenariosEvents.CalculateBuyPriceEvent.Subscribe(this, calculatePriceApplyFunction(this));
+		BetweenScenariosEvents.CalculateItemBuyPriceEvent.Subscribe(this, calculatePriceApplyFunction(this));
 		BetweenScenariosEvents.ItemBoughtEvent.Subscribe(this, itemBoughtApplyFunction(this));
 	}
 
@@ -22,7 +22,7 @@ public class DowntimeShopPriceEventReward(
 	{
 		base.UnsubscribeDuringDowntime();
 
-		BetweenScenariosEvents.CalculateBuyPriceEvent.Unsubscribe(this);
+		BetweenScenariosEvents.CalculateItemBuyPriceEvent.Unsubscribe(this);
 		BetweenScenariosEvents.ItemBoughtEvent.Unsubscribe(this);
 	}
 }

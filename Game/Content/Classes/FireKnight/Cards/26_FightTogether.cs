@@ -12,13 +12,13 @@ public class FightTogether : FireKnightLevelUpCardModel<FightTogether.CardTop, F
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
 					ShieldAbility.Builder()
-						.WithShieldValue(2)
+						.WithShieldValue(2, new ShieldDiamondPlus(this, new Vector2(0.49963737f, 0.24985416f)))
 						.Build(),
 					ConditionAbility.Builder()
 						.WithConditions(Conditions.Bless)
@@ -28,7 +28,7 @@ public class FightTogether : FireKnightLevelUpCardModel<FightTogether.CardTop, F
 				.WithTarget(Target.SelfOrAllies | Target.TargetAll)
 				.Build()),
 			new AbilityCardAbility(GiveFireKnightItemAbility(
-				[ModelDB.Item<ScrollOfProtection>()],
+				state => [ModelDB.Item<FireKnightScrollOfProtection>()],
 				customGetTargets: (state, list) =>
 				{
 					GrantAbility.State grantAbilityState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
@@ -40,20 +40,20 @@ public class FightTogether : FireKnightLevelUpCardModel<FightTogether.CardTop, F
 
 					GrantAbility.State grantAbilityState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
 
-					return grantAbilityState.UniqueTargetedFigures.Where(target => target != state.Performer).Count() == 1;
+					return grantAbilityState.UniqueTargetedFigures.Count(target => target != state.Performer) == 1;
 				}
 			))
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62018883f, 0.62458545f)))
 				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
@@ -95,14 +95,17 @@ public class FightTogether : FireKnightLevelUpCardModel<FightTogether.CardTop, F
 					}
 				)
 				.Build()),
+
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
-					AttackAbility.Builder().WithDamage(3).Build()
+					AttackAbility.Builder()
+						.WithDamage(3, new AttackDiamond(this, new Vector2(0.61666214f, 0.8298918f)))
+						.Build()
 				])
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Fire)];
 	}
 }

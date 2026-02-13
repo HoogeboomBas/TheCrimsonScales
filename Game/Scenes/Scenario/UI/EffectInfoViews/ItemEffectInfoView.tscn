@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dcyfacmewuce0" path="res://Scenes/Scenario/UI/EffectInfoViews/_EffectInfoView.tscn" id="1_w1t0r"]
 [ext_resource type="Script" uid="uid://si6y3ueick1d" path="res://Scripts/Scenario/UI/EffectInfoView/ItemEffectInfoView.cs" id="2_w1t0r"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="3_6k78n"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="3_6k78n"]
 
 [node name="ItemEffectInfoView" node_paths=PackedStringArray("_itemView") instance=ExtResource("1_w1t0r")]
 script = ExtResource("2_w1t0r")

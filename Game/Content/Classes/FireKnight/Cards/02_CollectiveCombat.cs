@@ -12,10 +12,10 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackSquare(this, new Vector2(0.42104512f, 0.17010815f)))
 				.WithAOEPattern(new AOEPattern(
 					[
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -23,7 +23,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 					]
-				))
+				), new AOEHexMark(Vector2I.Zero.Add(Direction.West), this, new Vector2(0.6045485f, 0.25425407f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
@@ -44,20 +44,9 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 				{
 					AttackAbility.State attackAbilityState = abilityState.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					foreach((Vector2I coords, AOEHexType hexType) in attackAbilityState.AOEHexes)
-					{
-						if(hexType == AOEHexType.Red)
-						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
-							if(hex != null)
-							{
-								foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-								{
-									list.Add(figure);
-								}
-							}
-						}
-					}
+					list.AddRange(attackAbilityState
+						.GetRedAOEHexes()
+						.SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
 				})
 				.WithConditionalAbilityCheck(async state =>
 					{
@@ -65,7 +54,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 
 						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-						if(attackAbilityState.AOEHexes == null || attackAbilityState.AOEHexes.Count == 0)
+						if(attackAbilityState.TargetedAOEHexes == null || attackAbilityState.TargetedAOEHexes.Count == 0)
 						{
 							return false;
 						}
@@ -79,7 +68,7 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -112,6 +101,6 @@ public class CollectiveCombat : FireKnightCardModel<CollectiveCombat.CardTop, Co
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

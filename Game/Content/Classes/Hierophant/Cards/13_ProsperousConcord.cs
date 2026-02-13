@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, ProsperousConcord.CardBottom>
 {
@@ -10,27 +11,27 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(3).Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					//TODO: Add visual (character token) to target(?)
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+					Figure figure = state.GetCustomValue<Figure>(this, "Figure");
+
+					await AbilityCmd.AddCharacterToken(state, figure,
+						$"The next time an ally attacks this enemy this round, they add +2{Icons.Inline(Icons.Attack)} to the attack.");
+
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						canApplyParameters =>
 							state.Performer.AlliedWith(canApplyParameters.Performer) &&
-							canApplyParameters.AbilityState.Target == attackAbilityState.UniqueTargetedFigures[0],
+							canApplyParameters.AbilityState.Target == figure,
 						async applyParameters =>
 						{
-							//TODO: Add visual (character token) to target(?)
 							applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
 
 							await state.ActionState.RequestDiscardOrLose();
-
-							//await AbilityCmd.DiscardOrLose(AbilityCard);
 						});
 
 					await GDTask.CompletedTask;
@@ -39,23 +40,46 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
-					await GDTask.CompletedTask;
+					Figure figure = state.GetCustomValue<Figure>(this, "Figure");
+
+					await AbilityCmd.RemoveCharacterToken(state, figure);
 				})
-				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithConditionalAbilityCheck(async state =>
+				{
+					if(!await AbilityCmd.HasPerformedAbility(state, 0))
+					{
+						return false;
+					}
+
+					Figure figure = await AbilityCmd.SelectFigure(state,
+						list => list.AddRange(state.ActionState.GetAbilityState<AttackAbility.State>(0).UniqueTargetedFigures),
+						hintText: () => "Place character token?");
+
+					if(figure == null)
+					{
+						return false;
+					}
+
+					state.SetCustomValue(this, "Figure", figure);
+					return true;
+				})
+				.WithSkipConfirmation()
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Light];
-		protected override bool Round => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
+		public override bool Round => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(3)
-				.WithRange(1)
+				.WithRange(1,
+					new RangeSquare(this, new Vector2(0.54945546f, 0.6825218f)),
+					new RangeSquare(this, new Vector2(0.6705539f, 0.6825218f)))
 				.WithAfterTargetConfirmedSubscriptions(
 					[
 						ScenarioEvents.HealAfterTargetConfirmed.Subscription.New(

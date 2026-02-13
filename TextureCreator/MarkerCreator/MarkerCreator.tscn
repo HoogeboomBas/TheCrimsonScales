@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://byyh028772nm8"]
 
 [ext_resource type="Script" uid="uid://cr6swyc2iv021" path="res://MarkerCreator/MarkerCreator.cs" id="1_rtudi"]
-[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://MarkerCreator/Circle.svg" id="3_be0us"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Circle.svg" id="3_be0us"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="4_rcxmx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r4482"]

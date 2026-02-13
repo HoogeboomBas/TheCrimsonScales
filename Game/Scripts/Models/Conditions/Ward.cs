@@ -4,28 +4,28 @@ public class Ward : ConditionModel
 {
 	public override string Name => "Ward";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Ward.svg";
-	public override bool IsPositive => true;
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioEvents.SufferDamageEvent.Subscribe(this,
-			parameters => parameters.Figure == Owner,
+		ScenarioEvents.SufferDamageEvent.Subscribe(condition,
+			parameters => parameters.Figure == condition.Owner,
 			async parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 				parameters.SetWard(true);
 
-				await AbilityCmd.RemoveCondition(target, this);
+				await AbilityCmd.RemoveCondition(condition);
 			},
 			EffectType.MandatoryBeforeOptionals, 100);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioEvents.SufferDamageEvent.Unsubscribe(this);
+		ScenarioEvents.SufferDamageEvent.Unsubscribe(condition);
 	}
 }

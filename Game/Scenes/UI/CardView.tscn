@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsaayvr5eg5wl"]
+
+[ext_resource type="Script" uid="uid://b4rww77c5hynb" path="res://Scripts/UI/RoundedCornersTextureRect.cs" id="3_2gn8c"]
+[ext_resource type="Shader" uid="uid://8e675qc3s5tr" path="res://Shaders/CardView.gdshader" id="3_ek63x"]
+[ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="4_3dwh2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wbx5w"]
+shader = ExtResource("3_ek63x")
+shader_parameter/radius_scale = 0.1
+shader_parameter/rounded_corner_top_left = true
+shader_parameter/rounded_corner_top_right = true
+shader_parameter/rounded_corner_bottom_left = true
+shader_parameter/rounded_corner_bottom_right = true
+
+[node name="CardView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1295.0
+offset_bottom = -205.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 625.0
+offset_bottom = 875.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Container"]
+material = SubResource("ShaderMaterial_wbx5w")
+instance_shader_parameters/atlas_region = Vector4(0, 0, 625, 875)
+instance_shader_parameters/atlas_size = Vector2(3750, 4375)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_3dwh2")
+expand_mode = 1
+script = ExtResource("3_2gn8c")

@@ -37,6 +37,7 @@ public partial class BuyItemPopup : Popup<BuyItemPopup.Request>
 		_confirmButton.SetEnabled(true, false);
 
 		_itemView.SetItem(PopupRequest.ItemModel);
+		_itemView.SetCost(PopupRequest.Price);
 
 		_itemAndBuyerLabel.Text = $"Buy {PopupRequest.ItemModel.Name} for {PopupRequest.Buyer.GetNameAndIcon()}?";
 		_costLabel.Text = $"Cost: {Icons.Inline(Icons.Coins)}{PopupRequest.Price}";

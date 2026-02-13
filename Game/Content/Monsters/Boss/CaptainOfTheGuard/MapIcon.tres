@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bnjbgabllcxfy"]
+
+[ext_resource type="Texture2D" uid="uid://cueo8fhnj1t06" path="res://Content/Monsters/Boss/CaptainOfTheGuard/CaptainOfTheGuard.jpeg" id="1_hr0qf"]
+
+[resource]
+atlas = ExtResource("1_hr0qf")
+region = Rect2(160, 120, 400, 400)

@@ -4,6 +4,7 @@
 	Harrower,
 	Human,
 	Inox,
+	Lurker,
 	Orchid,
 	Quatryl,
 	Savvas,

@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-public abstract class FireKnightLevelUpCardModel<TTop, TBottom> : AtlasAbilityCardModel<TTop, TBottom>
-	where TTop : FireKnightCardSide, new()
-	where TBottom : FireKnightCardSide, new()
+public abstract class FireKnightLevelUpCardModel<TTop, TBottom> : AbilityCardModel<TTop, TBottom>
+	where TTop : FireKnightCardSide
+	where TBottom : FireKnightCardSide
 {
 	protected override string TexturePath => "res://Content/Classes/FireKnight/LevelUpCards.jpg";
 	protected override int ColumnCount => 4;
 	protected override int RowCount => 4;
 }
 
-public abstract class FireKnightCardModel<TTop, TBottom> : AtlasAbilityCardModel<TTop, TBottom>
-	where TTop : FireKnightCardSide, new()
-	where TBottom : FireKnightCardSide, new()
+public abstract class FireKnightCardModel<TTop, TBottom> : AbilityCardModel<TTop, TBottom>
+	where TTop : FireKnightCardSide
+	where TBottom : FireKnightCardSide
 {
 	protected override string TexturePath => "res://Content/Classes/FireKnight/Cards.jpg";
 	protected override int ColumnCount => 5;
 	protected override int RowCount => 3;
 }
 
-public abstract class FireKnightCardSide : AbilityCardSide
+public abstract class FireKnightCardSide : AbilityCardSideModel<FireKnight>
 {
 	protected const string LadderIconPath = "res://Content/Classes/FireKnight/LadderIcon.svg";
 
-	protected GiveItemAbility GiveFireKnightItemAbility(IList<ItemModel> possibleItemModels,
+	protected GiveItemAbility GiveFireKnightItemAbility(Func<AbilityState, IList<ItemModel>> getPossibleItemModels,
 		int targets = 1, int range = 1, Target target = Target.Allies | Target.MustTargetCharacters,
 		Action<GiveItemAbility.State, List<Figure>> customGetTargets = null,
 		Func<AbilityState, ItemModel, GDTask> onItemGiven = null,
@@ -33,7 +33,9 @@ public abstract class FireKnightCardSide : AbilityCardSide
 		return GiveItemAbility.Builder()
 			.WithGetItems((state, list) =>
 			{
-				FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
+				IList<ItemModel> possibleItemModels = getPossibleItemModels(state);
+
+				FireKnight fireKnight = GetOriginalOwner(state);
 				foreach(ItemModel item in fireKnight.FireKnightItems)
 				{
 					if(possibleItemModels.Contains(item.ImmutableInstance))
@@ -58,7 +60,7 @@ public abstract class FireKnightCardSide : AbilityCardSide
 		await GiveItemAbility.GiveItem(abilityState, target,
 			(state, list) =>
 			{
-				FireKnight fireKnight = (FireKnight)AbilityCard.OriginalOwner;
+				FireKnight fireKnight = GetOriginalOwner(state);
 				foreach(ItemModel item in fireKnight.FireKnightItems)
 				{
 					if(possibleItemModels.Contains(item.ImmutableInstance))

@@ -16,6 +16,8 @@ public abstract class AbilityState
 	public bool CanPerformWhileStunned { get; init; }
 	public bool Performed { get; private set; }
 
+	public List<Figure> DamagedFigures { get; } = new List<Figure>();
+
 	public Figure Performer => ActionState.Performer;
 	public Figure Authority => ActionState.Authority;
 

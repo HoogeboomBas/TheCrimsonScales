@@ -90,11 +90,11 @@ public partial class ItemShop : BetweenScenariosAction
 	public int GetBuyPrice(SavedCharacter buyer, ItemModel itemModel)
 	{
 		int price = itemModel.Cost;
-		price += BetweenScenariosController.Instance.SavedCampaign.GetItemPriceChange();
+		price += BetweenScenariosController.Instance.SavedCampaign.GetReputationItemPriceChange();
 
-		BetweenScenariosEvents.CalculateBuyPrice.Parameters parameters =
-			BetweenScenariosEvents.CalculateBuyPriceEvent.Fire(
-				new BetweenScenariosEvents.CalculateBuyPrice.Parameters(buyer, itemModel, price));
+		BetweenScenariosEvents.CalculateItemBuyPrice.Parameters parameters =
+			BetweenScenariosEvents.CalculateItemBuyPriceEvent.Fire(
+				new BetweenScenariosEvents.CalculateItemBuyPrice.Parameters(buyer, itemModel, price));
 
 		return parameters.Price;
 	}
@@ -147,7 +147,7 @@ public partial class ItemShop : BetweenScenariosAction
 				{
 					_bookSubViewportContainer.SetVisible(true);
 					_bookCover.SetVisible(false);
-				}, 0.01f);
+				});
 
 				_frontSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
 				_backSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
@@ -188,7 +188,7 @@ public partial class ItemShop : BetweenScenariosAction
 				{
 					_leftPageCoverInside.SetVisible(false);
 					_bookSubViewportContainer.SetVisible(true);
-				}, 0.01f);
+				});
 
 				_frontSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
 				_backSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
@@ -210,6 +210,7 @@ public partial class ItemShop : BetweenScenariosAction
 	private ItemShopPage CreatePage(int pageIndex)
 	{
 		ItemShopPage shopPage = _itemShopPageScene.Instantiate<ItemShopPage>();
+		AddChild(shopPage);
 		int startIndex = pageIndex * ItemsPerPage;
 		int endIndex = Mathf.Min(startIndex + ItemsPerPage, _allAvailableItems.Count);
 		int itemCount = endIndex - startIndex;

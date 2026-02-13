@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class SkinningKnife : ChieftainCardModel<SkinningKnife.CardTop, SkinningKnife.CardBottom>
 {
@@ -9,21 +10,21 @@ public class SkinningKnife : ChieftainCardModel<SkinningKnife.CardTop, SkinningK
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.619084f, 0.24810435f)))
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build())
 		];

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop, UnexpectedBombshell.CardBottom>
 {
@@ -9,13 +10,22 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private AttackEnhancementMark _enhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_enhancementMark = new AttackDiamond(this, new Vector2(0.509707f, 0.2876189f));
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
 					AttackAbility.Builder()
-						.WithDamage(2)
+						.WithDamage(2, _enhancementMark)
 						.WithConditions(Conditions.Stun)
 						.WithRangeType(RangeType.Range)
 						.WithTargetHex(hex)
@@ -40,24 +50,24 @@ public class UnexpectedBombshell : BombardCardModel<UnexpectedBombshell.CardTop,
 
 									foreach(Figure enemy in enemies)
 									{
-										await AbilityCmd.SufferDamage(null, enemy, 1);
+										await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 1);
 									}
 								})
 						)
 						.Build(),
 				])
 				.WithAbilityCardSide(this)
-				.WithRange(4)
+				.WithRange(4, new ProjectileRangeSquare(this, new Vector2(0.33784395f, 0.16527776f)))
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullSelfAbility.Builder()
 				.WithPullSelfValue(4)

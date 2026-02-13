@@ -11,9 +11,6 @@ public class SavedScenarioProgress
 	[JsonProperty]
 	public bool ShownOnMap { get; private set; }
 
-	// [JsonProperty]
-	// public bool Unlocked { get; set; }
-
 	[JsonProperty]
 	public bool Completed { get; private set; }
 
@@ -25,16 +22,31 @@ public class SavedScenarioProgress
 
 	public void Discover()
 	{
+		if(Discovered)
+		{
+			return;
+		}
+
 		Discovered = true;
 	}
 
 	public void ShowOnMap()
 	{
+		if(ShownOnMap)
+		{
+			return;
+		}
+
 		ShownOnMap = true;
 	}
 
 	public void Complete()
 	{
+		if(Completed)
+		{
+			return;
+		}
+
 		Completed = true;
 	}
 }

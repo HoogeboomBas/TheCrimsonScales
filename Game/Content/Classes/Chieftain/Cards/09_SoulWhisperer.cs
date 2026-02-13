@@ -11,37 +11,13 @@ public class SoulWhisperer : ChieftainCardModel<SoulWhisperer.CardTop, SoulWhisp
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantState =>
+				.WithAbilities(
 				[
-					MoveAbility.Builder()
-						.WithDistance(0)
-						.WithOnAbilityStarted(async moveState =>
-						{
-							moveState.AdjustMoveValue(((Summon)moveState.Performer).Stats.Move ?? 0);
-
-							await GDTask.CompletedTask;
-						})
-						.Build(),
-
-					AttackAbility.Builder()
-						.WithDamage(0)
-						.WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription.New(
-							parameters => parameters.Performer == grantState.Target,
-							async parameters =>
-							{
-								parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
-
-								int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-								parameters.AbilityState.AbilityAdjustRange(range - 1);
-								parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
-
-								await GDTask.CompletedTask;
-							}
-						))
-						.Build()
+					AbilityCmd.SummonMovePlusX(0).Build(),
+					AbilityCmd.SummonAttackPlusX(0).Build()
 				])
 				.WithCustomGetTargets((grantState, figures) =>
 				{
@@ -56,7 +32,7 @@ public class SoulWhisperer : ChieftainCardModel<SoulWhisperer.CardTop, SoulWhisp
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)

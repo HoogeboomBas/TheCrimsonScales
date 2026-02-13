@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://drmjh44chpm2j"]
+[gd_scene load_steps=21 format=3 uid="uid://drmjh44chpm2j"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_an4kr"]
 [ext_resource type="Script" uid="uid://d32g04i3j00hb" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortrait.cs" id="1_ju0a4"]
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="1_m8ida"]
+[ext_resource type="Texture2D" uid="uid://baautwi1wf7cf" path="res://Art/Icons/Other/Retire.svg" id="3_bjw2y"]
 [ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="4_cnbgs"]
 [ext_resource type="Texture2D" uid="uid://c0cdv7dosesax" path="res://Art/Icons/Other/LevelCrown.svg" id="4_jd7ye"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="5_eruca"]
@@ -55,7 +56,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[node name="BetweenScenariosCharacterPortrait" type="Control" node_paths=PackedStringArray("BetterButton", "_container", "_textureRect", "_colorOutline", "_inactiveOverlay", "_levelBackground", "_levelLabel", "_xpLabel", "_xpProgressBar", "_goldLabel", "_infoButton", "_equipmentButton", "_cardsButton", "_levelUpScaleContainer", "_levelUpButton")]
+[node name="BetweenScenariosCharacterPortrait" type="Control" node_paths=PackedStringArray("BetterButton", "_container", "_textureRect", "_colorOutline", "_inactiveOverlay", "_levelBackground", "_levelLabel", "_xpLabel", "_xpProgressBar", "_goldLabel", "_infoButton", "_equipmentButton", "_cardsButton", "_infoButtonTextureRect", "_levelUpScaleContainer", "_levelUpButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 230.0
@@ -75,6 +76,9 @@ _goldLabel = NodePath("Container/BetterButton/Gold/Label")
 _infoButton = NodePath("Container/BetterButton/Container2/InfoButton")
 _equipmentButton = NodePath("Container/BetterButton/Container2/EquipmentButton")
 _cardsButton = NodePath("Container/BetterButton/Container2/CardsButton")
+_normalInfoTexture = ExtResource("10_fotvg")
+_retireInfoTexture = ExtResource("3_bjw2y")
+_infoButtonTextureRect = NodePath("Container/BetterButton/Container2/InfoButton/Panel/MarginContainer/TextureRect")
 _levelUpScaleContainer = NodePath("Container/BetterButton/LevelIndicator")
 _levelUpButton = NodePath("Container/BetterButton/LevelIndicator/BetterButton")
 

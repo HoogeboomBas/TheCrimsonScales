@@ -10,7 +10,14 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 {
 	public class State : ActiveAbilityState
 	{
+		public int AbilityRange { get; set; }
+
 		public List<BombardProjectileToken> Tokens { get; } = new List<BombardProjectileToken>();
+
+		public void AbilityAdjustRange(int amount)
+		{
+			AbilityRange += amount;
+		}
 
 		public void AddToken(BombardProjectileToken token)
 		{
@@ -19,7 +26,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 	}
 
 	private Func<Hex, List<Ability>> _getAbilities;
-	public AbilityCardSide AbilityCardSide { get; private set; }
+	public AbilityCardSideModel AbilityCardSide { get; private set; }
 
 	public int Range { get; private set; }
 	public int Targets { get; private set; } = 1;
@@ -44,12 +51,12 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 
 		public interface IAbilityCardSideStep
 		{
-			IRangeStep WithAbilityCardSide(AbilityCardSide abilityCardSide);
+			IRangeStep WithAbilityCardSide(AbilityCardSideModel abilityCardSide);
 		}
 
 		public interface IRangeStep
 		{
-			TBuilder WithRange(int range);
+			TBuilder WithRange(int range, params ProjectileRangeSquare[] enhancementMarks);
 		}
 
 		public IAbilityCardSideStep WithGetAbilities(Func<Hex, List<Ability>> getAbilities)
@@ -58,15 +65,16 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 			return (TBuilder)this;
 		}
 
-		public IRangeStep WithAbilityCardSide(AbilityCardSide abilityCardSide)
+		public IRangeStep WithAbilityCardSide(AbilityCardSideModel abilityCardSide)
 		{
 			Obj.AbilityCardSide = abilityCardSide;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRange(int range)
+		public TBuilder WithRange(int range, params ProjectileRangeSquare[] enhancementMarks)
 		{
 			Obj.Range = range;
+			AddEnhancements(enhancementMarks);
 			return (TBuilder)this;
 		}
 
@@ -97,25 +105,35 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 
 	public ProjectileAbility() { }
 
+	protected override void InitializeState(State abilityState)
+	{
+		base.InitializeState(abilityState);
+
+		abilityState.AbilityRange = Range;
+	}
+
 	protected override async GDTask Perform(State abilityState)
 	{
 		for(int i = 0; i < Targets; i++)
 		{
 			Hex targetedHex = await AbilityCmd.SelectHex(abilityState, list =>
 			{
-				RangeHelper.FindHexesInRange(abilityState.Performer.Hex, Range, true, list);
+				RangeHelper.FindHexesInRange(abilityState.Performer.Hex, abilityState.AbilityRange, true, list);
 			}, hintText: "Select a hex to target with the Projectile ability");
 
 			if(targetedHex != null)
 			{
-				BombardProjectileToken token = ResourceLoader.Load<PackedScene>("res://Content/Classes/Bombard/BombardProjectile.tscn")
-					.Instantiate<BombardProjectileToken>();
-				GameController.Instance.Map.AddChild(token);
-				token.SetCardSide(AbilityCardSide);
+				if(abilityState.ActionState.ActionSource is AbilityCardSide abilityCardSide)
+				{
+					BombardProjectileToken token = ResourceLoader.Load<PackedScene>("res://Content/Classes/Bombard/BombardProjectile.tscn")
+						.Instantiate<BombardProjectileToken>();
+					GameController.Instance.Map.AddChild(token);
+					token.SetCardSide(abilityCardSide);
 
-				await token.Init(targetedHex);
+					await token.Init(targetedHex);
 
-				abilityState.AddToken(token);
+					abilityState.AddToken(token);
+				}
 			}
 		}
 
@@ -142,7 +160,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 						if(targetFound)
 						{
 							// Perform the actual abilities
-							ActionState actionState = new ActionState(abilityState.Performer, _getAbilities(token.Hex), abilityState.ActionState);
+							ActionState actionState = new ActionState(abilityState.ActionState, abilityState.Performer, _getAbilities(token.Hex));
 							await actionState.Perform();
 						}
 					}

@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbuus8ix025vl"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_jccpf"]
+[ext_resource type="Script" uid="uid://b8jpbt1vipn3" path="res://Scripts/UI/Popups/RetirementPopup.cs" id="2_c4pd7"]
+[ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="3_jccpf"]
+[ext_resource type="PackedScene" uid="uid://cuixnholftonk" path="res://Scenes/UI/PersonalQuests/PersonalQuestProgress.tscn" id="4_a2xb4"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="6_jccpf"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="7_2urvo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj751"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="RetirementPopup" node_paths=PackedStringArray("_portraitTexture", "_personalQuestProgressView", "_richTextLabel", "_continueButton") instance=ExtResource("1_jccpf")]
+script = ExtResource("2_c4pd7")
+_portraitTexture = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/Mask/Portrait")
+_personalQuestProgressView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView")
+_richTextLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Label")
+_continueButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ContinueButton/BetterButton")
+
+[node name="Panel" parent="." index="1"]
+offset_left = -350.0
+offset_top = -461.0
+offset_right = 350.0
+offset_bottom = 461.0
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+text = "Retirement"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Mask" type="Panel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0"]
+clip_children = 1
+custom_minimum_size = Vector2(420, 630)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lj751")
+
+[node name="Portrait" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/Mask" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_jccpf")
+
+[node name="PersonalQuestProgressView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1" instance=ExtResource("4_a2xb4")]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_jccpf")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[img={30}, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] Mirefoot retires from the mercenary lifestyle!
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="ContinueButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("7_2urvo")]
+layout_mode = 2
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ContinueButton/BetterButton/Panel" index="0"]
+text = "Continue"
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ContinueButton"]

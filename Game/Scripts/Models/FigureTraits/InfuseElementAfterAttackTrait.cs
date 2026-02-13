@@ -10,7 +10,7 @@ public class InfuseElementAfterAttackTrait(Element element) : FigureTrait
 			parameters => figure == parameters.Performer,
 			async parameters =>
 			{
-				await AbilityCmd.InfuseElement(element);
+				await AbilityCmd.InfuseElement(null, element, figure);
 			}
 		);
 

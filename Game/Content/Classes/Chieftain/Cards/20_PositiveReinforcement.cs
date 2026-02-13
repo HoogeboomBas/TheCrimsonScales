@@ -11,7 +11,7 @@ public class PositiveReinforcement : ChieftainCardModel<PositiveReinforcement.Ca
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -39,55 +39,30 @@ public class PositiveReinforcement : ChieftainCardModel<PositiveReinforcement.Ca
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(grantState =>
 				[
-					MoveAbility.Builder()
-						.WithDistance(0)
-						.WithOnAbilityStarted(async moveState =>
-						{
-							moveState.AdjustMoveValue(((Summon)moveState.Performer).Stats.Move ?? 0);
+					AbilityCmd.SummonMovePlusX(0).Build(),
+					AbilityCmd.SummonAttackPlusX(0).WithDuringAttackSubscription(
+						ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
+							applyFunction: async applyParameters =>
+							{
+								applyParameters.AbilityState.AbilityAdjustAttackValue(1);
 
-							await GDTask.CompletedTask;
-						})
-						.Build(),
-					AttackAbility.Builder()
-						.WithDamage(0)
-						.WithDuringAttackSubscriptions([
-							ScenarioEvents.DuringAttack.Subscription.New(
-								parameters => parameters.Performer == grantState.Target,
-								async parameters =>
-								{
-									parameters.AbilityState.AbilityAdjustAttackValue(((Summon)parameters.Performer).Stats.Attack ?? 0);
-
-									int range = ((Summon)parameters.Performer).Stats.Range ?? 1;
-									parameters.AbilityState.AbilityAdjustRange(range - 1);
-									parameters.AbilityState.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
-
-									await GDTask.CompletedTask;
-								}
-							),
-							ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
-								applyFunction: async applyParameters =>
-								{
-									applyParameters.AbilityState.AbilityAdjustAttackValue(1);
-
-									await AbilityCmd.GainXP(applyParameters.Performer, 1);
-								},
-								effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
-							)]
-						)
-						.Build()
-				])				
+								await AbilityCmd.GainXP(grantState.Performer, 1);
+							},
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")
+						)).Build()
+				])
 				.WithCustomGetTargets((grantState, figures) =>
 				{
 					figures.AddRange(((Character)grantState.Performer).Summons

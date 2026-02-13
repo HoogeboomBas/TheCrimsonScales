@@ -11,7 +11,7 @@ public class FirerootSap : MirefootCardModel<FirerootSap.CardTop, FirerootSap.Ca
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -40,17 +40,19 @@ public class FirerootSap : MirefootCardModel<FirerootSap.CardTop, FirerootSap.Ca
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.62086004f, 0.7210304f)))
+				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.51085865f, 0.82025903f)))
 				.WithConditions(Conditions.Wound1)
 				.Build())
 		];

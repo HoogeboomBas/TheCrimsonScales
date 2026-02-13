@@ -2,7 +2,7 @@
 using System.Linq;
 using Fractural.Tasks;
 
-public class Road19 : CityEventModel<Road19.ChoiceA, Road19.ChoiceB>
+public class Road19 : RoadEventModel<Road19.ChoiceA, Road19.ChoiceB>
 {
 	public override int Number => 19;
 
@@ -156,8 +156,8 @@ public class Road19 : CityEventModel<Road19.ChoiceA, Road19.ChoiceB>
 								parameters =>
 									parameters.Target is Character &&
 									RangeHelper.Distance(parameters.Target.Hex, obstacle.Hex) <= 1 &&
-									parameters.Condition?.ImmunityCompareBaseConditions != null &&
-									parameters.Condition.ImmunityCompareBaseConditions
+									parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+									parameters.ConditionModel.ImmunityCompareBaseConditions
 										.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1)),
 								async parameters =>
 								{

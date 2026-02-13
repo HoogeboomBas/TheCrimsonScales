@@ -13,7 +13,7 @@ public class ProportionalExchange : StarslingerCardModel<ProportionalExchange.Ca
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(4)
@@ -35,10 +35,10 @@ public class ProportionalExchange : StarslingerCardModel<ProportionalExchange.Ca
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62113583f, 0.72173053f)))
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)

@@ -27,6 +27,6 @@ public partial class ScenarioWonView : Control
 
 	private void OnContinuePressed()
 	{
-		GameController.Instance.EndScenario(true, true);
+		GameController.Instance.EndScenario(ScenarioResult.Win);
 	}
 }

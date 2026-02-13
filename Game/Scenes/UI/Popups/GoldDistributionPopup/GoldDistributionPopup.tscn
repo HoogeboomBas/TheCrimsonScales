@@ -1,12 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://dei7t8yn4p0ba"]
+[gd_scene load_steps=9 format=3 uid="uid://dei7t8yn4p0ba"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_4vxda"]
 [ext_resource type="Script" uid="uid://cls0x1eoqs1pa" path="res://Scripts/UI/Popups/GoldDistributionPopup/GoldDistributionPopup.cs" id="2_cchhp"]
 [ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="3_qd313"]
-[ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="4_5488v"]
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="5_5488v"]
 [ext_resource type="PackedScene" uid="uid://dpb365jh40ewc" path="res://Scenes/UI/Popups/GoldDistributionPopup/GoldDistributionPopupCharacter.tscn" id="5_cchhp"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="6_cchhp"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="7_cchhp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rxwyt"]
+font = ExtResource("6_cchhp")
+font_size = 50
 
 [node name="GoldDistributionPopup" node_paths=PackedStringArray("_distributionAmountLabel", "_characterParent", "_confirmButton") instance=ExtResource("1_4vxda")]
 script = ExtResource("2_cchhp")
@@ -52,7 +56,7 @@ mouse_filter = 2
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount/Gold" index="0"]
-custom_minimum_size = Vector2(34, 34)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("3_qd313")
@@ -61,7 +65,7 @@ expand_mode = 1
 [node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MarginContainer/Control/DistributionAmount/Gold" index="1"]
 layout_mode = 2
 text = "20/40"
-label_settings = ExtResource("4_5488v")
+label_settings = SubResource("LabelSettings_rxwyt")
 
 [node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1"]
 layout_mode = 2

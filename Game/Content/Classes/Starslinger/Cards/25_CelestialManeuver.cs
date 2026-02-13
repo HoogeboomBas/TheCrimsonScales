@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
-using System.Linq;
-using System.Numerics;
-using System;
+using Godot;
 
 public class CelestialManeuver : StarslingerCardModel<CelestialManeuver.CardTop, CelestialManeuver.CardBottom>
 {
@@ -13,7 +11,7 @@ public class CelestialManeuver : StarslingerCardModel<CelestialManeuver.CardTop,
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -46,20 +44,29 @@ public class CelestialManeuver : StarslingerCardModel<CelestialManeuver.CardTop,
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private MoveEnhancementMark _enhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_enhancementMark = new MoveCircle(this, new Vector2(0.6215359f, 0.76461184f));
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
 					MoveAbility.Builder()
-						.WithDistance(3)
+						.WithDistance(3, _enhancementMark)
 						.WithDuringMovementSubscription(
 							ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Dark,
 								applyFunction: async parameters =>
@@ -104,10 +111,10 @@ public class CelestialManeuver : StarslingerCardModel<CelestialManeuver.CardTop,
 				.Build()),
 
 			new AbilityCardAbility(ControlAbility.Builder()
-				.WithGetAbilities(controlAbilityState =>
+				.WithAbilities(
 				[
 					MoveAbility.Builder()
-						.WithDistance(3)
+						.WithDistance(3, _enhancementMark)
 						.WithDuringMovementSubscription(
 							ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Dark,
 								applyFunction: async parameters =>

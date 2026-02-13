@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw1ln706dq5kv"]
+
+[ext_resource type="Texture2D" uid="uid://c6qk1mrwwnff5" path="res://Art/PersonalQuestBack.png" id="1_ei2us"]
+[ext_resource type="Script" uid="uid://b33alaxva5fna" path="res://Scripts/UI/PersonalQuests/PersonalQuestView.cs" id="1_vor3m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12j2q"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="PersonalQuestView" type="Control" node_paths=PackedStringArray("_textureRect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_vor3m")
+_textureRect = NodePath("Mask/TextureRect")
+
+[node name="Mask" type="Panel" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12j2q")
+
+[node name="TextureRect" type="TextureRect" parent="Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_ei2us")
+expand_mode = 1

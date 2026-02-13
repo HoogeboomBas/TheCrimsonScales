@@ -7,7 +7,15 @@ using GTweensGodot.Extensions;
 public partial class ElementsViewElement : Control
 {
 	[Export]
+	private Control _container;
+
+	[Export]
 	private TextureProgressBar _textureProgressBar;
+
+	[Export]
+	private Control _lineContainer;
+	[Export]
+	private Control _line;
 
 	private ElementState _state;
 	private bool _infusing;
@@ -20,8 +28,10 @@ public partial class ElementsViewElement : Control
 	{
 		base._Ready();
 
-		_textureProgressBar.TweenSelfModulateAlpha(0f, 0f).Play(true);
-		_textureProgressBar.Value = 0f;
+		_container.SetPivotOffset(_container.Size * 0.5f);
+		_container.TweenModulateAlpha(0f, 0f).Play(true);
+		SetNormalizedFill(0f);
+
 		Hide();
 	}
 
@@ -34,13 +44,16 @@ public partial class ElementsViewElement : Control
 		switch(state)
 		{
 			case ElementState.Inert:
-				_stateTransitionTween = _textureProgressBar.TweenValue(0f, animationDuration).PlayFastForwardable();
+				_stateTransitionTween = CustomGTweenExtensions.Tween((float)_textureProgressBar.Value, 0f, SetNormalizedFill, animationDuration)
+					.PlayFastForwardable();
 				break;
 			case ElementState.Waning:
-				_stateTransitionTween = _textureProgressBar.TweenValue(0.5f, animationDuration).PlayFastForwardable();
+				_stateTransitionTween = CustomGTweenExtensions.Tween((float)_textureProgressBar.Value, 0.5f, SetNormalizedFill, animationDuration)
+					.PlayFastForwardable();
 				break;
 			case ElementState.Strong:
-				_stateTransitionTween = _textureProgressBar.TweenValue(1f, animationDuration).PlayFastForwardable();
+				_stateTransitionTween = CustomGTweenExtensions.Tween((float)_textureProgressBar.Value, 1f, SetNormalizedFill, animationDuration)
+					.PlayFastForwardable();
 				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -59,13 +72,13 @@ public partial class ElementsViewElement : Control
 		if(_infusing)
 		{
 			_infusingTween = GTweenSequenceBuilder.New()
-				.Append(_textureProgressBar.TweenScale(1.2f, 1f))
-				.Append(_textureProgressBar.TweenScale(1f, 1f))
+				.Append(_container.TweenScale(1.2f, 1f))
+				.Append(_container.TweenScale(1f, 1f))
 				.Build().SetMaxLoops().Play();
 		}
 		else
 		{
-			_infusingTween = _textureProgressBar.TweenScale(1f, 0.2f).PlayFastForwardable();
+			_infusingTween = _container.TweenScale(1f, 0.2f).PlayFastForwardable();
 		}
 
 		UpdateVisibility();
@@ -78,12 +91,18 @@ public partial class ElementsViewElement : Control
 		_visibilityTween?.Kill();
 		if(!_infusing && _state == ElementState.Inert)
 		{
-			_visibilityTween = _textureProgressBar.TweenSelfModulateAlpha(0f, animationDuration).OnComplete(Hide).PlayFastForwardable();
+			_visibilityTween = _container.TweenModulateAlpha(0f, animationDuration).OnComplete(Hide).PlayFastForwardable();
 		}
 		else
 		{
 			Show();
-			_visibilityTween = _textureProgressBar.TweenSelfModulateAlpha(1f, animationDuration).PlayFastForwardable();
+			_visibilityTween = _container.TweenModulateAlpha(1f, animationDuration).PlayFastForwardable();
 		}
+	}
+
+	private void SetNormalizedFill(float fill)
+	{
+		_textureProgressBar.SetValue(fill);
+		_line.SetPosition(new Vector2(_line.Position.X, (1f - fill) * _lineContainer.Size.Y));
 	}
 }

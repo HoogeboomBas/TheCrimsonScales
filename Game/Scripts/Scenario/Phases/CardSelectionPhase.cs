@@ -32,7 +32,7 @@ public class CardSelectionPhase : ScenarioPhase
 
 			if(playableCardCount < 2 && discardedCardCount < 2)
 			{
-				await AbilityCmd.KillOrExhaust(null, character);
+				await AbilityCmd.KillOrExhaust(character, character);
 			}
 		}
 
@@ -144,6 +144,9 @@ public class CardSelectionPhase : ScenarioPhase
 				await card.SetCardState(CardState.Playing);
 			}
 		}
+
+		GameController.Instance.UndoManager.SetRoundStart();
+		GameController.Instance.UndoManager.AddStep(new StartRoundUndoStep(_cardSelectionState));
 	}
 
 	private void OnPromptStarted(Character character)
@@ -294,7 +297,13 @@ public class CardSelectionPhase : ScenarioPhase
 		while(_syncedActionIndex < _cardSelectionState.SyncedActions.Count)
 		{
 			// Perform all the synced actions
-			await _cardSelectionState.SyncedActions[_syncedActionIndex].Perform();
+			SyncedAction syncedAction = _cardSelectionState.SyncedActions[_syncedActionIndex];
+			GameController.Instance.UndoManager.AddStep(new StartSyncedActionStep(_cardSelectionState, syncedAction));
+			if(syncedAction.Validate())
+			{
+				await syncedAction.Perform();
+			}
+
 			_syncedActionIndex++;
 
 			//SetState(_cardSelectionState);

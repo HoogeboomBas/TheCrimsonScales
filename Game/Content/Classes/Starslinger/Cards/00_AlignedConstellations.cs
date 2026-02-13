@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class AlignedConstellations : StarslingerCardModel<AlignedConstellations.CardTop, AlignedConstellations.CardBottom>
 {
@@ -10,7 +11,7 @@ public class AlignedConstellations : StarslingerCardModel<AlignedConstellations.
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -35,23 +36,25 @@ public class AlignedConstellations : StarslingerCardModel<AlignedConstellations.
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Dark];
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Dark)];
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6216662f, 0.6884774f)))
 				.Build()),
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
-					MoveAbility.Builder().WithDistance(1).Build()
+					MoveAbility.Builder()
+						.WithDistance(1, new MoveCircle(this, new Vector2(0.6216662f, 0.8459244f)))
+						.Build()
 				])
 				.WithRange(3)
 				.Build()

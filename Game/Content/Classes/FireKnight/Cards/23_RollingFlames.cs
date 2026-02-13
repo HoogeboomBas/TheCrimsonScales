@@ -12,35 +12,33 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackSquare(this, new Vector2(0.4223046f, 0.18387413f)))
 				.WithAOEPattern(new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
-					]
-				))
-				.WithAbilityEndedSubscription(
-					ScenarioEvents.AbilityEnded.Subscription.New(
-						parameters => true,
-						async parameters =>
-						{
-							foreach(Figure target in ((AttackAbility.State)parameters.AbilityState).UniqueTargetedFigures.Where(target =>
-								        target.HasWound() && !target.IsDead))
-							{
-								await AbilityCmd.SufferDamage(null, target, 1);
-							}
+						[
+							new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
+						]
+					),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast).Add(Direction.East), this,
+						new Vector2(0.81984866f, 0.1615586f)),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East).Add(Direction.East), this,
+						new Vector2(0.8716455f, 0.22535533f)))
+				.WithOnAbilityEndedPerformed(async state =>
+				{
+					foreach(Figure target in state.UniqueTargetedFigures.Where(target => target.HasWound()))
+					{
+						await AbilityCmd.SufferDamage(state, target, 1);
+					}
 
-							await GDTask.CompletedTask;
-						}
-					)
-				)
+					await GDTask.CompletedTask;
+				})
 				.Build()),
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -51,7 +49,7 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 						await AbilityCmd.AddCondition(state, target, Conditions.Wound1);
 					}
 
-					await AbilityCmd.InfuseElement(Element.Fire);
+					await AbilityCmd.InfuseElement(state, Element.Fire);
 					state.SetPerformed();
 					await AbilityCmd.GainXP(state.Performer, 1);
 				})
@@ -62,7 +60,7 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Wound1)
@@ -83,7 +81,7 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 				{
 					foreach(Figure target in GameController.Instance.Map.Figures.Where(target => target.HasWound()))
 					{
-						await AbilityCmd.SufferDamage(null, target, state.GetCustomValue<bool>(this, "Fire Consumed") ? 2 : 1);
+						await AbilityCmd.SufferDamage(state, target, state.GetCustomValue<bool>(this, "Fire Consumed") ? 2 : 1);
 						state.SetPerformed();
 					}
 
@@ -95,7 +93,7 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 						{
 							parameters.AbilityState.SetCustomValue(this, "Fire Consumed", true);
 
-							await AbilityCmd.InfuseElement(Element.Fire);
+							await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Fire);
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters(

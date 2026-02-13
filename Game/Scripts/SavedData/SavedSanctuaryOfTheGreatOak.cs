@@ -55,6 +55,9 @@ public class SavedSanctuaryOfTheGreatOak
 	[JsonProperty]
 	public List<string> RollingAMDCardIds { get; private set; }
 
+	[JsonProperty]
+	public string PartyAMDCardId { get; private set; }
+
 	public SavedSanctuaryOfTheGreatOak()
 	{
 		TotalDonationCount = 0;
@@ -91,7 +94,15 @@ public class SavedSanctuaryOfTheGreatOak
 		CritAMDCardIds.Remove(critAMDCardId);
 		RollingAMDCardIds.Remove(rollingAMDCardId);
 
-		savedCharacter.SetDonationAMDCardIds([critAMDCardId, rollingAMDCardId]);
+		List<string> donationAMDCardIds = new List<string>();
+		donationAMDCardIds.Add(critAMDCardId);
+		donationAMDCardIds.Add(rollingAMDCardId);
+		if(PartyAMDCardId != null)
+		{
+			donationAMDCardIds.Add(PartyAMDCardId);
+		}
+
+		savedCharacter.SetDonationAMDCardIds(donationAMDCardIds.ToArray());
 	}
 
 	public void ReturnCards(SavedCharacter savedCharacter)
@@ -104,7 +115,7 @@ public class SavedSanctuaryOfTheGreatOak
 				{
 					CritAMDCardIds.Add(donationAMDCardId);
 				}
-				else
+				else if(AllRollingAMDCards.Any(card => card.Id.ToString() == donationAMDCardId))
 				{
 					RollingAMDCardIds.Add(donationAMDCardId);
 				}
@@ -112,5 +123,10 @@ public class SavedSanctuaryOfTheGreatOak
 		}
 
 		savedCharacter.SetDonationAMDCardIds(null);
+	}
+
+	public void UnlockPartyAMD(AMDCardModel cardModel)
+	{
+		PartyAMDCardId = cardModel.Id.ToString();
 	}
 }

@@ -40,7 +40,7 @@ public class StoneGolemAbilityCard1 : StoneGolemAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 				{
-					await AbilityCmd.SufferDamage(null, state.Performer, 1);
+					await AbilityCmd.SufferDamage(state, state.Performer, 1);
 				}
 			)
 			.Build())
@@ -83,7 +83,7 @@ public class StoneGolemAbilityCard4 : StoneGolemAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 				{
-					await AbilityCmd.SufferDamage(null, state.Performer, 2);
+					await AbilityCmd.SufferDamage(state, state.Performer, 2);
 				}
 			)
 			.Build())

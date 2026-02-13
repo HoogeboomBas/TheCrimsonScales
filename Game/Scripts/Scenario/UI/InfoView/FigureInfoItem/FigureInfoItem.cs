@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Text;
 using Godot;
 
@@ -170,7 +170,7 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 
 	private void OnConditionsChanged(Figure figure)
 	{
-		_conditions.SetConditions(figure.Conditions);
+		_conditions.SetConditions(figure.Conditions.Select(condition => condition.ConditionModel).ToList());
 	}
 
 	private void OnTargetsSubscriptionsChanged()

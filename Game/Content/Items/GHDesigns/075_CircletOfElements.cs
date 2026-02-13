@@ -37,7 +37,7 @@ public class CircletOfElements : GHDesignsItem
 				{
 					if((await AbilityCmd.AskConsumeWildElement(character, true)).HasValue)
 					{
-						await AbilityCmd.InfuseWildElement(character);
+						await AbilityCmd.InfuseWildElement(null, character);
 					}
 				});
 			}

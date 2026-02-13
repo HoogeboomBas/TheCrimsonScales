@@ -39,7 +39,25 @@ public class City09 : CityEventModel<City09.ChoiceA, City09.ChoiceB>
 
 		public override List<EventReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO: Add reward to get one +1 enhancement to any level 1 or X card.
+			new DowntimeEnhancementCostEventReward(
+				eventReward =>
+					parameters =>
+					{
+						if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
+						{
+							parameters.AdjustCost(-parameters.Cost);
+						}
+					},
+				eventReward =>
+					parameters =>
+					{
+						if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
+						{
+							state.Complete(eventReward);
+						}
+					},
+				color =>
+					$"The next {Icons.Inline(Icons.PlusOneEnhancement, color: color)} enhancement for a level 1/X card purchased this City Phase will be free.")
 		];
 	}
 }

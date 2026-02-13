@@ -11,8 +11,8 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 			{
 				return
 					parameters.Target == figure &&
-					parameters.Condition?.ImmunityCompareBaseConditions != null &&
-					parameters.Condition.ImmunityCompareBaseConditions
+					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+					parameters.ConditionModel.ImmunityCompareBaseConditions
 						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1));
 			},
 			async parameters =>

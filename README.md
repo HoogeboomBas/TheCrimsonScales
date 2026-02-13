@@ -16,6 +16,7 @@ Download the source code through GIT or GitHub, and open the project in [Godot](
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Or let me know on Discord or Reddit.
+A few of us hang out in the CCUG Discord, in the `#the-crimson-scales-digital` channel.
 
 ## License
 The Crimson Scales is designed and produced by fans. This is not an official product of [Cephalofair Games](https://cephalofair.com/). All Gloomhaven materials are owned by Cephalofair Games, and used under Creative Commons BY-NC-SA 4.0 license.
@@ -46,6 +47,7 @@ Included are the following plugins created by various authors, used under the MI
 Contributors:
 - Sergey Burgsdorf
 - NastoK
+- Saahil Herrero
 
 Most of the other Code and Godot asset files used in this project were made by Bas Hoogeboom. These are licensed as follows:
 ~~~~

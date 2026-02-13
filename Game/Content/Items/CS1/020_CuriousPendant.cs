@@ -1,5 +1,3 @@
-using Fractural.Tasks;
-
 public class CuriousPendant : CS1Item
 {
 	public override string Name => "Curious Pendant";
@@ -7,7 +5,8 @@ public class CuriousPendant : CS1Item
 	public override int ShopCount => 2;
 	public override int Cost => 60;
 	public override ItemType ItemType => ItemType.Head;
-	public override ItemUseType ItemUseType => ItemUseType.ConsumeUnrecoverable;
+	public override ItemUseType ItemUseType => ItemUseType.Consume;
+	public override bool Unrecoverable => true;
 
 	protected override int AtlasIndex => 34;
 

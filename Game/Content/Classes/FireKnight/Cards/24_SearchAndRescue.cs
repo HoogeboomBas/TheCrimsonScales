@@ -12,10 +12,10 @@ public class SearchAndRescue : FireKnightLevelUpCardModel<SearchAndRescue.CardTo
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveSquare(this, new Vector2(0.52144676f, 0.1309768f)))
 				.WithMoveType(MoveType.Jump)
 				.WithOnAbilityStarted(async state =>
 				{
@@ -41,7 +41,7 @@ public class SearchAndRescue : FireKnightLevelUpCardModel<SearchAndRescue.CardTo
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5020639f, 0.29498523f)))
 				.WithConditions(Conditions.Muddle)
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
@@ -64,7 +64,8 @@ public class SearchAndRescue : FireKnightLevelUpCardModel<SearchAndRescue.CardTo
 						parameters => true,
 						async parameters =>
 						{
-							parameters.AbilityState.SingleTargetAdjustAttackValue(RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1).Where(figure => figure.AlliedWith(parameters.Performer)).ToList().Count);
+							parameters.AbilityState.SingleTargetAdjustAttackValue(RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1)
+								.Where(figure => figure.AlliedWith(parameters.Performer)).ToList().Count);
 
 							await GDTask.CompletedTask;
 						}
@@ -73,15 +74,15 @@ public class SearchAndRescue : FireKnightLevelUpCardModel<SearchAndRescue.CardTo
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Fire)];
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6176377f, 0.62045234f)))
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
@@ -96,10 +97,11 @@ public class SearchAndRescue : FireKnightLevelUpCardModel<SearchAndRescue.CardTo
 					)
 				)
 				.Build()),
-			new AbilityCardAbility(GiveFireKnightItemAbility([
-				ModelDB.Item<RescueShield>(), ModelDB.Item<EmberCladding>(), ModelDB.Item<KindledTonic>()
-			])),
-			new AbilityCardAbility(GiveFireKnightItemAbility(((FireKnight)AbilityCard.OriginalOwner).FireKnightItems.Select(item => item.ImmutableInstance).ToList(),
+			new AbilityCardAbility(GiveFireKnightItemAbility(
+				state => [ModelDB.Item<FireKnightRescueShield>(), ModelDB.Item<FireKnightEmberCladding>(), ModelDB.Item<FireKnightKindledTonic>()]
+			)),
+			new AbilityCardAbility(GiveFireKnightItemAbility(
+				state => GetOriginalOwner(state).FireKnightItems.Select(item => item.ImmutableInstance).ToList(),
 				onItemGiven: async (state, item) =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);

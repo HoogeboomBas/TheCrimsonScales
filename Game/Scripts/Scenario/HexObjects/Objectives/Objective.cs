@@ -10,9 +10,9 @@ public partial class Objective : Figure
 
 	public override string DisplayName => _name;
 	public override string DebugName => _name;
-
-	public override AMDCardDeck AMDCardDeck => null;
+	public override AMDCardDeck AMDCardDeck => GameController.Instance.MonsterAMDCardDeck;
 	public override Texture2D MapIconTexture => _staticSprite.Texture;
+	public override Node2D Visual => _staticSprite;
 
 	public override void _Ready()
 	{
@@ -52,9 +52,7 @@ public partial class Objective : Figure
 
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(this, this,
 			parameters =>
-				parameters.PotentialTarget == this &&
-				parameters.PotentialAbilityState != null &&
-				parameters.PotentialAbilityState is not AttackAbility.State,
+				parameters.PotentialTarget == this && parameters.PotentialAbilityState is ControlAbility.State or GrantAbility.State,
 			parameters =>
 			{
 				parameters.SetCannotBeTargeted();

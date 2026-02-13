@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class Road26 : CityEventModel<Road26.ChoiceA, Road26.ChoiceB>
+public class Road26 : RoadEventModel<Road26.ChoiceA, Road26.ChoiceB>
 {
 	public override int Number => 26;
 
@@ -52,19 +52,13 @@ public class Road26 : CityEventModel<Road26.ChoiceA, Road26.ChoiceB>
 				[
 					new LoseCollectiveGoldEventReward(5),
 					new SummonEventReward(
-						SummonAbility.Builder().WithSummonStats(new SummonStats()
-							{
-								Health = 3,
-								Move = 3,
-								Attack = 1,
-								Traits =
-								[
-									new ApplyConditionTrait(Conditions.Poison1),
-									new JumpTrait()
-								]
-							})
+						SummonAbility.Builder()
 							.WithName("Slithering Viper")
 							.WithTexturePath("res://Content/Classes/Chieftain/Summons/cottonmouth_snake_AI.png") //TODO: Generic or AI summon visual?
+							.WithHealth(3)
+							.WithMove(3)
+							.WithAttack(1)
+							.WithTraits(new ApplyConditionTrait(Conditions.Poison1), new JumpTrait())
 							.Build()
 					)
 				];

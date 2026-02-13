@@ -19,7 +19,7 @@ public class BootsOfPerpetuity : CS1Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character, [MoveAbility.Builder().WithDistance(1).Build()]);
+					ActionState actionState = new ActionState(user, [MoveAbility.Builder().WithDistance(1).Build()]);
 					await actionState.Perform();
 				});
 			}

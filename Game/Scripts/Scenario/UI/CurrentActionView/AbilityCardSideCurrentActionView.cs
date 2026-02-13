@@ -13,12 +13,12 @@ public partial class AbilityCardSideCurrentActionView : CurrentActionView<Abilit
 		public Parameters(AbilityCardSide abilityCardSide)
 		{
 			AbilityCardSide = abilityCardSide;
-			ShowTop = abilityCardSide.AbilityCard.Top == abilityCardSide;
+			ShowTop = abilityCardSide.AbilityCardSideType == AbilityCardSideType.Top;
 		}
 	}
 
 	[Export]
-	private CardSideView _cardSideView;
+	private AbilityCardSideView _cardSideView;
 
 	public override void Init(Parameters parameters)
 	{

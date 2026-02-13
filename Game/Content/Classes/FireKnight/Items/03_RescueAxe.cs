@@ -1,6 +1,6 @@
 ﻿using Fractural.Tasks;
 
-public class RescueAxe : FireKnightItem
+public class FireKnightRescueAxe : FireKnightItem
 {
 	public override string Name => "Rescue Axe";
 	public override int ItemNumber => 3;
@@ -16,7 +16,7 @@ public class RescueAxe : FireKnightItem
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Element.Fire);
+					await AbilityCmd.InfuseElement(null, Element.Fire, user);
 
 					ActionState actionState = new ActionState(user,
 						[

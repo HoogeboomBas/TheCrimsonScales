@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class BetweenScenariosCharacterPortraitManager : Control
@@ -101,15 +102,12 @@ public partial class BetweenScenariosCharacterPortraitManager : Control
 		{
 			BetweenScenariosCharacterPortrait portrait = _portraitScene.Instantiate<BetweenScenariosCharacterPortrait>();
 			_portraitParent.AddChild(portrait);
-			portrait.Init(savedCharacter);
+			portrait.Init(BetweenScenariosController.Instance.SavedCampaign, savedCharacter);
 			Portraits.Add(portrait);
 
 			portrait.BetterButton.Pressed += () => OnPressed(portrait);
 		}
 
-		if(Portraits.Count > 0)
-		{
-			SelectPortrait(Portraits[0]);
-		}
+		SelectPortrait(Portraits.FirstOrDefault());
 	}
 }

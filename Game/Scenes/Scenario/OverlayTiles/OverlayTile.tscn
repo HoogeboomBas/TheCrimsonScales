@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://biv5sw06a7dxd"]
+[gd_scene load_steps=9 format=3 uid="uid://biv5sw06a7dxd"]
 
-[ext_resource type="Texture2D" uid="uid://xqvy28nqtwe4" path="res://Art/Other/OverlayTileHexagonOutline.svg" id="2_8yaa0"]
+[ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="2_i3owi"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_qh5ej"]
+[ext_resource type="Texture2D" uid="uid://bwkiygdik2t7q" path="res://Art/Other/OverlayTileStroke1H.svg" id="3_ehph8"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_f3pnr"]
+[ext_resource type="Texture2D" uid="uid://gkm342ht1q3j" path="res://Art/Other/Outline1H.svg" id="4_i3owi"]
 [ext_resource type="Texture2D" uid="uid://u76b2w20ryip" path="res://Art/OverlayTiles/Water 1h.png" id="4_yj4e0"]
 [ext_resource type="Script" uid="uid://ceevvjjmamdwm" path="res://Scripts/Scenario/HexObjects/ViewComponents/OverlayTileViewComponent.cs" id="5_2chyt"]
 [ext_resource type="Texture2D" uid="uid://qor5lsm2ht54" path="res://Art/Icons/OverlayTiles/DifficultTerrain.svg" id="7_a0bf3"]
@@ -12,13 +14,21 @@
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("2_qh5ej")
 
-[node name="Hexagon" type="Sprite2D" parent="."]
-texture = ExtResource("2_8yaa0")
-
 [node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("2_i3owi")
+instance_shader_parameters/tintFactor = 0.0
 texture = ExtResource("4_yj4e0")
 
+[node name="Outline" type="Sprite2D" parent="."]
+texture = ExtResource("4_i3owi")
+
+[node name="Stroke" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
+texture = ExtResource("3_ehph8")
+
 [node name="OverlayTileViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("_icon")]
+z_index = 1
 script = ExtResource("5_2chyt")
 _icon = NodePath("Icon")
 

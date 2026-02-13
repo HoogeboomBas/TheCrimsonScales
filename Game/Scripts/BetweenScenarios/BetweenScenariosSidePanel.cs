@@ -10,9 +10,9 @@ public partial class BetweenScenariosSidePanel : Control
 	private BetterButton _newCharacterButton;
 
 	[Export]
-	private BetweenScenariosPartyStat _prosperityStat;
+	private ProgressBar _prosperityStat;
 	[Export]
-	private BetweenScenariosPartyStat _reputationStat;
+	private ProgressBar _reputationStat;
 
 	public override void _Ready()
 	{
@@ -47,10 +47,7 @@ public partial class BetweenScenariosSidePanel : Control
 
 	private void OnNewCharacterPressed()
 	{
-		AppController.Instance.PopupManager.RequestPopup(new CreateCharacterPopup.Request()
-		{
-			SavedCampaign = BetweenScenariosController.Instance.SavedCampaign
-		});
+		BetweenScenariosController.Instance.CharacterCreationOverlay.Open(BetweenScenariosController.Instance.SavedCampaign);
 	}
 
 	private void OnCharactersChanged()
@@ -89,6 +86,6 @@ public partial class BetweenScenariosSidePanel : Control
 				? 1f
 				: Mathf.InverseLerp(oldThresholdReputationAmount, newThresholdReputationAmount, savedCampaign.Reputation);
 
-		_reputationStat.Update(normalizedProgress, (-savedCampaign.GetItemPriceChange()).ToString());
+		_reputationStat.Update(normalizedProgress, (-savedCampaign.GetReputationItemPriceChange()).ToString());
 	}
 }

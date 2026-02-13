@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class SuckerPunch : ChieftainCardModel<SuckerPunch.CardTop, SuckerPunch.CardBottom>
 {
@@ -11,10 +12,10 @@ public class SuckerPunch : ChieftainCardModel<SuckerPunch.CardTop, SuckerPunch.C
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5089311f, 0.2920354f)))
 				.WithConditions(Conditions.Immobilize)
 				.Build())
 		];
@@ -22,26 +23,26 @@ public class SuckerPunch : ChieftainCardModel<SuckerPunch.CardTop, SuckerPunch.C
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.SufferDamageEvent.Subscribe(state, this,
-            			parameters => parameters.WouldSufferDamage && ((Character)state.Performer).Summons.Contains(parameters.Figure),
-            			async parameters =>
-            			{
-            			    int damage = parameters.CalculatedCurrentDamage;
-            			    parameters.SetDamagePrevented();
-			
-            			    await AbilityCmd.SufferDamage(null, state.Performer, damage);
-            			}, EffectType.Selectable,
+						parameters => parameters.WouldSufferDamage && ((Character)state.Performer).Summons.Contains(parameters.Figure),
+						async parameters =>
+						{
+							int damage = parameters.CalculatedCurrentDamage;
+							parameters.SetDamagePrevented();
+
+							await AbilityCmd.SufferDamage(state, state.Performer, damage);
+						}, EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters(Icons.Damage),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"Suffer {Icons.Inline(Icons.Damage)} instead of the summon")
 					);
 
 					await GDTask.CompletedTask;
-				})		
+				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.SufferDamageEvent.Unsubscribe(state, this);
@@ -51,6 +52,6 @@ public class SuckerPunch : ChieftainCardModel<SuckerPunch.CardTop, SuckerPunch.C
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

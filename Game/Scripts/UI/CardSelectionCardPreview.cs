@@ -6,7 +6,7 @@ using GTweensGodot.Extensions;
 public partial class CardSelectionCardPreview : Control
 {
 	[Export]
-	private CardView _cardView;
+	private AbilityCardView _cardView;
 
 	private Control _parentContainer;
 

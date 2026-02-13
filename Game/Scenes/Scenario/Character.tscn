@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://drsppepfslnis"]
+[gd_scene load_steps=10 format=3 uid="uid://drsppepfslnis"]
 
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="1_8wrwv"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_nubnt"]
 [ext_resource type="Script" uid="uid://drmegsexuoe5x" path="res://Scripts/Scenario/HexObjects/Character.cs" id="3_bp37c"]
 [ext_resource type="Texture2D" uid="uid://byo8eygqrchjc" path="res://Content/Classes/Mirefoot/Animation.jpg" id="4_nycpu"]
+[ext_resource type="Texture2D" uid="uid://gkm342ht1q3j" path="res://Art/Other/Outline1H.svg" id="4_pjbno"]
 [ext_resource type="Texture2D" uid="uid://b2ovfdm40bjmj" path="res://Content/Classes/Mirefoot/MapIcon.tres" id="4_yg5xw"]
 [ext_resource type="Script" uid="uid://cbt6tc8ja2uu5" path="res://Scripts/AnimatedSpriteSheet2D.cs" id="5_hscbi"]
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="6_eo6v4"]
+[ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="6_q6fep"]
 
 [node name="Character" type="Node2D"]
 z_index = 10
@@ -15,21 +17,21 @@ script = ExtResource("3_bp37c")
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("1_8wrwv")
 
-[node name="Hexagon" type="Sprite2D" parent="."]
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("2_nubnt")
-
 [node name="Mask" type="Sprite2D" parent="."]
 clip_children = 1
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.81, 0.81)
 texture = ExtResource("2_nubnt")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mask"]
+material = ExtResource("6_q6fep")
+instance_shader_parameters/tintFactor = 0.0
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("4_yg5xw")
 
 [node name="AnimatedSpriteSheet2D" type="Sprite2D" parent="Mask"]
 visible = false
+material = ExtResource("6_q6fep")
+instance_shader_parameters/tintFactor = 0.0
 scale = Vector2(1.28, 1.28)
 texture = ExtResource("4_nycpu")
 hframes = 14
@@ -38,5 +40,8 @@ script = ExtResource("5_hscbi")
 _frameCount = 150
 _framesPerSecond = 10
 
-[node name="FigureViewComponent" parent="." node_paths=PackedStringArray("Outline") instance=ExtResource("6_eo6v4")]
-Outline = NodePath("../Hexagon")
+[node name="Outline" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("4_pjbno")
+
+[node name="FigureViewComponent" parent="." instance=ExtResource("6_eo6v4")]

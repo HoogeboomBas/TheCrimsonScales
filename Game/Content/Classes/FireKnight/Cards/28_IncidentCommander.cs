@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.CardTop, IncidentCommander.CardBottom>
 {
@@ -11,7 +12,20 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private MoveSquare _moveEnhancementMark;
+		private AttackDiamond _attackEnhancementMark;
+		private HealDiamondPlus _healEnhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_moveEnhancementMark = new MoveSquare(this, new Vector2(0.6176377f, 0.26352012f));
+			_attackEnhancementMark = new AttackDiamond(this, new Vector2(0.62063766f, 0.33751917f));
+			_healEnhancementMark = new HealDiamondPlus(this, new Vector2(0.500713f, 0.40776294f));
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(grantAbilityState =>
@@ -25,7 +39,10 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => true,
 									applyFunction: async applyParameters =>
 									{
-										await MoveAbility.Builder().WithDistance(3).Build().Perform(state.ActionState);
+										await MoveAbility.Builder()
+											.WithDistance(3, _moveEnhancementMark)
+											.Build()
+											.Perform(state.ActionState);
 									},
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Move),
 									effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Move)}3"),
@@ -34,7 +51,10 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => true,
 									applyFunction: async applyParameters =>
 									{
-										await AttackAbility.Builder().WithDamage(3).Build().Perform(state.ActionState);
+										await AttackAbility.Builder()
+											.WithDamage(3, _attackEnhancementMark)
+											.Build()
+											.Perform(state.ActionState);
 									},
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Attack),
 									effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}3"),
@@ -43,7 +63,11 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 								ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters => true,
 									applyFunction: async applyParameters =>
 									{
-										await HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build().Perform(state.ActionState);
+										await HealAbility.Builder()
+											.WithHealValue(3, _healEnhancementMark)
+											.WithTarget(Target.Self)
+											.Build()
+											.Perform(state.ActionState);
 									},
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Heal),
 									effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}3, Self"),
@@ -60,10 +84,10 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Strengthen)
+				.WithConditions(Conditions.Strengthen, new ConditionDiamondPlus(this, new Vector2(0.40304643f, 0.66341674f)))
 				.WithRange(3)
 				.WithTarget(Target.Allies)
 				.Build()),
@@ -86,7 +110,8 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 									ScenarioEvents.DuringAttackEvent.Unsubscribe(target, this);
 
 									await GDTask.CompletedTask;
-								});
+								}
+							);
 						}
 
 						bool movePerformedYet = target.RoundPerformedActionStates
@@ -142,7 +167,7 @@ public class IncidentCommander : FireKnightLevelUpCardModel<IncidentCommander.Ca
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 }

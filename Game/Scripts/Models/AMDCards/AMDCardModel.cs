@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
-public abstract class AMDCardModel : AbstractModel<AMDCardModel>
+public abstract class AMDCardModel : AbstractModel
 {
 	protected abstract string GetTexturePath(AMDCardOwner owner);
 	protected abstract int AtlasIndex { get; }
@@ -23,6 +23,7 @@ public abstract class AMDCardModel : AbstractModel<AMDCardModel>
 	public virtual int? Push => null;
 	public virtual int? Pull => null;
 	public virtual int? Swing => null;
+	public virtual int? AddedTargets => null;
 
 	public virtual List<CardElementInfusion> ElementInfusions => [];
 	public virtual List<ConditionModel> GetConditionModels(AttackAbility.State attackAbilityState) => [];

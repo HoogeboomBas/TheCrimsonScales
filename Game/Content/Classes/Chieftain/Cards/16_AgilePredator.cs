@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class AgilePredator : ChieftainCardModel<AgilePredator.CardTop, AgilePredator.CardBottom>
 {
@@ -11,49 +12,37 @@ public class AgilePredator : ChieftainCardModel<AgilePredator.CardTop, AgilePred
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 5,
-					Move = 3,
-					Attack = 1,
-					Traits = 
-					[
-						new RetaliateTrait(1),
-						new AttackersGainDisadvantageTrait(),
-						new MountTrait(),
-					]
-				})
 				.WithName("Black Panther")
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/black_panther_AI.png")
+				.WithHealth(5, new SummonHealthSquare(this, new Vector2(0.44668853f, 0.20578967f)))
+				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.67717457f, 0.20578967f)))
+				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.44668853f, 0.2806894f)))
+				.WithTraits(
+					new RetaliateTrait(1),
+					new AttackersGainDisadvantageTrait(),
+					new MountTrait()
+				)
 				.Build()
 			),
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(grantState =>
 				[
-					MoveAbility.Builder()
-						.WithDistance(1)
-						.WithOnAbilityStarted(async moveState =>
-						{
-							moveState.AdjustMoveValue(((Summon)moveState.Performer).Stats.Move ?? 0);
-
-							await GDTask.CompletedTask;
-						})
-						.Build()
-				])				
+					AbilityCmd.SummonMovePlusX(1).Build()
+				])
 				.WithCustomGetTargets((grantState, figures) =>
 				{
 					figures.AddRange(((Character)grantState.Performer).Summons

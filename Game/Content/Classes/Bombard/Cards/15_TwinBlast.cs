@@ -12,32 +12,45 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private PierceSquare _enhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_enhancementMark = new PierceSquare(this, new Vector2(0.62058425f, 0.33113363f), EnhancementCostType.MultiTarget);
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(ProjectileAbility.Builder().WithGetAbilities(hex =>
+			new AbilityCardAbility(ProjectileAbility.Builder()
+				.WithGetAbilities(hex =>
 				[
 					AttackAbility.Builder()
 						.WithDamage(3)
-						.WithPierce(2)
+						.WithPierce(2, _enhancementMark)
 						.WithRangeType(RangeType.Range)
 						.WithTargetHex(hex)
 						.Build()
 				])
 				.WithAbilityCardSide(this)
-				.WithRange(4)
+				.WithRange(4, new ProjectileRangeSquare(this, new Vector2(0.38324332f, 0.16257776f), EnhancementCostType.MultiTarget))
 				.WithTargets(2)
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).WithRange(3).Build()),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.5010511f, 0.6394347f)))
+				.WithRange(3)
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -69,6 +82,6 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

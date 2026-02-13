@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRepairs.CardBottom>
 {
@@ -11,7 +12,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(new DynamicInt<HealAbility.State>(state => 1 + state.Performer.TurnMovedHexes.Count))
@@ -20,15 +21,15 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 			new AbilityCardAbility(AbilityCmd.AllOpposingAttacksGainDisadvantageActiveAbility())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6209843f, 0.6982149f)))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
@@ -68,7 +69,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 
 						foreach(Figure figure in figures)
 						{
-							await AbilityCmd.SufferDamage(null, figure, 1);
+							await AbilityCmd.SufferDamage(state, figure, 1);
 						}
 					}
 				)

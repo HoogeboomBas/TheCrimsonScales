@@ -126,9 +126,9 @@ public partial class EquipItemPopup : Popup<EquipItemPopup.Request>
 
 		if(BetweenScenariosController.Instance != null)
 		{
-			BetweenScenariosEvents.CalculateSellPrice.Parameters parameters =
-				BetweenScenariosEvents.CalculateSellPriceEvent.Fire(
-					new BetweenScenariosEvents.CalculateSellPrice.Parameters(PopupRequest.SavedCharacter, item.ItemModel, sellPrice));
+			BetweenScenariosEvents.CalculateItemSellPrice.Parameters parameters =
+				BetweenScenariosEvents.CalculateItemSellPriceEvent.Fire(
+					new BetweenScenariosEvents.CalculateItemSellPrice.Parameters(PopupRequest.SavedCharacter, item.ItemModel, sellPrice));
 
 			sellPrice = parameters.SellPrice;
 		}

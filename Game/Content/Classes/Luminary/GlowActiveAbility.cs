@@ -1,0 +1,82 @@
+﻿using System.Linq;
+using Fractural.Tasks;
+
+public class GlowActiveAbility : ActiveAbility<GlowActiveAbility.State>
+{
+	public class State : ActiveAbilityState
+	{
+		public GlowAbilityModel[] GlowAbilityModels { get; set; }
+	}
+
+	public GlowAbilityModel[] GlowAbilities;
+
+	public new class AbstractBuilder<TBuilder, TAbility> : ActiveAbility<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IGlowAbilityStep
+		where TBuilder : AbstractBuilder<TBuilder, TAbility>
+		where TAbility : GlowActiveAbility, new()
+	{
+		public interface IGlowAbilityStep
+		{
+			TBuilder WithGlowAbility(params GlowAbilityModel[] glowAbilities);
+		}
+
+		public TBuilder WithGlowAbility(params GlowAbilityModel[] glowAbilities)
+		{
+			Obj.GlowAbilities = glowAbilities;
+			return (TBuilder)this;
+		}
+	}
+
+	public class GlowBuilder : AbstractBuilder<GlowBuilder, GlowActiveAbility>
+	{
+		internal GlowBuilder() { }
+	}
+
+	public static GlowBuilder Builder()
+	{
+		return new GlowBuilder();
+	}
+
+
+	protected override async GDTask Perform(State abilityState)
+	{
+		await AskConfirmAndActivate(abilityState);
+	}
+
+	protected override async GDTask Activate(State abilityState)
+	{
+		await base.Activate(abilityState);
+		ActionState actionState = ((Character)abilityState.Performer).Cards
+			.SelectMany(card => card.ActiveActionStates)
+			.FirstOrDefault(actionState => actionState.AbilityStates.Any(state => state is State));
+
+		if(actionState != null)
+		{
+			await actionState.RequestDiscardOrLose();
+		}
+
+		AbilityCmd.SubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(abilityState, this), EffectType.Selectable,
+			character => character == abilityState.Performer &&
+			             GlowAbilities.Any(glowAbility =>
+				             glowAbility.Elements.All(e =>
+					             GameController.Instance.ElementManager.GetState(e) > ElementState.Inert)),
+			async character =>
+			{
+				await LuminaryCardSide.GlowAbility(character, GlowAbilities);
+				await GDTask.CompletedTask;
+			},
+			effectButtonParameters: new IconEffectButton.Parameters("res://Content/Classes/Luminary/Glow.svg"),
+			effectInfoViewParameters: new TextEffectInfoView.Parameters(
+				$"Perform {Icons.Inline("res://Content/Classes/Luminary/Glow.svg")}"));
+
+		abilityState.GlowAbilityModels = GlowAbilities;
+		await GDTask.CompletedTask;
+	}
+
+	protected override async GDTask Deactivate(State abilityState)
+	{
+		await base.Deactivate(abilityState);
+
+		AbilityCmd.UnsubscribeDuringTurn(ScenarioEvents.GetSubscriberPair(abilityState, this));
+	}
+}

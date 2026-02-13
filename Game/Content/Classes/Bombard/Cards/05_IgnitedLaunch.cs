@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaunch.CardBottom>
 {
@@ -10,31 +11,40 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private AttackEnhancementMark _enhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_enhancementMark = new AttackDiamond(this, new Vector2(0.619184f, 0.29891837f));
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
 				[
 					AttackAbility.Builder()
-						.WithDamage(5)
+						.WithDamage(5, _enhancementMark)
 						.WithRangeType(RangeType.Range)
 						.WithTargetHex(hex)
 						.Build()
 				])
 				.WithAbilityCardSide(this)
-				.WithRange(4)
+				.WithRange(4, new ProjectileRangeSquare(this, new Vector2(0.33784395f, 0.16527776f)))
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Fire)];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -113,8 +123,8 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

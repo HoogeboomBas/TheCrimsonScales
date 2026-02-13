@@ -7,8 +7,9 @@ using GTweens.Easings;
 using GTweens.Tweens;
 using GTweensGodot.Extensions;
 
-public abstract partial class Figure : HexObject
+public abstract partial class Figure : HexObject, IActionSource
 {
+	protected Sprite2D _outline;
 	protected FigureViewComponent _figureViewComponent;
 
 	private int _shield;
@@ -21,13 +22,11 @@ public abstract partial class Figure : HexObject
 	private GTween _shieldTween;
 	private GTween _retaliateTween;
 
-	public abstract string DisplayName { get; }
-	public abstract string DebugName { get; }
-
 	public int Health { get; private set; }
 	public int MaxHealth { get; private set; }
 
-	public List<ConditionModel> Conditions { get; } = new List<ConditionModel>();
+	public List<HexObjectEffectViewBase> Effects { get; } = new List<HexObjectEffectViewBase>();
+	public List<Condition> Conditions { get; } = new List<Condition>();
 
 	public Alignment Alignment { get; private set; }
 	public Alignment Enemies { get; private set; }
@@ -38,15 +37,17 @@ public abstract partial class Figure : HexObject
 
 	public bool CanTakeTurn { get; protected set; }
 
-	public abstract AMDCardDeck AMDCardDeck { get; }
-
 	public List<Hex> TurnMovedHexes { get; private set; } = new List<Hex>();
 	public List<ActionState> TurnPerformedActionStates { get; } = new List<ActionState>();
 	public List<ActionState> RoundPerformedActionStates { get; } = new List<ActionState>();
 
+	public abstract string DisplayName { get; }
+	public abstract string DebugName { get; }
+	public virtual AMDCardDeck AMDCardDeck { get; }
 	public abstract Texture2D MapIconTexture { get; }
+	public abstract Node2D Visual { get; }
 
-	public Color OutlineColor => _figureViewComponent.Outline.SelfModulate;
+	public Color OutlineColor => _outline.SelfModulate;
 
 	public bool IsDead => IsDestroyed;
 
@@ -60,6 +61,7 @@ public abstract partial class Figure : HexObject
 	{
 		base._Ready();
 
+		_outline = GetNode<Sprite2D>("Outline");
 		_figureViewComponent = GetViewComponent<FigureViewComponent>();
 	}
 
@@ -77,6 +79,8 @@ public abstract partial class Figure : HexObject
 		_figureViewComponent.ActivePS.Hide();
 
 		CanTakeTurn = true;
+
+		SetCrackedShield(false);
 
 		object figureEnteredHexEventSubscriber = new object();
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this, figureEnteredHexEventSubscriber,
@@ -240,7 +244,7 @@ public abstract partial class Figure : HexObject
 		TakingTurn = false;
 		CanTakeTurn = false;
 
-		GameController.Instance.ElementManager.FinishInfusing();
+		await GameController.Instance.ElementManager.FinishInfusing();
 
 		_figureViewComponent.ActivePS.TweenModulateAlpha(0f, 0.2f).OnComplete(_figureViewComponent.ActivePS.Hide).PlayFastForwardable();
 	}
@@ -267,11 +271,11 @@ public abstract partial class Figure : HexObject
 		return HasCondition(global::Conditions.Wound1) || HasCondition(global::Conditions.Wound2);
 	}
 
-	public ConditionModel GetCondition(ConditionModel conditionModel)
+	public Condition GetCondition(ConditionModel conditionModel)
 	{
-		foreach(ConditionModel condition in Conditions)
+		foreach(Condition condition in Conditions)
 		{
-			if(condition.ImmutableInstance == conditionModel)
+			if(condition.ConditionModel == conditionModel)
 			{
 				return condition;
 			}
@@ -280,35 +284,65 @@ public abstract partial class Figure : HexObject
 		return null;
 	}
 
-	public async GDTask<ConditionNode> AddCondition(ConditionModel condition)
+	public bool TryGetCondition(ConditionModel conditionModel, out Condition condition)
 	{
-		ConditionNode conditionNode = null;
-		if(condition.ShouldShowOnFigure(this))
-		{
-			conditionNode = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Condition.tscn").Instantiate<ConditionNode>();
-			_figureViewComponent.ConditionParent.AddChild(conditionNode);
-			conditionNode.Init(condition);
-		}
-		//ConditionNodes.Add(condition, conditionNode);
-
-		ConditionsChangedEvent?.Invoke(this);
-
-		await condition.Add(this, conditionNode);
-
-		ReorderConditions();
-
-		return conditionNode;
+		condition = GetCondition(conditionModel);
+		return condition != null;
 	}
 
-	public async GDTask RemoveCondition(ConditionModel conditionModel)
+	public async GDTask<Condition> AddCondition(ConditionModel conditionModel, Figure potentialCauser)
 	{
-		ConditionModel condition = GetCondition(conditionModel);
-
 		ConditionsChangedEvent?.Invoke(this);
 
-		await condition.Remove();
+		Condition condition = new Condition(conditionModel, this, potentialCauser);
+		Conditions.Add(condition);
+		await condition.OnAdded();
 
-		ReorderConditions();
+		ReorderEffects();
+
+		return condition;
+	}
+
+	public async GDTask<Condition> AddConditionStack(ConditionModel conditionModel)
+	{
+		foreach(Condition condition in Conditions)
+		{
+			if(condition.ConditionModel == conditionModel)
+			{
+				condition.AdjustStackCount(1);
+				return condition;
+			}
+		}
+
+		await GDTask.CompletedTask;
+		return null;
+	}
+
+	public async GDTask RemoveCondition(Condition condition)
+	{
+		ConditionsChangedEvent?.Invoke(this);
+
+		await condition.OnRemoved();
+		Conditions.Remove(condition);
+
+		ReorderEffects();
+	}
+
+	public T AddEffectView<T>(HexObjectEffectViewParameters parameters)
+		where T : HexObjectEffectViewBase
+	{
+		HexObjectEffectViewBase effectView = ResourceLoader.Load<PackedScene>(parameters.ScenePath).Instantiate<HexObjectEffectViewBase>();
+		_figureViewComponent.EffectParent.AddChild(effectView);
+		effectView.Init(parameters);
+		Effects.Add(effectView);
+
+		return (T)effectView;
+	}
+
+	public void RemoveEffectView(HexObjectEffectViewBase effectView)
+	{
+		Effects.Remove(effectView);
+		effectView.Destroy();
 	}
 
 	public void SetAlignment(Alignment alignment)
@@ -360,6 +394,12 @@ public abstract partial class Figure : HexObject
 	{
 		CanTakeTurn = true;
 		RoundPerformedActionStates.Clear();
+	}
+
+	public void SetCrackedShield(bool crackedShield)
+	{
+		_figureViewComponent.ShieldIcon.SetVisible(!crackedShield);
+		_figureViewComponent.CrackedShieldIcon.SetVisible(crackedShield);
 	}
 
 	private void UpdateHealthProgressBar()
@@ -500,19 +540,19 @@ public abstract partial class Figure : HexObject
 		_flying = flying;
 	}
 
-	private void ReorderConditions()
+	private void ReorderEffects()
 	{
-		List<ConditionNode> nodes = Conditions.Where(condition => condition.Node != null).Select(condition => condition.Node).ToList();
+		//List<HexObjectEffectViewBase> effects = Effects.Where(effect => effect.Node != null).Select(condition => condition.Node).ToList();
 
-		int conditionCount = nodes.Count;
+		int effectCount = Effects.Count;
 		int index = 0;
 		const float maxOffset = 50f;
-		foreach(ConditionNode node in nodes)
+		foreach(HexObjectEffectViewBase effect in Effects)
 		{
-			float progress = (index + 1f) / (conditionCount + 1);
+			float progress = (index + 1f) / (effectCount + 1);
 			float posY = Mathf.Lerp(-maxOffset, maxOffset, progress);
-			node.Move(new Vector2(0f, posY));
-			_figureViewComponent.ConditionParent.MoveChild(node, index);
+			effect.Move(new Vector2(0f, posY));
+			_figureViewComponent.EffectParent.MoveChild(effect, index);
 
 			index++;
 		}

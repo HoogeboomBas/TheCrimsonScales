@@ -35,7 +35,7 @@ public class DrainingGreaves : CS1Item
 						return;
 					}
 
-					await AbilityCmd.SufferDamage(null, figure, 1);
+					await AbilityCmd.SufferDamage(figure, 1, character);
 				});
 			}
 		);

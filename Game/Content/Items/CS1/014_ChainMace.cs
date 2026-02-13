@@ -1,6 +1,3 @@
-using System.Linq;
-using Fractural.Tasks;
-
 public class ChainMace : CS1Item
 {
 	public override string Name => "Chain Mace";
@@ -22,7 +19,7 @@ public class ChainMace : CS1Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character, [AttackAbility.Builder().WithDamage(3).WithRange(2).Build()]);
+					ActionState actionState = new ActionState(user, [AttackAbility.Builder().WithDamage(3).WithRange(2).Build()]);
 					await actionState.Perform();
 				});
 			}

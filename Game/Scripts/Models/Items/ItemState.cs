@@ -1,7 +1,9 @@
 ﻿public enum ItemState
 {
 	Available = 0,
-	Spent = 1,
-	Consumed = 2,
-	UnrecoverablyConsumed = 3,
+	Using = 1,
+	Spent = 2,
+	Consumed = 3,
+	UnrecoverablyConsumed = 4,
+	Active = 5,
 }

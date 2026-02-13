@@ -21,7 +21,7 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 	{
 		public interface IPushStep
 		{
-			TBuilder WithPush(int push);
+			TBuilder WithPush(int push, params PushEnhancementMark[] enhancementMarks);
 		}
 	}
 

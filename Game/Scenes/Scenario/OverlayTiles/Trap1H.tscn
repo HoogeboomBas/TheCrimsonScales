@@ -17,20 +17,12 @@ font_size = 35
 script = ExtResource("2_uu8d5")
 ScaledDamage = true
 
-[node name="Hexagon" parent="." index="1"]
-self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
-
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_d1ru4")
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
-
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
-self_modulate = Color(1, 1, 1, 0.38)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("3_to431")
 
 [node name="TrapViewComponent" type="Node2D" parent="." index="4" node_paths=PackedStringArray("DamageContainer", "DamageLabel", "ConditionContainer")]
 script = ExtResource("5_l72gb")
@@ -70,3 +62,14 @@ vertical_alignment = 1
 
 [node name="Conditions" type="Node2D" parent="TrapViewComponent" index="1"]
 position = Vector2(1, -50)
+
+[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
+
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+self_modulate = Color(1, 1, 1, 0.38)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_to431")
+
+[node name="Hex" parent="." index="6"]
+visible = false

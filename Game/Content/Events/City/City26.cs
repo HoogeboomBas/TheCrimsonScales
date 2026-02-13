@@ -66,7 +66,7 @@ public class City26 : CityEventModel<City26.ChoiceA, City26.ChoiceB>
 					ScenarioEvents.InflictConditionEvent.Subscribe(this,
 						parameters =>
 							parameters.Target is Character &&
-							parameters.Condition.ImmunityCompareBaseConditions.Any(conditionModel => conditionModel == Conditions.Muddle),
+							parameters.ConditionModel.ImmunityCompareBaseConditions.Any(conditionModel => conditionModel == Conditions.Muddle),
 						async parameters =>
 						{
 							parameters.SetPrevented(true);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 using System.Linq;
+using Godot;
 
 public class MutualAid : FireKnightLevelUpCardModel<MutualAid.CardTop, MutualAid.CardBottom>
 {
@@ -11,19 +12,21 @@ public class MutualAid : FireKnightLevelUpCardModel<MutualAid.CardTop, MutualAid
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
-					AttackAbility.Builder().WithDamage(3).Build()
+					AttackAbility.Builder()
+						.WithDamage(3, new AttackDiamond(this, new Vector2(0.6204889f, 0.21533923f)))
+						.Build()
 				])
 				.WithRange(1)
 				.WithTargets(2)
 				.WithTarget(Target.SelfOrAllies | Target.SelfCountsForTargets)
 				.Build()),
 			new AbilityCardAbility(GiveFireKnightItemAbility(
-				[ModelDB.Item<FireproofHelm>(), ModelDB.Item<ScrollOfCharisma>(), ModelDB.Item<PikeHook>()],
+				state => [ModelDB.Item<FireKnightFireproofHelm>(), ModelDB.Item<FireKnightScrollOfCharisma>(), ModelDB.Item<FireKnightPikeHook>()],
 				customGetTargets: (state, list) =>
 				{
 					List<ActionState> grantAbilityActionStates = state.ActionState.GetAbilityState<GrantAbility.State>(0).GrantAbilityActionStates;
@@ -37,14 +40,15 @@ public class MutualAid : FireKnightLevelUpCardModel<MutualAid.CardTop, MutualAid
 					await GDTask.CompletedTask;
 
 					List<ActionState> grantAbilityActionStates = state.ActionState.GetAbilityState<GrantAbility.State>(0).GrantAbilityActionStates;
-					bool canPerform = grantAbilityActionStates.Count > 1 && grantAbilityActionStates[0].GetAbilityState<AttackAbility.State>(0).Performed &&
-						grantAbilityActionStates[1].GetAbilityState<AttackAbility.State>(0).Performed &&
-						grantAbilityActionStates[0].GetAbilityState<AttackAbility.State>(0).Target ==
-						grantAbilityActionStates[1].GetAbilityState<AttackAbility.State>(0).Target;
+					bool canPerform = grantAbilityActionStates.Count > 1 &&
+					                  grantAbilityActionStates[0].GetAbilityState<AttackAbility.State>(0).Performed &&
+					                  grantAbilityActionStates[1].GetAbilityState<AttackAbility.State>(0).Performed &&
+					                  grantAbilityActionStates[0].GetAbilityState<AttackAbility.State>(0).Target ==
+					                  grantAbilityActionStates[1].GetAbilityState<AttackAbility.State>(0).Target;
 					if(canPerform)
-                    {
-                        await AbilityCmd.GainXP(state.Performer, 1);
-                    }
+					{
+						await AbilityCmd.GainXP(state.Performer, 1);
+					}
 
 					return canPerform;
 				}
@@ -54,13 +58,13 @@ public class MutualAid : FireKnightLevelUpCardModel<MutualAid.CardTop, MutualAid
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6182132f, 0.65978366f)))
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(2)
+				.WithHealValue(2, new HealSquare(this, new Vector2(0.36875677f, 0.78111076f)))
 				.WithRange(1)
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
@@ -88,7 +92,8 @@ public class MutualAid : FireKnightLevelUpCardModel<MutualAid.CardTop, MutualAid
 										await GDTask.CompletedTask;
 									},
 									effectButtonParameters: new TextEffectButton.Parameters("Allies"),
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Targets)}all allies, {Icons.Inline(Icons.Range)} 1"),
+									effectInfoViewParameters: new TextEffectInfoView.Parameters(
+										$"{Icons.Inline(Icons.Targets)}all allies, {Icons.Inline(Icons.Range)} 1"),
 									effectType: EffectType.Selectable
 								),
 							], hintText: "Choose the figures to heal");

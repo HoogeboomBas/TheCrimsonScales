@@ -11,7 +11,7 @@ public class Chokehold : ChainguardCardModel<Chokehold.CardTop, Chokehold.CardBo
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Chainguard.Shackle)
@@ -61,42 +61,42 @@ public class Chokehold : ChainguardCardModel<Chokehold.CardTop, Chokehold.CardBo
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.619809f, 0.7069813f)))
 				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
-				{
-					Figure figure = await AbilityCmd.SelectFigure(state, list =>
 					{
-						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1))
+						Figure figure = await AbilityCmd.SelectFigure(state, list =>
 						{
-							if(state.Authority.EnemiesWith(figure) && figure.HasCondition(Chainguard.Shackle))
+							foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1))
 							{
-								list.Add(figure);
+								if(state.Authority.EnemiesWith(figure) && figure.HasCondition(Chainguard.Shackle))
+								{
+									list.Add(figure);
+								}
 							}
+						});
+
+						if(figure == null)
+						{
+							return;
 						}
-					});
 
-					if(figure == null)
-					{
-						return;
+						await AbilityCmd.SufferDamage(state, figure, 1);
 					}
-
-					await AbilityCmd.SufferDamage(null, figure, 1);
-				}
-			)
-			.Build())
+				)
+				.Build())
 		];
 	}
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, PowerfulBuckshot.CardBottom>
 {
@@ -11,11 +12,11 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
-				.WithRange(3)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.4493405f, 0.24010459f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.6593378f, 0.24010459f)))
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.Performer.TurnPerformedActionStates.Any(performedActionState =>
@@ -24,8 +25,7 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 								attackAbilityState.ActionState.ParentActionState != null &&
 								attackAbilityState.ActionState.ParentActionState.AbilityStates.Any(potentialProjectileAbility =>
 									potentialProjectileAbility is ProjectileAbility.State &&
-									//TODO: Currently does not work with Unexpected Bombshell's direct suffer damage
-									attackAbilityState.UniqueTargetedFigures.Contains(parameters.AbilityState.Target)
+									attackAbilityState.DamagedFigures.Contains(parameters.AbilityState.Target)
 								)
 							)),
 						async parameters =>
@@ -42,16 +42,16 @@ public class PowerfulBuckshot : BombardCardModel<PowerfulBuckshot.CardTop, Power
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.40590954f, 0.7395128f)))
 				.WithTargets(2)
-				.WithRange(3)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.7083057f, 0.7395128f)))
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

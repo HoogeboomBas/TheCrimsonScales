@@ -113,10 +113,10 @@ public class LootAbility : Ability<LootAbility.State>
 			if(hexObject is LootableObject lootableObject && lootableObject.CanLoot(lootObtainer))
 			{
 				abilityState.LootedObjects.Add(lootableObject);
-				if(lootableObject is CoinStack coinStack)
+				if(lootableObject is Coin)
 				{
-					abilityState.LootedCoinCount += coinStack.CoinCount;
-					abilityState.TotalLootedCount += coinStack.CoinCount;
+					abilityState.LootedCoinCount++;
+					abilityState.TotalLootedCount++;
 				}
 				else
 				{

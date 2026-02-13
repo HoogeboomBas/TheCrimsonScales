@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTop, JackOfAllTrades.CardBottom>
 {
@@ -10,9 +11,10 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<ScrollOfInvigoration>()],
+			new AbilityCardAbility(GiveFireKnightItemAbility(
+				state => [ModelDB.Item<FireKnightScrollOfInvigoration>()],
 				target: Target.SelfOrAllies,
 				conditionalAbilityCheck: async state =>
 				{
@@ -23,7 +25,7 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 			)),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5020886f, 0.30106834f), EnhancementCostType.MultiTarget))
 				.WithConditions(Conditions.Wound1)
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
@@ -43,11 +45,15 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
+			new AbilityCardAbility(
+				MoveAbility.Builder()
+					.WithDistance(4, new MoveCircle(this, new Vector2(0.6200135f, 0.6419845f)))
+					.Build()),
 
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<PikeHook>(), ModelDB.Item<KindledTonic>(), ModelDB.Item<ExplosiveTonic>()],
+			new AbilityCardAbility(GiveFireKnightItemAbility(
+				state => [ModelDB.Item<FireKnightPikeHook>(), ModelDB.Item<FireKnightKindledTonic>(), ModelDB.Item<FireKnightExplosiveTonic>()],
 				target: Target.SelfOrAllies,
 				conditionalAbilityCheck: async state =>
 				{

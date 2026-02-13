@@ -11,15 +11,15 @@ public class BlueMoon : StarslingerCardModel<BlueMoon.CardTop, BlueMoon.CardBott
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.5010511f, 0.15792547f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async parameters =>
 						{
-							await AbilityCmd.InfuseElement(Element.Dark);
+							await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Dark);
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.GetElement(Element.Dark)}")
 					))
@@ -55,10 +55,10 @@ public class BlueMoon : StarslingerCardModel<BlueMoon.CardTop, BlueMoon.CardBott
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.61790806f, 0.674216f)))
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(5)

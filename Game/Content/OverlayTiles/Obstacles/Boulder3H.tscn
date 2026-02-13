@@ -6,19 +6,21 @@
 [node name="Boulder3H" instance=ExtResource("1_dokhk")]
 _stepType = 1
 
-[node name="Shadow" type="Sprite2D" parent="." index="2"]
+[node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)
+z_index = 1
 position = Vector2(111.5, -105)
 scale = Vector2(0.62, 0.62)
 texture = ExtResource("2_6hv8u")
 
-[node name="Sprite" parent="." index="3"]
+[node name="Sprite" parent="." index="2"]
+z_index = 1
 position = Vector2(110.5, -108)
 scale = Vector2(0.62, 0.62)
 texture = ExtResource("2_6hv8u")
 
-[node name="Hex2" parent="." index="6"]
+[node name="Hex2" parent="." index="7"]
 position = Vector2(218.238, 0)
 
-[node name="Hex3" parent="." index="7"]
+[node name="Hex3" parent="." index="8"]
 position = Vector2(109.119, -189)

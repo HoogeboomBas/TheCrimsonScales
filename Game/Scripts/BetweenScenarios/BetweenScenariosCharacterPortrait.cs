@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using GTweens.Builders;
 using GTweens.Easings;
 using GTweens.Tweens;
@@ -38,9 +39,19 @@ public partial class BetweenScenariosCharacterPortrait : Control
 	private BetterButton _cardsButton;
 
 	[Export]
+	private Texture2D _normalInfoTexture;
+	[Export]
+	private Texture2D _retireInfoTexture;
+	[Export]
+	private TextureRect _infoButtonTextureRect;
+
+	[Export]
 	private Control _levelUpScaleContainer;
 	[Export]
 	private BetterButton _levelUpButton;
+
+	private SavedCampaign _savedCampaign;
+	private PersonalQuestData _personalQuestData;
 
 	private bool _active;
 	private GTween _scaleTween;
@@ -48,9 +59,11 @@ public partial class BetweenScenariosCharacterPortrait : Control
 
 	public SavedCharacter SavedCharacter { get; private set; }
 
-	public void Init(SavedCharacter savedCharacter)
+	public void Init(SavedCampaign savedCampaign, SavedCharacter savedCharacter)
 	{
+		_savedCampaign = savedCampaign;
 		SavedCharacter = savedCharacter;
+		_personalQuestData = SavedCharacter.SavedPersonalQuest?.PersonalQuestData;
 
 		_textureRect.Texture = SavedCharacter.ClassModel.PortraitTexture;
 		_colorOutline.Modulate = SavedCharacter.ClassModel.PrimaryColor;
@@ -80,48 +93,15 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		SavedCharacter.NameChangedEvent += OnNameChanged;
 		SavedCharacter.CardsChangedEvent += OnCardsChanged;
 
+		if(_personalQuestData != null)
+		{
+			_personalQuestData.ProgressChangedEvent += OnPersonalQuestProgressChanged;
+		}
+
 		_infoButton.Pressed += OnInfoPressed;
 		_equipmentButton.Pressed += OnEquipmentPressed;
 		_cardsButton.Pressed += OnCardsPressed;
 		_levelUpButton.Pressed += OnLevelUpPressed;
-	}
-
-	private void OnInfoPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new CharacterInfoPopup.Request
-		{
-			SavedCampaign = BetweenScenariosController.Instance.SavedCampaign,
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnEquipmentPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new EquipmentPopup.Request
-		{
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnCardsPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
-		{
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnLevelUpPressed()
-	{
-		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
-		{
-			SavedCharacter.TryLevelUp();
-
-			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
-			{
-				SavedCharacter = SavedCharacter
-			});
-		}
 	}
 
 	public override void _ExitTree()
@@ -136,6 +116,41 @@ public partial class BetweenScenariosCharacterPortrait : Control
 			SavedCharacter.NameChangedEvent -= OnNameChanged;
 			SavedCharacter.CardsChangedEvent -= OnCardsChanged;
 		}
+
+		if(_personalQuestData != null)
+		{
+			_personalQuestData.ProgressChangedEvent -= OnPersonalQuestProgressChanged;
+		}
+	}
+
+	public void SetActive(bool active, bool canPress)
+	{
+		BetterButton.SetEnabled(canPress, false);
+
+		if(_active == active)
+		{
+			return;
+		}
+
+		_active = active;
+
+		_scaleTween?.Kill();
+		if(_active)
+		{
+			_scaleTween = GTweenSequenceBuilder.New()
+				.AppendTime(0.05f)
+				.Append(_container.TweenScale(1f, 0.15f).SetEasing(Easing.OutBack))
+				.Join(_inactiveOverlay.TweenModulateAlpha(0f, 0.15f))
+				.Build().Play();
+		}
+		else
+		{
+			_scaleTween = GTweenSequenceBuilder.New()
+				.AppendTime(0.05f)
+				.Append(_container.TweenScale(0.9f, 0.15f).SetEasing(Easing.InBack))
+				.Join(_inactiveOverlay.TweenModulateAlpha(1f, 0.15f))
+				.Build().Play();
+		}
 	}
 
 	private void UpdateVisuals()
@@ -147,6 +162,8 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		_xpLabel.Text = $"{SavedCharacter.XP}/{nextLevelXP}";
 		_xpProgressBar.Scale = new Vector2(Mathf.Clamp(Mathf.InverseLerp(currentLevelXP, nextLevelXP, SavedCharacter.XP), 0f, 1f), 1f);
 		_goldLabel.Text = SavedCharacter.Gold.ToString();
+
+		_infoButtonTextureRect.SetTexture(SavedCharacter.GetCanRetire(_savedCampaign) ? _retireInfoTexture : _normalInfoTexture);
 
 		_levelUpTween?.Complete();
 		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
@@ -189,33 +206,46 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		UpdateVisuals();
 	}
 
-	public void SetActive(bool active, bool canPress)
+	private void OnPersonalQuestProgressChanged(PersonalQuestData personalQuestData)
 	{
-		BetterButton.SetEnabled(canPress, false);
+		UpdateVisuals();
+	}
 
-		if(_active == active)
+	private void OnInfoPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new CharacterInfoPopup.Request
 		{
-			return;
-		}
+			SavedCampaign = BetweenScenariosController.Instance.SavedCampaign,
+			SavedCharacter = SavedCharacter
+		});
+	}
 
-		_active = active;
+	private void OnEquipmentPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new EquipmentPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
+	}
 
-		_scaleTween?.Kill();
-		if(_active)
+	private void OnCardsPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
 		{
-			_scaleTween = GTweenSequenceBuilder.New()
-				.AppendTime(0.05f)
-				.Append(_container.TweenScale(1f, 0.15f).SetEasing(Easing.OutBack))
-				.Join(_inactiveOverlay.TweenModulateAlpha(0f, 0.15f))
-				.Build().Play();
-		}
-		else
+			SavedCharacter = SavedCharacter
+		});
+	}
+
+	private void OnLevelUpPressed()
+	{
+		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
 		{
-			_scaleTween = GTweenSequenceBuilder.New()
-				.AppendTime(0.05f)
-				.Append(_container.TweenScale(0.9f, 0.15f).SetEasing(Easing.InBack))
-				.Join(_inactiveOverlay.TweenModulateAlpha(1f, 0.15f))
-				.Build().Play();
+			SavedCharacter.TryLevelUp();
+
+			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
+			{
+				SavedCharacter = SavedCharacter
+			});
 		}
 	}
 }

@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d6v13l8hvtpu"]
+[gd_scene load_steps=3 format=3 uid="uid://d6v13l8hvtpu"]
 
 [ext_resource type="PackedScene" uid="uid://biv5sw06a7dxd" path="res://Scenes/Scenario/OverlayTiles/OverlayTile.tscn" id="1_hbtj6"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="2_4ala4"]
 
 [node name="OverlayTile1H" instance=ExtResource("1_hbtj6")]
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 position = Vector2(0, 90)
+
+[node name="Hex" parent="." index="5" instance=ExtResource("2_4ala4")]

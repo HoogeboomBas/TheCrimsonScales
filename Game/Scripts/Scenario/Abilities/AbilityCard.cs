@@ -4,23 +4,24 @@ using Fractural.Tasks;
 
 public class AbilityCard : IReferenced
 {
+	public int ReferenceId { get; set; }
+
 	public SavedAbilityCard SavedAbilityCard { get; }
-
-	public AbilityCardModel Model => SavedAbilityCard.Model;
-
-	public Character OriginalOwner { get; private set; }
-	public Character Owner { get; private set; }
-	public CardState CardState { get; private set; }
-	public bool Unrecoverable { get; private set; }
 
 	public AbilityCardSide Top { get; }
 	public AbilityCardSide Bottom { get; }
 	public AbilityCardSide BasicTop { get; }
 	public AbilityCardSide BasicBottom { get; }
 
+	public Character OriginalOwner { get; }
+
+	public Character Owner { get; private set; }
+	public CardState CardState { get; private set; }
+	public bool Unrecoverable { get; private set; }
+
 	public List<ActionState> ActiveActionStates { get; } = new List<ActionState>();
 
-	public int ReferenceId { get; set; }
+	public AbilityCardModel Model => SavedAbilityCard.Model;
 
 	public event Action<AbilityCard> CardStateChangedEvent;
 
@@ -30,17 +31,17 @@ public class AbilityCard : IReferenced
 
 		SavedAbilityCard = savedAbilityCard;
 
+		Top = new AbilityCardSide(this, Model.Top);
+		Bottom = new AbilityCardSide(this, Model.Bottom);
+		BasicTop = new AbilityCardSide(this, Model.BasicTop);
+		BasicBottom = new AbilityCardSide(this, Model.BasicBottom);
+
 		GameController.Instance.CardManager.Register(this);
 
 		OriginalOwner = owner;
 		SetOwner(owner);
 
 		CardState = CardState.Hand;
-
-		Top = Model.CreateTopSide(this);
-		Bottom = Model.CreateBottomSide(this);
-		BasicTop = Model.CreateBasicTopSide(this);
-		BasicBottom = Model.CreateBasicBottomSide(this);
 	}
 
 	public async GDTask SetCardState(CardState cardState)
@@ -76,7 +77,7 @@ public class AbilityCard : IReferenced
 		}
 	}
 
-	public async GDTask RemoveFromActive(ActionState activeActionState)
+	private async GDTask RemoveFromActive(ActionState activeActionState)
 	{
 		ActiveActionStates.Remove(activeActionState);
 		await activeActionState.RemoveFromActive();

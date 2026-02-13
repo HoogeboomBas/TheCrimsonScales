@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.CardTop, SyndicatedAssault.CardBottom>
 {
@@ -11,7 +12,7 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SwingAbility.Builder()
 				.WithSwing(6)
@@ -39,13 +40,14 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState => 
+				.WithAbilities(
 				[
 					AttackAbility.Builder()
 						.WithDamage(3)
-						.WithCustomGetTargets((attackAbilityState, figures) => 
+						.WithCustomGetTargets((state, figures) =>
 						{
-							figures.AddRange(grantAbilityState.ActionState.GetAbilityState<SwingAbility.State>(0).UniqueTargetedFigures);
+							AttackAbility.State attackAbilityState = state.ActionState.ParentActionState.GetAbilityState<AttackAbility.State>(0);
+							figures.AddRange(attackAbilityState.UniqueTargetedFigures);
 						})
 						.Build()
 				])
@@ -53,7 +55,8 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 				{
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
 
-					IEnumerable<Figure> figuresPassedThrough = swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
+					IEnumerable<Figure> figuresPassedThrough =
+						swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
 
 					figures.AddRange(figuresPassedThrough.Where(figure => figure.AlliedWith(state.Performer) && figure != swingState.Target));
 				})
@@ -64,15 +67,15 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2)
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.61960894f, 0.7226138f)))
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
-				.WithCustomGetTargets((state, figures) => 
+				.WithCustomGetTargets((state, figures) =>
 				{
 					figures.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false)
 						.Where(figure => state.Performer.EnemiesWith(figure)));

@@ -47,6 +47,9 @@ public class SavedCharacter
 	public int CheckmarkCount { get; private set; }
 
 	[JsonProperty]
+	public SavedPersonalQuest SavedPersonalQuest { get; private set; }
+
+	[JsonProperty]
 	public Guid Guid { get; private set; } = Guid.NewGuid();
 
 	public ClassModel ClassModel => ModelDB.GetById<ClassModel>(ClassModelId);
@@ -62,7 +65,7 @@ public class SavedCharacter
 	{
 	}
 
-	public SavedCharacter(ClassModel classModel, string name = "")
+	public SavedCharacter(ClassModel classModel, PersonalQuestModel personalQuestModel, string name = "")
 	{
 		ClassModelId = classModel.Id.ToString();
 		Level = 1;
@@ -79,6 +82,11 @@ public class SavedCharacter
 		Name = name;
 		EquippedBaseSlotItems = new string[5];
 		EquippedSmallItems = new List<string>();
+
+		if(personalQuestModel != null)
+		{
+			SavedPersonalQuest = new SavedPersonalQuest(personalQuestModel);
+		}
 	}
 
 	public void AddGold(int gold)
@@ -280,5 +288,15 @@ public class SavedCharacter
 		}
 
 		CheckmarkCount--;
+	}
+
+	public bool GetCanRetire(SavedCampaign savedCampaign)
+	{
+		return SavedPersonalQuest != null && SavedPersonalQuest.Model.GetCanRetire(savedCampaign, SavedPersonalQuest.PersonalQuestData);
+	}
+
+	public bool CanAfford(int goldCost)
+	{
+		return Gold >= goldCost;
 	}
 }

@@ -1,0 +1,243 @@
+[gd_scene load_steps=12 format=3 uid="uid://bb8by1bidkam0"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_is16o"]
+[ext_resource type="Texture2D" uid="uid://3bxs24lllehu" path="res://Art/Icons/ConditionsAndEffects/Empower/Right.svg" id="2_e18vu"]
+[ext_resource type="Texture2D" uid="uid://ddbrq4nlcndv6" path="res://Art/Icons/ConditionsAndEffects/Curse/Bolt.svg" id="2_is16o"]
+[ext_resource type="Texture2D" uid="uid://dmn0ckwvgduek" path="res://Art/Icons/ConditionsAndEffects/Empower/Left.svg" id="3_qnmfm"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_e18vu"]
+[ext_resource type="Texture2D" uid="uid://ccjacg5ew1xko" path="res://Art/Icons/ConditionsAndEffects/Empower/Colored_Notch.svg" id="5_khdbc"]
+[ext_resource type="Texture2D" uid="uid://dtlfohex65wr5" path="res://Art/Icons/ConditionsAndEffects/Empower.svg" id="7_c2pj7"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColoredNotch:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(566, -0.25, 0, 0.233, -350.5, 50, -0.401, -170, 0.25, 0),
+"times": PackedFloat32Array(0.166667, 1)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles2D2:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 1, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.85)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D3:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1.8, -0.25, 0, 0.25, 0, 0.9, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.0666667, 0.85)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D3:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1.8, -0.25, 0, 0.25, 0, 0.9, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.0666667, 0.85)
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColoredNotch:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-474, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles2D2:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D3:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D3:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[sub_resource type="Curve" id="Curve_awnv4"]
+_data = [Vector2(0, 1), 0.0, 0.111574, 0, 0, Vector2(1, 0), -1.6978, 0.0, 0, 0]
+point_count = 2
+
+[node name="ConditionAnimation" instance=ExtResource("1_is16o")]
+_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
+_sfxVolumeDb = -8.0
+_sfxDelay = 0.5
+
+[node name="Inset" parent="ScaleContainer" index="0"]
+self_modulate = Color(1, 0.666667, 0.00392157, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_vvigo")
+}
+speed_scale = 2.0
+
+[node name="Sprite2D3" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="1"]
+position = Vector2(12.5, 79.1667)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_e18vu")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="2"]
+position = Vector2(-12.736, 78.7405)
+scale = Vector2(0.893953, 0.893953)
+texture = ExtResource("3_qnmfm")
+
+[node name="ColoredNotch" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" index="3"]
+position = Vector2(-0.630396, -474)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="0"]
+visible = false
+position = Vector2(-11, -37)
+texture = ExtResource("2_is16o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="1"]
+position = Vector2(0, -162.5)
+scale = Vector2(0.89, 0.89)
+texture = ExtResource("5_khdbc")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="4"]
+position = Vector2(2.38419e-07, -200)
+emitting = false
+amount = 5
+texture = ExtResource("4_e18vu")
+lifetime = 3.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(-0.6, 0)
+spread = 40.0
+gravity = Vector2(10, 300)
+initial_velocity_min = 30.0
+initial_velocity_max = 500.0
+scale_amount_min = 0.07
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_awnv4")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="5"]
+position = Vector2(2.38419e-07, -200)
+emitting = false
+amount = 5
+texture = ExtResource("4_e18vu")
+lifetime = 3.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0.6, 0)
+spread = 40.0
+gravity = Vector2(10, 300)
+initial_velocity_min = 30.0
+initial_velocity_max = 500.0
+scale_amount_min = 0.07
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_awnv4")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" index="6"]
+texture = ExtResource("7_c2pj7")

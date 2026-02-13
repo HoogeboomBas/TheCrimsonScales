@@ -24,10 +24,10 @@ public class DestroyAdjacentSingleHexObstacleAfterAttackTrait() : FigureTrait
 						false, "Select a 1-hex obstacle to destroy");
 
 				if(selectedHex != null)
-				{
-					await AbilityCmd.TryDestroyObstacle(selectedHex.GetHexObjectsOfType<Obstacle>()
-						.FirstOrDefault(obstacle => obstacle.Hexes.Length == 1));
-				}
+                {
+                    await AbilityCmd.TryDestroyObstacle(selectedHex.GetHexObjectsOfType<Obstacle>()
+						.FirstOrDefault(obstacle => obstacle.HexObjectShape == HexObjectShape.Single));
+                }
 			}
 		);
 	}

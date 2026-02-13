@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class Road07 : CityEventModel<Road07.ChoiceA, Road07.ChoiceB>
+public class Road07 : RoadEventModel<Road07.ChoiceA, Road07.ChoiceB>
 {
 	public override int Number => 07;
 
@@ -49,7 +49,7 @@ public class Road07 : CityEventModel<Road07.ChoiceA, Road07.ChoiceB>
 			{
 				return
 					"""
-					You bang your chest and let out a battle cry. The Inox' eyes bulge and he backs away, agreeing to let you keep the bird. It makes for a tasty meal and you feel satisfied.
+					You bang your chest and let out a battle cry. The Inox's eyes bulge and he backs away, agreeing to let you keep the bird. It makes for a tasty meal and you feel satisfied.
 					""";
 			}
 			else

@@ -8,10 +8,11 @@ using Fractural.Tasks;
 public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetState>
 {
 	public class State : TargetedAbilityState<SingleTargetState>
-    {
+	{
 		public List<ActionState> GrantAbilityActionStates { get; } = new List<ActionState>();
-    }
+	}
 
+	private List<Ability> _abilities;
 	private Func<State, List<Ability>> _getAbilities;
 
 	public List<ScenarioEvents.DuringGrant.Subscription> DuringGrantSubscriptions { get; private set; } = [];
@@ -29,7 +30,14 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 		public interface IGetAbilitiesStep
 		{
+			TBuilder WithAbilities(List<Ability> abilities);
 			TBuilder WithGetAbilities(Func<State, List<Ability>> getAbilities);
+		}
+
+		public TBuilder WithAbilities(List<Ability> abilities)
+		{
+			Obj._abilities = abilities;
+			return (TBuilder)this;
 		}
 
 		public TBuilder WithGetAbilities(Func<State, List<Ability>> getAbilities)
@@ -46,7 +54,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 
 		public TBuilder WithDuringGrantSubscriptions(List<ScenarioEvents.DuringGrant.Subscription> duringGrantSubscriptions)
 		{
-			Obj.DuringGrantSubscriptions = duringGrantSubscriptions;
+			Obj.DuringGrantSubscriptions.AddRange(duringGrantSubscriptions);
 			return (TBuilder)this;
 		}
 
@@ -102,11 +110,17 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
-
 		// Perform the actual abilities
-		ActionState actionState = new ActionState(target, target is Character ? target : abilityState.Performer, _getAbilities(abilityState),
+		ActionState actionState = new ActionState(abilityState.ActionState.ActionSource, target,
+			target is Character ? target : abilityState.Performer, _abilities ?? _getAbilities(abilityState),
 			abilityState.ActionState);
 		abilityState.GrantAbilityActionStates.Add(actionState);
+
 		await actionState.Perform();
+	}
+
+	protected override string DefaultTargetingHintText(State abilityState)
+	{
+		return "Select a target for the grant ability";
 	}
 }

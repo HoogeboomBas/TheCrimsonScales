@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.CardBottom>
 {
@@ -9,7 +10,7 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -20,7 +21,7 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 						{
 							if(remainingRecoverCount > 0 && figure is Character character && state.Performer.AlliedWith(figure, true))
 							{
-								IEnumerable<AbilityCard> selectedAbilityCards =
+								List<AbilityCard> selectedAbilityCards =
 									await AbilityCmd.SelectAbilityCards(character, CardState.Discarded, 0, remainingRecoverCount,
 										hintText: $"Select up to {remainingRecoverCount} cards to recover");
 
@@ -38,17 +39,19 @@ public class VocalSermon : HierophantCardModel<VocalSermon.CardTop, VocalSermon.
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth, Element.Light];
-		protected override int XP => 1;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Earth), CardElementInfusion.Infuse(Element.Light)];
+
+		public override int XP => 1;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.51205003f, 0.72693014f)))
 				.WithMoveType(MoveType.Jump)
 				.WithDuringMovementSubscriptions(
 					[

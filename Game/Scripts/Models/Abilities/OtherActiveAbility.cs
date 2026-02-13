@@ -14,6 +14,8 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 	public Func<State, GDTask> OnActivate { get; private set; }
 	public Func<State, GDTask> OnDeactivate { get; private set; }
 
+	public bool SkipConfimation { get; private set; }
+
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in OtherActiveAbility. Enables inheritors of OtherActiveAbility to further extend the builder.
@@ -47,6 +49,12 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 			Obj.OnDeactivate = onDeactivate;
 			return (TBuilder)this;
 		}
+
+		public TBuilder WithSkipConfirmation()
+		{
+			Obj.SkipConfimation = true;
+			return (TBuilder)this;
+		}
 	}
 
 	/// <summary>
@@ -71,7 +79,14 @@ public class OtherActiveAbility : ActiveAbility<OtherActiveAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		await AskConfirmAndActivate(abilityState);
+		if(SkipConfimation)
+		{
+			await Activate(abilityState);
+		}
+		else
+		{
+			await AskConfirmAndActivate(abilityState);
+		}
 	}
 
 	protected override async GDTask Activate(State abilityState)

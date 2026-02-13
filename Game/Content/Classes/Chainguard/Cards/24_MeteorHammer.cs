@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, MeteorHammer.CardBottom>
 {
@@ -10,10 +11,10 @@ public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, Met
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(5)
+				.WithDamage(5, new AttackDiamond(this, new Vector2(0.6216293f, 0.23962134f)))
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
@@ -31,16 +32,18 @@ public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, Met
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.620109f, 0.6659502f)))
+				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						canApply: canApplyParameters => state.Performer == canApplyParameters.Performer &&
-							canApplyParameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
+						                                canApplyParameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
 						async applyParameters =>
 						{
 							applyParameters.AbilityState.SingleTargetSetIgnoresAllShields();
@@ -60,6 +63,6 @@ public class MeteorHammer : ChainguardLevelUpCardModel<MeteorHammer.CardTop, Met
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

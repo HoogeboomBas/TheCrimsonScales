@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public class RoadTemplate : CityEventModel<RoadTemplate.ChoiceA, RoadTemplate.ChoiceB>
+public class RoadTemplate : RoadEventModel<RoadTemplate.ChoiceA, RoadTemplate.ChoiceB>
 {
 	public override int Number => 00;
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.CardBottom>
 {
@@ -10,9 +11,12 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(2).Build()),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5081693f, 0.21073955f)))
+				.WithRange(2)
+				.Build()),
 
 			new AbilityCardAbility(GivePrayerCardAbility(
 				conditionalAbilityCheck: async state =>
@@ -29,10 +33,10 @@ public class HarshRebuke : HierophantCardModel<HarshRebuke.CardTop, HarshRebuke.
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62026906f, 0.62831855f)))
 				.WithDuringMovementSubscriptions(
 					[
 						ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Earth,

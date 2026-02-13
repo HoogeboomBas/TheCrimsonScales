@@ -11,7 +11,7 @@ public class Equinox : StarslingerCardModel<Equinox.CardTop, Equinox.CardBottom>
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
@@ -57,10 +57,10 @@ public class Equinox : StarslingerCardModel<Equinox.CardTop, Equinox.CardBottom>
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(5)
+				.WithDistance(5, new MoveCircle(this, new Vector2(0.62056f, 0.6485675f)))
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(3)
@@ -73,7 +73,7 @@ public class Equinox : StarslingerCardModel<Equinox.CardTop, Equinox.CardBottom>
 						parameters => true,
 						parameters =>
 						{
-							return AbilityCmd.InfuseElement(Element.Light);
+							return AbilityCmd.InfuseElement(parameters.AbilityState, Element.Light);
 						}
 					)
 				)
@@ -86,7 +86,7 @@ public class Equinox : StarslingerCardModel<Equinox.CardTop, Equinox.CardBottom>
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

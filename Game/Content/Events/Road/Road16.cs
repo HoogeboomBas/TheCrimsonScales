@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class Road16 : CityEventModel<Road16.ChoiceA, Road16.ChoiceB>
+public class Road16 : RoadEventModel<Road16.ChoiceA, Road16.ChoiceB>
 {
 	public override int Number => 16;
 
@@ -36,11 +36,12 @@ public class Road16 : CityEventModel<Road16.ChoiceA, Road16.ChoiceB>
 					if(figure != null)
 					{
 						int useCount = 0;
+
 						ScenarioEvents.DuringAttackEvent.Subscribe(this,
 							parameters =>
 								parameters.Performer == figure &&
 								parameters.AbilityState.SingleTargetRangeType == RangeType.Melee &&
-								parameters.AbilityState.AbilityTargets == 1,
+								parameters.AbilityState.IsSingleTarget,
 							async parameters =>
 							{
 								parameters.AbilityState.SingleTargetAdjustAttackValue(1);

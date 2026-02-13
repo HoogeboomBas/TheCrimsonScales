@@ -10,7 +10,7 @@ public class PillarsOfSmoke : BombardCardModel<PillarsOfSmoke.CardTop, PillarsOf
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -25,12 +25,12 @@ public class PillarsOfSmoke : BombardCardModel<PillarsOfSmoke.CardTop, PillarsOf
 						{
 							state.SetCustomValue(this, "LastUseRoundIndex", GameController.Instance.ScenarioPhaseManager.RoundIndex);
 
-							await AbilityCmd.AddCondition(null, parameters.Figure, Conditions.Immobilize);
-							await AbilityCmd.AddCondition(null, parameters.Figure, Conditions.Invisible);
+							await AbilityCmd.AddCondition(state, parameters.Figure, Conditions.Immobilize);
+							await AbilityCmd.AddCondition(state, parameters.Figure, Conditions.Invisible);
 						},
 						EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Invisible)),
-						effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(this)
+						effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(GetAbilityCardSide(state))
 					);
 
 					await GDTask.CompletedTask;
@@ -45,19 +45,19 @@ public class PillarsOfSmoke : BombardCardModel<PillarsOfSmoke.CardTop, PillarsOf
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
 			new AbilityCardAbility(AbilityCmd.AllOpposingAttacksGainDisadvantageActiveAbility())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

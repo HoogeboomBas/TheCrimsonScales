@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Road06 : CityEventModel<Road06.ChoiceA, Road06.ChoiceB>
+public class Road06 : RoadEventModel<Road06.ChoiceA, Road06.ChoiceB>
 {
 	public override int Number => 06;
 
@@ -23,18 +23,13 @@ public class Road06 : CityEventModel<Road06.ChoiceA, Road06.ChoiceB>
 		public override List<EventReward> GetRewards(SavedEventState state) =>
 		[
 			new SummonEventReward(
-				SummonAbility.Builder().WithSummonStats(new SummonStats()
-					{
-						Health = 3,
-						Move = 1,
-						Attack = 2,
-						Traits =
-						[
-							new ShieldTrait(1)
-						]
-					})
+				SummonAbility.Builder()
 					.WithName("Snapping Turtle")
 					.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise_AI.png") //TODO: Generic or AI summon visual?
+					.WithHealth(3)
+					.WithMove(1)
+					.WithAttack(2)
+					.WithTraits(new ShieldTrait(1))
 					.Build()
 			)
 		];

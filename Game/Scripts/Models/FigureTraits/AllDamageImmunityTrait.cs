@@ -20,7 +20,7 @@ public class AllDamageImmunityTrait : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters("This figure cannot suffer damage from any source"));
+				parameters.Add(new InfoTextExtraEffect.Parameters("This figure cannot suffer damage from any source."));
 			}
 		);
 	}

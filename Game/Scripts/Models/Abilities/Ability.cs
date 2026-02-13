@@ -21,6 +21,8 @@ public abstract class Ability<T> : Ability
 	public List<ScenarioEvent<ScenarioEvents.AbilityEnded.Parameters>.Subscription> AbilityEndedSubscriptions { get; private set; } = [];
 	public List<ScenarioEvent<ScenarioEvents.AbilityPerformed.Parameters>.Subscription> AbilityPerformedSubscriptions { get; private set; } = [];
 
+	public List<EnhancementMark> EnhancementMarks { get; } = [];
+
 	/// <summary>
 	/// A builder utilizing generics, which enables inheritors to extend the builder as well.
 	/// Simplifies adding new properties, which will automatically be propagated to inheritor builders.
@@ -99,9 +101,30 @@ public abstract class Ability<T> : Ability
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithOtherEnhancements(params EnhancementMark[] enhancementMarks)
+		{
+			AddEnhancements(enhancementMarks);
+			return (TBuilder)this;
+		}
+
 		public virtual TAbility Build()
 		{
 			return Obj;
+		}
+
+		protected void AddEnhancements<TEnhancementMark>(TEnhancementMark[] enhancementMarks)
+			where TEnhancementMark : EnhancementMark
+		{
+			foreach(TEnhancementMark enhancementMark in enhancementMarks)
+			{
+				AddEnhancement(enhancementMark);
+			}
+		}
+
+		private void AddEnhancement(EnhancementMark enhancementMark)
+		{
+			enhancementMark.SetAbility(Obj);
+			Obj.EnhancementMarks.Add(enhancementMark);
 		}
 	}
 
@@ -116,6 +139,7 @@ public abstract class Ability<T> : Ability
 		};
 
 		InitializeState(abilityState);
+		AfterInitializeState(abilityState);
 
 		actionState.AddAbilityState(abilityState);
 
@@ -131,6 +155,24 @@ public abstract class Ability<T> : Ability
 
 	protected virtual void InitializeState(T abilityState)
 	{
+	}
+
+	protected virtual void AfterInitializeState(T abilityState)
+	{
+		if(abilityState.ActionState.ActionSource is AbilityCardSide abilityCardSide)
+		{
+			Dictionary<int, SavedEnhancement> enhancements =
+				abilityCardSide.AbilityCard.SavedAbilityCard.GetEnhancements(abilityCardSide.AbilityCardSideType == AbilityCardSideType.Top);
+
+			foreach(EnhancementMark enhancementMark in EnhancementMarks)
+			{
+				int index = abilityCardSide.Model.Enhancements.IndexOf(enhancementMark);
+				if(enhancements.TryGetValue(index, out SavedEnhancement savedEnhancement))
+				{
+					savedEnhancement.Model.Enhance(abilityState, enhancementMark);
+				}
+			}
+		}
 	}
 
 	protected virtual async GDTask StartPerform(T abilityState)

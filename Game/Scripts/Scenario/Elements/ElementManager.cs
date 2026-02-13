@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class ElementManager
 {
@@ -16,7 +17,7 @@ public class ElementManager
 		GameController.Instance.ElementsView.SetElementInfusing(element, true);
 	}
 
-	public void FinishInfusing()
+	public async GDTask FinishInfusing()
 	{
 		foreach(Element element in _infusing)
 		{
@@ -24,12 +25,18 @@ public class ElementManager
 			GameController.Instance.ElementsView.SetElementInfusing(element, false);
 		}
 
+		await ScenarioEvents.FinishElementInfusedEvent.CreatePrompt(
+			new ScenarioEvents.FinishElementInfused.Parameters());
+
 		_infusing.Clear();
 	}
 
-	public void InfuseImmediately(Element element)
+	public async GDTask InfuseImmediately(Element element)
 	{
 		SetState(element, ElementState.Strong);
+
+		await ScenarioEvents.FinishElementInfusedEvent.CreatePrompt(
+			new ScenarioEvents.FinishElementInfused.Parameters());
 	}
 
 	public void Consume(Element element)

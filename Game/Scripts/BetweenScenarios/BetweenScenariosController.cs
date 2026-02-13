@@ -25,6 +25,12 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 	[Export]
 	public ItemShop ItemShop { get; private set; }
 
+	[Export]
+	public CharacterCreationOverlay CharacterCreationOverlay { get; private set; }
+
+	[Export]
+	public BetweenScenariosClassUnlockOverlay UnlockOverlay { get; private set; }
+
 	private readonly List<EventReward> _duringDowntimeEventRewards = new List<EventReward>();
 
 	public BetweenScenariosSceneRequest SceneRequest { get; private set; }
@@ -64,12 +70,20 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 
 	public override void _ExitTree()
 	{
-		base._ExitTree();
-
 		for(int i = _duringDowntimeEventRewards.Count - 1; i >= 0; i--)
 		{
 			UnsubscribeDuringDowntime(_duringDowntimeEventRewards[i]);
 		}
+
+		if(SavedCampaign != null)
+		{
+			foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
+			{
+				savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosEnded(savedCharacter);
+			}
+		}
+
+		base._ExitTree();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -133,6 +147,22 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			return;
 		}
 
+		if(SavedCampaign.Characters.Any(character => character.GetCanRetire(SavedCampaign)))
+		{
+			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Cannot start scenario",
+				"One of your characters is ready to retire."));
+
+			return;
+		}
+
+		if(SavedCampaign.Characters.Any(character => character.CheckCanLevelUp() || character.LevelUpInProgress))
+		{
+			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Cannot start scenario",
+				"One of your characters is ready to level up."));
+
+			return;
+		}
+
 		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber}",
 			$"Start scenario {scenarioModel.ScenarioNumber}?",
 			new TextButton.Parameters("Cancel",
@@ -150,6 +180,18 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		));
 	}
 
+	public void RetireCharacter(SavedCharacter savedCharacter, SavedCampaign savedCampaign)
+	{
+		AppController.Instance.PopupManager.RequestPopup(new RetirementPopup.Request()
+		{
+			Character = savedCharacter,
+			SavedCampaign = savedCampaign,
+			UnlockedClass = savedCampaign.GetUnlockedClass(savedCharacter)
+		});
+
+		savedCampaign.RetireCharacter(savedCharacter);
+	}
+
 	public void UnsubscribeDuringDowntime(EventReward eventReward)
 	{
 		eventReward.UnsubscribeDuringDowntime();
@@ -162,6 +204,11 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 
 		await GDTask.Yield(cancellationToken);
 		await GDTask.Delay(0.2f, cancellationToken: cancellationToken);
+
+		foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
+		{
+			await savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosStarted(savedCharacter);
+		}
 
 		if(SavedCampaign.SavedEvents.CanDrawCityEvent && SavedCampaign.SavedEvents.CityEventDeckIds.Count > 0)
 		{

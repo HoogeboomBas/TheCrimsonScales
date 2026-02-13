@@ -10,7 +10,7 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(grantAbilityState =>
@@ -37,12 +37,12 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -55,7 +55,7 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 									if(
 										state.Performer.AlliedWith(figure) &&
 										figure is Character character &&
-										character.Cards.Any(card => card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide))
+										character.Cards.Any(card => card.CardState == CardState.Hand && card.Top.Model is HierophantPrayerCardSide))
 									{
 										list.Add(figure);
 									}
@@ -74,7 +74,7 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 							{
 								foreach(AbilityCard card in character.Cards)
 								{
-									if(card.CardState == CardState.Hand && card.Top is HierophantPrayerCardSide)
+									if(card.CardState == CardState.Hand && card.Top.Model is HierophantPrayerCardSide)
 									{
 										list.Add(card);
 									}
@@ -93,10 +93,10 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 
 						await AbilityCmd.GainXP(state.Performer, 1);
 
-						if(section == AbilityCardSection.Bottom)
+						if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Light,
+							   $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
 						{
-							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Light,
-								   $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
+							if(section == AbilityCardSection.Bottom)
 							{
 								await GivePrayerCard(state, figure);
 							}

@@ -2,7 +2,7 @@
 using System.Linq;
 using Fractural.Tasks;
 
-public class Road17 : CityEventModel<Road17.ChoiceA, Road17.ChoiceB>
+public class Road17 : RoadEventModel<Road17.ChoiceA, Road17.ChoiceB>
 {
 	public override int Number => 17;
 

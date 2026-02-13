@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="256"
+   viewBox="0 0 256 128"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="Outline2H.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="1"
+     inkscape:cx="362"
+     inkscape:cy="208.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:lockguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid234"
+       empspacing="4"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path1512"
+       style="fill:#ffffff;stroke:none;stroke-width:2"
+       d="M 63.001946 109.11762 L 31.500974 54.558809 L 31.701351 54.212527 L 32.884157 52.164018 L 63 -0.00097270117 L 31.499029 -54.559781 L -31.500968 -54.558809 L -62.999994 0.00097270117 L -31.499023 54.559781 L -33.714839 58.397087 L -62.998049 109.11956 L -31.497077 163.67837 L 31.50292 163.6774 L 63.001946 109.11762 z M 56.476084 0 C 47.178938 16.103325 35.856052 35.640188 25.138527 54.34676 C 35.513411 72.497895 46.05459 90.553525 56.476084 108.67796 L 28.23853 157.58732 L -28.237551 157.58829 L -56.476078 108.67893 C -46.018109 90.565016 -35.559289 72.450315 -25.101558 54.338005 C -35.561829 36.228096 -46.017969 18.113143 -56.476078 0.00097270117 L -28.238524 -48.908387 L 28.237557 -48.90936 L 56.476084 0 z "
+       transform="matrix(0,-1.0039683,1.0039697,0,64,64.000003)" />
+  </g>
+</svg>

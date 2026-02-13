@@ -3,7 +3,7 @@ shader_type canvas_item;
 // Camera FOV
 uniform float fov : hint_range(1, 179) = 90;
 uniform bool cull_back = true;
-uniform float y_rot : hint_range(-180, 180) = 0.0;
+instance uniform float y_rot : hint_range(-180, 180) = 0.0;
 uniform float x_rot : hint_range(-180, 180) = 0.0;
 // At 0, the image retains its size when unrotated.
 // At 1, the image is resized so that it can do a full

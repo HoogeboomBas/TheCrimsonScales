@@ -12,18 +12,19 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6215293f, 0.24632105f)))
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 						parameters => true,
 						async parameters =>
 						{
 							IEnumerable<Figure> figures = RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, includeOrigin: false);
-							
-							parameters.AbilityState.SingleTargetAdjustAttackValue(2 * figures.Count(figure => figure.EnemiesWith(parameters.Performer)));
+
+							parameters.AbilityState.SingleTargetAdjustAttackValue(2 *
+							                                                      figures.Count(figure => figure.EnemiesWith(parameters.Performer)));
 
 							await GDTask.CompletedTask;
 						}
@@ -33,19 +34,21 @@ public class MercilessBeatdown : ChainguardCardModel<MercilessBeatdown.CardTop, 
 			),
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ControlAbility.Builder()
-				.WithGetAbilities(state =>
+				.WithAbilities(
 				[
-					AttackAbility.Builder().WithDamage(3).Build()
-				])				
+					AttackAbility.Builder()
+						.WithDamage(3, new AttackDiamond(this, new Vector2(0.62198937f, 0.8269419f)))
+						.Build()
+				])
 				.WithCustomGetTargets((state, figures) =>
 				{
 					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);

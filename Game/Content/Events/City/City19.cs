@@ -28,22 +28,23 @@ public class City19 : CityEventModel<City19.ChoiceA, City19.ChoiceB>
 		public override List<EventReward> GetRewards(SavedEventState state) =>
 		[
 			new GainCollectiveGoldEventReward(10),
-			new OnScenarioStartedEventReward(async () =>
-			{
-				ScenarioEvents.DuringAttackEvent.Subscribe(this,
-					parameters => parameters.Performer is Character,
-					async parameters =>
-					{
-						parameters.AbilityState.SingleTargetAdjustAttackValue(2);
+			new OnScenarioStartedEventReward(
+				async () =>
+				{
+					ScenarioEvents.DuringAttackEvent.Subscribe(this,
+						parameters => parameters.Performer is Character,
+						async parameters =>
+						{
+							parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 
-						ScenarioEvents.DuringAttackEvent.Unsubscribe(this);
+							ScenarioEvents.DuringAttackEvent.Unsubscribe(this);
 
-						await GDTask.CompletedTask;
-					}
-				);
+							await GDTask.CompletedTask;
+						}
+					);
 
-				await GDTask.CompletedTask;
-			}, color => $"Once, during the next scenario, a character can add +2{Icons.Inline(Icons.Attack, color: color)} to an attack.")
+					await GDTask.CompletedTask;
+				}, color => $"Once, during the next scenario, a character can add +2{Icons.Inline(Icons.Attack, color: color)} to an attack.")
 		];
 	}
 

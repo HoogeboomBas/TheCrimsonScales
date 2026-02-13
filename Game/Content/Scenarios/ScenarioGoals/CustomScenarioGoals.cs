@@ -17,4 +17,9 @@ public class CustomScenarioGoals : ScenarioGoals
 	{
 		await base.Win();
 	}
+
+	public new async GDTask Lose()
+	{
+		await base.Lose();
+	}
 }

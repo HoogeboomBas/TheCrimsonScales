@@ -168,7 +168,7 @@ public class NightDemonAbilityCard7 : NightDemonAbilityCard
 				{
 					foreach(Figure target in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false))
 					{
-						await AbilityCmd.SufferDamage(null, target, 1);
+						await AbilityCmd.SufferDamage(state, target, 1);
 					}
 				}
 			)

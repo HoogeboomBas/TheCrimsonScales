@@ -4,41 +4,44 @@ public class Immobilize : ConditionModel
 {
 	public override string Name => "Immobilize";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Immobilize.svg";
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioEvents.AbilityStartedEvent.Subscribe(Owner, this,
-			parameters => parameters.Performer == Owner && parameters.AbilityState is MoveAbility.State,
+		ScenarioEvents.AbilityStartedEvent.Subscribe(condition,
+			parameters =>
+				parameters.Performer == condition.Owner &&
+				parameters.AbilityState is MoveAbility.State,
 			parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 				parameters.SetIsBlocked(true);
 
 				return GDTask.CompletedTask;
-			},
-			EffectType.MandatoryBeforeOptionals);
+			}
+		);
 
-		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(Owner, this,
-			parameters => parameters.Performer == Owner,
+		ScenarioEvents.CanMoveFurtherCheckEvent.Subscribe(condition,
+			parameters => parameters.Performer == condition.Owner,
 			parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 				parameters.SetCannotMoveFurther(true);
 
 				return GDTask.CompletedTask;
-			}
-			, order: 100
+			},
+			order: 100
 		);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioEvents.AbilityStartedEvent.Unsubscribe(Owner, this);
-		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(Owner, this);
+		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
+		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(condition);
 	}
 }

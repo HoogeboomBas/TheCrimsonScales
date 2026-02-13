@@ -77,7 +77,7 @@ public class OozeAbilityCard4 : OozeAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 2);
+				await AbilityCmd.SufferDamage(state, state.Performer, 2);
 			})
 			.Build()),
 
@@ -108,7 +108,7 @@ public class OozeAbilityCard5 : OozeAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 2);
+				await AbilityCmd.SufferDamage(state, state.Performer, 2);
 			})
 			.Build()),
 

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Fractural.Tasks;
+using Godot;
 
 public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop, AbsoluteMagnitude.CardBottom>
 {
@@ -13,11 +12,11 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
-				.WithPush(3)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.44791222f, 0.18584071f)))
+				.WithPush(3, new PushSquare(this, new Vector2(0.66871876f, 0.18584071f)))
 				.Build()),
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -25,10 +24,9 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 					Figure swapped = await AbilityCmd.SelectFigure(state, list =>
 					{
-						list.AddRange(attackAbilityState.UniqueTargetedFigures.Where(
-							figure =>
-								!figure.IsDead &&
-								AbilityCmd.CanSwap(state.Performer, figure)));
+						list.AddRange(attackAbilityState.UniqueTargetedFigures.Where(figure =>
+							!figure.IsDead &&
+							AbilityCmd.CanSwap(state.Performer, figure)));
 					}, mandatory: false, hintText: () => "Choose an enemy to swap hexes with");
 					if(swapped == null)
 					{
@@ -46,7 +44,7 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PushAbility.Builder()
 				.WithPush(3)
@@ -58,7 +56,7 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 				{
 					foreach(SingleTargetState singleTargetState in state.ActionState.GetAbilityState<PushAbility.State>(0).SingleTargetStates)
 					{
-						await AbilityCmd.SufferDamage(null, singleTargetState.Target, singleTargetState.PushHexes.Count);
+						await AbilityCmd.SufferDamage(state, singleTargetState.Target, singleTargetState.PushHexes.Count);
 					}
 
 					state.SetPerformed();
@@ -73,7 +71,7 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

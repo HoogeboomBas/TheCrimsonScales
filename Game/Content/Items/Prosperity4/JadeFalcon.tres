@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bm4i2tng6nc83"]
+
+[ext_resource type="Texture2D" uid="uid://bwjeq8hdt1q4q" path="res://Content/Items/Prosperity4/SpriteSheet.jpg" id="1_heni5"]
+
+[resource]
+atlas = ExtResource("1_heni5")
+region = Rect2(1175, 1728, 210, 315)

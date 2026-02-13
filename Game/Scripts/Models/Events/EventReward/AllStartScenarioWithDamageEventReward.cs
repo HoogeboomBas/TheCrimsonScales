@@ -14,7 +14,7 @@ public class AllStartScenarioWithDamageEventReward(int damage) : EventReward
 
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
-			await AbilityCmd.SufferDamage(null, character, damage);
+			await AbilityCmd.SufferDamage(character, damage, character);
 		}
 	}
 }

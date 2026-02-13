@@ -20,7 +20,7 @@ public class FrostStone : CS4Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Owner, [Element.Ice]);
+					await AbilityCmd.InfuseElement(null, Element.Ice, Owner);
 				});
 			}
 		);

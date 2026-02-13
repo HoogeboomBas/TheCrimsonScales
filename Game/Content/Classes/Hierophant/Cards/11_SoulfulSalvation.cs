@@ -11,7 +11,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -50,13 +50,13 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Light];
-		protected override bool Persistent => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -86,7 +86,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 									},
 									effectType: EffectType.SelectableMandatory,
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.RecoverCard),
-									effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(this)
+									effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(GetAbilityCardSide(state))
 								);
 
 							ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription healSubscription =
@@ -100,7 +100,7 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 									},
 									effectType: EffectType.SelectableMandatory,
 									effectButtonParameters: new IconEffectButton.Parameters(Icons.Heal),
-									effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(this)
+									effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(GetAbilityCardSide(state))
 								);
 
 							await AbilityCmd.GenericChoice(state.Performer,
@@ -123,9 +123,9 @@ public class SoulfulSalvation : HierophantCardModel<SoulfulSalvation.CardTop, So
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
-		protected override bool Unrecoverable => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
+		public override bool Loss => true;
+		public override bool Unrecoverable => true;
 	}
 }

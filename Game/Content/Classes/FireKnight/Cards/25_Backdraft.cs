@@ -12,22 +12,25 @@ public class Backdraft : FireKnightLevelUpCardModel<Backdraft.CardTop, Backdraft
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(4)
 				.WithRange(2)
 				.WithPush(1)
 				.WithAOEPattern(new AOEPattern(
-					[
-						new AOEHex(Vector2I.Zero, AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-						new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red),
-					]
-				))
+						[
+							new AOEHex(Vector2I.Zero, AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+							new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red),
+						]
+					),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), this, new Vector2(0.8676434f, 0.15360905f)),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.West), this, new Vector2(0.61196f, 0.21662252f)),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), this, new Vector2(0.8676434f, 0.2808193f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Fire,
 						applyFunction: async parameters =>
@@ -49,25 +52,26 @@ public class Backdraft : FireKnightLevelUpCardModel<Backdraft.CardTop, Backdraft
 
 					list.AddRange(attackAbilityState.GetRedAOEHexes().SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
 				})
-				
 				.WithMandatory(true)
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire, Element.Dark];
-		protected override int XP => 1;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Fire), CardElementInfusion.Infuse(Element.Dark)];
+
+		public override int XP => 1;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6176377f, 0.6209524f)))
 				.Build()),
 			new AbilityCardAbility(PushAbility.Builder()
-				.WithPush(2)
+				.WithPush(2, new PushSquare(this, new Vector2(0.5074909f, 0.7079646f)))
 				.WithRange(1)
 				.WithOnAbilityStarted(async state =>
 				{
@@ -77,7 +81,7 @@ public class Backdraft : FireKnightLevelUpCardModel<Backdraft.CardTop, Backdraft
 							parameters.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
-							await AbilityCmd.SufferDamage(null, parameters.Figure, 2);
+							await AbilityCmd.SufferDamage(state, parameters.Figure, 2);
 							await AbilityCmd.AddCondition(state, parameters.Figure, Conditions.Wound1);
 							await AbilityCmd.GainXP(state.Performer, 1);
 						}
@@ -95,6 +99,6 @@ public class Backdraft : FireKnightLevelUpCardModel<Backdraft.CardTop, Backdraft
 				.Build()),
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Fire)];
 	}
 }

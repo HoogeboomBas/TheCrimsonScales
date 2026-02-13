@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class TitanicChainwhip : ChainguardLevelUpCardModel<TitanicChainwhip.CardTop, TitanicChainwhip.CardBottom>
 {
@@ -9,11 +10,11 @@ public class TitanicChainwhip : ChainguardLevelUpCardModel<TitanicChainwhip.Card
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
-				.WithRange(3)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.32713646f, 0.29301867f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.55225706f, 0.29301867f)))
 				.WithConditions(Chainguard.Shackle)
 				.WithPull(2)
 				.Build()),
@@ -22,13 +23,13 @@ public class TitanicChainwhip : ChainguardLevelUpCardModel<TitanicChainwhip.Card
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullAbility.Builder()
 				.WithPull(4)
 				.WithRange(5)
-				.WithConditions(Chainguard.Shackle, Conditions.Wound1)
+				.WithConditions([Chainguard.Shackle, Conditions.Wound1])
 				.Build()),
-		];  
+		];
 	}
 }

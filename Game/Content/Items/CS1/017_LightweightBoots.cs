@@ -1,4 +1,3 @@
-using System.Linq;
 using Fractural.Tasks;
 
 public class LightweightBoots : CS1Item
