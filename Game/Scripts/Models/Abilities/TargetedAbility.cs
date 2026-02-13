@@ -554,14 +554,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 				bool autoSelectIfOne = Mandatory || 
 					abilityState.AbilityTarget == Target.Self || 
 					(TargetHex != null && abilityState.AbilityAOEPattern == null);
-				TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, Mandatory, duringTargetedAbilityEffectCollection,
-						() => _getTargetingHintText(abilityState)), abilityState.Authority);
-
-				if(targetAnswer.Skipped)
-				{
-					break;
-				}
+				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, Mandatory, autoSelectIfOne,
+					duringTargetedAbilityEffectCollection,
+					() => _getTargetingHintText(abilityState));
 			}
 			else
 			{
