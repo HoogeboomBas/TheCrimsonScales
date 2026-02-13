@@ -30,7 +30,7 @@ public class DynamicInt<TArg> : DynamicType<int, TArg>
 public class DynamicAOEPattern<TArg> : DynamicClassType<AOEPattern, TArg>
 {
 	public DynamicAOEPattern(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicAOEPattern(AOEPattern? value) : base(value) {}
+	public DynamicAOEPattern(AOEPattern value) : base(value) {}
 
 	public static implicit operator DynamicAOEPattern<TArg>(AOEPattern value) => new(value);
 	public static implicit operator DynamicAOEPattern<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);

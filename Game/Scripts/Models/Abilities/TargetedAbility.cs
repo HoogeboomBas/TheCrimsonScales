@@ -315,11 +315,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	public Action<T, List<Figure>> CustomGetTargets { get; private set; }
 	public Func<T, Figure, bool> FilterTargets { get; private set; }
 
-	public bool IsMultiTarget(TargetedAbilityState abilityState) =>
-		Targets.GetValue(abilityState) > 1 ||
-		TargetType.GetValue(abilityState).HasFlag(Target.TargetAll) ||
-		(AOEPattern != null && AOEPattern.GetValue(abilityState).LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
-
+	public bool IsMultiTarget =>
+		Targets.GetValue(null) > 1 ||
+		TargetType.GetValue(null).HasFlag(Target.TargetAll) ||
+		(AOEPattern != null && AOEPattern.GetValue(null).LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
+	
+	public AOEPattern AbilityAOEPattern =>
+		AOEPattern?.GetValue(null);
+	
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in TargetedAbility. Enables inheritors of TargetedAbility to further extend the builder.
