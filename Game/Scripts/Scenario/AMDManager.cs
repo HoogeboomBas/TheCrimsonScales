@@ -26,23 +26,23 @@ public class AMDManager
 
 		if(deck.Owner != AMDCardOwner.Monsters)
 		{
-			if(!CurseMonsters())
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if(RemainingMonsterCurseCount == 0)
+			if(RemainingCharacterCurseCount == 0)
 			{
 				return false;
 			}
 
-			RemainingMonsterCurseCount--;
+			RemainingCharacterCurseCount--;
 
 			AMDCard card = new AMDCard(ModelDB.AMDCard<CurseAMDCard>(), deck.Owner);
 			card.DrawnEvent += OnCharacterCurseDrawn;
 			figure.AMDCardDeck.AddCard(card, true);
+		}
+		else
+		{
+			if(!CurseMonsters())
+			{
+				return false;
+			}
 		}
 
 		return true;
