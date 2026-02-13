@@ -72,7 +72,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 			.WithTargets(dynamicTargets)
 			.WithRange(dynamicRange)
 			.WithRangeType(dynamicRangeType)
-			.WithTarget(target)
+			.WithTarget(dynamicTarget)
 			.WithTargetHex(targetHex)
 			.WithRequiresLineOfSight(requiresLineOfSight)
 			.WithAOEPattern(aoePattern)
