@@ -253,7 +253,7 @@ MonsterType4Characters = 1
 
 [node name="MonsterSpawner6" parent="Map/Rooms/Room2" index="33" instance=ExtResource("9_vx3hm")]
 position = Vector2(1418.55, -1323)
-MonsterModelId = "OOZE.GELATINOUS_GIANT"
+MonsterModelId = "BLOOD_OOZE.GELATINOUS_GIANT"
 MonsterType2Characters = 2
 MonsterType3Characters = 2
 MonsterType4Characters = 2

@@ -40,7 +40,7 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.344f)),
+						new UseSlot(new Vector2(0.38800013f, 0.344f)),
 						new UseSlot(new Vector2(0.603f, 0.344f), GainXP)
 					]
 				)
