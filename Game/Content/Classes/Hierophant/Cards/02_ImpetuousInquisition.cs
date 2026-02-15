@@ -80,16 +80,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 						RetaliateAbility.Builder().WithRetaliateValue(1).Build()
 					]
 				)
-				.WithCustomGetTargets((state, list) =>
-				{
-					foreach(Figure figure in GameController.Instance.Map.Figures)
-					{
-						if(state.Performer.AlliedWith(figure))
-						{
-							list.Add(figure);
-						}
-					}
-				})
+				.WithTarget(Target.Allies | Target.TargetAll)
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
