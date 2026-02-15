@@ -55,8 +55,9 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 						potentialConsumer = parametersBase.BaseAbilityState.Performer;
 					}
 
-					return !AbilityCmd.CanConsumeElement(element, potentialConsumer) &&
-					       (canApplyFunction == null || canApplyFunction.Invoke(parameters));
+					return
+						AbilityCmd.CanConsumeElement(element, potentialConsumer) &&
+						(canApplyFunction == null || canApplyFunction.Invoke(parameters));
 				},
 				async parameters =>
 				{
@@ -87,6 +88,7 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 					{
 						potentialConsumer = parametersBase.BaseAbilityState.Performer;
 					}
+
 					bool elementAvailable = false;
 					for(int i = 0; i < 6; i++)
 					{
@@ -129,6 +131,7 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 					{
 						potentialConsumer = parametersBase.BaseAbilityState.Performer;
 					}
+
 					foreach(Element element in elements)
 					{
 						if(!AbilityCmd.CanConsumeElement(element, potentialConsumer))
