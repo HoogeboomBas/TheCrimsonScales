@@ -241,7 +241,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	{
 		base.GetValidTargets(abilityState, figures, targetsOutOfAOE);
 
-		if(abilityState.Authority is not Character)
+		if(abilityState.Authority is not Character && figures.Count != 0)
 		{
 			int mostHealthLost = figures.Select(figure => figure.MaxHealth - figure.Health).Max();
 			figures.RemoveAll(figure => figure.MaxHealth - figure.Health < mostHealthLost);
