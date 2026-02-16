@@ -23,10 +23,12 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 			parameters =>
 				parameters.PotentialConditionGiver == character &&
 				parameters.ConditionModel is Poison &&
-				!personalQuestData.Monsters.Contains(parameters.ConditionModel.Id.ToString()),
+				parameters.Target is Monster monster &&
+				!personalQuestData.Monsters.Contains(monster.MonsterModel.Name),
 			async parameters =>
 			{
-				personalQuestData.Monsters.Add(parameters.ConditionModel.Id.ToString());
+				Monster monster = parameters.Target as Monster;
+				personalQuestData.Monsters.Add(monster?.MonsterModel.Name);
 
 				personalQuestData.AdjustProgress(1, character);
 
