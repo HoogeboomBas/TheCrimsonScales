@@ -23,8 +23,8 @@ public class BeaconOfHope : HierophantLevelUpCardModel<BeaconOfHope.CardTop, Bea
 				.WithRangeType(RangeType.Range)
 				.WithCustomGetTargets((state, list) =>
 				{
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					foreach(Figure targetedFigure in attackAbilityState.UniqueTargetedFigures)
+					HealAbility.State healAbilityState = state.ActionState.GetAbilityState<HealAbility.State>(0);
+					foreach(Figure targetedFigure in healAbilityState.UniqueTargetedFigures)
 					{
 						if(!targetedFigure.IsDead)
 						{
