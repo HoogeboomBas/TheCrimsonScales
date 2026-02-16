@@ -79,7 +79,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		{
 			foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
 			{
-				savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosEnded(savedCharacter);
+				savedCharacter.SavedPersonalQuest?.Model.OnBetweenScenariosEnded(savedCharacter);
 			}
 		}
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Newtonsoft.Json;
 
 public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 {
 	public class Data : PersonalQuestData
 	{
+		[JsonProperty]
 		public List<string> Monsters { get; private set; } = new List<string>();
 	}
 

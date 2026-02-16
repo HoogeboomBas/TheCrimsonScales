@@ -1,7 +1,10 @@
 ﻿using System;
+using Newtonsoft.Json;
 
+[Serializable, JsonObject(MemberSerialization.OptIn)]
 public class PersonalQuestData
 {
+	[JsonProperty]
 	public int Progress { get; private set; }
 
 	public event Action<PersonalQuestData> ProgressChangedEvent;

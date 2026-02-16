@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Newtonsoft.Json;
 
 public class AnAdderDivides : TheCrimsonScalesPersonalQuest<AnAdderDivides.Data>
 {
 	public class Data : PersonalQuestData
 	{
+		[JsonProperty]
 		public List<string> DifficultTerrainScenarios { get; private set; } = new List<string>();
 	}
 
