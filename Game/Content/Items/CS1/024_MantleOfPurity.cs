@@ -39,7 +39,12 @@ public class MantleOfPurity : CS1Item
 				});
 			}
 		);
+	}
 
+	protected override void Unsubscribe()
+	{
+		base.Unsubscribe();
 
+		ScenarioEvents.InflictConditionsEvent.Unsubscribe(this, _subscriber);
 	}
 }
