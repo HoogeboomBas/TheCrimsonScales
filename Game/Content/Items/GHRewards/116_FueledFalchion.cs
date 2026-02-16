@@ -1,3 +1,4 @@
+using System.Linq;
 using Fractural.Tasks;
 
 public class FueledFalchion : GHRewardsItem
@@ -39,7 +40,8 @@ public class FueledFalchion : GHRewardsItem
 						{
 							ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(this, _subscriber);
 
-							foreach(Figure figure in RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, requiresLineOfSight: false))
+							foreach(Figure figure in RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, requiresLineOfSight: false)
+								.Where(figure => figure.EnemiesWith(parameters.Performer)))
 							{
 								await AbilityCmd.SufferDamage(state, figure, 1);
 							}
