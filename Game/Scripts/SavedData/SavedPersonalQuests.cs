@@ -55,7 +55,7 @@ public class SavedPersonalQuests
 
 	public void DrawPersonalQuest(PersonalQuestModel personalQuestModel, bool shuffle = true)
 	{
-		PersonalQuestDeckIds.Remove(personalQuestModel.Id.ToString());
+		PersonalQuestDeckIds.Remove(personalQuestModel?.Id.ToString());
 
 		if(shuffle)
 		{
