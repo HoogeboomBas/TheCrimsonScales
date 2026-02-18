@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [sub_resource type="Resource" id="Resource_0kd31"]
 script = ExtResource("5_bkred")
-ModelIdString = "POISON_BASE.POISON1"
+ModelIdString = "CONDITION_MODEL.POISON"
 metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [node name="Scenario" instance=ExtResource("1_yauc0")]
