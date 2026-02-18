@@ -14,6 +14,6 @@ public class GelatinousGiantSecondStage : GelatinousGiant
 			})
 			.ToArray();
 
-	public override MonsterModel ParentMonsterModel => ModelDB.Monster<BloodOoze>();
+	public override MonsterModel ParentMonsterModel => ModelDB.Monster<Ooze>();
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BloodOozeAbilityCard.Deck;
 }
