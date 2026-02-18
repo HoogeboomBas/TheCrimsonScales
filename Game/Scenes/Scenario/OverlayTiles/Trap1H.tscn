@@ -25,6 +25,7 @@ texture = ExtResource("3_d1ru4")
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
 
 [node name="TrapViewComponent" type="Node2D" parent="." index="4" node_paths=PackedStringArray("DamageContainer", "DamageLabel", "ConditionContainer")]
+z_index = 1
 script = ExtResource("5_l72gb")
 DamageContainer = NodePath("Damage")
 DamageLabel = NodePath("Damage/Label")

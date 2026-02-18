@@ -48,20 +48,21 @@ public class Condition : IEventSubscriber
 		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Subscribe(_subscriberPair,
 			parameters =>
 			{
+				bool sameBaseCondition = parameters.ConditionModel.BaseLevelCondition.Equals(ConditionModel.BaseLevelCondition);
+
 				if(parameters.Prevented || parameters.Target != Owner)
 				{
 					return false;
 				}
 
-				if(ConditionModel.Stackable)
+				if(!sameBaseCondition)
 				{
-					return true;
+					return false;
 				}
 
 				// Block either the exact same condition, or the same condition of a lower level, like regular Poison for Poison 2
-				return
-					parameters.ConditionModel.BaseLevelCondition == ConditionModel.BaseLevelCondition &&
-					parameters.ConditionModel.UpgradableLevel <= ConditionModel.UpgradableLevel;
+				bool upgradedOrSameLevel = parameters.ConditionModel.UpgradableLevel <= ConditionModel.UpgradableLevel;
+				return ConditionModel.Stackable || upgradedOrSameLevel;
 			},
 			async parameters =>
 			{

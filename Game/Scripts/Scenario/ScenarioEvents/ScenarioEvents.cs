@@ -220,7 +220,15 @@ public partial class ScenarioEvents
 
 			public void PreventCondition(ConditionModel conditionModel)
 			{
-				ConditionModels.Remove(conditionModel);
+				for(int i = ConditionModels.Count - 1; i >= 0; i--)
+				{
+					ConditionModel otherModel = ConditionModels[i];
+					if(otherModel == conditionModel)
+					{
+						ConditionModels.RemoveAt(i);
+						break;
+					}
+				}
 			}
 		}
 	}

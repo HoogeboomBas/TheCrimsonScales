@@ -487,11 +487,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	{
 		Figure performer = abilityState.Performer;
 
-		//await InitAbilityState(abilityState);
-
 		if(abilityState.AbilityAOEPattern != null)
 		{
-			List<AOEHex> aoeHexes = [];
+			List<AOEHex> aoeHexes;
 
 			//TODO: Add `during ability` scenario events to the aoe prompts so the range can be increased 
 			if(abilityState.Authority is Character)

@@ -30,5 +30,6 @@ public class ApplyConditionTrait(ConditionModel conditionModel) : FigureTrait
 		await base.Deactivate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.AppliesVisualCheckEvent.Unsubscribe(figure, this);
 	}
 }

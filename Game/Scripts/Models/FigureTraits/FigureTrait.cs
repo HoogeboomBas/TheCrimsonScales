@@ -1,5 +1,4 @@
-﻿using System;
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public abstract class FigureTrait
 {
@@ -7,7 +6,7 @@ public abstract class FigureTrait
 
 	public FigureTrait ToMutable()
 	{
-		FigureTrait abstractModel = this.DeepClone();
+		FigureTrait abstractModel = (FigureTrait)MemberwiseClone();
 		abstractModel.DeepCloneFields();
 		return abstractModel;
 	}

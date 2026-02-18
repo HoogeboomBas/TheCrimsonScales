@@ -186,8 +186,26 @@ public class CardSelectionPhase : ScenarioPhase
 		return fullState;
 	}
 
+	private void ValidateState()
+	{
+		foreach(CharacterCardSelectionState characterCardSelectionState in _cardSelectionState.CharacterCardSelectionStates)
+		{
+			for(int i = characterCardSelectionState.ChosenCardReferenceIds.Count - 1; i >= 0; i--)
+			{
+				int cardReferenceId = characterCardSelectionState.ChosenCardReferenceIds[i];
+				AbilityCard abilityCard = GameController.Instance.ReferenceManager.Get<AbilityCard>(cardReferenceId);
+				if(!CanSelectCardForPlay(abilityCard))
+				{
+					characterCardSelectionState.ChosenCardReferenceIds.RemoveAt(i);
+				}
+			}
+		}
+	}
+
 	private void SyncGameWithState()
 	{
+		ValidateState();
+
 		for(int i = 0; i < _cardSelectionState.CharacterCardSelectionStates.Length; i++)
 		{
 			Character character = GameController.Instance.CharacterManager.GetCharacter(i);
@@ -411,7 +429,7 @@ public class CardSelectionPhase : ScenarioPhase
 			return;
 		}
 
-		if(card.CardState != CardState.Hand)
+		if(!CanSelectCardForPlay(card))
 		{
 			return;
 		}
@@ -438,7 +456,11 @@ public class CardSelectionPhase : ScenarioPhase
 			return;
 		}
 
-		AbilityCard abilityCard = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
+		AbilityCard abilityCard = GetAbilityCard(cardSelectionCard);
+		if(!CanSelectCardForPlay(abilityCard))
+		{
+			return;
+		}
 
 		CharacterCardSelectionState characterCardSelectionState = _cardSelectionState.CharacterCardSelectionStates[abilityCard.Owner.Index];
 
@@ -517,5 +539,15 @@ public class CardSelectionPhase : ScenarioPhase
 	private CharacterCardSelectionState GetCharacterCardSelectionState(Character character)
 	{
 		return _cardSelectionState.CharacterCardSelectionStates[character.Index];
+	}
+
+	private AbilityCard GetAbilityCard(CardSelectionCard cardSelectionCard)
+	{
+		return GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
+	}
+
+	private bool CanSelectCardForPlay(AbilityCard card)
+	{
+		return card.CardState == CardState.Hand;
 	}
 }
