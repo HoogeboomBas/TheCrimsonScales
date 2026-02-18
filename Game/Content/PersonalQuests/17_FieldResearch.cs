@@ -7,7 +7,7 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 	public class Data : PersonalQuestData
 	{
 		[JsonProperty]
-		public List<ModelId> Monsters { get; private set; } = new List<ModelId>();
+		public List<string> Monsters { get; private set; } = new List<string>();
 	}
 
 	public override string Name => "Field Research";
@@ -24,10 +24,10 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 				parameters.PotentialConditionGiver == character &&
 				parameters.ConditionModel is Poison &&
 				parameters.Target is Monster monster &&
-				!personalQuestData.Monsters.Contains(monster.MonsterModel.Id),
+				!personalQuestData.Monsters.Contains(monster.MonsterModel.Id.ToString()),
 			async parameters =>
 			{
-				personalQuestData.Monsters.Add(((Monster)parameters.Target).MonsterModel.Id);
+				personalQuestData.Monsters.Add(((Monster)parameters.Target).MonsterModel.Id.ToString());
 
 				personalQuestData.AdjustProgress(1, character);
 
