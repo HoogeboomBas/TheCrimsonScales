@@ -1,6 +1,6 @@
 ﻿public abstract class ChainguardAMDCardModel : AMDCardModel
 {
-	protected override string TexturePath => "res://Art/AMDs/ChainguardAMD.jpg";
+	protected override string GetTexturePath(AMDCardOwner owner) => "res://Art/AMDs/ChainguardAMD.jpg";
 	protected override int ColumnCount => 4;
 	protected override int RowCount => 5;
 
