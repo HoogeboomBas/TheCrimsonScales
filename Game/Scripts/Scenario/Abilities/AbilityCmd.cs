@@ -389,6 +389,13 @@ public static class AbilityCmd
 	{
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
+	
+	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
+	{
+		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
+
+		return await CreateOverlayTile<Obstacle>(hex, scene);
+	}
 
 	public static async GDTask<List<Coin>> SpawnCoin(Hex hex, Figure dropper = null)
 	{
