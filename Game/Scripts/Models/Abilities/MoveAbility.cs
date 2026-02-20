@@ -188,6 +188,20 @@ public class MoveAbility : Ability<MoveAbility.State>
 				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
 				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects, true);
 
+				DifficultTerrain difficultTerrain = hex.GetHexObjectOfType<DifficultTerrain>();
+				if(difficultTerrain != null && triggerHexEffects)
+				{
+					ScenarioCheckEvents.FlyingCheck.Parameters flyingCheckParameters =
+						ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(abilityState.Performer));
+
+					if(!flyingCheckParameters.HasFlying)
+					{
+						await ScenarioEvents.DifficultTerrainTriggeredEvent.CreatePrompt(
+							new ScenarioEvents.DifficultTerrainTriggered.Parameters(abilityState, abilityState.Performer, hex, difficultTerrain),
+							abilityState.Authority);
+					}
+				}
+
 				if(moveTogetherCheckParameters.OtherFigure != null)
 				{
 					await AbilityCmd.ExitHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority);

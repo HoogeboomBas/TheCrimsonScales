@@ -27,7 +27,8 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 										RetaliateAbility.State retaliateAbilityState = (RetaliateAbility.State)parameters.AbilityState;
 										retaliateAbilityState.AdjustRange(2);
 										await AbilityCmd.GainXP(grantAbilityState.Performer, 1);
-									}
+									},
+									effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2 {Icons.Inline(Icons.Range)} to {Icons.Inline(Icons.Retaliate)}")
 								)
 							)
 							.Build()

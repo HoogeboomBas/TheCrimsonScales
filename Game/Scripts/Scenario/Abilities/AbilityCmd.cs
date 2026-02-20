@@ -150,6 +150,8 @@ public static class AbilityCmd
 
 	public static async GDTask KillOrExhaust(AbilityState potentialAbilityState, Figure target, Figure potentialKiller)
 	{
+		await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
+			new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
 		await target.Destroy();
 
 		await ScenarioEvents.FigureKilledEvent.CreatePrompt(
@@ -432,7 +434,7 @@ public static class AbilityCmd
 		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel, alignment, enemies);
 	}
 
-	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene)
+	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene, Action<OverlayTile> onInstantiate = null)
 		where T : OverlayTile
 	{
 		if(!hex.IsFeatureless())
@@ -443,12 +445,11 @@ public static class AbilityCmd
 
 		OverlayTile overlayTile = scene.Instantiate<OverlayTile>();
 		GameController.Instance.Map.AddChild(overlayTile);
+		onInstantiate?.Invoke(overlayTile);
 		await overlayTile.Init(hex);
 
 		overlayTile.Scale = Vector2.Zero;
 		overlayTile.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
-
-		await GDTask.CompletedTask;
 
 		await ScenarioEvents.OverlayTileCreatedEvent.CreatePrompt(
 			new ScenarioEvents.OverlayTileCreated.Parameters(overlayTile));
@@ -480,20 +481,8 @@ public static class AbilityCmd
 	public static async GDTask<Trap> CreateTrap(Hex hex, string assetPath, int damage = 0, ConditionModel[] conditions = null)
 	{
 		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
-		Trap trap = scene.Instantiate<Trap>();
-		GameController.Instance.Map.AddChild(trap);
-		trap.SetTrapValues(damage, conditions ?? []);
-		await trap.Init(hex);
 
-		trap.Scale = Vector2.Zero;
-		trap.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
-
-		await GDTask.CompletedTask;
-
-		await ScenarioEvents.OverlayTileCreatedEvent.CreatePrompt(
-			new ScenarioEvents.OverlayTileCreated.Parameters(trap));
-
-		return trap;
+		return await CreateOverlayTile<Trap>(hex, scene, trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
 	}
 
 	public static GDTask<List<Hex>> SelectHexes(AbilityState state, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount,

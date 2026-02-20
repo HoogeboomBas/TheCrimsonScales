@@ -11,6 +11,9 @@ public class Scenario015 : ScenarioModel
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new SurviveXRoundsScenarioGoals(10, true);
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<Hound>(), ModelDB.Monster<CaveBear>(), ModelDB.Monster<RendingDrake>(), ModelDB.Monster<Lurker>()];
+
 	private readonly List<Marker> _markers = [];
 	private readonly List<MonsterModel> _monsters =
 	[

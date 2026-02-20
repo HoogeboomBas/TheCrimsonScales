@@ -11,6 +11,8 @@ public class Scenario006 : ScenarioModel
 	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals(
 		"Purify the poisoned water supply to win this scenario. ");
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } = [ModelDB.Monster<FlamingDrake>()];
+
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
 		await base.StartAfterFirstRoomRevealed();
@@ -26,11 +28,11 @@ public class Scenario006 : ScenarioModel
 		Dictionary<Figure, bool> characterHasAntidote = [];
 		int antidoteBottlesPicked = 0;
 		int antidoteBottlesPlaced = 0;
-		bool triggerMonsterSpawn = false;
+		int monsterSpawnsTriggered = 0;
 
 		UpdateScenarioText(antidoteBottlesPlaced);
 
-		foreach(Figure character in GameController.Instance.CharacterManager.Characters)
+		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
 			characterHasAntidote.Add(character, false);
 		}
@@ -47,17 +49,17 @@ public class Scenario006 : ScenarioModel
 		// Allow picking up the antidote
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, pickSubscriber,
 			parameters =>
-				!parameters.ForgoneAction && 
-				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexesWithAntidote.Contains(hex) && 
-				hex.HasHexObjectOfType<Obstacle>()) &&
+				!parameters.ForgoneAction &&
+				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexesWithAntidote.Contains(hex) &&
+				                                                                    hex.HasHexObjectOfType<Obstacle>()) &&
 				!characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
 				Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(),
-				list =>
-				{
-					list.AddRange(RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hexesWithAntidote.Contains(hex)));
-				}, mandatory: true);
+					list =>
+					{
+						list.AddRange(RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Where(hex => hexesWithAntidote.Contains(hex)));
+					}, mandatory: true);
 
 				parameters.ForgoAction();
 
@@ -75,8 +77,6 @@ public class Scenario006 : ScenarioModel
 							$"This character carries an antidote bottle."));
 					}
 				);
-
-				triggerMonsterSpawn = true;
 			},
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.StartHexMove),
@@ -92,10 +92,10 @@ public class Scenario006 : ScenarioModel
 					await ((CustomScenarioGoals)ScenarioGoals).Win();
 				}
 
-				if(triggerMonsterSpawn)
+				for(int i = monsterSpawnsTriggered; i < antidoteBottlesPicked; i++)
 				{
-					await SpawnMonsters(antidoteBottlesPicked);
-					triggerMonsterSpawn = false;
+					await SpawnMonsters(i);
+					monsterSpawnsTriggered++;
 				}
 			}
 		);
@@ -103,8 +103,8 @@ public class Scenario006 : ScenarioModel
 		// Allow placing the antidote into the fountain
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this, placeSubscriber,
 			parameters => !parameters.ForgoneAction &&
-				RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexWithFountain == hex) &&
-				characterHasAntidote[parameters.Performer],
+			              RangeHelper.GetHexesInRange(parameters.Performer.Hex, 1).Any(hex => hexWithFountain == hex) &&
+			              characterHasAntidote[parameters.Performer],
 			async parameters =>
 			{
 				await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(), list => list.Add(hexWithFountain), mandatory: true);
@@ -145,26 +145,26 @@ public class Scenario006 : ScenarioModel
 			"Each character may only hold one antidote at a time, and if a character exhausts while holding an antidote, the scenario is immediately lost.");
 	}
 
-	private async GDTask SpawnMonsters(int antidoteBottlesPicked)
+	private async GDTask SpawnMonsters(int spawnNumber)
 	{
 		Hex hexA = GameController.Instance.Map.Markers.First(marker => marker.MarkerType == Marker.Type.a).Hex;
 		Hex hexB = GameController.Instance.Map.Markers.First(marker => marker.MarkerType == Marker.Type.b).Hex;
 
-		switch(antidoteBottlesPicked)
+		switch(spawnNumber)
 		{
-			case 1: // 6G
+			case 0: // 6G
 			{
 				await SummonMonster(hexA, ModelDB.Monster<BloodOoze>(), MonsterType.Elite);
 				await SummonMonster(hexB, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Normal);
 				break;
 			}
-			case 2: // 6D
+			case 1: // 6D
 			{
 				await SummonMonster(hexA, ModelDB.Monster<FlamingDrake>(), MonsterType.Normal);
 				await SummonMonster(hexB, ModelDB.Monster<FlamingDrake>(), MonsterType.Normal);
 				break;
 			}
-			case 3: // 6F
+			case 2: // 6F
 			{
 				await SummonMonster(hexA, ModelDB.Monster<ToxicImp>(), MonsterType.Normal);
 				await SummonMonster(hexA, ModelDB.Monster<ToxicImp>(), MonsterType.Elite);
@@ -172,7 +172,7 @@ public class Scenario006 : ScenarioModel
 				await SummonMonster(hexB, ModelDB.Monster<ToxicImp>(), MonsterType.Elite);
 				break;
 			}
-			case 4: // 6E
+			case 3: // 6E
 			{
 				await SummonMonster(hexA, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Elite);
 				await SummonMonster(hexB, ModelDB.Monster<ContaminatedWaterSpirit>(), MonsterType.Elite);

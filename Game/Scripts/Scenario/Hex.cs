@@ -13,6 +13,8 @@ public partial class Hex : Node2D
 	public List<Hex> Neighbours { get; } = new List<Hex>();
 	public List<HexObject> HexObjects { get; } = new List<HexObject>();
 
+	public Room Room => GameController.Instance.Map.Rooms.FirstOrDefault(room => room.MapTiles.Contains(MapTile));
+
 	public event Action<Hex> HexObjectsChangedEvent;
 
 	public void InitCoords()

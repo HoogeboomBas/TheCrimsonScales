@@ -12,6 +12,13 @@ public class Scenario011 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals(true);
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+	[
+		ModelDB.Monster<CaveBear>(), ModelDB.Monster<FlameDemon>(), ModelDB.Monster<InoxArcher>(), ModelDB.Monster<InoxGuard>(),
+		ModelDB.Monster<InoxShaman>(), ModelDB.Monster<NightDemon>()
+	];
+
+
 	public override string BGSPath => null;
 
 	private List<Obstacle> _barrels;

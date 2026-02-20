@@ -14,6 +14,8 @@ public class Scenario009 : ScenarioModel
 		new ScenarioConnection<Scenario011>(), new ScenarioConnection<Scenario013>(), new ScenarioConnection<Scenario014>()
 	];
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } = [ModelDB.Monster<Granurso>()];
+
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new CustomScenarioGoals("Kill all revealed enemies and loot the treasure chest to win this scenario.");
 

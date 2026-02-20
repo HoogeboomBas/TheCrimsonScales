@@ -12,6 +12,8 @@ public class Scenario052 : ScenarioModel
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new CustomScenarioGoals(
 			$"Have both pressure plates {Icons.InlineMarker(Marker.Type.b)} be occupied at the end of any round to win this scenario.");
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<SpittingDrake>()];
 
 	private List<PressurePlate> _pressurePlatesA;
 	private List<PressurePlate> _pressurePlatesB;

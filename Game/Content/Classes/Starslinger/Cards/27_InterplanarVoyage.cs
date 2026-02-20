@@ -76,15 +76,7 @@ public class InterplanarVoyage : StarslingerCardModel<InterplanarVoyage.CardTop,
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					Room performerRoom = null;
-					foreach(Room room in GameController.Instance.Map.Rooms)
-					{
-						if(room.MapTiles.Contains(state.Performer.Hex.MapTile))
-						{
-							performerRoom = room;
-							break;
-						}
-					}
+					Room performerRoom = state.Performer.Hex.Room;
 
 					if(performerRoom == null)
 					{
@@ -93,7 +85,7 @@ public class InterplanarVoyage : StarslingerCardModel<InterplanarVoyage.CardTop,
 
 					Figure swapped = await AbilityCmd.SelectFigure(state, list =>
 					{
-						list.AddRange(performerRoom.Hexes.SelectMany(hex => hex.GetChildrenOfType<Figure>()).Where(figure =>
+						list.AddRange(performerRoom.Figures.Where(figure =>
 							figure != state.Performer &&
 							AbilityCmd.CanSwap(state.Performer, figure)));
 					}, mandatory: false, hintText: () => "Choose a figure to swap hexes with");

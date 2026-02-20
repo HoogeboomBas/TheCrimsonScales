@@ -139,7 +139,7 @@ public class RoundPhase : ScenarioPhase
 
 		GameController.Instance.ElementManager.WaneAll();
 
-		foreach(Figure figure in _sortedFigures)
+		foreach(Figure figure in GameController.Instance.Map.Figures)
 		{
 			await figure.RoundEnd();
 		}
