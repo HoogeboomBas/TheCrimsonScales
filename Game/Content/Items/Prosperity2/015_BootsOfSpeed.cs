@@ -64,7 +64,8 @@ public class BootsOfSpeed : Prosperity2Item
 			},
 			effectType: EffectType.SelectableMandatory,
 			effectButtonParameters: new TextEffectButton.Parameters($"{(adjustmentAmount > 0 ? "+" : "")}{adjustmentAmount}"),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"{(adjustmentAmount > 0 ? "Increase" : "Decrease")} your initiative by {Mathf.Abs(adjustmentAmount)}")
+			effectInfoViewParameters: new TextEffectInfoView.Parameters(
+				$"{(adjustmentAmount > 0 ? "Increase" : "Decrease")} your initiative by {Mathf.Abs(adjustmentAmount)}")
 		);
 	}
 }

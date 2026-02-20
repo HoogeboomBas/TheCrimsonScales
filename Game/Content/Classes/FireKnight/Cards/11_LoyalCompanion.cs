@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalCompanion.CardBottom>
 {
@@ -10,18 +11,15 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 4,
-					Move = 2,
-					Attack = 1,
-					Traits = [new AdjacentAlliesGainAdvantageTrait()]
-				})
 				.WithName("Spotted Hound")
 				.WithTexturePath("res://Content/Classes/FireKnight/SpottedHound.jpg")
+				.WithHealth(4, new SummonHealthSquare(this, new Vector2(0.39352584f, 0.19665682f)))
+				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.59166473f, 0.19665682f)))
+				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.39352584f, 0.30685148f)))
+				.WithTraits(new AdjacentAlliesGainAdvantageTrait())
 				.Build()
 			),
 
@@ -29,14 +27,14 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 				.WithPerformAbility(async state =>
 				{
 					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(0);
-					ActionState actionState = new ActionState(summonAbilityState.Summon,
+					ActionState actionState = new ActionState(state.ActionState, summonAbilityState.Summon,
 					[
 						ConditionAbility.Builder()
 							.WithConditions(Conditions.Bless)
 							.WithTarget(Target.Allies | Target.TargetAll)
 							.WithRange(2)
 							.Build()
-					], state.ActionState);
+					]);
 					await actionState.Perform();
 
 					state.SetPerformed();
@@ -45,17 +43,17 @@ public class LoyalCompanion : FireKnightCardModel<LoyalCompanion.CardTop, LoyalC
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.62035996f, 0.719764f)))
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),

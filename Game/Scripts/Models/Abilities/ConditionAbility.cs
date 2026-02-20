@@ -26,7 +26,8 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 	{
 		public interface IConditionsStep
 		{
-			TBuilder WithConditions(params ConditionModel[] conditions);
+			TBuilder WithConditions(ConditionModel condition, params ConditionEnhancementMark[] enhancementMarks);
+			TBuilder WithConditions(ConditionModel[] conditions, params ConditionEnhancementMark[] enhancementMarks);
 		}
 
 		public TBuilder WithAfterTargetConfirmedSubscription(
@@ -39,7 +40,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 		public TBuilder WithAfterTargetConfirmedSubscriptions(
 			List<ScenarioEvents.ConditionAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions)
 		{
-			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
+			Obj.AfterTargetConfirmedSubscriptions.AddRange(afterTargetConfirmedSubscriptions);
 			return (TBuilder)this;
 		}
 

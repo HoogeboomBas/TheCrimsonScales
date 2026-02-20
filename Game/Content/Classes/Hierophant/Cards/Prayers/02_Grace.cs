@@ -9,7 +9,7 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 
 	public class CardTop : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -18,7 +18,8 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 						canApplyParameters => canApplyParameters.SufferDamageParameters.Figure == state.Performer && !state.Performer.IsDead,
 						async applyParameters =>
 						{
-							ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
+							ActionState actionState = new ActionState(state.Performer,
+								[HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
 
 							await state.AdvanceUseSlot();
@@ -33,20 +34,20 @@ public class Grace : HierophantPrayerCardModel<Grace.CardTop, Grace.CardBottom>
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.308f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48700017f, 0.31299993f)))
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Light];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
 	}
 }

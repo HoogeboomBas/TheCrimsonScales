@@ -17,7 +17,7 @@ public partial class ShackleIndicator : Node2D
 
 			GTweenSequenceBuilder.New()
 				.Append(this.TweenModulateAlpha(1f, 0.3f))
-				.Join(this.TweenScale(0.8f, 0.3f)) //.SetEasing(Easing.OutBack))
+				.Join(this.TweenScale(0.8f, 0.3f))
 				.Append(this.TweenScale(destinationScale, 0.2f).SetEasing(Easing.OutBack))
 				.Build().PlayFastForwardable();
 		}

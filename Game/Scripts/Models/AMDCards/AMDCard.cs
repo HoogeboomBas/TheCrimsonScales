@@ -2,27 +2,22 @@
 using Fractural.Tasks;
 using Godot;
 
-public abstract class AMDCard : IDeckCard
+public class AMDCard : IDeckCard
 {
-	public virtual bool Reshuffles => false;
-	public virtual bool Rolling => false;
-	public virtual bool RemoveAfterDraw => false;
-	public virtual AMDCardType Type => AMDCardType.Value;
-	public virtual int? Value => 0;
+	public AMDCardModel Model { get; }
+	public AMDCardOwner Owner { get; }
+	public Figure PotentialOriginalOwner { get; }
 
-	private readonly string _textureAtlasPath;
-	private readonly int _atlasIndex;
-	private readonly int _textureAtlasColumnCount;
-	private readonly int _textureAtlasRowsCount;
+	public bool Reshuffles => Model.Reshuffles;
+	public bool RemoveAfterDraw => Model.RemoveAfterDraw;
 
 	public event Action<AMDCard> DrawnEvent;
 
-	protected AMDCard(string textureAtlasPath, int atlasIndex, int textureAtlasColumnCount, int textureAtlasRowsCount)
+	public AMDCard(AMDCardModel model, AMDCardOwner owner, Figure potentialOriginalOwner = null)
 	{
-		_atlasIndex = atlasIndex;
-		_textureAtlasPath = textureAtlasPath;
-		_textureAtlasColumnCount = textureAtlasColumnCount;
-		_textureAtlasRowsCount = textureAtlasRowsCount;
+		Model = model;
+		Owner = owner;
+		PotentialOriginalOwner = potentialOriginalOwner;
 	}
 
 	public async GDTask<AMDCardValue> Draw(AttackAbility.State attackAbilityState)
@@ -30,15 +25,15 @@ public abstract class AMDCard : IDeckCard
 		ScenarioEvents.AMDCardDrawn.Parameters amdCardDrawnParameters =
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
 				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
-				
-		return new(amdCardDrawnParameters.Type, amdCardDrawnParameters.Value);
+
+		return new AMDCardValue(Model.GetRolling(attackAbilityState), amdCardDrawnParameters.Type, amdCardDrawnParameters.Value, Model.Pierce,
+			Model.Push, Model.Pull, Model.Swing, Model.AddedTargets, Model.ElementInfusions, Model.GetConditionModels(attackAbilityState),
+			Model.GetAbilities(attackAbilityState), Model.GetExtraEffects(attackAbilityState));
 	}
 
 	public Texture2D GetTexture()
 	{
-		return AtlasTextureHelper.CreateAtlasTexture(
-			_atlasIndex, _textureAtlasColumnCount, _textureAtlasRowsCount,
-			ResourceLoader.Load<Texture2D>(_textureAtlasPath));
+		return Model.GetTexture(Owner);
 	}
 
 	public virtual void Drawn()

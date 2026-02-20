@@ -8,19 +8,19 @@
 [node name="Treasure1H" instance=ExtResource("1_1j3lq")]
 script = ExtResource("2_1j3lq")
 
-[node name="Hexagon" parent="." index="1"]
-self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)
-
-[node name="Shadow" type="Sprite2D" parent="." index="2"]
+[node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)
-position = Vector2(1, -2)
+position = Vector2(3, -1)
 scale = Vector2(0.95, 0.95)
 texture = ExtResource("4_aurhd")
 
-[node name="Sprite" parent="." index="3"]
-position = Vector2(0, -4)
+[node name="Sprite" parent="." index="2"]
+position = Vector2(2, -3)
 scale = Vector2(0.95, 0.95)
 texture = ExtResource("4_aurhd")
+
+[node name="Outline" parent="." index="3"]
+self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)

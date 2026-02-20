@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dc3oqbu0m8jid"]
+[gd_scene load_steps=94 format=3 uid="uid://dc3oqbu0m8jid"]
 
 [ext_resource type="Script" uid="uid://bq2pwm6f32li" path="res://Scripts/Scenario/GameController.cs" id="1_arwlr"]
 [ext_resource type="Script" uid="uid://d1n1uymvup76h" path="res://Scripts/Scenario/TeleportPath/TeleportPath.cs" id="6_b23n0"]
@@ -8,10 +8,10 @@
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="11_lqqm2"]
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="12_lqqm2"]
 [ext_resource type="Script" uid="uid://bxjebdesq8we7" path="res://Scripts/Scenario/UI/TreasureItemRewardView.cs" id="13_d05wj"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="14_76yld"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="14_76yld"]
 [ext_resource type="Script" uid="uid://brv7qjwv4oiq6" path="res://Scripts/Scenario/CameraController.cs" id="15_67ddq"]
 [ext_resource type="Script" uid="uid://bi8xmvkxkaqm1" path="res://Scripts/Scenario/HexPin.cs" id="15_cvckm"]
-[ext_resource type="PackedScene" uid="uid://cqru53oois1nb" path="res://Scenes/Scenario/UI/ScenarioSetupOptionButton.tscn" id="15_lqqm2"]
+[ext_resource type="PackedScene" uid="uid://cqru53oois1nb" path="res://Scenes/Scenario/UI/IconButton.tscn" id="15_lqqm2"]
 [ext_resource type="Script" uid="uid://bb2r1lkuwk6nx" path="res://Scripts/Scenario/UI/ScenarioSetupButtonsView.cs" id="15_nbwi6"]
 [ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="16_cvckm"]
 [ext_resource type="PackedScene" uid="uid://ug7oy7x62yfw" path="res://Scenes/Scenario/WorldButton.tscn" id="16_d05wj"]
@@ -27,9 +27,14 @@
 [ext_resource type="Shader" uid="uid://jpto5q4v8s4" path="res://Shaders/ScreenDistortion.gdshader" id="20_76yld"]
 [ext_resource type="PackedScene" uid="uid://b6wbd3udi4blx" path="res://Scenes/Scenario/AOE/RedHexView.tscn" id="20_alilm"]
 [ext_resource type="Script" uid="uid://b3pftvt20l7h8" path="res://Scripts/Scenario/UI/EffectInfoView/EffectInfoViewManager.cs" id="20_nbwi6"]
+[ext_resource type="PackedScene" uid="uid://sbub0wyso5d3" path="res://Scenes/Scenario/AOE/YellowHexView.tscn" id="20_tj20u"]
 [ext_resource type="PackedScene" uid="uid://bt8srppu11ov1" path="res://Scenes/Scenario/AOE/GrayHexView.tscn" id="21_wkv7e"]
+[ext_resource type="PackedScene" uid="uid://wllo4agowy38" path="res://Scenes/Scenario/AOE/EmptyHexView.tscn" id="21_zi34j"]
 [ext_resource type="Script" uid="uid://d1m80ktp0ns5d" path="res://Scripts/Scenario/LineOfSightVisualizer.cs" id="22_4rj0i"]
 [ext_resource type="Script" uid="uid://dau4bv0rnl6l0" path="res://Scripts/Utils/CursorOverUIChecker.cs" id="23_bndsi"]
+[ext_resource type="Texture2D" uid="uid://dxcgq2l3kph4i" path="res://Art/Icons/Other/Mirror.svg" id="27_6gk2j"]
+[ext_resource type="Script" uid="uid://dmf8qeqwtjjtu" path="res://Scripts/Scenario/UI/AOEButtonView.cs" id="27_koqce"]
+[ext_resource type="Texture2D" uid="uid://cxi52t85i1mta" path="res://Art/Icons/Other/RotateClockwise.svg" id="28_3mf4c"]
 [ext_resource type="Script" uid="uid://dfk8lfs8ihi6x" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButtonsView.cs" id="28_pgpxo"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="29_4v2ql"]
 [ext_resource type="Script" uid="uid://d4d7ijusnuvqu" path="res://Scripts/Scenario/UI/PortraitView/PortraitView.cs" id="30_05yo2"]
@@ -37,13 +42,14 @@
 [ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="34_dfaft"]
 [ext_resource type="Script" uid="uid://be6tgcsu3kssh" path="res://Scripts/Scenario/UI/ElementsView/ElementsView.cs" id="36_6nwhb"]
 [ext_resource type="PackedScene" uid="uid://mp8cee00fmg5" path="res://Scenes/Scenario/UI/Element.tscn" id="36_juek3"]
-[ext_resource type="PackedScene" uid="uid://dvex4pgry7e30" path="res://Scenes/Scenario/UI/CardView.tscn" id="37_rj4pm"]
 [ext_resource type="Texture2D" uid="uid://cpv5w6250wmii" path="res://Art/Icons/Elements/FireEmpty.svg" id="38_bytl6"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="38_grpwx"]
 [ext_resource type="Texture2D" uid="uid://7j5gn7adtbco" path="res://Art/Icons/Elements/Fire.svg" id="39_gpo0a"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="39_namyh"]
 [ext_resource type="Texture2D" uid="uid://baxyetpl5ckux" path="res://Art/Icons/Elements/IceEmpty.svg" id="40_vfiu8"]
 [ext_resource type="Texture2D" uid="uid://cfqfsw8vo7b1g" path="res://Art/Icons/Elements/Ice.svg" id="41_4cwam"]
+[ext_resource type="PackedScene" uid="uid://dtu5tcpjoaulk" path="res://Scenes/Scenario/UI/SelectFigureViewFigure.tscn" id="41_b2ul3"]
+[ext_resource type="Script" uid="uid://deyi0d0sg7o0" path="res://Scripts/Scenario/UI/SelectFigureView/SelectFigureView.cs" id="41_gx6wv"]
 [ext_resource type="Script" uid="uid://begk81arqcfc7" path="res://Scripts/Scenario/UI/CardPlayView/CardPlayView.cs" id="41_o26ls"]
 [ext_resource type="Texture2D" uid="uid://bce7mixa1xuo1" path="res://Art/Icons/Elements/EarthEmpty.svg" id="42_1a4nl"]
 [ext_resource type="PackedScene" uid="uid://mgukk8qswcte" path="res://Scenes/Scenario/UI/CardPlayCard.tscn" id="42_mpncg"]
@@ -51,6 +57,7 @@
 [ext_resource type="Texture2D" uid="uid://d0g5payh74ftk" path="res://Art/Icons/Elements/Earth.svg" id="43_d62nx"]
 [ext_resource type="Script" uid="uid://ih8y81syt61c" path="res://Scripts/Scenario/UI/ShortRestView.cs" id="43_hvu7s"]
 [ext_resource type="Script" uid="uid://cefpesj2xqroj" path="res://Scripts/Scenario/UI/ScenarioLostView.cs" id="43_vn1gt"]
+[ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="44_3mf4c"]
 [ext_resource type="Script" uid="uid://bxa761yuhmqnl" path="res://Scripts/Scenario/UI/ScenarioWonView.cs" id="44_7vhok"]
 [ext_resource type="Script" uid="uid://vywttw4n4suv" path="res://Scripts/Scenario/UI/AMDDrawView/AMDDrawView.cs" id="44_j1euc"]
 [ext_resource type="Texture2D" uid="uid://b2i43ibv0m6ow" path="res://Art/Icons/Elements/LightEmpty.svg" id="44_krl23"]
@@ -78,10 +85,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcllr"]
 shader = ExtResource("20_76yld")
-shader_parameter/lens_center = Vector2(0.5, 0.5)
 shader_parameter/camera_zoom = 1.0
-shader_parameter/lens_radius = 0.5
-shader_parameter/lens_power = 1.5
+shader_parameter/lens_center_1 = Vector2(0.5, 0.5)
+shader_parameter/lens_center_2 = Vector2(0.8, 0.8)
+shader_parameter/lens_radius_1 = 0.25
+shader_parameter/lens_radius_2 = 0.25
+shader_parameter/lens_power_1 = 1.6
+shader_parameter/lens_power_2 = 1.6
 shader_parameter/edge_softness = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldvfj"]
@@ -140,7 +150,7 @@ font_size = 100
 font = ExtResource("39_namyh")
 font_size = 50
 
-[node name="Game" type="Node" node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "SpecialRulesView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
+[node name="Game" type="Node" node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "SpecialRulesView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
 script = ExtResource("1_arwlr")
 CameraController = NodePath("CameraController")
 CursorOverUIChecker = NodePath("CanvasLayer/UI/CursorOverUIChecker")
@@ -148,6 +158,7 @@ CardSelectionView = NodePath("CanvasLayer/UI/CardSelectionView")
 ShortRestView = NodePath("CanvasLayer/UI/ShortRestView")
 TreasureItemRewardView = NodePath("CanvasLayer/UI/TreasureItemRewardView")
 CardPlayView = NodePath("CanvasLayer/UI/CardPlayView")
+SelectFigureView = NodePath("CanvasLayer/UI/SelectFigureView")
 ChoiceButtonsView = NodePath("CanvasLayer/UI/ChoiceButtonsView")
 CardSelectionButtonsView = NodePath("CanvasLayer/UI/CardSelectionButtonsView")
 ScenarioSetupButtonsView = NodePath("CanvasLayer/UI/ScenarioSetupButtonsView")
@@ -155,6 +166,7 @@ UndoView = NodePath("CanvasLayer/UI/UndoView")
 MovePath = NodePath("MovePath")
 TeleportPath = NodePath("TeleportPath")
 AOEView = NodePath("AOEView")
+AOEButtonView = NodePath("CanvasLayer/UI/AOEButtonView")
 SufferDamageView = NodePath("SufferDamageView")
 PortraitView = NodePath("CanvasLayer/UI/PortraitView")
 EffectSelectionView = NodePath("CanvasLayer/UI/EffectSelectionView")
@@ -216,7 +228,7 @@ _line2D = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="TeleportPath"]
 z_index = 100
-points = PackedVector2Array(0, 0, 256, -256)
+points = PackedVector2Array(0, 0, 100, -100)
 width = 12.0
 joint_mode = 2
 begin_cap_mode = 2
@@ -227,7 +239,9 @@ antialiased = true
 z_index = 100
 script = ExtResource("19_28h00")
 _redHexScene = ExtResource("20_alilm")
+_yellowHexScene = ExtResource("20_tj20u")
 _grayHexScene = ExtResource("21_wkv7e")
+_emptyHexScene = ExtResource("21_zi34j")
 _hexParent = NodePath("Hexes")
 
 [node name="FollowPivot" type="Node2D" parent="AOEView"]
@@ -385,6 +399,64 @@ texture = ExtResource("16_cvckm")
 
 [node name="CardsButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" instance=ExtResource("15_lqqm2")]
 layout_mode = 2
+
+[node name="AOEButtonView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_buttonContainer", "_mirrorButton", "_rotateCounterClockwiseButton", "_rotateClockwiseButton")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("27_koqce")
+_buttonContainer = NodePath("Container/HBoxContainer")
+_mirrorButton = NodePath("Container/HBoxContainer/MirrorButton")
+_rotateCounterClockwiseButton = NodePath("Container/HBoxContainer/RotateCounterClockwiseButton")
+_rotateClockwiseButton = NodePath("Container/HBoxContainer/RotateClockwiseButton")
+
+[node name="Container" type="Control" parent="CanvasLayer/UI/AOEButtonView"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 550.0
+offset_top = -300.0
+offset_right = -550.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/AOEButtonView/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RotateCounterClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+layout_mode = 2
+
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateCounterClockwiseButton/BetterButton/Panel/MarginContainer" index="0"]
+texture = ExtResource("28_3mf4c")
+flip_h = true
+
+[node name="MirrorButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+layout_mode = 2
+
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/MirrorButton/BetterButton/Panel/MarginContainer" index="0"]
+texture = ExtResource("27_6gk2j")
+
+[node name="RotateClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+layout_mode = 2
+
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateClockwiseButton/BetterButton/Panel/MarginContainer" index="0"]
+texture = ExtResource("28_3mf4c")
 
 [node name="CardSelectionButtonsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_startRoundButton")]
 layout_mode = 1
@@ -594,7 +666,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("43_hvu7s")
-_cardView = NodePath("CardPreview/CardView")
+_cardView = NodePath("CardPreview/AbilityCardView")
 _redrawButton = NodePath("Redraw")
 _confirmButton = NodePath("Continue")
 
@@ -635,8 +707,10 @@ grow_vertical = 2
 pivot_offset = Vector2(160, 224)
 mouse_filter = 2
 
-[node name="CardView" parent="CanvasLayer/UI/ShortRestView/CardPreview" instance=ExtResource("37_rj4pm")]
+[node name="AbilityCardView" parent="CanvasLayer/UI/ShortRestView/CardPreview" instance=ExtResource("44_3mf4c")]
 layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="TreasureItemRewardView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_itemView")]
 layout_mode = 1
@@ -673,6 +747,7 @@ offset_right = 135.0
 offset_bottom = 273.1
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ChoiceButtonsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_continueButton", "_skipButton")]
 layout_mode = 1
@@ -719,6 +794,116 @@ offset_bottom = -60.0
 
 [node name="Label" parent="CanvasLayer/UI/UndoView/Undo/BetterButton/Panel" index="0"]
 text = "Undo"
+
+[node name="SelectFigureView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_figureParent", "_backgroundButton")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("41_gx6wv")
+_figureParent = NodePath("Figures")
+_selectFigureViewFigureScene = ExtResource("41_b2ul3")
+_backgroundButton = NodePath("BetterButton")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/SelectFigureView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.3)
+
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/SelectFigureView"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("38_grpwx")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="Figures" type="HBoxContainer" parent="CanvasLayer/UI/SelectFigureView"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
 
 [node name="AMDDrawView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_deckAnchor", "_discardAnchor", "_discardContainer", "_discardTopCardTextureRect")]
 layout_mode = 1
@@ -897,14 +1082,14 @@ alignment = 1
 [node name="Fire" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Fire" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Fire/Container" index="0"]
 texture_under = ExtResource("38_bytl6")
 texture_progress = ExtResource("39_gpo0a")
 
 [node name="Ice" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Ice" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Ice/Container" index="0"]
 texture_under = ExtResource("40_vfiu8")
 texture_progress = ExtResource("41_4cwam")
 
@@ -914,21 +1099,21 @@ layout_mode = 2
 [node name="Earth" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Earth" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Earth/Container" index="0"]
 texture_under = ExtResource("42_1a4nl")
 texture_progress = ExtResource("43_d62nx")
 
 [node name="Light" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Light" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Light/Container" index="0"]
 texture_under = ExtResource("44_krl23")
 texture_progress = ExtResource("45_qr3ow")
 
 [node name="Dark" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Dark" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Dark/Container" index="0"]
 texture_under = ExtResource("46_ri0y1")
 texture_progress = ExtResource("47_vmwrb")
 
@@ -1444,6 +1629,9 @@ label_settings = SubResource("LabelSettings_hctre")
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/StartScenario"]
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/EquipmentButton"]
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/CardsButton"]
+[editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateCounterClockwiseButton"]
+[editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/MirrorButton"]
+[editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateClockwiseButton"]
 [editable path="CanvasLayer/UI/CardSelectionButtonsView/StartRound"]
 [editable path="CanvasLayer/UI/ShortRestView/Redraw"]
 [editable path="CanvasLayer/UI/ChoiceButtonsView/Skip"]

@@ -1,6 +1,4 @@
-﻿using Godot;
-
-public partial class PortraitViewMonsterGroupPortrait : PortraitViewPortrait
+﻿public partial class PortraitViewMonsterGroupPortrait : PortraitViewPortrait
 {
 	public MonsterGroup MonsterGroup { get; private set; }
 

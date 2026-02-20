@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -11,10 +12,10 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
+				.WithDamage(1, new AttackSquare(this, new Vector2(0.30321214f, 0.16420844f)))
 				.WithRange(2)
 				.WithAOEPattern(new AOEPattern(
 					[
@@ -48,36 +49,27 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					foreach((Vector2I coords, AOEHexType hexType) in attackAbilityState.AOEHexes)
-					{
-						if(hexType == AOEHexType.Red)
-						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
-							if(hex != null)
-							{
-								foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-								{
-									list.Add(figure);
-								}
-							}
-						}
-					}
+					list.AddRange(attackAbilityState
+						.GetRedAOEHexes()
+						.SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire, Element.Air];
-		protected override int XP => 1;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Fire), CardElementInfusion.Infuse(Element.Air)];
+
+		public override int XP => 1;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.61730796f, 0.7109976f)))
 				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
@@ -100,7 +92,7 @@ public class FireWhirl : FireKnightCardModel<FireWhirl.CardTop, FireWhirl.CardBo
 					);
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(abilityState, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == abilityState.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == abilityState.Performer,
 						async applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

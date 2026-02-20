@@ -61,13 +61,13 @@ public partial class ErrorPopup : Popup<ErrorPopup.Request>
 
 	private void OnReturnToTownPressed()
 	{
-		GameController.Instance.EndScenario(true, false);
+		GameController.Instance.EndScenario(ScenarioResult.Loss);
 		Log.ResetHasLoggedError();
 	}
 
 	private void OnUndoPressed()
 	{
-		GameController.Instance.Undo(UndoType.Basic);
+		GameController.Instance.UndoManager.Undo();
 		Log.ResetHasLoggedError();
 	}
 

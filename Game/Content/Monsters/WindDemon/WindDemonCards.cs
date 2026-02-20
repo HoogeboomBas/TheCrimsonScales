@@ -35,8 +35,8 @@ public class WindDemonAbilityCard0 : WindDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class WindDemonAbilityCard1 : WindDemonAbilityCard
@@ -51,8 +51,8 @@ public class WindDemonAbilityCard1 : WindDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pull: 1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 }
 
 public class WindDemonAbilityCard2 : WindDemonAbilityCard
@@ -67,8 +67,8 @@ public class WindDemonAbilityCard2 : WindDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pull: 1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 }
 
 public class WindDemonAbilityCard3 : WindDemonAbilityCard
@@ -91,8 +91,8 @@ public class WindDemonAbilityCard3 : WindDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class WindDemonAbilityCard4 : WindDemonAbilityCard
@@ -141,8 +141,8 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 	];
 
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class WindDemonAbilityCard5 : WindDemonAbilityCard
@@ -166,8 +166,8 @@ public class WindDemonAbilityCard5 : WindDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Air)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Air)];
 }
 
 public class WindDemonAbilityCard6 : WindDemonAbilityCard
@@ -193,8 +193,8 @@ public class WindDemonAbilityCard6 : WindDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class WindDemonAbilityCard7 : WindDemonAbilityCard
@@ -209,6 +209,6 @@ public class WindDemonAbilityCard7 : WindDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Air)];
 }

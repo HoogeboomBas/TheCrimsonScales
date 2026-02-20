@@ -23,7 +23,10 @@ public partial class ModelIdEditor : EditorProperty
 		AddModelId(ModelId.None);
 		foreach(Type subType in ModelDB.GetSubtypes(type))
 		{
-			AddModelId(ModelDB.GetId(subType));
+			if(subType.GetCustomAttributes(typeof(IgnoreModelIdAttribute), true).Length == 0)
+			{
+				AddModelId(ModelDB.GetId(subType));
+			}
 		}
 
 		// Add the control as a direct child of EditorProperty node.

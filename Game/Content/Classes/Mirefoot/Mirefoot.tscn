@@ -4,8 +4,5 @@
 
 [node name="Mirefoot" instance=ExtResource("1_rd461")]
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.937255, 0.419608, 0.14902, 1)
-
-[node name="Sprite2D" parent="Mask" index="0"]
-position = Vector2(-6.25, 10)

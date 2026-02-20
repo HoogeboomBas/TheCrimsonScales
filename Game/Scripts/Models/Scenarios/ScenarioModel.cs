@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscriber
@@ -11,6 +12,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 	public virtual IEnumerable<ScenarioConnection> Connections { get; } = [];
 	public virtual int[] TreasureNumbers { get; } = [];
 
+	//TODO: Change to being abstract to force scenarios to override for view pre-scenario
+	protected virtual List<MonsterModel> SpawnedMonsterModels { get; } = [];
 	protected virtual IEnumerable<ScenarioRequirement> ScenarioRequirements { get; } = [];
 
 	public virtual string BGMPath => "res://Audio/BGM/Floral-Woods.ogg";
@@ -29,6 +32,11 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 		ScenarioGoals.Start();
 
 		ScenarioEvents.RoomRevealedEvent.Subscribe(this, parameters => true, OnRoomRevealed);
+
+		foreach(MonsterModel monsterModel in SpawnedMonsterModels)
+		{
+			GameController.Instance.Map.AddMonsterGroup(monsterModel);
+		}
 
 		await GDTask.CompletedTask;
 	}
@@ -53,5 +61,86 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 		}
 
 		GameController.Instance.SpecialRulesView.SetText(displayText);
+	}
+
+	protected async GDTask<Monster> SpawnMonster(Figure authority, MonsterModel monsterModel, MonsterType monsterType, Hex spawnHex,
+		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+	{
+		return await SpawnMonster(authority, monsterModel, monsterType, [spawnHex], monsterLevel, alignment, enemies, canHaveFeatures);
+	}
+
+	protected async GDTask<Monster> SpawnMonster(Figure authority, MonsterModel monsterModel, MonsterType monsterType, IEnumerable<Hex> spawnHexes,
+		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+	{
+		spawnHexes = spawnHexes.ToList();
+		authority ??= GameController.Instance.CharacterManager.FirstAlive();
+		List<Hex> hexes = RangeHelper.GetHexesInRange(spawnHexes.First(), 100, requiresLineOfSight: false).ToList();
+
+		Hex chosenHex = await AbilityCmd.SelectHex(authority,
+			list =>
+			{
+				int? minDistance = null;
+				foreach(Hex spawnHex in spawnHexes)
+				{
+					hexes.Shuffle(GameController.Instance.StateRNG);
+					hexes.Sort((otherHexA, otherHexB) =>
+						RangeHelper.Distance(spawnHex, otherHexA).CompareTo(RangeHelper.Distance(spawnHex, otherHexB)));
+					Hex firstHex = hexes.FirstOrDefault(hex => hex.IsEmpty() || (canHaveFeatures && hex.IsFeatureless()));
+
+					if(firstHex == null)
+					{
+						return;
+					}
+
+					int distance = RangeHelper.Distance(spawnHex, firstHex);
+
+					if(minDistance != null && distance > minDistance)
+					{
+						continue;
+					}
+
+					if(minDistance == null || distance < minDistance)
+					{
+						list.Clear();
+						minDistance = distance;
+					}
+
+					list.AddRange(hexes.Where(hex =>
+						(hex.IsEmpty() || canHaveFeatures && hex.IsFeatureless()) && RangeHelper.Distance(spawnHex, hex) == distance)
+					);
+				}
+			},
+			true,
+			$"Select a hex to spawn the {monsterType} {monsterModel.Name}"
+		);
+
+		if(chosenHex == null)
+		{
+			return null;
+		}
+
+		return await AbilityCmd.SpawnMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment, enemies);
+	}
+
+	protected async GDTask SummonMonster(Figure authority, MonsterModel monsterModel, MonsterType monsterType, Hex summonHex,
+		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
+	{
+		authority ??= GameController.Instance.CharacterManager.FirstAlive();
+
+		Hex chosenHex = await AbilityCmd.SelectHex(authority,
+			list =>
+			{
+				list.AddRange(RangeHelper.GetHexesInRange(summonHex, 1).Where(hex => hex.IsEmpty()));
+			},
+			true,
+			$"Select a hex to summon the {monsterType} {monsterModel.Name}"
+		);
+
+		if(chosenHex == null)
+		{
+			return;
+		}
+
+		await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment, enemies);
 	}
 }

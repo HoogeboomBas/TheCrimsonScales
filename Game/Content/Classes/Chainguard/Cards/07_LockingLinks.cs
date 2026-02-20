@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLinks.CardBottom>
 {
@@ -11,10 +12,10 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.5131502f, 0.1789577f)))
 				.WithConditions(Chainguard.Shackle)
 				.Build()
 			),
@@ -28,7 +29,7 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 							parameters.Figure == attackAbilityState.Target &&
 							parameters.Figure.HasCondition(Chainguard.Shackle) &&
 							RangeHelper.GetFiguresInRange(parameters.Figure.Hex, 1, false, false).Contains(state.Performer),
-						apply: parameters => AbilityCmd.SufferDamage(null, parameters.Figure, 1)
+						apply: parameters => AbilityCmd.SufferDamage(state, parameters.Figure, 1)
 					);
 
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
@@ -56,20 +57,20 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 
 					AttackAbility.State attackState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					return attackState.Performed && 
-						!attackState.Target.IsDead && 
-						attackState.Target.HasCondition(Chainguard.Shackle);
+					return attackState.Performed &&
+					       !attackState.Target.IsDead &&
+					       attackState.Target.HasCondition(Chainguard.Shackle);
 				})
 				.Build()
 			)
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(2)
@@ -77,6 +78,6 @@ public class LockingLinks : ChainguardCardModel<LockingLinks.CardTop, LockingLin
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 }

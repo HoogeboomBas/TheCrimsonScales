@@ -18,7 +18,7 @@ public class PoxAntidote : CS1Item
 			apply: async character =>
 			{
 				await Use(async user =>
-				{	
+				{
 					Figure figure = await AbilityCmd.SelectFigure(user, list =>
 					{
 						foreach(Figure figure in RangeHelper.GetFiguresInRange(user.Hex, 1))
@@ -28,7 +28,7 @@ public class PoxAntidote : CS1Item
 								list.Add(figure);
 							}
 						}
-					}, hintText: $"Select a figure to lose {Icons.HintText(Icons.GetCondition(Conditions.Infect))}");
+					}, hintText: () => $"Select a figure to lose {Icons.HintText(Icons.GetCondition(Conditions.Infect))}");
 
 					if(figure == null)
 					{

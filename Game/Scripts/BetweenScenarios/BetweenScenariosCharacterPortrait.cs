@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 using GTweens.Builders;
 using GTweens.Easings;
 using GTweens.Tweens;
@@ -31,26 +32,46 @@ public partial class BetweenScenariosCharacterPortrait : Control
 	private Label _goldLabel;
 
 	[Export]
+	private Control _buttonContainer;
+	[Export]
 	private BetterButton _infoButton;
 	[Export]
 	private BetterButton _equipmentButton;
 	[Export]
 	private BetterButton _cardsButton;
+	[Export]
+	private BetterButton _perksButton;
 
 	[Export]
-	private Control _levelUpScaleContainer;
+	private ExclamationMark _cardsExclamationMark;
+	[Export]
+	private ExclamationMark _perksExclamationMark;
+
+	[Export]
+	private Texture2D _normalInfoTexture;
+	[Export]
+	private Texture2D _retireInfoTexture;
+	[Export]
+	private TextureRect _infoButtonTextureRect;
+
+	[Export]
+	private ExclamationMark _levelUpExclamationMark;
 	[Export]
 	private BetterButton _levelUpButton;
 
+	private SavedCampaign _savedCampaign;
+	private PersonalQuestData _personalQuestData;
+
 	private bool _active;
 	private GTween _scaleTween;
-	private GTween _levelUpTween;
 
 	public SavedCharacter SavedCharacter { get; private set; }
 
-	public void Init(SavedCharacter savedCharacter)
+	public void Init(SavedCampaign savedCampaign, SavedCharacter savedCharacter)
 	{
+		_savedCampaign = savedCampaign;
 		SavedCharacter = savedCharacter;
+		_personalQuestData = SavedCharacter.SavedPersonalQuest?.PersonalQuestData;
 
 		_textureRect.Texture = SavedCharacter.ClassModel.PortraitTexture;
 		_colorOutline.Modulate = SavedCharacter.ClassModel.PrimaryColor;
@@ -71,57 +92,30 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		}
 
 		UpdateVisuals();
+		UpdateScaling();
 
 		BetterButton.SetEnabled(false, false);
 
 		SavedCharacter.GoldChangedEvent += OnGoldChanged;
 		SavedCharacter.XPChangedEvent += OnXPChanged;
-		SavedCharacter.LevelChangedEvent += OnLevelCHanged;
+		SavedCharacter.LevelChangedEvent += OnLevelChanged;
 		SavedCharacter.NameChangedEvent += OnNameChanged;
 		SavedCharacter.CardsChangedEvent += OnCardsChanged;
+		SavedCharacter.CheckmarkCountChangedEvent += OnCheckmarkCountChanged;
+		SavedCharacter.PerksChangedEvent += OnPerksChanged;
+
+		if(_personalQuestData != null)
+		{
+			_personalQuestData.ProgressChangedEvent += OnPersonalQuestProgressChanged;
+		}
 
 		_infoButton.Pressed += OnInfoPressed;
 		_equipmentButton.Pressed += OnEquipmentPressed;
 		_cardsButton.Pressed += OnCardsPressed;
+		_perksButton.Pressed += OnPerksPressed;
 		_levelUpButton.Pressed += OnLevelUpPressed;
-	}
 
-	private void OnInfoPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new CharacterInfoPopup.Request
-		{
-			SavedCampaign = BetweenScenariosController.Instance.SavedCampaign,
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnEquipmentPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new EquipmentPopup.Request
-		{
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnCardsPressed()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
-		{
-			SavedCharacter = SavedCharacter
-		});
-	}
-
-	private void OnLevelUpPressed()
-	{
-		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
-		{
-			SavedCharacter.TryLevelUp();
-
-			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
-			{
-				SavedCharacter = SavedCharacter
-			});
-		}
+		GetViewport().SizeChanged += OnViewportSizeChanged;
 	}
 
 	public override void _ExitTree()
@@ -132,61 +126,23 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		{
 			SavedCharacter.GoldChangedEvent -= OnGoldChanged;
 			SavedCharacter.XPChangedEvent -= OnXPChanged;
-			SavedCharacter.LevelChangedEvent -= OnLevelCHanged;
+			SavedCharacter.LevelChangedEvent -= OnLevelChanged;
 			SavedCharacter.NameChangedEvent -= OnNameChanged;
 			SavedCharacter.CardsChangedEvent -= OnCardsChanged;
+			SavedCharacter.CheckmarkCountChangedEvent -= OnCheckmarkCountChanged;
+			SavedCharacter.PerksChangedEvent -= OnPerksChanged;
 		}
-	}
 
-	private void UpdateVisuals()
-	{
-		_levelLabel.Text = SavedCharacter.Level.ToString();
-		int currentLevelXP = SavedCharacter.Level == 1 ? 0 : SavedCharacter.ClassModel.XPLevelValues.Values[SavedCharacter.Level - 2];
-		int nextLevelXP = SavedCharacter.ClassModel.XPLevelValues.Values[
-			Mathf.Min(SavedCharacter.Level - 1, SavedCharacter.ClassModel.XPLevelValues.Values.Length - 1)];
-		_xpLabel.Text = $"{SavedCharacter.XP}/{nextLevelXP}";
-		_xpProgressBar.Scale = new Vector2(Mathf.Clamp(Mathf.InverseLerp(currentLevelXP, nextLevelXP, SavedCharacter.XP), 0f, 1f), 1f);
-		_goldLabel.Text = SavedCharacter.Gold.ToString();
-
-		_levelUpTween?.Complete();
-		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
+		if(_personalQuestData != null)
 		{
-			_levelUpButton.SetEnabled(true, false);
-
-			_levelUpTween = GTweenSequenceBuilder.New()
-				.Append(_levelUpScaleContainer.TweenScale(1.2f, 0.3f))
-				.Append(_levelUpScaleContainer.TweenScale(1f, 0.3f))
-				.Build().SetMaxLoops().Play();
+			_personalQuestData.ProgressChangedEvent -= OnPersonalQuestProgressChanged;
 		}
-		else
+
+		Viewport viewport = GetViewport();
+		if(viewport != null)
 		{
-			_levelUpButton.SetEnabled(false, false);
+			viewport.SizeChanged -= OnViewportSizeChanged;
 		}
-	}
-
-	private void OnGoldChanged(SavedCharacter savedCharacter)
-	{
-		UpdateVisuals();
-	}
-
-	private void OnXPChanged(SavedCharacter savedCharacter)
-	{
-		UpdateVisuals();
-	}
-
-	private void OnLevelCHanged(SavedCharacter savedCharacter)
-	{
-		UpdateVisuals();
-	}
-
-	private void OnNameChanged(SavedCharacter savedCharacter)
-	{
-		UpdateVisuals();
-	}
-
-	private void OnCardsChanged(SavedCharacter savedCharacter)
-	{
-		UpdateVisuals();
 	}
 
 	public void SetActive(bool active, bool canPress)
@@ -217,5 +173,136 @@ public partial class BetweenScenariosCharacterPortrait : Control
 				.Join(_inactiveOverlay.TweenModulateAlpha(1f, 0.15f))
 				.Build().Play();
 		}
+	}
+
+	private void UpdateVisuals()
+	{
+		_levelLabel.Text = SavedCharacter.Level.ToString();
+		int currentLevelXP = SavedCharacter.Level == 1 ? 0 : SavedCharacter.ClassModel.XPLevelValues.Values[SavedCharacter.Level - 2];
+		int nextLevelXP = SavedCharacter.ClassModel.XPLevelValues.Values[
+			Mathf.Min(SavedCharacter.Level - 1, SavedCharacter.ClassModel.XPLevelValues.Values.Length - 1)];
+		_xpLabel.Text = $"{SavedCharacter.XP}/{nextLevelXP}";
+		_xpProgressBar.Scale = new Vector2(Mathf.Clamp(Mathf.InverseLerp(currentLevelXP, nextLevelXP, SavedCharacter.XP), 0f, 1f), 1f);
+		_goldLabel.Text = SavedCharacter.Gold.ToString();
+
+		_infoButtonTextureRect.SetTexture(SavedCharacter.GetCanRetire(_savedCampaign) ? _retireInfoTexture : _normalInfoTexture);
+
+		bool canLevelUp = SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp();
+		_levelUpExclamationMark.SetActive(canLevelUp);
+		_levelUpButton.SetEnabled(canLevelUp, false);
+
+		bool canAcquirePerk = false;
+		for(int i = 0; i < SavedCharacter.ClassModel.Perks.Count; i++)
+		{
+			if(SavedCharacter.CanAcquirePerk(i))
+			{
+				canAcquirePerk = true;
+				break;
+			}
+		}
+
+		_perksExclamationMark.SetActive(canAcquirePerk);
+
+		UpdateScaling();
+	}
+
+	private void UpdateScaling()
+	{
+		this.DelayedCall(() =>
+		{
+			float buttonsScale = Mathf.Min(1f, Size.Y / _buttonContainer.Size.Y);
+			_buttonContainer.SetScale(buttonsScale * Vector2.One);
+		});
+	}
+
+	private void OnGoldChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnXPChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnLevelChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnNameChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnCardsChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnCheckmarkCountChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnPerksChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnPersonalQuestProgressChanged(PersonalQuestData personalQuestData)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnInfoPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new CharacterInfoPopup.Request
+		{
+			SavedCampaign = BetweenScenariosController.Instance.SavedCampaign,
+			SavedCharacter = SavedCharacter
+		});
+	}
+
+	private void OnEquipmentPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new EquipmentPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
+	}
+
+	private void OnCardsPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
+	}
+
+	private void OnPerksPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new PerksPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
+	}
+
+	private void OnLevelUpPressed()
+	{
+		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
+		{
+			SavedCharacter.TryLevelUp();
+
+			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
+			{
+				SavedCharacter = SavedCharacter
+			});
+		}
+	}
+
+	private void OnViewportSizeChanged()
+	{
+		UpdateScaling();
 	}
 }

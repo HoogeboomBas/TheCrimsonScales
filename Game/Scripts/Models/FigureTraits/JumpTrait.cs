@@ -2,9 +2,9 @@
 
 public class JumpTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(figure, this,
 			parameters => parameters.Performer == figure && parameters.AbilityState is MoveAbility.State,
@@ -18,9 +18,9 @@ public class JumpTrait() : FigureTrait
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(figure, this);
 	}

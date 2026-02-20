@@ -7,11 +7,8 @@
 [node name="HazardousTerrain1H" instance=ExtResource("1_7dp8f")]
 script = ExtResource("3_yrfq0")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)
-
-[node name="OverlayTileViewComponent" parent="." index="3" node_paths=PackedStringArray("_icon")]
-_icon = NodePath("Icon")
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)

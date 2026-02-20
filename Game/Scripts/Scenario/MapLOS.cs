@@ -69,6 +69,11 @@ public partial class Map
 
 	public int? Distance(Hex origin, Hex destination)
 	{
+		if(origin == null || destination == null)
+		{
+			return null;
+		}
+
 		if(!_distanceCache.TryGetValue(origin, out Dictionary<Hex, int> hexCache))
 		{
 			hexCache = new Dictionary<Hex, int>();

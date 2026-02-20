@@ -1,4 +1,4 @@
-﻿public class ScrollOfInvigoration : FireKnightItem
+﻿public class FireKnightScrollOfInvigoration : FireKnightItem
 {
 	public override string Name => "Scroll of Invigoration";
 	public override int ItemNumber => 10;
@@ -14,7 +14,7 @@
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Element.Fire);
+					await AbilityCmd.InfuseElement(null, Element.Fire, user);
 
 					ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription moveSubscription =
 						ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(

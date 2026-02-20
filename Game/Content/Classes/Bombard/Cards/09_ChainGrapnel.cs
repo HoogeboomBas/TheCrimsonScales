@@ -10,23 +10,22 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			//new AbilityCardAbility(new AttackAbility(2, range: 3, pull: 2, conditions: [Conditions.Immobilize]))
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
-				.WithRange(3)
-				.WithPush(2)
+				.WithDamage(2, new AttackCircle(this, new Vector2(0.34399113f, 0.28388575f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.55398846f, 0.28388575f)))
+				.WithPull(2)
 				.WithConditions(Conditions.Immobilize)
-				.Build()) //TODO: Card art is wrong, it's supposed to be a pull. Leaving it like this for now or it will cause confusion.
+				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
@@ -44,11 +43,11 @@ public class ChainGrapnel : BombardCardModel<ChainGrapnel.CardTop, ChainGrapnel.
 						.Build()
 				])
 				.WithAbilityCardSide(this)
-				.WithRange(4)
+				.WithRange(4, new ProjectileRangeSquare(this, new Vector2(0.3408154f, 0.6195522f), EnhancementCostType.MultiTarget))
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 }

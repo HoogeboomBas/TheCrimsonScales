@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss.CardBottom>
 {
@@ -10,25 +11,25 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.49752307f, 0.27856937f)))
 				.WithConditions(Conditions.Poison2)
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GiveAbilityCardAbility.Builder()
 				.WithGetAbilityCards((state, list) =>
 				{
-					list.Add(AbilityCard);
+					list.Add(GetAbilityCard(state));
 				})
 				.WithOnCardGiven(OnCardGiven)
 				.WithOnCardDiscarded(OnCardDiscarded)
@@ -42,16 +43,16 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 					Figure target = state.ActionState.GetAbilityState<GiveAbilityCardAbility.State>(0).UniqueTargetedFigures[0];
 
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						parameters => parameters.Target == target && parameters.Condition.GetType().IsAssignableTo(typeof(PoisonBase)),
+						parameters =>
+							parameters.Target == target &&
+							AbilityCmd.CheckImmunity(parameters.ConditionModel, Conditions.Poison1),
 						async parameters =>
 						{
 							parameters.SetPrevented(true);
 
 							ActionState actionState =
-								new ActionState(target, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
+								new ActionState(target, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
 							await actionState.Perform();
-
-							await GDTask.CompletedTask;
 						}
 					);
 
@@ -67,13 +68,13 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 
 		private async GDTask OnCardGiven(AbilityState abilityState, AbilityCard abilityCard)
 		{
-			Character originalOwner = AbilityCard.OriginalOwner;
+			Character originalOwner = GetOriginalOwner(abilityState);
 			originalOwner.RemoveCard(abilityCard);
 
 			await GDTask.CompletedTask;
@@ -83,7 +84,7 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 		{
 			abilityCard.Owner.RemoveCard(abilityCard);
 
-			Character originalOwner = AbilityCard.OriginalOwner;
+			Character originalOwner = abilityCard.OriginalOwner;
 			originalOwner.AddCard(abilityCard);
 
 			await GDTask.CompletedTask;
@@ -93,7 +94,7 @@ public class SerpentsKiss : MirefootCardModel<SerpentsKiss.CardTop, SerpentsKiss
 		{
 			abilityCard.Owner.RemoveCard(abilityCard);
 
-			Character originalOwner = AbilityCard.OriginalOwner;
+			Character originalOwner = abilityCard.OriginalOwner;
 			originalOwner.AddCard(abilityCard);
 
 			await GDTask.CompletedTask;

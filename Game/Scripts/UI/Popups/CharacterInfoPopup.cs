@@ -12,6 +12,11 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 	private TextureRect _matFrontTexture;
 
 	[Export]
+	private PersonalQuestProgressView _personalQuestProgressView;
+	[Export]
+	private TextButton _retireButton;
+
+	[Export]
 	private LineEdit _nameLineEdit;
 
 	[Export]
@@ -28,6 +33,8 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 	{
 		base._Ready();
 
+		_retireButton.Init("Retire", OnRetirePressed, TextButton.ColorType.Green);
+
 		_nameLineEdit.TextChanged += OnNameChanged;
 
 		_cancelButton.Pressed += OnCancelPressed;
@@ -43,8 +50,23 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 
 		_matFrontTexture.Texture = PopupRequest.SavedCharacter.ClassModel.MatFrontTexture;
 
+		_personalQuestProgressView.Init(PopupRequest.SavedCharacter);
+		_retireButton.SetVisible(PopupRequest.SavedCharacter.GetCanRetire(PopupRequest.SavedCampaign));
+
 		_nameLineEdit.SetText(PopupRequest.SavedCharacter.Name);
 		OnNameChanged(_nameLineEdit.Text);
+	}
+
+	private void OnRetirePressed()
+	{
+		if(!PopupRequest.SavedCharacter.GetCanRetire(PopupRequest.SavedCampaign))
+		{
+			return;
+		}
+
+		BetweenScenariosController.Instance?.RetireCharacter(PopupRequest.SavedCharacter, PopupRequest.SavedCampaign);
+
+		Close();
 	}
 
 	private void OnNameChanged(string newText)
@@ -66,7 +88,8 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 
 	private void OnDeletePressed()
 	{
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?", "Are you sure you want to delete this character?\nThis can not be undone!",
+		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?",
+			"Are you sure you want to delete this character?\nThis can not be undone!",
 			new TextButton.Parameters("Cancel",
 				() =>
 				{

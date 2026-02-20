@@ -2,9 +2,9 @@
 
 public class RetaliateTrait(int retaliate, int range = 1) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(figure, this,
 			canApplyParameters =>
@@ -30,9 +30,9 @@ public class RetaliateTrait(int retaliate, int range = 1) : FigureTrait
 		//figure.UpdateRetaliate();
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(figure, this);
 		ScenarioEvents.RetaliateEvent.Unsubscribe(figure, this);

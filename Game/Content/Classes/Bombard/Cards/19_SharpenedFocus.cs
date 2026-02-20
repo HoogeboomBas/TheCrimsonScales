@@ -9,7 +9,7 @@ public class SharpenedFocus : BombardCardModel<SharpenedFocus.CardTop, Sharpened
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			//TODO
 		];
@@ -17,7 +17,7 @@ public class SharpenedFocus : BombardCardModel<SharpenedFocus.CardTop, Sharpened
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			//TODO
 		];

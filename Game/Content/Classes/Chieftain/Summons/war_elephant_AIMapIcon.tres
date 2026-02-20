@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://du5g1soexv4p"]
+
+[ext_resource type="Texture2D" uid="uid://dadmcyn33ehrh" path="res://Content/Classes/Chieftain/Summons/war_elephant_AI.png" id="1_wipq7"]
+
+[resource]
+atlas = ExtResource("1_wipq7")
+region = Rect2(60, 130, 400, 400)

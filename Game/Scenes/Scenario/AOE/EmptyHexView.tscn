@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://wllo4agowy38"]
+
+[ext_resource type="PackedScene" uid="uid://blei03xyk2x63" path="res://Scenes/Scenario/AOE/AOEHexView.tscn" id="1_tg5jc"]
+[ext_resource type="Texture2D" uid="uid://cgks88v4txjt4" path="res://Art/Other/BlankHexOutline.svg" id="2_q5mgi"]
+
+[node name="EmptyHexView" instance=ExtResource("1_tg5jc")]
+
+[node name="Fill" parent="." index="0"]
+visible = false
+self_modulate = Color(0.900796, 0.203315, 0.233711, 0.505882)
+
+[node name="Outline" parent="." index="1"]
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("2_q5mgi")

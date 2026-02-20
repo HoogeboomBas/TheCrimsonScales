@@ -1,0 +1,117 @@
+[gd_scene load_steps=46 format=3 uid="uid://dikwguar40ifq"]
+
+[ext_resource type="Texture2D" uid="uid://8hp1f1qtd2yr" path="res://OverlayTileCreator/OverlayTileMask2H.svg" id="1_cikni"]
+[ext_resource type="Script" uid="uid://cxqshwgq4sj75" path="res://OverlayTileCreator/OverlayTileCreator.cs" id="1_xu81x"]
+[ext_resource type="Texture2D" uid="uid://bv2lu33rs5msc" path="res://OverlayTileCreator/Tiles/Corridor - Earth 2h.png" id="2_6l1dk"]
+[ext_resource type="Texture2D" uid="uid://o8faug4q6x7u" path="res://OverlayTileCreator/Tiles/Corridor - Man Made Stone 2h.png" id="3_dj2yd"]
+[ext_resource type="Texture2D" uid="uid://dmj3kcx48o1ng" path="res://OverlayTileCreator/OverlayTileStroke2H.svg" id="3_ukowq"]
+[ext_resource type="Texture2D" uid="uid://cv4jhaf8g5g88" path="res://OverlayTileCreator/Tiles/Cabinet 1h.png" id="3_urix5"]
+[ext_resource type="Texture2D" uid="uid://clrl7egx0nq7p" path="res://OverlayTileCreator/Tiles/Corridor - Natural Stone 2h.png" id="4_7ubdl"]
+[ext_resource type="Texture2D" uid="uid://b1kbie1i3cpiy" path="res://OverlayTileCreator/Tiles/Corridor - Earth 1h.png" id="4_jfpta"]
+[ext_resource type="Texture2D" uid="uid://dpcja1w23rw8t" path="res://OverlayTileCreator/Tiles/Corridor - Wood 2h.png" id="5_notka"]
+[ext_resource type="Texture2D" uid="uid://cbv0mppp61rod" path="res://OverlayTileCreator/Tiles/Corridor - Man Made Stone 1h.png" id="5_t4log"]
+[ext_resource type="Texture2D" uid="uid://css6dcq4xftvk" path="res://OverlayTileCreator/Tiles/Corridor - Natural Stone 1h.png" id="6_yfemh"]
+[ext_resource type="Texture2D" uid="uid://dxoeso4231kj8" path="res://OverlayTileCreator/Tiles/Corridor - Wood 1h.png" id="7_us188"]
+[ext_resource type="Texture2D" uid="uid://cu370ks53swdr" path="res://OverlayTileCreator/Tiles/Log 2h.png" id="7_vqbxq"]
+[ext_resource type="Texture2D" uid="uid://gffy56jqeqov" path="res://OverlayTileCreator/Tiles/Crate B 1h.png" id="8_blnkf"]
+[ext_resource type="Texture2D" uid="uid://hhchvfwedbor" path="res://OverlayTileCreator/Tiles/Wall Section - Dungeon 2h.png" id="8_dj2yd"]
+[ext_resource type="Texture2D" uid="uid://ccblvtdo673dg" path="res://OverlayTileCreator/Tiles/Crystal 1h.png" id="9_8fys6"]
+[ext_resource type="Texture2D" uid="uid://bj4wvsnposu5q" path="res://OverlayTileCreator/Tiles/Barrel 1h.png" id="10_fu3ms"]
+[ext_resource type="Texture2D" uid="uid://c7d3v6ossaie5" path="res://OverlayTileCreator/Tiles/Dark Fog 1h.png" id="10_m6j5j"]
+[ext_resource type="Texture2D" uid="uid://d2iakonfrtsy6" path="res://OverlayTileCreator/Tiles/Fountain 1h.png" id="11_vbbfk"]
+[ext_resource type="Texture2D" uid="uid://c0ek85pqclhqm" path="res://OverlayTileCreator/Tiles/Hot Coals 1h.png" id="12_x1s6h"]
+[ext_resource type="Texture2D" uid="uid://bl0nmxqg4ok5d" path="res://OverlayTileCreator/Tiles/Light Fog 1h.png" id="13_aiwhf"]
+[ext_resource type="Texture2D" uid="uid://drt0ks6agpnih" path="res://OverlayTileCreator/Tiles/Rock Column 1h.png" id="14_7qxns"]
+[ext_resource type="Texture2D" uid="uid://cukn1b1i4lq84" path="res://OverlayTileCreator/Tiles/Stairs Horiz 1h.png" id="16_5r3ip"]
+[ext_resource type="Texture2D" uid="uid://cscvh2b6nl2xg" path="res://OverlayTileCreator/Tiles/Stairs Vert 1h.png" id="17_6ghnf"]
+[ext_resource type="Texture2D" uid="uid://fsv8q4txbhs0" path="res://OverlayTileCreator/Tiles/Stalagmites 1h.png" id="18_715p3"]
+[ext_resource type="Texture2D" uid="uid://cjhg0shcdxh0v" path="res://OverlayTileCreator/Tiles/Stone Door Closed 1h - Horizontal.png" id="19_gt78n"]
+[ext_resource type="Texture2D" uid="uid://bwx0ljmljtb83" path="res://OverlayTileCreator/Tiles/Stone Door Closed 1h - Vertical.png" id="20_ybkhd"]
+[ext_resource type="Texture2D" uid="uid://dksusg77dk2fv" path="res://OverlayTileCreator/Tiles/Stone Pillar 1h.png" id="21_n1in6"]
+[ext_resource type="Texture2D" uid="uid://brf8rdbtvm3j7" path="res://OverlayTileCreator/Tiles/Stump 1h.png" id="22_kerke"]
+[ext_resource type="Texture2D" uid="uid://bh4m4aks3ukda" path="res://OverlayTileCreator/Tiles/Thorns 1h.png" id="23_ydhql"]
+[ext_resource type="Texture2D" uid="uid://c87xxxvsrmhu4" path="res://OverlayTileCreator/Tiles/Totem 1h.png" id="24_y5ahe"]
+[ext_resource type="Texture2D" uid="uid://cqlv6171umxka" path="res://OverlayTileCreator/Tiles/Water 1h.png" id="25_x7p7o"]
+[ext_resource type="Texture2D" uid="uid://vebadllaela7" path="res://OverlayTileCreator/Tiles/Wood Door Closed 1h - Horizontal.png" id="26_yckw6"]
+[ext_resource type="Texture2D" uid="uid://c0uu7o7ax65hn" path="res://OverlayTileCreator/Tiles/Wood Door Closed 1h - Vertical.png" id="27_wh3kg"]
+[ext_resource type="Texture2D" uid="uid://x3i5a1r53jcj" path="res://OverlayTileCreator/Tiles/Wood Door Open 1h - Horizontal.png" id="28_h2631"]
+[ext_resource type="Texture2D" uid="uid://cwmj1rm2pncoe" path="res://OverlayTileCreator/Tiles/Wood Door Open 1h - Vertical.png" id="29_8fys6"]
+[ext_resource type="Texture2D" uid="uid://lmo3jtoqndek" path="res://OverlayTileCreator/Tiles/Bush 1h.png" id="29_us188"]
+[ext_resource type="Texture2D" uid="uid://ddn825cso88qs" path="res://OverlayTileCreator/Tiles/Stone Door Open 1h - Vertical.png" id="30_m6j5j"]
+[ext_resource type="Texture2D" uid="uid://dlcbuycka771t" path="res://OverlayTileCreator/Tiles/Stone Door Open 1h - Horizontal.png" id="31_vbbfk"]
+[ext_resource type="Texture2D" uid="uid://bfnxcoqsnp2kk" path="res://OverlayTileCreator/Tiles/Dark Pit 2h.png" id="33_urix5"]
+[ext_resource type="Texture2D" uid="uid://b4xybp6p7xkn6" path="res://OverlayTileCreator/Tiles/Tree 3h.png" id="36_uuhbv"]
+[ext_resource type="Texture2D" uid="uid://r3pvlcgjpgph" path="res://OverlayTileCreator/OverlayTileMask1H.svg" id="37_jfpta"]
+[ext_resource type="Texture2D" uid="uid://cae5idsdn014c" path="res://OverlayTileCreator/OverlayTileStroke1H.svg" id="38_t4log"]
+[ext_resource type="Texture2D" uid="uid://dnstej73vg4sy" path="res://OverlayTileCreator/OverlayTileMask3H.svg" id="41_yfemh"]
+[ext_resource type="Texture2D" uid="uid://b7hn8gphsbtwn" path="res://OverlayTileCreator/OverlayTileStroke3H.svg" id="42_us188"]
+
+[node name="OverlayTileCreator" type="Node2D" node_paths=PackedStringArray("_camera", "_1HContainer", "_1HSprite", "_2HContainer", "_2HSprite", "_3HContainer", "_3HSprite")]
+script = ExtResource("1_xu81x")
+_camera = NodePath("Camera2D")
+_1HContainer = NodePath("Tile/1H")
+_1HTextures = Array[Texture2D]([ExtResource("10_fu3ms"), ExtResource("3_urix5"), ExtResource("4_jfpta"), ExtResource("5_t4log"), ExtResource("6_yfemh"), ExtResource("7_us188"), ExtResource("8_blnkf"), ExtResource("9_8fys6"), ExtResource("10_m6j5j"), ExtResource("11_vbbfk"), ExtResource("12_x1s6h"), ExtResource("13_aiwhf"), ExtResource("14_7qxns"), ExtResource("16_5r3ip"), ExtResource("17_6ghnf"), ExtResource("18_715p3"), ExtResource("19_gt78n"), ExtResource("20_ybkhd"), ExtResource("21_n1in6"), ExtResource("22_kerke"), ExtResource("23_ydhql"), ExtResource("24_y5ahe"), ExtResource("25_x7p7o"), ExtResource("26_yckw6"), ExtResource("27_wh3kg"), ExtResource("28_h2631"), ExtResource("29_us188"), ExtResource("29_8fys6"), ExtResource("30_m6j5j"), ExtResource("31_vbbfk")])
+_1HSprite = NodePath("Tile/1H/Mask/Sprite")
+_2HContainer = NodePath("Tile/2H")
+_2HTextures = Array[Texture2D]([ExtResource("2_6l1dk"), ExtResource("3_dj2yd"), ExtResource("4_7ubdl"), ExtResource("5_notka"), ExtResource("33_urix5"), ExtResource("7_vqbxq"), ExtResource("8_dj2yd")])
+_2HSprite = NodePath("Tile/2H/Mask/Sprite")
+_3HContainer = NodePath("Tile/3H")
+_3HTextures = Array[Texture2D]([ExtResource("36_uuhbv")])
+_3HSprite = NodePath("Tile/3H/Mask/Sprite")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.4, 2.4)
+
+[node name="Tile" type="Node2D" parent="."]
+
+[node name="1H" type="Node2D" parent="Tile"]
+visible = false
+
+[node name="Mask" type="Sprite2D" parent="Tile/1H"]
+clip_children = 1
+texture = ExtResource("37_jfpta")
+
+[node name="Sprite" type="Sprite2D" parent="Tile/1H/Mask"]
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("10_fu3ms")
+
+[node name="Stroke" type="Sprite2D" parent="Tile/1H"]
+self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
+texture = ExtResource("38_t4log")
+
+[node name="2H" type="Node2D" parent="Tile"]
+visible = false
+
+[node name="Mask" type="Sprite2D" parent="Tile/2H"]
+clip_children = 1
+position = Vector2(18, 0)
+texture = ExtResource("1_cikni")
+
+[node name="Sprite" type="Sprite2D" parent="Tile/2H/Mask"]
+position = Vector2(-18, 0)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("3_dj2yd")
+
+[node name="Stroke" type="Sprite2D" parent="Tile/2H"]
+self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
+position = Vector2(18, 0)
+texture = ExtResource("3_ukowq")
+
+[node name="3H" type="Node2D" parent="Tile"]
+
+[node name="Mask" type="Sprite2D" parent="Tile/3H"]
+clip_children = 1
+position = Vector2(18, -34)
+scale = Vector2(1, -1)
+texture = ExtResource("41_yfemh")
+
+[node name="Sprite" type="Sprite2D" parent="Tile/3H/Mask"]
+position = Vector2(-18, -34)
+scale = Vector2(0.54, -0.54)
+texture = ExtResource("36_uuhbv")
+
+[node name="Stroke" type="Sprite2D" parent="Tile/3H"]
+self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
+position = Vector2(18, -34)
+scale = Vector2(1, -1)
+texture = ExtResource("42_us188")

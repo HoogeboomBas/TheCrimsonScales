@@ -10,10 +10,10 @@ public class DivineAllegiance : HierophantLevelUpCardModel<DivineAllegiance.Card
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4)
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
 				.WithRange(3)
 				.WithAOEPattern(new AOEPattern(
 						[
@@ -38,7 +38,7 @@ public class DivineAllegiance : HierophantLevelUpCardModel<DivineAllegiance.Card
 					{
 						if(!targetedFigure.IsDead)
 						{
-							await AbilityCmd.SufferDamage(null, targetedFigure, 1);
+							await AbilityCmd.SufferDamage(state, targetedFigure, 1);
 							state.SetPerformed();
 						}
 					}
@@ -47,15 +47,17 @@ public class DivineAllegiance : HierophantLevelUpCardModel<DivineAllegiance.Card
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Light];
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.619769f, 0.72193056f)))
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Bless)

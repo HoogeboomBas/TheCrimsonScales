@@ -11,7 +11,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SwingAbility.Builder()
 				.WithSwing(3)
@@ -30,7 +30,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 						// 0 or 1 hex means 1 or 2 hexes are walls, otherwise check if one of the hexes has an obstacle
 						if(list.Count < 2 || list.Any(hex => hex.HasHexObjectOfType<Obstacle>()))
 						{
-							await AbilityCmd.SufferDamage(null, state.Target, 2);
+							await AbilityCmd.SufferDamage(state, state.Target, 2);
 							await AbilityCmd.GainXP(state.Performer, 1);
 						}
 					}
@@ -41,10 +41,10 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62082916f, 0.6348184f)))
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
@@ -59,7 +59,7 @@ public class VigorousSway : ChainguardCardModel<VigorousSway.CardTop, VigorousSw
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

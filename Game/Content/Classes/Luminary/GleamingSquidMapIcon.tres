@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dhtck5rp7p7cq"]
+
+[ext_resource type="Texture2D" uid="uid://cfveh0u3e46ps" path="res://Content/Classes/Luminary/GleamingSquid.png" id="1_3fmo7"]
+
+[resource]
+atlas = ExtResource("1_3fmo7")
+region = Rect2(40, 30, 1000, 1000)

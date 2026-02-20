@@ -91,7 +91,7 @@ public class LivingCorpseAbilityCard5 : LivingCorpseAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.Build())
 	];
@@ -124,7 +124,7 @@ public class LivingCorpseAbilityCard7 : LivingCorpseAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.Build())
 	];

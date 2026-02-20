@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class MonsterTargetSelectionPrompt(Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, EffectCollection effectCollection, Func<string> getHintText)
+public class MonsterTargetSelectionPrompt(
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, EffectCollection effectCollection, Func<string> getHintText)
 	: Prompt<MonsterTargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -59,10 +61,12 @@ public class MonsterTargetSelectionPrompt(Action<List<Figure>> getValidTargets, 
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
-		foreach(Figure figure in _allTargets)
+		HashSet<Hex> hexes = _validTargets.SelectMany(figure => figure.Hexes).ToHashSet();
+		foreach(Hex hex in hexes)
 		{
-			GameController.Instance.HexIndicatorManager.SetIndicator(figure.Hex,
-				figure == _selectedFigure ? HexIndicatorType.Selected : figure == focus ? HexIndicatorType.Mandatory : HexIndicatorType.Normal, OnIndicatorPressed);
+			GameController.Instance.HexIndicatorManager.SetIndicator(hex,
+				_selectedFigure?.Hexes.Contains(hex) ?? false ? HexIndicatorType.Selected : HexIndicatorType.Normal,
+				OnIndicatorPressed);
 		}
 
 		GameController.Instance.HexIndicatorManager.EndSettingIndicators();
@@ -73,6 +77,7 @@ public class MonsterTargetSelectionPrompt(Action<List<Figure>> getValidTargets, 
 		base.Disable();
 
 		GameController.Instance.HexIndicatorManager.ClearIndicators();
+		GameController.Instance.SelectFigureView.Close();
 	}
 
 	protected override Answer CreateAnswer()
@@ -91,13 +96,25 @@ public class MonsterTargetSelectionPrompt(Action<List<Figure>> getValidTargets, 
 		}
 		else
 		{
-			//TODO: Decide between overlapping figures
-			Figure newSelectedFigure = hexIndicator.Hex.GetHexObjectOfType<Figure>();
-			if(_validTargets.Contains(newSelectedFigure))
+			List<Figure> figures = hexIndicator.Hex.GetHexObjectsOfType<Figure>().Where(_validTargets.Contains).ToList();
+			if(figures.Count > 1)
 			{
-				_selectedFigure = newSelectedFigure;
+				GameController.Instance.SelectFigureView.Open(figures, OnFigurePressed);
+			}
+			else
+			{
+				_selectedFigure = figures.FirstOrDefault();
 			}
 		}
+
+		FullUpdateState();
+	}
+
+	private void OnFigurePressed(Figure figure)
+	{
+		GameController.Instance.SelectFigureView.Close();
+
+		_selectedFigure = figure;
 
 		FullUpdateState();
 	}

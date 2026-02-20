@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Fractural.Tasks;
 using Newtonsoft.Json;
 
@@ -12,6 +13,11 @@ public class ShortRestSyncedAction : SyncedAction
 	public ShortRestSyncedAction(Character character)
 		: base(character)
 	{
+	}
+
+	public override bool Validate()
+	{
+		return Owner.Cards.Count(card => card.CardState == CardState.Discarded) >= 2;
 	}
 
 	public override async GDTask Perform()

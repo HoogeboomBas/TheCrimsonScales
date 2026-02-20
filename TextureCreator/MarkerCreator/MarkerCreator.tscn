@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://byyh028772nm8"]
+
+[ext_resource type="Script" uid="uid://cr6swyc2iv021" path="res://MarkerCreator/MarkerCreator.cs" id="1_rtudi"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Circle.svg" id="3_be0us"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="4_rcxmx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r4482"]
+font = ExtResource("4_rcxmx")
+font_size = 1100
+
+[node name="MarkerCreator" type="Node2D" node_paths=PackedStringArray("_label")]
+script = ExtResource("1_rtudi")
+_label = NodePath("Marker/Label")
+_spriteSize = 256
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Marker" type="Node2D" parent="."]
+
+[node name="Visual" type="Node2D" parent="Marker"]
+scale = Vector2(7.5, 7.5)
+
+[node name="Outline" type="Sprite2D" parent="Marker/Visual"]
+texture = ExtResource("3_be0us")
+
+[node name="Circle" type="Sprite2D" parent="Marker/Visual"]
+self_modulate = Color(0.52549, 0.0823529, 0.0941176, 1)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("3_be0us")
+
+[node name="Label" type="Label" parent="Marker"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.5
+offset_top = -707.0
+offset_right = 225.5
+offset_bottom = 707.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "a"
+label_settings = SubResource("LabelSettings_r4482")
+horizontal_alignment = 1
+vertical_alignment = 1

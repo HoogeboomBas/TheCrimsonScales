@@ -78,6 +78,30 @@ public partial class ItemShop : BetweenScenariosAction
 	{
 		base._Ready();
 
+		_leftPageIndex = 0;
+
+		_animationPlayer.AnimationFinished += OnAnimationFinished;
+		_flipLeftButton.BetterButton.Pressed += OnFlipLeftPressed;
+		_flipRightButton.BetterButton.Pressed += OnFlipRightPressed;
+
+		UpdateButtons();
+	}
+
+	public int GetBuyPrice(SavedCharacter buyer, ItemModel itemModel)
+	{
+		int price = itemModel.Cost;
+		price += BetweenScenariosController.Instance.SavedCampaign.GetReputationItemPriceChange();
+
+		BetweenScenariosEvents.CalculateItemBuyPrice.Parameters parameters =
+			BetweenScenariosEvents.CalculateItemBuyPriceEvent.Fire(
+				new BetweenScenariosEvents.CalculateItemBuyPrice.Parameters(buyer, itemModel, price));
+
+		return parameters.Price;
+	}
+
+	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder, BetweenScenariosAction previousActiveAction)
+	{
+		_allAvailableItems.Clear();
 		foreach((string modelId, SavedItem savedItem) in BetweenScenariosController.Instance.SavedCampaign.SavedItems)
 		{
 			if(savedItem.UnlockedCount > 0)
@@ -86,18 +110,6 @@ public partial class ItemShop : BetweenScenariosAction
 			}
 		}
 
-		_animationPlayer.AnimationFinished += OnAnimationFinished;
-
-		_leftPageIndex = 0;
-
-		_flipLeftButton.BetterButton.Pressed += OnFlipLeftPressed;
-		_flipRightButton.BetterButton.Pressed += OnFlipRightPressed;
-
-		UpdateButtons();
-	}
-
-	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder)
-	{
 		_3dRoot.SetVisible(true);
 
 		_leftPage?.QueueFree();
@@ -112,9 +124,10 @@ public partial class ItemShop : BetweenScenariosAction
 		_bookContainer.Position = new Vector2(-100, -2000);
 		_bookContainer.RotationDegrees = 40;
 
-		base.AnimateIn(sequenceBuilder);
+		base.AnimateIn(sequenceBuilder, previousActiveAction);
 
 		sequenceBuilder
+			.AppendTime(previousActiveAction is SanctuaryOfTheGreatOak ? 0.2f : 0f)
 			.Append(_bookContainer.TweenPosition(new Vector2(0f, 10f), 0.6f))
 			.Join(_bookContainer.TweenRotationDegrees(0f, 0.6f))
 			.Append(_bookContainer.TweenPosition(Vector2.Zero, 0.05f))
@@ -134,7 +147,7 @@ public partial class ItemShop : BetweenScenariosAction
 				{
 					_bookSubViewportContainer.SetVisible(true);
 					_bookCover.SetVisible(false);
-				}, 0.01f);
+				});
 
 				_frontSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
 				_backSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
@@ -175,7 +188,7 @@ public partial class ItemShop : BetweenScenariosAction
 				{
 					_leftPageCoverInside.SetVisible(false);
 					_bookSubViewportContainer.SetVisible(true);
-				}, 0.01f);
+				});
 
 				_frontSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
 				_backSubViewport.SetUpdateMode(SubViewport.UpdateMode.Once);
@@ -197,6 +210,7 @@ public partial class ItemShop : BetweenScenariosAction
 	private ItemShopPage CreatePage(int pageIndex)
 	{
 		ItemShopPage shopPage = _itemShopPageScene.Instantiate<ItemShopPage>();
+		AddChild(shopPage);
 		int startIndex = pageIndex * ItemsPerPage;
 		int endIndex = Mathf.Min(startIndex + ItemsPerPage, _allAvailableItems.Count);
 		int itemCount = endIndex - startIndex;

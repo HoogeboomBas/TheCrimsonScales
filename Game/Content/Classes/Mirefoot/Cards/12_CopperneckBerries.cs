@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, CopperneckBerries.CardBottom>
 {
@@ -9,10 +10,10 @@ public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, Co
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(4)
+				.WithHealValue(4, new HealDiamondPlus(this, new Vector2(0.4953472f, 0.29036877f)))
 				.WithRange(1)
 				.Build())
 		];
@@ -20,11 +21,14 @@ public class CopperneckBerries : MirefootCardModel<CopperneckBerries.CardTop, Co
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6213116f, 0.626352f)))
+				.Build()),
+
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Strengthen, Conditions.Poison1)
+				.WithConditions([Conditions.Strengthen, Conditions.Poison1])
 				.WithOnAbilityEnded(async abilityState =>
 					{
 						if(abilityState.Performed)

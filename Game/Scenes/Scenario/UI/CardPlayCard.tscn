@@ -1,21 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://mgukk8qswcte"]
+[gd_scene load_steps=5 format=3 uid="uid://mgukk8qswcte"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_bv84a"]
 [ext_resource type="Script" uid="uid://cdwpalad0muhc" path="res://Scripts/Scenario/UI/CardPlayView/CardPlayCard.cs" id="1_jumht"]
-[ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="2_svpnw"]
+[ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="4_av3t2"]
 [ext_resource type="PackedScene" uid="uid://tawethckih5b" path="res://Scenes/Scenario/UI/BasicAbilityCardSide.tscn" id="8_vh3mo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmtje"]
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jaokp"]
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-anti_aliasing = false
-
-[node name="CardPlayCard" type="Control" node_paths=PackedStringArray("_textureRects", "_topButton", "_bottomButton", "_basicTopButton", "_basicBottomButton")]
+[node name="CardPlayCard" type="Control" node_paths=PackedStringArray("_abilityCardViews", "_topButton", "_bottomButton", "_basicTopButton", "_basicBottomButton")]
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -23,7 +13,7 @@ offset_right = -1600.0
 offset_bottom = 448.0
 grow_horizontal = 2
 script = ExtResource("1_jumht")
-_textureRects = [NodePath("Top/Mask/TextureRect"), NodePath("Bottom/Mask/TextureRect")]
+_abilityCardViews = [NodePath("Top/Mask/AbilityCardView"), NodePath("Bottom/Mask/AbilityCardView")]
 _topButton = NodePath("Top")
 _bottomButton = NodePath("Bottom")
 _basicTopButton = NodePath("BasicTop")
@@ -103,28 +93,22 @@ shortcut_in_tooltip = true
 script = ExtResource("1_bv84a")
 _centerPivot = false
 
-[node name="Mask" type="Panel" parent="Top"]
+[node name="Mask" type="Control" parent="Top"]
 clip_children = 1
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cmtje")
 
-[node name="TextureRect" type="TextureRect" parent="Top/Mask"]
+[node name="AbilityCardView" parent="Top/Mask" instance=ExtResource("4_av3t2")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_right = 0.0
 offset_bottom = 208.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_svpnw")
-expand_mode = 1
 
 [node name="Bottom" type="BaseButton" parent="."]
 _import_path = NodePath("")
@@ -200,8 +184,9 @@ shortcut_in_tooltip = true
 script = ExtResource("1_bv84a")
 _centerPivot = false
 
-[node name="Mask" type="Panel" parent="Bottom"]
+[node name="Mask" type="Control" parent="Bottom"]
 clip_children = 1
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,20 +194,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_jaokp")
 
-[node name="TextureRect" type="TextureRect" parent="Bottom/Mask"]
+[node name="AbilityCardView" parent="Bottom/Mask" instance=ExtResource("4_av3t2")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -448.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-texture = ExtResource("2_svpnw")
-expand_mode = 1
+offset_top = -240.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="BasicTop" parent="." instance=ExtResource("8_vh3mo")]
 offset_left = 330.0

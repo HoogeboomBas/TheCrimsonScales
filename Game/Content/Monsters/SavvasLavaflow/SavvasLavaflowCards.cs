@@ -33,8 +33,8 @@ public class SavvasLavaflowAbilityCard0 : SavvasLavaflowAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class SavvasLavaflowAbilityCard1 : SavvasLavaflowAbilityCard
@@ -50,8 +50,8 @@ public class SavvasLavaflowAbilityCard1 : SavvasLavaflowAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard2 : SavvasLavaflowAbilityCard
@@ -69,8 +69,8 @@ public class SavvasLavaflowAbilityCard2 : SavvasLavaflowAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class SavvasLavaflowAbilityCard3 : SavvasLavaflowAbilityCard
@@ -82,7 +82,8 @@ public class SavvasLavaflowAbilityCard3 : SavvasLavaflowAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3, afterAttackPerformedSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3, afterAttackPerformedSubscriptions:
+		[
 			ScenarioEvents.AfterAttackPerformed.Subscription.New(canApplyFunction: canApply => CheckElementConsumed(monster, [Element.Earth]),
 				applyFunction: async applyParameters =>
 				{
@@ -96,15 +97,15 @@ public class SavvasLavaflowAbilityCard3 : SavvasLavaflowAbilityCard
 
 					foreach(Figure enemy in enemies)
 					{
-						await AbilityCmd.SufferDamage(null, enemy, 2);
+						await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 2);
 					}
 				}
 			)
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Earth)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard4 : SavvasLavaflowAbilityCard
@@ -128,7 +129,8 @@ public class SavvasLavaflowAbilityCard4 : SavvasLavaflowAbilityCard
 						.Add(Direction.SouthEast)
 						.Add(Direction.SouthEast), AOEHexType.Red),
 				]),
-				duringAttackSubscriptions: [
+				duringAttackSubscriptions:
+				[
 					ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(
 						monster,
 						[Element.Earth],
@@ -144,8 +146,8 @@ public class SavvasLavaflowAbilityCard4 : SavvasLavaflowAbilityCard
 		)
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
@@ -161,7 +163,7 @@ public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
 					List<Figure> sufferDamageTargets = GameController.Instance.Map.Figures.FindAll(figure => state.Authority.EnemiesWith(figure));
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 				}
 			)
@@ -178,8 +180,8 @@ public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume([Element.Fire, Element.Earth])];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume([Element.Fire, Element.Earth])];
 }
 
 public class SavvasLavaflowAbilityCard6 : SavvasLavaflowAbilityCard
@@ -202,8 +204,8 @@ public class SavvasLavaflowAbilityCard6 : SavvasLavaflowAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Earth)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Earth)];
 }
 
 public class SavvasLavaflowAbilityCard7 : SavvasLavaflowAbilityCard
@@ -218,6 +220,6 @@ public class SavvasLavaflowAbilityCard7 : SavvasLavaflowAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 3, targets: 2))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }

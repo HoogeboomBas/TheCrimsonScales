@@ -6,17 +6,47 @@ using Newtonsoft.Json;
 public class SavedScenarioProgress
 {
 	[JsonProperty]
-	public bool Discovered { get; set; }
+	public bool Discovered { get; private set; }
 
 	[JsonProperty]
-	public bool Unlocked { get; set; }
+	public bool ShownOnMap { get; private set; }
 
 	[JsonProperty]
-	public bool Completed { get; set; }
+	public bool Completed { get; private set; }
 
 	[JsonProperty]
-	public List<int> CollectedTreasureChestNumbers { get; } = new List<int>();
+	public List<int> CollectedTreasureChestNumbers { get; private set; } = new List<int>();
 
 	[JsonProperty]
-	public Dictionary<string, object> CustomValues { get; } = new Dictionary<string, object>();
+	public Dictionary<string, object> CustomValues { get; private set; } = new Dictionary<string, object>();
+
+	public void Discover()
+	{
+		if(Discovered)
+		{
+			return;
+		}
+
+		Discovered = true;
+	}
+
+	public void ShowOnMap()
+	{
+		if(ShownOnMap)
+		{
+			return;
+		}
+
+		ShownOnMap = true;
+	}
+
+	public void Complete()
+	{
+		if(Completed)
+		{
+			return;
+		}
+
+		Completed = true;
+	}
 }

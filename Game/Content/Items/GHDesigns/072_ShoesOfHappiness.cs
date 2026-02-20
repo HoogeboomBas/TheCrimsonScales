@@ -1,5 +1,3 @@
-using Fractural.Tasks;
-
 public class ShoesOfHappiness : GHDesignsItem
 {
 	public override string Name => "Shoes of Happiness";
@@ -13,8 +11,6 @@ public class ShoesOfHappiness : GHDesignsItem
 
 	private object _subscriber;
 
-	//private int _hexMoveCount = 0;
-
 	public override void Init(Character owner)
 	{
 		_subscriber = new object();
@@ -26,48 +22,17 @@ public class ShoesOfHappiness : GHDesignsItem
 	{
 		base.Subscribe();
 
-		// ScenarioEvents.FigureTurnStartedEvent.Subscribe(this, _subscriber,
-		// 	parameters => parameters.Figure == Owner,
-		// 	async parameters =>
-		// 	{
-		// 		_hexMoveCount = 0;
-		//
-		// 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this, _subscriber,
-		// 			enteredHexParameters => enteredHexParameters.AbilityState is MoveAbility.State or PullSelfAbility.State,
-		// 			async enteredHexParameters =>
-		// 			{
-		// 				_hexMoveCount++;
-		//
-		// 				if(_hexMoveCount == 6)
-		// 				{
-		// 					await Use(async () =>
-		// 					{
-		// 						await AbilityCmd.GainXP(Owner, 1);
-		// 					});
-		// 				}
-		//
-		// 				await GDTask.CompletedTask;
-		// 			}
-		// 		);
-		//
-		// 		await GDTask.CompletedTask;
-		// 	}
-		// );
-
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this, _subscriber,
 			parameters => parameters.Figure == Owner,
 			async parameters =>
 			{
-				if(parameters.Figure.TurnMovedHexCount >= 6)
+				if(parameters.Figure.TurnMovedHexes.Count >= 6)
 				{
 					await Use(async user =>
 					{
-						await AbilityCmd.GainXP(Owner, 1);
+						await AbilityCmd.GainXP(user, 1);
 					});
 				}
-				//ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this, _subscriber);
-
-				await GDTask.CompletedTask;
 			}
 		);
 	}
@@ -76,8 +41,6 @@ public class ShoesOfHappiness : GHDesignsItem
 	{
 		base.Unsubscribe();
 
-		//ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this, _subscriber);
-		//ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this, _subscriber);
 	}
 }

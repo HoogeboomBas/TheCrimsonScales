@@ -1,0 +1,298 @@
+[gd_scene load_steps=12 format=3 uid="uid://d20kxebd41qbn"]
+
+[ext_resource type="Script" uid="uid://c7s5716lt15bd" path="res://Scripts/UnlockCharacter/UnlockCharacterView.cs" id="1_dfw8q"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="3_n5kph"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="4_do51w"]
+[ext_resource type="Texture2D" uid="uid://dencwa41ykwd6" path="res://Art/Tuckbox/Seal.png" id="6_gwn7s"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="6_ycq6m"]
+[ext_resource type="Script" uid="uid://e1u4nmwejxw5" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButton.cs" id="7_2523k"]
+[ext_resource type="PackedScene" uid="uid://godk4xmw8i43" path="res://Scenes/CharacterUnlock/Tuckbox.tscn" id="7_b7l8o"]
+[ext_resource type="Texture2D" uid="uid://cpf6pyn4qhdn3" path="res://Content/Classes/Mirefoot/Icon.svg" id="8_jooh2"]
+[ext_resource type="Texture2D" uid="uid://diddsge2c7sli" path="res://Content/Classes/Mirefoot/MatFront.png" id="9_kwl53"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="10_kwl53"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_woa5y"]
+font = ExtResource("3_n5kph")
+font_size = 120
+
+[node name="UnlockCharacterView" type="Control" node_paths=PackedStringArray("_subViewport", "_root3D", "_camera3D", "_tuckbox", "_skipButton", "_classIconSprites", "_classMat3DSprite", "_classMatContainer", "_classMatTextureRect", "_continueButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dfw8q")
+_subViewport = NodePath("UI/SubViewportContainer/SubViewport")
+_root3D = NodePath("UI/SubViewportContainer/SubViewport/3DRoot")
+_camera3D = NodePath("UI/SubViewportContainer/SubViewport/Camera3D")
+_tuckbox = NodePath("UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox")
+_skipButton = NodePath("UI/SkipButton")
+_classIconSprites = [NodePath("UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/OpenSideIcon"), NodePath("UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/CloseSideIcon")]
+_classMat3DSprite = NodePath("UI/SubViewportContainer/SubViewport/3DRoot/ClassMat3D")
+_classMatContainer = NodePath("UI/ClassMat")
+_classMatTextureRect = NodePath("UI/ClassMat/TextureRect")
+_continueButton = NodePath("UI/ContinueButton")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="UI/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -14)
+cull_mask = 1024
+current = true
+fov = 50.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="UI/SubViewportContainer/SubViewport"]
+transform = Transform3D(-1, -2.32999e-10, -1.50995e-07, 3.20426e-10, 0.999993, -0.00366518, 1.50995e-07, -0.00366518, -0.999993, 0, 0, 0)
+layers = 1024
+shadow_bias = 0.02
+shadow_opacity = 0.96
+sky_mode = 1
+
+[node name="3DRoot" type="Node3D" parent="UI/SubViewportContainer/SubViewport"]
+
+[node name="Tuckbox" parent="UI/SubViewportContainer/SubViewport/3DRoot" instance=ExtResource("7_b7l8o")]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, -4, 0)
+
+[node name="Box" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox" index="0"]
+layers = 1024
+
+[node name="Top" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box" index="0"]
+layers = 1024
+
+[node name="Flop" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top" index="0"]
+layers = 1024
+
+[node name="Floplip" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="0"]
+layers = 1024
+
+[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="0"]
+layers = 1024
+
+[node name="Seal" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="1"]
+transform = Transform3D(-0.008, -2.32941e-10, -1.31659e-09, 1.09479e-09, 0.00338095, -0.00725046, 7.67531e-10, -0.00725046, -0.00338095, -0.000472244, -0.000999999, 0.002)
+layers = 1024
+double_sided = false
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("6_gwn7s")
+
+[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="1"]
+layers = 1024
+
+[node name="OpenSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox"]
+transform = Transform3D(-0.7, -7.97987e-15, 1.05697e-07, 0, 0.7, 5.28483e-08, -1.05697e-07, 5.28483e-08, -0.7, -3.6, 1.4, -0.51)
+layers = 1024
+modulate = Color(0.0687983, 0.0687983, 0.0687983, 1)
+texture = ExtResource("8_jooh2")
+
+[node name="CloseSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.75, 0.51)
+layers = 1024
+modulate = Color(0.0687983, 0.0687983, 0.0687983, 1)
+texture = ExtResource("8_jooh2")
+
+[node name="ClassMat3D" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot"]
+transform = Transform3D(-0.483, 0, -4.22252e-08, 0, 0.483, 0, 4.22252e-08, 0, -0.483, 0, -0.5, 0)
+layers = 1024
+texture = ExtResource("9_kwl53")
+
+[node name="Header" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Header" type="Label" parent="UI/Header"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 187.0
+grow_horizontal = 2
+text = "New Class Unlocked!"
+label_settings = SubResource("LabelSettings_woa5y")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="UI/Header"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -565.0
+offset_top = 180.0
+offset_right = 565.0
+offset_bottom = 221.0
+grow_horizontal = 2
+text = "Press the envelope to continue."
+label_settings = ExtResource("4_do51w")
+horizontal_alignment = 1
+
+[node name="SkipButton" type="BaseButton" parent="UI"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("10_kwl53")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="ClassMat" type="MarginContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -862.5
+offset_top = -520.0
+offset_right = 862.5
+offset_bottom = 605.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(862.5, 562.5)
+
+[node name="TextureRect" type="TextureRect" parent="UI/ClassMat"]
+custom_minimum_size = Vector2(1725, 1125)
+layout_mode = 2
+texture = ExtResource("9_kwl53")
+expand_mode = 1
+
+[node name="BackButton" parent="UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -180.0
+offset_right = 300.0
+offset_bottom = -100.0
+grow_vertical = 0
+script = ExtResource("7_2523k")
+BetterButton = NodePath("BetterButton")
+_startActive = false
+
+[node name="Label" parent="UI/BackButton/BetterButton/Panel" index="0"]
+text = "Cancel"
+
+[node name="ContinueButton" parent="UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("7_2523k")
+BetterButton = NodePath("BetterButton")
+_startActive = false
+
+[node name="Label" parent="UI/ContinueButton/BetterButton/Panel" index="0"]
+text = "Continue"
+
+[editable path="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox"]
+[editable path="UI/BackButton"]
+[editable path="UI/ContinueButton"]

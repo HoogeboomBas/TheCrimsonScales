@@ -49,32 +49,41 @@ public class MonsterAbilityCard : IDeckCard
 		bool hasValidAbility = false;
 		if(!performer.HasCondition(Conditions.Stun))
 		{
-			foreach(Ability ability in actionState.Abilities)
+			if(actionState.Abilities.Any(ability => ability is not MoveAbility && ability is not AttackAbility))
 			{
-				if(ability is MoveAbility && !performer.HasCondition(Conditions.Immobilize))
+				hasValidAbility = true;
+			}
+			else
+			{
+				foreach(Ability ability in actionState.Abilities)
 				{
-					hasValidAbility = true;
-				}
+					if(ability is MoveAbility && !performer.HasCondition(Conditions.Immobilize))
+					{
+						hasValidAbility = true;
+						break;
+					}
 
-				if(ability is AttackAbility && !performer.HasCondition(Conditions.Disarm))
-				{
-					hasValidAbility = true;
+					if(ability is AttackAbility && !performer.HasCondition(Conditions.Disarm))
+					{
+						hasValidAbility = true;
+						break;
+					}
 				}
 			}
 		}
 
 		if(hasValidAbility)
 		{
-			foreach(MonsterAbilityCardElementConsumption elementConsumption in Model.ElementConsumptions)
+			foreach(CardElementConsumption elementConsumption in Model.ElementConsumptions)
 			{
 				await TryConsume(performer, elementConsumption.ConsumableElements);
 			}
 
-			foreach(MonsterAbilityCardElementInfusion elementInfusion in Model.ElementInfusions)
+			foreach(CardElementInfusion elementInfusion in Model.ElementInfusions)
 			{
 				if(elementInfusion.ConsumableElements == null || await TryConsume(performer, elementInfusion.ConsumableElements))
 				{
-					await Infuse(performer, elementInfusion.InfusedElement);
+					await Infuse(performer, elementInfusion.PossibleInfusedElements);
 				}
 			}
 		}
@@ -107,12 +116,17 @@ public class MonsterAbilityCard : IDeckCard
 		}
 	}
 
-	protected async GDTask Infuse(Monster performer, Element element)
+	protected async GDTask Infuse(Monster performer, IReadOnlyCollection<Element> possibleElements)
 	{
-		if(!performer.MonsterGroup.AbilityCardInfusedElements.Contains(element))
+		//TODO: Support multiple infusions for a single monster ability card
+		//if(!performer.MonsterGroup.AbilityCardInfusedElements.Contains(element))
+		if(!performer.MonsterGroup.AbilityCardInfusedElements.Any())
 		{
-			await AbilityCmd.InfuseElement(element);
-			performer.MonsterGroup.AbilityCardInfusedElements.Add(element);
+			Element? element = await AbilityCmd.InfuseElement(null, possibleElements, performer);
+			if(element.HasValue)
+			{
+				performer.MonsterGroup.AbilityCardInfusedElements.Add(element.Value);
+			}
 		}
 	}
 

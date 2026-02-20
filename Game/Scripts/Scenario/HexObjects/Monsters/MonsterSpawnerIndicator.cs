@@ -17,6 +17,7 @@ public partial class MonsterSpawnerIndicator : Node2D
 			MonsterType.Normal => NormalColor,
 			MonsterType.Elite => EliteColor,
 			MonsterType.Boss => BossColor,
+			MonsterType.Named => BossColor,
 			_ => throw new ArgumentOutOfRangeException()
 		};
 

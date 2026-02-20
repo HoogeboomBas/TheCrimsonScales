@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=3 uid="uid://y2bfrxa1ebd5"]
+
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_8mjpp"]
+[ext_resource type="Script" uid="uid://djgtdh3sw0b2d" path="res://Scripts/BetweenScenarios/Enhancer/EnhancementOptionToggleButton.cs" id="2_6yhfp"]
+[ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="2_bgynt"]
+[ext_resource type="PackedScene" uid="uid://c1bfigwknvxg6" path="res://Scenes/UI/EnhancementView.tscn" id="4_dbtcu"]
+[ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="7_ik10u"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="8_rd1jo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgynt"]
+font = ExtResource("8_rd1jo")
+font_size = 40
+
+[node name="EnhancementOptionToggleButton" node_paths=PackedStringArray("_enhancementView", "_costLabel", "_button", "_container", "_inactiveOverlay") instance=ExtResource("1_8mjpp")]
+custom_minimum_size = Vector2(250, 60)
+script = ExtResource("2_6yhfp")
+_enhancementView = NodePath("Container/BetterButton/EnhancementOption/Image/EnhancementView")
+_costLabel = NodePath("Container/BetterButton/EnhancementOption/Gold/Label")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="BetterButton" parent="Container" index="0"]
+mouse_filter = 1
+
+[node name="Outline" type="Panel" parent="Container/BetterButton" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("2_bgynt")
+
+[node name="EnhancementOption" type="Control" parent="Container/BetterButton" index="1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Image" type="MarginContainer" parent="Container/BetterButton/EnhancementOption" index="0"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -30.0
+offset_right = 70.0
+offset_bottom = 30.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EnhancementView" parent="Container/BetterButton/EnhancementOption/Image" index="0" instance=ExtResource("4_dbtcu")]
+layout_mode = 2
+
+[node name="Gold" type="HBoxContainer" parent="Container/BetterButton/EnhancementOption" index="1"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -29.5
+offset_right = -15.0
+offset_bottom = 29.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/EnhancementOption/Gold" index="0"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("7_ik10u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Container/BetterButton/EnhancementOption/Gold" index="1"]
+layout_mode = 2
+text = "200"
+label_settings = SubResource("LabelSettings_bgynt")
+
+[node name="InactiveOverlay" parent="Container/BetterButton" index="2"]
+self_modulate = Color(0, 0, 0, 0.196078)

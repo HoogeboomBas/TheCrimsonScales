@@ -3,9 +3,9 @@ using GTweensGodot.Extensions;
 
 public partial class NewCampaignStep : Control
 {
-	public virtual bool ConfirmButtonActive => false;
-
 	public bool Active { get; private set; }
+
+	public virtual bool ConfirmButtonActive => false;
 
 	public override void _Ready()
 	{

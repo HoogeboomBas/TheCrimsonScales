@@ -6,7 +6,7 @@ public class Scenario010 : ScenarioModel
 	public override string ScenePath => "res://Content/Scenarios/Scenario010.tscn";
 	public override int ScenarioNumber => 10;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<WondrousScenarioChain>();
-	//public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario017>()];
+	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario017>(), new ScenarioConnection<Scenario019>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals("Destroy at least 5 supply crates to win this scenario.");
 
@@ -64,12 +64,12 @@ public class Scenario010 : ScenarioModel
 					{
 						if(_crateKillCount < 1)
 						{
-							await AbilityCmd.InfuseElement(Element.Fire, true);
+							await AbilityCmd.InfuseElement(null, Element.Fire, immediately: true);
 						}
 
 						if(_crateKillCount < 3)
 						{
-							await AbilityCmd.InfuseElement(Element.Air, true);
+							await AbilityCmd.InfuseElement(null, Element.Air, immediately: true);
 						}
 					}
 				}
@@ -90,12 +90,12 @@ public class Scenario010 : ScenarioModel
 					{
 						if(_crateKillCount < 2)
 						{
-							await AbilityCmd.InfuseElement(Element.Ice, true);
+							await AbilityCmd.InfuseElement(null, Element.Ice, immediately: true);
 						}
 
 						if(_crateKillCount < 4)
 						{
-							await AbilityCmd.InfuseElement(Element.Earth, true);
+							await AbilityCmd.InfuseElement(null, Element.Earth, immediately: true);
 						}
 					}
 				}
@@ -149,7 +149,7 @@ public class Scenario010 : ScenarioModel
 						await actionState.Perform();
 					}
 				}
-			}
+			}, order: 99
 		);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
@@ -220,7 +220,7 @@ public class Scenario010 : ScenarioModel
 			      At the end of every even round, if there is at least 1 Lurker present, {Icons.Inline(Icons.GetElement(Element.Ice))} and {Icons.Inline(Icons.GetElement(Element.Earth))} are infused.
 
 			      During their turn, Black Imps can consume {Icons.Inline(Icons.GetElement(Element.Fire))} to add +1 {Icons.Inline(Icons.Attack)} to all attack abilities for the round and consume {Icons.Inline(Icons.GetElement(Element.Air))} to add +2 {Icons.Inline(Icons.Range)} to their ranged abilities for the round.
-			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Ice))} to add +1 {Icons.Inline(Icons.Attack)} to all attack abilities for the round and consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, Self”.
+			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Ice))} to add +1 {Icons.Inline(Icons.Attack)} to all attack abilities for the round and consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, self”.
 
 			      As you destroy supply crates, {Icons.Inline(Icons.GetElement(Element.Fire))}, {Icons.Inline(Icons.GetElement(Element.Ice))}, {Icons.Inline(Icons.GetElement(Element.Air))} and {Icons.Inline(Icons.GetElement(Element.Earth))} will no longer be consumed or infused as per the special rules above (in that order).
 			      """,
@@ -231,7 +231,7 @@ public class Scenario010 : ScenarioModel
 			      At the end of every even round, if there is at least 1 Lurker present, {Icons.Inline(Icons.GetElement(Element.Ice))} and {Icons.Inline(Icons.GetElement(Element.Earth))} are infused.
 
 			      During their turn, Black Imps can consume {Icons.Inline(Icons.GetElement(Element.Air))} to add +2 {Icons.Inline(Icons.Range)} to their ranged abilities for the round.
-			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Ice))} to add +1 {Icons.Inline(Icons.Attack)} to all attack abilities for the round and consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, Self”.
+			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Ice))} to add +1 {Icons.Inline(Icons.Attack)} to all attack abilities for the round and consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, self”.
 
 			      As you destroy more supply crates, {Icons.Inline(Icons.GetElement(Element.Ice))}, {Icons.Inline(Icons.GetElement(Element.Air))} and {Icons.Inline(Icons.GetElement(Element.Earth))} will no longer be consumed or infused as per the special rules above (in that order).
 			      """,
@@ -242,7 +242,7 @@ public class Scenario010 : ScenarioModel
 			      At the end of every even round, if there is at least 1 Lurker present, {Icons.Inline(Icons.GetElement(Element.Earth))} is infused.
 
 			      During their turn, Black Imps can consume {Icons.Inline(Icons.GetElement(Element.Air))} to add +2 {Icons.Inline(Icons.Range)} to their ranged abilities for the round.
-			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, Self”.
+			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, self”.
 
 			      As you destroy more supply crates, {Icons.Inline(Icons.GetElement(Element.Air))} and {Icons.Inline(Icons.GetElement(Element.Earth))} will no longer be consumed or infused as per the special rules above (in that order).
 			      """,
@@ -251,7 +251,7 @@ public class Scenario010 : ScenarioModel
 
 			      At the end of every even round, if there is at least 1 Lurker present, {Icons.Inline(Icons.GetElement(Element.Earth))} is infused.
 
-			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, Self”.
+			      During their turn, Lurkers can consume {Icons.Inline(Icons.GetElement(Element.Earth))} to perform “{Icons.Inline(Icons.Heal)} 1, self”.
 
 			      As you destroy more supply crates, {Icons.Inline(Icons.GetElement(Element.Earth))} will no longer be consumed or infused as per the special rules above.
 			      """,

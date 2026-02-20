@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, LadderAssault.CardBottom>
 {
@@ -10,20 +11,20 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5020886f, 0.22517207f)))
 				.WithPush(2)
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						parameters =>
-							parameters.AbilityState == state &&
+							parameters.PotentialAbilityState == state &&
 							parameters.Hex.HasHexObjectOfType<Ladder>(),
 						async parameters =>
 						{
-							await AbilityCmd.SufferDamage(null, parameters.Figure, 2);
+							await AbilityCmd.SufferDamage(state, parameters.Figure, 2);
 							await AbilityCmd.GainXP(state.Performer, 1);
 						}
 					);
@@ -43,10 +44,10 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6176377f, 0.67424977f)))
 				.WithOnAbilityStarted(async abilityState =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(abilityState, this,
@@ -69,7 +70,7 @@ public class LadderAssault : FireKnightLevelUpCardModel<LadderAssault.CardTop, L
 					);
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(abilityState, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == abilityState.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == abilityState.Performer,
 						async applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);

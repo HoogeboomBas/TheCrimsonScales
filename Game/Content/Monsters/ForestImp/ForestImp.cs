@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ForestImp : MonsterModel
+public class ForestImp : Imp
 {
 	public override MonsterStats[] NormalLevelStats =>
 	[
@@ -143,6 +143,4 @@ public class ForestImp : MonsterModel
 	public override string AssetPath => "res://Content/Monsters/ForestImp";
 
 	public override int MaxStandeeCount => 10;
-
-	public override IEnumerable<MonsterAbilityCardModel> Deck => ImpAbilityCard.Deck;
 }

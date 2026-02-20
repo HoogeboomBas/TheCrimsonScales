@@ -6,7 +6,7 @@ using GTweensGodot.Extensions;
 public partial class CardSelectionCardPreview : Control
 {
 	[Export]
-	private CardView _cardView;
+	private AbilityCardView _cardView;
 
 	private Control _parentContainer;
 
@@ -27,7 +27,8 @@ public partial class CardSelectionCardPreview : Control
 	public void Focus(CardSelectionCard card)
 	{
 		_focus = card;
-		_cardView.SetCard(card.SavedAbilityCard.Model);
+
+		_cardView.SetCard(card.SavedAbilityCard);
 
 		_originOffset = card.GlobalPosition.X > GlobalPosition.X ? 100f : -100f;
 

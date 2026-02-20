@@ -7,7 +7,7 @@ public abstract partial class BetweenScenariosAction : Control
 	[Export]
 	public BetweenScenariosActionButton Button { get; private set; }
 
-	private bool _transitioning;
+	protected bool _transitioning;
 
 	public bool Active { get; private set; }
 
@@ -23,33 +23,45 @@ public abstract partial class BetweenScenariosAction : Control
 		SetVisible(false);
 	}
 
-	public void SetActive(bool active)
+	public void SetActive(bool active, BetweenScenariosAction previousActiveAction)
 	{
-		Active = active;
+	}
 
-		Button.SetSelected(Active);
+	public void Activate(BetweenScenariosAction previousActiveAction)
+	{
+		Active = true;
+
+		Button.SetSelected(true);
 
 		_transitioning = true;
 		GTweenSequenceBuilder sequenceBuilder = GTweenSequenceBuilder.New();
-		if(Active)
-		{
-			AnimateIn(sequenceBuilder);
-		}
-		else
-		{
-			AnimateOut(sequenceBuilder);
-		}
+
+		AnimateIn(sequenceBuilder, previousActiveAction);
 
 		sequenceBuilder.AppendCallback(() => _transitioning = false);
-
-		sequenceBuilder.AppendCallback(Active ? AfterAnimateIn : AfterAnimateOut);
-
+		sequenceBuilder.AppendCallback(AfterAnimateIn);
 		sequenceBuilder.Build().Play();
 
 		BetweenScenariosController.Instance.CharacterPortraitManager.SetSelectionMode(SelectCharacter);
 	}
 
-	protected virtual void AnimateIn(GTweenSequenceBuilder sequenceBuilder)
+	public void Deactivate()
+	{
+		Active = false;
+
+		Button.SetSelected(false);
+
+		_transitioning = true;
+		GTweenSequenceBuilder sequenceBuilder = GTweenSequenceBuilder.New();
+
+		AnimateOut(sequenceBuilder);
+
+		sequenceBuilder.AppendCallback(() => _transitioning = false);
+		sequenceBuilder.AppendCallback(AfterAnimateOut);
+		sequenceBuilder.Build().Play();
+	}
+
+	protected virtual void AnimateIn(GTweenSequenceBuilder sequenceBuilder, BetweenScenariosAction previousActiveAction)
 	{
 		SetVisible(true);
 	}

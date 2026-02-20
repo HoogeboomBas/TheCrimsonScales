@@ -2,18 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_htm6e"]
 [ext_resource type="Script" uid="uid://bh5qdrskf68ag" path="res://Content/Classes/FireKnight/FireKnight.cs" id="2_jlm7r"]
-[ext_resource type="Texture2D" uid="uid://ekqfid06a7iv" path="res://Content/Classes/FireKnight/Artwork.jpg" id="3_jlm7r"]
+[ext_resource type="Texture2D" uid="uid://d2t7ftvfh4hv2" path="res://Content/Classes/FireKnight/MapIcon.tres" id="3_jlm7r"]
 [ext_resource type="Texture2D" uid="uid://bcquyl5a67yya" path="res://Content/Classes/FireKnight/Animation.jpg" id="4_jlm7r"]
 
 [node name="FireKnight" instance=ExtResource("1_htm6e")]
 script = ExtResource("2_jlm7r")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="1"]
 self_modulate = Color(0.87451, 0.223529, 0.121569, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]
-position = Vector2(-2.5, 30)
-scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_jlm7r")
 
 [node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]

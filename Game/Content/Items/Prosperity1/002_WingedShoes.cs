@@ -5,7 +5,7 @@ public class WingedShoes : Prosperity1Item
 	public override string Name => "Winged Shoes";
 	public override int ItemNumber => 2;
 	public override int ShopCount => 2;
-	public override int Cost => 20;
+	public override int Cost => 15;
 	public override ItemType ItemType => ItemType.Feet;
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
 

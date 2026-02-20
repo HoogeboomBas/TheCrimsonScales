@@ -12,6 +12,9 @@ public class Scenario007 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals("Find all three Golden Eggs to win this scenario.");
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<CaveBear>(), ModelDB.Monster<ForestImp>(), ModelDB.Monster<RendingDrake>(), ModelDB.Monster<SpittingDrake>()];
+
 	public override string BGSPath => "res://Audio/BGS/Forest Day.ogg";
 
 	private readonly List<(Water, int)> _waterTiles = new List<(Water, int)>();
@@ -22,7 +25,7 @@ public class Scenario007 : ScenarioModel
 		await base.StartAfterFirstRoomRevealed();
 
 		UpdateScenarioText(
-			$"Once per round, when a character ends their turn on a water tile marked {Icons.Marker(Marker.Type.a)}, " +
+			$"Once per round, when a character ends their turn on a water tile marked {Icons.InlineMarker(Marker.Type.a)}, " +
 			"the water tile is removed and various things might happen, such as monsters spawning and conditions being applied to the character." +
 			"\nThe water tiles cannot be removed in any other way.");
 
@@ -88,20 +91,13 @@ public class Scenario007 : ScenarioModel
 				{
 					if(tokenNumber % 2 == 0)
 					{
-						for(int i = character.Conditions.Count - 1; i >= 0; i--)
-						{
-							ConditionModel condition = character.Conditions[i];
-							if(condition.IsNegative)
-							{
-								await AbilityCmd.RemoveCondition(character, condition);
-							}
-						}
+						await AbilityCmd.RemoveAllNegativeConditions(character);
 
 						await AbilityCmd.GainXP(character, 5);
 					}
 					else
 					{
-						await AbilityCmd.SufferDamage(null, character, HazardousTerrain.DamageAmount);
+						await AbilityCmd.SufferDamage(character, HazardousTerrain.DamageAmount, character);
 					}
 
 					break;
@@ -291,7 +287,10 @@ public class Scenario007 : ScenarioModel
 				if(character.Items.Any(item => item.ItemState == ItemState.Spent))
 				{
 					ItemModel item = await AbilityCmd.SelectItem(character, ItemState.Spent, hintText: "Select an item to refresh");
-					await AbilityCmd.RefreshItem(item);
+					if(item != null)
+					{
+						await AbilityCmd.RefreshItem(item);
+					}
 				}
 
 				switch(GameController.Instance.CharacterManager.Characters.Count)
@@ -423,7 +422,7 @@ public class Scenario007 : ScenarioModel
 			}
 			case 8: // 9C
 			{
-				await AbilityCmd.InfuseWildElement(character);
+				await AbilityCmd.InfuseWildElement(null, character);
 
 				switch(GameController.Instance.CharacterManager.Characters.Count)
 				{
@@ -515,11 +514,11 @@ public class Scenario007 : ScenarioModel
 			{
 				foreach(Character otherCharacter in GameController.Instance.CharacterManager.Characters)
 				{
-					await AbilityCmd.SufferDamage(null, otherCharacter, 2);
+					await AbilityCmd.SufferDamage(otherCharacter, 2, otherCharacter);
 
 					foreach(Summon summon in otherCharacter.Summons)
 					{
-						await AbilityCmd.SufferDamage(null, summon, 2);
+						await AbilityCmd.SufferDamage(summon, 2, summon);
 					}
 				}
 

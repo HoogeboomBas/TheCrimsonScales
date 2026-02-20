@@ -7,10 +7,12 @@ using Fractural.Tasks;
 /// </summary>
 public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 {
-	public class State : ActiveAbilityState
+	public class State : ActiveAbilityState, IConditionsAbilityState
 	{
 		public int RetaliateValue { get; set; }
 		public int Range { get; set; }
+
+		public List<ConditionModel> ConditionModels { get; } = new List<ConditionModel>();
 
 		public void AdjustRetaliateValue(int amount)
 		{
@@ -21,12 +23,17 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		{
 			Range += amount;
 		}
+
+		public void AbilityAddCondition(ConditionModel conditionModel)
+		{
+			ConditionModels.Add(conditionModel);
+		}
 	}
 
 	private Func<ScenarioEvents.Retaliate.Parameters, bool> _customCanApply;
 	private bool _customCanApplyReplaceFully;
 
-	public int RetaliateValue { get; private set; }
+	public DynamicInt<State> RetaliateValue { get; private set; }
 	public int Range { get; private set; }
 
 	/// <summary>
@@ -44,12 +51,13 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 
 		public interface IRetaliateValueStep
 		{
-			TBuilder WithRetaliateValue(int retaliateValue);
+			TBuilder WithRetaliateValue(DynamicInt<State> retaliateValue, params RetaliateEnhancementMark[] enhancementMarks);
 		}
 
-		public TBuilder WithRetaliateValue(int retaliateValue)
+		public TBuilder WithRetaliateValue(DynamicInt<State> retaliateValue, params RetaliateEnhancementMark[] enhancementMarks)
 		{
 			Obj.RetaliateValue = retaliateValue;
+			AddEnhancements(enhancementMarks);
 			return (TBuilder)this;
 		}
 
@@ -103,7 +111,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	{
 		base.InitializeState(abilityState);
 
-		abilityState.RetaliateValue = RetaliateValue;
+		abilityState.RetaliateValue = RetaliateValue.GetValue(abilityState);
 		abilityState.Range = Range;
 	}
 
@@ -116,49 +124,19 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	{
 		await base.Activate(abilityState);
 
-		ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(abilityState, this,
-			canApplyParameters =>
-				canApplyParameters.Figure == abilityState.Performer,
-			applyParameters =>
-			{
-				applyParameters.AddRetaliate(abilityState.RetaliateValue, abilityState.Range);
-			}
-		);
+		await AbilityCmd.AddRetaliate(abilityState.Performer, this, abilityState.RetaliateValue, Range, _customCanApply, _customCanApplyReplaceFully);
 
-		ScenarioEvents.RetaliateEvent.Subscribe(abilityState, this,
-			canApplyParameters =>
-			{
-				bool canApply =
-					canApplyParameters.RetaliatingFigure == abilityState.Performer &&
-					RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, abilityState.Performer.Hex) <= abilityState.Range;
-
-				if(_customCanApply != null)
-				{
-					if(_customCanApplyReplaceFully)
-					{
-						return _customCanApply(canApplyParameters);
-					}
-
-					canApply = canApply && _customCanApply(canApplyParameters);
-				}
-
-				return canApply;
-			},
-			async applyParameters =>
-			{
-				applyParameters.AdjustRetaliate(abilityState.RetaliateValue);
-
-				await GDTask.CompletedTask;
-			}
-		);
+		foreach(ConditionModel conditionModel in abilityState.ConditionModels)
+		{
+			await AbilityCmd.AddCondition(abilityState, abilityState.Performer, conditionModel);
+		}
 	}
 
 	protected override async GDTask Deactivate(State abilityState)
 	{
 		await base.Deactivate(abilityState);
 
-		ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(abilityState, this);
-		ScenarioEvents.RetaliateEvent.Unsubscribe(abilityState, this);
+		AbilityCmd.RemoveRetaliate(abilityState.Performer, this);
 	}
 
 	protected override string DefaultHintText(State abilityState)

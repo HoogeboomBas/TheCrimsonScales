@@ -1,10 +1,29 @@
-﻿public abstract class FigureTrait
+﻿using Fractural.Tasks;
+
+public abstract class FigureTrait
 {
-	public virtual void Activate(Figure figure)
+	protected Figure _figure;
+
+	public FigureTrait ToMutable()
 	{
+		FigureTrait abstractModel = (FigureTrait)MemberwiseClone();
+		abstractModel.DeepCloneFields();
+		return abstractModel;
 	}
 
-	public virtual void Deactivate(Figure figure)
+	public virtual async GDTask Activate(Figure figure)
+	{
+		_figure = figure;
+
+		await GDTask.CompletedTask;
+	}
+
+	public virtual async GDTask Deactivate(Figure figure)
+	{
+		await GDTask.CompletedTask;
+	}
+
+	protected virtual void DeepCloneFields()
 	{
 	}
 }

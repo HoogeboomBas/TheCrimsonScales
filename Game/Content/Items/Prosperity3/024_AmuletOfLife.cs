@@ -3,7 +3,7 @@ public class AmuletOfLife : Prosperity3Item
 	public override string Name => "Amulet of Life";
 	public override int ItemNumber => 24;
 	public override int ShopCount => 2;
-	public override int Cost => 20;
+	public override int Cost => 15;
 	public override ItemType ItemType => ItemType.Head;
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
 
@@ -19,7 +19,7 @@ public class AmuletOfLife : Prosperity3Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
+					ActionState actionState = new ActionState(user, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
 					await actionState.Perform();
 				});
 			}

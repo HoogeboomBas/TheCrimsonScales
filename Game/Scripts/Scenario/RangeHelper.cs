@@ -156,6 +156,20 @@ public static class RangeHelper
 		}
 	}
 
+	public static IEnumerable<Figure> GetFiguresInRange(HexObject hexObject, int range, bool includeOrigin = true, bool requiresLineOfSight = true)
+	{
+		foreach(Hex objectHex in hexObject.Hexes)
+		{
+			foreach(Hex hex in GetHexesInRange(objectHex, range, includeOrigin, requiresLineOfSight))
+			{
+				foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+				{
+					yield return figure;
+				}
+			}
+		}
+	}
+
 	// public int FindRange(Hex origin, Hex destination, bool requiresLineOfSight)
 	// {
 	// 	_closedList.Clear();

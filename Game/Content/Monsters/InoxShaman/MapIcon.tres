@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dht3lx4t1n4cq"]
+
+[ext_resource type="Texture2D" uid="uid://tm5vt0vjv8kx" path="res://Content/Monsters/InoxShaman/Icon.jpg" id="1_6effg"]
+
+[resource]
+atlas = ExtResource("1_6effg")
+region = Rect2(65, 65, 370, 370)

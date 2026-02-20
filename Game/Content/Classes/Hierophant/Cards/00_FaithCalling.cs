@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalling.CardBottom>
 {
@@ -10,7 +11,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
 				.WithGetAbilities(state =>
@@ -19,7 +20,7 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 					]
 				)
 				.WithTarget(Target.Allies | Target.TargetAll)
-				.WithRange(2)
+				.WithRange(2, new RangeSquare(this, new Vector2(0.7505667f, 0.14563331f)))
 				.Build()
 			),
 
@@ -41,16 +42,16 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 			))
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
-		protected override bool Round => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
+		public override bool Round => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.50844944f, 0.71978086f)))
 				.WithRange(3)
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(

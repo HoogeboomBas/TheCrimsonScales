@@ -2,13 +2,14 @@
 
 public class ShieldBeforeTurnTrait(int shield) : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
-			parameters => parameters.Add(new FigureInfoTextExtraEffect.Parameters($"This figure gains {Icons.Inline(Icons.Shield)}{shield} before its turn."))
+			parameters => parameters.Add(
+				new InfoTextExtraEffect.Parameters($"This figure gains {Icons.Inline(Icons.Shield)}{shield} before its turn."))
 		);
 
 		ScenarioEvents.RoundStartBeforeCardSelectionEvent.Subscribe(figure, this,
@@ -64,9 +65,9 @@ public class ShieldBeforeTurnTrait(int shield) : FigureTrait
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(figure, this);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(figure, this);

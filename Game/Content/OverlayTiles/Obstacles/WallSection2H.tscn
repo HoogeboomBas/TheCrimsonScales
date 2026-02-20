@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbasi5p85ekrb"]
+
+[ext_resource type="PackedScene" uid="uid://c2tf1larqvhla" path="res://Scenes/Scenario/OverlayTiles/Obstacle2H.tscn" id="1_j1xop"]
+[ext_resource type="Texture2D" uid="uid://d3l77n6phxpoj" path="res://Art/OverlayTiles/Wall Section - Dungeon 2h.png" id="2_j1xop"]
+
+[node name="WallSection2H" instance=ExtResource("1_j1xop")]
+_stepType = 1
+
+[node name="Sprite" parent="." index="2"]
+texture = ExtResource("2_j1xop")
+
+[node name="Hex2" parent="." index="5"]
+position = Vector2(218.238, 0)

@@ -22,7 +22,7 @@ public class OrbOfVitality : CS1Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
+					ActionState actionState = new ActionState(user, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
 					await actionState.Perform();
 				});
 			},

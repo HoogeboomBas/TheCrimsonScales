@@ -111,9 +111,15 @@ public partial class Map : Node2D
 		return (hex != null && (!checkRevealed || hex.Revealed)) ? hex : null;
 	}
 
-	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon, int? monsterLevel = null)
+	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon,
+		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
 	{
-		MonsterGroup monsterGroup = GetMonsterGroup(monsterModel);
+		MonsterGroup monsterGroup = MonsterGroups.Find(group => group.MonsterModel == monsterModel);
+		if(monsterGroup == null)
+		{
+			GameController.Instance.Map.AddMonsterGroup(monsterModel);
+			monsterGroup = MonsterGroups.First(group => group.MonsterModel == monsterModel);
+		}
 
 		if(monsterType != MonsterType.None && monsterGroup.TryGetAvailableStandeeNumber(out int standeeNumber))
 		{
@@ -122,7 +128,7 @@ public partial class Map : Node2D
 			AddChild(monsterHexObject, true);
 			monsterHexObject.SetMonsterModel(monsterModel);
 			await monsterHexObject.Init(hex);
-			monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon, monsterLevel);
+			await monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon, monsterLevel, alignment, enemies);
 			return monsterHexObject;
 		}
 
@@ -169,6 +175,11 @@ public partial class Map : Node2D
 		return null;
 	}
 
+	public List<Marker> GetMarkers(Marker.Type markerType)
+	{
+		return Markers.Where(marker => marker.MarkerType == markerType).ToList();
+	}
+
 	public static Vector2I GetNeighbourCoords(Vector2I coords, int direction)
 	{
 		return coords + NeighbourOffsets[direction];
@@ -213,6 +224,13 @@ public partial class Map : Node2D
 		return QRSCoordsToQR(tempCoords);
 	}
 
+	public static Vector2I MirrorCoords(Vector2I coords)
+	{
+		Vector3I tempCoords = QRCoordsToQRS(coords);
+		tempCoords = new Vector3I(tempCoords.Z, tempCoords.Y, tempCoords.X);
+		return QRSCoordsToQR(tempCoords);
+	}
+
 	private static Vector3I QRCoordsToQRS(Vector2I coords)
 	{
 		return new Vector3I(coords.X, coords.Y, -coords.X - coords.Y);
@@ -223,15 +241,27 @@ public partial class Map : Node2D
 		return new Vector2I(coords.X, coords.Y);
 	}
 
-	private MonsterGroup GetMonsterGroup(MonsterModel monsterModel)
+	public void AddMonsterGroup(MonsterModel monsterModel)
 	{
-		MonsterGroup group = MonsterGroups.FirstOrDefault(group => group.MonsterModel == monsterModel);
-		if(group == null)
+		bool extensionGroup = false;
+		if(MonsterGroups.Any(group => group.MonsterModel == monsterModel))
 		{
-			group = new MonsterGroup(monsterModel, MonsterGroups.Count);
-			MonsterGroups.Add(group);
+			return;
 		}
 
-		return group;
+		if(monsterModel.ParentMonsterModel != null)
+		{
+			AddMonsterGroup(monsterModel.ParentMonsterModel);
+			extensionGroup = true;
+		}
+
+		MonsterAbilityCardDeck deckIsAlreadyInUseByAGroup = MonsterGroups
+			.Where(monsterGroup => monsterGroup.MonsterModel.Deck == monsterModel.Deck)
+			.Select(group => group.MonsterAbilityCardDeck)
+			.FirstOrDefault();
+		MonsterGroup parentMonsterGroup = MonsterGroups.FirstOrDefault(monsterGroup => monsterGroup.MonsterModel == monsterModel.ParentMonsterModel);
+		MonsterGroup group = new MonsterGroup(monsterModel, parentMonsterGroup?.GroupIndex ?? MonsterGroups.Count, deckIsAlreadyInUseByAGroup,
+			parentMonsterGroup, extensionGroup);
+		MonsterGroups.Add(group);
 	}
 }

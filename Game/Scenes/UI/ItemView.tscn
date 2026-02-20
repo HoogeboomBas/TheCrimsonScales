@@ -1,0 +1,163 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmixj6gefxlit"]
+
+[ext_resource type="Texture2D" uid="uid://sq1077vshk5a" path="res://Content/Items/ItemExample.tres" id="1_imbgr"]
+[ext_resource type="Script" uid="uid://dpkrgi18thmnd" path="res://Scripts/UI/ItemView.cs" id="1_keb7s"]
+[ext_resource type="PackedScene" uid="uid://ccpjqijfvbhvn" path="res://Scenes/Scenario/UI/ItemViewCharacterToken.tscn" id="2_5m6ac"]
+[ext_resource type="Material" uid="uid://bgdcydtsmmrb" path="res://Materials/TintGrayscale.tres" id="2_nrwrn"]
+[ext_resource type="Texture2D" uid="uid://6elyxd3p8fml" path="res://Art/Other/ItemCoinNoShadow.png" id="5_gxl1g"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="6_aqyqe"]
+[ext_resource type="Texture2D" uid="uid://dhgbmm4g83lqe" path="res://Art/Other/ItemFront.png" id="7_aqyqe"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="8_vb1g8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keb7s"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_vb1g8"]
+font = ExtResource("6_aqyqe")
+font_size = 63
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.52549)
+
+[sub_resource type="LabelSettings" id="LabelSettings_246vr"]
+font = ExtResource("8_vb1g8")
+font_size = 20
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ItemView" type="Control" node_paths=PackedStringArray("_container", "TextureRect", "_costLabel", "_itemCountLabel", "_characterTokenParent", "_maxUseCountTokenParent", "TextureRects")]
+custom_minimum_size = Vector2(180, 275.4)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 550.8
+mouse_filter = 2
+script = ExtResource("1_keb7s")
+_container = NodePath("Container")
+TextureRect = NodePath("Container/Mask/TextureRect")
+_costLabel = NodePath("Container/Mask/Coin/CostLabel")
+_itemCountLabel = NodePath("Container/ItemCountMask/ItemCountLabel")
+_characterTokenScene = ExtResource("2_5m6ac")
+_characterTokenParent = NodePath(".")
+_maxUseCountTokenParent = NodePath("Container/MaxUseTokens")
+TextureRects = [NodePath("Container/Mask/TextureRect"), NodePath("Container/Mask/Coin"), NodePath("Container/ItemCountMask/TextureRect")]
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 550.8
+mouse_filter = 2
+
+[node name="Mask" type="Panel" parent="Container"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
+
+[node name="TextureRect" type="TextureRect" parent="Container/Mask"]
+material = ExtResource("2_nrwrn")
+instance_shader_parameters/grayscaleFactor = 0.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_imbgr")
+expand_mode = 1
+
+[node name="Coin" type="TextureRect" parent="Container/Mask"]
+material = ExtResource("2_nrwrn")
+layout_mode = 0
+offset_left = 255.0
+offset_top = 230.0
+offset_right = 357.0
+offset_bottom = 332.0
+mouse_filter = 2
+texture = ExtResource("5_gxl1g")
+expand_mode = 1
+
+[node name="CostLabel" type="Label" parent="Container/Mask/Coin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 2.0
+offset_right = -1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "20"
+label_settings = SubResource("LabelSettings_vb1g8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemCountMask" type="Panel" parent="Container"]
+clip_children = 1
+layout_mode = 1
+offset_left = 20.0
+offset_top = 287.0
+offset_right = 66.0
+offset_bottom = 309.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
+
+[node name="TextureRect" type="TextureRect" parent="Container/ItemCountMask"]
+material = ExtResource("2_nrwrn")
+instance_shader_parameters/grayscaleFactor = 0.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -284.0
+offset_right = 369.0
+offset_bottom = 314.6
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+pivot_offset = Vector2(90, 137.7)
+mouse_filter = 2
+texture = ExtResource("7_aqyqe")
+expand_mode = 1
+
+[node name="ItemCountLabel" type="Label" parent="Container/ItemCountMask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -14.5
+offset_right = 16.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1/1"
+label_settings = SubResource("LabelSettings_246vr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MaxUseTokens" type="HBoxContainer" parent="Container"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 210.0
+offset_bottom = 290.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1

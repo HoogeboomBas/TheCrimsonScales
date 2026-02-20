@@ -11,6 +11,8 @@ public partial class EffectSelectionView : Control
 
 	private EffectCollection _effectCollection;
 
+	public int EffectCount => _effects.Count;
+
 	private event Action<Effect> EffectSelectedEvent;
 
 	public void Open(EffectCollection effectCollection, Action<Effect> onEffectSelected)

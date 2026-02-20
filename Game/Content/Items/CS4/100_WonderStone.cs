@@ -2,7 +2,7 @@ public class WonderStone : CS4Item
 {
 	public override string Name => "Wonder Stone";
 	public override int ItemNumber => 100;
-	public override int ShopCount => 2;
+	public override int ShopCount => 1;
 	public override int Cost => 40;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
@@ -20,7 +20,7 @@ public class WonderStone : CS4Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseWildElement(Owner);
+					await AbilityCmd.InfuseWildElement(null, Owner);
 				});
 			},
 			canApplyMultipleTimesDuringAbility: true

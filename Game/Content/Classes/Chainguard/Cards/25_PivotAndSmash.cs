@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, PivotAndSmash.CardBottom>
 {
@@ -11,7 +12,7 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SwingAbility.Builder()
 				.WithSwing(4)
@@ -19,51 +20,45 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 				.Build()),
 
 			new AbilityCardAbility(OtherTargetedAbility.Builder()
-				.WithCustomGetTargets((state, figures) => 
+				.WithCustomGetTargets((state, figures) =>
 				{
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
 
-					IEnumerable<Figure> figuresPassedThrough = swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
+					IEnumerable<Figure> figuresPassedThrough =
+						swingState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
 
 					figures.AddRange(figuresPassedThrough.Where(figure => figure.EnemiesWith(state.Performer) && figure != swingState.Target));
 				})
 				.WithTarget(Target.Enemies)
 				.WithOnAfterTargetConfirmed(async (state, figure) =>
 				{
-					await AbilityCmd.SufferDamage(null, figure, 2);
+					await AbilityCmd.SufferDamage(state, figure, 2);
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(5)
-				.WithCustomGetTargets((state, figures) => 
+				.WithDamage(5, new AttackDiamond(this, new Vector2(0.3839874f, 0.41022947f)))
+				.WithCustomGetTargets((state, figures) =>
 				{
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
 
 					figures.Add(swingState.Target);
 				})
 				.WithTarget(Target.Enemies)
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-
-					return state.ActionState.GetAbilityState<SwingAbility.State>(0).Performed;
-				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).WithMoveType(MoveType.Jump).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.51195f, 0.69133186f)))
+				.WithMoveType(MoveType.Jump)
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Chainguard.Shackle)
@@ -85,9 +80,9 @@ public class PivotAndSmash : ChainguardLevelUpCardModel<PivotAndSmash.CardTop, P
 
 					foreach(Figure figure in map.Figures)
 					{
-						if(figure.EnemiesWith(state.Performer) && 
-							figure.HasCondition(Chainguard.Shackle) && 
-							map.HasLineOfSight(figure.Hex, state.Performer.Hex))
+						if(figure.EnemiesWith(state.Performer) &&
+						   figure.HasCondition(Chainguard.Shackle) &&
+						   map.HasLineOfSight(figure.Hex, state.Performer.Hex))
 						{
 							figures.Add(figure);
 						}

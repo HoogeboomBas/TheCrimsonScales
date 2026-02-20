@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.CardBottom>
 {
@@ -10,9 +11,12 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(1).Build()),
+			new AbilityCardAbility(RetaliateAbility.Builder()
+				.WithRetaliateValue(1, new RetaliateDiamondPlus(this, new Vector2(0.6193324f, 0.22017238f)))
+				.Build()),
+
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
@@ -36,19 +40,19 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ShieldAbility.Builder()
-				.WithShieldValue(2)
+				.WithShieldValue(2, new ShieldDiamondPlus(this, new Vector2(0.6174878f, 0.7124995f)))
 				.WithRequiredRangeType(RangeType.Melee)
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

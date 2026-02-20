@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c8tg7vd242b32" path="res://Scenes/Scenario/UI/EffectButtons/_EffectButton.tscn" id="1_tq846"]
 [ext_resource type="Script" uid="uid://vi8j5xkjv0ob" path="res://Scripts/Scenario/UI/EffectSelectionView/ItemEffectButton.cs" id="2_tq846"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="3_tq846"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="3_tq846"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_m88h6"]
 [ext_resource type="Texture2D" uid="uid://cpf6pyn4qhdn3" path="res://Content/Classes/Mirefoot/Icon.svg" id="5_5l67n"]
 
@@ -36,8 +36,14 @@ offset_bottom = 210.86
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Mask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView" index="0"]
+[node name="Container" parent="BetterButton/Panel/MarginContainer/Mask/ItemView" index="0"]
+scale = Vector2(0.45, 0.45)
+
+[node name="Mask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="0"]
 clip_children = 0
+
+[node name="ItemCountMask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="1"]
+visible = false
 
 [node name="Icon" type="Control" parent="BetterButton/Panel/MarginContainer/Mask" index="1"]
 layout_mode = 1

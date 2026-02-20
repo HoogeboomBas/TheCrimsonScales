@@ -38,8 +38,8 @@ public class FrostDemonAbilityCard0 : FrostDemonAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class FrostDemonAbilityCard1 : FrostDemonAbilityCard
@@ -74,7 +74,8 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 2, duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 2, duringAttackSubscriptions:
+		[
 			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
 				applyFunction: async parameters =>
 				{
@@ -87,8 +88,8 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class FrostDemonAbilityCard4 : FrostDemonAbilityCard
@@ -107,8 +108,8 @@ public class FrostDemonAbilityCard4 : FrostDemonAbilityCard
 		])))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class FrostDemonAbilityCard5 : FrostDemonAbilityCard
@@ -127,8 +128,8 @@ public class FrostDemonAbilityCard5 : FrostDemonAbilityCard
 		])))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class FrostDemonAbilityCard6 : FrostDemonAbilityCard
@@ -142,8 +143,8 @@ public class FrostDemonAbilityCard6 : FrostDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1, pierce: 3)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Ice)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Ice)];
 }
 
 public class FrostDemonAbilityCard7 : FrostDemonAbilityCard
@@ -158,12 +159,12 @@ public class FrostDemonAbilityCard7 : FrostDemonAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Fire]))
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }

@@ -10,20 +10,20 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullAbility.Builder()
 				.WithPull(3)
 				.WithRange(4)
 				.WithConditions(Chainguard.Shackle)
-				.WithOnAbilityStarted(async state => 
+				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Authority == state.Performer 
-											&& canApplyParameters.Figure == state.Target,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Authority == state.Performer
+						                      && canApplyParameters.Figure == state.Target,
 						async applyParameters =>
 						{
-							await AbilityCmd.SufferDamage(null, state.Target, 3);
+							await AbilityCmd.SufferDamage(state, state.Target, 3);
 							await AbilityCmd.AddCondition(state, state.Target, Conditions.Muddle);
 							await AbilityCmd.GainXP(state.Performer, 1);
 
@@ -34,7 +34,7 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 					);
 					await GDTask.CompletedTask;
 				})
-				.WithOnAbilityEnded(async state => 
+				.WithOnAbilityEnded(async state =>
 				{
 					ScenarioEvents.TrapTriggeredEvent.Unsubscribe(state, this);
 
@@ -46,12 +46,12 @@ public class LatchAndTow : ChainguardLevelUpCardModel<LatchAndTow.CardTop, Latch
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullSelfAbility.Builder()
 				.WithPullSelfValue(4)
 				.WithRange(5)
-				.WithOnAbilityEnded(async state => 
+				.WithOnAbilityEnded(async state =>
 				{
 					if(RangeHelper.Distance(state.Performer.Hex, state.Target.Hex) == 1)
 					{

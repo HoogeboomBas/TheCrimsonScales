@@ -6,7 +6,7 @@ public class Scenario013 : ScenarioModel
 	public override int ScenarioNumber => 13;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillAlLEnemiesScenarioGoals();
+	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals();
 
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 

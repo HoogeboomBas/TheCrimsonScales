@@ -10,4 +10,9 @@ public abstract class ScenarioGoals : IEventSubscriber
 	{
 		await AbilityCmd.Win();
 	}
+
+	protected async GDTask Lose()
+	{
+		await AbilityCmd.Lose();
+	}
 }

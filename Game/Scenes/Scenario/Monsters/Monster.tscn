@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d04w6fpb4i56r"]
+[gd_scene load_steps=12 format=3 uid="uid://d04w6fpb4i56r"]
 
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_ed03b"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_l3hub"]
-[ext_resource type="Texture2D" uid="uid://d7l0ylkan488" path="res://Art/Other/water-spirit.png" id="4_h7lw7"]
+[ext_resource type="Texture2D" uid="uid://gkm342ht1q3j" path="res://Art/Other/Outline1H.svg" id="3_yc1j3"]
+[ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="4_aoqyu"]
+[ext_resource type="Texture2D" uid="uid://yv642m4xqhuk" path="res://Content/Monsters/WaterSpirit/MapIcon.tres" id="5_aoqyu"]
 [ext_resource type="Script" uid="uid://mng8txrtqgfl" path="res://Scripts/Scenario/HexObjects/ViewComponents/MonsterViewComponent.cs" id="6_sxmxo"]
 [ext_resource type="Script" uid="uid://cdgxykuskvgdo" path="res://Scripts/Scenario/HexObjects/Monsters/Monster.cs" id="7_ihn5g"]
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="7_itux6"]
@@ -11,7 +13,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_ktl2q"]
 font = ExtResource("8_vf0v3")
-font_size = 200
+font_size = 55
 font_color = Color(0, 0, 0, 1)
 
 [node name="Monster" type="Node2D"]
@@ -21,38 +23,48 @@ script = ExtResource("7_ihn5g")
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("2_ed03b")
 
-[node name="Hexagon" type="Sprite2D" parent="."]
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_l3hub")
-
 [node name="Mask" type="Sprite2D" parent="."]
 clip_children = 1
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.81, 0.81)
 texture = ExtResource("3_l3hub")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mask"]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_h7lw7")
+material = ExtResource("4_aoqyu")
+instance_shader_parameters/tintFactor = 0.0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("5_aoqyu")
 
-[node name="FigureViewComponent" parent="." node_paths=PackedStringArray("Outline") instance=ExtResource("7_itux6")]
-Outline = NodePath("../Hexagon")
+[node name="Outline" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_yc1j3")
+
+[node name="FigureViewComponent" parent="." instance=ExtResource("7_itux6")]
 
 [node name="MonsterViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("StandeeNumberCircle", "StandeeNumberLabel")]
 z_index = 5
 script = ExtResource("6_sxmxo")
 StandeeNumberCircle = NodePath("StandeeNumber")
-StandeeNumberLabel = NodePath("StandeeNumber/Label")
+StandeeNumberLabel = NodePath("Label")
 
 [node name="StandeeNumber" type="Sprite2D" parent="MonsterViewComponent"]
 position = Vector2(0, -92)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("7_v0su2")
 
-[node name="Label" type="Label" parent="MonsterViewComponent/StandeeNumber"]
-offset_left = -128.0
-offset_top = -124.0
-offset_right = 128.0
-offset_bottom = 139.0
+[node name="Label" type="Label" parent="MonsterViewComponent"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -142.0
+offset_right = 50.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(50, 50)
 text = "8"
 label_settings = SubResource("LabelSettings_ktl2q")
 horizontal_alignment = 1

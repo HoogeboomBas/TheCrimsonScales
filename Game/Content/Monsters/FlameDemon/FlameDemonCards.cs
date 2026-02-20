@@ -31,13 +31,13 @@ public class FlameDemonAbilityCard0 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard1 : FlameDemonAbilityCard
 {
-	public override int Initiative => 60;
+	public override int Initiative => 24;
 	public override int CardIndex => 1;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
@@ -46,8 +46,8 @@ public class FlameDemonAbilityCard1 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
@@ -79,8 +79,8 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 		//TODO: Focus and whether the element is consumed won't take into account fire consume
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard3 : FlameDemonAbilityCard
@@ -103,8 +103,8 @@ public class FlameDemonAbilityCard3 : FlameDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard4 : FlameDemonAbilityCard
@@ -118,8 +118,8 @@ public class FlameDemonAbilityCard4 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard5 : FlameDemonAbilityCard
@@ -133,14 +133,14 @@ public class FlameDemonAbilityCard5 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
-				await AbilityCmd.SufferDamage(null, state.Performer, 1);
+				await AbilityCmd.SufferDamage(state, state.Performer, 1);
 			})
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Ice]))
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
@@ -159,7 +159,7 @@ public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
 							.ToList();
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 				}
 			)
@@ -169,8 +169,8 @@ public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -2, targets: 2, conditions: [Conditions.Wound1])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Fire)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Fire)];
 }
 
 public class FlameDemonAbilityCard7 : FlameDemonAbilityCard
@@ -217,6 +217,6 @@ public class FlameDemonAbilityCard7 : FlameDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Fire)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Fire)];
 }

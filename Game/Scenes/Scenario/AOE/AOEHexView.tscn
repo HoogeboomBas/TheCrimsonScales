@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://blei03xyk2x63"]
+[gd_scene load_steps=6 format=3 uid="uid://blei03xyk2x63"]
 
 [ext_resource type="Script" uid="uid://dggv7tfevilv0" path="res://Scripts/Scenario/AOE/AOEHexView.cs" id="1_igk30"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_ovfuo"]
 [ext_resource type="Texture2D" uid="uid://57d24yhuj728" path="res://Art/Other/SelectedHexagonOutline.svg" id="3_m4cug"]
+[ext_resource type="Texture2D" uid="uid://ca72vsmwgu28w" path="res://Art/Icons/Abilities/LoseCard.svg" id="5_4iuvy"]
 [ext_resource type="PackedScene" uid="uid://ug7oy7x62yfw" path="res://Scenes/Scenario/WorldButton.tscn" id="5_x6jk0"]
 
-[node name="AOEHexView" type="Node2D" node_paths=PackedStringArray("_worldButton")]
+[node name="AOEHexView" type="Node2D" node_paths=PackedStringArray("_worldButton", "IconTextureRect")]
 z_index = 100
 script = ExtResource("1_igk30")
 _worldButton = NodePath("WorldButton")
+IconTextureRect = NodePath("TextureRect")
 
 [node name="Fill" type="Sprite2D" parent="."]
 self_modulate = Color(0.486275, 0.486275, 0.486275, 0.443137)
@@ -19,6 +21,14 @@ rotation = 3.14159
 scale = Vector2(1.03, 1.03)
 texture = ExtResource("3_m4cug")
 
-[node name="WorldButton" parent="." node_paths=PackedStringArray("_collisionObject2D") instance=ExtResource("5_x6jk0")]
+[node name="WorldButton" parent="." instance=ExtResource("5_x6jk0")]
 _canDrag = true
-_collisionObject2D = NodePath("StaticBody2D")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_left = 64.0
+offset_top = -64.0
+offset_right = 104.0
+offset_bottom = -24.0
+texture = ExtResource("5_4iuvy")
+expand_mode = 1

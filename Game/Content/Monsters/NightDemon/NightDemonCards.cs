@@ -31,8 +31,8 @@ public class NightDemonAbilityCard0 : NightDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Dark)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Dark)];
 }
 
 public class NightDemonAbilityCard1 : NightDemonAbilityCard
@@ -51,8 +51,8 @@ public class NightDemonAbilityCard1 : NightDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class NightDemonAbilityCard2 : NightDemonAbilityCard
@@ -66,8 +66,8 @@ public class NightDemonAbilityCard2 : NightDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Dark)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Dark)];
 }
 
 public class NightDemonAbilityCard3 : NightDemonAbilityCard
@@ -77,7 +77,8 @@ public class NightDemonAbilityCard3 : NightDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 3, targets: 3, duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 3, targets: 3, duringAttackSubscriptions:
+		[
 			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Dark],
 				applyFunction: async parameters =>
 				{
@@ -88,8 +89,8 @@ public class NightDemonAbilityCard3 : NightDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class NightDemonAbilityCard4 : NightDemonAbilityCard
@@ -101,7 +102,8 @@ public class NightDemonAbilityCard4 : NightDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, duringAttackSubscriptions:
+		[
 			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Dark],
 				applyFunction: async parameters =>
 				{
@@ -112,8 +114,8 @@ public class NightDemonAbilityCard4 : NightDemonAbilityCard
 		])),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Dark)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Dark)];
 }
 
 public class NightDemonAbilityCard5 : NightDemonAbilityCard
@@ -128,8 +130,8 @@ public class NightDemonAbilityCard5 : NightDemonAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +1))
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Dark)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Dark)];
 }
 
 public class NightDemonAbilityCard6 : NightDemonAbilityCard
@@ -148,8 +150,8 @@ public class NightDemonAbilityCard6 : NightDemonAbilityCard
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Light)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Light)];
 }
 
 public class NightDemonAbilityCard7 : NightDemonAbilityCard
@@ -166,13 +168,13 @@ public class NightDemonAbilityCard7 : NightDemonAbilityCard
 				{
 					foreach(Figure target in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false))
 					{
-						await AbilityCmd.SufferDamage(null, target, 1);
+						await AbilityCmd.SufferDamage(state, target, 1);
 					}
 				}
 			)
 			.Build())
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.ConsumeWild(Element.Dark)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.ConsumeWild(Element.Dark)];
 }

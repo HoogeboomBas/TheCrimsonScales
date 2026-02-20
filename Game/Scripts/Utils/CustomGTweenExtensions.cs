@@ -141,4 +141,9 @@ public static class CustomGTweenExtensions
 	{
 		return GTweenExtensions.Tween(() => 0f, setter, 1f, duration);
 	}
+
+	public static GTween Tween(float from, float to, Tweener<float>.Setter setter, float duration)
+	{
+		return GTweenExtensions.Tween(() => from, setter, to, duration);
+	}
 }

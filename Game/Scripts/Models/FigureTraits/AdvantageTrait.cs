@@ -2,9 +2,9 @@ using Fractural.Tasks;
 
 public class AdvantageTrait() : FigureTrait
 {
-	public override void Activate(Figure figure)
+	public override async GDTask Activate(Figure figure)
 	{
-		base.Activate(figure);
+		await base.Activate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(figure, this,
 			parameters => parameters.AbilityState.Performer == figure,
@@ -20,14 +20,14 @@ public class AdvantageTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters("This figure gains advantage on all their attacks."));
+				parameters.Add(new InfoTextExtraEffect.Parameters("This figure gains advantage on all their attacks."));
 			}
 		);
 	}
 
-	public override void Deactivate(Figure figure)
+	public override async GDTask Deactivate(Figure figure)
 	{
-		base.Deactivate(figure);
+		await base.Deactivate(figure);
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);

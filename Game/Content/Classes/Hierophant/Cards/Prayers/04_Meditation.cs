@@ -9,7 +9,7 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 
 	public class CardTop : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -32,16 +32,16 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.308f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.2990001f)))
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -64,10 +64,10 @@ public class Meditation : HierophantPrayerCardModel<Meditation.CardTop, Meditati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.764f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.7785105f)))
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

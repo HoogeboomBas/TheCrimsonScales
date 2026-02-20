@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -11,7 +12,7 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Poison1)
@@ -29,7 +30,8 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 				))
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
-						parameters => RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex) == 1,
+						parameters => parameters.AbilityState.Target.EnemiesWith(parameters.Performer) &&
+						              RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex) == 1,
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetRemoveCondition(Conditions.Poison1);
@@ -39,18 +41,30 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 						}
 					)
 				)
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.Build()),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Poison1)
+				.WithCustomGetTargets((state, figures) =>
+				{
+					ConditionAbility.State conditionAbilityState = state.ActionState.GetAbilityState<ConditionAbility.State>(0);
+					figures.AddRange(conditionAbilityState.GetRedAOEHexes().SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
+				})
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithMandatory(true)
 				.Build())
 		];
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(0)
 				.WithConditions(Conditions.Muddle)
 				.WithRangeType(RangeType.Range)
+				.WithTarget(Target.Enemies | Target.TargetAll)
 				.WithCustomGetTargets((state, list) =>
 					{
 						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))

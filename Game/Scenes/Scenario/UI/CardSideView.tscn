@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcjxeakyfta8h"]
 
-[ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="1_35wrr"]
-[ext_resource type="Script" uid="uid://7f7wbrxb3rjh" path="res://Scripts/UI/CardView/CardSideView.cs" id="1_ekf7w"]
+[ext_resource type="Script" uid="uid://bl6tijgm7ty2a" path="res://Scripts/UI/AbilityCardView/AbilityCardSideView.cs" id="1_35wrr"]
+[ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="2_ekf7w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_35wrr"]
 corner_radius_top_left = 16
@@ -17,7 +17,7 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing = false
 
-[node name="CardSideView" type="Control" node_paths=PackedStringArray("_textureRects", "_topContainer", "_bottomContainer")]
+[node name="CardSideView" type="Control" node_paths=PackedStringArray("_abilityCardViews", "_topContainer", "_bottomContainer")]
 custom_minimum_size = Vector2(320, 240)
 layout_mode = 3
 anchors_preset = 10
@@ -26,8 +26,8 @@ offset_right = -1600.0
 offset_bottom = 240.0
 grow_horizontal = 2
 mouse_filter = 2
-script = ExtResource("1_ekf7w")
-_textureRects = [NodePath("Top/Mask/TextureRect"), NodePath("Bottom/Mask/TextureRect")]
+script = ExtResource("1_35wrr")
+_abilityCardViews = [NodePath("Top/Mask/AbilityCardView"), NodePath("Bottom/Mask/AbilityCardView")]
 _topContainer = NodePath("Top")
 _bottomContainer = NodePath("Bottom")
 
@@ -51,17 +51,10 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_35wrr")
 
-[node name="TextureRect" type="TextureRect" parent="Top/Mask"]
+[node name="AbilityCardView" parent="Top/Mask" instance=ExtResource("2_ekf7w")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_right = 0.0
 offset_bottom = 208.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("1_35wrr")
-expand_mode = 1
 
 [node name="Bottom" type="Control" parent="."]
 layout_mode = 1
@@ -83,15 +76,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ekf7w")
 
-[node name="TextureRect" type="TextureRect" parent="Bottom/Mask"]
+[node name="AbilityCardView" parent="Bottom/Mask" instance=ExtResource("2_ekf7w")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -448.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-texture = ExtResource("1_35wrr")
-expand_mode = 1
+offset_top = -240.0
+offset_right = 0.0
+offset_bottom = 0.0

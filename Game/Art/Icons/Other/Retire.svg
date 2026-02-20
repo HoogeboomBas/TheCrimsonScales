@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="Retire.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="2.2511407"
+     inkscape:cx="104.39152"
+     inkscape:cy="125.04771"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="M 0,0 H 64 V 64 H 0 Z"
+       fill="#000000"
+       fill-opacity="0.02"
+       id="path1"
+       style="stroke-width:0.125" />
+    <g
+       class=""
+       transform="matrix(0.125,0,0,0.125,-0.25,-0.125)"
+       id="g2">
+      <path
+         d="M 294.8,26.57 238,60.37 245.8,73.54 281,52.59 270.8,118 277.1,128.6 336,93.53 328.2,80.36 290.9,102.5 301,37.12 Z M 147.1,60.55 A 224,224 0 0 0 32,256 224,224 0 0 0 256,480 224,224 0 0 0 470.9,318.8 208,208 0 0 1 320,384 208,208 0 0 1 112,176 208,208 0 0 1 147.1,60.55 Z m 244.5,52.05 -6.9,16.5 44.1,18.4 -68.3,35.9 -5.5,13.2 73.7,30.8 6.9,-16.5 -46.7,-19.5 68.3,-35.9 5.5,-13.2 z m -115,64 -97.8,35 8.1,22.7 60.6,-21.7 -35.4,97.9 6.5,18.1 101.4,-36.2 -8.1,-22.7 -64.2,23 35.4,-97.9 z"
+         fill="#ffffff"
+         fill-opacity="1"
+         id="path2" />
+    </g>
+  </g>
+</svg>

@@ -12,10 +12,10 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6203842f, 0.2045231f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
@@ -36,7 +36,7 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Strengthen)
+				.WithConditions(Conditions.Strengthen, new ConditionDiamondPlus(this, new Vector2(0.40208158f, 0.37323144f)))
 				.WithTarget(Target.Allies)
 				.WithConditionalAbilityCheck(async state =>
 					{
@@ -52,9 +52,11 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(5).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(5, new MoveCircle(this, new Vector2(0.61780804f, 0.62103546f)))
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -84,9 +86,9 @@ public class BackupSupport : FireKnightCardModel<BackupSupport.CardTop, BackupSu
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Fire];
-		protected override int XP => 1;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Fire)];
+		public override int XP => 1;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

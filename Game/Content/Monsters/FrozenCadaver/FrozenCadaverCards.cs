@@ -32,10 +32,10 @@ public class FrozenCadaverAbilityCard0 : FrozenCadaverAbilityCard
 			.WithConditions(Conditions.Chill)
 			.WithTarget(Target.TargetAll | Target.Enemies)
 			.WithCustomGetTargets((state, figures) =>
-				{
-					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);
-					figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(state.Performer) && !figure.HasCondition(Conditions.Chill)));
-				})
+			{
+				IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);
+				figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(state.Performer) && !figure.HasCondition(Conditions.Chill)));
+			})
 			.Build()),
 	];
 }
@@ -58,7 +58,7 @@ public class FrozenCadaverAbilityCard1 : FrozenCadaverAbilityCard
 							.ToList();
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 1);
+						await AbilityCmd.SufferDamage(state, target, 1);
 					}
 				}
 			)
@@ -77,8 +77,8 @@ public class FrozenCadaverAbilityCard2 : FrozenCadaverAbilityCard
 		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Air)];
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Air)];
 }
 
 public class FrozenCadaverAbilityCard3 : FrozenCadaverAbilityCard
@@ -90,9 +90,9 @@ public class FrozenCadaverAbilityCard3 : FrozenCadaverAbilityCard
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, +2, conditions: [Conditions.Chill])),
 	];
-	
-	public override IEnumerable<MonsterAbilityCardElementInfusion> ElementInfusions { get; } =
-		[MonsterAbilityCardElementInfusion.Infuse(Element.Ice)];
+
+	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
+		[CardElementInfusion.Infuse(Element.Ice)];
 }
 
 public class FrozenCadaverAbilityCard4 : FrozenCadaverAbilityCard
@@ -162,8 +162,8 @@ public class FrozenCadaverAbilityCard6 : FrozenCadaverAbilityCard
 			.Build()),
 	];
 
-	public override IEnumerable<MonsterAbilityCardElementConsumption> ElementConsumptions { get; } =
-		[MonsterAbilityCardElementConsumption.Consume(Element.Ice)];
+	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
+		[CardElementConsumption.Consume(Element.Ice)];
 }
 
 public class FrozenCadaverAbilityCard7 : FrozenCadaverAbilityCard

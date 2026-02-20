@@ -86,6 +86,7 @@ public partial class Marker : Node2D
 
 	private void UpdateVisuals()
 	{
-		GetNode<Label>("Visual/Label").Text = MarkerType.ToString().Replace("_", string.Empty);
+		string spritePath = Icons.GetMarker(MarkerType);
+		GetNode<Sprite2D>("Visual/Sprite2D").SetTexture(ResourceLoader.Load<Texture2D>(spritePath));
 	}
 }

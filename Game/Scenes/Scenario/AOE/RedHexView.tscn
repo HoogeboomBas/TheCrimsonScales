@@ -3,14 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://blei03xyk2x63" path="res://Scenes/Scenario/AOE/AOEHexView.tscn" id="1_pfows"]
 [ext_resource type="Texture2D" uid="uid://cht3jc2t48x72" path="res://Art/Other/HexagonOutline.svg" id="2_6d63f"]
 
-[node name="RedHexView" node_paths=PackedStringArray("_worldButton") instance=ExtResource("1_pfows")]
-_worldButton = NodePath("WorldButton")
+[node name="RedHexView" instance=ExtResource("1_pfows")]
 
 [node name="Fill" parent="." index="0"]
 self_modulate = Color(0.900796, 0.203315, 0.233711, 0.505882)
 
 [node name="Outline" parent="." index="1"]
 texture = ExtResource("2_6d63f")
-
-[node name="WorldButton" parent="." index="2" node_paths=PackedStringArray("_collisionObject2D")]
-_collisionObject2D = NodePath("StaticBody2D")

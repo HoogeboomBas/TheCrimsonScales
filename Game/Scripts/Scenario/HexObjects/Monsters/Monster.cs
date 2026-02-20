@@ -10,10 +10,9 @@ public partial class Monster : Figure
 	private static readonly Color EliteColor = Color.FromHtml("#edc916");
 	private static readonly Color BossColor = Color.FromHtml("#bc1515");
 
+	private Sprite2D _staticSprite;
 	private MonsterViewComponent _monsterViewComponent;
-
-	public override string DisplayName => $"{(MonsterType == MonsterType.Elite ? $"{MonsterType} " : string.Empty)}{MonsterGroup.MonsterModel.Name}";
-	public override string DebugName => $"{MonsterGroup.MonsterModel.Name} {StandeeNumber}";
+	private AMDCardDeck _amdCardDeckOverride;
 
 	public MonsterModel MonsterModel { get; private set; }
 	public MonsterGroup MonsterGroup { get; private set; }
@@ -21,9 +20,22 @@ public partial class Monster : Figure
 	public int StandeeNumber { get; private set; }
 	public int MonsterLevel { get; private set; }
 	public MonsterStats Stats { get; private set; }
+	public bool IsSummon { get; private set; }
+
 	public Color TypeColor { get; private set; }
 
-	public override AMDCardDeck AMDCardDeck => GameController.Instance.MonsterAMDCardDeck;
+	public override string DisplayName => $"{(MonsterType == MonsterType.Elite ? $"{MonsterType} " : string.Empty)}{MonsterGroup.MonsterModel.Name}";
+	public override string DebugName => $"{MonsterGroup.MonsterModel.Name} {StandeeNumber}";
+	public override AMDCardDeck AMDCardDeck => _amdCardDeckOverride ?? GameController.Instance.MonsterAMDCardDeck;
+	public override Texture2D MapIconTexture => _staticSprite.Texture;
+	public override Node2D Visual => _staticSprite;
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_staticSprite = GetNode<Sprite2D>("Mask/Sprite2D");
+	}
 
 	public void SetMonsterModel(MonsterModel monsterModel)
 	{
@@ -37,7 +49,8 @@ public partial class Monster : Figure
 		_monsterViewComponent = GetViewComponent<MonsterViewComponent>();
 	}
 
-	public void Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon, int? monsterLevel)
+	public async GDTask Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon,
+		int? monsterLevel, Alignment alignment, Alignment enemies)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -60,34 +73,49 @@ public partial class Monster : Figure
 				TypeColor = BossColor;
 				levelStats = MonsterModel.BossLevelStats;
 				break;
+			case MonsterType.Named:
+				TypeColor = BossColor;
+				levelStats = MonsterModel.NamedLevelStats;
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(monsterType), monsterType, null);
 		}
 
-		_figureViewComponent.Outline.SelfModulate = TypeColor;
+		_outline.SelfModulate = TypeColor;
 		_figureViewComponent.TurnStartPS.SelfModulate = TypeColor;
-		_figureViewComponent.ActivePS.Modulate = _figureViewComponent.Outline.SelfModulate;
+		_figureViewComponent.ActivePS.Modulate = OutlineColor;
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
-		
-		MonsterLevel = monsterLevel.HasValue ? monsterLevel.Value : GameController.Instance.SavedScenario.ScenarioLevel;
+
+		Texture2D mapIconTexture = ResourceLoader.Load<Texture2D>(MonsterModel.MapIconTexturePath);
+		_staticSprite.SetTexture(mapIconTexture);
+
+		if(mapIconTexture != null)
+		{
+			float textureWidth = mapIconTexture.GetWidth();
+			_staticSprite.SetScale((250f / textureWidth) * Vector2.One);
+		}
+
+		MonsterLevel = Math.Clamp(monsterLevel ?? GameController.Instance.SavedScenario.ScenarioLevel, 0, 7);
 		Stats = levelStats[MonsterLevel];
 
 		SetMaxHealth(Stats.Health);
 		SetHealth(Stats.Health);
 
-		SetAlignment(Alignment.Enemies);
-		SetEnemies(Alignment.Characters);
+		SetAlignment(alignment);
+		SetEnemies(enemies);
 
 		if(Stats.Traits != null)
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				trait.Activate(this);
+				await AddTrait(trait);
 			}
 		}
 
-		if(summon)
+		IsSummon = summon;
+
+		if(IsSummon)
 		{
 			CanTakeTurn = false;
 		}
@@ -111,14 +139,6 @@ public partial class Monster : Figure
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
 	{
-		if(Stats.Traits != null)
-		{
-			foreach(FigureTrait trait in Stats.Traits)
-			{
-				trait.Deactivate(this);
-			}
-		}
-
 		// Unsubscribe from any events that the monster subscribed to using abilities this turn
 		if(MonsterGroup.ActiveMonsterAbilityCard != null)
 		{
@@ -129,7 +149,7 @@ public partial class Monster : Figure
 
 		await base.Destroy(immediately, forceDestroy);
 
-		await AbilityCmd.SpawnCoin(Hex);
+		await AbilityCmd.SpawnCoin(Hex, this);
 	}
 
 	protected override Initiative GetInitiative()
@@ -156,5 +176,10 @@ public partial class Monster : Figure
 		base.AddInfoItemParameters(parametersList);
 
 		parametersList.Add(new MonsterInfoItem.Parameters(this));
+	}
+
+	public void SetAMDCardDeck(AMDCardDeck amdCardDeck)
+	{
+		_amdCardDeckOverride = amdCardDeck;
 	}
 }

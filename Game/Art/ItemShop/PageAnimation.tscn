@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5l6nyceg64dd"]
-
-[ext_resource type="PackedScene" uid="uid://dpudi5js8o0ft" path="res://Art/ItemShop/PageAnimation.fbx" id="1_i75es"]
-
-[node name="PageAnimation" instance=ExtResource("1_i75es")]

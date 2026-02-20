@@ -80,7 +80,8 @@ public partial class FireKnight : Character
 		character.AddItem(item);
 	}
 
-	protected void SubscribeLadderAction(Func<Character, bool> canApply, Func<GDTask> apply, IconEffectButton.Parameters effectButtonParameters, TextEffectInfoView.Parameters effectInfoViewParameters)
+	protected void SubscribeLadderAction(Func<Character, bool> canApply, Func<GDTask> apply, IconEffectButton.Parameters effectButtonParameters,
+		TextEffectInfoView.Parameters effectInfoViewParameters)
 	{
 		object subscriber = new object();
 
@@ -157,12 +158,13 @@ public partial class FireKnight : Character
 	{
 		foreach(Hex hex in RangeHelper.GetHexesInRange(Hex, 1, false))
 		{
-			if(!hex.IsUnoccupied())
+			if(hex.IsOccupied())
 			{
 				continue;
 			}
 
-			if(hex.Neighbours.Count < 6 || hex.HasHexObjectOfType<Obstacle>() || hex.HasHexObjectOfType<HazardousTerrain>() || hex.HasHexObjectOfType<Trap>())
+			if(hex.Neighbours.Count < 6 || hex.HasHexObjectOfType<Obstacle>() || hex.HasHexObjectOfType<HazardousTerrain>() ||
+			   hex.HasHexObjectOfType<Trap>())
 			{
 				yield return hex;
 			}

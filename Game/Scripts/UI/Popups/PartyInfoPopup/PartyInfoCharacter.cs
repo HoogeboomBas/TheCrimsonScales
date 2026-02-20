@@ -30,6 +30,11 @@ public partial class PartyInfoCharacter : Control
 	{
 		_character = character;
 
+		_portraitTextureRect.SetTexture(_character.PortraitTexture);
+		this.DelayedCall(() =>
+		{
+			_nameLabel.SetText(_character.SavedCharacter.Name);
+		});
 		UpdateBaseInfo();
 		UpdateCards();
 		UpdateItems();
@@ -60,11 +65,6 @@ public partial class PartyInfoCharacter : Control
 
 	private void UpdateBaseInfo()
 	{
-		_portraitTextureRect.SetTexture(_character.PortraitTexture);
-		this.DelayedCall(() =>
-		{
-			_nameLabel.SetText(_character.SavedCharacter.Name);
-		});
 		_healthLabel.SetText($"{_character.Health}/{_character.MaxHealth}");
 		_xpLabel.SetText($"{_character.ObtainedXP}");
 	}
@@ -80,7 +80,8 @@ public partial class PartyInfoCharacter : Control
 			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
 				[CardState.Playing], CardSelectionListCategoryType.Playing));
 			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
-				[CardState.Persistent, CardState.PersistentLoss, CardState.Round, CardState.RoundLoss], CardSelectionListCategoryType.Active));
+				[CardState.Persistent, CardState.PersistentLoss, CardState.PersistentNoDeactivate, CardState.Round, CardState.RoundLoss],
+				CardSelectionListCategoryType.Active));
 			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
 				[CardState.Hand], CardSelectionListCategoryType.Hand));
 			cardCategoryParameters.Add(CreateCategoryParameters(cards, OnCardPressed,
@@ -171,6 +172,12 @@ public partial class PartyInfoCharacter : Control
 
 	private void OnCardPressed(CardSelectionCard cardSelectionCard)
 	{
+		if(GameController.Instance.ScenarioPhaseManager.ActivePhase is not RoundPhase)
+		{
+			//TODO: Allow deactivating cards via this popup during card selection phase and such?
+			return;
+		}
+
 		AbilityCard card = GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
 
 		if(card.CardState == CardState.Persistent || card.CardState == CardState.PersistentLoss)

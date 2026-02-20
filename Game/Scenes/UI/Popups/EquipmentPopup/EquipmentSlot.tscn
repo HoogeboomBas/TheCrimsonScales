@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://3o8het84ci80" path="res://Scripts/UI/Popups/EquipmentPopup/EquipmentSlot.cs" id="1_4coqd"]
 [ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="1_dbur0"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_hcyfw"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="2_2yb03"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="2_2yb03"]
 [ext_resource type="Texture2D" uid="uid://b3xpfvamk0edr" path="res://Art/Icons/Other/Plus.svg" id="2_hcyfw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n567j"]

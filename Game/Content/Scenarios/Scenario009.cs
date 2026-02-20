@@ -8,7 +8,13 @@ public class Scenario009 : ScenarioModel
 	public override string ScenePath => "res://Content/Scenarios/Scenario009.tscn";
 	public override int ScenarioNumber => 9;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
-	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario013>(), new ScenarioConnection<Scenario014>()];
+
+	public override IEnumerable<ScenarioConnection> Connections =>
+	[
+		new ScenarioConnection<Scenario011>(), new ScenarioConnection<Scenario013>(), new ScenarioConnection<Scenario014>()
+	];
+
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } = [ModelDB.Monster<Granurso>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new CustomScenarioGoals("Kill all revealed enemies and loot the treasure chest to win this scenario.");
@@ -35,20 +41,7 @@ public class Scenario009 : ScenarioModel
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
 			parameters =>
 			{
-				if(!_lootedTreasure)
-				{
-					return false;
-				}
-
-				foreach(Figure figure in GameController.Instance.Map.Figures)
-				{
-					if(figure.Alignment == Alignment.Enemies)
-					{
-						return false;
-					}
-				}
-
-				return true;
+				return _lootedTreasure && KillAllEnemiesScenarioGoals.NoEnemiesRemaining();
 			},
 			async parameters =>
 			{
@@ -95,7 +88,7 @@ public class Scenario009 : ScenarioModel
 	private async GDTask SpawnBear()
 	{
 		MonsterModel monsterModel = ModelDB.Monster<Granurso>();
-		MonsterType monsterType = GameController.Instance.CharacterManager.Characters.Count == 2 ? MonsterType.Normal : MonsterType.Elite;
+		MonsterType monsterType = MonsterType.Named;
 
 		Hex chosenHex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(),
 			list =>

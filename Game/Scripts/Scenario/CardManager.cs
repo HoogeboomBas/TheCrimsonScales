@@ -11,6 +11,6 @@ public class CardManager
 
 	public AbilityCard Get(SavedAbilityCard savedAbilityCard)
 	{
-		return _cardDictionary[savedAbilityCard];
+		return _cardDictionary.GetValueOrDefault(savedAbilityCard);
 	}
 }

@@ -1,26 +1,28 @@
-[gd_scene load_steps=72 format=3 uid="uid://dvuofg15kuckt"]
+[gd_scene load_steps=144 format=3 uid="uid://dvuofg15kuckt"]
 
 [ext_resource type="PackedScene" uid="uid://cmjlk65mr5s6w" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButton.tscn" id="1_5l4i3"]
 [ext_resource type="Script" uid="uid://b7sa3xe4kseh8" path="res://Scripts/BetweenScenarios/BetweenScenariosController.cs" id="1_rtyjh"]
-[ext_resource type="Texture2D" uid="uid://cku1nia6lkinl" path="res://Art/ScenarioFlowchart/WoodenTable.jpg" id="2_bqd0o"]
+[ext_resource type="Texture2D" uid="uid://cku1nia6lkinl" path="res://Art/BetweenScenarios/WoodenTable.jpg" id="2_bqd0o"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="4_csc1w"]
 [ext_resource type="Script" uid="uid://csa6ud0tb1nj8" path="res://Scripts/BetweenScenarios/ScenarioFlowchart/ScenarioFlowchart.cs" id="6_41e7t"]
 [ext_resource type="Script" uid="uid://caiomvdhl54wg" path="res://Scripts/BetweenScenarios/BetweenScenariosActionManager.cs" id="6_nmjfa"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="7_blgb5"]
 [ext_resource type="PackedScene" uid="uid://bb10ctp48iifh" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButtonOutline.tscn" id="8_gcm5d"]
-[ext_resource type="Texture2D" uid="uid://cpkeepf7piqqa" path="res://Art/ScenarioFlowchart/ParchmentPaper.png" id="8_ywvcx"]
+[ext_resource type="Texture2D" uid="uid://cpkeepf7piqqa" path="res://Art/BetweenScenarios/ScenarioFlowchart/ParchmentPaper.png" id="8_ywvcx"]
 [ext_resource type="Shader" uid="uid://wgkvda4bun1e" path="res://Shaders/Outline.gdshader" id="9_fpmem"]
 [ext_resource type="Script" uid="uid://dx2d6ou7y0pb6" path="res://Scripts/BetweenScenarios/ItemShop/ItemShop.cs" id="12_4wnl8"]
-[ext_resource type="PackedScene" uid="uid://c5l6nyceg64dd" path="res://Art/ItemShop/PageAnimation.tscn" id="12_41e7t"]
+[ext_resource type="PackedScene" uid="uid://c5l6nyceg64dd" path="res://Art/BetweenScenarios/ItemShop/PageAnimation.tscn" id="12_41e7t"]
 [ext_resource type="Shader" uid="uid://dsuuwudbr00f0" path="res://Shaders/Scroll.gdshader" id="12_ywvcx"]
 [ext_resource type="PackedScene" uid="uid://dwe2ry8s1wyke" path="res://Scenes/BetweenScenarios/ItemShop/ItemShopPage.tscn" id="15_807yg"]
 [ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="16_r0lwg"]
 [ext_resource type="Script" uid="uid://bfq2vghon5v53" path="res://Scripts/BetweenScenarios/Enhancer/Enhancer.cs" id="17_1n38g"]
 [ext_resource type="PackedScene" uid="uid://xx5h6b6pu3ko" path="res://Scenes/BetweenScenarios/BetweenScenariosActionButton.tscn" id="17_3hv00"]
-[ext_resource type="PackedScene" uid="uid://b3ggvb5s1of6w" path="res://Art/Models/CrystalBallHolder.fbx" id="17_seeb3"]
+[ext_resource type="PackedScene" uid="uid://b3ggvb5s1of6w" path="res://Art/BetweenScenarios/CrystalBallHolder.fbx" id="17_seeb3"]
 [ext_resource type="Material" uid="uid://rdsus6ec1nmq" path="res://Materials/Gold.tres" id="18_1n38g"]
-[ext_resource type="Texture2D" uid="uid://cfrq1meyfpqgx" path="res://Art/ItemShop/BookCover.jpg" id="18_3hv00"]
+[ext_resource type="Texture2D" uid="uid://cfrq1meyfpqgx" path="res://Art/BetweenScenarios/ItemShop/BookCover.jpg" id="18_3hv00"]
+[ext_resource type="PackedScene" uid="uid://d01x6nmjmss3c" path="res://Scenes/UI/CardSelectionList/CardSelectionList.tscn" id="18_ikgp2"]
 [ext_resource type="Texture2D" uid="uid://cgrc2ho6w58yc" path="res://Art/Icons/BetweenScenariosActions/TreasureMap.svg" id="18_nmjfa"]
+[ext_resource type="StyleBox" uid="uid://bht73g872t3sp" path="res://Resources/BlurPanel.tres" id="19_6k6qu"]
 [ext_resource type="Shader" uid="uid://1deu7u58adcl" path="res://Shaders/CrystalBall.gdshader" id="19_lv8vq"]
 [ext_resource type="Texture2D" uid="uid://d0kjhh1qav1gd" path="res://Art/Icons/BetweenScenariosActions/Oak.svg" id="19_ywvcx"]
 [ext_resource type="Texture2D" uid="uid://bydbxbc7udwta" path="res://Art/Icons/BetweenScenariosActions/CrystalBall.svg" id="20_1ehwm"]
@@ -29,15 +31,64 @@
 [ext_resource type="Texture2D" uid="uid://cgvuos5ph5e6r" path="res://Art/Icons/BetweenScenariosActions/HazardSign.svg" id="22_ywvcx"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="23_1ehwm"]
 [ext_resource type="Script" uid="uid://co64dv05t1htu" path="res://Scripts/BetweenScenarios/BetweenScenariosSidePanel.cs" id="23_5k12q"]
+[ext_resource type="Shader" uid="uid://dpr1nhb31kvce" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
 [ext_resource type="Script" uid="uid://chjh44dw8f42s" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortraitManager.cs" id="23_cdfbw"]
+[ext_resource type="Script" uid="uid://d0y7qlayk04fe" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SanctuaryOfTheGreatOak.cs" id="23_gyc5w"]
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="23_psaff"]
+[ext_resource type="PackedScene" uid="uid://vw723d5w85gv" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/TitheBowl.fbx" id="23_t8hrt"]
 [ext_resource type="PackedScene" uid="uid://drmjh44chpm2j" path="res://Scenes/BetweenScenarios/BetweenScenariosCharacterPortrait.tscn" id="24_cdfbw"]
 [ext_resource type="StyleBox" uid="uid://dgsnjspchrans" path="res://Resources/BlurBackground.tres" id="24_k7dxu"]
+[ext_resource type="Texture2D" uid="uid://i20crnpy2d6" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/natural-wooden-background.jpg" id="24_tquji"]
+[ext_resource type="Texture2D" uid="uid://c8teuaycn85r6" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBBackground.jpg" id="25_8ad0h"]
+[ext_resource type="Script" uid="uid://dibxbbwm2a8vn" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeB.cs" id="25_8rcsx"]
+[ext_resource type="Texture2D" uid="uid://c0g8n1f0aqnub" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/RedCloth.jpg" id="25_tquji"]
+[ext_resource type="PackedScene" uid="uid://dichdaj8dgrcy" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBCircle.tscn" id="26_4ql0m"]
+[ext_resource type="PackedScene" uid="uid://cu61j2vgh7agu" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/YellowEnvelopeBCircle.tscn" id="27_8rcsx"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="27_hkul8"]
-[ext_resource type="Texture2D" uid="uid://xcevbjw5n8no" path="res://Art/Icons/Abilities/XP.svg" id="28_5k12q"]
+[ext_resource type="PackedScene" uid="uid://bm8we16yjsmag" path="res://Scenes/BetweenScenarios/SanctuaryOfTheGreatOak/DonationCoin.tscn" id="27_j84ia"]
+[ext_resource type="Script" uid="uid://d2lbo81ici357" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SyncingBody.cs" id="27_w2guo"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="28_jr74k"]
 [ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="28_psaff"]
+[ext_resource type="Script" uid="uid://cupkvjgt2qge0" path="res://Scripts/BetweenScenarios/Events/EventCard.cs" id="30_dl2j2"]
 [ext_resource type="PackedScene" uid="uid://ct6pmvbmsh7lf" path="res://Scenes/UI/MenuButton.tscn" id="32_5k12q"]
+[ext_resource type="Material" uid="uid://bgdcydtsmmrb" path="res://Materials/TintGrayscale.tres" id="32_su2xo"]
+[ext_resource type="Texture2D" uid="uid://byfj7yio15h8c" path="res://Art/BetweenScenarios/Events/CityFront.jpg" id="33_2yhfp"]
+[ext_resource type="Texture2D" uid="uid://bbdiabye37ueg" path="res://Art/BetweenScenarios/Events/cs-ce-01-f.png" id="34_rtdf2"]
+[ext_resource type="Script" uid="uid://b0n1q2n5kef18" path="res://Scripts/BetweenScenarios/Events/ShapedEventText.cs" id="35_0rh5w"]
+[ext_resource type="PackedScene" uid="uid://bwn4iiqm7bpjf" path="res://Scenes/BetweenScenarios/Enhancer/EnhancementMarkToggleButton.tscn" id="35_sfc7v"]
+[ext_resource type="FontFile" uid="uid://djm7xa0rh5wqv" path="res://Fonts/HTOWERT.TTF" id="36_bny7g"]
+[ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="37_6k6qu"]
+[ext_resource type="PackedScene" uid="uid://y2bfrxa1ebd5" path="res://Scenes/BetweenScenarios/Enhancer/EnhancementOptionToggleButton.tscn" id="39_3p1c5"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="45_rtdf2"]
+[ext_resource type="Script" uid="uid://cc4ctr6004sg4" path="res://Scripts/BetweenScenarios/Events/EventOverlay.cs" id="49_dl2j2"]
+[ext_resource type="Material" uid="uid://gfilfltix5vm" path="res://Materials/RotatingCard.tres" id="51_rtdf2"]
+[ext_resource type="Script" uid="uid://b4tm7wjgmvnd2" path="res://Scripts/UI/RotatingCardView.cs" id="52_0un3t"]
+[ext_resource type="PackedScene" uid="uid://co015244vhv5u" path="res://Scenes/BetweenScenarios/Events/EventChoiceButton.tscn" id="57_dl2j2"]
+[ext_resource type="PackedScene" uid="uid://hux023lpvkr0" path="res://Scenes/BetweenScenarios/Events/CityEventRewardLabel.tscn" id="58_rtdf2"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="58_sagt1"]
+[ext_resource type="Texture2D" uid="uid://dg5cclbmnwikj" path="res://Art/BetweenScenarios/Events/RoadFront.jpg" id="58_su2xo"]
+[ext_resource type="PackedScene" uid="uid://dhhay14damdhi" path="res://Scenes/BetweenScenarios/Events/RoadEventRewardLabel.tscn" id="60_0rh5w"]
+[ext_resource type="Texture2D" uid="uid://cw111i6yk01f1" path="res://Art/Backgrounds/ArtbookBackground.jpg" id="62_bny7g"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="63_16mqd"]
+[ext_resource type="Script" uid="uid://bcm3hmph2dm2g" path="res://Scripts/BetweenScenarios/CharacterCreation/CharacterCreationOverlay.cs" id="63_38ram"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="64_tq2dg"]
+[ext_resource type="Texture2D" uid="uid://diddsge2c7sli" path="res://Content/Classes/Mirefoot/MatFront.png" id="64_wg15a"]
+[ext_resource type="Script" uid="uid://f2ncrb1ur234" path="res://Scripts/BetweenScenarios/CharacterCreation/ClassCharacterCreationStep.cs" id="65_sursi"]
+[ext_resource type="PackedScene" uid="uid://c6ydkmedgm2lb" path="res://Scenes/BetweenScenarios/CharacterCreation/CharacterCreationClass.tscn" id="66_bnord"]
+[ext_resource type="Script" uid="uid://e1u4nmwejxw5" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButton.cs" id="67_0un3t"]
+[ext_resource type="PackedScene" uid="uid://dsc4dpb4vpe8c" path="res://Scenes/BetweenScenarios/CharacterCreation/CharacterCreationPersonalQuest.tscn" id="68_0un3t"]
+[ext_resource type="Script" uid="uid://bsdabd5cpwvem" path="res://Scripts/BetweenScenarios/CharacterCreation/CharacterNameCharacterCreationStep.cs" id="70_38ram"]
+[ext_resource type="Script" uid="uid://1cmilwv1hjb3" path="res://Scripts/BetweenScenarios/CharacterCreation/PersonalQuestCharacterCreationStep.cs" id="70_sursi"]
+[ext_resource type="Script" uid="uid://b4khct4qavbbp" path="res://Scripts/BetweenScenarios/BetweenScenariosClassUnlockOverlay.cs" id="74_6t0vk"]
+[ext_resource type="PackedScene" uid="uid://d20kxebd41qbn" path="res://Scenes/CharacterUnlock/UnlockCharacterView.tscn" id="74_8tse7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5k12q"]
+shader = ExtResource("23_psaff")
+shader_parameter/inner_radius = 0.3
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.8
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fpmem"]
 shader = ExtResource("9_fpmem")
@@ -118,6 +169,232 @@ border_width_bottom = 2
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 
+[sub_resource type="Animation" id="Animation_gyc5w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer/TitheBowl:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(8, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6rvjw"]
+resource_name = "TitheBowlMoveIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer/TitheBowl:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.27, 1),
+"update": 0,
+"values": [Vector3(0, 6.28319, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.27, 1),
+"update": 0,
+"values": [Vector3(8, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(8, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j84ia"]
+resource_name = "TitheBowlMoveOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(2.37842, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(8, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(1, 2.63902),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.06, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer/TitheBowl:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(2.82843, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.78),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(8, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j84ia"]
+_data = {
+&"RESET": SubResource("Animation_gyc5w"),
+&"TitheBowlMoveIn": SubResource("Animation_6rvjw"),
+&"TitheBowlMoveOut": SubResource("Animation_j84ia")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_8ad0h"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4ql0m"]
+viewport_path = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ql0m"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_4ql0m")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fobax"]
+size = Vector3(1, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8rcsx"]
+albedo_color = Color(0.90798, 0.712438, 0.787805, 1)
+albedo_texture = ExtResource("24_tquji")
+roughness = 0.51
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j84ia"]
+rough = true
+bounce = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8ad0h"]
+height = 1.0
+radius = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fobax"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvldq"]
+albedo_color = Color(0.90798, 0.712438, 0.787805, 1)
+albedo_texture = ExtResource("24_tquji")
+roughness = 0.51
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tquji"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6rvjw"]
+as_normal_map = true
+bump_strength = 4.7
+noise = SubResource("FastNoiseLite_tquji")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tquji"]
+albedo_texture = ExtResource("25_tquji")
+metallic_specular = 0.0
+roughness = 0.95
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_6rvjw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rvjw"]
+albedo_color = Color(0.680343, 0.488732, 0.57168, 1)
+albedo_texture = ExtResource("24_tquji")
+metallic_specular = 0.08
+roughness = 0.59
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7gbn5"]
 noise_type = 3
 frequency = 0.02
@@ -165,65 +442,26 @@ shader = ExtResource("22_7gbn5")
 shader_parameter/heightmap = SubResource("NoiseTexture2D_jvldq")
 shader_parameter/heightmap2 = SubResource("NoiseTexture2D_tquji")
 
-[sub_resource type="Animation" id="Animation_7gbn5"]
-resource_name = "CrystalBallFall"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CrystalBall:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.566667, 0.7),
-"transitions": PackedFloat32Array(2.54912, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 3, -1), Vector3(0, 0, -1), Vector3(0, 0.1, -1), Vector3(0, 0, -1)]
-}
+[sub_resource type="SphereMesh" id="SphereMesh_6t0vk"]
 
-[sub_resource type="Animation" id="Animation_jvldq"]
-resource_name = "CrystalBallMoveOut"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CrystalBall:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1.86607, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1), Vector3(0, 3, -1)]
-}
+[sub_resource type="Environment" id="Environment_6rvjw"]
+ambient_light_source = 1
 
-[sub_resource type="Animation" id="Animation_t8hrt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CrystalBall:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, -1)]
-}
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gyc5w"]
+render_priority = 0
+shader = ExtResource("23_6rvjw")
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_opacity = 1.0
+shader_parameter/shadow_max_opacity = 0.7
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jvldq"]
-_data = {
-&"CrystalBallMoveIn": SubResource("Animation_7gbn5"),
-&"CrystalBallMoveOut": SubResource("Animation_jvldq"),
-&"RESET": SubResource("Animation_t8hrt")
-}
+[sub_resource type="PlaneMesh" id="PlaneMesh_j84ia"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5k12q"]
-shader = ExtResource("23_psaff")
-shader_parameter/inner_radius = 0.3
-shader_parameter/outer_radius = 1.0
-shader_parameter/vignette_strength = 0.8
-shader_parameter/dither_strength = 0.03
-shader_parameter/vignette_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikgp2"]
+bg_color = Color(0.105882, 0.105882, 0.12549, 0.705882)
+border_color = Color(0.892922, 0.893193, 0.912186, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_5k12q"]
 font = ExtResource("28_jr74k")
@@ -257,11 +495,88 @@ font_size = 20
 font = ExtResource("28_jr74k")
 font_size = 30
 
-[node name="BetweenScenarios" type="Node" node_paths=PackedStringArray("BetweenScenariosSidePanel", "CharacterPortraitManager", "ScenarioFlowchart")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12j2q"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Curve" id="Curve_d3wm2"]
+_data = [Vector2(0, 0.632714), 0.0, 2.98578, 0, 0, Vector2(0.342857, 1), 0.0816562, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_16mqd"]
+font = ExtResource("4_csc1w")
+font_size = 20
+
+[sub_resource type="Curve" id="Curve_tq2dg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wg15a"]
+shader = ExtResource("23_psaff")
+shader_parameter/inner_radius = 0.3
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.8
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vapya"]
+font = ExtResource("63_16mqd")
+font_size = 120
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3wm2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_sursi"]
+font = ExtResource("63_16mqd")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_0un3t"]
+font = ExtResource("63_16mqd")
+font_size = 120
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vapya"]
+bg_color = Color(0, 0, 0, 0.305882)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnord"]
+bg_color = Color(0, 0, 0, 0.305882)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+
+[node name="BetweenScenarios" type="Node" node_paths=PackedStringArray("BetweenScenariosSidePanel", "CharacterPortraitManager", "ScenarioFlowchart", "EventOverlay", "ActionManager", "ItemShop", "CharacterCreationOverlay", "UnlockOverlay")]
 script = ExtResource("1_rtyjh")
 BetweenScenariosSidePanel = NodePath("CanvasLayer/UI/SidePanel")
 CharacterPortraitManager = NodePath("CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/Characters")
 ScenarioFlowchart = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart")
+EventOverlay = NodePath("CanvasLayer/UI/EventOverlay")
+ActionManager = NodePath("CanvasLayer/UI/BetweenScenariosActionManager")
+ItemShop = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/ItemShop")
+CharacterCreationOverlay = NodePath("CanvasLayer/UI/CharacterCreationOverlay")
+UnlockOverlay = NodePath("CanvasLayer/UI/ClassUnlockOverlay")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -285,6 +600,16 @@ texture = ExtResource("2_bqd0o")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
+material = SubResource("ShaderMaterial_5k12q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="BetweenScenariosActionManager" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_actions", "_startActiveAction")]
 layout_mode = 1
 anchors_preset = 15
@@ -294,7 +619,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_nmjfa")
-_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("Enhancer")]
+_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("Enhancer"), NodePath("SanctuaryOfTheGreatOak")]
 _startActiveAction = NodePath("ScenarioFlowchart")
 
 [node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "_3dRoot", "Button")]
@@ -528,7 +853,7 @@ ScenarioNumber = 30
 
 [node name="ScenarioButton33" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
 layout_mode = 2
-ScenarioNumber = 30
+ScenarioNumber = 33
 
 [node name="ScenarioButton12" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -923,10 +1248,14 @@ label_settings = SubResource("LabelSettings_57ue0")
 
 [node name="FlipLeftButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" instance=ExtResource("7_blgb5")]
 layout_mode = 1
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_left = -700.0
-offset_top = -638.5
+offset_top = -98.5
 offset_right = -620.0
-offset_bottom = -558.5
+offset_bottom = -18.5
+grow_vertical = 2
 
 [node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" index="0"]
 visible = false
@@ -952,10 +1281,14 @@ expand_mode = 1
 
 [node name="FlipRightButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" instance=ExtResource("7_blgb5")]
 layout_mode = 1
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_left = 620.0
-offset_top = -638.5
+offset_top = -98.5
 offset_right = 700.0
-offset_bottom = -558.5
+offset_bottom = -18.5
+grow_vertical = 2
 
 [node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" index="0"]
 visible = false
@@ -977,7 +1310,8 @@ grow_vertical = 2
 texture = ExtResource("16_r0lwg")
 expand_mode = 1
 
-[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_subViewport", "_animationPlayer", "_3dRoot", "_crystalBall", "Button")]
+[node name="SanctuaryOfTheGreatOak" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_titheBowl3DRoot", "_animationPlayer", "_donationCoinContainer", "_syncingBody", "_bowlVisualContainer", "_donateButton", "_envelopeB", "Button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -985,16 +1319,99 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("17_1n38g")
-_subViewport = NodePath("AnimationContainer/3D/SubViewport")
-_animationPlayer = NodePath("AnimationContainer/3D/SubViewport/Root/AnimationPlayer")
-_moveInAnimationName = &"CrystalBallMoveIn"
-_moveOutAnimationName = &"CrystalBallMoveOut"
-_3dRoot = NodePath("AnimationContainer/3D/SubViewport/Root")
-_crystalBall = NodePath("AnimationContainer/3D/SubViewport/Root/CrystalBall")
-Button = NodePath("../ActionButtons/VBoxContainer/EnhancerButton")
+script = ExtResource("23_gyc5w")
+_titheBowl3DRoot = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot")
+_animationPlayer = NodePath("AnimationPlayer")
+_moveInAnimationName = &"TitheBowlMoveIn"
+_moveOutAnimationName = &"TitheBowlMoveOut"
+_donationCoinScene = ExtResource("27_j84ia")
+_donationCoinContainer = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/Coins")
+_syncingBody = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D")
+_bowlVisualContainer = NodePath("../Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl")
+_donateButton = NodePath("DonationButton")
+_envelopeB = NodePath("EnvelopeB")
+Button = NodePath("../ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton")
 
-[node name="AnimationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak"]
+libraries = {
+&"": SubResource("AnimationLibrary_j84ia")
+}
+
+[node name="DonationButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" instance=ExtResource("7_blgb5")]
+layout_mode = 1
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 250.0
+offset_bottom = 350.0
+grow_vertical = 2
+
+[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton/BetterButton/Panel" index="0"]
+text = "Donate"
+
+[node name="EnvelopeB" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" node_paths=PackedStringArray("_circleParent", "EnvelopeB3DRoot", "SubViewport", "_animationContainer")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 375.0
+offset_top = -316.0
+offset_right = 635.0
+offset_bottom = 316.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("25_8rcsx")
+_normalCircleScene = ExtResource("26_4ql0m")
+_yellowCircleScene = ExtResource("27_8rcsx")
+_circleParent = NodePath("SubViewportContainer/SubViewport/MarginContainer/GridContainer")
+EnvelopeB3DRoot = NodePath("../../Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot")
+SubViewport = NodePath("SubViewportContainer/SubViewport")
+_animationContainer = NodePath("../../Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(260, 632)
+render_target_update_mode = 0
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("25_8ad0h")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+
+[node name="Shared3D" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1003,7 +1420,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1013,79 +1439,355 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D"]
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 1
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport"]
 
-[node name="CrystalBall" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, -1)
+[node name="EnvelopeBRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+visible = false
 
-[node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall" instance=ExtResource("17_seeb3")]
+[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26, 0.02, 0)
+
+[node name="AnimationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container"]
+
+[node name="Mesh" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer"]
+transform = Transform3D(1.165, 0, 0, 0, 1, 0, 0, 0, 2.832, 0, 0, 0)
+
+[node name="Top" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 0)
+layers = 524288
+mesh = SubResource("QuadMesh_8ad0h")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ql0m")
+
+[node name="Box" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.024, 0)
+layers = 524288
+mesh = SubResource("BoxMesh_fobax")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_8rcsx")
+
+[node name="TitheBowlRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+visible = false
+
+[node name="TitheBowlContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.68)
+
+[node name="MoveContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer"]
+
+[node name="RotationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer"]
+
+[node name="TitheBowl" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer"]
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot" node_paths=PackedStringArray("_nodeToFollow")]
+physics_material_override = SubResource("PhysicsMaterial_j84ia")
+script = ExtResource("27_w2guo")
+_nodeToFollow = NodePath("../TitheBowlContainer/MoveContainer/RotationContainer/TitheBowl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
+shape = SubResource("CylinderShape3D_8ad0h")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("CylinderShape3D_8ad0h")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.7, 0, 0.7)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.7, 0, -0.7)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.7, 0, -0.7)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.7, 0, 0.7)
+shape = SubResource("BoxShape3D_fobax")
+
+[node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" instance=ExtResource("23_t8hrt")]
+transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 0, 0, 0)
+
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0"]
+transform = Transform3D(-33.4565, 37.1572, 1.62419e-06, 0, -2.18557e-06, 50, 37.1572, 33.4565, 1.46243e-06, 0, 0, 0)
+layers = 524288
+surface_material_override/0 = SubResource("StandardMaterial3D_jvldq")
+surface_material_override/1 = SubResource("StandardMaterial3D_tquji")
+surface_material_override/2 = SubResource("StandardMaterial3D_6rvjw")
+
+[node name="Coins" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.635, 0, -0.68)
+
+[node name="CrystalBallRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+
+[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CrystalBall" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+
+[node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" instance=ExtResource("17_seeb3")]
 transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder" index="0"]
-layers = 4
-material_override = ExtResource("18_1n38g")
-cast_shadow = 0
-
-[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder" index="1"]
-layers = 4
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0"]
+layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Ball" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall"]
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1"]
+layers = 524288
+material_override = ExtResource("18_1n38g")
+
+[node name="Ball" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, 0)
 
-[node name="Distortion" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+[node name="Distortion" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
 transform = Transform3D(-1, -8.44439e-08, -2.26267e-08, 0, 0.258819, -0.965926, 8.74228e-08, -0.965926, -0.258819, 0, 0.000139952, 0)
-layers = 4
+layers = 524288
 material_override = SubResource("ShaderMaterial_t8hrt")
 cast_shadow = 0
 mesh = SubResource("SphereMesh_jvldq")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../../../..")
 
-[node name="SwirlingBack" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+[node name="SwirlingBack" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
-layers = 4
+layers = 524288
 material_override = SubResource("ShaderMaterial_tquji")
 cast_shadow = 0
 mesh = SubResource("SphereMesh_jvldq")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../../../..")
 
-[node name="SwirlingTop" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/Ball"]
+[node name="SwirlingTop" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
-layers = 4
+layers = 524288
 material_override = SubResource("ShaderMaterial_jvldq")
 mesh = SubResource("SphereMesh_jvldq")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../../../..")
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+[node name="Shadow" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
+layers = 524288
+cast_shadow = 3
+mesh = SubResource("SphereMesh_6t0vk")
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController"]
+
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
-cull_mask = 4
-environment = SubResource("Environment_4wnl8")
+cull_mask = 524288
+environment = SubResource("Environment_6rvjw")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
 transform = Transform3D(0.7127, -0.502156, 0.489794, 0, 0.69824, 0.715863, -0.701469, -0.510196, 0.497636, 0, 0, 0)
-layers = 4
-light_color = Color(0.989348, 1, 0.687726, 1)
-light_cull_mask = 4293918724
+layers = 524288
+light_color = Color(0.988235, 1, 0.858824, 1)
+light_cull_mask = 4294443016
+shadow_enabled = true
+shadow_caster_mask = 4294443008
 sky_mode = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root"]
-libraries = {
-&"": SubResource("AnimationLibrary_jvldq")
-}
+[node name="ShadowPlane" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.01, 0)
+layers = 524288
+material_override = SubResource("ShaderMaterial_gyc5w")
+mesh = SubResource("PlaneMesh_j84ia")
+
+[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_3dRoot", "_crystalBall", "_cardContainer", "_cardRotationContainer", "_cardView", "_cardListContainer", "_cardSelectionList", "_optionsContainer", "_enhancementOptionParent", "_confirmButton", "Button")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("17_1n38g")
+_3dRoot = NodePath("../Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot")
+_crystalBall = NodePath("../Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall")
+_cardContainer = NodePath("CardAnchor/CardContainer")
+_cardRotationContainer = NodePath("CardAnchor/CardContainer/RotationContainer")
+_cardView = NodePath("CardAnchor/CardContainer/RotationContainer/AbilityCardView")
+_enhancementMarkButtonScene = ExtResource("35_sfc7v")
+_cardListContainer = NodePath("CardSelectionAnchor/CardSelectionContainer")
+_cardSelectionList = NodePath("CardSelectionAnchor/CardSelectionContainer/MarginContainer/CardSelectionList")
+_optionsContainer = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer")
+_enhancementOptionScene = ExtResource("39_3p1c5")
+_enhancementOptionParent = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer/MarginContainer/Options")
+_confirmButton = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton/BetterButton")
+Button = NodePath("../ActionButtons/VBoxContainer/EnhancerButton")
+
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -638.0
+offset_right = 160.0
+offset_bottom = -190.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.05, 1.05)
+pivot_offset = Vector2(160, 224)
+mouse_filter = 2
+
+[node name="CardContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RotationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 300)
+mouse_filter = 2
+
+[node name="AbilityCardView" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer/RotationContainer" instance=ExtResource("37_6k6qu")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 0
+
+[node name="CardSelectionAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+material = ExtResource("23_1ehwm")
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 100.0
+offset_right = 730.0
+offset_bottom = -180.0
+grow_vertical = 2
+
+[node name="CardSelectionContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor"]
+material = ExtResource("23_1ehwm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikgp2")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CardSelectionList" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer/MarginContainer" instance=ExtResource("18_ikgp2")]
+custom_minimum_size = Vector2(470, 760)
+layout_mode = 2
+
+[node name="EnhancementOptionsAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -730.0
+offset_top = 100.0
+offset_right = -440.0
+offset_bottom = -180.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="EnhancementOptionsContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor"]
+material = ExtResource("23_1ehwm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("19_6k6qu")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="OptionContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MaskMargin" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+scroll_deadzone = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Options" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="PanelButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer" instance=ExtResource("27_hkul8")]
+layout_mode = 2
 
 [node name="ActionButtons" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager"]
 layout_mode = 1
@@ -1119,16 +1821,14 @@ texture = ExtResource("18_nmjfa")
 modulate = Color(0.47451, 1, 0.72549, 1)
 layout_mode = 2
 
-[node name="TempleOfTheOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
-visible = false
+[node name="SanctuaryOfTheGreatOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
 modulate = Color(1, 1, 0.647059, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/TempleOfTheOakButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container/BetterButton/Panel" index="0"]
 texture = ExtResource("19_ywvcx")
 
 [node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
-visible = false
 modulate = Color(0.994686, 0.586915, 1, 1)
 layout_mode = 2
 
@@ -1143,17 +1843,7 @@ layout_mode = 2
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton/Container/BetterButton/Panel" index="0"]
 texture = ExtResource("22_ywvcx")
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
-material = SubResource("ShaderMaterial_5k12q")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="SidePanel" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_partyNameLabel", "_newCharacterButtonContainer", "_newCharacterButton")]
+[node name="SidePanel" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_partyNameLabel", "_newCharacterButtonContainer", "_newCharacterButton", "_prosperityStat", "_reputationStat")]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1163,6 +1853,8 @@ script = ExtResource("23_5k12q")
 _partyNameLabel = NodePath("MarginContainer/VBoxContainer/PartyStats/PartyNameContainer/PartyName")
 _newCharacterButtonContainer = NodePath("MarginContainer/VBoxContainer/NewCharacterButton")
 _newCharacterButton = NodePath("MarginContainer/VBoxContainer/NewCharacterButton/BetterButton")
+_prosperityStat = NodePath("MarginContainer/VBoxContainer/PartyStats/Prosperity")
+_reputationStat = NodePath("MarginContainer/VBoxContainer/PartyStats/Reputation")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel"]
 material = ExtResource("23_1ehwm")
@@ -1214,81 +1906,25 @@ script = ExtResource("28_psaff")
 _minSize = 10
 _maxSize = 40
 
-[node name="Prosperity" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats"]
-custom_minimum_size = Vector2(0, 30)
+[node name="Prosperity" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" instance=ExtResource("45_rtdf2")]
 layout_mode = 2
-mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Prosperity"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_blvf2")
+[node name="Reputation" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" instance=ExtResource("45_rtdf2")]
+layout_mode = 2
 
-[node name="ProgressBar" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Prosperity"]
-self_modulate = Color(0.78451, 0.253912, 0.268934, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.615, 1)
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wuydi")
+[node name="ProgressBar" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="1"]
+self_modulate = Color(0.654877, 0.413723, 0.787502, 1)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Prosperity"]
+[node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="2"]
+text = "Reputation"
+
+[node name="OldReputation" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats"]
 visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 21.0
-offset_top = -13.0
-offset_right = 47.0
-offset_bottom = 13.0
-grow_vertical = 2
-pivot_offset = Vector2(17, 17)
-mouse_filter = 2
-texture = ExtResource("28_5k12q")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Prosperity"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 93.0
-grow_vertical = 2
-text = "Prosperity"
-label_settings = SubResource("LabelSettings_seeb3")
-vertical_alignment = 1
-
-[node name="Amount" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Prosperity"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -93.0
-offset_right = -8.0
-grow_horizontal = 0
-grow_vertical = 2
-text = "1"
-label_settings = SubResource("LabelSettings_1n38g")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Reputation" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1298,35 +1934,19 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_blvf2")
 
-[node name="ProgressBar" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
+[node name="ProgressBar" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
 self_modulate = Color(0.788235, 0.615686, 0.890196, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -180.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.615, 1)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wuydi")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 21.0
-offset_top = -13.0
-offset_right = 47.0
-offset_bottom = 13.0
-grow_vertical = 2
-pivot_offset = Vector2(17, 17)
-mouse_filter = 2
-texture = ExtResource("28_5k12q")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1337,7 +1957,7 @@ text = "Reputation"
 label_settings = SubResource("LabelSettings_seeb3")
 vertical_alignment = 1
 
-[node name="Amount" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
+[node name="Amount" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1368,15 +1988,845 @@ layout_mode = 2
 text = "New Character"
 label_settings = SubResource("LabelSettings_f340v")
 
+[node name="EventOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_background", "_skipTextButton", "_rotatingCardView", "_cityEventCard", "_roadEventCard", "_continueButton", "_eventChoiceButtonParent")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("49_dl2j2")
+_background = NodePath("Background")
+_skipTextButton = NodePath("SkipTextButton")
+_rotatingCardView = NodePath("EventCard/SubViewportContainer")
+_cityEventCard = NodePath("EventCard/SubViewportContainer/SubViewport/Mask/City")
+_roadEventCard = NodePath("EventCard/SubViewportContainer/SubViewport/Mask/Road")
+_continueButton = NodePath("ContinueButton")
+_eventChoiceButtonScene = ExtResource("57_dl2j2")
+_eventChoiceButtonParent = NodePath("HBoxContainer")
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/UI/EventOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.705882)
+
+[node name="EventCard" type="Control" parent="CanvasLayer/UI/EventOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -480.0
+offset_right = 250.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/EventOverlay/EventCard"]
+material = ExtResource("51_rtdf2")
+instance_shader_parameters/y_rot = 0.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+script = ExtResource("52_0un3t")
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(500, 700)
+render_target_update_mode = 0
+
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport"]
+clip_children = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12j2q")
+
+[node name="City" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("30_dl2j2")
+FrontContainer = NodePath("Front")
+FrontEventText = NodePath("Front/ShapedEventText")
+BackContainer = NodePath("Back")
+BackEventText = NodePath("Back/ShapedEventText")
+NumberLabel = NodePath("Front/NumberLabel")
+_rewardLabelScene = ExtResource("58_rtdf2")
+_rewardLabelParent = NodePath("Back/ShapedEventText/MarginContainer/Labels/Rewards")
+
+[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+material = ExtResource("32_su2xo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.09, 1.07)
+pivot_offset = Vector2(250, 350)
+mouse_filter = 2
+texture = ExtResource("33_2yhfp")
+expand_mode = 1
+
+[node name="Example" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+visible = false
+material = ExtResource("32_su2xo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("34_rtdf2")
+expand_mode = 1
+
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" node_paths=PackedStringArray("_richTextLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_0rh5w")
+TextShapeCurve = SubResource("Curve_d3wm2")
+Font = ExtResource("36_bny7g")
+FontSize = 22
+LineHeight = 22.5
+TextColor = Color(1, 1, 1, 1)
+_richTextLabelParent = NodePath("MarginContainer/Labels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 132
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText/MarginContainer"]
+layout_mode = 2
+
+[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -33.0
+offset_right = 20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "25"
+label_settings = SubResource("LabelSettings_16mqd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back"]
+material = ExtResource("32_su2xo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -71.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.593, 1.564)
+pivot_offset = Vector2(250, 350)
+mouse_filter = 2
+texture = ExtResource("33_2yhfp")
+expand_mode = 1
+
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back" node_paths=PackedStringArray("_richTextLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_0rh5w")
+TextShapeCurve = SubResource("Curve_tq2dg")
+Font = ExtResource("36_bny7g")
+FontSize = 22
+LineHeight = 22.5
+TextColor = Color(1, 1, 1, 1)
+_richTextLabelParent = NodePath("MarginContainer/Labels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer"]
+layout_mode = 2
+
+[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer/Labels"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Road" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("30_dl2j2")
+FrontContainer = NodePath("Front")
+FrontEventText = NodePath("Front/ShapedEventText")
+BackContainer = NodePath("Back")
+BackEventText = NodePath("Back/ShapedEventText")
+NumberLabel = NodePath("Front/NumberLabel")
+_rewardLabelScene = ExtResource("60_0rh5w")
+_rewardLabelParent = NodePath("Back/ShapedEventText/MarginContainer/Labels/Rewards")
+
+[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front"]
+material = ExtResource("32_su2xo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.09, 1.07)
+pivot_offset = Vector2(250, 350)
+mouse_filter = 2
+texture = ExtResource("58_su2xo")
+expand_mode = 1
+
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front" node_paths=PackedStringArray("_richTextLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_0rh5w")
+TextShapeCurve = SubResource("Curve_d3wm2")
+Font = ExtResource("36_bny7g")
+FontSize = 22
+LineHeight = 22.5
+TextColor = Color(0.137255, 0.121569, 0.12549, 1)
+_richTextLabelParent = NodePath("MarginContainer/Labels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 132
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText/MarginContainer"]
+layout_mode = 2
+
+[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -33.0
+offset_right = 20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "25"
+label_settings = SubResource("LabelSettings_16mqd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back"]
+material = ExtResource("32_su2xo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -71.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.593, 1.564)
+pivot_offset = Vector2(250, 350)
+mouse_filter = 2
+texture = ExtResource("58_su2xo")
+expand_mode = 1
+
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back" node_paths=PackedStringArray("_richTextLabelParent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_0rh5w")
+TextShapeCurve = SubResource("Curve_tq2dg")
+Font = ExtResource("36_bny7g")
+FontSize = 22
+LineHeight = 22.5
+TextColor = Color(0.137255, 0.121569, 0.12549, 1)
+_richTextLabelParent = NodePath("MarginContainer/Labels")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer"]
+layout_mode = 2
+
+[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer/Labels"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/EventOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 250.0
+offset_right = 100.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="SkipTextButton" type="BaseButton" parent="CanvasLayer/UI/EventOverlay"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("58_sagt1")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="ContinueButton" parent="CanvasLayer/UI/EventOverlay" instance=ExtResource("7_blgb5")]
+layout_mode = 1
+anchors_preset = 8
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 250.0
+offset_bottom = 350.0
+grow_vertical = 2
+
+[node name="Label" parent="CanvasLayer/UI/EventOverlay/ContinueButton/BetterButton/Panel" index="0"]
+text = "Continue"
+
+[node name="CharacterCreationOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_steps", "_backButton", "_confirmButton")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("63_38ram")
+_steps = [NodePath("Steps/Class"), NodePath("Steps/PersonalQuest"), NodePath("Steps/CharacterName")]
+_backButton = NodePath("BackButton")
+_confirmButton = NodePath("ConfirmButton")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("62_bny7g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+material = SubResource("ShaderMaterial_wg15a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Steps" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Class" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_classParent", "_matFrontTexture")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("65_sursi")
+_classScene = ExtResource("66_bnord")
+_classParent = NodePath("HBoxContainer/ClassesGrid")
+_matFrontTexture = NodePath("HBoxContainer/VBoxContainer/MatFront/Mask/TextureRect")
+
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 187.0
+grow_horizontal = 2
+text = "Select a Class"
+label_settings = SubResource("LabelSettings_vapya")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -565.0
+offset_top = 180.0
+offset_right = 565.0
+offset_bottom = 221.0
+grow_horizontal = 2
+text = "The classes not included in the chosen group can be unlocked during the campaign."
+label_settings = ExtResource("64_tq2dg")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -585.0
+offset_top = -315.0
+offset_right = 585.0
+offset_bottom = 315.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="ClassesGrid" type="GridContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MatFront" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(970, 630)
+layout_mode = 2
+
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront"]
+clip_children = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d3wm2")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront/Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("64_wg15a")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="PersonalQuest" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_questParent", "_noneRemainingLabel")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("70_sursi")
+_questScene = ExtResource("68_0un3t")
+_questParent = NodePath("HBoxContainer")
+_noneRemainingLabel = NodePath("NoneRemainingLabel")
+
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 187.0
+grow_horizontal = 2
+text = "Select a Personal Quest"
+label_settings = SubResource("LabelSettings_vapya")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -565.0
+offset_top = 180.0
+offset_right = 565.0
+offset_bottom = 221.0
+grow_horizontal = 2
+text = "The classes not included in the chosen group can be unlocked during the campaign."
+label_settings = ExtResource("64_tq2dg")
+horizontal_alignment = 1
+
+[node name="NoneRemainingLabel" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -565.0
+offset_top = -20.5
+offset_right = 565.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "No personal quests remaining!"
+label_settings = SubResource("LabelSettings_sursi")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CharacterName" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_nameLineEdit")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("70_38ram")
+_nameLineEdit = NodePath("LineEdit")
+
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 187.0
+grow_horizontal = 2
+text = "Enter a Name for your Character"
+label_settings = SubResource("LabelSettings_0un3t")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -565.0
+offset_top = 180.0
+offset_right = 565.0
+offset_bottom = 221.0
+grow_horizontal = 2
+text = "The classes not included in the chosen group can be unlocked during the campaign."
+label_settings = ExtResource("64_tq2dg")
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -50.0
+offset_right = 400.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/caret_width = 2
+theme_override_fonts/font = ExtResource("28_jr74k")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxFlat_vapya")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bnord")
+placeholder_text = "..."
+alignment = 1
+max_length = 20
+caret_blink = true
+
+[node name="BackButton" parent="CanvasLayer/UI/CharacterCreationOverlay" node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -180.0
+offset_right = 300.0
+offset_bottom = -100.0
+grow_vertical = 0
+script = ExtResource("67_0un3t")
+BetterButton = NodePath("BetterButton")
+_startActive = true
+
+[node name="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/BackButton/BetterButton/Panel" index="0"]
+text = "Back"
+
+[node name="ConfirmButton" parent="CanvasLayer/UI/CharacterCreationOverlay" node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("67_0un3t")
+BetterButton = NodePath("BetterButton")
+_startActive = false
+
+[node name="ClassUnlockOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_unlockCharacterView")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("74_6t0vk")
+_unlockCharacterView = NodePath("UnlockCharacterView")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/ClassUnlockOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("62_bny7g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/ClassUnlockOverlay"]
+material = SubResource("ShaderMaterial_wg15a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UnlockCharacterView" parent="CanvasLayer/UI/ClassUnlockOverlay" instance=ExtResource("74_8tse7")]
+layout_mode = 1
+
 [node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("32_5k12q")]
 layout_mode = 1
 
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton"]
-[editable path="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/AnimationContainer/3D/SubViewport/Root/CrystalBall/CrystalBallHolder"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton"]
-[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/TempleOfTheOakButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton"]
+[editable path="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]
 [editable path="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton"]
+[editable path="CanvasLayer/UI/EventOverlay/ContinueButton"]
+[editable path="CanvasLayer/UI/CharacterCreationOverlay/BackButton"]
+[editable path="CanvasLayer/UI/CharacterCreationOverlay/ConfirmButton"]

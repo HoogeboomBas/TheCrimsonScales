@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, CrewIntegrity.CardBottom>
 {
@@ -10,10 +11,10 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.62086433f, 0.21908909f)))
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
 						parameters => parameters.Performer.Hex.HasHexObjectOfType<Ladder>(),
@@ -62,10 +63,15 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithAbilities(
+				[
+					MoveAbility.Builder()
+						.WithDistance(3, new MoveCircle(this, new Vector2(0.6176377f, 0.8494575f)))
+						.Build()
+				])
 				.WithTargets(2)
 				.WithRange(3)
 				.WithTarget(Target.SelfOrAllies | Target.SelfCountsForTargets)
@@ -75,7 +81,7 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 						{
 							parameters.AbilityState.AdjustTargets(1);
 
-							await GDTask.CompletedTask;
+							await AbilityCmd.GainXP(parameters.Performer, 1);
 						}
 					)
 				)

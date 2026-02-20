@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuixnholftonk"]
+
+[ext_resource type="Script" uid="uid://ddyyewiy8im4m" path="res://Scripts/UI/PersonalQuests/PersonalQuestProgressView.cs" id="1_cn7m7"]
+[ext_resource type="PackedScene" uid="uid://dw1ln706dq5kv" path="res://Scenes/UI/PersonalQuests/PersonalQuestView.tscn" id="1_m0dvu"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="2_cn7m7"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="3_1wyw7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_00c86"]
+font = ExtResource("3_1wyw7")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_q1h0x"]
+font = ExtResource("3_1wyw7")
+font_size = 30
+
+[node name="PersonalQuestProgress" type="VBoxContainer" node_paths=PackedStringArray("_personalQuestView", "_progressBar")]
+mouse_filter = 2
+theme_override_constants/separation = 20
+alignment = 1
+script = ExtResource("1_cn7m7")
+_personalQuestView = NodePath("PersonalQuestView")
+_progressBar = NodePath("ProgressBar")
+
+[node name="PersonalQuestView" parent="." instance=ExtResource("1_m0dvu")]
+custom_minimum_size = Vector2(400, 560)
+layout_mode = 2
+
+[node name="ProgressBar" parent="." instance=ExtResource("2_cn7m7")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ProgressBar" parent="ProgressBar" index="1"]
+self_modulate = Color(0.329727, 0.552278, 0.34122, 1)
+
+[node name="Label" parent="ProgressBar" index="2"]
+text = "Progress"
+label_settings = SubResource("LabelSettings_00c86")
+
+[node name="Amount" parent="ProgressBar" index="3"]
+text = "1/1"
+label_settings = SubResource("LabelSettings_q1h0x")
+
+[editable path="ProgressBar"]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 {
@@ -10,10 +11,10 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.5094827f, 0.24582104f)))
 				.WithConditions(Conditions.Immobilize)
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.New(
@@ -30,7 +31,7 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(state =>
@@ -54,7 +55,7 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 						});
 
 					ScenarioEvents.HazardousTerrainTriggeredEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.AbilityState.Performer == state.Performer,
+						canApplyParameters => canApplyParameters.PotentialAbilityState?.Performer == state.Performer,
 						applyParameters =>
 						{
 							applyParameters.SetAffectedByHazardousTerrain(false);
@@ -73,11 +74,13 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 				)
 				.Build()),
 
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(6).Build())
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(6, new MoveCircle(this, new Vector2(0.6190325f, 0.79547685f)))
+				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

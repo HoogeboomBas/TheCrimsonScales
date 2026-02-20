@@ -21,7 +21,7 @@ public class ForcedMovementPrompt(
 
 	private readonly List<ForcedMovementNode> _nodes = new List<ForcedMovementNode>();
 
-	protected override bool CanConfirm => PathExists && MoveHelper.CanStopAt(target, _currentNode.Hex);
+	protected override bool CanConfirm => PathExists && MoveHelper.CanStopAt(abilityState, target, _currentNode.Hex);
 	protected override bool CanSkip => true;
 
 	private bool PathExists => _currentNode != null && _currentNode.Parents.Count > 0;
@@ -35,14 +35,15 @@ public class ForcedMovementPrompt(
 		_waypoints.Add(_currentNode);
 
 		// Find all hexes we can push/pull/swing into to
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 		_closedList.Add(_currentNode.Hex, _currentNode);
 
 		_nodes.Clear();
 
 		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(target, hex))
+			if(!MoveHelper.CanStopAt(abilityState, target, hex))
 			{
 				continue;
 			}
@@ -55,14 +56,15 @@ public class ForcedMovementPrompt(
 	{
 		base.UpdateState();
 
-		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList, requiredDirection: requiredDirection);
+		MoveHelper.FindReachableForcedMovementHexes(abilityState, _currentNode, target, origin, type, _closedList,
+			requiredDirection: requiredDirection);
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
 		HashSet<Hex> reachableHexes = new HashSet<Hex>();
 
 		// Swing requires recreating possible routes on update
-		if(type == ForcedMovementType.Swing) 
+		if(type == ForcedMovementType.Swing)
 		{
 			_nodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)

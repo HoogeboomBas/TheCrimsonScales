@@ -11,7 +11,7 @@ public class ThrowingDaggers : MirefootCardModel<ThrowingDaggers.CardTop, Throwi
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -30,7 +30,7 @@ public class ThrowingDaggers : MirefootCardModel<ThrowingDaggers.CardTop, Throwi
 						EffectType.SelectableMandatory,
 						canApplyMultipleTimesDuringSubscription: true,
 						effectButtonParameters: new TextEffectButton.Parameters($"+2{Icons.Inline(Icons.Range)}"),
-						effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(this)
+						effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(GetAbilityCardSide(state))
 					);
 
 					await GDTask.CompletedTask;
@@ -51,19 +51,26 @@ public class ThrowingDaggers : MirefootCardModel<ThrowingDaggers.CardTop, Throwi
 				)
 				.Build()),
 
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build())
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.618984f, 0.4140626f)))
+				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6215359f, 0.71759737f)))
+				.Build()),
 
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).WithMoveType(MoveType.Jump).Build())
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2)
+				.WithMoveType(MoveType.Jump)
+				.Build())
 		];
 	}
 }

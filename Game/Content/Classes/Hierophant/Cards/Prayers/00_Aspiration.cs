@@ -9,20 +9,21 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 
 	public class CardTop : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.Condition.IsNegative,
+						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.ConditionModel.IsNegative,
 						async applyParameters =>
 						{
 							if(!applyParameters.Prevented)
 							{
 								applyParameters.SetPrevented(true);
 
-								ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
+								ActionState actionState = new ActionState(state.Performer,
+									[HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()]);
 								await actionState.Perform();
 
 								await state.AdvanceUseSlot();
@@ -42,32 +43,33 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.314f)),
-						new UseSlot(new Vector2(0.603f, 0.314f))
+						new UseSlot(new Vector2(0.38150153f, 0.3129901f)),
+						new UseSlot(new Vector2(0.58650404f, 0.3129901f))
 					]
 				)
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.Condition.IsNegative,
+						canApplyParameters => canApplyParameters.Target == state.Performer && canApplyParameters.ConditionModel.IsNegative,
 						async applyParameters =>
 						{
 							if(!applyParameters.Prevented)
 							{
 								applyParameters.SetPrevented(true);
 
-								ActionState actionState = new ActionState(state.Performer, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
+								ActionState actionState = new ActionState(state.Performer,
+									[HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]);
 								await actionState.Perform();
 
 								await state.AdvanceUseSlot();
@@ -85,10 +87,10 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.764f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.4855002f, 0.78900117f)))
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

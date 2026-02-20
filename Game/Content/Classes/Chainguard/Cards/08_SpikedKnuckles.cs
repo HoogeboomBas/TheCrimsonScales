@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, SpikedKnuckles.CardBottom>
 {
@@ -10,10 +11,10 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.51325023f, 0.24095783f)))
 				.WithConditions(Conditions.Wound1)
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
@@ -32,10 +33,10 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62026906f, 0.7068813f)))
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()
@@ -43,7 +44,7 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer &&
-							parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
+						              parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustPierce(1);
@@ -63,6 +64,6 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

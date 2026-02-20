@@ -8,8 +8,14 @@
 [node name="Objective1H" instance=ExtResource("1_l2rcq")]
 script = ExtResource("2_l2rcq")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
+
+[node name="FigureViewComponent" parent="." index="4" node_paths=PackedStringArray("Outline") instance=ExtResource("4_l2rcq")]
+Outline = NodePath("../Outline")
+
+[node name="Health" parent="FigureViewComponent" index="0"]
+position = Vector2(0, 0)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
@@ -19,13 +25,7 @@ self_modulate = Color(1, 1, 1, 0.635294)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_l2rcq")
 
-[node name="FigureViewComponent" parent="." index="4" node_paths=PackedStringArray("Outline") instance=ExtResource("4_l2rcq")]
-Outline = NodePath("../Hexagon")
-
-[node name="Health" parent="FigureViewComponent" index="0"]
-position = Vector2(0, 0)
-
-[node name="FigureActiveParticleSystem" parent="FigureViewComponent" index="6"]
+[node name="Hex" parent="." index="6"]
 visible = false
 
 [editable path="FigureViewComponent"]

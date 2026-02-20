@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu61j2vgh7agu"]
+
+[ext_resource type="PackedScene" uid="uid://dichdaj8dgrcy" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBCircle.tscn" id="1_hx5bt"]
+
+[node name="YellowEnvelopeBCircle" instance=ExtResource("1_hx5bt")]
+
+[node name="Background" parent="Circle" index="0"]
+self_modulate = Color(0.972549, 0.764706, 0.235294, 0.188235)
+
+[node name="Outline" parent="Circle" index="1"]
+self_modulate = Color(0.972549, 0.764706, 0.235294, 1)
+
+[node name="Triangle" type="Polygon2D" parent="Circle" index="2"]
+self_modulate = Color(0.972549, 0.764706, 0.235294, 1)
+position = Vector2(20, 38)
+polygon = PackedVector2Array(0, 0, 10, -3, 13, -6, 0, -24, -13, -6, -10, -3)
+
+[node name="Label" parent="." index="1"]
+self_modulate = Color(0.972549, 0.764706, 0.235294, 1)

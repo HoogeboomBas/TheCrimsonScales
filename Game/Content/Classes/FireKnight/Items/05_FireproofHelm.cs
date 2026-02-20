@@ -1,4 +1,4 @@
-﻿public class FireproofHelm : FireKnightItem
+﻿public class FireKnightFireproofHelm : FireKnightItem
 {
 	public override string Name => "Fireproof Helm";
 	public override int ItemNumber => 5;
@@ -16,7 +16,8 @@
 				{
 					await AbilityCmd.AddCondition(null, user, Conditions.Ward);
 
-					if(await AbilityCmd.AskConsumeElement(user, Element.Fire, effectInfoText: $"{Icons.Inline(Icons.GetCondition(Conditions.Safeguard))}"))
+					if(await AbilityCmd.AskConsumeElement(user, Element.Fire,
+						   effectInfoText: $"{Icons.Inline(Icons.GetCondition(Conditions.Safeguard))}"))
 					{
 						await AbilityCmd.AddCondition(null, user, Conditions.Safeguard);
 					}

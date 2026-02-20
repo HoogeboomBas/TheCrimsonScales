@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.CardTop, ImpetuousInquisition.CardBottom>
 {
@@ -10,11 +11,11 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Disarm)
-				.WithRange(3)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.60228586f, 0.24413775f)))
 				.WithAfterTargetConfirmedSubscription(
 					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
 						canApplyFunction: canApplyParameters =>
@@ -43,7 +44,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -53,13 +54,13 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 						{
 							return
 								canApplyParameters.SufferDamageParameters.FromAttack &&
-								state.Performer.EnemiesWith(canApplyParameters.SufferDamageParameters.PotentialAttackAbilityState.Performer) &&
+								state.Performer.EnemiesWith(canApplyParameters.SufferDamageParameters.PotentialAbilityState.Performer) &&
 								state.Performer.AlliedWith(canApplyParameters.SufferDamageParameters.Figure) &&
 								canApplyParameters.Damage >= 3;
 						},
 						apply: async applyParameters =>
 						{
-							await AbilityCmd.SufferDamage(null, applyParameters.PotentialAttackAbilityState.Performer, 2);
+							await AbilityCmd.SufferDamage(state, applyParameters.PotentialAbilityState.Performer, 2);
 						}
 					);
 
@@ -79,16 +80,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 						RetaliateAbility.Builder().WithRetaliateValue(1).Build()
 					]
 				)
-				.WithCustomGetTargets((state, list) =>
-				{
-					foreach(Figure figure in GameController.Instance.Map.Figures)
-					{
-						if(state.Performer.AlliedWith(figure))
-						{
-							list.Add(figure);
-						}
-					}
-				})
+				.WithTarget(Target.Allies | Target.TargetAll)
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
@@ -97,8 +89,8 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
-		protected override bool Loss => true;
+		public override int XP => 1;
+		public override bool Round => true;
+		public override bool Loss => true;
 	}
 }

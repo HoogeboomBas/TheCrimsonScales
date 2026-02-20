@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cg1jwaey5wpdo"]
+
+[ext_resource type="Texture2D" uid="uid://b1p3xwhpgoy1v" path="res://Content/Classes/Chieftain/Summons/scout_dog_AI.png" id="1_k5kxm"]
+
+[resource]
+atlas = ExtResource("1_k5kxm")
+region = Rect2(80, 170, 400, 400)

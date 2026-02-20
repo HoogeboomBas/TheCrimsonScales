@@ -11,10 +11,10 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Curse, Conditions.Curse)
+				.WithConditions([Conditions.Curse, Conditions.Curse])
 				.WithRange(3)
 				.Build()),
 
@@ -24,7 +24,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApply: canApplyParameters =>
 							state.Performer.EnemiesWith(canApplyParameters.Performer) &&
-							canApplyParameters.AMDCard is CurseAMDCard,
+							canApplyParameters.AMDCard.Model is CurseAMDCard,
 						apply: async applyParameters =>
 						{
 							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
@@ -32,7 +32,7 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 									canApplyParameters.AbilityState == applyParameters.AbilityState,
 								apply: async parameters =>
 								{
-									await AbilityCmd.SufferDamage(null, parameters.Performer, 10);
+									await AbilityCmd.SufferDamage(state, parameters.Performer, 10);
 									await state.AdvanceUseSlot();
 								}
 							);
@@ -46,40 +46,27 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
-					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this); 
+					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.4f)))
+				.WithUseSlot(new UseSlot(new Vector2(0.48850015f, 0.39850003f)))
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherTargetedAbility.Builder()
 				.WithOnAfterConditionsApplied(async (state, target) =>
 				{
-					int conditionCount = 0;
-
-					for(int i = target.Conditions.Count - 1; i >= 0; i--)
-					{
-						ConditionModel condition = target.Conditions[i];
-						if(condition.IsNegative)
-						{
-							if(await AbilityCmd.RemoveCondition(target, condition))
-							{
-								conditionCount++;
-							}
-						}
-					}
-
+					int conditionCount = await AbilityCmd.RemoveAllNegativeConditions(target);
 					state.SetCustomValue(this, "ConditionCount", conditionCount);
 				})
 				.WithRange(3)

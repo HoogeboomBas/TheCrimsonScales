@@ -4,14 +4,14 @@ using Godot;
 
 public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.CardBottom>
 {
-	public override string Name => "Oaks Embrace";
+	public override string Name => "Oak's Embrace";
 	public override int Level => 1;
 	public override int Initiative => 84;
 	protected override int AtlasIndex => 13 - 10;
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -40,19 +40,19 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.344f)),
-						new UseSlot(new Vector2(0.603f, 0.344f), GainXP)
+						new UseSlot(new Vector2(0.38800013f, 0.344f)),
+						new UseSlot(new Vector2(0.58949935f, 0.344f), GainXP)
 					]
 				)
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 			new AbilityCardAbility(GrantAbility.Builder()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://eu066aoq41ti"]
 
 [ext_resource type="PackedScene" uid="uid://03wrj6dvw5hb" path="res://Scenes/Scenario/OverlayTiles/Door1H.tscn" id="1_geimk"]
-[ext_resource type="PackedScene" uid="uid://b8j3xd1jlkb1m" path="res://Content/OverlayTiles/Corridors/ManMadeStone1H.tscn" id="2_geimk"]
+[ext_resource type="PackedScene" uid="uid://ce61ayds5k2o4" path="res://Content/OverlayTiles/Corridors/OpenStoneDoorHorizontal1H.tscn" id="2_geimk"]
 [ext_resource type="Texture2D" uid="uid://ha6116jm4j3r" path="res://Art/OverlayTiles/Stone Door Closed 1h - Horizontal.png" id="3_geimk"]
 
 [node name="StoneDoorHorizontal1H" instance=ExtResource("1_geimk")]

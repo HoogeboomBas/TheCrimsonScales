@@ -10,28 +10,30 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ShieldAbility.Builder()
 				.WithShieldValue(1)
 				.Build()),
 
-				new AbilityCardAbility(OtherActiveAbility.Builder()
-					.WithOnActivate(async state =>
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
 					{
 						ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(state, this,
-							canApplyParameters => canApplyParameters.PotentialTarget == state.Performer && 
-													canApplyParameters.Performer.EnemiesWith(state.Performer) &&
-													canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
+							canApplyParameters =>
+								canApplyParameters.PotentialTarget == state.Performer &&
+								canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+								canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
 							applyParameters =>
 							{
 								applyParameters.SetCannotBeFocused();
 							});
 
 						ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(state, this,
-							canApplyParameters => canApplyParameters.PotentialTarget == state.Performer && 
-													canApplyParameters.Performer.EnemiesWith(state.Performer) &&
-													canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
+							canApplyParameters =>
+								canApplyParameters.PotentialTarget == state.Performer &&
+								canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+								canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
 							applyParameters =>
 							{
 								applyParameters.SetCannotBeTargeted();
@@ -41,7 +43,7 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 						await GDTask.CompletedTask;
 					}
 				)
-					.WithOnDeactivate(async state =>
+				.WithOnDeactivate(async state =>
 					{
 						ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(state, this);
 						ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(state, this);
@@ -52,12 +54,12 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(3)
@@ -65,6 +67,6 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 				.Build()),
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 }

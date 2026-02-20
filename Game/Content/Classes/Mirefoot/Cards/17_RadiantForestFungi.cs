@@ -10,7 +10,7 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>
@@ -80,7 +80,7 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 						parameters =>
 						{
 							parameters.Add(
-								new FigureInfoTextExtraEffect.Parameters(
+								new InfoTextExtraEffect.Parameters(
 									$"Gain {Icons.Inline(Icons.Shield)}2 while occupying difficult terrain this round."));
 						}
 					);
@@ -102,13 +102,13 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
 				.WithDistance(3)

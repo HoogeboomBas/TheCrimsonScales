@@ -1,16 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://5437b8ot5m74"]
+[gd_scene load_steps=6 format=3 uid="uid://5437b8ot5m74"]
 
 [ext_resource type="PackedScene" uid="uid://biv5sw06a7dxd" path="res://Scenes/Scenario/OverlayTiles/OverlayTile.tscn" id="1_kgl1h"]
-[ext_resource type="Texture2D" uid="uid://ctnkep3e416ds" path="res://Art/Other/OverlayTileHexagonOutline3H.svg" id="2_kgl1h"]
-[ext_resource type="Texture2D" uid="uid://c87uj6rykbfrs" path="res://Art/OverlayTiles/Corridor - Earth 2h.png" id="3_ovip4"]
+[ext_resource type="Texture2D" uid="uid://cvyogyvao0bcc" path="res://Art/Other/OverlayTileStroke3H.svg" id="3_24ms3"]
+[ext_resource type="Texture2D" uid="uid://1qfkl5yfsjro" path="res://Art/OverlayTiles/Tree 3h.png" id="3_kgl1h"]
+[ext_resource type="Texture2D" uid="uid://c3m2fiwfb3c2l" path="res://Art/Other/Outline3H.svg" id="4_24ms3"]
+[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="5_ovip4"]
 
 [node name="OverlayTile3H" instance=ExtResource("1_kgl1h")]
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Sprite" parent="." index="1"]
+position = Vector2(110, -94)
+texture = ExtResource("3_kgl1h")
+
+[node name="Outline" parent="." index="2"]
 position = Vector2(128, -128)
 scale = Vector2(1, -1)
-texture = ExtResource("2_kgl1h")
+texture = ExtResource("4_24ms3")
 
-[node name="Sprite" parent="." index="2"]
-position = Vector2(129, 0)
-texture = ExtResource("3_ovip4")
+[node name="Stroke" parent="." index="3"]
+position = Vector2(128, -128)
+scale = Vector2(1, -1)
+texture = ExtResource("3_24ms3")
+
+[node name="Hex" parent="." index="5" instance=ExtResource("5_ovip4")]
+
+[node name="Hex2" parent="." index="6" instance=ExtResource("5_ovip4")]
+position = Vector2(218.238, 0)
+
+[node name="Hex3" parent="." index="7" instance=ExtResource("5_ovip4")]
+position = Vector2(109.119, -189)

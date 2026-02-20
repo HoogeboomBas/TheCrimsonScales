@@ -1,14 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://m86r4w34m60s"]
+[gd_scene load_steps=4 format=3 uid="uid://m86r4w34m60s"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_haaj3"]
 [ext_resource type="Texture2D" uid="uid://6g27w1e1p3nr" path="res://Art/Icons/Other/Cross.svg" id="2_b30s7"]
 [ext_resource type="Script" uid="uid://dmrnnnyy3fyuf" path="res://Scripts/Scenario/HexObjects/Obstacle.cs" id="3_hjcv4"]
-[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="4_jnkp8"]
 
 [node name="Obstacle1H" instance=ExtResource("1_haaj3")]
 script = ExtResource("3_hjcv4")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
@@ -17,5 +16,3 @@ self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.313726)
 texture = ExtResource("2_b30s7")
-
-[node name="Hex" parent="." index="4" instance=ExtResource("4_jnkp8")]

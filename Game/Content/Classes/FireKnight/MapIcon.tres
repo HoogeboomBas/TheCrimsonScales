@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d2t7ftvfh4hv2"]
+
+[ext_resource type="Texture2D" uid="uid://ekqfid06a7iv" path="res://Content/Classes/FireKnight/Artwork.jpg" id="1_lgo5u"]
+
+[resource]
+atlas = ExtResource("1_lgo5u")
+region = Rect2(170, 150, 600, 600)

@@ -93,7 +93,7 @@ public class ToxicImpAbilityCard4 : ToxicImpAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new FigureInfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
+						parameters.Add(new InfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
 					}
 				);
 
@@ -118,10 +118,11 @@ public class ToxicImpAbilityCard5 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
-			extraDamage: +1, 
-			extraRange: +1, 
-			afterTargetConfirmedSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster,
+			extraDamage: +1,
+			extraRange: +1,
+			afterTargetConfirmedSubscriptions:
+			[
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					parameters => parameters.AbilityState.SingleTargetState.Target.HasCondition(Conditions.Infect),
 					async parameters =>
@@ -144,9 +145,10 @@ public class ToxicImpAbilityCard6 : ToxicImpAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, 
+		new MonsterAbilityCardAbility(AttackAbility(monster,
 			extraDamage: -1,
-			afterAttackPerformedSubscriptions: [
+			afterAttackPerformedSubscriptions:
+			[
 				ScenarioEvents.AfterAttackPerformed.Subscription.New(
 					parameters => parameters.AbilityState.SingleTargetState.Target == monster,
 					async parameters =>

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3yfqgp66ss0d"]
+
+[ext_resource type="Texture2D" uid="uid://b37l4p8l06773" path="res://Art/Icons/ConditionsAndEffects/Poison.svg" id="1_3uvxm"]
+[ext_resource type="Script" uid="uid://c44c8ye5sujig" path="res://Scripts/UI/ConditionView.cs" id="1_027h0"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="2_027h0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_62h4l"]
+font = ExtResource("2_027h0")
+font_size = 60
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ConditionView" type="Control" node_paths=PackedStringArray("_textureRect", "_stackLabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 56.0
+offset_bottom = 56.0
+script = ExtResource("1_027h0")
+_textureRect = NodePath("TextureRect")
+_stackLabel = NodePath("StackLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3uvxm")
+expand_mode = 1
+
+[node name="StackLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(20, 39)
+text = "4"
+label_settings = SubResource("LabelSettings_62h4l")
+horizontal_alignment = 1
+vertical_alignment = 1

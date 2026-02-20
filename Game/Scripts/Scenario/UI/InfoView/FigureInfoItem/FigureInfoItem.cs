@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using System.Text;
 using Godot;
 
@@ -21,12 +21,9 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 	private FigureInfoConditionsEffect _immunities;
 	private FigureInfoConditionsEffect _applies;
 
-	private Control _extraEffectsContainer;
-	private Control _extraEffectsParent;
+	private InfoExtraEffectsView _infoExtraEffectsView;
 
 	private Figure _figure;
-
-	private readonly List<FigureInfoExtraEffectBase> _extraEffects = new List<FigureInfoExtraEffectBase>();
 
 	public override void Init(T parameters)
 	{
@@ -44,8 +41,7 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 		_immunities = GetNode<FigureInfoConditionsEffect>("MarginContainer/Content/Effects/Immunities");
 		_applies = GetNode<FigureInfoConditionsEffect>("MarginContainer/Content/Effects/Applies");
 
-		_extraEffectsContainer = GetNode<Control>("MarginContainer/Content/Effects/ExtraEffects");
-		_extraEffectsParent = GetNode<Control>("MarginContainer/Content/Effects/ExtraEffects/MarginContainer/Effects");
+		_infoExtraEffectsView = GetNode<InfoExtraEffectsView>("MarginContainer/Content/Effects/InfoExtraEffectsView");
 
 		_figure = parameters.HexObject;
 
@@ -174,7 +170,7 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 
 	private void OnConditionsChanged(Figure figure)
 	{
-		_conditions.SetConditions(figure.Conditions);
+		_conditions.SetConditions(figure.Conditions.Select(condition => condition.ConditionModel).ToList());
 	}
 
 	private void OnTargetsSubscriptionsChanged()
@@ -217,24 +213,10 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 
 	private void OnFigureInfoItemExtraEffectsSubscriptionsChanged()
 	{
-		foreach(FigureInfoExtraEffectBase extraEffect in _extraEffects)
-		{
-			extraEffect.QueueFree();
-		}
-
-		_extraEffects.Clear();
-
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheck.Parameters figureInfoItemExtraEffectsCheckParameters =
-			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Fire(new ScenarioCheckEvents.FigureInfoItemExtraEffectsCheck.Parameters(_figure));
+			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Fire(
+				new ScenarioCheckEvents.FigureInfoItemExtraEffectsCheck.Parameters(_figure));
 
-		_extraEffectsContainer.SetVisible(figureInfoItemExtraEffectsCheckParameters.FigureInfoExtraEffectsParameters.Count > 0);
-
-		foreach(FigureInfoExtraEffectParameters parameters in figureInfoItemExtraEffectsCheckParameters.FigureInfoExtraEffectsParameters)
-		{
-			PackedScene scene = ResourceLoader.Load<PackedScene>(parameters.ScenePath);
-			FigureInfoExtraEffectBase extraEffect = scene.Instantiate<FigureInfoExtraEffectBase>();
-			_extraEffectsParent.AddChild(extraEffect);
-			extraEffect.Init(parameters);
-		}
+		_infoExtraEffectsView.Update(figureInfoItemExtraEffectsCheckParameters.InfoExtraEffectsParameters);
 	}
 }

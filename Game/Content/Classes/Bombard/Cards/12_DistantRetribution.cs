@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class DistantRetribution : BombardCardModel<DistantRetribution.CardTop, DistantRetribution.CardBottom>
 {
@@ -9,24 +10,31 @@ public class DistantRetribution : BombardCardModel<DistantRetribution.CardTop, D
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).WithRange(3).Build())
+			new AbilityCardAbility(RetaliateAbility.Builder()
+				.WithRetaliateValue(2)
+				.WithRange(3)
+				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(1, new MoveCircle(this, new Vector2(0.62331194f, 0.71344733f)))
+				.Build()),
 
-			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build())
+			new AbilityCardAbility(ShieldAbility.Builder()
+				.WithShieldValue(1)
+				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

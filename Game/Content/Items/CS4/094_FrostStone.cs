@@ -2,7 +2,7 @@ public class FrostStone : CS4Item
 {
 	public override string Name => "Frost Stone";
 	public override int ItemNumber => 94;
-	public override int ShopCount => 2;
+	public override int ShopCount => 1;
 	public override int Cost => 25;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
@@ -20,7 +20,7 @@ public class FrostStone : CS4Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Owner, [Element.Ice]);
+					await AbilityCmd.InfuseElement(null, Element.Ice, Owner);
 				});
 			}
 		);

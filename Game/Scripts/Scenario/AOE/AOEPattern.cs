@@ -2,10 +2,10 @@
 
 public class AOEPattern
 {
-	public List<AOEHex> Hexes { get; }
+	public List<AOEHex> LocalHexes { get; }
 
-	public AOEPattern(List<AOEHex> hexes)
+	public AOEPattern(List<AOEHex> localHexes)
 	{
-		Hexes = hexes;
+		LocalHexes = localHexes;
 	}
 }

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://qdtbf6gtmw42"]
+
+[ext_resource type="Script" uid="uid://cpjm6jejkmo63" path="res://Scripts/UI/AMDCardView.cs" id="1_1pr2y"]
+[ext_resource type="Material" uid="uid://bgdcydtsmmrb" path="res://Materials/TintGrayscale.tres" id="3_3gqei"]
+[ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="3_fwfi0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_keb7s"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="AMDCardView" type="Control" node_paths=PackedStringArray("TextureRect")]
+custom_minimum_size = Vector2(360, 240)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 240.0
+mouse_filter = 2
+script = ExtResource("1_1pr2y")
+TextureRect = NodePath("Mask/TextureRect")
+
+[node name="Mask" type="Panel" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
+
+[node name="TextureRect" type="TextureRect" parent="Mask"]
+material = ExtResource("3_3gqei")
+instance_shader_parameters/grayscaleFactor = 0.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_fwfi0")
+expand_mode = 1

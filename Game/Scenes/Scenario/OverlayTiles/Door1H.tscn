@@ -1,22 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://03wrj6dvw5hb"]
+[gd_scene load_steps=5 format=3 uid="uid://03wrj6dvw5hb"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_c5qgx"]
 [ext_resource type="Script" uid="uid://v1jlv8bckunq" path="res://Scripts/Scenario/HexObjects/Door.cs" id="2_t8aog"]
 [ext_resource type="Texture2D" uid="uid://yy08nv684sxs" path="res://Art/Icons/OverlayTiles/door.png" id="2_vb1s5"]
-[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_pa0vm"]
 [ext_resource type="Texture2D" uid="uid://wimwvbwjm6b5" path="res://Art/Icons/Other/Lock.svg" id="3_qjuhr"]
 
 [node name="Door1H" node_paths=PackedStringArray("_lock") instance=ExtResource("1_c5qgx")]
 script = ExtResource("2_t8aog")
 _lock = NodePath("Lock")
 
-[node name="Hexagon" parent="." index="1"]
-self_modulate = Color(0.2, 0.305882, 0.635294, 1)
-
-[node name="Lock" type="Sprite2D" parent="." index="3"]
+[node name="Lock" type="Sprite2D" parent="." index="2"]
 visible = false
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_qjuhr")
+
+[node name="Outline" parent="." index="3"]
+self_modulate = Color(0.2, 0.305882, 0.635294, 1)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.2, 0.305882, 0.635294, 1)
@@ -26,5 +25,3 @@ self_modulate = Color(1, 1, 1, 0.31)
 position = Vector2(0, -2)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_vb1s5")
-
-[node name="Hex" parent="." index="5" instance=ExtResource("3_pa0vm")]

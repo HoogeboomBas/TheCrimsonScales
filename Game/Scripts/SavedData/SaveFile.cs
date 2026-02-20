@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Godot;
 using Newtonsoft.Json;
 
@@ -10,10 +11,13 @@ public class SaveFile
 		TypeNameHandling = TypeNameHandling.Auto,
 		NullValueHandling = NullValueHandling.Ignore,
 		ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-		ContractResolver = PromptManager.PromptContractResolver.Instance,
+		ContractResolver = SaveFileContractResolver.Instance,
+		ObjectCreationHandling = ObjectCreationHandling.Replace
 	};
 
 	private readonly string _path;
+
+	private readonly List<object> _saveBlockers = new List<object>();
 
 	public SaveData SaveData { get; }
 	public bool RemovedSavedScenario { get; }
@@ -57,12 +61,27 @@ public class SaveFile
 			return;
 		}
 
+		if(_saveBlockers.Count > 0)
+		{
+			return;
+		}
+
 		SaveData.AppVersion = GetVersion();
 
 		using FileAccess saveFile = FileAccess.Open(_path, FileAccess.ModeFlags.Write);
 
 		string json = JsonConvert.SerializeObject(SaveData, JsonSerializerSettings);
 		saveFile.StoreLine(json);
+	}
+
+	public void BlockSaving(object blocker)
+	{
+		_saveBlockers.Add(blocker);
+	}
+
+	public void UnblockSaving(object blocker)
+	{
+		_saveBlockers.Remove(blocker);
 	}
 
 	private string GetVersion()

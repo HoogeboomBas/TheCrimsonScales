@@ -6,8 +6,8 @@
 
 [node name="Bombard" instance=ExtResource("1_g53na")]
 
-[node name="Hexagon" parent="." index="1"]
-self_modulate = Color(0.545098, 0.403922, 0.231373, 1)
+[node name="Outline" parent="." index="1"]
+self_modulate = Color(0.54902, 0.407843, 0.231373, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]
 position = Vector2(-1.25, 8.75)

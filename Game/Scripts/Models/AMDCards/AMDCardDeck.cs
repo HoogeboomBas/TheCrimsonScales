@@ -2,47 +2,47 @@
 
 public class AMDCardDeck : CardDeck<AMDCard>
 {
-	public bool CharacterDeck { get; }
+	public AMDCardOwner Owner { get; }
 
-	public AMDCardDeck(IEnumerable<AMDCard> cards, bool characterDeck)
+	public AMDCardDeck(IEnumerable<AMDCard> cards, AMDCardOwner owner)
 		: base(cards)
 	{
-		CharacterDeck = characterDeck;
+		Owner = owner;
 	}
 
-	public static List<AMDCard> GetDefaultDeckCards(string textureAtlasPath)
+	public static List<AMDCard> GetDefaultDeckCards(AMDCardOwner owner)
 	{
-		return new List<AMDCard>()
-		{
-			new BasicAMDCard(textureAtlasPath, 0, 4, 5, 0),
-			new BasicAMDCard(textureAtlasPath, 1, 4, 5, 0),
-			new BasicAMDCard(textureAtlasPath, 2, 4, 5, 0),
-			new BasicAMDCard(textureAtlasPath, 3, 4, 5, 0),
-			new BasicAMDCard(textureAtlasPath, 4, 4, 5, 0),
-			new BasicAMDCard(textureAtlasPath, 5, 4, 5, 0),
+		return
+		[
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
 
-			new BasicAMDCard(textureAtlasPath, 6, 4, 5, 1),
-			new BasicAMDCard(textureAtlasPath, 7, 4, 5, 1),
-			new BasicAMDCard(textureAtlasPath, 8, 4, 5, 1),
-			new BasicAMDCard(textureAtlasPath, 9, 4, 5, 1),
-			new BasicAMDCard(textureAtlasPath, 10, 4, 5, 1),
+			new AMDCard(ModelDB.AMDCard<PlusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusOneAMDCard>(), owner),
 
-			new BasicAMDCard(textureAtlasPath, 11, 4, 5, -1),
-			new BasicAMDCard(textureAtlasPath, 12, 4, 5, -1),
-			new BasicAMDCard(textureAtlasPath, 13, 4, 5, -1),
-			new BasicAMDCard(textureAtlasPath, 14, 4, 5, -1),
-			new BasicAMDCard(textureAtlasPath, 15, 4, 5, -1),
+			new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), owner),
 
-			new BasicAMDCard(textureAtlasPath, 16, 4, 5, -2),
-			new BasicAMDCard(textureAtlasPath, 17, 4, 5, 2),
+			new AMDCard(ModelDB.AMDCard<MinusTwoAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<PlusTwoAMDCard>(), owner),
 
-			new NullAMDCard(textureAtlasPath, 18, 4, 5),
-			new CritAMDCard(textureAtlasPath, 19, 4, 5),
-		};
+			new AMDCard(ModelDB.AMDCard<NullAMDCard>(), owner),
+			new AMDCard(ModelDB.AMDCard<CritAMDCard>(), owner)
+		];
 	}
 
 	public void AddMinusOne()
 	{
-		AddCard(new BasicAMDCard($"res://Art/AMDs/Other.jpg", 4, 4, 2, -1), true);
+		AddCard(new AMDCard(ModelDB.AMDCard<MinusOneAMDCard>(), Owner), true);
 	}
 }

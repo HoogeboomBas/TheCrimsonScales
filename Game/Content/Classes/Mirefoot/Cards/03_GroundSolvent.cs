@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -11,17 +12,17 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Poison1)
-				.WithRange(3)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.47981167f, 0.16940814f)))
 				.WithAOEPattern(new AOEPattern(
 						[
 							new AOEHex(Vector2I.Zero, AOEHexType.Red),
-							new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
+							new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red)
 						]
-					)
+					), new AOEHexMark(Vector2I.Zero.Add(Direction.East), this, new Vector2(0.76916414f, 0.20017323f))
 				)
 				.Build()),
 
@@ -32,18 +33,10 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 
 					if(conditionAbilityState.Performed)
 					{
-						List<Hex> hexes = new List<Hex>();
-						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
-						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
-							if(hex != null && hex.IsFeatureless())
-							{
-								hexes.Add(hex);
-							}
-						}
+						IEnumerable<Hex> hexes = conditionAbilityState.GetRedAOEHexes().Where(hex => hex.IsFeatureless());
 
 						List<Hex> selectedHexes =
-							await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count, true,
+							await AbilityCmd.SelectHexes(abilityState, list => list.AddRange(hexes), 0, hexes.Count(), true,
 								"Select hexes to place difficult terrain in");
 
 						foreach(Hex selectedHex in selectedHexes)
@@ -68,35 +61,21 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				.WithCustomGetTargets((abilityState, list) =>
 				{
 					ConditionAbility.State conditionAbilityState = abilityState.ActionState.GetAbilityState<ConditionAbility.State>(0);
-
-					if(conditionAbilityState.Performed)
-					{
-						foreach((Vector2I coords, AOEHexType hexType) in conditionAbilityState.AOEHexes)
-						{
-							Hex hex = GameController.Instance.Map.GetHex(coords);
-							if(hex != null)
-							{
-								foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-								{
-									list.Add(figure);
-								}
-							}
-						}
-					}
+					list.AddRange(conditionAbilityState.GetRedAOEHexes().SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62063575f, 0.68009883f)))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioCheckEvents.MoveCanStopAtCheckEvent.Subscribe(state.Performer, this,
@@ -118,7 +97,9 @@ public class GroundSolvent : MirefootCardModel<GroundSolvent.CardTop, GroundSolv
 				)
 				.Build()),
 
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build())
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.61965984f, 0.8603736f)))
+				.Build())
 		];
 	}
 }

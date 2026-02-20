@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://dichdaj8dgrcy"]
+
+[ext_resource type="Script" uid="uid://djdmxnvod4dqa" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBCircle.cs" id="1_1mtsw"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="1_o5o8o"]
+[ext_resource type="Texture2D" uid="uid://cgin0rxb4rmm2" path="res://Art/Icons/Other/CircleOutline.svg" id="2_pe7ed"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_1mtsw"]
+[ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="3_pe7ed"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lyjb1"]
+font = ExtResource("3_1mtsw")
+font_size = 22
+
+[node name="EnvelopeBCircle" type="Control" node_paths=PackedStringArray("_label", "_checkmark")]
+custom_minimum_size = Vector2(50, 68)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_1mtsw")
+_label = NodePath("Label")
+_checkmark = NodePath("Circle/Checkmark")
+
+[node name="Circle" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Background" type="TextureRect" parent="Circle"]
+self_modulate = Color(1, 1, 1, 0.188235)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("1_o5o8o")
+expand_mode = 1
+
+[node name="Outline" type="TextureRect" parent="Circle"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("2_pe7ed")
+expand_mode = 1
+
+[node name="Checkmark" type="TextureRect" parent="Circle"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 37.0
+texture = ExtResource("3_pe7ed")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 38.0
+offset_bottom = 68.0
+grow_horizontal = 2
+text = "220"
+label_settings = SubResource("LabelSettings_lyjb1")
+horizontal_alignment = 1
