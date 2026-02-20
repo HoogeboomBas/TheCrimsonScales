@@ -1,17 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvskudu7etnu"]
+[gd_scene load_steps=12 format=3 uid="uid://cvskudu7etnu"]
 
 [ext_resource type="Script" uid="uid://ccxgjc6nyik0x" path="res://Scripts/Scenario/HexObjects/Summons/Summon.cs" id="1_qggrl"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_awojk"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_iwudd"]
-[ext_resource type="Texture2D" uid="uid://d7l0ylkan488" path="res://Art/Other/water-spirit.png" id="4_rm1md"]
+[ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="4_j8rm1"]
+[ext_resource type="Texture2D" uid="uid://yv642m4xqhuk" path="res://Content/Monsters/WaterSpirit/MapIcon.tres" id="4_o1qpf"]
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="5_ex5sq"]
+[ext_resource type="Texture2D" uid="uid://gkm342ht1q3j" path="res://Art/Other/Outline1H.svg" id="5_j8rm1"]
 [ext_resource type="Script" uid="uid://ekilhimkil1g" path="res://Scripts/Scenario/HexObjects/ViewComponents/SummonViewComponent.cs" id="6_rpkou"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="7_8nnge"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="8_8yasv"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ktl2q"]
+[sub_resource type="LabelSettings" id="LabelSettings_mq1of"]
 font = ExtResource("8_8yasv")
-font_size = 200
+font_size = 55
 font_color = Color(0, 0, 0, 1)
 
 [node name="Summon" type="Node2D"]
@@ -21,26 +23,26 @@ script = ExtResource("1_qggrl")
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("2_awojk")
 
-[node name="Hexagon" type="Sprite2D" parent="."]
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_iwudd")
-
 [node name="Mask" type="Sprite2D" parent="."]
 clip_children = 1
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.81, 0.81)
 texture = ExtResource("3_iwudd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Mask"]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_rm1md")
+material = ExtResource("4_j8rm1")
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("4_o1qpf")
 
-[node name="FigureViewComponent" parent="." node_paths=PackedStringArray("Outline") instance=ExtResource("5_ex5sq")]
-Outline = NodePath("../Hexagon")
+[node name="Outline" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_j8rm1")
+
+[node name="FigureViewComponent" parent="." instance=ExtResource("5_ex5sq")]
 
 [node name="SummonViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("StandeeNumberCircle", "StandeeNumberLabel", "Sprite")]
 script = ExtResource("6_rpkou")
 StandeeNumberCircle = NodePath("StandeeNumber")
-StandeeNumberLabel = NodePath("StandeeNumber/Label")
+StandeeNumberLabel = NodePath("Label")
 Sprite = NodePath("../Mask/Sprite2D")
 
 [node name="StandeeNumber" type="Sprite2D" parent="SummonViewComponent"]
@@ -48,12 +50,21 @@ position = Vector2(0, -92)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("7_8nnge")
 
-[node name="Label" type="Label" parent="SummonViewComponent/StandeeNumber"]
-offset_left = -128.0
-offset_top = -124.0
-offset_right = 128.0
-offset_bottom = 139.0
+[node name="Label" type="Label" parent="SummonViewComponent"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -142.0
+offset_right = 50.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(50, 50)
 text = "8"
-label_settings = SubResource("LabelSettings_ktl2q")
+label_settings = SubResource("LabelSettings_mq1of")
 horizontal_alignment = 1
 vertical_alignment = 1

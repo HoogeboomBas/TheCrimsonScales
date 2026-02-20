@@ -11,10 +11,10 @@ public class DiamondRings : StarslingerCardModel<DiamondRings.CardTop, DiamondRi
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.4732318f, 0.20598967f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Yellow),
@@ -41,18 +41,18 @@ public class DiamondRings : StarslingerCardModel<DiamondRings.CardTop, DiamondRi
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2)
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.62076f, 0.72278136f)))
 				.Build()),
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Light];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
 	}
 }

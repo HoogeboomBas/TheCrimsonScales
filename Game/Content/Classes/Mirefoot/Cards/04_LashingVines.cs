@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines.CardBottom>
 {
@@ -9,27 +10,32 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build()),
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(0).Build())
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0, new AttackDiamond(this, new Vector2(0.61555624f, 0.1930237f)))
+				.Build()),
+
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.Build()),
+
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0, new AttackDiamond(this, new Vector2(0.61555624f, 0.38992193f)))
+				.Build())
 		];
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 1,
-					Attack = 1,
-					Traits = [new TargetsTrait(3)]
-				})
 				.WithName("Flailing Ivies")
 				.WithTexturePath("res://Content/Classes/Mirefoot/FlailingIvies.png")
+				.WithHealth(1)
+				.WithAttack(1)
+				.WithTraits(new TargetsTrait(3))
 				.WithGetValidHexes((abilityState, list) =>
 					{
 						RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 3, true, list);
@@ -48,7 +54,7 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 }

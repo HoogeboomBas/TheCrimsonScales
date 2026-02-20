@@ -1,20 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 
 public class AllNegativeConditionImmunityTrait : FigureTrait
 {
-	private static readonly List<ConditionModel> NegativeConditionModels =
-	[
-		Conditions.Poison1,
-		Conditions.Wound1,
-		Conditions.Muddle,
-		Conditions.Immobilize,
-		Conditions.Disarm,
-		Conditions.Stun,
-		Conditions.Curse,
-	];
-
 	public override async GDTask Activate(Figure figure)
 	{
 		await base.Activate(figure);
@@ -23,10 +11,9 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 			{
 				return
 					parameters.Target == figure &&
-					parameters.Condition?.ImmunityCompareBaseConditions != null &&
-					NegativeConditionModels != null &&
-					parameters.Condition.ImmunityCompareBaseConditions
-						.Any(c1 => NegativeConditionModels.Contains(c1));
+					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+					parameters.ConditionModel.ImmunityCompareBaseConditions
+						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1));
 			},
 			async parameters =>
 			{
@@ -40,7 +27,7 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				foreach(ConditionModel conditionModel in NegativeConditionModels)
+				foreach(ConditionModel conditionModel in Conditions.NegativeBaseConditionModels)
 				{
 					parameters.AddImmunity(conditionModel);
 				}

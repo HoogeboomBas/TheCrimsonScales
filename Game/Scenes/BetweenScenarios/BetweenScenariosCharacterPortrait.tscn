@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://drmjh44chpm2j"]
+[gd_scene load_steps=23 format=3 uid="uid://drmjh44chpm2j"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_an4kr"]
 [ext_resource type="Script" uid="uid://d32g04i3j00hb" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortrait.cs" id="1_ju0a4"]
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="1_m8ida"]
+[ext_resource type="Texture2D" uid="uid://baautwi1wf7cf" path="res://Art/Icons/Other/Retire.svg" id="3_bjw2y"]
 [ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="4_cnbgs"]
 [ext_resource type="Texture2D" uid="uid://c0cdv7dosesax" path="res://Art/Icons/Other/LevelCrown.svg" id="4_jd7ye"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="5_eruca"]
@@ -12,9 +13,25 @@
 [ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="8_fae8n"]
 [ext_resource type="Texture2D" uid="uid://dme4vi37v24t7" path="res://Art/Icons/Other/Character.svg" id="10_fotvg"]
 [ext_resource type="Texture2D" uid="uid://cwepqdiymi0bo" path="res://Art/Icons/Other/Cards.svg" id="11_jd7ye"]
+[ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="14_j6qgn"]
+[ext_resource type="PackedScene" uid="uid://cw7b3ccvlqx53" path="res://Scenes/UI/ExclamationMark.tscn" id="15_lkp7g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdfbw"]
 bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7dxu"]
+bg_color = Color(0.105882, 0.105882, 0.12549, 0.478431)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.894118, 0.894118, 0.913725, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -41,21 +58,7 @@ anti_aliasing = false
 font = ExtResource("7_fae8n")
 font_size = 25
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7dxu"]
-bg_color = Color(0.105882, 0.105882, 0.12549, 0.478431)
-draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.894118, 0.894118, 0.913725, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-anti_aliasing = false
-
-[node name="BetweenScenariosCharacterPortrait" type="Control" node_paths=PackedStringArray("BetterButton", "_container", "_textureRect", "_colorOutline", "_inactiveOverlay", "_levelBackground", "_levelLabel", "_xpLabel", "_xpProgressBar", "_goldLabel", "_infoButton", "_equipmentButton", "_cardsButton", "_levelUpScaleContainer", "_levelUpButton")]
+[node name="BetweenScenariosCharacterPortrait" type="Control" node_paths=PackedStringArray("BetterButton", "_container", "_textureRect", "_colorOutline", "_inactiveOverlay", "_levelBackground", "_levelLabel", "_xpLabel", "_xpProgressBar", "_goldLabel", "_buttonContainer", "_infoButton", "_equipmentButton", "_cardsButton", "_perksButton", "_cardsExclamationMark", "_perksExclamationMark", "_infoButtonTextureRect", "_levelUpExclamationMark", "_levelUpButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 230.0
@@ -72,11 +75,27 @@ _levelLabel = NodePath("Container/BetterButton/LevelIndicator/BetterButton/Level
 _xpLabel = NodePath("Container/BetterButton/XP/Label")
 _xpProgressBar = NodePath("Container/BetterButton/XP/ProgressBar")
 _goldLabel = NodePath("Container/BetterButton/Gold/Label")
-_infoButton = NodePath("Container/BetterButton/Container2/InfoButton")
-_equipmentButton = NodePath("Container/BetterButton/Container2/EquipmentButton")
-_cardsButton = NodePath("Container/BetterButton/Container2/CardsButton")
-_levelUpScaleContainer = NodePath("Container/BetterButton/LevelIndicator")
+_buttonContainer = NodePath("Container/BetterButton/ButtonsContainer")
+_infoButton = NodePath("Container/BetterButton/ButtonsContainer/Buttons/InfoButton")
+_equipmentButton = NodePath("Container/BetterButton/ButtonsContainer/Buttons/EquipmentButton")
+_cardsButton = NodePath("Container/BetterButton/ButtonsContainer/Buttons/CardsButton")
+_perksButton = NodePath("Container/BetterButton/ButtonsContainer/Buttons/PerksButton")
+_cardsExclamationMark = NodePath("Container/BetterButton/ButtonsContainer/Buttons/CardsButton/ExclamationMark")
+_perksExclamationMark = NodePath("Container/BetterButton/ButtonsContainer/Buttons/PerksButton/ExclamationMark")
+_normalInfoTexture = ExtResource("10_fotvg")
+_retireInfoTexture = ExtResource("3_bjw2y")
+_infoButtonTextureRect = NodePath("Container/BetterButton/ButtonsContainer/Buttons/InfoButton/Panel/MarginContainer/TextureRect")
+_levelUpExclamationMark = NodePath("Container/BetterButton/LevelIndicator/ExclamationMark")
 _levelUpButton = NodePath("Container/BetterButton/LevelIndicator/BetterButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Container" type="Control" parent="."]
 layout_mode = 1
@@ -86,6 +105,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(115, 217.5)
+size_flags_horizontal = 3
 
 [node name="BetterButton" type="BaseButton" parent="Container"]
 _import_path = NodePath("")
@@ -183,6 +203,16 @@ grow_vertical = 2
 texture = ExtResource("1_m8ida")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="Outline" type="Panel" parent="Container/BetterButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k7dxu")
 
 [node name="LevelIndicator" type="Control" parent="Container/BetterButton"]
 anchors_preset = 0
@@ -294,6 +324,12 @@ label_settings = SubResource("LabelSettings_0oj1h")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExclamationMark" parent="Container/BetterButton/LevelIndicator" instance=ExtResource("15_lkp7g")]
+offset_left = 35.0
+offset_top = 2.0
+offset_right = 67.0
+offset_bottom = 34.0
+
 [node name="Gold" type="Control" parent="Container/BetterButton"]
 layout_mode = 1
 anchors_preset = 12
@@ -402,16 +438,6 @@ text = "200/200"
 label_settings = SubResource("LabelSettings_fotvg")
 vertical_alignment = 1
 
-[node name="Outline" type="Panel" parent="Container/BetterButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k7dxu")
-
 [node name="InactiveOverlay" type="Panel" parent="Container/BetterButton"]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.588235)
@@ -424,122 +450,24 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cdfbw")
 
-[node name="EquipmentButton" type="BaseButton" parent="Container/BetterButton"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 2
-auto_translate_mode = 0
-editor_description = ""
-visible = false
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-clip_contents = false
-custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+[node name="ButtonsContainer" type="MarginContainer" parent="Container/BetterButton"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 offset_left = -70.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 70.0
+offset_bottom = 235.0
 grow_horizontal = 0
-grow_vertical = 1
-rotation = 0.0
-scale = Vector2(1, 1)
-pivot_offset = Vector2(0, 0)
-size_flags_horizontal = 1
-size_flags_vertical = 1
-size_flags_stretch_ratio = 1.0
-localize_numeral_system = true
-tooltip_text = ""
-tooltip_auto_translate_mode = 0
-focus_neighbor_left = NodePath("")
-focus_neighbor_top = NodePath("")
-focus_neighbor_right = NodePath("")
-focus_neighbor_bottom = NodePath("")
-focus_next = NodePath("")
-focus_previous = NodePath("")
-focus_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = true
-mouse_default_cursor_shape = 0
-theme = null
-theme_type_variation = &""
-disabled = false
-toggle_mode = false
-button_pressed = false
-action_mode = 1
-button_mask = 1
-keep_pressed_outside = false
-button_group = null
-shortcut = null
-shortcut_feedback = true
-shortcut_in_tooltip = true
-script = ExtResource("1_an4kr")
-metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Container/BetterButton/EquipmentButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("7_m6may")
+[node name="Buttons" type="VBoxContainer" parent="Container/BetterButton/ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/EquipmentButton/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_fae8n")
-expand_mode = 1
-
-[node name="Container" type="HBoxContainer" parent="Container/BetterButton"]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -130.0
-offset_bottom = -80.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="EquipmentButton" type="BaseButton" parent="Container/BetterButton/Container"]
+[node name="InfoButton" type="BaseButton" parent="Container/BetterButton/ButtonsContainer/Buttons"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -599,7 +527,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_an4kr")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container/EquipmentButton"]
+[node name="Panel" type="Panel" parent="Container/BetterButton/ButtonsContainer/Buttons/InfoButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -609,280 +537,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("7_m6may")
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container/EquipmentButton/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_fae8n")
-expand_mode = 1
-
-[node name="EquipmentButton2" type="BaseButton" parent="Container/BetterButton/Container"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 2
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-clip_contents = false
-custom_minimum_size = Vector2(50, 50)
-layout_direction = 0
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 1
-size_flags_stretch_ratio = 1.0
-localize_numeral_system = true
-tooltip_text = ""
-tooltip_auto_translate_mode = 0
-focus_neighbor_left = NodePath("")
-focus_neighbor_top = NodePath("")
-focus_neighbor_right = NodePath("")
-focus_neighbor_bottom = NodePath("")
-focus_next = NodePath("")
-focus_previous = NodePath("")
-focus_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = true
-mouse_default_cursor_shape = 0
-theme = null
-theme_type_variation = &""
-disabled = false
-toggle_mode = false
-button_pressed = false
-action_mode = 1
-button_mask = 1
-keep_pressed_outside = false
-button_group = null
-shortcut = null
-shortcut_feedback = true
-shortcut_in_tooltip = true
-script = ExtResource("1_an4kr")
-metadata/_custom_type_script = "uid://dir5vjdxjac3n"
-
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container/EquipmentButton2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("7_m6may")
-
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container/EquipmentButton2/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_fae8n")
-expand_mode = 1
-
-[node name="EquipmentButton3" type="BaseButton" parent="Container/BetterButton/Container"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 2
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-clip_contents = false
-custom_minimum_size = Vector2(50, 50)
-layout_direction = 0
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 1
-size_flags_stretch_ratio = 1.0
-localize_numeral_system = true
-tooltip_text = ""
-tooltip_auto_translate_mode = 0
-focus_neighbor_left = NodePath("")
-focus_neighbor_top = NodePath("")
-focus_neighbor_right = NodePath("")
-focus_neighbor_bottom = NodePath("")
-focus_next = NodePath("")
-focus_previous = NodePath("")
-focus_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = true
-mouse_default_cursor_shape = 0
-theme = null
-theme_type_variation = &""
-disabled = false
-toggle_mode = false
-button_pressed = false
-action_mode = 1
-button_mask = 1
-keep_pressed_outside = false
-button_group = null
-shortcut = null
-shortcut_feedback = true
-shortcut_in_tooltip = true
-script = ExtResource("1_an4kr")
-metadata/_custom_type_script = "uid://dir5vjdxjac3n"
-
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container/EquipmentButton3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("7_m6may")
-
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container/EquipmentButton3/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_fae8n")
-expand_mode = 1
-
-[node name="Container2" type="VBoxContainer" parent="Container/BetterButton"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -60.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 180.0
-grow_horizontal = 0
-theme_override_constants/separation = 10
-
-[node name="InfoButton" type="BaseButton" parent="Container/BetterButton/Container2"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 2
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-clip_contents = false
-custom_minimum_size = Vector2(50, 50)
-layout_direction = 0
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 1
-size_flags_stretch_ratio = 1.0
-localize_numeral_system = true
-tooltip_text = ""
-tooltip_auto_translate_mode = 0
-focus_neighbor_left = NodePath("")
-focus_neighbor_top = NodePath("")
-focus_neighbor_right = NodePath("")
-focus_neighbor_bottom = NodePath("")
-focus_next = NodePath("")
-focus_previous = NodePath("")
-focus_mode = 2
-mouse_filter = 0
-mouse_force_pass_scroll_events = true
-mouse_default_cursor_shape = 0
-theme = null
-theme_type_variation = &""
-disabled = false
-toggle_mode = false
-button_pressed = false
-action_mode = 1
-button_mask = 1
-keep_pressed_outside = false
-button_group = null
-shortcut = null
-shortcut_feedback = true
-shortcut_in_tooltip = true
-script = ExtResource("1_an4kr")
-metadata/_custom_type_script = "uid://dir5vjdxjac3n"
-
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container2/InfoButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("7_m6may")
-
-[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/Container2/InfoButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/ButtonsContainer/Buttons/InfoButton/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -894,13 +549,13 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container2/InfoButton/Panel/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/ButtonsContainer/Buttons/InfoButton/Panel/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("10_fotvg")
 expand_mode = 1
 
-[node name="EquipmentButton" type="BaseButton" parent="Container/BetterButton/Container2"]
+[node name="EquipmentButton" type="BaseButton" parent="Container/BetterButton/ButtonsContainer/Buttons"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -960,7 +615,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_an4kr")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container2/EquipmentButton"]
+[node name="Panel" type="Panel" parent="Container/BetterButton/ButtonsContainer/Buttons/EquipmentButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -970,7 +625,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("7_m6may")
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/Container2/EquipmentButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/ButtonsContainer/Buttons/EquipmentButton/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -982,13 +637,13 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container2/EquipmentButton/Panel/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/ButtonsContainer/Buttons/EquipmentButton/Panel/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("8_fae8n")
 expand_mode = 1
 
-[node name="CardsButton" type="BaseButton" parent="Container/BetterButton/Container2"]
+[node name="CardsButton" type="BaseButton" parent="Container/BetterButton/ButtonsContainer/Buttons"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
@@ -1048,7 +703,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_an4kr")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="Panel" parent="Container/BetterButton/Container2/CardsButton"]
+[node name="Panel" type="Panel" parent="Container/BetterButton/ButtonsContainer/Buttons/CardsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1058,7 +713,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("7_m6may")
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/Container2/CardsButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/ButtonsContainer/Buttons/CardsButton/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1070,8 +725,108 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Container2/CardsButton/Panel/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/ButtonsContainer/Buttons/CardsButton/Panel/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("11_jd7ye")
 expand_mode = 1
+
+[node name="ExclamationMark" parent="Container/BetterButton/ButtonsContainer/Buttons/CardsButton" instance=ExtResource("15_lkp7g")]
+offset_left = 28.0
+offset_top = -8.0
+offset_right = 60.0
+offset_bottom = 24.0
+
+[node name="PerksButton" type="BaseButton" parent="Container/BetterButton/ButtonsContainer/Buttons"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(50, 50)
+layout_direction = 0
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("1_an4kr")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="Panel" type="Panel" parent="Container/BetterButton/ButtonsContainer/Buttons/PerksButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_m6may")
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/ButtonsContainer/Buttons/PerksButton/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/ButtonsContainer/Buttons/PerksButton/Panel/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("14_j6qgn")
+expand_mode = 1
+
+[node name="ExclamationMark" parent="Container/BetterButton/ButtonsContainer/Buttons/PerksButton" instance=ExtResource("15_lkp7g")]
+offset_left = 28.0
+offset_top = -8.0
+offset_right = 60.0
+offset_bottom = 24.0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class Earthshine : StarslingerCardModel<Earthshine.CardTop, Earthshine.CardBottom>
 {
@@ -9,7 +10,7 @@ public class Earthshine : StarslingerCardModel<Earthshine.CardTop, Earthshine.Ca
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(1)
@@ -19,15 +20,15 @@ public class Earthshine : StarslingerCardModel<Earthshine.CardTop, Earthshine.Ca
 				.Build()),
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62048423f, 0.71161455f)))
 				.WithDuringMovementSubscription(
 					ScenarioEvents.DuringMovement.Subscription.ConsumeElement(Element.Light,
 						applyFunction: async parameters =>

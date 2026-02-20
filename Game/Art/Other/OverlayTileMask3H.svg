@@ -7,7 +7,7 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    sodipodi:docname="OverlayTileMask3H.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -24,11 +24,11 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="2"
-     inkscape:cx="188.75"
-     inkscape:cy="219"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="205.76807"
+     inkscape:cy="242.18407"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:window-height="1017"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -39,7 +39,10 @@
        id="grid234"
        empspacing="4"
        originx="0"
-       originy="0" />
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
   </sodipodi:namedview>
   <defs
      id="defs2" />
@@ -48,25 +51,8 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#ffffff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:38"
-       d="M 113.08203,35.648437 118.5,38.9 124.00195,35.654297 126,106 h -15 z"
        id="path3282"
-       sodipodi:nodetypes="cccccc" />
-    <path
-       id="path1512-9"
-       style="fill:#ffffff;stroke:none;stroke-width:2"
-       d="M 63.000217,-6.2555456e-4 31.499566,-54.560001 -31.500651,-54.558916 -63.000217,4.5951316e-4 -31.499566,54.559835 31.500651,54.55875 Z m 0,121.22593555456 -31.500651,-54.559375 h -62.999132 l -31.499566,54.560465 31.500651,54.55937 62.999132,-0.001 z M -41.972656,60.608002 -73.472222,6.048627 l -63.000218,0.00109 -31.49957,54.5593749 31.50066,54.559373 62.999128,-0.001 z"
-       transform="matrix(0,-0.9,0.90000145,0,64.000565,64)"
-       sodipodi:nodetypes="ccccccccccccccccccccc" />
-    <path
        style="fill:#ffffff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:38"
-       d="m 173.11328,120.69141 -5.45312,3.17359 -0.0156,6.27367 L 124,108 V 90 Z"
-       id="path3467"
-       sodipodi:nodetypes="cccccc" />
-    <path
-       style="fill:#ffffff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:38"
-       d="m 64,120.69336 5.435,3.14164 0.01031,6.29781 L 114,106 V 90 Z"
-       id="path3469"
-       sodipodi:nodetypes="cccccc" />
+       d="M 64 7.2998047 L 14.896484 35.650391 L 14.897461 92.350586 L 64.000977 120.7002 L 64.006836 120.69727 L 69.43457 123.83496 L 69.445312 130.12402 L 69.444336 130.125 L 69.445312 186.8252 L 118.54883 215.1748 L 167.65234 186.82422 L 167.65137 130.125 L 167.64453 130.12109 L 167.66016 123.86523 L 173.10254 120.69824 L 173.10449 120.69922 L 222.20801 92.348633 L 222.20703 35.649414 L 173.10352 7.2998047 L 124 35.650391 L 124 35.655273 L 118.5 38.900391 L 113.10352 35.661133 L 113.10352 35.649414 L 64 7.2998047 z " />
   </g>
 </svg>

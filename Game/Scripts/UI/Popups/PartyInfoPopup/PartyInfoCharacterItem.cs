@@ -17,9 +17,12 @@ public partial class PartyInfoCharacterItem : Control
 
 		if(itemModel != null)
 		{
-			UIHelper.SetItemMaterial(_itemView.TextureRect, itemModel.ItemState);
+			foreach(TextureRect itemViewTextureRect in _itemView.TextureRects)
+			{
+				UIHelper.SetItemMaterial(itemViewTextureRect, itemModel.ItemState);
+			}
 
-			Color modulateColor = Colors.White;
+			Color modulateColor;
 			switch(itemModel.ItemState)
 			{
 				case ItemState.Available:
@@ -29,8 +32,14 @@ public partial class PartyInfoCharacterItem : Control
 					modulateColor = UIHelper.SpentColor;
 					break;
 				case ItemState.Consumed:
+				case ItemState.UnrecoverablyConsumed:
 					modulateColor = UIHelper.LostColor;
 					break;
+				case ItemState.Active:
+				case ItemState.Using:
+					modulateColor = UIHelper.ActiveColor;
+					break;
+
 				default:
 					throw new ArgumentOutOfRangeException();
 			}

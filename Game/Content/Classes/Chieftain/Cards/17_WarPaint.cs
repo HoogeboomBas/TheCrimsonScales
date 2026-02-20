@@ -10,7 +10,7 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -20,33 +20,33 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 					Figure mount = Chieftain.GetMount(state.Performer);
 					if(mount != null)
 					{
-						await AbilityCmd.AddCondition(state,mount, Conditions.Invisible);
+						await AbilityCmd.AddCondition(state, mount, Conditions.Invisible);
 						state.SetCustomValue(this, "Mount", mount);
 					}
 
 					state.SetCustomValue(this, "IsMounted", mount != null);
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
 
 					if(state.GetCustomValue<bool>(this, "IsMounted"))
-                    {
+					{
 						// The figure might not be mounted at this moment, still remove the invisibility
-                        await AbilityCmd.RemoveCondition(state.GetCustomValue<Figure>(this, "Mount"), Conditions.Invisible);
-                    }
+						await AbilityCmd.RemoveCondition(state.GetCustomValue<Figure>(this, "Mount"), Conditions.Invisible);
+					}
 				})
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -68,9 +68,9 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 						{
 							// If owner already acted then this effect was already applied
 							if(parameters.PreviousActiveFigure == state.Performer)
-                            {
-                                return false;
-                            }
+							{
+								return false;
+							}
 
 							return Chieftain.GetMount(state.Performer) == parameters.NextActiveFigure;
 						},
@@ -112,8 +112,8 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

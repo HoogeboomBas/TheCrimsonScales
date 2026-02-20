@@ -1,0 +1,136 @@
+[gd_scene load_steps=12 format=3 uid="uid://bs275b6ovf2vh"]
+
+[ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_724ll"]
+[ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_g8uyp"]
+[ext_resource type="PackedScene" uid="uid://ce6g1vfuitdba" path="res://Content/MapTiles/E1a.tscn" id="3_x3g1q"]
+[ext_resource type="PackedScene" uid="uid://ca220hf4q55rk" path="res://Content/OverlayTiles/Obstacles/StonePillar1H.tscn" id="5_pij7l"]
+[ext_resource type="PackedScene" uid="uid://bt0mjenyg2leh" path="res://Content/MapTiles/L1a.tscn" id="7_e6787"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="8_638j1"]
+[ext_resource type="PackedScene" uid="uid://ccnmnyj2wcdle" path="res://Content/OverlayTiles/Obstacles/Nest1H.tscn" id="8_dk4r2"]
+[ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="8_opk8y"]
+[ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="9_ggtnd"]
+[ext_resource type="PackedScene" uid="uid://bjbv81gbsrmne" path="res://Content/OverlayTiles/Doors/StoneDoorVertical1H.tscn" id="10_fhmks"]
+[ext_resource type="PackedScene" uid="uid://c55i4i3yqfdx6" path="res://Scenes/Scenario/OverlayTiles/Treasure1H.tscn" id="15_irkx3"]
+
+[node name="Scenario" instance=ExtResource("1_724ll")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" index="0"]
+script = ExtResource("2_g8uyp")
+StartsRevealed = true
+
+[node name="E1a" parent="Map/Rooms/Room" index="0" instance=ExtResource("3_x3g1q")]
+position = Vector2(-109.119, 189)
+
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="1" instance=ExtResource("9_ggtnd")]
+position = Vector2(-545.596, 189)
+
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="2" instance=ExtResource("9_ggtnd")]
+position = Vector2(-436.477, 0)
+
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="3" instance=ExtResource("9_ggtnd")]
+position = Vector2(-545.596, -189)
+
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="4" instance=ExtResource("9_ggtnd")]
+position = Vector2(-436.477, -378)
+
+[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="5" instance=ExtResource("9_ggtnd")]
+position = Vector2(-436.477, 378)
+
+[node name="StonePillar1H" parent="Map/Rooms/Room" index="6" instance=ExtResource("5_pij7l")]
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="7" instance=ExtResource("8_opk8y")]
+position = Vector2(218.238, -378)
+MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
+MonsterType2Characters = 1
+
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="8" instance=ExtResource("8_opk8y")]
+position = Vector2(0, -378)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType3Characters = 1
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="9" instance=ExtResource("8_opk8y")]
+position = Vector2(218.238, 378)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType2Characters = 0
+
+[node name="MonsterSpawner6" parent="Map/Rooms/Room" index="10" instance=ExtResource("8_opk8y")]
+position = Vector2(0, 378)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType2Characters = 0
+MonsterType3Characters = 1
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="11" instance=ExtResource("8_opk8y")]
+position = Vector2(327.358, -189)
+MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="12" instance=ExtResource("8_opk8y")]
+position = Vector2(327.358, 189)
+MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="Room2" type="Node2D" parent="Map/Rooms" index="1"]
+script = ExtResource("2_g8uyp")
+
+[node name="L1a" parent="Map/Rooms/Room2" index="0" instance=ExtResource("7_e6787")]
+position = Vector2(1091.19, 0)
+rotation = 3.14159
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room2" index="1" instance=ExtResource("8_opk8y")]
+position = Vector2(1309.43, 0)
+MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room2" index="2" instance=ExtResource("8_opk8y")]
+position = Vector2(763.834, 189)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType2Characters = 0
+MonsterType3Characters = 1
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner7" parent="Map/Rooms/Room2" index="3" instance=ExtResource("8_opk8y")]
+position = Vector2(1091.19, 0)
+MonsterModelId = "VERMLING_SHAMAN.DRAKE_PORTER"
+MonsterType2Characters = 2
+MonsterType3Characters = 2
+MonsterType4Characters = 2
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room2" index="4" instance=ExtResource("8_opk8y")]
+position = Vector2(654.715, -378)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType4Characters = 0
+
+[node name="Nest1H" parent="Map/Rooms/Room2" index="5" instance=ExtResource("8_dk4r2")]
+position = Vector2(1309.43, -378)
+
+[node name="Nest1H2" parent="Map/Rooms/Room2" index="6" instance=ExtResource("8_dk4r2")]
+position = Vector2(763.834, -567)
+
+[node name="Nest1H3" parent="Map/Rooms/Room2" index="7" instance=ExtResource("8_dk4r2")]
+position = Vector2(545.596, 567)
+
+[node name="StonePillar1H" parent="Map/Rooms/Room2" index="8" instance=ExtResource("5_pij7l")]
+position = Vector2(1091.19, -378)
+
+[node name="StonePillar1H2" parent="Map/Rooms/Room2" index="9" instance=ExtResource("5_pij7l")]
+position = Vector2(1091.19, 378)
+
+[node name="Treasure1H" parent="Map/Rooms/Room2" index="10" instance=ExtResource("15_irkx3")]
+position = Vector2(1418.55, -567)
+TreasureNumber = 21
+
+[node name="StoneDoorVertical1H" parent="Map/Doors" index="0" instance=ExtResource("10_fhmks")]
+position = Vector2(436.477, 0)
+rotation = 3.14159
+_startsLocked = true
+
+[node name="Marker" parent="Map/Doors/StoneDoorVertical1H" index="6" instance=ExtResource("8_638j1")]
+rotation = 3.14159
+MarkerType = 25
+_hideDuringPlay = true

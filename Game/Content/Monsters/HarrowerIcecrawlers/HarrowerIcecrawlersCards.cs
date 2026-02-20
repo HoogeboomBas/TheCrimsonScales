@@ -75,8 +75,8 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}"
-						                                                        + $" after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
+						parameters.Add(new InfoTextExtraEffect.Parameters($"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}"
+						                                                  + $" after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
 					}
 				);
 				await GDTask.CompletedTask;
@@ -173,7 +173,7 @@ public class HarrowerIcecrawlersAbilityCard5 : HarrowerIcecrawlersAbilityCard
 
 					foreach(Figure enemy in enemies)
 					{
-						await AbilityCmd.SufferDamage(null, enemy, 1);
+						await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 1);
 					}
 				}
 			)

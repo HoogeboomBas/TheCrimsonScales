@@ -20,6 +20,9 @@ public partial class AppController : SingletonNode<AppController>
 	[Export]
 	public ItemPreview ItemPreview { get; private set; }
 
+	[Export]
+	public PersonalQuestProgressUpdateView PersonalQuestProgressUpdateView { get; private set; }
+
 	public SaveFile SaveFile { get; private set; }
 
 	public SavedOptions Options => SaveFile.SaveData.Options;

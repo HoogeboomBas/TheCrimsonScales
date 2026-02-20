@@ -82,7 +82,7 @@ public class InoxArcher : MonsterModel
 		},
 		new MonsterStats()
 		{
-			Health = 1,
+			Health = 11,
 			Move = 2,
 			Attack = 3,
 			Range = 4,

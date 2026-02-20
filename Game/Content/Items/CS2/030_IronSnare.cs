@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class IronSnare : CS2Item
 {
@@ -23,7 +21,7 @@ public class IronSnare : CS2Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditionModels: [Conditions.Immobilize], performer: character);
+					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditionModels: [Conditions.Immobilize], performer: user);
 				});
 			}
 		);

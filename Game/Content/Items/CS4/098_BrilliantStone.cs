@@ -20,7 +20,7 @@ public class BrilliantStone : CS4Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseElement(Owner, [Element.Light]);
+					await AbilityCmd.InfuseElement(null, Element.Light, Owner);
 				});
 			}
 		);

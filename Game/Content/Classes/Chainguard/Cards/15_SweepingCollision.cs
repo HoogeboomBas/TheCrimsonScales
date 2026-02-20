@@ -11,7 +11,7 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SwingAbility.Builder()
 				.WithSwing(4)
@@ -51,15 +51,15 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
-						parameters => (parameters.Performer.AlliedWith(state.Performer) || parameters.Performer == state.Performer) && 
-										parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
-						async parameters => 
+						parameters => (parameters.Performer.AlliedWith(state.Performer) || parameters.Performer == state.Performer) &&
+						              parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
+						async parameters =>
 						{
 							parameters.AbilityState.AbilityAdjustPierce(2);
 
@@ -69,7 +69,7 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 
@@ -81,15 +81,15 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.FlyingCheckEvent.Subscribe(state, this,
-						parameters => state.Performer.EnemiesWith(parameters.Figure) && 
-							parameters.Figure.HasCondition(Chainguard.Shackle),
+						parameters => state.Performer.EnemiesWith(parameters.Figure) &&
+						              parameters.Figure.HasCondition(Chainguard.Shackle),
 						parameters => parameters.SetFlying(false),
 						order: 1
 					);
 
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioCheckEvents.FlyingCheckEvent.Unsubscribe(state, this);
 
@@ -98,8 +98,8 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

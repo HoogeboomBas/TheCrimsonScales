@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
+using GTweens.Builders;
+using GTweens.Easings;
 
 /// <summary>
 /// A <see cref="TargetedAbility{T, TSingleTargetState}"/> that allows a figure to restore hit points to other figures.
@@ -9,7 +12,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 {
 	public class HealAbilitySingleTargetState : SingleTargetState
 	{
-		public List<ConditionModel> RemovedConditions = new List<ConditionModel>();
+		public List<ConditionModel> RemovedConditions { get; } = new List<ConditionModel>();
 
 		public void AddRemovedCondition(ConditionModel condition)
 		{
@@ -40,11 +43,9 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 	public List<ScenarioEvents.DuringHeal.Subscription> DuringHealSubscriptions { get; private set; } = [];
 
-	public List<ScenarioEvents.HealAfterTargetConfirmed.Subscription>
-		AfterTargetConfirmedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.HealAfterTargetConfirmed.Subscription> AfterTargetConfirmedSubscriptions { get; private set; } = [];
 
-	public List<ScenarioEvents.AfterHealPerformed.Subscription>
-		AfterHealPerformedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.AfterHealPerformed.Subscription> AfterHealPerformedSubscriptions { get; private set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -60,12 +61,13 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 	{
 		public interface IHealValueStep
 		{
-			TBuilder WithHealValue(DynamicInt<State> healValue);
+			TBuilder WithHealValue(DynamicInt<State> healValue, params HealEnhancementMark[] enhancementMarks);
 		}
 
-		public TBuilder WithHealValue(DynamicInt<State> healValue)
+		public TBuilder WithHealValue(DynamicInt<State> healValue, params HealEnhancementMark[] enhancementMarks)
 		{
 			Obj.HealValue = healValue;
+			AddEnhancements(enhancementMarks);
 			return (TBuilder)this;
 		}
 
@@ -77,7 +79,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 		public TBuilder WithDuringHealSubscriptions(List<ScenarioEvents.DuringHeal.Subscription> duringHealSubscriptions)
 		{
-			Obj.DuringHealSubscriptions = duringHealSubscriptions;
+			Obj.DuringHealSubscriptions.AddRange(duringHealSubscriptions);
 			return (TBuilder)this;
 		}
 
@@ -91,7 +93,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		public TBuilder WithAfterTargetConfirmedSubscriptions(
 			List<ScenarioEvents.HealAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions)
 		{
-			Obj.AfterTargetConfirmedSubscriptions = afterTargetConfirmedSubscriptions;
+			Obj.AfterTargetConfirmedSubscriptions.AddRange(afterTargetConfirmedSubscriptions);
 			return (TBuilder)this;
 		}
 
@@ -103,9 +105,9 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		}
 
 		public TBuilder WithAfterHealPerformedSubscriptions(
-			List<ScenarioEvents.AfterHealPerformed.Subscription> afterHealPerformedSubscriptionss)
+			List<ScenarioEvents.AfterHealPerformed.Subscription> afterHealPerformedSubscriptions)
 		{
-			Obj.AfterHealPerformedSubscriptions = afterHealPerformedSubscriptionss;
+			Obj.AfterHealPerformedSubscriptions.AddRange(afterHealPerformedSubscriptions);
 			return (TBuilder)this;
 		}
 
@@ -164,13 +166,6 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		ScenarioEvents.AfterHealPerformedEvent.Unsubscribe(AfterHealPerformedSubscriptions);
 	}
 
-	// protected override async GDTask InitAbilityState(State abilityState)
-	// {
-	// 	await base.InitAbilityState(abilityState);
-	//
-	// 	abilityState.AbilityHealValue = HealValue.GetValue(abilityState);
-	// }
-
 	protected override void InitAbilityStateForSingleTarget(State abilityState)
 	{
 		base.InitAbilityStateForSingleTarget(abilityState);
@@ -183,14 +178,6 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		return ScenarioEvents.DuringHealEvent.CreateEffectCollection(new ScenarioEvents.DuringHeal.Parameters(abilityState));
 	}
 
-	// protected override void SyncDuringTargetedAbilityParameters(State abilityState, ScenarioEvents.DuringTargetedAbilityParametersBase<State> abilityStateParameters)
-	// {
-	// 	base.SyncDuringTargetedAbilityParameters(abilityState, abilityStateParameters);
-	//
-	// 	ScenarioEvents.DuringHeal.Parameters castAbilityStateParameters = (ScenarioEvents.DuringHeal.Parameters)abilityStateParameters;
-	// 	abilityState.AbilityHealValue = castAbilityStateParameters.HealValue;
-	// }
-
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await ScenarioEvents.HealAfterTargetConfirmedEvent.CreatePrompt(
@@ -202,25 +189,63 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 		if(!blockedAbilityStateParameters.IsBlocked)
 		{
-			AppController.Instance.AudioController.PlayFastForwardable(SFX.Heal, delay: 0.0f);
-
 			int newHealth = Mathf.Min(target.Health + abilityState.SingleTargetHealValue, target.MaxHealth);
 
 			target.SetHealth(newHealth);
 		}
 
+		if(!GameController.FastForward)
+		{
+			AppController.Instance.AudioController.PlayFastForwardable(SFX.Heal, delay: 0.0f);
+
+			PackedScene healEffectScene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Effects/HealEffect.tscn");
+			HealEffect healEffect = healEffectScene.Instantiate<HealEffect>();
+			target.AddChild(healEffect);
+			healEffect.Init();
+
+			Color healColor = Color.Color8(44, 199, 10);
+
+			target.Visual.SetSelfModulate(healColor);
+			GTweenSequenceBuilder.New()
+				.Append(target.Visual.TweenInstanceShaderPropertyFloat("tintFactor", 0.4f, 0.6f))
+				.AppendTime(0.1f)
+				.Append(target.Visual.TweenInstanceShaderPropertyFloat("tintFactor", 0f, 0.5f))
+				.Build().PlayFastForwardable();
+
+			GTweenSequenceBuilder.New()
+				.Append(target.TweenScale(1.2f, 0.4f).SetEasing(Easing.InOutBack))
+				.AppendTime(0.4f)
+				.Append(target.TweenScale(1f, 0.2f).SetEasing(Easing.InBack))
+				.Build().PlayFastForwardable();
+
+			await GDTask.DelayFastForwardable(1.2f);
+
+			target.Visual.SetSelfModulate(Colors.White);
+		}
+
 		for(int i = target.Conditions.Count - 1; i >= 0; i--)
 		{
-			ConditionModel condition = target.Conditions[i];
-			if(condition.RemovedByHeal)
+			Condition condition = target.Conditions[i];
+			if(condition.ConditionModel.RemovedByHeal)
 			{
-				await AbilityCmd.RemoveCondition(target, condition);
-				abilityState.SingleTargetState.AddRemovedCondition(condition);
+				await AbilityCmd.RemoveCondition(condition);
+				abilityState.SingleTargetState.AddRemovedCondition(condition.ConditionModel);
 			}
 		}
 
 		await ScenarioEvents.AfterHealPerformedEvent.CreatePrompt(
 			new ScenarioEvents.AfterHealPerformed.Parameters(abilityState, blockedAbilityStateParameters.IsBlocked), abilityState);
+	}
+
+	protected override void GetValidTargets(State abilityState, List<Figure> figures, int targetsOutOfAOE)
+	{
+		base.GetValidTargets(abilityState, figures, targetsOutOfAOE);
+
+		if(abilityState.Authority is not Character && figures.Count != 0)
+		{
+			int mostHealthLost = figures.Select(figure => figure.MaxHealth - figure.Health).Max();
+			figures.RemoveAll(figure => figure.MaxHealth - figure.Health < mostHealthLost);
+		}
 	}
 
 	protected override string DefaultTargetingHintText(State abilityState)

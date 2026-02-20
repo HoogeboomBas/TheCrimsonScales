@@ -45,4 +45,11 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=FCE6ECC5E5F0DF478931F375832BAE34/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=FCE6ECC5E5F0DF478931F375832BAE34/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=FCE6ECC5E5F0DF478931F375832BAE34/Text/@EntryValue">public class $CLASS$ {$END$}</s:String>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=FCE6ECC5E5F0DF478931F375832BAE34/UITag/@EntryValue">Class/Interface</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=FCE6ECC5E5F0DF478931F375832BAE34/UITag/@EntryValue">Class/Interface</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=aesther/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=aesther_0027s/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=harrower/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=inox/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=quatryl/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=valrath/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=vermling/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

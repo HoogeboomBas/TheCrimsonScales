@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 64 64"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="RotateClockwise.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="2.2511407"
+     inkscape:cx="120.82763"
+     inkscape:cy="139.26273"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="M 0,0 H 64 V 64 H 0 Z"
+       fill="#000000"
+       fill-opacity="0.02"
+       id="path1"
+       style="stroke-width:0.125" />
+    <g
+       class=""
+       id="g2"
+       transform="scale(0.125)">
+      <path
+         d="m 263.09,50 a 205.803,205.803 0 0 0 -35.857,3.13 C 142.026,68.156 75.156,135.026 60.13,220.233 45.108,305.44 85.075,391.15 160.005,434.41 c 32.782,18.927 69.254,27.996 105.463,27.553 46.555,-0.57 92.675,-16.865 129.957,-48.15 L 364.57,377.045 A 157.846,157.846 0 0 1 184.004,392.842 157.846,157.846 0 0 1 107.401,228.568 157.848,157.848 0 0 1 235.571,100.4 157.84,157.84 0 0 1 374.741,144.262 L 327,192 H 455 V 64 l -46.34,46.342 C 370.242,71.962 317.83,50.03 263.09,50 Z"
+         fill="#ffffff"
+         fill-opacity="1"
+         id="path2" />
+    </g>
+  </g>
+</svg>

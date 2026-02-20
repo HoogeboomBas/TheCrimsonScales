@@ -20,7 +20,7 @@ public class WonderStone : CS4Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.InfuseWildElement(Owner);
+					await AbilityCmd.InfuseWildElement(null, Owner);
 				});
 			},
 			canApplyMultipleTimesDuringAbility: true

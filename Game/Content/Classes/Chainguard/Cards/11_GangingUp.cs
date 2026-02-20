@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBottom>
 {
@@ -10,18 +11,20 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.51381016f, 0.18770726f)))
 				.WithConditions(Chainguard.Shackle)
 				.Build()
 			),
 
 			new AbilityCardAbility(ControlAbility.Builder()
-				.WithGetAbilities(state =>
+				.WithAbilities(
 				[
-					AttackAbility.Builder().WithDamage(2).Build()
+					AttackAbility.Builder()
+						.WithDamage(2, new AttackDiamond(this, new Vector2(0.62174934f, 0.3972468f)))
+						.Build()
 				])
 				.WithCustomGetTargets((state, figures) =>
 				{
@@ -36,18 +39,20 @@ public class GangingUp : ChainguardCardModel<GangingUp.CardTop, GangingUp.CardBo
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
 					AttackAbility.Builder()
-						.WithDamage(3)
+						.WithDamage(3, new AttackDiamond(this, new Vector2(0.31581503f, 0.80522656f)))
 						.WithCustomGetTargets((state, figures) =>
 						{
-							IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(grantAbilityState.Performer.Hex, 1, includeOrigin: false);
-							figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(grantAbilityState.Performer) 
-																			&& figure.HasCondition(Chainguard.Shackle)));
+							GrantAbility.State grantAbilityState = state.ActionState.ParentActionState.GetAbilityState<GrantAbility.State>(0);
+							IEnumerable<Figure> adjacentFigures =
+								RangeHelper.GetFiguresInRange(grantAbilityState.Performer.Hex, 1, includeOrigin: false);
+							figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(grantAbilityState.Performer)
+							                                                 && figure.HasCondition(Chainguard.Shackle)));
 						})
 						.WithTarget(Target.Enemies)
 						.Build()

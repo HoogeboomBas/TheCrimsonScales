@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1e27svta2n7m"]
+
+[ext_resource type="Script" uid="uid://t60y8p0ntep4" path="res://Scripts/UI/Popups/PerksPopup/PerksPopupPerkBox.cs" id="1_xj6q2"]
+[ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="2_2ybgm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxurl"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PerksPopupPerkBox" type="Control" node_paths=PackedStringArray("_checkmark")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_xj6q2")
+_checkmark = NodePath("Outline/Checkmark")
+
+[node name="Outline" type="Panel" parent="."]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lxurl")
+
+[node name="Checkmark" type="TextureRect" parent="Outline"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_2ybgm")
+expand_mode = 1

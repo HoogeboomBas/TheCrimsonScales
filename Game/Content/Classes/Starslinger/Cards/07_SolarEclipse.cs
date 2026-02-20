@@ -11,10 +11,10 @@ public class SolarEclipse : StarslingerCardModel<SolarEclipse.CardTop, SolarEcli
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.4989511f, 0.20602313f)))
 				.WithAOEPattern(new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -49,7 +49,7 @@ public class SolarEclipse : StarslingerCardModel<SolarEclipse.CardTop, SolarEcli
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -92,8 +92,8 @@ public class SolarEclipse : StarslingerCardModel<SolarEclipse.CardTop, SolarEcli
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 
 		private async GDTask Heal(AbilityState state)
 		{

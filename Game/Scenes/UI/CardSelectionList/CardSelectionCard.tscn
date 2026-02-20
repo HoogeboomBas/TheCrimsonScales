@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="3_q33ox"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_cy34m"]
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_b7evf"]
-[ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/AbilityCard.gdshader" id="6_72eni"]
+[ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/TintGrayscale.gdshader" id="6_72eni"]
 [ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="7_84o0e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teg01"]
@@ -16,7 +16,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0audc"]
 shader = ExtResource("6_72eni")
-shader_parameter/tint = Color(1, 1, 1, 1)
 
 [node name="CardSelectionCard" type="Control" node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
 layout_mode = 3

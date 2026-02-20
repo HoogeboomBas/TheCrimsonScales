@@ -6,16 +6,18 @@ public class AMDCard : IDeckCard
 {
 	public AMDCardModel Model { get; }
 	public AMDCardOwner Owner { get; }
+	public Figure PotentialOriginalOwner { get; }
 
 	public bool Reshuffles => Model.Reshuffles;
 	public bool RemoveAfterDraw => Model.RemoveAfterDraw;
 
 	public event Action<AMDCard> DrawnEvent;
 
-	public AMDCard(AMDCardModel model, AMDCardOwner owner)
+	public AMDCard(AMDCardModel model, AMDCardOwner owner, Figure potentialOriginalOwner = null)
 	{
 		Model = model;
 		Owner = owner;
+		PotentialOriginalOwner = potentialOriginalOwner;
 	}
 
 	public async GDTask<AMDCardValue> Draw(AttackAbility.State attackAbilityState)
@@ -25,13 +27,13 @@ public class AMDCard : IDeckCard
 				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
 
 		return new AMDCardValue(Model.GetRolling(attackAbilityState), amdCardDrawnParameters.Type, amdCardDrawnParameters.Value, Model.Pierce,
-			Model.Push, Model.Pull, Model.Swing, Model.ElementInfusions, Model.GetConditionModels(attackAbilityState),
+			Model.Push, Model.Pull, Model.Swing, Model.AddedTargets, Model.ElementInfusions, Model.GetConditionModels(attackAbilityState),
 			Model.GetAbilities(attackAbilityState), Model.GetExtraEffects(attackAbilityState));
 	}
 
 	public Texture2D GetTexture()
 	{
-		return Model.GetTexture();
+		return Model.GetTexture(Owner);
 	}
 
 	public virtual void Drawn()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingDarts.CardBottom>
 {
@@ -10,12 +11,12 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
-				.WithRange(3)
-				.WithTargets(2)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.648278f, 0.23412162f)))
+				.WithTargets(2, new TargetsSquare(this, new Vector2(0.43628073f, 0.23412162f)))
 				.WithPierce(2)
 				.WithDuringAttackSubscription(
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Earth,
@@ -34,10 +35,10 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
-				.WithOnActivate(async state => 
+				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer,
@@ -52,10 +53,10 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 							await GDTask.CompletedTask;
 						}
 					);
-					
+
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(async state => 
+				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 
@@ -65,6 +66,6 @@ public class PiercingDarts : ChieftainCardModel<PiercingDarts.CardTop, PiercingD
 			),
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

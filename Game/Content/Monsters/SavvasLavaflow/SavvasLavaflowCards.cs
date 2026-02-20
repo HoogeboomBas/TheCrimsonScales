@@ -97,7 +97,7 @@ public class SavvasLavaflowAbilityCard3 : SavvasLavaflowAbilityCard
 
 					foreach(Figure enemy in enemies)
 					{
-						await AbilityCmd.SufferDamage(null, enemy, 2);
+						await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 2);
 					}
 				}
 			)
@@ -163,7 +163,7 @@ public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
 					List<Figure> sufferDamageTargets = GameController.Instance.Map.Figures.FindAll(figure => state.Authority.EnemiesWith(figure));
 					foreach(Figure target in sufferDamageTargets)
 					{
-						await AbilityCmd.SufferDamage(null, target, 2);
+						await AbilityCmd.SufferDamage(state, target, 2);
 					}
 				}
 			)

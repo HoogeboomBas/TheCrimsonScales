@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond.CardBottom>
 {
@@ -10,12 +11,12 @@ public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.39718983f, 0.180141f)))
 				.WithTargets(2)
-				.WithRange(4)
+				.WithRange(4, new RangeSquare(this, new Vector2(0.72036666f, 0.180141f)))
 				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
@@ -63,7 +64,7 @@ public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -110,9 +111,9 @@ public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Earth];
-		protected override int XP => 1;
-		protected override bool Unrecoverable => true;
-		protected override bool Loss => true;
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
+		public override int XP => 1;
+		public override bool Unrecoverable => true;
+		public override bool Loss => true;
 	}
 }

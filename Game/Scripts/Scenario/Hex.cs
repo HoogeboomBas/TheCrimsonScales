@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class Hex : Node2D
@@ -101,7 +102,6 @@ public partial class Hex : Node2D
 				case HazardousTerrain:
 				case Trap:
 				case Door:
-				case PressurePlate:
 					return false;
 			}
 		}
@@ -115,12 +115,12 @@ public partial class Hex : Node2D
 		{
 			switch(hexObject)
 			{
+				case Objective:
 				case Obstacle:
 				case DifficultTerrain:
 				case HazardousTerrain:
 				case Trap:
 				case Door:
-				case PressurePlate:
 					return false;
 			}
 		}
@@ -142,8 +142,18 @@ public partial class Hex : Node2D
 		return true;
 	}
 
+	public bool IsOccupied()
+	{
+		return !IsUnoccupied();
+	}
+
 	private void SortHexObjects()
 	{
 		HexObjects.Sort((a, b) => b.DefaultZIndex.CompareTo(a.DefaultZIndex));
+	}
+
+	public Room GetRoom()
+	{
+		return GameController.Instance.Map.Rooms.FirstOrDefault(room => room.MapTiles.Contains(MapTile));
 	}
 }

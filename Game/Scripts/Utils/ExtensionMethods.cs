@@ -46,12 +46,26 @@ public static class ExtensionMethods
 		return list[rng.RandiRange(0, list.Count - 1)];
 	}
 
-	public static void AddIfNew<T>(this List<T> list, T item)
+	public static bool AddIfNew<T>(this List<T> list, T item)
 	{
-		if(!list.Contains(item))
+		if(list.Contains(item))
 		{
-			list.Add(item);
+			return false;
 		}
+
+		list.Add(item);
+		return true;
+	}
+
+	public static bool RemoveLast<T>(this IList<T> list)
+	{
+		if(list.Count == 0)
+		{
+			return false;
+		}
+
+		list.RemoveAt(list.Count - 1);
+		return true;
 	}
 
 	/// <summary>

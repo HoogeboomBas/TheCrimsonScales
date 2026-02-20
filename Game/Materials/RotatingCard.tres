@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://gfilfltix5vm"]
+
+[ext_resource type="Shader" uid="uid://cvigpjylr2cci" path="res://Shaders/RotatingCard.gdshader" id="1_xc4mf"]
+
+[resource]
+shader = ExtResource("1_xc4mf")
+shader_parameter/fov = 20.0
+shader_parameter/cull_back = true
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0

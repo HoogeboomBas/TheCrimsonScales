@@ -8,7 +8,7 @@
 [node name="Hierophant" instance=ExtResource("1_q7cyt")]
 script = ExtResource("2_7s24i")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="1"]
 self_modulate = Color(0.866667, 0.870588, 0.541176, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]

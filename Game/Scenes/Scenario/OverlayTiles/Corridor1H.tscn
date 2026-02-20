@@ -1,15 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cntexpy84mopg"]
+[gd_scene load_steps=4 format=3 uid="uid://cntexpy84mopg"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_r7qbm"]
 [ext_resource type="Texture2D" uid="uid://cfyeynkvma5qg" path="res://Art/Icons/OverlayTiles/CorridorIcon.svg" id="2_6htyu"]
 [ext_resource type="Script" uid="uid://dypdm1p6dgk36" path="res://Scripts/Scenario/HexObjects/Corridor.cs" id="2_v7ve4"]
-[ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="4_1o8bk"]
 
 [node name="Corridor1H" instance=ExtResource("1_r7qbm")]
 z_index = -1
 script = ExtResource("2_v7ve4")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="2"]
 self_modulate = Color(0.52549, 0.52549, 0.52549, 1)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
@@ -19,5 +18,3 @@ self_modulate = Color(0.52549, 0.52549, 0.52549, 1)
 self_modulate = Color(0.690196, 0.690196, 0.690196, 1)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_6htyu")
-
-[node name="Hex" parent="." index="4" instance=ExtResource("4_1o8bk")]

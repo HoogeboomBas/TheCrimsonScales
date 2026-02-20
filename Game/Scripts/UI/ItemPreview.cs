@@ -27,7 +27,7 @@ public partial class ItemPreview : Control
 	public void Focus(Control focus, ItemModel itemModel)
 	{
 		_focus = focus;
-		_itemView.SetItem(itemModel);
+		_itemView.SetItem(itemModel, itemModel.IsMutable);
 
 		_originOffset = _focus.GlobalPosition.X > GlobalPosition.X ? 100f : -100f;
 

@@ -12,7 +12,7 @@ public class ScenarioInitializationPhase : ScenarioPhase
 		{
 			if(room.StartsRevealed)
 			{
-				await room.Reveal(null, true);
+				await room.Reveal(null, null, true);
 			}
 		}
 

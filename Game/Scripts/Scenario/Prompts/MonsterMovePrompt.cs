@@ -15,6 +15,7 @@ public class MonsterMovePrompt(
 		public int MoveSpent { get; init; }
 	}
 
+	private static readonly HashSet<Figure> AttackableFiguresCache = new HashSet<Figure>();
 	private readonly Dictionary<Hex, MoveNode> _closedList = new Dictionary<Hex, MoveNode>();
 	private readonly Dictionary<Hex, MoveNode> _moreMoveClosedList = new Dictionary<Hex, MoveNode>();
 	private readonly Dictionary<Hex, MoveNode> _toBestFocusFromMoveCloserClosedList = new Dictionary<Hex, MoveNode>();
@@ -47,9 +48,9 @@ public class MonsterMovePrompt(
 		bool hasGrayHex = false;
 		if(aiMoveParameters.AOEPattern != null)
 		{
-			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+			foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.LocalHexes)
 			{
-				if(pivotAOEHex.Type == AOEHexType.Gray)
+				if(pivotAOEHex.Type.HasFlag(AOEHexType.Gray))
 				{
 					hasGrayHex = true;
 				}
@@ -110,13 +111,19 @@ public class MonsterMovePrompt(
 			if(aiMoveParameters.AOEPattern == null)
 			{
 				Figure attackableFocus = null;
-				int attackableFigureCount = 0;
 				int disadvantageCount = 0;
+				bool disadvantageOnFocus = false;
+				AttackableFiguresCache.Clear();
 
 				foreach(Hex hexInRange in rangeCache)
 				{
 					foreach(Figure potentialTarget in hexInRange.GetHexObjectsOfType<Figure>())
 					{
+						if(AttackableFiguresCache.Contains(potentialTarget))
+						{
+							continue;
+						}
+
 						if(!performer.EnemiesWith(potentialTarget))
 						{
 							continue;
@@ -131,37 +138,56 @@ public class MonsterMovePrompt(
 							continue;
 						}
 
-						ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-							ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
-								new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
-
-						if(!canBeFocusedParameters.CanBeFocused)
-						{
-							continue;
-						}
+						// ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
+						// 	ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
+						// 		new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+						//
+						// if(!canBeFocusedParameters.CanBeFocused)
+						// {
+						// 	continue;
+						// }
 
 						if(potentialTarget == focus)
 						{
 							attackableFocus = potentialTarget;
 						}
 
-						attackableFigureCount++;
+						AttackableFiguresCache.Add(potentialTarget);
 
-						ScenarioCheckEvents.DisadvantageCheck.Parameters disadvantageCheck = ScenarioCheckEvents.DisadvantageCheckEvent.Fire(
-							new ScenarioCheckEvents.DisadvantageCheck.Parameters(potentialTarget, moveAbilityState.Performer, moveHex,
-								aiMoveParameters.RangeType == RangeType.Range && RangeHelper.Distance(moveHex, hexInRange) == 1));
+						bool rangeDisadvantage =
+							AttackAbility.CheckRangeDisadvantage([moveHex], potentialTarget.Hexes, aiMoveParameters.RangeType ?? RangeType.Melee);
+						ScenarioCheckEvents.DisadvantageCheck.Parameters disadvantageCheck =
+							ScenarioCheckEvents.DisadvantageCheckEvent.Fire(
+								new ScenarioCheckEvents.DisadvantageCheck.Parameters(potentialTarget, moveAbilityState.Performer, moveHex,
+									rangeDisadvantage));
 
 						if(disadvantageCheck.HasDisadvantage)
 						{
 							disadvantageCount++;
+
+							if(potentialTarget == focus)
+							{
+								disadvantageOnFocus = true;
+							}
 						}
 					}
 				}
 
 				int finalTargetCount = aiMoveParameters.TargetAll
-					? attackableFigureCount
-					: Mathf.Min(attackableFigureCount, aiMoveParameters.Targets);
-				int finalDisadvantageCount = aiMoveParameters.TargetAll ? disadvantageCount : Mathf.Min(disadvantageCount, aiMoveParameters.Targets);
+					? AttackableFiguresCache.Count
+					: Mathf.Min(AttackableFiguresCache.Count, aiMoveParameters.Targets);
+				int nonDisadvantageCount = AttackableFiguresCache.Count - disadvantageCount;
+				int finalNonDisadvantageCount = aiMoveParameters.TargetAll
+					? nonDisadvantageCount
+					: Mathf.Min(nonDisadvantageCount, aiMoveParameters.Targets);
+				int finalDisadvantageCount = finalTargetCount - finalNonDisadvantageCount;
+
+				// If the focus is targeted, and we have disadvantage on them, make sure that disadvantage is counted
+				if(disadvantageOnFocus)
+				{
+					finalDisadvantageCount = Math.Max(finalDisadvantageCount, 1);
+				}
+
 				AIAttackNode newAIAttackNode = new AIAttackNode(node, attackableFocus, finalTargetCount, finalDisadvantageCount, node.MoveSpent);
 
 				CompareAttackNode(newAIAttackNode);
@@ -177,26 +203,26 @@ public class MonsterMovePrompt(
 
 					for(int i = 0; i < 6; i++)
 					{
-						foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+						foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.LocalHexes)
 						{
-							if(hasGrayHex && pivotAOEHex.Type != AOEHexType.Gray)
+							if(hasGrayHex && !pivotAOEHex.Type.HasFlag(AOEHexType.Gray))
 							{
 								continue;
 							}
 
 							Figure attackableFocus = null;
-							int attackableFigureCount = 0;
 							int disadvantageCount = 0;
+							AttackableFiguresCache.Clear();
 
-							Vector2I pivotOffset = -pivotAOEHex.LocalCoords;
-							foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Hexes)
+							Vector2I pivotOffset = -pivotAOEHex.Coords;
+							foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.LocalHexes)
 							{
-								if(aoeHex.Type != AOEHexType.Red)
+								if(!aoeHex.Type.HasFlag(AOEHexType.Red))
 								{
 									continue;
 								}
 
-								Vector2I globalCoords = hexInRange.Coords + Map.RotateCoordsClockwise(pivotOffset + aoeHex.LocalCoords, i);
+								Vector2I globalCoords = hexInRange.Coords + Map.RotateCoordsClockwise(pivotOffset + aoeHex.Coords, i);
 								Hex potentialTargetHex = map.GetHex(globalCoords);
 
 								if(potentialTargetHex == null || !GameController.Instance.Map.HasLineOfSight(moveHex, potentialTargetHex))
@@ -206,6 +232,11 @@ public class MonsterMovePrompt(
 
 								foreach(Figure potentialTarget in potentialTargetHex.GetHexObjectsOfType<Figure>())
 								{
+									if(AttackableFiguresCache.Contains(potentialTarget))
+									{
+										continue;
+									}
+
 									if(!performer.EnemiesWith(potentialTarget))
 									{
 										continue;
@@ -220,21 +251,21 @@ public class MonsterMovePrompt(
 										continue;
 									}
 
-									ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-										ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
-											new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
-
-									if(!canBeFocusedParameters.CanBeFocused)
-									{
-										continue;
-									}
+									// ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
+									// 	ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
+									// 		new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
+									//
+									// if(!canBeFocusedParameters.CanBeFocused)
+									// {
+									// 	continue;
+									// }
 
 									if(potentialTarget == focus)
 									{
 										attackableFocus = potentialTarget;
 									}
 
-									attackableFigureCount++;
+									AttackableFiguresCache.Add(potentialTarget);
 
 									ScenarioCheckEvents.DisadvantageCheck.Parameters disadvantageCheck =
 										ScenarioCheckEvents.DisadvantageCheckEvent.Fire(
@@ -251,7 +282,7 @@ public class MonsterMovePrompt(
 							}
 
 							// We are ignoring focusParameters.Targets here because it's an AOE. If we have a weird AOE ability like Boldening Blow, that would not work properly.
-							int finalTargetCount = attackableFigureCount;
+							int finalTargetCount = AttackableFiguresCache.Count;
 							//int finalTargetCount = Mathf.Min(attackableFigureCount, focusParameters.Targets);
 							//int finalDisadvantageCount = Mathf.Min(disadvantageCount, focusParameters.Targets);
 							AIAttackNode newAIAttackNode =
@@ -361,22 +392,22 @@ public class MonsterMovePrompt(
 
 				for(int i = 0; i < 6; i++)
 				{
-					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.Hexes)
+					foreach(AOEHex pivotAOEHex in aiMoveParameters.AOEPattern.LocalHexes)
 					{
-						if(hasGrayHex && pivotAOEHex.Type != AOEHexType.Gray)
+						if(hasGrayHex && !pivotAOEHex.Type.HasFlag(AOEHexType.Gray))
 						{
 							continue;
 						}
 
-						Vector2I pivotOffset = -pivotAOEHex.LocalCoords;
-						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.Hexes)
+						Vector2I pivotOffset = -pivotAOEHex.Coords;
+						foreach(AOEHex aoeHex in aiMoveParameters.AOEPattern.LocalHexes)
 						{
-							if(aoeHex.Type != AOEHexType.Red)
+							if(!aoeHex.Type.HasFlag(AOEHexType.Red))
 							{
 								continue;
 							}
 
-							Vector2I globalCoords = hexInRange.Coords + Map.RotateCoordsClockwise(pivotOffset + aoeHex.LocalCoords, i);
+							Vector2I globalCoords = hexInRange.Coords + Map.RotateCoordsClockwise(pivotOffset + aoeHex.Coords, i);
 							Hex potentialTargetHex = map.GetHex(globalCoords);
 
 							HandlePotentialTargetHex(potentialTargetHex);

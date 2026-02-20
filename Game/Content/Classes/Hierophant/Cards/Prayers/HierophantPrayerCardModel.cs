@@ -1,6 +1,6 @@
-﻿public abstract class HierophantPrayerCardModel<TTop, TBottom> : AtlasAbilityCardModel<TTop, TBottom>
-	where TTop : HierophantPrayerCardSide, new()
-	where TBottom : HierophantPrayerCardSide, new()
+﻿public abstract class HierophantPrayerCardModel<TTop, TBottom> : AbilityCardModel<TTop, TBottom>
+	where TTop : HierophantPrayerCardSide
+	where TBottom : HierophantPrayerCardSide
 {
 	protected override string TexturePath => "res://Content/Classes/Hierophant/PrayerCards.jpg";
 	protected override int ColumnCount => 4;
@@ -10,6 +10,6 @@
 	public override int Initiative => 50;
 }
 
-public abstract class HierophantPrayerCardSide : AbilityCardSide
+public abstract class HierophantPrayerCardSide : AbilityCardSideModel
 {
 }

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Godot;
 
-public class AOEPrompt(TargetedAbilityState targetedAbilityState, AOEPattern pattern, Hex forcedOriginHex, EffectCollection effectCollection, Func<string> getHintText)
+public class AOEPrompt(
+	Figure performer, AOEPattern pattern, Hex forcedOriginHex, EffectCollection effectCollection, Func<string> getHintText, int range)
 	: Prompt<AOEPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
 	{
-		public List<Vector2I> HexCoords { get; init; }
-		public List<AOEHexType> HexTypes { get; init; }
+		public List<AOEHex> AOEHexes { get; init; }
 	}
 
 	protected override void Enable()
@@ -16,7 +16,7 @@ public class AOEPrompt(TargetedAbilityState targetedAbilityState, AOEPattern pat
 		base.Enable();
 
 		GameController.Instance.AOEView.AOEChangedEvent += OnAOEChanged;
-		GameController.Instance.AOEView.Open(pattern, forcedOriginHex, targetedAbilityState.Performer, targetedAbilityState.AbilityRange);
+		GameController.Instance.AOEView.Open(pattern, forcedOriginHex, performer, range);
 	}
 
 	protected override void Disable()
@@ -29,19 +29,16 @@ public class AOEPrompt(TargetedAbilityState targetedAbilityState, AOEPattern pat
 
 	protected override Answer CreateAnswer()
 	{
-		List<Vector2I> hexCoords = new List<Vector2I>();
-		List<AOEHexType> hexTypes = new List<AOEHexType>();
+		List<AOEHex> aoeHexes = [];
 
 		foreach(AOEHexView hexView in GameController.Instance.AOEView.Hexes)
 		{
-			hexCoords.Add(hexView.GlobalCoords);
-			hexTypes.Add(hexView.Type);
+			aoeHexes.Add(new AOEHex(hexView.GlobalCoords, hexView.Type, hexView.CustomMark));
 		}
 
 		return new Answer()
 		{
-			HexCoords = hexCoords,
-			HexTypes = hexTypes
+			AOEHexes = aoeHexes
 		};
 	}
 

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfpnjhm68e114"]
+
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_hxu3i"]
+[ext_resource type="Script" uid="uid://sqxgeq2ivui2" path="res://Scripts/UI/PersonalQuests/PersonalQuestToggleButton.cs" id="2_hxu3i"]
+[ext_resource type="PackedScene" uid="uid://dw1ln706dq5kv" path="res://Scenes/UI/PersonalQuests/PersonalQuestView.tscn" id="3_hxu3i"]
+
+[node name="PersonalQuestToggleButton" node_paths=PackedStringArray("_personalQuestView", "_button", "_container", "_inactiveOverlay") instance=ExtResource("1_hxu3i")]
+custom_minimum_size = Vector2(450, 630)
+script = ExtResource("2_hxu3i")
+_personalQuestView = NodePath("Container/BetterButton/PersonalQuestView")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="PersonalQuestView" parent="Container/BetterButton" index="0" instance=ExtResource("3_hxu3i")]
+layout_mode = 1

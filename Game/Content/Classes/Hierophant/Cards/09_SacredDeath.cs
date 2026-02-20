@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.CardBottom>
 {
@@ -11,9 +12,12 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithRange(3).Build()),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.4478777f, 0.19583333f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.66987485f, 0.19583333f)))
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Bless)
@@ -37,7 +41,7 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
@@ -121,7 +125,7 @@ public class SacredDeath : HierophantCardModel<SacredDeath.CardTop, SacredDeath.
 				.Build())
 		];
 
-		protected override bool Loss => true;
-		protected override bool Unrecoverable => true;
+		public override bool Loss => true;
+		public override bool Unrecoverable => true;
 	}
 }

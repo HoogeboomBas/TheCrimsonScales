@@ -11,7 +11,7 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -61,8 +61,8 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 
 		private async GDTask Heal(AbilityState state)
 		{
@@ -89,7 +89,7 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Invisible)
@@ -108,8 +108,7 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 
 					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(
-					async state =>
+				.WithOnDeactivate(async state =>
 					{
 						ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 
@@ -120,7 +119,7 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Round => true;
+		public override int XP => 1;
+		public override bool Round => true;
 	}
 }

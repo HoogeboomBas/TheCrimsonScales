@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixture.CardBottom>
 {
@@ -10,7 +11,7 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Disarm)
@@ -45,14 +46,16 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.6215359f, 0.67549807f)))
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -99,6 +102,6 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

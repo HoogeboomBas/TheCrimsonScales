@@ -3,7 +3,7 @@ using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
-public class ScrollOfProtection : FireKnightItem
+public class FireKnightScrollOfProtection : FireKnightItem
 {
 	public override string Name => "Scroll of Protection";
 	public override int ItemNumber => 9;
@@ -13,7 +13,7 @@ public class ScrollOfProtection : FireKnightItem
 
 	protected override List<ItemUseSlot> GetUseSlots() =>
 	[
-		new ItemUseSlot(new Vector2(0.32149974f, 0.7880109f), async item => await AbilityCmd.InfuseElement(Element.Fire)),
+		new ItemUseSlot(new Vector2(0.32149974f, 0.7880109f), async item => await AbilityCmd.InfuseElement(null, Element.Fire, item.Owner)),
 		new ItemUseSlot(new Vector2(0.6015022f, 0.7880109f))
 	];
 
@@ -29,12 +29,14 @@ public class ScrollOfProtection : FireKnightItem
 		base.Subscribe();
 
 		ScenarioEvents.InflictConditionsEvent.Subscribe(this, _subscriber,
-			parameters => parameters.Target == Owner && parameters.ConditionModels.Count > 0 && parameters.ConditionModels.Any(conditionModel => conditionModel.IsNegative),
+			parameters => parameters.Target == Owner && parameters.ConditionModels.Count > 0 &&
+			              parameters.ConditionModels.Any(conditionModel => conditionModel.IsNegative),
 			async parameters =>
 			{
 				await Use(async user =>
 				{
-					List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
+					List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
+						new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 					foreach(ConditionModel conditionModel in parameters.ConditionModels)
 					{
 						if(conditionModel.IsNegative)
@@ -48,7 +50,8 @@ public class ScrollOfProtection : FireKnightItem
 								},
 								effectType: EffectType.SelectableMandatory,
 								effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(conditionModel)),
-								effectInfoViewParameters: new TextEffectInfoView.Parameters($"Prevent {Icons.Inline(Icons.GetCondition(conditionModel))}")
+								effectInfoViewParameters: new TextEffectInfoView.Parameters(
+									$"Prevent {Icons.Inline(Icons.GetCondition(conditionModel))}")
 							));
 						}
 					}

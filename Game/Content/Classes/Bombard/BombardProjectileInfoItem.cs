@@ -8,7 +8,7 @@ public partial class BombardProjectileInfoItem : InfoItem<BombardProjectileInfoI
 	}
 
 	[Export]
-	private CardSideView _cardSideView;
+	private AbilityCardSideView _cardSideView;
 
 	public override void Init(Parameters parameters)
 	{

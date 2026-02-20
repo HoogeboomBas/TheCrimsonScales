@@ -9,6 +9,8 @@ public partial class SelectFigureViewFigure : Control
 	[Export]
 	private Control _scaleContainer;
 	[Export]
+	private Sprite2D _outline;
+	[Export]
 	private Sprite2D _sprite;
 
 	public Figure Figure { get; private set; }
@@ -29,6 +31,8 @@ public partial class SelectFigureViewFigure : Control
 		_scaleContainer.SetScale(Vector2.Zero);
 		_scaleContainer.SetPivotOffset(_scaleContainer.Size * 0.5f);
 		_scaleContainer.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
+
+		_outline.SetSelfModulate(figure.OutlineColor);
 
 		Texture2D mapIconTexture = figure.MapIconTexture;
 		_sprite.SetTexture(mapIconTexture);

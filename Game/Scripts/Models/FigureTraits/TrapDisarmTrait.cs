@@ -14,7 +14,7 @@ public class TrapDisarmTrait(int range) : FigureTrait
 				{
 					foreach(Trap trap in hex.GetHexObjectsOfType<Trap>())
 					{
-						await trap.Disarm();
+						await AbilityCmd.DisarmTrap(trap, figure);
 					}
 				}
 			}
@@ -24,7 +24,7 @@ public class TrapDisarmTrait(int range) : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(
 					$"Whenever this figure enters a hex, immediately destroy all traps in range {range}."));
 			}
 		);

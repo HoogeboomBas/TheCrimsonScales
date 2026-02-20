@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://drs874b0lo5o6"]
+
+[ext_resource type="Texture2D" uid="uid://cnmsdm6dse3cx" path="res://Content/Classes/Mirefoot/CharacterToken.png" id="1_8wqrs"]
+[ext_resource type="Script" uid="uid://ci4fn0x7asop5" path="res://Scripts/UI/AbilityCardView/AbilityCardViewCharacterToken.cs" id="1_pfmdx"]
+
+[node name="CardViewCharacterToken" type="Control" node_paths=PackedStringArray("_textureRect")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 62.0
+offset_bottom = 62.0
+script = ExtResource("1_pfmdx")
+_textureRect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8wqrs")
+expand_mode = 1

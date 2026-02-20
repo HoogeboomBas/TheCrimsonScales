@@ -11,11 +11,11 @@ public class ShootingStars : StarslingerCardModel<ShootingStars.CardTop, Shootin
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
-				.WithPierce(2)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.309592f, 0.17207472f)))
+				.WithPierce(2, new PierceSquare(this, new Vector2(0.5309223f, 0.17207472f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Yellow),
@@ -46,15 +46,15 @@ public class ShootingStars : StarslingerCardModel<ShootingStars.CardTop, Shootin
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Dark];
+		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Dark)];
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new MoveSquare(this, new Vector2(0.61878395f, 0.70344824f)))
 				.Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Immobilize)

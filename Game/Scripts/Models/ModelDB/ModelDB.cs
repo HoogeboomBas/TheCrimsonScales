@@ -18,7 +18,7 @@ public static class ModelDB
 		return new ModelId()
 		{
 			Category = SlugHelper.GetSlug(type.BaseType?.Name),
-			Entry = SlugHelper.GetSlug(type.Name)
+			Entry = SlugHelper.GetSlug(type.FullName)
 		};
 	}
 
@@ -81,7 +81,12 @@ public static class ModelDB
 		return ContentById[id];
 	}
 
-	public static T Card<T>() where T : AbilityCardModel
+	public static T AbilityCard<T>() where T : AbilityCardModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T AbilityCardSide<T>() where T : AbilityCardSideModel
 	{
 		return GetOrCreate<T>();
 	}
@@ -122,6 +127,31 @@ public static class ModelDB
 	}
 
 	public static T AMDCard<T>() where T : AMDCardModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T Event<T>() where T : EventModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T EventChoice<T>() where T : EventChoiceModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T PersonalQuest<T>() where T : PersonalQuestModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T Enhancement<T>() where T : EnhancementModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T Perk<T>() where T : PerkModel
 	{
 		return GetOrCreate<T>();
 	}

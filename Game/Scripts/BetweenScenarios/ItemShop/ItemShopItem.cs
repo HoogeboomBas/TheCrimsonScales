@@ -88,14 +88,22 @@ public partial class ItemShopItem : Control
 
 		_stockLabel.Text = $"{SavedItem.StockCount} / {SavedItem.UnlockedCount}";
 
-		_itemView.TextureRect.SetInstanceShaderParameter("grayscaleFactor", hasItem || SavedItem.StockCount == 0 ? 1f : 0f);
+		foreach(TextureRect textureRect in _itemView.TextureRects)
+		{
+			textureRect.SetInstanceShaderParameter("grayscaleFactor", hasItem || SavedItem.StockCount == 0 ? 1f : 0f);
+		}
+
+		_itemView.SetCost(BetweenScenariosController.Instance.ItemShop.GetBuyPrice(selectedCharacter, ItemModel));
+		_itemView.SetItemCount(SavedItem.StockCount, SavedItem.UnlockedCount);
 	}
 
 	private bool GetCanAfford()
 	{
 		SavedCharacter selectedCharacter = BetweenScenariosController.Instance.CharacterPortraitManager.SelectedPortrait?.SavedCharacter;
 
-		return selectedCharacter != null && selectedCharacter.Gold >= ItemModel.Cost;
+		return
+			selectedCharacter != null &&
+			selectedCharacter.Gold >= BetweenScenariosController.Instance.ItemShop.GetBuyPrice(selectedCharacter, ItemModel);
 	}
 
 	private void OnPressed()
@@ -125,7 +133,8 @@ public partial class ItemShopItem : Control
 		{
 			ItemModel = ItemModel,
 			SavedItem = SavedItem,
-			Buyer = selectedCharacter
+			Buyer = selectedCharacter,
+			Price = BetweenScenariosController.Instance.ItemShop.GetBuyPrice(selectedCharacter, ItemModel)
 		});
 
 		UpdateVisuals();

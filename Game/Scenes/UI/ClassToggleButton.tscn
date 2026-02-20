@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcx5yve43v6qg"]
+
+[ext_resource type="Script" uid="uid://djkjarvo4pjfq" path="res://Scripts/UI/ClassToggleButton.cs" id="1_ef2h6"]
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_k5ufk"]
+[ext_resource type="PackedScene" uid="uid://dlc378jgp47uy" path="res://Scenes/UI/ClassView.tscn" id="2_bahmu"]
+
+[node name="ClassToggleButton" node_paths=PackedStringArray("_classView", "_button", "_container", "_inactiveOverlay") instance=ExtResource("1_k5ufk")]
+script = ExtResource("1_ef2h6")
+_classView = NodePath("Container/BetterButton/ClassView")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="ClassView" parent="Container/BetterButton" index="0" instance=ExtResource("2_bahmu")]
+layout_mode = 1

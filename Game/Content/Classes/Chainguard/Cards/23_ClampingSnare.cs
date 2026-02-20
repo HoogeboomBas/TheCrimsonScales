@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, ClampingSnare.CardBottom>
 {
@@ -10,7 +11,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(5)
@@ -33,7 +34,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 							{
 								if(state.Authority.EnemiesWith(figure))
 								{
-									await AbilityCmd.SufferDamage(null, figure, 2);
+									await AbilityCmd.SufferDamage(state, figure, 2);
 								}
 							}
 
@@ -52,23 +53,26 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.620109f, 0.66905016f)))
+				.Build()),
+
 			new AbilityCardAbility(ShieldAbility.Builder()
 				.WithShieldValue(3)
 				.WithCustomCanApply(parameters =>
 					parameters.FromAttack &&
-					parameters.PotentialAttackAbilityState.Performer.HasCondition(Chainguard.Shackle))
+					parameters.PotentialAbilityState.Performer.HasCondition(Chainguard.Shackle))
 				.Build()),
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

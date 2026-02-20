@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cnu6wjtrnujjc" path="res://Scenes/Scenario/UI/CurrentActionViews/_CurrentActionView.tscn" id="1_xr272"]
 [ext_resource type="Script" uid="uid://b21c4knxvt5ye" path="res://Scripts/Scenario/UI/CurrentActionView/ItemCurrentActionView.cs" id="2_xr272"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="3_sm8g3"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="3_sm8g3"]
 
 [node name="ItemCurrentActionView" node_paths=PackedStringArray("_itemView") instance=ExtResource("1_xr272")]
 script = ExtResource("2_xr272")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://2y46md6quvos"]
 
 [ext_resource type="Script" uid="uid://d4km3e4t53vx5" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoCharacterItem.cs" id="1_nbf60"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="2_ulufj"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="2_ulufj"]
 [ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="3_ulufj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnh86"]
@@ -60,11 +60,14 @@ offset_bottom = 188.117
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Mask" parent="MarginContainer/Mask/ItemView" index="0"]
+[node name="Container" parent="MarginContainer/Mask/ItemView" index="0"]
+scale = Vector2(0.396, 0.396)
+
+[node name="Mask" parent="MarginContainer/Mask/ItemView/Container" index="0"]
 clip_children = 0
 
-[node name="MaxUseTokens" parent="MarginContainer/Mask/ItemView" index="1"]
-mouse_filter = 2
+[node name="ItemCountMask" parent="MarginContainer/Mask/ItemView/Container" index="1"]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2

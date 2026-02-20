@@ -41,7 +41,7 @@ public partial class TemporaryAMDCardsPopup : Popup<TemporaryAMDCardsPopup.Reque
 		{
 			TemporaryAMDCardsPopupCard card = _cardScene.Instantiate<TemporaryAMDCardsPopupCard>();
 			_cardParent.AddChild(card);
-			card.Init(amdCardModel);
+			card.Init(amdCardModel, AMDCardOwner.Player1);
 			_cards.Add(card);
 		}
 

@@ -1,0 +1,101 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctdqr5ctagsyw"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_uho5h"]
+[ext_resource type="Script" uid="uid://b281kxmvedix0" path="res://Scripts/UI/Popups/PerksPopup/PerksPopup.cs" id="2_xnhqj"]
+[ext_resource type="PackedScene" uid="uid://1hpjcock1fcm" path="res://Scenes/UI/Popups/PerksPopup/PerksPopupPerk.tscn" id="3_jmif4"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="3_l7jtr"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="4_23us4"]
+[ext_resource type="PackedScene" uid="uid://bm2kpcuh43pw6" path="res://Scenes/UI/Popups/PerksPopup/CheckmarkBoxSet.tscn" id="4_jmif4"]
+[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_rxf0f"]
+
+[node name="PerksPopup" node_paths=PackedStringArray("_remainingPerksLabel", "_checkmarkBoxSets", "_scrollContainer", "_perkContainer") instance=ExtResource("1_uho5h")]
+script = ExtResource("2_xnhqj")
+_remainingPerksLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/MarginContainer/VBoxContainer/RequiredCountLabel")
+_checkmarkBoxSets = [NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet2"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet3"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet4"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet5"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet6")]
+_scrollContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer")
+_perkScene = ExtResource("3_jmif4")
+_perkContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer/MarginContainer/Perks")
+
+[node name="Panel" parent="." index="1"]
+offset_left = -340.0
+offset_top = -480.5
+offset_right = 340.0
+offset_bottom = 480.5
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+text = "Perks"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" index="0"]
+alignment = 1
+
+[node name="Top" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top" index="0"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+text = "Perks remaining:"
+label_settings = ExtResource("4_23us4")
+
+[node name="RequiredCountLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/MarginContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "9/10"
+label_settings = ExtResource("5_rxf0f")
+horizontal_alignment = 1
+
+[node name="Perks" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top" index="1"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="CheckmarkSet" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="0" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="CheckmarkSet2" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="1" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="CheckmarkSet3" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="2" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="CheckmarkSet4" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="3" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="CheckmarkSet5" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="4" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="CheckmarkSet6" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="5" instance=ExtResource("4_jmif4")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+custom_minimum_size = Vector2(620, 744)
+layout_mode = 2
+horizontal_scroll_mode = 0
+scroll_deadzone = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Perks" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+visible = false
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("3_l7jtr")]
+layout_mode = 2
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

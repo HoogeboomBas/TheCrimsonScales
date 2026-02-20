@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class CeremonialDance : ChieftainCardModel<CeremonialDance.CardTop, CeremonialDance.CardBottom>
 {
@@ -9,24 +10,24 @@ public class CeremonialDance : ChieftainCardModel<CeremonialDance.CardTop, Cerem
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
-				.WithTargets(3)
+				.WithTargets(3, new TargetsSquare(this, new Vector2(0.55794144f, 0.27738613f)))
 				.WithConditions(Conditions.Muddle)
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state => 
+				.WithAbilities(
 				[
 					MoveAbility.Builder().WithDistance(2).Build()
 				])

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -18,9 +17,9 @@ public partial class Summon : Figure
 
 	public override string DisplayName => _name;
 	public override string DebugName => _name;
-
 	public override AMDCardDeck AMDCardDeck => CharacterOwner.AMDCardDeck;
 	public override Texture2D MapIconTexture => _summonViewComponent.Sprite.Texture;
+	public override Node2D Visual => _summonViewComponent.Sprite;
 
 	public override async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
@@ -35,11 +34,11 @@ public partial class Summon : Figure
 		CharacterOwner = characterOwner;
 		_name = name;
 
-		_figureViewComponent.Outline.SetSelfModulate(CharacterOwner.OutlineColor);
-		_figureViewComponent.TurnStartPS.SetSelfModulate(CharacterOwner.OutlineColor);
-		_figureViewComponent.ActivePS.SetModulate(_figureViewComponent.Outline.SelfModulate);
+		_outline.SetSelfModulate(CharacterOwner.OutlineColor);
+		_figureViewComponent.TurnStartPS.SetSelfModulate(OutlineColor);
+		_figureViewComponent.ActivePS.SetModulate(OutlineColor);
 
-		_summonViewComponent.StandeeNumberCircle.SetSelfModulate(CharacterOwner.OutlineColor);
+		_summonViewComponent.StandeeNumberCircle.SetSelfModulate(OutlineColor);
 
 		Texture = ResourceLoader.Load<Texture2D>(texturePath);
 		Texture2D mapIconTexture = ResourceLoader.Load<Texture2D>(mapIconTexturePath);
@@ -57,7 +56,7 @@ public partial class Summon : Figure
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				await trait.Activate(this);
+				await AddTrait(trait);
 			}
 		}
 
@@ -147,11 +146,11 @@ public partial class Summon : Figure
 			authority = CharacterOwner;
 		}
 
-		_turnActionState = new ActionState(this, authority, _abilities);
+		_turnActionState = new ActionState(this, this, authority, _abilities);
 		await _turnActionState.Perform();
 	}
 
-	public async GDTask RemoveActionFromActive()
+	public async GDTask RemoveTurnActionFromActive()
 	{
 		if(_turnActionState != null)
 		{
@@ -161,15 +160,7 @@ public partial class Summon : Figure
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
 	{
-		if(Stats.Traits != null)
-		{
-			foreach(FigureTrait trait in Stats.Traits)
-			{
-				await trait.Deactivate(this);
-			}
-		}
-
-		await RemoveActionFromActive();
+		await RemoveTurnActionFromActive();
 
 		ScenarioEvents.FigureFoundFocusEvent.Unsubscribe(this, CharacterOwner);
 

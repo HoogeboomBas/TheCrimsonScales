@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSentence.CardBottom>
 {
@@ -10,29 +11,29 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
-				.WithConditions(Conditions.Poison3, Conditions.Stun)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.4508403f, 0.27815282f)))
+				.WithConditions([Conditions.Poison3, Conditions.Stun])
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(5)
+				.WithDistance(5, new MoveCircle(this, new Vector2(0.62066f, 0.719864f)))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Subscribe(state, this,
 						canApplyParameters =>
-							canApplyParameters.AbilityState == state &&
+							canApplyParameters.PotentialAbilityState == state &&
 							canApplyParameters.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async applyParameters =>
 						{

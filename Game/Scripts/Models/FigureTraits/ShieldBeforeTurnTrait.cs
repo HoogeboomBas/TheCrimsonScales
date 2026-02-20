@@ -9,7 +9,7 @@ public class ShieldBeforeTurnTrait(int shield) : FigureTrait
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
 			parameters => parameters.Add(
-				new FigureInfoTextExtraEffect.Parameters($"This figure gains {Icons.Inline(Icons.Shield)}{shield} before its turn."))
+				new InfoTextExtraEffect.Parameters($"This figure gains {Icons.Inline(Icons.Shield)}{shield} before its turn."))
 		);
 
 		ScenarioEvents.RoundStartBeforeCardSelectionEvent.Subscribe(figure, this,

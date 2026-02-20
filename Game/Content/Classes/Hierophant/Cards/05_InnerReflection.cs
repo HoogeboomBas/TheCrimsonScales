@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, InnerReflection.CardBottom>
 {
@@ -9,22 +10,22 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 
 	public class CardTop : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
-				.WithRange(3)
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.32887793f, 0.2931021f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.55187505f, 0.2931021f)))
 				.WithPierce(3)
 				.WithConditions(Conditions.Wound1)
 				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : HierophantCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder()
 				.WithRange(2)
@@ -37,7 +38,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 						{
 							foreach(Figure otherFigure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 2))
 							{
-								if(state.Performer.AlliedWith(otherFigure))
+								if(state.Performer.AlliedWith(otherFigure) && otherFigure is Character)
 								{
 									list.Add(otherFigure);
 								}
@@ -63,7 +64,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

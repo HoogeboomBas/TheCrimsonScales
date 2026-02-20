@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class GravitationalFlip : StarslingerCardModel<GravitationalFlip.CardTop, GravitationalFlip.CardBottom>
 {
@@ -11,7 +12,7 @@ public class GravitationalFlip : StarslingerCardModel<GravitationalFlip.CardTop,
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder()
 				.WithRange(1)
@@ -34,14 +35,25 @@ public class GravitationalFlip : StarslingerCardModel<GravitationalFlip.CardTop,
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		private MoveEnhancementMark _enhancementMark;
+
+		protected override void InitExtraEnhancements()
+		{
+			base.InitExtraEnhancements();
+
+			_enhancementMark = new MoveCircle(this, new Vector2(0.6215662f, 0.82212216f));
+		}
+
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState =>
+				.WithAbilities(
 				[
-					MoveAbility.Builder().WithDistance(2).Build()
+					MoveAbility.Builder()
+						.WithDistance(2, _enhancementMark)
+						.Build()
 				])
-				.WithRange(2)
+				.WithRange(3)
 				.WithOnAbilityStarted(async state =>
 				{
 					await AbilityCmd.GenericChoice(state.Performer,
@@ -71,11 +83,13 @@ public class GravitationalFlip : StarslingerCardModel<GravitationalFlip.CardTop,
 				.Build()),
 
 			new AbilityCardAbility(ControlAbility.Builder()
-				.WithGetAbilities(controlAbilityState =>
+				.WithAbilities(
 				[
-					MoveAbility.Builder().WithDistance(2).Build()
+					MoveAbility.Builder()
+						.WithDistance(2, _enhancementMark)
+						.Build()
 				])
-				.WithRange(2)
+				.WithRange(3)
 				.WithConditionalAbilityCheck(async state =>
 				{
 					await GDTask.CompletedTask;

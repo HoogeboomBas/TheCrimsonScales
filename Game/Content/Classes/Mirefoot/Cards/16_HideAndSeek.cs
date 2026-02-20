@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.CardBottom>
 {
@@ -10,7 +11,7 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>
@@ -73,7 +74,7 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async abilityState =>
@@ -95,7 +96,9 @@ public class HideAndSeek : MirefootCardModel<HideAndSeek.CardTop, HideAndSeek.Ca
 				)
 				.Build()),
 
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6215359f, 0.76617837f)))
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Invisible)

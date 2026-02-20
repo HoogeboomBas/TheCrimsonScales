@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://rnrcmcejud5w" path="res://Art/MapTiles/M1b-Earth.png" id="2_u2wib"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_avps1"]
 
-[node name="M1a" instance=ExtResource("1_u2wib")]
+[node name="M1b" instance=ExtResource("1_u2wib")]
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_u2wib")

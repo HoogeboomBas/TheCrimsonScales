@@ -23,14 +23,7 @@ public class DrakesBlood : CS2Item
 					{
 						if(character.EnemiesWith(figure))
 						{
-							for(int i = figure.Conditions.Count - 1; i >= 0; i--)
-							{
-								ConditionModel condition = figure.Conditions[i];
-								if(condition.IsPositive)
-								{
-									await AbilityCmd.RemoveCondition(figure, condition);
-								}
-							}
+							await AbilityCmd.RemoveAllPositiveConditions(figure);
 						}
 					}
 				});

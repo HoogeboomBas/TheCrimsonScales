@@ -8,7 +8,7 @@
 [node name="FireKnight" instance=ExtResource("1_htm6e")]
 script = ExtResource("2_jlm7r")
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="1"]
 self_modulate = Color(0.87451, 0.223529, 0.121569, 1)
 
 [node name="Sprite2D" parent="Mask" index="0"]

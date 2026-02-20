@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThrust.CardBottom>
 {
@@ -11,10 +12,10 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.49266696f, 0.13226007f)))
 				.WithPush(3)
 				.WithOnAbilityStarted(async state =>
 				{
@@ -37,43 +38,47 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(grantAbilityState => 
+				.WithAbilities(
 				[
 					AttackAbility.Builder()
 						.WithDamage(2)
-						.WithCustomGetTargets((attackAbilityState, figures) => 
+						.WithCustomGetTargets((state, figures) =>
 						{
-							figures.AddRange(grantAbilityState.ActionState.GetAbilityState<AttackAbility.State>(0).UniqueTargetedFigures);
+							AttackAbility.State attackAbilityState = state.ActionState.ParentActionState.GetAbilityState<AttackAbility.State>(0);
+							figures.AddRange(attackAbilityState.UniqueTargetedFigures);
 						})
+						.Build(),
+					ConditionAbility.Builder()
+						.WithConditions(Conditions.Muddle)
+						.WithTarget(Target.Self)
+						.WithMandatory(true)
 						.Build()
 				])
 				.WithCustomGetTargets((state, figures) =>
 				{
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-					IEnumerable<Figure> figuresPassedThrough = attackAbilityState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
+					IEnumerable<Figure> figuresPassedThrough =
+						attackAbilityState.SingleTargetState.ForcedMovementHexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>());
 
 					figures.AddRange(figuresPassedThrough.Where(figure => figure.AlliedWith(state.Performer) && figure != attackAbilityState.Target));
 				})
 				.WithTarget(Target.Allies | Target.TargetAll)
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
-
-			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Muddle)
-				.WithTarget(Target.Self)
-				.WithMandatory(true)
-				.Build())
 		];
 
-		protected override int XP => 1;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).WithMoveType(MoveType.Jump).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.5129702f, 0.743746f)))
+				.WithMoveType(MoveType.Jump)
+				.Build()),
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Chainguard.Shackle)

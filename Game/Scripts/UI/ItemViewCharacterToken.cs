@@ -19,7 +19,12 @@ public partial class ItemViewCharacterToken : Control
 		_textureRect.Texture = texture;
 		Control parent = GetParent<Control>();
 		_normalizedPosition = normalizedPosition;
-		Position = _normalizedPosition * parent.Size - 0.5f * Size;
+		_textureRect.SetVisible(false);
+		this.DelayedCall(() =>
+		{
+			SetPosition(_normalizedPosition * parent.Size - 0.5f * Size);
+			_textureRect.SetVisible(true);
+		});
 	}
 
 	public override void _Process(double delta)
@@ -27,6 +32,11 @@ public partial class ItemViewCharacterToken : Control
 		base._Process(delta);
 
 		Vector2 moveInput = Vector2.Zero;
+		float mult = 1f;
+		if (Input.IsKeyPressed(Key.Shift))
+        {
+            mult = 10f;
+        }
 
 		if(Input.IsKeyPressed(Key.L))
 		{
@@ -50,7 +60,7 @@ public partial class ItemViewCharacterToken : Control
 
 		if(moveInput != Vector2.Zero)
 		{
-			_normalizedPosition += moveInput * 0.0005f;
+			_normalizedPosition += moveInput * mult * 0.0005f;
 			Control parent = GetParent<Control>();
 			Position = _normalizedPosition * parent.Size - 0.5f * Size;
 

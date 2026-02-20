@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 using System.Linq;
+using Godot;
 
 public class PlasmaticPower : StarslingerCardModel<PlasmaticPower.CardTop, PlasmaticPower.CardBottom>
 {
@@ -11,7 +12,7 @@ public class PlasmaticPower : StarslingerCardModel<PlasmaticPower.CardTop, Plasm
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -62,17 +63,17 @@ public class PlasmaticPower : StarslingerCardModel<PlasmaticPower.CardTop, Plasm
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6215359f, 0.6727495f)))
 				.Build()),
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -101,6 +102,6 @@ public class PlasmaticPower : StarslingerCardModel<PlasmaticPower.CardTop, Plasm
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

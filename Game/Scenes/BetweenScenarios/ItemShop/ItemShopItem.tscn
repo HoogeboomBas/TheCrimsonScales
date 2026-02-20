@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cl6ceqmsnum3h" path="res://Scripts/BetweenScenarios/ItemShop/ItemShopItem.cs" id="1_rnlen"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_csn16"]
-[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/Scenario/UI/ItemView.tscn" id="3_s5qk5"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="3_s5qk5"]
 [ext_resource type="PackedScene" uid="uid://b8omhur1edsd1" path="res://Scenes/BetweenScenarios/ItemShop/ItemShopItemCornerVisual.tscn" id="4_hcq8n"]
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="5_csn16"]
 

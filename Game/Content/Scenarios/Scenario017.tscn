@@ -1,0 +1,295 @@
+[gd_scene load_steps=22 format=3 uid="uid://cjted7i71tgja"]
+
+[ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_yauc0"]
+[ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_40csl"]
+[ext_resource type="PackedScene" uid="uid://dyrg6pq5c62xl" path="res://Content/MapTiles/F1a.tscn" id="3_25llf"]
+[ext_resource type="PackedScene" uid="uid://b856yvmmts3a1" path="res://Content/MapTiles/H1b.tscn" id="3_n7c7b"]
+[ext_resource type="PackedScene" uid="uid://wwedchh2y1oy" path="res://Content/OverlayTiles/Traps/SpikePitTrap1H.tscn" id="5_aqnix"]
+[ext_resource type="Script" uid="uid://cgqyf8xqnnevf" path="res://Scripts/Models/Conditions/ConditionModelResource.cs" id="6_3jaqg"]
+[ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="8_512yc"]
+[ext_resource type="PackedScene" uid="uid://drwupkt4x7cbj" path="res://Scenes/Scenario/Coin.tscn" id="8_sh87o"]
+[ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="9_56l1d"]
+[ext_resource type="PackedScene" uid="uid://dxj8cyjtjyihm" path="res://Content/OverlayTiles/Obstacles/Table2H.tscn" id="9_fh0j0"]
+[ext_resource type="PackedScene" uid="uid://cjf1bomn68jn1" path="res://Content/OverlayTiles/Obstacles/Shelf2H.tscn" id="12_psq8n"]
+[ext_resource type="PackedScene" uid="uid://c55i4i3yqfdx6" path="res://Scenes/Scenario/OverlayTiles/Treasure1H.tscn" id="13_i6374"]
+[ext_resource type="PackedScene" uid="uid://drqlbb0yhsf8" path="res://Content/MapTiles/D1a.tscn" id="13_upkwi"]
+[ext_resource type="PackedScene" uid="uid://dqqqci2fcs3wa" path="res://Content/MapTiles/D2a.tscn" id="14_couc6"]
+[ext_resource type="PackedScene" uid="uid://ckgq6ohdrpaun" path="res://Content/OverlayTiles/Corridors/ManMadeStone2H.tscn" id="15_q1lkn"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="15_xsvke"]
+[ext_resource type="PackedScene" uid="uid://j172kayux4qu" path="res://Content/OverlayTiles/Obstacles/Bookcase2H.tscn" id="16_nan5a"]
+[ext_resource type="PackedScene" uid="uid://cv4gvlna7tp3e" path="res://Content/OverlayTiles/HazardousTerrain/HotCoals1H.tscn" id="17_ox6ed"]
+[ext_resource type="PackedScene" uid="uid://eu066aoq41ti" path="res://Content/OverlayTiles/Doors/StoneDoorHorizontal1H.tscn" id="18_vjrsn"]
+[ext_resource type="PackedScene" uid="uid://bjbv81gbsrmne" path="res://Content/OverlayTiles/Doors/StoneDoorVertical1H.tscn" id="19_7a1in"]
+
+[sub_resource type="Resource" id="Resource_xghk0"]
+script = ExtResource("6_3jaqg")
+ModelIdString = "CONDITION_MODEL.STUN"
+metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
+
+[node name="Scenario" instance=ExtResource("1_yauc0")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" index="0"]
+script = ExtResource("2_40csl")
+StartsRevealed = true
+
+[node name="H1b" parent="Map/Rooms/Room" index="0" instance=ExtResource("3_n7c7b")]
+
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="1" instance=ExtResource("9_56l1d")]
+position = Vector2(-218.238, 378)
+
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="2" instance=ExtResource("9_56l1d")]
+position = Vector2(0, 378)
+
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="3" instance=ExtResource("9_56l1d")]
+position = Vector2(109.119, 567)
+
+[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="4" instance=ExtResource("9_56l1d")]
+position = Vector2(-109.119, 567)
+
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="5" instance=ExtResource("9_56l1d")]
+position = Vector2(218.238, 378)
+
+[node name="SpikePitTrap1H" parent="Map/Rooms/Room" index="6" instance=ExtResource("5_aqnix")]
+position = Vector2(-327.358, -567)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="SpikePitTrap1H2" parent="Map/Rooms/Room" index="7" instance=ExtResource("5_aqnix")]
+position = Vector2(-436.477, -378)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="Treasure1H" parent="Map/Rooms/Room" index="8" instance=ExtResource("13_i6374")]
+position = Vector2(-545.596, -567)
+TreasureNumber = 6
+
+[node name="CoinStack" parent="Map/Rooms/Room" index="9" instance=ExtResource("8_sh87o")]
+position = Vector2(-654.715, -378)
+
+[node name="Table2H" parent="Map/Rooms/Room" index="10" instance=ExtResource("9_fh0j0")]
+position = Vector2(-218.238, 0)
+rotation = -1.0472
+
+[node name="Table2H2" parent="Map/Rooms/Room" index="11" instance=ExtResource("9_fh0j0")]
+position = Vector2(109.119, -567)
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="12" instance=ExtResource("8_512yc")]
+position = Vector2(545.596, -567)
+MonsterModelId = "MONSTER_MODEL.SAVVAS_ICE_STORM"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="13" instance=ExtResource("8_512yc")]
+position = Vector2(-218.238, -378)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 1
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="14" instance=ExtResource("8_512yc")]
+position = Vector2(-109.119, -567)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="15" instance=ExtResource("8_512yc")]
+position = Vector2(218.238, -378)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType2Characters = 1
+MonsterType3Characters = 1
+MonsterType4Characters = 1
+
+[node name="Marker" parent="Map/Rooms/Room" index="16" instance=ExtResource("15_xsvke")]
+position = Vector2(-218.238, 378)
+
+[node name="Marker2" parent="Map/Rooms/Room" index="17" instance=ExtResource("15_xsvke")]
+position = Vector2(0, 378)
+
+[node name="Marker3" parent="Map/Rooms/Room" index="18" instance=ExtResource("15_xsvke")]
+position = Vector2(218.238, 378)
+
+[node name="Marker4" parent="Map/Rooms/Room" index="19" instance=ExtResource("15_xsvke")]
+position = Vector2(109.119, 567)
+
+[node name="Marker5" parent="Map/Rooms/Room" index="20" instance=ExtResource("15_xsvke")]
+position = Vector2(-109.119, 567)
+
+[node name="Room2" type="Node2D" parent="Map/Rooms" index="1"]
+script = ExtResource("2_40csl")
+
+[node name="F1a" parent="Map/Rooms/Room2" index="0" instance=ExtResource("3_25llf")]
+position = Vector2(1091.19, -378)
+
+[node name="SpikePitTrap1H3" parent="Map/Rooms/Room2" index="1" instance=ExtResource("5_aqnix")]
+position = Vector2(1309.43, -378)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="SpikePitTrap1H4" parent="Map/Rooms/Room2" index="2" instance=ExtResource("5_aqnix")]
+position = Vector2(1200.31, 189)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="Shelf2H" parent="Map/Rooms/Room2" index="3" instance=ExtResource("12_psq8n")]
+position = Vector2(872.954, 0)
+
+[node name="Shelf2H2" parent="Map/Rooms/Room2" index="4" instance=ExtResource("12_psq8n")]
+position = Vector2(1091.19, -756)
+
+[node name="Treasure1H" parent="Map/Rooms/Room2" index="5" instance=ExtResource("13_i6374")]
+position = Vector2(1309.43, 378)
+TreasureNumber = 19
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room2" index="6" instance=ExtResource("8_512yc")]
+position = Vector2(1091.19, -1134)
+MonsterModelId = "MONSTER_MODEL.SAVVAS_ICE_STORM"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room2" index="7" instance=ExtResource("8_512yc")]
+position = Vector2(872.954, -756)
+MonsterModelId = "MONSTER_MODEL.FROST_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room2" index="8" instance=ExtResource("8_512yc")]
+position = Vector2(872.954, -378)
+MonsterModelId = "MONSTER_MODEL.FROST_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner4" parent="Map/Rooms/Room2" index="9" instance=ExtResource("8_512yc")]
+position = Vector2(1200.31, -567)
+MonsterModelId = "MONSTER_MODEL.FROST_DEMON"
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner5" parent="Map/Rooms/Room2" index="10" instance=ExtResource("8_512yc")]
+position = Vector2(982.073, 189)
+MonsterModelId = "MONSTER_MODEL.WIND_DEMON"
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner6" parent="Map/Rooms/Room2" index="11" instance=ExtResource("8_512yc")]
+position = Vector2(1309.43, 0)
+MonsterModelId = "MONSTER_MODEL.WIND_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 1
+MonsterType4Characters = 0
+
+[node name="Room3" type="Node2D" parent="Map/Rooms" index="2"]
+script = ExtResource("2_40csl")
+
+[node name="D1a" parent="Map/Rooms/Room3" index="0" instance=ExtResource("13_upkwi")]
+position = Vector2(1091.19, -1890)
+
+[node name="D2a" parent="Map/Rooms/Room3" index="1" instance=ExtResource("14_couc6")]
+position = Vector2(109.119, -1323)
+rotation = 2.0944
+
+[node name="ManMadeStone2H" parent="Map/Rooms/Room3" index="2" instance=ExtResource("15_q1lkn")]
+position = Vector2(545.596, -1701)
+rotation = 1.0472
+
+[node name="Bookcase2H" parent="Map/Rooms/Room3" index="3" instance=ExtResource("16_nan5a")]
+position = Vector2(545.596, -1701)
+
+[node name="Bookcase2H2" parent="Map/Rooms/Room3" index="4" instance=ExtResource("16_nan5a")]
+position = Vector2(763.834, -2079)
+
+[node name="Bookcase2H3" parent="Map/Rooms/Room3" index="5" instance=ExtResource("16_nan5a")]
+position = Vector2(1309.43, -1890)
+
+[node name="SpikePitTrap1H5" parent="Map/Rooms/Room3" index="6" instance=ExtResource("5_aqnix")]
+position = Vector2(1200.31, -2079)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="SpikePitTrap1H6" parent="Map/Rooms/Room3" index="7" instance=ExtResource("5_aqnix")]
+position = Vector2(872.954, -1512)
+ScaledDamage = false
+ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
+
+[node name="HotCoals1H" parent="Map/Rooms/Room3" index="8" instance=ExtResource("17_ox6ed")]
+position = Vector2(218.238, -1134)
+
+[node name="HotCoals1H2" parent="Map/Rooms/Room3" index="9" instance=ExtResource("17_ox6ed")]
+position = Vector2(327.358, -945)
+
+[node name="HotCoals1H3" parent="Map/Rooms/Room3" index="10" instance=ExtResource("17_ox6ed")]
+position = Vector2(109.119, -945)
+
+[node name="HotCoals1H4" parent="Map/Rooms/Room3" index="11" instance=ExtResource("17_ox6ed")]
+position = Vector2(-109.119, -1701)
+
+[node name="HotCoals1H6" parent="Map/Rooms/Room3" index="12" instance=ExtResource("17_ox6ed")]
+position = Vector2(0, -1512)
+
+[node name="HotCoals1H7" parent="Map/Rooms/Room3" index="13" instance=ExtResource("17_ox6ed")]
+position = Vector2(-218.238, -1512)
+
+[node name="Treasure1H" parent="Map/Rooms/Room3" index="14" instance=ExtResource("13_i6374")]
+position = Vector2(872.954, -2268)
+TreasureNumber = 43
+
+[node name="Treasure1H2" parent="Map/Rooms/Room3" index="15" instance=ExtResource("13_i6374")]
+position = Vector2(-218.238, -1134)
+
+[node name="CoinStack" parent="Map/Rooms/Room3" index="16" instance=ExtResource("8_sh87o")]
+position = Vector2(1091.19, -2268)
+
+[node name="CoinStack2" parent="Map/Rooms/Room3" index="17" instance=ExtResource("8_sh87o")]
+position = Vector2(-327.358, -1323)
+
+[node name="CoinStack3" parent="Map/Rooms/Room3" index="18" instance=ExtResource("8_sh87o")]
+position = Vector2(-109.119, -945)
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room3" index="19" instance=ExtResource("8_512yc")]
+position = Vector2(1418.55, -1701)
+MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner4" parent="Map/Rooms/Room3" index="20" instance=ExtResource("8_512yc")]
+position = Vector2(545.596, -1323)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner5" parent="Map/Rooms/Room3" index="21" instance=ExtResource("8_512yc")]
+position = Vector2(327.358, -1701)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner6" parent="Map/Rooms/Room3" index="22" instance=ExtResource("8_512yc")]
+position = Vector2(109.119, -1323)
+MonsterModelId = "MONSTER_MODEL.FLAME_DEMON"
+MonsterType2Characters = 1
+MonsterType3Characters = 1
+MonsterType4Characters = 1
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room3" index="23" instance=ExtResource("8_512yc")]
+position = Vector2(872.954, -1890)
+MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room3" index="24" instance=ExtResource("8_512yc")]
+position = Vector2(1091.19, -1890)
+MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
+MonsterType3Characters = 0
+MonsterType4Characters = 1
+
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" instance=ExtResource("18_vjrsn")]
+position = Vector2(1200.31, -1323)
+rotation = 3.14159
+
+[node name="StoneDoorVertical1H" parent="Map/Doors" index="1" instance=ExtResource("19_7a1in")]
+position = Vector2(763.834, -567)
+rotation = -3.14159

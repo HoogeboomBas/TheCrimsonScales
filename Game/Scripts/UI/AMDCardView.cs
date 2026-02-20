@@ -7,7 +7,7 @@ public partial class AMDCardView : Control
 
 	public AMDCardModel AMDCardModel { get; private set; }
 
-	public void SetCard(AMDCardModel amdCardModel)
+	public void SetCard(AMDCardModel amdCardModel, AMDCardOwner owner)
 	{
 		AMDCardModel = amdCardModel;
 
@@ -18,6 +18,6 @@ public partial class AMDCardView : Control
 		}
 
 		TextureRect.SetVisible(true);
-		TextureRect.SetTexture(AMDCardModel.GetTexture());
+		TextureRect.SetTexture(AMDCardModel.GetTexture(owner));
 	}
 }

@@ -9,7 +9,7 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 
 	public class CardTop : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -35,19 +35,19 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.306f)),
-						new UseSlot(new Vector2(0.603f, 0.306f))
+						new UseSlot(new Vector2(0.38550016f, 0.3134999f)),
+						new UseSlot(new Vector2(0.5900029f, 0.3134999f))
 					]
 				)
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -73,13 +73,13 @@ public class Ordination : HierophantPrayerCardModel<Ordination.CardTop, Ordinati
 				)
 				.WithUseSlots(
 					[
-						new UseSlot(new Vector2(0.398f, 0.772f)),
-						new UseSlot(new Vector2(0.603f, 0.772f))
+						new UseSlot(new Vector2(0.38550016f, 0.7865109f)),
+						new UseSlot(new Vector2(0.5900029f, 0.7865109f))
 					]
 				)
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

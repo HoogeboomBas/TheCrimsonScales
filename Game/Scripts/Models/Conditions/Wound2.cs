@@ -1,5 +1,5 @@
-﻿public class Wound2 : WoundBase
+﻿public class Wound2 : Wound
 {
 	public override string Name => "Wound 2";
-	protected override int WoundValue => 2;
+	public override int UpgradableLevel => 2;
 }

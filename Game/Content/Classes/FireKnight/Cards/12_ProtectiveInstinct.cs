@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop, ProtectiveInstinct.CardBottom>
 {
@@ -10,27 +11,39 @@ public class ProtectiveInstinct : FireKnightCardModel<ProtectiveInstinct.CardTop
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state => [ShieldAbility.Builder().WithShieldValue(1).Build()])
+				.WithAbilities(
+				[
+					ShieldAbility.Builder()
+						.WithShieldValue(1, new ShieldSquare(this, new Vector2(0.61310434f, 0.36479843f)))
+						.Build()
+				])
 				.WithTarget(Target.SelfOrAllies)
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(3).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.617708f, 0.6765259f)))
+				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state => [MoveAbility.Builder().WithDistance(3).Build()])
+				.WithAbilities(
+				[
+					MoveAbility.Builder()
+						.WithDistance(3, new MoveSquare(this, new Vector2(0.617708f, 0.8635235f)))
+						.Build()
+				])
 				.WithRange(2)
 				.WithConditionalAbilityCheck(async state =>
 					{

@@ -11,7 +11,7 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 
 	public class CardTop : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(ProjectileAbility.Builder()
 				.WithGetAbilities(hex =>
@@ -36,19 +36,21 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 					]
 				)
 				.WithAbilityCardSide(this)
-				.WithRange(3)
+				.WithRange(3, new ProjectileRangeSquare(this, new Vector2(0.33784395f, 0.16527776f)))
 				.Build())
 		];
 
-		protected override int XP => 1;
-		protected override bool Persistent => true;
+		public override int XP => 1;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : BombardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.62133324f, 0.66456664f)))
+				.Build()),
 
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -74,6 +76,6 @@ public class ConsistentFiring : BombardCardModel<ConsistentFiring.CardTop, Consi
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 }

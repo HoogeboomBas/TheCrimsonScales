@@ -108,50 +108,21 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 
 		await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
 
-		ScreenDistortion screenDistortion = GameController.Instance.ScreenDistortion;
-		screenDistortion.Open(GameController.Instance.CharacterManager.GetCharacter(0));
-
 		const float animationSpeed = 1.4f;
-		const float radius = 0.7f;
-
-		screenDistortion.SetPower(1f);
-		screenDistortion.SetRadius(0.4f * radius);
-
-		AppController.Instance.AudioController.Play("res://Audio/SFX/WHOOSH_Steam_Fast_01_mono.wav", 0.9f, 1.1f, delay: 0.0f);
 
 		if(!GameController.FastForward)
 		{
 			// Disappear
-			await GTweenSequenceBuilder.New()
-				.Append(screenDistortion.TweenPower(1.1f, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(screenDistortion.TweenRadius(0.4f * radius, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Append(screenDistortion.TweenPower(0.4f, 0.5f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(screenDistortion.TweenRadius(0.3f * radius, 0.5f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(performer.TweenScale(0f, 0.5f / animationSpeed).SetEasing(Easing.Linear))
-				.Append(screenDistortion.TweenPower(1f, 0.5f / animationSpeed).SetEasing(Easing.OutBack))
-				.Join(screenDistortion.TweenRadius(0.4f * radius, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Build().PlayFastForwardableAsync();
+			await GameController.Instance.ScreenDistortion.Disappear(performer, animationSpeed, true).PlayFastForwardableAsync();
 		}
 
 		performer.SetOriginHexAndRotation(destination);
 
-		AppController.Instance.AudioController.Play("res://Audio/SFX/WHOOSH_Steam_Fast_01_mono.wav", 0.9f, 1.1f, delay: 0.0f);
-
 		if(!GameController.FastForward)
 		{
 			// Appear
-			await GTweenSequenceBuilder.New()
-				.Append(screenDistortion.TweenPower(1.1f, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(screenDistortion.TweenRadius(0.4f * radius, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Append(screenDistortion.TweenPower(0.4f, 0.5f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(screenDistortion.TweenRadius(0.3f * radius, 0.5f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Append(screenDistortion.TweenPower(1f, 0.5f / animationSpeed).SetEasing(Easing.OutBack))
-				.Join(screenDistortion.TweenRadius(0.4f * radius, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Join(performer.TweenScale(1f, 0.2f / animationSpeed).SetEasing(Easing.OutCubic))
-				.Build().PlayFastForwardableAsync();
+			await GameController.Instance.ScreenDistortion.Appear(performer, animationSpeed, true).PlayFastForwardableAsync();
 		}
-
-		screenDistortion.Close();
 
 		await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, destination, true, true);
 	}

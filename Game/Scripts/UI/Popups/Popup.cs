@@ -103,7 +103,7 @@ public abstract partial class Popup<T> : PopupBase
 	protected virtual void OpenAnimation(GTweenSequenceBuilder sequenceBuilder)
 	{
 		_background.SelfModulate = Colors.Transparent;
-		_panelContainer.Scale = Vector2.Zero;
+		_panelContainer.Scale = 0.001f * Vector2.One;
 
 		this.DelayedCall(() =>
 		{
@@ -135,7 +135,7 @@ public abstract partial class Popup<T> : PopupBase
 		_panelContainer.PivotOffset = _panelContainer.Size * 0.5f;
 
 		sequenceBuilder.Append(_background.TweenSelfModulateAlpha(0f, 0.2f));
-		sequenceBuilder.Join(_panelContainer.TweenScale(0f, 0.2f).SetEasing(Easing.InBack));
+		sequenceBuilder.Join(_panelContainer.TweenScale(0.001f, 0.2f).SetEasing(Easing.InBack));
 	}
 
 	private void OnClosePressed()

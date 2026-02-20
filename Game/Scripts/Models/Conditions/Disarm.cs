@@ -4,27 +4,31 @@ public class Disarm : ConditionModel
 {
 	public override string Name => "Disarm";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Disarm.svg";
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
-			parameters => parameters.Performer == Owner && parameters.AbilityState is AttackAbility.State,
+		ScenarioEvents.AbilityStartedEvent.Subscribe(condition,
 			parameters =>
+				parameters.Performer == condition.Owner &&
+				parameters.AbilityState is AttackAbility.State,
+			async parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 				parameters.SetIsBlocked(true);
-				return GDTask.CompletedTask;
-			},
-			EffectType.MandatoryBeforeOptionals);
+
+				await GDTask.CompletedTask;
+			}
+		);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioEvents.AbilityStartedEvent.Unsubscribe(this);
+		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 	}
 }

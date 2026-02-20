@@ -11,7 +11,7 @@ public class ControlledAggression : FireKnightCardModel<ControlledAggression.Car
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
@@ -48,14 +48,16 @@ public class ControlledAggression : FireKnightCardModel<ControlledAggression.Car
 				.Build())
 		];
 
-		protected override bool Persistent => true;
+		public override bool Persistent => true;
 	}
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build())
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.6198599f, 0.76992834f)))
+				.Build())
 		];
 	}
 }

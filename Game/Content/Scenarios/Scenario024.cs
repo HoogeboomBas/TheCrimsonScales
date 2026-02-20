@@ -1,12 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
-using Godot;
 
 public class Scenario024 : ScenarioModel
 {
-	//TODO: Currently all the button presses (except for the chill ones) don't have an icon since their is no file for a marker icon,
-	//not sure where to find that/what else to put there
 	public override string ScenePath => "res://Content/Scenarios/Scenario024.tscn";
 	public override int ScenarioNumber => 24;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
@@ -62,15 +59,12 @@ public class Scenario024 : ScenarioModel
 		}
 
 		List<Obstacle> obstacles = GameController.Instance.Map.GetChildrenOfType<Obstacle>();
-		_dome = obstacles[obstacles.Count() - 1];
+		_dome = obstacles[^1];
 		_dome.SetCannotBeDestroyed(true);
 
 		//Scenario Win Condition
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
-			parameters =>
-			{
-				return _orbsPlaced == GameController.Instance.SavedCampaign.Characters.Count;
-			},
+			parameters => _orbsPlaced == GameController.Instance.SavedCampaign.Characters.Count,
 			async parameters =>
 			{
 				await ((CustomScenarioGoals)ScenarioGoals).Win();
@@ -80,8 +74,8 @@ public class Scenario024 : ScenarioModel
 		//Remove Chill forgo action
 		ScenarioEvents.AbilityCardSideStartedEvent.Subscribe(this,
 			parameters => !parameters.ForgoneAction && RangeHelper.GetFiguresInRange(parameters.Performer.Hex, 2)
-				.Where(figure => figure.HasCondition(Conditions.Chill) &&
-				                 ((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)).Any(),
+				.Any(figure => figure.HasCondition(Conditions.Chill) &&
+				               ((figure is Summon summon && summon.Owner == parameters.Performer) || parameters.Performer == figure)),
 			async parameters =>
 			{
 				parameters.ForgoAction();
@@ -185,7 +179,9 @@ public class Scenario024 : ScenarioModel
 											_charactersWithOrbs.Add(parameters.Performer, _markerA);
 											await GDTask.CompletedTask;
 										},
-										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb A"),
+										effectButtonParameters: new IconEffectButton.Parameters(Icons.GetMarker(Marker.Type.a)),
+										effectInfoViewParameters: new TextEffectInfoView.Parameters(
+											$"Take Orb {Icons.Inline(Icons.GetMarker(Marker.Type.a))}"),
 										effectType: EffectType.Selectable
 									),
 									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
@@ -200,7 +196,9 @@ public class Scenario024 : ScenarioModel
 											_charactersWithOrbs.Add(parameters.Performer, _markerB);
 											await GDTask.CompletedTask;
 										},
-										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb B"),
+										effectButtonParameters: new IconEffectButton.Parameters(Icons.GetMarker(Marker.Type.b)),
+										effectInfoViewParameters: new TextEffectInfoView.Parameters(
+											$"Take Orb {Icons.Inline(Icons.GetMarker(Marker.Type.b))}"),
 										effectType: EffectType.Selectable
 									),
 									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
@@ -215,7 +213,9 @@ public class Scenario024 : ScenarioModel
 											_charactersWithOrbs.Add(parameters.Performer, _markerC);
 											await GDTask.CompletedTask;
 										},
-										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb C"),
+										effectButtonParameters: new IconEffectButton.Parameters(Icons.GetMarker(Marker.Type.c)),
+										effectInfoViewParameters: new TextEffectInfoView.Parameters(
+											$"Take Orb {Icons.Inline(Icons.GetMarker(Marker.Type.c))}"),
 										effectType: EffectType.Selectable
 									),
 									ScenarioEvents.GenericChoice.Subscription.New(canApplyFunction: canApplyParameters =>
@@ -230,8 +230,9 @@ public class Scenario024 : ScenarioModel
 											_charactersWithOrbs.Add(parameters.Performer, _markerD);
 											await GDTask.CompletedTask;
 										},
-										effectButtonParameters: new IconEffectButton.Parameters(null),
-										effectInfoViewParameters: new TextEffectInfoView.Parameters($"Take Orb D"),
+										effectButtonParameters: new IconEffectButton.Parameters(Icons.GetMarker(Marker.Type.d)),
+										effectInfoViewParameters: new TextEffectInfoView.Parameters(
+											$"Take Orb {Icons.Inline(Icons.GetMarker(Marker.Type.d))}"),
 										effectType: EffectType.Selectable
 									),
 								], hintText: "Choose an Orb to take");
@@ -333,7 +334,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Add +1{Icons.Inline(Icons.Move)} to all move abilities"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Add +1{Icons.Inline(Icons.Move)} to all move abilities"));
 			}
 		);
 	}
@@ -352,7 +353,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.Pierce)} 2 to all attack abilities"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.Pierce)} 2 to all attack abilities"));
 			}
 		);
 	}
@@ -371,7 +372,7 @@ public class Scenario024 : ScenarioModel
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new FigureInfoTextExtraEffect.Parameters($"Unaffected by {Icons.Inline(Icons.Retaliate)}"));
+				parameters.Add(new InfoTextExtraEffect.Parameters($"Unaffected by {Icons.Inline(Icons.Retaliate)}"));
 			}
 		);
 	}
@@ -391,7 +392,7 @@ public class Scenario024 : ScenarioModel
 			parameters =>
 			{
 				parameters.Add(
-					new FigureInfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
+					new InfoTextExtraEffect.Parameters($"Add {Icons.Inline(Icons.GetCondition(Conditions.Chill))} to all attack abilities"));
 			}
 		);
 	}

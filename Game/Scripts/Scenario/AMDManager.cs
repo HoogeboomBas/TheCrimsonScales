@@ -1,4 +1,6 @@
-﻿public class AMDManager
+﻿using Fractural.Tasks;
+
+public class AMDManager
 {
 	public int RemainingBlessCount { get; private set; } = 10;
 	public int RemainingCharacterCurseCount { get; private set; } = 10;
@@ -37,18 +39,46 @@
 		}
 		else
 		{
-			if(RemainingMonsterCurseCount == 0)
+			if(!CurseMonsters())
 			{
 				return false;
 			}
-
-			RemainingMonsterCurseCount--;
-
-			AMDCard card = new AMDCard(ModelDB.AMDCard<CurseAMDCard>(), deck.Owner);
-			card.DrawnEvent += OnMonsterCurseDrawn;
-			figure.AMDCardDeck.AddCard(card, true);
 		}
 
+		return true;
+	}
+
+	public bool CurseMonsters()
+	{
+		if(RemainingMonsterCurseCount == 0)
+		{
+			return false;
+		}
+
+		RemainingMonsterCurseCount--;
+
+		AMDCard card = new AMDCard(ModelDB.AMDCard<CurseAMDCard>(), AMDCardOwner.Monsters);
+		card.DrawnEvent += OnMonsterCurseDrawn;
+		GameController.Instance.MonsterAMDCardDeck.AddCard(card, true);
+
+		return true;
+	}
+	public async GDTask<bool> Empower(IHasEmpower originalOwner, Figure figure)
+	{
+		if(originalOwner.RemainingEmpowerCount == 0)
+		{
+			return false;
+		}
+
+		originalOwner.RemainingEmpowerCount--;
+		AMDCard card = new AMDCard( originalOwner.CreateEmpower(), figure.AMDCardDeck.Owner, (Figure)originalOwner);
+		ScenarioEvents.EmpowerAdded.Parameters empowerAddedParameters =
+			await ScenarioEvents.EmpowerAddedEvent.CreatePrompt(
+				new ScenarioEvents.EmpowerAdded.Parameters(figure));
+
+		card.DrawnEvent += OnEmpowerDrawn;
+
+		figure.AMDCardDeck.AddCard(card, empowerAddedParameters.ShuffleDrawPile);
 		return true;
 	}
 
@@ -65,5 +95,10 @@
 	private void OnMonsterCurseDrawn(AMDCard card)
 	{
 		RemainingMonsterCurseCount++;
+	}
+
+	private void OnEmpowerDrawn(AMDCard card)
+	{
+		((IHasEmpower)card.PotentialOriginalOwner).RemainingEmpowerCount++;
 	}
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, AbsorbingLight.CardBottom>
 {
@@ -10,10 +11,10 @@ public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, Absor
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.61900824f, 0.1985234f)))
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(0)
@@ -30,17 +31,17 @@ public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, Absor
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.61790806f, 0.73756313f)))
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
 						parameters => !parameters.Performer.IsDamaged(),
 						async parameters =>
 						{
 							((MoveAbility.State)parameters.AbilityState).AddJump();
-							await AbilityCmd.InfuseElement(Element.Light);
+							await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Light);
 						}
 					)
 				)

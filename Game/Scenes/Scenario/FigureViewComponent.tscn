@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://2cvn7adxaika"]
+[gd_scene load_steps=19 format=3 uid="uid://2cvn7adxaika"]
 
 [ext_resource type="Script" uid="uid://dqlt5qoskoteg" path="res://Scripts/Scenario/HexObjects/ViewComponents/FigureViewComponent.cs" id="1_akne4"]
 [ext_resource type="Texture2D" uid="uid://bgv3secgxmvit" path="res://Art/Icons/Abilities/DropSolid.svg" id="2_6qsfo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dwfu45tw4q2o" path="res://Art/Icons/Abilities/Retaliate.svg" id="4_7kqfs"]
 [ext_resource type="Texture2D" uid="uid://cht3jc2t48x72" path="res://Art/Other/HexagonOutline.svg" id="5_bs0xx"]
 [ext_resource type="Texture2D" uid="uid://b52qno1r2b0cb" path="res://Art/Icons/Abilities/Shield.svg" id="5_mf4sv"]
+[ext_resource type="Texture2D" uid="uid://c4ce3uohrvdsy" path="res://Art/Icons/Other/CrackedShield.svg" id="6_d2q3q"]
 [ext_resource type="Texture2D" uid="uid://vgdnn7dqdiiv" path="res://Art/Icons/Abilities/Flying.svg" id="7_etyjo"]
 [ext_resource type="PackedScene" uid="uid://bpwuqcoowtyi0" path="res://Scenes/Scenario/FigureActiveParticleSystemEdge.tscn" id="8_y46q5"]
 
@@ -46,7 +47,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_mivbr")
 color_ramp = SubResource("GradientTexture1D_upbk7")
 
-[node name="FigureViewComponent" type="Node2D" node_paths=PackedStringArray("Health", "HealthProgressBar", "HealthLabel", "Shield", "ShieldLabel", "Retaliate", "RetaliateLabel", "Flying", "ConditionParent", "TurnStartPS", "ActivePS")]
+[node name="FigureViewComponent" type="Node2D" node_paths=PackedStringArray("Health", "HealthProgressBar", "HealthLabel", "Shield", "ShieldIcon", "CrackedShieldIcon", "ShieldLabel", "Retaliate", "RetaliateLabel", "Flying", "EffectParent", "TurnStartPS", "ActivePS")]
 z_index = 10
 script = ExtResource("1_akne4")
 Health = NodePath("Health")
@@ -54,11 +55,13 @@ HealthProgressBar = NodePath("Health/TextureProgressBar")
 HealthProgressBarCurve = SubResource("Curve_mf4sv")
 HealthLabel = NodePath("Health/Label")
 Shield = NodePath("Shield")
+ShieldIcon = NodePath("Shield/Icon")
+CrackedShieldIcon = NodePath("Shield/CrackedIcon")
 ShieldLabel = NodePath("Shield/Label")
 Retaliate = NodePath("Retaliate")
 RetaliateLabel = NodePath("Retaliate/Label")
 Flying = NodePath("Flying")
-ConditionParent = NodePath("Conditions")
+EffectParent = NodePath("Effects")
 TurnStartPS = NodePath("TurnStartPS")
 ActivePS = NodePath("FigureActiveParticleSystem")
 
@@ -139,6 +142,12 @@ self_modulate = Color(0.262745, 0.607843, 0.913725, 1)
 scale = Vector2(0.135, 0.135)
 texture = ExtResource("5_mf4sv")
 
+[node name="CrackedIcon" type="Sprite2D" parent="Shield"]
+visible = false
+self_modulate = Color(0.47451, 0.027451, 0.419608, 1)
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("6_d2q3q")
+
 [node name="Label" type="Label" parent="Shield"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -146,9 +155,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -9.0
-offset_top = -23.0
+offset_top = -25.0
 offset_right = 9.0
-offset_bottom = 30.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "5"
@@ -170,7 +179,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("7_etyjo")
 flip_h = true
 
-[node name="Conditions" type="Node2D" parent="."]
+[node name="Effects" type="Node2D" parent="."]
 position = Vector2(-60, 0)
 
 [node name="TurnStartPS" type="GPUParticles2D" parent="."]

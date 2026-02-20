@@ -12,7 +12,7 @@ public class PierceTheFirmament : StarslingerCardModel<PierceTheFirmament.CardTo
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(6)
@@ -31,12 +31,13 @@ public class PierceTheFirmament : StarslingerCardModel<PierceTheFirmament.CardTo
 				.Build())
 		];
 
-		protected override IEnumerable<Element> Elements => [Element.Dark, Element.Light];
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Dark), CardElementInfusion.Infuse(Element.Light)];
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -70,6 +71,6 @@ public class PierceTheFirmament : StarslingerCardModel<PierceTheFirmament.CardTo
 				.Build())
 		];
 
-		protected override bool Round => true;
+		public override bool Round => true;
 	}
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.CardBottom>
 {
@@ -11,71 +12,63 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 8,
-					Move = 3,
-					Attack = 3,
-					Traits =
-					[
-						new AllAttacksGainAdvantageTrait(),
-						new MountTrait(
-							async (owner, mount) =>
-							{
-								ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(owner, this,
-									parameters => parameters.AbilityState.Performer == owner,
-									async parameters =>
-									{
-										parameters.SetCannotGainDisadvantage();
-
-										await GDTask.CompletedTask;
-									}
-								);
-
-								ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(owner, this,
-									parameters => parameters.Attacker == owner,
-									parameters => parameters.SetDisadvantage(false),
-									order: 100
-								);
-
-								await GDTask.CompletedTask;
-							},
-							async (owner, mount) =>
-							{
-								ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(owner, this);
-								ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(owner, this);
-
-								await GDTask.CompletedTask;
-							}
-						),
-					]
-				})
 				.WithName("Sabretooth Tiger")
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/sabretooth_tiger.png")
+				.WithHealth(8, new SummonHealthSquare(this, new Vector2(0.4331527f, 0.18997385f)))
+				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.6306499f, 0.18997385f)))
+				.WithAttack(3)
+				.WithTraits(
+					new AllAttacksGainAdvantageTrait(),
+					new MountTrait(
+						async (owner, mount) =>
+						{
+							ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(owner, this,
+								parameters => parameters.AbilityState.Performer == owner,
+								async parameters =>
+								{
+									parameters.SetCannotGainDisadvantage();
+									await GDTask.CompletedTask;
+								}
+							);
+							ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(owner, this,
+								parameters => parameters.Attacker == owner,
+								parameters => parameters.SetDisadvantage(false),
+								order: 100
+							);
+							await GDTask.CompletedTask;
+						},
+						async (owner, mount) =>
+						{
+							ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(owner, this);
+							ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(owner, this);
+							await GDTask.CompletedTask;
+						}
+					)
+				)
 				.Build()
 			),
 		];
 
-		protected override int XP => 6;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
-		protected override bool Unrecoverable => true;
+		public override int XP => 6;
+		public override bool Persistent => true;
+		public override bool Loss => true;
+		public override bool Unrecoverable => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
 					IEnumerable<AbilityCard> selectedAbilityCards =
 						await AbilityCmd.SelectAbilityCards((Character)state.Performer, CardState.Lost, 0, 3,
-							canSelectFunc: abilityCard => abilityCard.Top.Abilities
-								.Concat(abilityCard.Bottom.Abilities)
+							canSelectFunc: abilityCard => abilityCard.Top.Model.Abilities
+								.Concat(abilityCard.Bottom.Model.Abilities)
 								.Any(cardAbility => cardAbility.Ability is SummonAbility),
 							hintText: $"Select up to 3 lost cards with summon abilities to recover");
 
@@ -86,7 +79,7 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 
 					IEnumerable<AbilityCardSide> abilitySides = selectedAbilityCards
 						.SelectMany<AbilityCard, AbilityCardSide>(abilityCard => [abilityCard.Top, abilityCard.Bottom])
-						.Where(abilityCardSide => abilityCardSide.Abilities
+						.Where(abilityCardSide => abilityCardSide.Model.Abilities
 							.Any(cardAbility => cardAbility.Ability is SummonAbility));
 
 					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
@@ -114,7 +107,7 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 				.Build())
 		];
 
-		protected override bool Loss => true;
-		protected override bool Unrecoverable => true;
+		public override bool Loss => true;
+		public override bool Unrecoverable => true;
 	}
 }

@@ -4,7 +4,6 @@ public class Migration003 : Migration
 {
 	public override void Migrate(JObject saveData)
 	{
-		// Set the levels of all characters to 1
 		if(saveData.TryGetValue("SavedCampaign", out JToken savedCampaign))
 		{
 			savedCampaign["StartingGroup"] = 0;

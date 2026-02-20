@@ -89,6 +89,19 @@ public class ScenarioSetupPhase : ScenarioPhase
 		{
 			await character.OnScenarioSetupCompleted();
 		}
+
+		GameController.Instance.UndoManager.AddStep(new ScenarioSetupUndoStep());
+
+		foreach(SavedEventState savedEventState in GameController.Instance.SavedCampaign.SavedEvents.SavedEventStates)
+		{
+			foreach(EventReward eventReward in savedEventState.Choice.GetRewards(savedEventState))
+			{
+				if(eventReward.Type == EventRewardType.ScenarioStart)
+				{
+					await eventReward.OnScenarioSetupPhaseCompleted();
+				}
+			}
+		}
 	}
 
 	private ScenarioSetupState CreateInitialState()

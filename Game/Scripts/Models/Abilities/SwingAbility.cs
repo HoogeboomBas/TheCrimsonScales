@@ -21,7 +21,7 @@ public class SwingAbility : TargetedAbility<SwingAbility.State, SingleTargetStat
 	{
 		public interface ISwingStep
 		{
-			TBuilder WithSwing(int swing);
+			TBuilder WithSwing(int swing, params SwingEnhancementMark[] enhancementMarks);
 		}
 	}
 

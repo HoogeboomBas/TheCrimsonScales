@@ -8,7 +8,7 @@ public class Scenario008 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario009>(true)];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillAlLEnemiesScenarioGoals();
+	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals();
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{

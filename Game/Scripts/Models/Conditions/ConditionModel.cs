@@ -1,100 +1,41 @@
 ﻿using Fractural.Tasks;
 using Godot;
 
-public abstract class ConditionModel : AbstractModel<ConditionModel>, IEventSubscriber
+public abstract class ConditionModel : AbstractModel
 {
 	public abstract string Name { get; }
 	public abstract string IconPath { get; }
-	public virtual bool CanStack => false;
-	public virtual bool CanBeUpgraded => false;
-	public virtual ConditionModel[] ImmunityCompareBaseConditions => [IsMutable ? ImmutableInstance : this];
+	public abstract ConditionPolarity ConditionPolarity { get; }
+	public virtual bool CanBeAppliedMultipleTimesOnSingleTarget => false;
+	public virtual ConditionModel[] ImmunityCompareBaseConditions => [this];
 	public virtual bool RemovedAtEndOfTurn => false;
-	public virtual bool IsPositive => false;
-	public virtual bool IsNegative => !IsPositive;
+	public virtual bool ImmediatelyRemovedOnApply => false;
 	public virtual bool RemovedByHeal => false;
-	public virtual string ConditionAnimationScenePath => null;
+	public virtual ConditionModel BaseLevelCondition => this;
+	public virtual int UpgradableLevel => 1;
+	public virtual bool RequiresGiver => false;
+	public virtual bool Stackable => false;
+	public virtual bool ShouldShowOnFigure => true;
+	protected virtual string ConditionAnimationScenePath => null;
 
-	protected bool _appliedDuringThisTurn;
-	
-	protected Figure Owner { get; private set; }
-	public ConditionNode Node { get; protected set; }
+	public bool IsPositive => ConditionPolarity == ConditionPolarity.Positive;
+	public bool IsNegative => ConditionPolarity == ConditionPolarity.Negative;
 
-	public virtual async GDTask Add(Figure target, ConditionNode node)
+	public virtual async GDTask OnAdded(Condition condition)
 	{
-		Owner = target;
-		Node = node;
-		Owner.Conditions.Insert(0, this);
-
-		if(target.TakingTurn)
-		{
-			_appliedDuringThisTurn = true;
-		}
-
-		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Subscribe(this, DuplicatesCheckCanApply, DuplicatesCheckApply, EffectType.MandatoryBeforeOptionals);
-
-		if(RemovedAtEndOfTurn)
-		{
-			ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.Subscribe(this, TurnEndedCanApply, TurnEndedApply, EffectType.MandatoryBeforeOptionals);
-		}
-
 		if(!GameController.FastForward && ConditionAnimationScenePath != null)
 		{
 			PackedScene conditionScene = ResourceLoader.Load<PackedScene>(ConditionAnimationScenePath);
 			ConditionAnimation conditionAnimation = conditionScene.Instantiate<ConditionAnimation>();
 			GameController.Instance.Map.AddChild(conditionAnimation);
-			conditionAnimation.Init(target);
+			conditionAnimation.Init(condition.Owner);
 
-			await GDTask.Delay(0.5f);
+			await GDTask.DelayFastForwardable(0.5f);
 		}
 	}
 
-	public virtual GDTask Remove()
+	public virtual async GDTask OnRemoved(Condition condition)
 	{
-		Node?.Destroy();
-		Owner.Conditions.Remove(this);
-
-		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Unsubscribe(this);
-		ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.Unsubscribe(this);
-
-		return GDTask.CompletedTask;
+		await GDTask.CompletedTask;
 	}
-
-	protected virtual bool DuplicatesCheckCanApply(ScenarioEvents.InflictConditionDuplicatesCheck.Parameters parameters)
-	{
-		return !parameters.Prevented && parameters.Target == Owner && parameters.Condition.ImmutableInstance == ImmutableInstance;
-	}
-
-	protected virtual GDTask DuplicatesCheckApply(ScenarioEvents.InflictConditionDuplicatesCheck.Parameters parameters)
-	{
-		parameters.SetPrevented(true);
-
-		if(parameters.Target.TakingTurn)
-		{
-			_appliedDuringThisTurn = true;
-		}
-
-		return GDTask.CompletedTask;
-	}
-
-	protected bool TurnEndedCanApply(ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters parameters)
-	{
-		return parameters.Figure == Owner;
-	}
-
-	protected async GDTask TurnEndedApply(ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters parameters)
-	{
-		if(_appliedDuringThisTurn)
-		{
-			_appliedDuringThisTurn = false;
-		}
-		else
-		{
-			await AbilityCmd.RemoveCondition(Owner, ImmutableInstance);
-		}
-	}
-	
-	public virtual bool ShouldShowOnFigure(Figure figure)
-    {
-		return true;
-    }
 }

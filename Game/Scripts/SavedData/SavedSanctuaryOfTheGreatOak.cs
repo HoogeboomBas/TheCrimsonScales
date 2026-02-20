@@ -30,6 +30,22 @@ public class SavedSanctuaryOfTheGreatOak
 		ModelDB.AMDCard<PierceSanctuaryRollingAMDCard>(),
 	];
 
+	public static int[] DonationYellowNumbers =
+	[
+		5,
+		10,
+		15,
+		20,
+		25,
+		30,
+		40,
+		50,
+		60,
+		70,
+		80,
+		90,
+	];
+
 	[JsonProperty]
 	public int TotalDonationCount { get; private set; }
 
@@ -38,6 +54,9 @@ public class SavedSanctuaryOfTheGreatOak
 
 	[JsonProperty]
 	public List<string> RollingAMDCardIds { get; private set; }
+
+	[JsonProperty]
+	public string PartyAMDCardId { get; private set; }
 
 	public SavedSanctuaryOfTheGreatOak()
 	{
@@ -54,7 +73,7 @@ public class SavedSanctuaryOfTheGreatOak
 			(savedCharacter.DonationAMDCardIds == null || savedCharacter.DonationAMDCardIds.Length == 0);
 	}
 
-	public void Donate(SavedCharacter savedCharacter)
+	public void Donate(SavedCharacter savedCharacter, SavedCampaign savedCampaign)
 	{
 		if(!CanDonate(savedCharacter))
 		{
@@ -64,6 +83,10 @@ public class SavedSanctuaryOfTheGreatOak
 		savedCharacter.RemoveGold(10);
 
 		TotalDonationCount++;
+		if(DonationYellowNumbers.Contains(TotalDonationCount))
+		{
+			savedCampaign.AdjustProsperity(1);
+		}
 
 		string critAMDCardId = CritAMDCardIds.PickRandom(BetweenScenariosController.Instance.RNG);
 		string rollingAMDCardId = RollingAMDCardIds.PickRandom(BetweenScenariosController.Instance.RNG);
@@ -71,23 +94,39 @@ public class SavedSanctuaryOfTheGreatOak
 		CritAMDCardIds.Remove(critAMDCardId);
 		RollingAMDCardIds.Remove(rollingAMDCardId);
 
-		savedCharacter.SetDonationAMDCardIds([critAMDCardId, rollingAMDCardId]);
+		List<string> donationAMDCardIds = new List<string>();
+		donationAMDCardIds.Add(critAMDCardId);
+		donationAMDCardIds.Add(rollingAMDCardId);
+		if(PartyAMDCardId != null)
+		{
+			donationAMDCardIds.Add(PartyAMDCardId);
+		}
+
+		savedCharacter.SetDonationAMDCardIds(donationAMDCardIds.ToArray());
 	}
 
 	public void ReturnCards(SavedCharacter savedCharacter)
 	{
-		foreach(string donationAMDCardId in savedCharacter.DonationAMDCardIds)
+		if(savedCharacter.DonationAMDCardIds != null)
 		{
-			if(AllCritAMDCards.Any(card => card.Id.ToString() == donationAMDCardId))
+			foreach(string donationAMDCardId in savedCharacter.DonationAMDCardIds)
 			{
-				CritAMDCardIds.Add(donationAMDCardId);
-			}
-			else
-			{
-				RollingAMDCardIds.Add(donationAMDCardId);
+				if(AllCritAMDCards.Any(card => card.Id.ToString() == donationAMDCardId))
+				{
+					CritAMDCardIds.Add(donationAMDCardId);
+				}
+				else if(AllRollingAMDCards.Any(card => card.Id.ToString() == donationAMDCardId))
+				{
+					RollingAMDCardIds.Add(donationAMDCardId);
+				}
 			}
 		}
 
-		savedCharacter.SetDonationAMDCardIds([]);
+		savedCharacter.SetDonationAMDCardIds(null);
+	}
+
+	public void UnlockPartyAMD(AMDCardModel cardModel)
+	{
+		PartyAMDCardId = cardModel.Id.ToString();
 	}
 }

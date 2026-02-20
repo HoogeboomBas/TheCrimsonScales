@@ -9,7 +9,7 @@ public class Scenario023 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario026>(true)];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillAlLEnemiesScenarioGoals();
+	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals();
 
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 

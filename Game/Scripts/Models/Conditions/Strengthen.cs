@@ -4,28 +4,29 @@ public class Strengthen : ConditionModel
 {
 	public override string Name => "Strengthen";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Strengthen.svg";
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 	public override bool RemovedAtEndOfTurn => true;
-	public override bool IsPositive => true;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(this,
-			parameters => parameters.Performer == Owner,
-			parameters =>
+		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(condition,
+			parameters => parameters.Performer == condition.Owner,
+			async parameters =>
 			{
-				Node.Flash();
+				condition.Flash();
 				parameters.AbilityState.SingleTargetSetHasAdvantage();
-				return GDTask.CompletedTask;
-			},
-			EffectType.MandatoryBeforeOptionals);
+
+				await GDTask.CompletedTask;
+			}
+		);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(this);
+		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 	}
 }

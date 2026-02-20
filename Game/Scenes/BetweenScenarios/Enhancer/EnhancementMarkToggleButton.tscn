@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwn4iiqm7bpjf"]
+
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_pfcit"]
+[ext_resource type="Script" uid="uid://bsg5rwwjkoi28" path="res://Scripts/BetweenScenarios/Enhancer/EnhancementMarkToggleButton.cs" id="2_dhfk3"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_dhfk3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aayhe"]
+bg_color = Color(0.105882, 0.105882, 0.12549, 0.0784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.892922, 0.893193, 0.912186, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EnhancementMarkToggleButton" node_paths=PackedStringArray("_button", "_container", "_inactiveOverlay") instance=ExtResource("1_pfcit")]
+custom_minimum_size = Vector2(40, 40)
+script = ExtResource("2_dhfk3")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="Outline" type="Panel" parent="Container/BetterButton" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aayhe")
+
+[node name="Texture" type="TextureRect" parent="Container/BetterButton" index="1"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.435294)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_dhfk3")
+expand_mode = 1
+
+[node name="InactiveOverlay" parent="Container/BetterButton" index="2"]
+self_modulate = Color(0, 0, 0, 0.196078)

@@ -5,5 +5,4 @@
 	public int SelectedEffectIndex { get; init; } = -1;
 
 	public SyncedAction SyncedAction { get; init; } = null;
-	//public int AuthorityReferenceId { get; set; }
 }

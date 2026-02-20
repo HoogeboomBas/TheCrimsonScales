@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
+using GTweens.Builders;
 using GTweens.Easings;
 
 public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostInTheStars.CardBottom>
@@ -13,7 +14,7 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 
 	public class CardTop : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -25,7 +26,21 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 					await characterToken.Init(state.Performer, state.Performer.Hex);
 
 					state.Performer.RemoveFromMap();
-					state.Performer.TweenScale(0f, 0.15f).SetEasing(Easing.InBack).PlayFastForwardable();
+
+					if(!GameController.FastForward)
+					{
+						characterToken.SetScale(Vector2.Zero);
+						GTweenSequenceBuilder.New()
+							.AppendTime(0.4f)
+							.Append(characterToken.TweenScale(1f, 0.2f))
+							.Build().PlayFastForwardable();
+
+						await GameController.Instance.ScreenDistortion.Disappear(state.Performer, 1.4f, true).PlayFastForwardableAsync();
+					}
+					else
+					{
+						state.Performer.SetScale(Vector2.Zero);
+					}
 
 					state.Performer.SetTakingTurn(false);
 
@@ -89,11 +104,19 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 								}, true, "Select a hex to return to"
 							);
 
-							applyParameters.Figure.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
-							await AbilityCmd.EnterHex(state, applyParameters.Figure, applyParameters.Figure, returnHex, true, true);
-
 							await characterToken.Destroy();
-							characterToken.TweenScale(0f, 0.15f).SetEasing(Easing.InBack).PlayFastForwardable();
+
+							if(!GameController.FastForward)
+							{
+								state.Performer.SetGlobalPosition(returnHex.GlobalPosition);
+								await GameController.Instance.ScreenDistortion.Appear(state.Performer, 1.4f, true).PlayFastForwardableAsync();
+							}
+							else
+							{
+								state.Performer.SetScale(Vector2.One);
+							}
+
+							await AbilityCmd.EnterHex(state, applyParameters.Figure, applyParameters.Figure, returnHex, true, true);
 						}
 					);
 					await GDTask.CompletedTask;
@@ -107,16 +130,16 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool CanDeactivate => false;
+		public override bool Persistent => true;
+		public override bool CanDeactivate => false;
 	}
 
 	public class CardBottom : StarslingerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(6)
+				.WithDistance(6, new MoveCircle(this, new Vector2(0.5229555f, 0.61705536f)))
 				.WithMoveType(MoveType.Jump)
 				.WithAbilityStartedSubscription(
 					ScenarioEvents.AbilityStarted.Subscription.New(
@@ -145,7 +168,7 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 				.Build())
 		];
 
-		protected override int XP => 2;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 }

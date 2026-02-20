@@ -4,31 +4,35 @@ public class Invisible : ConditionModel
 {
 	public override string Name => "Invisible";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Invisible.svg";
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 	public override bool RemovedAtEndOfTurn => true;
-	public override bool IsPositive => true;
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(Owner, this,
-			parameters => parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner),
+		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.PotentialTarget == condition.Owner &&
+				parameters.Performer.EnemiesWith(condition.Owner),
 			parameters =>
 			{
 				parameters.SetCannotBeFocused();
 			}
 		);
 
-		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(Owner, this,
-			parameters => parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner),
+		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.PotentialTarget == condition.Owner &&
+				parameters.Performer.EnemiesWith(condition.Owner),
 			parameters =>
 			{
 				parameters.SetCannotBeTargeted();
 			}
 		);
 
-		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(Owner, this,
-			parameters => parameters.EnemyFigure == Owner,
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(condition,
+			parameters => parameters.EnemyFigure == condition.Owner,
 			parameters =>
 			{
 				parameters.SetCanPass();
@@ -36,12 +40,12 @@ public class Invisible : ConditionModel
 		);
 	}
 
-	public override async GDTask Remove()
+	public override async GDTask OnRemoved(Condition condition)
 	{
-		await base.Remove();
+		await base.OnRemoved(condition);
 
-		ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(Owner, this);
-		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(Owner, this);
-		ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(Owner, this);
+		ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(condition);
+		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(condition);
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(condition);
 	}
 }

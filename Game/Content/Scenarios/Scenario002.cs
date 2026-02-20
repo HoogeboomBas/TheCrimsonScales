@@ -8,7 +8,7 @@ public class Scenario002 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario003>(true)];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillAlLEnemiesScenarioGoals();
+	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals();
 
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 
@@ -95,7 +95,7 @@ public class Scenario002 : ScenarioModel
 
 			UpdateScenarioText(
 				$"The door is locked. When a character ends their turn on the pressure plate marked {Icons.InlineMarker(Marker.Type.b)} the door is permanently unlocked " +
-				$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)} 2, Self” ability.");
+				$"and all figures occupying the H1A map tile perform a “{Icons.Inline(Icons.Heal)}2, self” ability.");
 		}
 
 		if(parameters.OpenedDoor == _door2)

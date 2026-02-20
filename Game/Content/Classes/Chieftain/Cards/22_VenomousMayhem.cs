@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class VenomousMayhem : ChieftainCardModel<VenomousMayhem.CardTop, VenomousMayhem.CardBottom>
 {
@@ -9,34 +10,30 @@ public class VenomousMayhem : ChieftainCardModel<VenomousMayhem.CardTop, Venomou
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 5,
-					Move = 4,
-					Attack = 1,
-					Traits = 
-					[
-						new ApplyConditionTrait(Conditions.Poison1),
-						new ApplyConditionTrait(Conditions.Immobilize)
-					]
-				})
 				.WithName("Cottonmouth Snake")
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/cottonmouth_snake_AI.png")
+				.WithHealth(5, new SummonHealthSquare(this, new Vector2(0.4466124f, 0.24022135f)))
+				.WithMove(4, new SummonMoveSquare(this, new Vector2(0.6772746f, 0.24022135f)))
+				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.4466124f, 0.31622052f)))
+				.WithTraits(
+					new ApplyConditionTrait(Conditions.Poison1),
+					new ApplyConditionTrait(Conditions.Immobilize)
+				)
 				.Build()
 			),
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder().WithDamage(3).WithConditions(Conditions.Poison1).Build()),
 		];

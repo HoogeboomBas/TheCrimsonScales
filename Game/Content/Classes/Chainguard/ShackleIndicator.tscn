@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ce88fmb73v43w" path="res://Content/Classes/Chainguard/ShackleIndicator.cs" id="1_lx6vu"]
 
 [node name="ShackleIndicator" type="Node2D"]
-modulate = Color(0.117647, 0.113725, 0.113725, 1)
+modulate = Color(0.807843, 0.427451, 0.188235, 1)
 z_index = 11
 scale = Vector2(0.92, 0.92)
 script = ExtResource("1_lx6vu")

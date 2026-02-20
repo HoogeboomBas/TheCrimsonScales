@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="Outline3H.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="1"
+     inkscape:cx="91"
+     inkscape:cy="162.5"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="originald"
+       linkedpaths="#path2,0,1|"
+       id="path-effect2" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="M 32,0.33007813 4.5722656,16.166016 4.5742187,47.835937 31.845703,63.582031 v 0.294922 l 0.002,-0.002 V 95.072266 L 59.275391,110.9082 86.701172,95.072266 V 63.587891 l -0.0332,0.01953 -0.0039,-0.002 0.03711,-0.02148 27.279298,-15.75 -0.002,-31.669922 L 86.552734,0.33007813 59.277344,16.078125 Z M 32,3.6499023 56.552246,17.824219 v 0.0059 l 2.698242,1.619629 2.75,-1.622559 v -0.002 L 86.552246,3.6499023 111.104,17.824707 l 4.9e-4,28.349609 -24.551756,14.175293 -9.76e-4,-4.88e-4 -2.721192,1.583496 -0.0078,3.12793 0.0029,0.002 4.88e-4,28.349609 L 59.274414,107.5874 34.722656,93.412598 34.722168,65.0625 l 4.88e-4,-4.88e-4 -0.0054,-3.144532 -2.713867,-1.568847 -0.0029,0.0015 L 7.4487305,46.175293 7.4482422,17.825195 Z"
+       style="fill:#ffffff;stroke-linecap:round;stroke-dashoffset:38"
+       id="path5" />
+  </g>
+</svg>

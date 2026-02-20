@@ -1,19 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://do6hsjifsg5tc"]
+[gd_scene load_steps=4 format=3 uid="uid://do6hsjifsg5tc"]
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_rd461"]
-[ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_b2m8l"]
 [ext_resource type="Texture2D" uid="uid://c3jttd0jybu6y" path="res://Content/Classes/Starslinger/Animation.jpg" id="2_cdl36"]
 [ext_resource type="Texture2D" uid="uid://c4shly67fnb1k" path="res://Content/Classes/Starslinger/MapIcon.tres" id="3_b2m8l"]
 
 [node name="Starslinger" instance=ExtResource("1_rd461")]
 
-[node name="Hexagon" parent="." index="1"]
+[node name="Outline" parent="." index="1"]
 self_modulate = Color(0.403922, 0.384314, 0.631373, 1)
-
-[node name="Hexagon" type="Sprite2D" parent="Hexagon" index="0"]
-self_modulate = Color(0.403922, 0.384314, 0.631373, 1)
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("2_b2m8l")
 
 [node name="Sprite2D" parent="Mask" index="0"]
 texture = ExtResource("3_b2m8l")

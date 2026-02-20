@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dpvsgsrrc7lub" path="res://Content/MapTiles/K1b.tscn" id="12_vsb2e"]
 [ext_resource type="PackedScene" uid="uid://de2wift5r50sa" path="res://Content/MapTiles/E1b.tscn" id="13_hm0y7"]
 [ext_resource type="PackedScene" uid="uid://dbhgpdqo6w0ho" path="res://Content/OverlayTiles/Obstacles/Crystal1H.tscn" id="14_3iiw8"]
-[ext_resource type="PackedScene" uid="uid://cjpnbtuih20q5" path="res://Scenes/Scenario/CoinStack.tscn" id="15_87rgo"]
+[ext_resource type="PackedScene" uid="uid://drwupkt4x7cbj" path="res://Scenes/Scenario/Coin.tscn" id="15_87rgo"]
 [ext_resource type="PackedScene" uid="uid://dsngfvtg84jtq" path="res://Content/OverlayTiles/Doors/DarkFog1H.tscn" id="17_l5omk"]
 
 [sub_resource type="Resource" id="Resource_1wo2x"]

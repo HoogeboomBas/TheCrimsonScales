@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://q7md9kpfw3tbc"]
+
+[ext_resource type="Texture2D" uid="uid://mw8poi0s1xee" path="res://Content/Monsters/Boss/RogueHollowpact/Colorless.jpeg" id="1_r0inh"]
+
+[resource]
+atlas = ExtResource("1_r0inh")
+region = Rect2(30, 60, 600, 600)

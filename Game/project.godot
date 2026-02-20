@@ -79,6 +79,10 @@ skip_ai_decision={
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+3d_render/layer_11="UnlockCharacterView"
+
 [rendering]
 
 renderer/rendering_method="mobile"

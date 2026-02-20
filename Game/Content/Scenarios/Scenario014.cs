@@ -46,7 +46,7 @@ public class Scenario014 : ScenarioModel
 					}
 
 					Door firstDoor = GameController.Instance.Map.GetMarker(Marker.Type._1).Hex.GetHexObjectOfType<Door>();
-					await firstDoor.Open();
+					await firstDoor.Open(null);
 
 					UpdateScenarioText("Whenever a cultist performs a summon ability, it summons a Living Corpse instead of a Living Bones.");
 

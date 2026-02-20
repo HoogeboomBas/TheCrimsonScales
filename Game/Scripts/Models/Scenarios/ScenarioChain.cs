@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public abstract class ScenarioChain : AbstractModel<ScenarioChain>
+public abstract class ScenarioChain : AbstractModel
 {
 	public virtual ScenarioChain BaseScenarioChain => this;
 

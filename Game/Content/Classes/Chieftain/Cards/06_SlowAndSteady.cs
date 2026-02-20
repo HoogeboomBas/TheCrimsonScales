@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class SlowAndSteady : ChieftainCardModel<SlowAndSteady.CardTop, SlowAndSteady.CardBottom>
 {
@@ -10,58 +11,54 @@ public class SlowAndSteady : ChieftainCardModel<SlowAndSteady.CardTop, SlowAndSt
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
-				.WithSummonStats(new SummonStats()
-				{
-					Health = 6,
-					Move = 1,
-					Attack = 1,
-					Traits = 
-					[
-						new ShieldTrait(1),
-						new MountTrait(
-							async (owner, mount) => 
-							{
-								ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Subscribe(mount, this,
-									canApply: parameters => 
-										parameters.Figure == owner ||
-										parameters.Figure == mount,
-									async parameters => 
-									{
-										parameters.SetImmuneToForcedMovement();
-
-										await GDTask.CompletedTask;
-									}
-								);
-								await GDTask.CompletedTask;
-							},
-							async (owner, mount) => 
-							{ 
-								ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Unsubscribe(mount, this);
-
-								await GDTask.CompletedTask;
-							}
-						)
-					]
-				})
 				.WithName("Giant Tortoise")
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise_AI.png")
+				.WithHealth(6, new SummonHealthSquare(this, new Vector2(0.44711232f, 0.1984234f)))
+				.WithMove(1, new SummonMoveSquare(this, new Vector2(0.67825043f, 0.1984234f)))
+				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.44711232f, 0.27472314f)))
+				.WithTraits(
+					new ShieldTrait(1),
+					new MountTrait(
+						async (owner, mount) =>
+						{
+							ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Subscribe(mount, this,
+								canApply: parameters =>
+									parameters.Figure == owner ||
+									parameters.Figure == mount,
+								parameters =>
+								{
+									parameters.SetImmuneToForcedMovement();
+								}
+							);
+							await GDTask.CompletedTask;
+						},
+						async (owner, mount) =>
+						{
+							ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Unsubscribe(mount, this);
+
+							await GDTask.CompletedTask;
+						}
+					)
+				)
 				.Build()
 			),
 		];
 
-		protected override int XP => 2;
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder().WithDamage(2).Build()),
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6201599f, 0.7623622f)))
+				.Build()),
 		];
 	}
 }

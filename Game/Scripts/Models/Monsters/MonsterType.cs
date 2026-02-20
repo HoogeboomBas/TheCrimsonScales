@@ -4,4 +4,5 @@
 	Normal = 0,
 	Elite = 1,
 	Boss = 2,
+	Named = 3,
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class WrappedInMetal : ChainguardCardModel<WrappedInMetal.CardTop, WrappedInMetal.CardBottom>
 {
@@ -10,22 +11,22 @@ public class WrappedInMetal : ChainguardCardModel<WrappedInMetal.CardTop, Wrappe
 
 	public class CardTop : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullAbility.Builder()
 				.WithPull(1)
 				.WithRange(2)
-				.WithConditions(Conditions.Stun, Chainguard.Shackle)
+				.WithConditions([Conditions.Stun, Chainguard.Shackle])
 				.Build())
 		];
 	}
 
 	public class CardBottom : ChainguardCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62026906f, 0.7818803f)))
 				.WithOnAbilityStarted(async state =>
 				{
 					Figure figure = await AbilityCmd.SelectFigure(state, list =>

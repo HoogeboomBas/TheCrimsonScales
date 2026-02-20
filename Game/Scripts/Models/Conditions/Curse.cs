@@ -4,20 +4,16 @@ public class Curse : ConditionModel
 {
 	public override string Name => "Curse";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Curse.svg";
-	public override bool CanStack => true;
-	public override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/CurseAnimation.tscn";
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
+	public override bool CanBeAppliedMultipleTimesOnSingleTarget => true;
+	public override bool ImmediatelyRemovedOnApply => true;
+	public override bool ShouldShowOnFigure => false;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/CurseAnimation.tscn";
 
-	public override async GDTask Add(Figure target, ConditionNode node)
+	public override async GDTask OnAdded(Condition condition)
 	{
-		await base.Add(target, node);
+		await base.OnAdded(condition);
 
-		GameController.Instance.AMDManager.Curse(target);
-
-		await AbilityCmd.RemoveCondition(target, this);
+		GameController.Instance.AMDManager.Curse(condition.Owner);
 	}
-
-	public override bool ShouldShowOnFigure(Figure figure)
-    {
-		return false;
-    }
 }

@@ -1,8 +1,9 @@
-﻿using Godot;
+﻿using System.Linq;
+using Godot;
 
 public partial class CoinInfoItem : InfoItem<CoinInfoItem.Parameters>
 {
-	public class Parameters(CoinStack hexObject) : InfoItemParameters<CoinStack>(hexObject)
+	public class Parameters(Coin hexObject) : InfoItemParameters<Coin>(hexObject)
 	{
 		public override string ScenePath => "res://Scenes/Scenario/UI/InfoView/CoinInfoItem.tscn";
 	}
@@ -14,6 +15,6 @@ public partial class CoinInfoItem : InfoItem<CoinInfoItem.Parameters>
 	{
 		base.Init(parameters);
 
-		_coinCountLabel.SetText($"x {parameters.HexObject.CoinCount}");
+		_coinCountLabel.SetText($"x {parameters.HexObject.Hex.GetHexObjectsOfType<Coin>().Count()}");
 	}
 }

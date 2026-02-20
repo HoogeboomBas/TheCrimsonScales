@@ -5,9 +5,11 @@ using Fractural.Tasks;
 using Godot;
 
 [Serializable]
-public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCardModel> //, IDeckCard
+public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 {
 	public abstract string CardsAtlasPath { get; }
+	public virtual int ColumnCount => 3;
+	public virtual int RowCount => 3;
 
 	public virtual bool Reshuffles => false;
 	public virtual IEnumerable<CardElementInfusion> ElementInfusions { get; } = [];
@@ -53,7 +55,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 		int finalRange = range ?? ((monster.Stats.Range ?? 1) + extraRange);
 		RangeType finalRangeType =
 			rangeType ??
-			(aoePattern != null && aoePattern.Hexes.Any(hex => hex.Type == AOEHexType.Gray)
+			(aoePattern != null && aoePattern.LocalHexes.Any(hex => hex.Type.HasFlag(AOEHexType.Gray))
 				? RangeType.Melee
 				: (finalRange > 1 ? RangeType.Range : monster.Stats.RangeType));
 
@@ -73,10 +75,10 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 			.WithConditions(conditions ?? [])
 			.WithCustomGetTargets(customGetTargets)
 			.WithConditionalAbilityCheck(conditionalAbilityCheck)
-			.WithAbilityStartedSubscriptions(abilityStartedSubscriptions)
-			.WithDuringAttackSubscriptions(duringAttackSubscriptions)
-			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions)
-			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions)
+			.WithAbilityStartedSubscriptions(abilityStartedSubscriptions ?? [])
+			.WithDuringAttackSubscriptions(duringAttackSubscriptions ?? [])
+			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions ?? [])
+			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions ?? [])
 			.Build();
 	}
 
@@ -182,7 +184,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel<MonsterAbilityCard
 	public Texture2D GetTexture()
 	{
 		return AtlasTextureHelper.CreateAtlasTexture(
-			CardIndex, 3, 3,
+			CardIndex, ColumnCount, RowCount,
 			ResourceLoader.Load<Texture2D>(CardsAtlasPath));
 	}
 }

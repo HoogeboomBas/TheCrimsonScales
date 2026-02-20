@@ -9,10 +9,8 @@ public partial class BetweenScenariosActionManager : Control
 
 	public BetweenScenariosAction ActiveAction { get; private set; }
 
-	public override void _Ready()
+	public void Init()
 	{
-		base._Ready();
-
 		foreach(BetweenScenariosAction action in _actions)
 		{
 			action.Button.BetterButton.Pressed += () => BetterButtonOnPressed(action);

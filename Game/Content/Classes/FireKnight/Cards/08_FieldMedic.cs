@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class FieldMedic : FireKnightCardModel<FieldMedic.CardTop, FieldMedic.CardBottom>
 {
@@ -9,7 +10,7 @@ public class FieldMedic : FireKnightCardModel<FieldMedic.CardTop, FieldMedic.Car
 
 	public class CardTop : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder().WithHealValue(3)
 				.WithRange(2)
@@ -30,11 +31,14 @@ public class FieldMedic : FireKnightCardModel<FieldMedic.CardTop, FieldMedic.Car
 
 	public class CardBottom : FireKnightCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(2).Build()),
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.61780804f, 0.7116977f)))
+				.Build()),
 
-			new AbilityCardAbility(GiveFireKnightItemAbility([ModelDB.Item<KindledTonic>(), ModelDB.Item<ScrollOfProtection>()]))
+			new AbilityCardAbility(GiveFireKnightItemAbility(state =>
+				[ModelDB.Item<FireKnightKindledTonic>(), ModelDB.Item<FireKnightScrollOfProtection>()]))
 		];
 	}
 }

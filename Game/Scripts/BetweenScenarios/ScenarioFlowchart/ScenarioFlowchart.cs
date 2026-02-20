@@ -3,7 +3,6 @@ using System.Threading;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Builders;
-using GTweens.Easings;
 using GTweensGodot.Extensions;
 
 public partial class ScenarioFlowchart : BetweenScenariosAction
@@ -30,8 +29,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 
 	private bool _animating;
 
-	private Dictionary<int, ScenarioButton> _scenarioButtons = new Dictionary<int, ScenarioButton>();
-	private Dictionary<Vector2I, ScenarioButton> _scenarioButtonsByCoords = new Dictionary<Vector2I, ScenarioButton>();
+	private readonly Dictionary<int, ScenarioButton> _scenarioButtons = new Dictionary<int, ScenarioButton>();
+	private readonly Dictionary<Vector2I, ScenarioButton> _scenarioButtonsByCoords = new Dictionary<Vector2I, ScenarioButton>();
 
 	public int ColumnCount => _gridContainer.Columns;
 	public float GridScale => _gridContainer.Scale.X;
@@ -56,23 +55,9 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 	{
 		base._Ready();
 
-		SavedCampaign savedCampaign = BetweenScenariosController.Instance.SavedCampaign;
-
-		// Make sure scenario 1 is unlocked
-		// if(!savedCampaign.SavedScenarioProgresses.ScenarioProgresses.TryGetValue(ModelDB.GetId<Scenario001>().ToString(), out SavedScenarioProgress savedScenarioProgress))
-		// {
-		// 	savedScenarioProgress = new SavedScenarioProgress()
-		// 	{
-		// 		Discovered = true,
-		// 		Unlocked = true,
-		// 		//Completed = true
-		// 	};
-		// 	savedCampaign.SavedScenarioProgresses.ScenarioProgresses.Add(ModelDB.GetId<Scenario001>().ToString(), savedScenarioProgress);
-		// }
-
 		_subViewportContainer.SetVisible(false);
 
-		CallDeferred(MethodName.Init);
+		this.DelayedCall(Init);
 	}
 
 	private void Init()
@@ -80,7 +65,6 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 		foreach((int number, ScenarioButton scenarioButton) in _scenarioButtons)
 		{
 			int index = scenarioButton.GetIndex();
-			//int index = number - 1;
 			Vector2I coords = new Vector2I(index % ColumnCount, index / ColumnCount);
 			scenarioButton.Init(coords);
 			_scenarioButtonsByCoords.Add(coords, scenarioButton);
@@ -90,13 +74,13 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 		{
 			foreach(ScenarioFlowchartArrow arrow in scenarioButton.Arrows)
 			{
-				arrow.SetVisible(arrow.To.SavedScenarioProgress.Discovered);
+				arrow.SetVisible(arrow.To.SavedScenarioProgress.ShownOnMap);
 			}
 		}
 
 		foreach((int key, ScenarioButton scenarioButton) in _scenarioButtons)
 		{
-			if(!scenarioButton.SavedScenarioProgress.Discovered)
+			if(!scenarioButton.SavedScenarioProgress.ShownOnMap)
 			{
 				continue;
 			}
@@ -105,9 +89,10 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 			{
 				Vector2I directionOffset = DirectionOffsets[i];
 				Vector2I neighbourCoords = scenarioButton.Coords + directionOffset;
-				if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
-				   neighbour.SavedScenarioProgress.Discovered &&
-				   scenarioButton.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
+				if(
+					_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+					neighbour.SavedScenarioProgress.ShownOnMap &&
+					scenarioButton.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
 				{
 					scenarioButton.ScenarioButtonOutline.AnimateDirectionalExtension(i, true);
 
@@ -115,12 +100,13 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 					Vector2I otherNeighbourCoords = scenarioButton.Coords + otherDirectionOffset;
 					Vector2I diagonalNeighbourCoords = neighbourCoords + otherDirectionOffset;
 
-					if(_scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
-					   otherNeighbour.SavedScenarioProgress.Discovered &&
-					   scenarioButton.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
-					   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
-					   diagonalNeighbour.SavedScenarioProgress.Discovered &&
-					   scenarioButton.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
+					if(
+						_scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
+						otherNeighbour.SavedScenarioProgress.ShownOnMap &&
+						scenarioButton.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
+						_scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
+						diagonalNeighbour.SavedScenarioProgress.ShownOnMap &&
+						scenarioButton.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
 					{
 						scenarioButton.ScenarioButtonOutline.AnimateDiagonalExtension(i, true);
 					}
@@ -164,6 +150,8 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 				_3dContainer.SetVisible(false);
 
 				_animating = true;
+
+				DiscoverScenarios();
 				AnimationSequence().Forget();
 			});
 	}
@@ -202,77 +190,101 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 		_3dRoot.SetVisible(true);
 	}
 
-	private async GDTaskVoid AnimationSequence()
+	private void DiscoverScenarios()
 	{
-		CancellationToken cancellationToken = BetweenScenariosController.Instance.DestroyCancellationToken;
-
-		foreach((int key, ScenarioButton scenarioButton) in _scenarioButtons)
+		foreach((int _, ScenarioButton scenarioButton) in _scenarioButtons)
 		{
 			if(scenarioButton.SavedScenarioProgress.Completed)
 			{
 				foreach(ScenarioFlowchartArrow arrow in scenarioButton.Arrows)
 				{
-					ScenarioButton destination = arrow.To;
-					if(!destination.SavedScenarioProgress.Discovered)
+					if(!arrow.To.SavedScenarioProgress.Discovered)
 					{
-						// Animate in the background outline
-						destination.ScenarioButtonOutline.AnimateIn();
-						await GDTask.Delay(0.7f, cancellationToken: cancellationToken);
+						arrow.To.SavedScenarioProgress.Discover();
+					}
+				}
+			}
+		}
+	}
 
-						// Animate in the scenario number
-						destination.AnimateIn();
-						await GDTask.Delay(1.2f, cancellationToken: cancellationToken);
+	private async GDTaskVoid AnimationSequence()
+	{
+		CancellationToken cancellationToken = BetweenScenariosController.Instance.DestroyCancellationToken;
 
-						// Merge the outline
-						for(int i = 0; i < DirectionOffsets.Length; i++)
-						{
-							Vector2I directionOffset = DirectionOffsets[i];
-							Vector2I neighbourCoords = destination.Coords + directionOffset;
-							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
-							   neighbour.SavedScenarioProgress.Discovered &&
-							   destination.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
-							{
-								destination.ScenarioButtonOutline.AnimateDirectionalExtension(i);
-								neighbour.ScenarioButtonOutline.AnimateDirectionalExtension((i + 2) % 4);
-							}
-						}
+		foreach((int _, ScenarioButton scenarioButton) in _scenarioButtons)
+		{
+			if(!scenarioButton.SavedScenarioProgress.Discovered || scenarioButton.SavedScenarioProgress.ShownOnMap)
+			{
+				continue;
+			}
 
-						for(int i = 0; i < DirectionOffsets.Length; i++)
-						{
-							Vector2I directionOffset = DirectionOffsets[i];
-							Vector2I neighbourCoords = destination.Coords + directionOffset;
-							Vector2I otherDirectionOffset = DirectionOffsets[(i + 1) % 4];
-							Vector2I otherNeighbourCoords = destination.Coords + otherDirectionOffset;
-							Vector2I diagonalNeighbourCoords = neighbourCoords + otherDirectionOffset;
+			// This scenario is discovered but is not shown on the map yet, time to animate it in
 
-							if(_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
-							   neighbour.SavedScenarioProgress.Discovered &&
-							   destination.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain &&
-							   _scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
-							   otherNeighbour.SavedScenarioProgress.Discovered &&
-							   destination.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
-							   _scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
-							   diagonalNeighbour.SavedScenarioProgress.Discovered &&
-							   destination.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
-							{
-								destination.ScenarioButtonOutline.AnimateDiagonalExtension(i);
-								neighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 1) % 4);
-								otherNeighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 3) % 4);
-								diagonalNeighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 2) % 4);
-							}
-						}
+			// Animate in the background outline
+			scenarioButton.ScenarioButtonOutline.AnimateIn();
+			await GDTask.Delay(0.7f, cancellationToken: cancellationToken);
 
-						await GDTask.Delay(0.7f, cancellationToken: cancellationToken);
+			// Animate in the scenario number
+			scenarioButton.AnimateIn();
+			await GDTask.Delay(1.2f, cancellationToken: cancellationToken);
 
-						// Show arrow visual
+			// Merge the outline
+			for(int i = 0; i < DirectionOffsets.Length; i++)
+			{
+				Vector2I directionOffset = DirectionOffsets[i];
+				Vector2I neighbourCoords = scenarioButton.Coords + directionOffset;
+				if(
+					_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+					neighbour.SavedScenarioProgress.ShownOnMap &&
+					scenarioButton.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain)
+				{
+					scenarioButton.ScenarioButtonOutline.AnimateDirectionalExtension(i);
+					neighbour.ScenarioButtonOutline.AnimateDirectionalExtension((i + 2) % 4);
+				}
+			}
+
+			for(int i = 0; i < DirectionOffsets.Length; i++)
+			{
+				Vector2I directionOffset = DirectionOffsets[i];
+				Vector2I neighbourCoords = scenarioButton.Coords + directionOffset;
+				Vector2I otherDirectionOffset = DirectionOffsets[(i + 1) % 4];
+				Vector2I otherNeighbourCoords = scenarioButton.Coords + otherDirectionOffset;
+				Vector2I diagonalNeighbourCoords = neighbourCoords + otherDirectionOffset;
+
+				if(
+					_scenarioButtonsByCoords.TryGetValue(neighbourCoords, out ScenarioButton neighbour) &&
+					neighbour.SavedScenarioProgress.ShownOnMap &&
+					scenarioButton.Model.ScenarioChain.BaseScenarioChain == neighbour.Model.ScenarioChain.BaseScenarioChain &&
+					_scenarioButtonsByCoords.TryGetValue(otherNeighbourCoords, out ScenarioButton otherNeighbour) &&
+					otherNeighbour.SavedScenarioProgress.ShownOnMap &&
+					scenarioButton.Model.ScenarioChain.BaseScenarioChain == otherNeighbour.Model.ScenarioChain.BaseScenarioChain &&
+					_scenarioButtonsByCoords.TryGetValue(diagonalNeighbourCoords, out ScenarioButton diagonalNeighbour) &&
+					diagonalNeighbour.SavedScenarioProgress.ShownOnMap &&
+					scenarioButton.Model.ScenarioChain.BaseScenarioChain == diagonalNeighbour.Model.ScenarioChain.BaseScenarioChain)
+				{
+					scenarioButton.ScenarioButtonOutline.AnimateDiagonalExtension(i);
+					neighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 1) % 4);
+					otherNeighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 3) % 4);
+					diagonalNeighbour.ScenarioButtonOutline.AnimateDiagonalExtension((i + 2) % 4);
+				}
+			}
+
+			await GDTask.Delay(0.7f, cancellationToken: cancellationToken);
+
+			// Find the arrows leading to this scenario button
+			foreach((int _, ScenarioButton otherScenarioButton) in _scenarioButtons)
+			{
+				foreach(ScenarioFlowchartArrow arrow in otherScenarioButton.Arrows)
+				{
+					if(arrow.To == scenarioButton)
+					{
 						arrow.AnimateIn();
-
-						destination.SavedScenarioProgress.Discovered = true;
-
 						await GDTask.Delay(1f, cancellationToken: cancellationToken);
 					}
 				}
 			}
+
+			scenarioButton.SavedScenarioProgress.ShowOnMap();
 		}
 
 		_animating = false;

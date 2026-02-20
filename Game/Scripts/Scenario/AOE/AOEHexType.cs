@@ -1,7 +1,7 @@
 ﻿public enum AOEHexType
 {
-	Red,
-	Yellow,
-	Gray,
-	//Empty,
+	Red = 1,
+	Gray = 2,
+	Empty = 4,
+	Yellow = 8,
 }

@@ -19,7 +19,7 @@ public class CloakOfInvisibility : Prosperity1Item
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(character,
+					ActionState actionState = new ActionState(user,
 					[
 						ConditionAbility.Builder()
 							.WithConditions(Conditions.Invisible)

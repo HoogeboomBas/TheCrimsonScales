@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm2kpcuh43pw6"]
+
+[ext_resource type="Script" uid="uid://dj61l46ke7pgq" path="res://Scripts/UI/Popups/PerksPopup/CheckmarkBoxSet.cs" id="1_ablly"]
+[ext_resource type="Texture2D" uid="uid://6g27w1e1p3nr" path="res://Art/Icons/Other/Cross.svg" id="1_o6bhd"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_ablly"]
+[ext_resource type="PackedScene" uid="uid://chrc5f17e6fq1" path="res://Scenes/UI/Popups/PerksPopup/CheckmarkBox.tscn" id="3_ttlql"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_remqh"]
+font = ExtResource("2_ablly")
+font_size = 40
+
+[node name="CheckmarkBoxSet" type="HBoxContainer" node_paths=PackedStringArray("_checkmarks")]
+script = ExtResource("1_ablly")
+_checkmarks = [NodePath("HBoxContainer/CheckmarkBox/Outline/MarginContainer/Checkmark"), NodePath("HBoxContainer/CheckmarkBox2/Outline/MarginContainer/Checkmark"), NodePath("HBoxContainer/CheckmarkBox3/Outline/MarginContainer/Checkmark")]
+
+[node name="CrossIcon" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="TextureRect" type="TextureRect" parent="CrossIcon"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("1_o6bhd")
+expand_mode = 1
+
+[node name="Colon" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = -6
+theme_override_constants/margin_right = 4
+
+[node name="Label" type="Label" parent="Colon"]
+layout_mode = 2
+text = ":"
+label_settings = SubResource("LabelSettings_remqh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CheckmarkBox" parent="HBoxContainer" instance=ExtResource("3_ttlql")]
+layout_mode = 2
+
+[node name="CheckmarkBox2" parent="HBoxContainer" instance=ExtResource("3_ttlql")]
+layout_mode = 2
+
+[node name="CheckmarkBox3" parent="HBoxContainer" instance=ExtResource("3_ttlql")]
+layout_mode = 2
+
+[editable path="HBoxContainer/CheckmarkBox"]
+[editable path="HBoxContainer/CheckmarkBox2"]
+[editable path="HBoxContainer/CheckmarkBox3"]

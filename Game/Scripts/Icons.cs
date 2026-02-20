@@ -1,11 +1,14 @@
-﻿public static class Icons
+﻿using System;
+﻿using Godot;
+
+public static class Icons
 {
 	public const string LoseCard = "res://Art/Icons/Abilities/LoseCard.svg";
 	public const string LoseDiscardedCards = "res://Art/Icons/Abilities/LoseDiscardedCards.svg";
 	public const string RecoverCard = "res://Art/Icons/Abilities/LoseCard.svg";
 	public const string Attack = "res://Art/Icons/Abilities/Attack.svg";
 	public const string Move = "res://Art/Icons/Abilities/Move.svg";
-	public const string Heal = "res://Art/Icons/Abilities/Health.svg";
+	public const string Heal = "res://Art/Icons/Abilities/Heal.svg";
 	public const string Range = "res://Art/Icons/Abilities/Range.svg";
 	public const string Damage = "res://Art/Icons/Abilities/Damage.svg";
 	public const string Push = "res://Art/Icons/ConditionsAndEffects/Push.svg";
@@ -25,6 +28,15 @@
 	public const string PlayingCards = "res://Art/Icons/Other/Card.svg";
 	public const string Active = "res://Art/Icons/Other/Active.svg";
 	public const string Coins = "res://Art/Icons/Other/Coins.svg";
+	public const string XP = "res://Art/Icons/Abilities/XP.svg";
+	public const string Checkmark = "res://Art/Icons/Other/CheckMark.svg";
+	public const string Obstacle = "res://Art/Icons/Other/Cross.svg";
+	public const string StartHexMove = "res://Art/Icons/Other/StartHexMoveIcon.svg";
+	public const string WildElement = "res://Art/Icons/Elements/Wild.svg";
+	public const string RedAOEHex = "res://Art/Icons/Other/RedAOEHex.svg";
+	public const string PlusOneEnhancement = "res://Art/Icons/Other/PlusOneEnhancement.svg";
+	public const string JumpEnhancement = "res://Art/Icons/Other/JumpEnhancement.svg";
+	public const string Rolling = "res://Art/Icons/Other/Rolling.svg";
 
 	public static string GetElement(Element element)
 	{
@@ -41,6 +53,11 @@
 		return conditionModel.IconPath;
 	}
 
+	public static string GetAMDValue(string amdValue)
+	{
+		return $"res://Art/Icons/AMDs/{amdValue}.png";
+	}
+
 	public static string InlineMarker(Marker.Type markerType, int size = 30)
 	{
 		return Inline(GetMarker(markerType), size);
@@ -51,9 +68,16 @@
 		return $"res://Art/Markers/{markerType.ToString().Replace("_", string.Empty)}.png";
 	}
 
-	public static string Inline(string iconPath, int size = 30)
+	public static string Inline(string iconPath, int size = 30, Color? color = null)
 	{
-		return $"[img={{{size}}}]{iconPath}[/img]";
+		Color finalColor = color ?? Colors.White;
+		return $"[img width={size} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
+	}
+
+	public static string Inline(string iconPath, RichTextParameters richTextParameters, bool ignoreParametersColor = false)
+	{
+		Color finalColor = ignoreParametersColor ? Colors.White : richTextParameters.Color;
+		return $"[img width={richTextParameters.FontSize} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
 	}
 
 	public static string HintText(string iconPath)

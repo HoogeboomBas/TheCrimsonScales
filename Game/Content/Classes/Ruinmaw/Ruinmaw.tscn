@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://3ccaeku3oqnb"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
+[ext_resource type="Script" uid="uid://cb7m4x6hapm4e" path="res://Content/Classes/Ruinmaw/Ruinmaw.cs" id="2_7s24i"]
+[ext_resource type="Texture2D" uid="uid://cgguw3tu864yn" path="res://Content/Classes/Ruinmaw/MapIcon.tres" id="3_eb0ki"]
+[ext_resource type="Texture2D" uid="uid://b0fsjg67humk5" path="res://Content/Classes/Ruinmaw/Animation.jpg" id="4_eb0ki"]
+[ext_resource type="PackedScene" uid="uid://buebj414ucr8h" path="res://Content/Classes/Ruinmaw/SatedIndicator.tscn" id="5_eb0ki"]
+
+[node name="Ruinmaw" node_paths=PackedStringArray("_satedIndicator") instance=ExtResource("1_q7cyt")]
+script = ExtResource("2_7s24i")
+_satedIndicator = NodePath("SatedIndicator")
+
+[node name="Sprite2D" parent="Mask" index="0"]
+texture = ExtResource("3_eb0ki")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+texture = ExtResource("4_eb0ki")
+hframes = 12
+vframes = 7
+_frameCount = 80
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.788235, 0.145098, 0.172549, 1)
+
+[node name="SatedIndicator" parent="." index="4" instance=ExtResource("5_eb0ki")]
+modulate = Color(1, 1, 1, 1)
+position = Vector2(4, -34)

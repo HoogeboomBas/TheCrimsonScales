@@ -8,7 +8,7 @@ public class Lamentation : HierophantPrayerCardModel<Lamentation.CardTopBottom, 
 
 	public class CardTopBottom : HierophantPrayerCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
@@ -35,7 +35,7 @@ public class Lamentation : HierophantPrayerCardModel<Lamentation.CardTopBottom, 
 				.Build())
 		];
 
-		protected override bool Persistent => true;
-		protected override bool Loss => true;
+		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

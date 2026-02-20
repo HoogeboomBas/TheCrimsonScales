@@ -5,13 +5,14 @@
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_wxei3"]
 [ext_resource type="Texture2D" uid="uid://b2ovfdm40bjmj" path="res://Content/Classes/Mirefoot/MapIcon.tres" id="3_wxei3"]
 
-[node name="SelectFigureViewFigure" type="Control" node_paths=PackedStringArray("_button", "_scaleContainer", "_sprite")]
+[node name="SelectFigureViewFigure" type="Control" node_paths=PackedStringArray("_button", "_scaleContainer", "_outline", "_sprite")]
 custom_minimum_size = Vector2(200, 230)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_183gj")
 _button = NodePath("BetterButton")
 _scaleContainer = NodePath("BetterButton/FigureAnchor")
+_outline = NodePath("BetterButton/FigureAnchor/Character/Outline")
 _sprite = NodePath("BetterButton/FigureAnchor/Character/Mask/Sprite2D")
 
 [node name="BetterButton" type="BaseButton" parent="."]
@@ -102,7 +103,7 @@ mouse_filter = 2
 [node name="Character" type="Node2D" parent="BetterButton/FigureAnchor"]
 z_index = 10
 
-[node name="Hexagon" type="Sprite2D" parent="BetterButton/FigureAnchor/Character"]
+[node name="Outline" type="Sprite2D" parent="BetterButton/FigureAnchor/Character"]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_183gj")
 

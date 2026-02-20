@@ -7,7 +7,7 @@ using GTweensGodot.Extensions;
 public partial class ShortRestView : Control
 {
 	[Export]
-	private CardView _cardView;
+	private AbilityCardView _cardView;
 	[Export]
 	private ChoiceButton _redrawButton;
 	[Export]

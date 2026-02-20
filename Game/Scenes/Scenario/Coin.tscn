@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://drwupkt4x7cbj"]
+[gd_scene load_steps=4 format=3 uid="uid://drwupkt4x7cbj"]
 
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_b6c1o"]
 [ext_resource type="Texture2D" uid="uid://cuduuf2n7cydr" path="res://Art/Other/Coin.png" id="2_fniu3"]
 [ext_resource type="Script" uid="uid://cuwpwlgp88tq3" path="res://Scripts/Scenario/HexObjects/Coin.cs" id="3_pwcv5"]
 
 [node name="Coin" type="Node2D"]
 script = ExtResource("3_pwcv5")
+
+[node name="SnapToHexGrid" type="Node" parent="."]
+script = ExtResource("2_b6c1o")
+metadata/_custom_type_script = "uid://cga0mgtsgequm"
 
 [node name="Coin" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

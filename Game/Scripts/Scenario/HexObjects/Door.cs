@@ -40,8 +40,12 @@ public partial class Door : OverlayTile, IEventSubscriber
 
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
 			parameters => parameters.Hex == Hex,
-			async parameters => await Open(),
-			effectType: EffectType.MandatoryBeforeOptionals);
+			async parameters =>
+			{
+				await Open(parameters.Figure);
+			},
+			effectType: EffectType.MandatoryBeforeOptionals
+		);
 	}
 
 	public async GDTask Unlock()
@@ -52,7 +56,7 @@ public partial class Door : OverlayTile, IEventSubscriber
 		await GDTask.CompletedTask;
 	}
 
-	public async GDTask Open()
+	public async GDTask Open(Figure potentialOpener)
 	{
 		Opened = true;
 
@@ -60,7 +64,7 @@ public partial class Door : OverlayTile, IEventSubscriber
 
 		foreach(Room room in _roomsToOpen)
 		{
-			await room.Reveal(this, false);
+			await room.Reveal(this, potentialOpener, false);
 		}
 
 		GameController.Instance.Map.UpdateWallLines();
@@ -79,6 +83,6 @@ public partial class Door : OverlayTile, IEventSubscriber
 		parametersList.Add(new GenericInfoItem.Parameters(this, "Door",
 			Locked
 				? "This door is locked. It will open once specific conditions are met."
-				: "A character can move on top a door to open it."));
+				: "A character can move on top of a door to open it."));
 	}
 }

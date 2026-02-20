@@ -54,7 +54,7 @@ public partial class GameController : SceneController<GameController>
 	public AOEView AOEView { get; private set; }
 
 	[Export]
-	public AOEMirrorButtonView AOEMirrorButtonView { get; private set; }
+	public AOEButtonView AOEButtonView { get; private set; }
 
 	[Export]
 	public SufferDamageView SufferDamageView { get; private set; }
@@ -129,13 +129,11 @@ public partial class GameController : SceneController<GameController>
 
 	public ScenarioPhaseManager ScenarioPhaseManager { get; private set; }
 
+	public UndoManager UndoManager { get; private set; }
+
 	public AMDCardDeck MonsterAMDCardDeck { get; private set; }
 
-	public static bool FastForward { get; private set; } // = true;
-
-	public Figure CurrentRelevantTurnTaker { get; private set; }
-	public int PreviousTurnTakerPromptIndex { get; private set; }
-	public int CurrentTurnTakerPromptIndex { get; private set; }
+	public static bool FastForward { get; private set; }
 
 	public SavedScenarioProgress SavedScenarioProgress { get; private set; }
 
@@ -155,7 +153,7 @@ public partial class GameController : SceneController<GameController>
 	public event Action StartEvent;
 	public static event Action<bool> FastForwardChangedEvent;
 
-	public delegate void EndEventHandler(bool backToTown, bool won, SavedScenarioProgress savedScenarioProgress);
+	public delegate void EndEventHandler(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress);
 
 	public event EndEventHandler EndEvent;
 
@@ -179,7 +177,7 @@ public partial class GameController : SceneController<GameController>
 			{
 				savedCampaign = SavedCampaign.Test();
 				float characterLevelSum = savedCampaign.Characters.Sum(character => character.Level);
-				savedCampaign.SavedScenario = new SavedScenario
+				savedCampaign.SetSavedScenario(new SavedScenario
 				{
 					Id = Guid.NewGuid(),
 					AppVersion = AppController.Instance.SaveFile.SaveData.AppVersion,
@@ -189,7 +187,7 @@ public partial class GameController : SceneController<GameController>
 					ScenarioLevel =
 						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) + AppController.Instance.Options.Difficulty.Value,
 					IsOnline = false
-				};
+				});
 			}
 			else
 			{
@@ -238,6 +236,8 @@ public partial class GameController : SceneController<GameController>
 
 		ScenarioPhaseManager = new ScenarioPhaseManager();
 
+		UndoManager = new UndoManager();
+
 		// Create monster AMD
 		List<AMDCard> amdCards = AMDCardDeck.GetDefaultDeckCards(AMDCardOwner.Monsters);
 		MonsterAMDCardDeck = new AMDCardDeck(amdCards, AMDCardOwner.Monsters);
@@ -279,7 +279,7 @@ public partial class GameController : SceneController<GameController>
 
 			if(inputEventKey.Keycode == Key.Backspace)
 			{
-				Undo(UndoType.Basic);
+				UndoManager.Undo();
 			}
 
 			if(inputEventKey.Keycode == Key.Escape)
@@ -321,175 +321,6 @@ public partial class GameController : SceneController<GameController>
 		FastForwardChangedEvent?.Invoke(FastForward);
 	}
 
-	public void SetRelevantTurnTakerPrompt(int promptIndex)
-	{
-		if(CurrentRelevantTurnTaker != Map.CurrentTurnTaker)
-		{
-			CurrentRelevantTurnTaker = Map.CurrentTurnTaker;
-			PreviousTurnTakerPromptIndex = CurrentTurnTakerPromptIndex;
-			CurrentTurnTakerPromptIndex = promptIndex;
-		}
-	}
-
-	public void ResetRelevantTurnTaker()
-	{
-		CurrentRelevantTurnTaker = null;
-	}
-
-	public bool CanUndo(UndoType undoType)
-	{
-		if(ScenarioEnded)
-		{
-			return false;
-		}
-
-		if(undoType == UndoType.Round)
-		{
-			return SavedScenario.CardSelectionStates.Count > 0 && SavedScenario.CardSelectionStates[0].Completed;
-		}
-
-		if(undoType == UndoType.Turn)
-		{
-			return
-				SavedScenario.CardSelectionStates.Count > 0 &&
-				SavedScenario.CardSelectionStates[0].Completed &&
-				SavedScenario.PromptAnswers.Count >= CurrentTurnTakerPromptIndex;
-		}
-
-		return
-			(SavedScenario.ScenarioSetupState != null && SavedScenario.ScenarioSetupState.Completed) ||
-			SavedScenario.PromptAnswers.Count > 0 ||
-			SavedScenario.CardSelectionStates.Count > 1 ||
-			(SavedScenario.CardSelectionStates.Count > 0 &&
-			 (SavedScenario.CardSelectionStates[0].SyncedActions.Count > 0 || SavedScenario.CardSelectionStates[0].Completed));
-	}
-
-	public void Undo(UndoType undoType)
-	{
-		if(!CanUndo(undoType))
-		{
-			return;
-		}
-
-		SavedCampaign savedCampaign = SavedCampaign;
-		SavedScenario newScenario = new SavedScenario
-		{
-			Id = savedCampaign.SavedScenario.Id,
-			AppVersion = SavedScenario.AppVersion,
-			ScenarioModelId = savedCampaign.SavedScenario.ScenarioModelId,
-			Seed = savedCampaign.SavedScenario.Seed,
-			ScenarioLevel = savedCampaign.SavedScenario.ScenarioLevel,
-			IsOnline = savedCampaign.SavedScenario.IsOnline
-		};
-
-		newScenario.ScenarioSetupState = new ScenarioSetupState
-		{
-			CharacterScenarioSetupStates = savedCampaign.SavedScenario.ScenarioSetupState.CharacterScenarioSetupStates.ToArray(),
-			Completed = savedCampaign.SavedScenario.ScenarioSetupState.Completed
-		};
-		newScenario.CardSelectionStates.AddRange(savedCampaign.SavedScenario.CardSelectionStates);
-		newScenario.PromptAnswers.AddRange(savedCampaign.SavedScenario.PromptAnswers);
-
-		bool undoPerformed = false;
-		//bool undoTurnPerformed = false;
-		bool undoRoundPerformed = false;
-		while(!undoPerformed || undoType != UndoType.Basic)
-		{
-			undoPerformed = false;
-
-			if(newScenario.CardSelectionStates.Count > 0)
-			{
-				CardSelectionState cardSelectionState = newScenario.CardSelectionStates[newScenario.CardSelectionStates.Count - 1];
-
-				if(cardSelectionState.SyncedActions.Count > 0)
-				{
-					SyncedAction syncedAction = cardSelectionState.SyncedActions[cardSelectionState.SyncedActions.Count - 1];
-
-					if(syncedAction.PromptIndex >= newScenario.PromptAnswers.Count)
-					{
-						// Remove the latest synced action
-						cardSelectionState.SyncedActions.RemoveAt(cardSelectionState.SyncedActions.Count - 1);
-						undoPerformed = true;
-					}
-				}
-
-				if(!undoPerformed && cardSelectionState.CurrentPromptIndex >= newScenario.PromptAnswers.Count)
-				{
-					if(cardSelectionState.Completed)
-					{
-						// Change the state to no longer be completed, but keep selected cards and such the same
-						cardSelectionState.Completed = false;
-
-						undoRoundPerformed = true;
-					}
-					else
-					{
-						// Remove all immediate completion and skipped prompts
-						for(int i = newScenario.PromptAnswers.Count - 1; i >= 0; i--)
-						{
-							PromptAnswer answer = newScenario.PromptAnswers[i];
-							if(!answer.ImmediateCompletion) // && !answer.Skipped)
-							{
-								break;
-							}
-
-							newScenario.PromptAnswers.RemoveAt(i);
-						}
-
-						// Remove both the card selection state and the last prompt
-						if(newScenario.PromptAnswers.Count > 0)
-						{
-							newScenario.PromptAnswers.RemoveAt(newScenario.PromptAnswers.Count - 1);
-						}
-
-						newScenario.CardSelectionStates.RemoveAt(newScenario.CardSelectionStates.Count - 1);
-					}
-
-					undoPerformed = true;
-
-					if(undoType == UndoType.Turn)
-					{
-						break;
-					}
-				}
-			}
-
-			if(undoRoundPerformed && undoType == UndoType.Round)
-			{
-				break;
-			}
-
-			// Just remove the last prompt answer
-			if(!undoPerformed && newScenario.PromptAnswers.Count > 0)
-			{
-				PromptAnswer answer = newScenario.PromptAnswers[newScenario.PromptAnswers.Count - 1];
-
-				if(!answer.ImmediateCompletion)
-				{
-					undoPerformed = true;
-				}
-
-				newScenario.PromptAnswers.RemoveAt(newScenario.PromptAnswers.Count - 1);
-
-				if(undoType == UndoType.Turn &&
-				   (newScenario.PromptAnswers.Count + 1 == CurrentTurnTakerPromptIndex ||
-				    newScenario.PromptAnswers.Count + 1 == PreviousTurnTakerPromptIndex))
-				{
-					break;
-				}
-			}
-		}
-
-		if(newScenario.CardSelectionStates.Count == 0 && newScenario.PromptAnswers.Count == 0)
-		{
-			newScenario.ScenarioSetupState.Completed = false;
-		}
-
-		savedCampaign.SavedScenario = newScenario;
-
-		AppController.Instance.SceneLoader.RequestSceneChange(new GameSceneRequest(savedCampaign, true));
-	}
-
 	public void MarkScenarioEnded()
 	{
 		ScenarioEnded = true;
@@ -518,7 +349,7 @@ public partial class GameController : SceneController<GameController>
 		CheatWinRequested = true;
 	}
 
-	public void EndScenario(bool backToTown, bool won)
+	public void EndScenario(ScenarioResult scenarioResult)
 	{
 		string scenarioModelId = SavedCampaign.SavedScenario.ScenarioModelId;
 
@@ -527,25 +358,19 @@ public partial class GameController : SceneController<GameController>
 		foreach(Character character in CharacterManager.Characters)
 		{
 			character.SavedCharacter.AddGold(character.ObtainedCoins * goldConversion);
-			character.SavedCharacter.AddXP(character.ObtainedXP + (won ? bonusExperience : 0));
+			character.SavedCharacter.AddXP(character.ObtainedXP + (scenarioResult == ScenarioResult.Win ? bonusExperience : 0));
 
 			SavedCampaign.SanctuaryOfTheGreatOak.ReturnCards(character.SavedCharacter);
 		}
 
-		SavedScenarioProgress.Unlocked = true;
-
-		if(won)
+		if(scenarioResult == ScenarioResult.Win)
 		{
-			SavedScenarioProgress.Completed = true;
+			SavedScenarioProgress.Complete();
 		}
 
-		if(backToTown)
+		if(scenarioResult == ScenarioResult.Retry)
 		{
-			SavedCampaign.SavedScenario = null;
-		}
-		else
-		{
-			SavedCampaign.SavedScenario = new SavedScenario
+			SavedCampaign.SetSavedScenario(new SavedScenario
 			{
 				Id = Guid.NewGuid(),
 				AppVersion = SavedCampaign.SavedScenario.AppVersion,
@@ -553,30 +378,33 @@ public partial class GameController : SceneController<GameController>
 				Seed = GD.RandRange(0, int.MaxValue),
 				ScenarioLevel = SavedCampaign.SavedScenario.ScenarioLevel,
 				IsOnline = SavedCampaign.SavedScenario.IsOnline
-			};
-		}
-
-		EndEvent?.Invoke(backToTown, won, SavedScenarioProgress);
-
-		AppController.Instance.SaveFile.Save();
-
-		if(backToTown)
-		{
-			AppController.Instance.SceneLoader.RequestSceneChange(new BetweenScenariosSceneRequest(SavedCampaign, scenarioModelId));
+			});
 		}
 		else
 		{
+			SavedCampaign.SetSavedScenario(null);
+		}
+
+		EndEvent?.Invoke(scenarioResult, SavedScenarioProgress);
+
+		// Clear any event rewards and allow a new city event card to be drawn
+		SavedCampaign.SavedEvents.OnScenarioEnded();
+
+		AppController.Instance.SaveFile.Save();
+
+		if(scenarioResult == ScenarioResult.Retry)
+		{
 			AppController.Instance.SceneLoader.RequestSceneChange(new GameSceneRequest(SavedCampaign));
+		}
+		else
+		{
+			AppController.Instance.SceneLoader.RequestSceneChange(new BetweenScenariosSceneRequest(SavedCampaign, scenarioModelId));
 		}
 	}
 
 	private void EditorPrintSaveGame()
 	{
-		// Formatting oldFormatting = SaveFile.JsonSerializerSettings.Formatting;
-		// SaveFile.JsonSerializerSettings.Formatting = Formatting.Indented;
 		string json = JsonConvert.SerializeObject(SavedCampaign, SaveFile.JsonSerializerSettings);
-		//SaveFile.JsonSerializerSettings.Formatting = oldFormatting;
-		//GD.Print(json);
 		DisplayServer.ClipboardSet(json);
 	}
 
@@ -596,37 +424,46 @@ public partial class GameController : SceneController<GameController>
 		if(fastForward)
 		{
 			_fastForwardStopwatch.Start();
-			//GD.Print($"Started stopwatch at {DateTime.Now}");
 		}
 		else
 		{
 			_fastForwardStopwatch.Stop();
 			Log.Write($"Fast forwarding took {_fastForwardStopwatch.ElapsedMilliseconds} milliseconds");
-			//GD.Print($"Stopped stopwatch at {DateTime.Now}");
 		}
 	}
 
 	private int GoldConversion()
 	{
 		int scenarioLevel = SavedScenario.ScenarioLevel;
+
+		int value = 0;
 		switch(scenarioLevel)
 		{
 			case 0:
 			case 1:
-				return 2;
+				value = 2;
+				break;
 			case 2:
 			case 3:
-				return 3;
+				value = 3;
+				break;
 			case 4:
 			case 5:
-				return 4;
+				value = 4;
+				break;
 			case 6:
-				return 5;
+				value = 5;
+				break;
 			case 7:
-				return 6;
+				value = 6;
+				break;
 		}
 
-		return 0;
+		ScenarioCheckEvents.MoneyTokenValueCheck.Parameters parameters =
+			ScenarioCheckEvents.MoneyTokenValueCheckEvent.Fire(
+				new ScenarioCheckEvents.MoneyTokenValueCheck.Parameters(value));
+
+		return parameters.Value;
 	}
 
 	private int BonusExperience()

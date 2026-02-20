@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 public class MedicineShield : ChieftainCardModel<MedicineShield.CardTop, MedicineShield.CardBottom>
 {
@@ -9,11 +10,11 @@ public class MedicineShield : ChieftainCardModel<MedicineShield.CardTop, Medicin
 
 	public class CardTop : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(3)
-				.WithRange(3)
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.4407086f, 0.23097177f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.6508312f, 0.22997175f)))
 				.WithDuringHealSubscription(
 					ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Earth,
 						applyFunction: async applyParameters =>
@@ -30,10 +31,10 @@ public class MedicineShield : ChieftainCardModel<MedicineShield.CardTop, Medicin
 
 	public class CardBottom : ChieftainCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state => 
+				.WithAbilities(
 				[
 					HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build(),
 					ShieldAbility.Builder().WithShieldValue(2).Build()
@@ -44,8 +45,8 @@ public class MedicineShield : ChieftainCardModel<MedicineShield.CardTop, Medicin
 			)
 		];
 
-		protected override int XP => 2;
-		protected override bool Round => true;
-		protected override bool Loss => true;
+		public override int XP => 2;
+		public override bool Round => true;
+		public override bool Loss => true;
 	}
 }

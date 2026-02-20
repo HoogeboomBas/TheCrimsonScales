@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, ParalyticAgent.CardBottom>
 {
@@ -10,10 +11,10 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 
 	public class CardTop : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1)
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.50983125f, 0.2910521f)))
 				.WithConditions(Conditions.Stun)
 				.Build())
 		];
@@ -21,9 +22,11 @@ public class ParalyticAgent : MirefootCardModel<ParalyticAgent.CardTop, Paralyti
 
 	public class CardBottom : MirefootCardSide
 	{
-		protected override IEnumerable<AbilityCardAbility> GetAbilities() =>
+		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build())
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.61780804f, 0.77249503f)))
+				.Build())
 		];
 	}
 }
