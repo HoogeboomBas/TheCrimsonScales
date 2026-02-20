@@ -116,7 +116,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		List<Trap> createdTraps = await AbilityCmd.CreateTraps(damage: Damage, range: Range, conditionModels: ConditionModels, 
+		List<Trap> createdTraps = await AbilityCmd.CreateTraps(damage: Damage, range: Range, conditions: ConditionModels, 
 			trapCount: TrapCount, authority: abilityState.Authority, performer: abilityState.Performer,
 			customSelectHexes: list => CustomSelectHexes(abilityState, list), mandatory: Mandatory, assetPath: AssetPath);
 

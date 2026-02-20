@@ -21,7 +21,7 @@ public class IronSnare : CS2Item
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditionModels: [Conditions.Immobilize], performer: user);
+					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditions: [Conditions.Immobilize], performer: user);
 				});
 			}
 		);

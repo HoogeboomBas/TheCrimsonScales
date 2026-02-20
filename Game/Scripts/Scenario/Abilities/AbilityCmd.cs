@@ -478,7 +478,7 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<List<Trap>> CreateTraps(int damage, Figure performer, Figure authority = null,
-		Action<List<Hex>> customSelectHexes = null, int range = 1, int trapCount = 1, ConditionModel[] conditionModels = null,
+		Action<List<Hex>> customSelectHexes = null, int range = 1, int trapCount = 1, ConditionModel[] conditions = null,
 		bool mandatory = false, string assetPath = null)
 	{
 		List<Hex> targetHexes = await SelectHexes(authority?? performer, list =>
@@ -504,7 +504,7 @@ public static class AbilityCmd
 		{
 			foreach(Hex hex in targetHexes)
 			{
-				createdTraps.Add(await PlaceTrap(hex, assetPath: assetPath, damage: damage, conditions: conditionModels));
+				createdTraps.Add(await PlaceTrap(hex, assetPath: assetPath, damage: damage, conditions: conditions));
 			}
 		}
 
