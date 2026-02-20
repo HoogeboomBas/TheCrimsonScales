@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class ChainguardAMDCard07 : ChainguardAMDCardModel
 {
@@ -6,8 +8,9 @@ public class ChainguardAMDCard07 : ChainguardAMDCardModel
 
 	public override int? GetValue(AttackAbility.State state) => 1;
 
-	public override List<Ability> GetAbilities(AttackAbility.State state) =>
-	[
-		CreateTrapAbility.Builder().WithDamage(2).WithRange(2).Build()
-	];
+	public override Func<AttackAbility.State, GDTask> GetExtraEffects(AttackAbility.State attackAbilityState) =>
+		async state =>
+		{
+			await AbilityCmd.CreateTraps(damage: 2, range: 2, performer: state.Performer);
+		};
 }

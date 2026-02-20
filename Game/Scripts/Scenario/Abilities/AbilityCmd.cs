@@ -318,7 +318,42 @@ public static class AbilityCmd
 		return (T)hexObject;
 	}
 
-	public static async GDTask<Trap> CreateTrap(Hex hex, string assetPath, int damage = 0, ConditionModel[] conditions = null)
+	public static async GDTask<List<Trap>> CreateTraps(int damage, Figure performer, Figure authority = null,
+		Action<List<Hex>> customSelectHexes = null, int range = 1, int trapCount = 1, ConditionModel[] conditionModels = null,
+		bool mandatory = false, string assetPath = null)
+	{
+		List<Hex> targetHexes = await SelectHexes(authority?? performer, list =>
+			{
+				if(customSelectHexes != null)
+				{
+					customSelectHexes(list);
+				}
+				else
+				{
+					list.AddRange(RangeHelper.GetHexesInRange(performer.Hex, range)
+						.Where(hex => hex.IsEmpty()));
+				}
+			},
+			minSelectionCount: mandatory ? trapCount : 0,
+			maxSelectionCount: trapCount,
+			autoSelectIfMaxCountIsValidCount: false,
+			hintText: (trapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {trapCount} hexes to place the traps");
+
+		List<Trap> createdTraps = [];
+		
+		if(targetHexes.Count > 0)
+		{
+			foreach(Hex hex in targetHexes)
+			{
+				createdTraps.Add(await PlaceTrap(hex, assetPath: assetPath, damage: damage, conditions: conditionModels));
+			}
+		}
+
+		return createdTraps;
+	}
+
+	private static async GDTask<Trap> PlaceTrap(Hex hex, string assetPath = "res://Content/OverlayTiles/Traps/BearTrap1H.tscn",
+		int damage = 0, ConditionModel[] conditions = null)
 	{
 		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
 		Trap trap = scene.Instantiate<Trap>();

@@ -25,5 +25,7 @@ public class ChieftainAMDCard09 : ChieftainAMDCardModel
 					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 				}
 			);
+			
+			await GDTask.CompletedTask;
 		};
 }

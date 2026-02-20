@@ -23,28 +23,7 @@ public class IronSnare : CS2Item
 			{
 				await Use(async user =>
 				{
-					List<Hex> possibleHexes = new();
-					possibleHexes.AddRange(
-						RangeHelper.GetHexesInRange(character.Hex, 3)
-							.Where(hex => hex.IsEmpty())
-					);
-					int minCount = 0;
-
-					List<Hex> targetHexes = await AbilityCmd.SelectHexes(
-						character,
-						list => list.AddRange(possibleHexes),
-						minSelectionCount: minCount,
-						maxSelectionCount: 1,
-						autoSelectIfMaxCountIsValidCount: false,
-						hintText:  $"Select a hex to place the trap"
-					);
-					if(targetHexes.Count > 0)
-					{
-						foreach(Hex hex in targetHexes)
-						{
-							await AbilityCmd.CreateTrap(hex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn", damage: 0, conditions: [Conditions.Immobilize]);
-						}
-					}
+					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditionModels: [Conditions.Immobilize], performer: character);
 				});
 			}
 		);
