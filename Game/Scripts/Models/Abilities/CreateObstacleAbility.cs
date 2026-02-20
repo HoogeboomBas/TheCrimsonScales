@@ -89,7 +89,7 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 			}
 			else
 			{
-				list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range).Where(hex => hex.IsFeatureless()));
+				list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range).Where(hex => hex.IsEmpty()));
 			}
 		}, 
 		minSelectionCount: Mandatory ? ObstacleCount : 0,
