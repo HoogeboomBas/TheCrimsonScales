@@ -1,4 +1,6 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using Fractural.Tasks;
 using GTweens.Builders;
 using GTweens.Easings;
 
@@ -20,6 +22,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 	}
 
 	public int Distance { get; private set; }
+	public Action<State, List<Hex>> CustomGetHexes { get; set; }
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -40,6 +43,12 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		public TBuilder WithDistance(int distance)
 		{
 			Obj.Distance = distance;
+			return (TBuilder)this;
+		}
+		
+		public TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes)
+		{
+			Obj.CustomGetHexes = getHexes;
 			return (TBuilder)this;
 		}
 	}
@@ -80,13 +89,16 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 
 		Hex destination = null;
 
+		List<Hex> customHexes = CustomGetHexes == null ? null : [];
+		CustomGetHexes?.Invoke(abilityState, customHexes);
+
 		if(abilityState.Authority is Character)
 		{
 			// Character teleporting
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
-					new TeleportPrompt(abilityState, performer, null,
-						() => $"Select a destination for {Icons.HintText(Icons.Teleport)}{abilityState.Distance}"),
+					new TeleportPrompt(abilityState, performer, null, customHexes: customHexes,
+						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}{abilityState.Distance}"),
 					abilityState.Authority);
 
 			if(!teleportAnswer.Skipped)
