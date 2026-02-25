@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d1jj28ac6o3wk"]
+
+[ext_resource type="Texture2D" uid="uid://gvlixogcaekf" path="res://Content/Classes/Artificer/Summons/ClockworkRavager.png" id="1_jdiv4"]
+
+[resource]
+atlas = ExtResource("1_jdiv4")
+region = Rect2(275, 250, 3000, 3000)

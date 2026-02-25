@@ -12,12 +12,17 @@ public partial class HexObject : Node2D, IReferenced
 	[Export]
 	public bool CannotBeDestroyed { get; private set; }
 
+	[Export]
+	public Node2D EffectParent { get; private set; }
+
 	public Hex Hex { get; private set; }
 	public int RotationIndex { get; private set; }
 
 	public Hex[] Hexes { get; private set; }
 
 	public bool IsDestroyed { get; private set; }
+
+	public List<HexObjectEffectViewBase> Effects { get; } = new List<HexObjectEffectViewBase>();
 
 	public bool Revealed { get; protected set; }
 
@@ -198,6 +203,23 @@ public partial class HexObject : Node2D, IReferenced
 		_hexObjectComponentCache.Add(typeof(T), default);
 
 		return default;
+	}
+
+	public T AddEffectView<T>(HexObjectEffectViewParameters parameters)
+		where T : HexObjectEffectViewBase
+	{
+		HexObjectEffectViewBase effectView = ResourceLoader.Load<PackedScene>(parameters.ScenePath).Instantiate<HexObjectEffectViewBase>();
+		EffectParent.AddChild(effectView);
+		effectView.Init(parameters);
+		Effects.Add(effectView);
+
+		return (T)effectView;
+	}
+
+	public void RemoveEffectView(HexObjectEffectViewBase effectView)
+	{
+		Effects.Remove(effectView);
+		effectView.Destroy();
 	}
 
 	public virtual void AddInfoItemParameters(List<InfoItemParameters> parametersList)

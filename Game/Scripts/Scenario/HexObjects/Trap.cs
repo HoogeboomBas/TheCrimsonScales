@@ -30,6 +30,7 @@ public partial class Trap : OverlayTile
 	{
 		ScaledDamage = false;
 		CustomDamage = damage;
+		UpdateVisuals();
 	}
 
 	public void SetTrapValues(int damage, ConditionModel[] conditionModels)

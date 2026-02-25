@@ -5,7 +5,7 @@ public static class Icons
 {
 	public const string LoseCard = "res://Art/Icons/Abilities/LoseCard.svg";
 	public const string LoseDiscardedCards = "res://Art/Icons/Abilities/LoseDiscardedCards.svg";
-	public const string RecoverCard = "res://Art/Icons/Abilities/LoseCard.svg";
+	public const string RecoverCard = "res://Art/Icons/Abilities/Recover.svg";
 	public const string Attack = "res://Art/Icons/Abilities/Attack.svg";
 	public const string Move = "res://Art/Icons/Abilities/Move.svg";
 	public const string Heal = "res://Art/Icons/Abilities/Heal.svg";
@@ -19,6 +19,7 @@ public static class Icons
 	public const string Pierce = "res://Art/Icons/ConditionsAndEffects/Pierce.svg";
 	public const string Targets = "res://Art/Icons/Abilities/Targets.svg";
 	public const string Jump = "res://Art/Icons/Abilities/Jump.svg";
+	public const string Flying = "res://Art/Icons/Abilities/Flying.svg";
 	public const string Teleport = "res://Art/Icons/Abilities/Teleport.svg";
 	public const string Loot = "res://Art/Icons/Abilities/Loot.svg";
 	public const string Cards = "res://Art/Icons/Other/Cards.svg";

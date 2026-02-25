@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c4eate5ocdiat"]
+
+[ext_resource type="Texture2D" uid="uid://c660q5a1xlg85" path="res://Content/Classes/Artificer/Summons/ClockworkSoldier.png" id="1_b74of"]
+
+[resource]
+atlas = ExtResource("1_b74of")
+region = Rect2(750, 0, 2000, 2000)

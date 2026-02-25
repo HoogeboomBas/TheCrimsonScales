@@ -10,13 +10,24 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 {
 	public class State : AbilityState
 	{
+		public int AbilityDamage { get; set; }
+		public List<ConditionModel> AbilityConditionModels { get; set; } = [];
 		public int AbilityRange { get; set; }
-		public List<ConditionModel> AbilityConditionModels { get; set; }
 		public List<Trap> CreatedTraps { get; set; } = [];
 
 		public void AbilityAdjustRange(int amount)
 		{
 			AbilityRange += amount;
+		}
+
+		public void AdjustAbilityDamage(int amount)
+		{
+			AbilityDamage += amount;
+		}
+
+		public void AddConditions(params ConditionModel[] conditionModels)
+		{
+			AbilityConditionModels.AddRange(conditionModels);
 		}
 	}
 
@@ -114,13 +125,14 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 		abilityState.AbilityRange = Range;
 		abilityState.AbilityConditionModels = ConditionModels.ToList();
+		abilityState.AbilityDamage = Damage;
 	}
 
 	protected override async GDTask Perform(State abilityState)
 	{
 		List<Hex> targetHexes = await AbilityCmd.SelectHexes(abilityState, list =>
 			{
-				if(CustomSelectHexes != null) 
+				if(CustomSelectHexes != null)
 				{
 					CustomSelectHexes(abilityState, list);
 				}
@@ -128,16 +140,17 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 				{
 					list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, abilityState.AbilityRange).Where(hex => hex.IsEmpty()));
 				}
-			}, 
+			},
 			minSelectionCount: Mandatory ? TrapCount : 0,
-			maxSelectionCount: TrapCount, 
-			autoSelectIfMaxCountIsValidCount: false, 
+			maxSelectionCount: TrapCount,
+			autoSelectIfMaxCountIsValidCount: false,
 			hintText: (TrapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {TrapCount} hexes to place the traps");
 		if(targetHexes.Count > 0)
 		{
 			foreach(Hex hex in targetHexes)
 			{
-				abilityState.CreatedTraps.Add(await AbilityCmd.CreateTrap(hex, AssetPath, damage: Damage, conditions: ConditionModels));
+				abilityState.CreatedTraps.Add(await AbilityCmd.CreateTrap(hex, AssetPath, damage: abilityState.AbilityDamage,
+					conditions: abilityState.AbilityConditionModels.ToArray()));
 			}
 
 			abilityState.SetPerformed();

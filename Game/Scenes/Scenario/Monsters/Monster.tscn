@@ -16,9 +16,10 @@ font = ExtResource("8_vf0v3")
 font_size = 55
 font_color = Color(0, 0, 0, 1)
 
-[node name="Monster" type="Node2D"]
+[node name="Monster" type="Node2D" node_paths=PackedStringArray("EffectParent")]
 z_index = 10
 script = ExtResource("7_ihn5g")
+EffectParent = NodePath("Effects")
 
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("2_ed03b")
@@ -39,6 +40,9 @@ scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_yc1j3")
 
 [node name="FigureViewComponent" parent="." instance=ExtResource("7_itux6")]
+
+[node name="Effects" type="Node2D" parent="."]
+position = Vector2(-60, 0)
 
 [node name="MonsterViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("StandeeNumberCircle", "StandeeNumberLabel")]
 z_index = 5

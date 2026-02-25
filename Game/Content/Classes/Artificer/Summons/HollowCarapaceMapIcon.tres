@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ue6tbxv1nj77"]
+
+[ext_resource type="Texture2D" uid="uid://b5beifhhr1pnm" path="res://Content/Classes/Artificer/Summons/HollowCarapace.png" id="1_g0lsh"]
+
+[resource]
+atlas = ExtResource("1_g0lsh")
+region = Rect2(120, 200, 3000, 3000)

@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://yy08nv684sxs" path="res://Art/Icons/OverlayTiles/door.png" id="2_vb1s5"]
 [ext_resource type="Texture2D" uid="uid://wimwvbwjm6b5" path="res://Art/Icons/Other/Lock.svg" id="3_qjuhr"]
 
-[node name="Door1H" node_paths=PackedStringArray("_lock") instance=ExtResource("1_c5qgx")]
+[node name="Door1H" node_paths=PackedStringArray("_lock", "EffectParent") instance=ExtResource("1_c5qgx")]
 script = ExtResource("2_t8aog")
 _lock = NodePath("Lock")
+EffectParent = NodePath("Effects")
 
 [node name="Lock" type="Sprite2D" parent="." index="2"]
 visible = false
@@ -17,8 +18,13 @@ texture = ExtResource("3_qjuhr")
 [node name="Outline" parent="." index="3"]
 self_modulate = Color(0.2, 0.305882, 0.635294, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="7"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.2, 0.305882, 0.635294, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.31)

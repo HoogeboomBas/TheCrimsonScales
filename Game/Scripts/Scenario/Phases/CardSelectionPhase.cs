@@ -389,8 +389,9 @@ public class CardSelectionPhase : ScenarioPhase
 		}
 	}
 
-	private void OnDestroyed(Figure figure)
+	private async GDTask OnDestroyed(Figure figure)
 	{
+		await GDTask.CompletedTask;
 		if(_selectedCharacter == figure)
 		{
 			foreach(Character otherCharacter in GameController.Instance.CharacterManager.Characters)

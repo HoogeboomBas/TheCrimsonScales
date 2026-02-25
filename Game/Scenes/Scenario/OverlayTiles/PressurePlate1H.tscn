@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://d1n3ufjp8ngwq" path="res://Art/OverlayTiles/PressurePlate1H.png" id="3_g8dx2"]
 [ext_resource type="Texture2D" uid="uid://r65lmrlpsbqy" path="res://Art/Icons/OverlayTiles/PressurePlateIcon.svg" id="4_svtpc"]
 
-[node name="PressurePlate1H" instance=ExtResource("1_8xpqw")]
+[node name="PressurePlate1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_8xpqw")]
 script = ExtResource("2_ttwjo")
+EffectParent = NodePath("Effects")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)
@@ -21,8 +22,13 @@ texture = ExtResource("3_g8dx2")
 [node name="Outline" parent="." index="3"]
 self_modulate = Color(0.529412, 0.529412, 0.529412, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="7"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.529412, 0.529412, 0.529412, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.38)

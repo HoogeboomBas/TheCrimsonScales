@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cknyv5crapt1" path="res://Art/OverlayTiles/Boulder 1h.png" id="2_0to1f"]
 [ext_resource type="Script" uid="uid://cf7mejn5kak65" path="res://Scripts/Scenario/HexObjects/Boulder1HObstacle.cs" id="2_i1tlf"]
 
-[node name="Boulder1H" instance=ExtResource("1_0to1f")]
-script = ExtResource("2_i1tlf")
+[node name="Boulder1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_0to1f")]
+EffectParent = NodePath("Effects")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)

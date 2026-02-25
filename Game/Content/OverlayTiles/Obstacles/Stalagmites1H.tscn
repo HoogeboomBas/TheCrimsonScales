@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_43i58"]
 [ext_resource type="Texture2D" uid="uid://ckby2aibpun51" path="res://Art/OverlayTiles/Stalagmites 1h.png" id="2_pn1dq"]
 
-[node name="Stalagmites1H" instance=ExtResource("1_43i58")]
+[node name="Stalagmites1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_43i58")]
+EffectParent = NodePath("Effects")
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_pn1dq")

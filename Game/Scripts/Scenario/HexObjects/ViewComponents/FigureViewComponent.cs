@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 public partial class FigureViewComponent : HexObjectViewComponent
 {
@@ -34,9 +34,6 @@ public partial class FigureViewComponent : HexObjectViewComponent
 
 	[Export]
 	public Node2D Flying { get; private set; }
-
-	[Export]
-	public Node2D EffectParent { get; private set; }
 
 	[Export]
 	public GpuParticles2D TurnStartPS { get; private set; }

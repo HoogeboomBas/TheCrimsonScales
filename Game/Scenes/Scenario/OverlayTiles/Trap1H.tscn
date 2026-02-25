@@ -13,9 +13,10 @@
 font = ExtResource("6_hc0ff")
 font_size = 35
 
-[node name="Trap1H" instance=ExtResource("1_2sot3")]
+[node name="Trap1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_2sot3")]
 script = ExtResource("2_uu8d5")
 ScaledDamage = true
+EffectParent = NodePath("Effects")
 
 [node name="Sprite" parent="." index="1"]
 scale = Vector2(0.55, 0.55)
@@ -64,13 +65,18 @@ vertical_alignment = 1
 [node name="Conditions" type="Node2D" parent="TrapViewComponent" index="1"]
 position = Vector2(1, -50)
 
+[node name="Hex" parent="." index="6"]
+visible = false
+
+[node name="OverlayTileViewComponent" parent="." index="7"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.38)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_to431")
-
-[node name="Hex" parent="." index="6"]
-visible = false

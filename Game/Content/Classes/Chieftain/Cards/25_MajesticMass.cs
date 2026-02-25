@@ -17,7 +17,7 @@ public class MajesticMass : ChieftainCardModel<MajesticMass.CardTop, MajesticMas
 				.WithTexturePath("res://Content/Classes/Chieftain/Summons/war_elephant_AI.png")
 				.WithHealth(8, new SummonHealthSquare(this, new Vector2(0.4389327f, 0.18090755f)))
 				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.6486036f, 0.18090755f)))
-				.WithAttack(3, new SummonAttackSquare(this, new Vector2(0.4389327f, 0.2569076f)))
+				.WithAttack(3, new SummonAttackSquare(this, new Vector2(0.4389327f, 0.2569076f), EnhancementCostType.MultiTarget))
 				.WithTraits(
 					new DestroyAdjacentSingleHexObstacleAfterAttackTrait(),
 					new AOEAttackTrait(new AOEPattern(

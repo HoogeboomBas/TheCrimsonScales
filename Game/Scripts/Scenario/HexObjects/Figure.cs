@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
@@ -27,7 +26,6 @@ public abstract partial class Figure : HexObject, IActionSource
 	public int Health { get; private set; }
 	public int MaxHealth { get; private set; }
 
-	public List<HexObjectEffectViewBase> Effects { get; } = new List<HexObjectEffectViewBase>();
 	public List<Condition> Conditions { get; } = new List<Condition>();
 	public List<FigureTrait> Traits { get; } = new List<FigureTrait>();
 
@@ -58,7 +56,7 @@ public abstract partial class Figure : HexObject, IActionSource
 	public event Action<Figure> MaxHealthChangedEvent;
 	public event Action<Figure> InitiativeChangedEvent;
 	public event Action<Figure> ConditionsChangedEvent;
-	public event Action<Figure> DestroyedEvent;
+	public event Func<Figure, GDTask> DestroyedEvent;
 
 	public override void _Ready()
 	{
@@ -121,7 +119,10 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		GameController.Instance.Map.DeregisterFigure(this);
 
-		DestroyedEvent?.Invoke(this);
+		if(DestroyedEvent != null)
+		{
+			await DestroyedEvent.Invoke(this);
+		}
 
 		ScenarioCheckEvents.ShieldCheckEvent.SubscribersChangedEvent -= OnShieldSubscriptionsChanged;
 		ScenarioCheckEvents.RetaliateCheckEvent.SubscribersChangedEvent -= OnRetaliateSubscriptionsChanged;
@@ -363,24 +364,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		Traits.Add(mutableTrait);
 		await mutableTrait.Activate(this);
 	}
-
-	public T AddEffectView<T>(HexObjectEffectViewParameters parameters)
-		where T : HexObjectEffectViewBase
-	{
-		HexObjectEffectViewBase effectView = ResourceLoader.Load<PackedScene>(parameters.ScenePath).Instantiate<HexObjectEffectViewBase>();
-		_figureViewComponent.EffectParent.AddChild(effectView);
-		effectView.Init(parameters);
-		Effects.Add(effectView);
-
-		return (T)effectView;
-	}
-
-	public void RemoveEffectView(HexObjectEffectViewBase effectView)
-	{
-		Effects.Remove(effectView);
-		effectView.Destroy();
-	}
-
+	
 	public void SetAlignment(Alignment alignment)
 	{
 		Alignment = alignment;
@@ -590,7 +574,7 @@ public abstract partial class Figure : HexObject, IActionSource
 			float progress = (index + 1f) / (effectCount + 1);
 			float posY = Mathf.Lerp(-maxOffset, maxOffset, progress);
 			effect.Move(new Vector2(0f, posY));
-			_figureViewComponent.EffectParent.MoveChild(effect, index);
+			EffectParent.MoveChild(effect, index);
 
 			index++;
 		}

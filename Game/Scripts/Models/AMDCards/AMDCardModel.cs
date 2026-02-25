@@ -129,4 +129,14 @@ public abstract class AMDCardModel : AbstractModel
 
 		return returnValue;
 	}
+
+	protected Character GetCharacter(AttackAbility.State state)
+	{
+		return state.Performer switch
+		{
+			Character performer => performer,
+			Summon summon => summon.CharacterOwner,
+			_ => null
+		};
+	}
 }

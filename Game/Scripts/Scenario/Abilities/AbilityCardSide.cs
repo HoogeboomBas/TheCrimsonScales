@@ -22,7 +22,7 @@ public class AbilityCardSide : IActionSource
 
 		CardState resultingState = CardState.Discarded;
 
-		if(!startedParameters.ForgoneAction)
+		if(!startedParameters.ForgoneAction && (Model.OnCardSideStarted == null || await Model.OnCardSideStarted(performer)))
 		{
 			ActionState actionState = new ActionState(this, performer, Model.Abilities.Select(ability => ability.Ability).ToList(), //null, 
 				onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);

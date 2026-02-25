@@ -154,9 +154,9 @@ public class BombardPerks
 		public override string GetNonAMDDescription(RichTextParameters richTextParameters) =>
 			$"Whenever you short rest, you may gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), richTextParameters, true)} to immediately resolve any of your active Projectile {Icons.Inline(ModelDB.Class<BombardModel>().IconPath, richTextParameters)} abilities.";
 
-		public override async GDTask OnScenarioSetupPhaseCompleted()
+		public override async GDTask OnScenarioSetupPhaseCompleted(Character character)
 		{
-			await base.OnScenarioSetupPhaseCompleted();
+			await base.OnScenarioSetupPhaseCompleted(character);
 
 			//TODO: Implement
 		}

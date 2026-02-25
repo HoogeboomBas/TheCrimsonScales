@@ -117,4 +117,9 @@ public class ControlAbility : TargetedAbility<ControlAbility.State, SingleTarget
 		abilityState.ControlAbilityActionStates.Add(actionState);
 		await actionState.Perform();
 	}
+
+	protected override string DefaultTargetingHintText(State abilityState)
+	{
+		return "Select a target for the control ability";
+	}
 }

@@ -10,6 +10,9 @@ public partial class TrapInfoItem : InfoItem<TrapInfoItem.Parameters>
 	[Export]
 	private Control _tileParent;
 
+	[Export]
+	private InfoExtraEffectsView _infoExtraEffectsView;
+
 	public override void Init(Parameters parameters)
 	{
 		base.Init(parameters);
@@ -23,5 +26,28 @@ public partial class TrapInfoItem : InfoItem<TrapInfoItem.Parameters>
 		trapClone.CustomDamage = trap.CustomDamage;
 		trapClone.ConditionModels = trap.ConditionModels;
 		trapClone.UpdateVisuals();
+
+		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.SubscribersChangedEvent += OnGenericInfoItemExtraEffectsSubscriptionsChanged;
+
+		OnGenericInfoItemExtraEffectsSubscriptionsChanged();
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+
+		if(GameController.Instance != null)
+		{
+			ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.SubscribersChangedEvent -= OnGenericInfoItemExtraEffectsSubscriptionsChanged;
+		}
+	}
+
+	private void OnGenericInfoItemExtraEffectsSubscriptionsChanged()
+	{
+		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheck.Parameters genericInfoItemExtraEffectsCheckParameters =
+			ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Fire(
+				new ScenarioCheckEvents.GenericInfoItemExtraEffectsCheck.Parameters(_parameters.HexObject));
+
+		_infoExtraEffectsView.Update(genericInfoItemExtraEffectsCheckParameters.InfoExtraEffectsParameters);
 	}
 }

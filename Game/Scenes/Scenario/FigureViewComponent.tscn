@@ -47,7 +47,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_mivbr")
 color_ramp = SubResource("GradientTexture1D_upbk7")
 
-[node name="FigureViewComponent" type="Node2D" node_paths=PackedStringArray("Health", "HealthProgressBar", "HealthLabel", "Shield", "ShieldIcon", "CrackedShieldIcon", "ShieldLabel", "Retaliate", "RetaliateLabel", "Flying", "EffectParent", "TurnStartPS", "ActivePS")]
+[node name="FigureViewComponent" type="Node2D" node_paths=PackedStringArray("Health", "HealthProgressBar", "HealthLabel", "Shield", "ShieldIcon", "CrackedShieldIcon", "ShieldLabel", "Retaliate", "RetaliateLabel", "Flying", "TurnStartPS", "ActivePS")]
 z_index = 10
 script = ExtResource("1_akne4")
 Health = NodePath("Health")
@@ -61,7 +61,6 @@ ShieldLabel = NodePath("Shield/Label")
 Retaliate = NodePath("Retaliate")
 RetaliateLabel = NodePath("Retaliate/Label")
 Flying = NodePath("Flying")
-EffectParent = NodePath("Effects")
 TurnStartPS = NodePath("TurnStartPS")
 ActivePS = NodePath("FigureActiveParticleSystem")
 
@@ -178,9 +177,6 @@ position = Vector2(7, -62)
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("7_etyjo")
 flip_h = true
-
-[node name="Effects" type="Node2D" parent="."]
-position = Vector2(-60, 0)
 
 [node name="TurnStartPS" type="GPUParticles2D" parent="."]
 z_index = 100

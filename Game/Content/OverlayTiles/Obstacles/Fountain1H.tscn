@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_w5fa2"]
 [ext_resource type="Texture2D" uid="uid://co1h1ud4hvi6b" path="res://Art/OverlayTiles/Fountain 1h.png" id="2_w5fa2"]
 
-[node name="Fountain1H" instance=ExtResource("1_w5fa2")]
+[node name="Fountain1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_w5fa2")]
+EffectParent = NodePath("Effects")
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_w5fa2")

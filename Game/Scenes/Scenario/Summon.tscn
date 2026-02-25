@@ -16,9 +16,10 @@ font = ExtResource("8_8yasv")
 font_size = 55
 font_color = Color(0, 0, 0, 1)
 
-[node name="Summon" type="Node2D"]
+[node name="Summon" type="Node2D" node_paths=PackedStringArray("EffectParent")]
 z_index = 10
 script = ExtResource("1_qggrl")
+EffectParent = NodePath("Effects")
 
 [node name="SnapToHexGrid" type="Node" parent="."]
 script = ExtResource("2_awojk")
@@ -68,3 +69,6 @@ text = "8"
 label_settings = SubResource("LabelSettings_mq1of")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Effects" type="Node2D" parent="."]
+position = Vector2(-60, 0)

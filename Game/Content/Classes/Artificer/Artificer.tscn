@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjehnq606rj1p"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
+[ext_resource type="Script" uid="uid://cietevwowq7sc" path="res://Content/Classes/Artificer/Artificer.cs" id="2_pbwp1"]
+[ext_resource type="Texture2D" uid="uid://c81yrpljk10uc" path="res://Content/Classes/Artificer/Artwork.jpg" id="3_pbwp1"]
+[ext_resource type="Texture2D" uid="uid://cfdq72ixywic7" path="res://Content/Classes/Artificer/Animation.jpg" id="4_qn0hc"]
+[ext_resource type="PackedScene" uid="uid://djkbotukpnxk2" path="res://Content/Classes/Artificer/ScrapTokenIndicator.tscn" id="5_qn0hc"]
+[ext_resource type="Script" uid="uid://cdubnybc21gsb" path="res://Content/Classes/Artificer/ScrapTokenIndicator.cs" id="6_blpuy"]
+
+[node name="Artificer" node_paths=PackedStringArray("_scrapTokenIndicator") instance=ExtResource("1_q7cyt")]
+script = ExtResource("2_pbwp1")
+_scrapTokenIndicator = NodePath("ScrapTokenIndicator")
+
+[node name="Sprite2D" parent="Mask" index="0"]
+position = Vector2(0, 19.7531)
+texture = ExtResource("3_pbwp1")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+texture = ExtResource("4_qn0hc")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.580392, 0.858824, 0.909804, 1)
+
+[node name="ScrapTokenIndicator" parent="." index="4" instance=ExtResource("5_qn0hc")]
+position = Vector2(59, -34)
+scale = Vector2(1, 1)
+script = ExtResource("6_blpuy")

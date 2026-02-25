@@ -10,8 +10,14 @@ script = ExtResource("3_hjcv4")
 [node name="Outline" parent="." index="2"]
 self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="6" node_paths=PackedStringArray("EffectParent")]
+position = Vector2(0, 0)
+EffectParent = NodePath("../Effects")
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.235294, 0.45098, 0.192157, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.313726)

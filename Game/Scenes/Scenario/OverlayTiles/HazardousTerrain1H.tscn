@@ -4,14 +4,20 @@
 [ext_resource type="Texture2D" uid="uid://drlioe1w3t5ny" path="res://Art/Icons/OverlayTiles/flamer.png" id="2_1rfrt"]
 [ext_resource type="Script" uid="uid://buptxkufbhl0w" path="res://Scripts/Scenario/HexObjects/HazardousTerrain.cs" id="3_yrfq0"]
 
-[node name="HazardousTerrain1H" instance=ExtResource("1_7dp8f")]
+[node name="HazardousTerrain1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_7dp8f")]
 script = ExtResource("3_yrfq0")
+EffectParent = NodePath("Effects")
 
 [node name="Outline" parent="." index="2"]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="6"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.38)

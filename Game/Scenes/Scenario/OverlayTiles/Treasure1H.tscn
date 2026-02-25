@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://u7xtn46uldjj" path="res://Art/OverlayTiles/Treasure.png" id="4_aurhd"]
 [ext_resource type="Texture2D" uid="uid://dvtigqr8nxucq" path="res://Art/Icons/OverlayTiles/TreasureIcon.svg" id="5_bjgdx"]
 
-[node name="Treasure1H" instance=ExtResource("1_1j3lq")]
+[node name="Treasure1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_1j3lq")]
 script = ExtResource("2_1j3lq")
+EffectParent = NodePath("Effects")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)
@@ -22,8 +23,13 @@ texture = ExtResource("4_aurhd")
 [node name="Outline" parent="." index="3"]
 self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="7"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.843137, 0.67451, 0.0705882, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.662745)

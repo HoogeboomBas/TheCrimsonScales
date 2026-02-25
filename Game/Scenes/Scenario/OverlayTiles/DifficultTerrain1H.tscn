@@ -3,14 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_l4why"]
 [ext_resource type="Script" uid="uid://d17gymqihxnbp" path="res://Scripts/Scenario/HexObjects/DifficultTerrain.cs" id="2_hjxxo"]
 
-[node name="DifficultTerrain1H" instance=ExtResource("1_l4why")]
+[node name="DifficultTerrain1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_l4why")]
 script = ExtResource("2_hjxxo")
+EffectParent = NodePath("Effects")
 
 [node name="Outline" parent="." index="2"]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 
+[node name="OverlayTileViewComponent" parent="." index="6"]
+position = Vector2(0, 0)
+
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
+z_index = 0
+script = null
 
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.31)

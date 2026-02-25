@@ -1,4 +1,4 @@
-public class MajorManaPotion : Prosperity5Item
+public class MajorManaPotion : Prosperity6Item
 {
 	public override string Name => "Major Mana Potion";
 	public override int ItemNumber => 48;

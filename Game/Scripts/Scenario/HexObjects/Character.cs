@@ -623,7 +623,7 @@ public partial class Character : Figure
 			PerkModel perkModel = ClassModel.Perks[i];
 			if(SavedCharacter.GetPerkAcquired(i))
 			{
-				await perkModel.OnScenarioSetupPhaseCompleted();
+				await perkModel.OnScenarioSetupPhaseCompleted(this);
 			}
 		}
 

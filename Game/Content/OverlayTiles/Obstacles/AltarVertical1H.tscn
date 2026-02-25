@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_bv34q"]
 [ext_resource type="Texture2D" uid="uid://cddsfqs4oy6br" path="res://Art/OverlayTiles/Altar 1h.png" id="2_bv34q"]
 
-[node name="AltarHorizontal1H" instance=ExtResource("1_bv34q")]
+[node name="AltarHorizontal1H" node_paths=PackedStringArray("EffectParent") instance=ExtResource("1_bv34q")]
+EffectParent = NodePath("Effects")
 
 [node name="Shadow" type="Sprite2D" parent="." index="1"]
 self_modulate = Color(0, 0, 0, 0.439216)

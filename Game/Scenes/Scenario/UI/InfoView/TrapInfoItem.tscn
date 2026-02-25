@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpwgh7iu8k0pd"]
+[gd_scene load_steps=4 format=3 uid="uid://cpwgh7iu8k0pd"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_hgpsa"]
 [ext_resource type="Script" uid="uid://nqwhomhha7xx" path="res://Scripts/Scenario/UI/InfoView/TrapInfoItem.cs" id="1_txlxe"]
+[ext_resource type="PackedScene" uid="uid://bmmrjlw6yb3gg" path="res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoExtraEffectsView.tscn" id="3_3dh0g"]
 
-[node name="TrapInfoItem" node_paths=PackedStringArray("_tileParent") instance=ExtResource("1_hgpsa")]
+[node name="TrapInfoItem" node_paths=PackedStringArray("_tileParent", "_infoExtraEffectsView") instance=ExtResource("1_hgpsa")]
 script = ExtResource("1_txlxe")
 _tileParent = NodePath("MarginContainer/Content/Container/TileAnchor")
+_infoExtraEffectsView = NodePath("MarginContainer/Content/InfoExtraEffectsView")
 
 [node name="Label" parent="MarginContainer/Content/LabelContainer" index="0"]
 text = "Trap"
@@ -26,3 +28,6 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 mouse_filter = 2
+
+[node name="InfoExtraEffectsView" parent="MarginContainer/Content" index="2" instance=ExtResource("3_3dh0g")]
+layout_mode = 2

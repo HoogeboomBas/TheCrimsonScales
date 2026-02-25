@@ -100,7 +100,7 @@ public static class AbilityCmd
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
 
-		if(sufferDamageParameters.DamagePrevented)
+		if(!sufferDamageParameters.WouldSufferDamage)
 		{
 			return 0;
 		}
@@ -299,10 +299,10 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, string effectText)
+	public static async GDTask AddCharacterToken(AbilityState abilityState, HexObject target, string effectText)
 	{
-		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(abilityState, target,
-			parameters => parameters.Figure == target,
+		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Subscribe(abilityState, target,
+			parameters => parameters.HexObject == target,
 			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(effectText))
 		);
 
@@ -314,10 +314,10 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask AddCharacterToken(Character character, Figure target, string effectText)
+	public static async GDTask AddCharacterToken(Character character, HexObject target, string effectText)
 	{
-		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(character, target,
-			parameters => parameters.Figure == target,
+		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Subscribe(character, target,
+			parameters => parameters.HexObject == target,
 			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(effectText))
 		);
 
@@ -326,9 +326,9 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask RemoveCharacterToken(AbilityState abilityState, Figure target)
+	public static async GDTask RemoveCharacterToken(AbilityState abilityState, HexObject target)
 	{
-		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(abilityState, target);
+		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Unsubscribe(abilityState, target);
 
 		foreach(HexObjectEffectViewBase effect in target.Effects)
 		{
@@ -927,7 +927,8 @@ public static class AbilityCmd
 		return selectedItem;
 	}
 
-	public static async GDTask<ItemModel> SelectItem(Figure authority, List<ItemModel> items, string hintText = "Select an item")
+	public static async GDTask<ItemModel> SelectItem(Figure authority, List<ItemModel> items, EffectType effectType = EffectType.SelectableMandatory,
+		string hintText = "Select an item")
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
 			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
@@ -1352,6 +1353,22 @@ public static class AbilityCmd
 		// 		await GDTask.CompletedTask;
 		// 	}
 		// ));
+	}
+
+	public static AttackAbility.AttackBuilder SummonFixedAttackRangePlusX(int attackValue, int plusRange = 0)
+	{
+		return AttackAbility.Builder()
+			.WithDamage(attackValue)
+			.WithOnAbilityStarted(async state =>
+			{
+				Summon summon = (Summon)state.Performer;
+
+				int range = summon.Stats.Range ?? 1;
+				state.AbilityAdjustRange(range - 1 + plusRange);
+				state.AbilitySetRangeType(range == 1 ? RangeType.Melee : RangeType.Range);
+
+				await GDTask.CompletedTask;
+			});
 	}
 
 	public static async GDTask<bool> CurseMonsters()

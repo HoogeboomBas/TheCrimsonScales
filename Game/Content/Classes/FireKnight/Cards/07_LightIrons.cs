@@ -34,7 +34,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 
 					while(remainingItemModels.Count > 0)
 					{
-						ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
+						ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, hintText: "Select an item to give");
 
 						if(itemModel == null)
 						{

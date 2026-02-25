@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://djkbotukpnxk2"]
+
+[ext_resource type="Script" uid="uid://cdubnybc21gsb" path="res://Content/Classes/Artificer/ScrapTokenIndicator.cs" id="1_epnjg"]
+[ext_resource type="Texture2D" uid="uid://cltwgrpmsn1rc" path="res://Content/Classes/Artificer/ScrapToken.png" id="2_vqgqt"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_epnjg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_11iqu"]
+font = ExtResource("3_epnjg")
+font_size = 60
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ScrapTokenIndicator" type="Node2D" node_paths=PackedStringArray("_stackLabel")]
+z_index = 11
+scale = Vector2(0.92, 0.92)
+script = ExtResource("1_epnjg")
+_stackLabel = NodePath("StackLabel")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.370632, 0.370632)
+texture = ExtResource("2_vqgqt")
+
+[node name="StackLabel" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 78.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(20, -39)
+text = "4"
+label_settings = SubResource("LabelSettings_11iqu")
+horizontal_alignment = 1
+vertical_alignment = 1

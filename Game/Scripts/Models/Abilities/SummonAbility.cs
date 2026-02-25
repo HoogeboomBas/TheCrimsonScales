@@ -56,7 +56,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 	public int? Move { get; private set; }
 	public int? Attack { get; private set; }
 	public int? Range { get; private set; }
-	public FigureTrait[] Traits { get; private set; }
+	public FigureTrait[] Traits { get; private set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
