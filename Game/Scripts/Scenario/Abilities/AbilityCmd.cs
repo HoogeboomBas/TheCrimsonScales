@@ -512,10 +512,10 @@ public static class AbilityCmd
 		return createdTraps;
 	}
 
-	private static async GDTask<Trap> PlaceTrap(Hex hex, string assetPath = "res://Content/OverlayTiles/Traps/BearTrap1H.tscn",
+	private static async GDTask<Trap> PlaceTrap(Hex hex, string assetPath = null,
 		int damage = 0, ConditionModel[] conditions = null)
 	{
-		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
+		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath ?? "res://Content/OverlayTiles/Traps/BearTrap1H.tscn");
 
 		return await CreateOverlayTile<Trap>(hex, scene, trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
 	}
