@@ -118,7 +118,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	{
 		List<Trap> createdTraps = await AbilityCmd.CreateTraps(damage: Damage, range: Range, conditions: ConditionModels, 
 			trapCount: TrapCount, authority: abilityState.Authority, performer: abilityState.Performer,
-			customSelectHexes: list => CustomSelectHexes(abilityState, list), mandatory: Mandatory, assetPath: AssetPath);
+			customSelectHexes: CustomSelectHexes != null ? (list => CustomSelectHexes(abilityState, list)) : null, mandatory: Mandatory, assetPath: AssetPath);
 
 		if(createdTraps.Count > 0)
 		{
