@@ -48,7 +48,7 @@ public partial class FigureViewComponent : HexObjectViewComponent
 	{
 		base.OnHexesChanged(hexObject);
 
-		if(HexObject.GetParentOfType<Figure>() != null)
+		if(HexObject.GetParent().GetParentOfType<Figure>() != null)
 		{
 			// This figure is following another figure, it does not need to adjust the view position
 			return;

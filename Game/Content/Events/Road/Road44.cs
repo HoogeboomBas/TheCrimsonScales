@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Road44 : RoadEventModel<Road44.ChoiceA, Road44.ChoiceB>
 {
@@ -26,32 +28,9 @@ public class Road44 : RoadEventModel<Road44.ChoiceA, Road44.ChoiceB>
 				async () =>
 				{
 					Character user = GameController.Instance.CharacterManager.Characters[0];
-					Hex targetHex = await AbilityCmd.SelectHex(
-						user,
-						list =>
-						{
-							foreach(Figure figure in GameController.Instance.Map.Figures)
-							{
-								if(user.EnemiesWith(figure))
-								{
-									foreach(Hex adjacentHex in RangeHelper.GetHexesInRange(user.Hex, 1))
-									{
-										if(adjacentHex.IsEmpty())
-										{
-											list.AddIfNew(adjacentHex);
-										}
-									}
-								}
-							}
-						},
-						hintText: $"Select a hex to place the trap"
-					);
 
-					if(targetHex != null)
-					{
-						await AbilityCmd.CreateTrap(targetHex, "res://Content/OverlayTiles/Traps/SpikePitTrap1H.tscn", damage: 4,
-							conditions: [Conditions.Wound1]);
-					}
+					await AbilityCmd.CreateTraps(damage: 4, conditions: [Conditions.Wound1], performer: user,
+						customSelectHexes: list => CustomSelectHexes(list, user), assetPath: "res://Content/Classes/Chainguard/Traps/ChainguardWoodSpikeTrap.tscn");
 				},
 				color =>
 					$"At the start of the next scenario, place one {Icons.Inline(Icons.Damage, color: color)}4, {Icons.Inline(Icons.GetCondition(Conditions.Wound1), color: color)} trap in an empty hex adjacent to any enemy."
@@ -74,36 +53,24 @@ public class Road44 : RoadEventModel<Road44.ChoiceA, Road44.ChoiceB>
 				async () =>
 				{
 					Character user = GameController.Instance.CharacterManager.Characters[0];
-					Hex targetHex = await AbilityCmd.SelectHex(
-						user,
-						list =>
-						{
-							foreach(Figure figure in GameController.Instance.Map.Figures)
-							{
-								if(user.EnemiesWith(figure))
-								{
-									foreach(Hex adjacentHex in RangeHelper.GetHexesInRange(user.Hex, 1))
-									{
-										if(adjacentHex.IsEmpty())
-										{
-											list.AddIfNew(adjacentHex);
-										}
-									}
-								}
-							}
-						},
-						hintText: $"Select a hex to place the trap"
-					);
 
-					if(targetHex != null)
-					{
-						await AbilityCmd.CreateTrap(targetHex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn",
-							conditions: [Conditions.Stun]);
-					}
+					await AbilityCmd.CreateTraps(damage: 0, conditions: [Conditions.Stun], performer: user,
+						customSelectHexes: list => CustomSelectHexes(list, user), assetPath: "res://Content/Classes/Chainguard/Traps/ChainguardRopeTrap.tscn");
 				},
 				color =>
 					$"At the start of the next scenario, place one {Icons.Inline(Icons.GetCondition(Conditions.Stun), color: color)} trap in an empty hex adjacent to any enemy."
 			)
 		];
+	}
+
+	private static void CustomSelectHexes(List<Hex> list, Character user)
+	{
+		foreach(Figure figure in GameController.Instance.Map.Figures.Where(figure => user.EnemiesWith(figure)))
+		{
+			foreach(Hex adjacentHex in RangeHelper.GetHexesInRange(user.Hex, 1).Where(hex => hex.IsEmpty()))
+			{
+				list.AddIfNew(adjacentHex);
+			}
+		}
 	}
 }

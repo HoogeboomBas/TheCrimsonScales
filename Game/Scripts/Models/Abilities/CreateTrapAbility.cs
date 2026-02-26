@@ -23,7 +23,7 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	public int Range { get; private set; } = 1;
 	public int Damage { get; private set; }
 	public int TrapCount { get; private set; } = 1;
-	public string AssetPath = "res://Content/OverlayTiles/Traps/BearTrap1H.tscn";
+	public string AssetPath { get; private set; } = null;
 
 	public ConditionModel[] ConditionModels { get; private set; } = [];
 	public Action<State, List<Hex>> CustomSelectHexes { get; private set; } = null;
@@ -106,8 +106,6 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 		return new CreateTrapBuilder();
 	}
 
-	public CreateTrapAbility() { }
-
 	protected override void InitializeState(State abilityState)
 	{
 		base.InitializeState(abilityState);
@@ -118,28 +116,12 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		List<Hex> targetHexes = await AbilityCmd.SelectHexes(abilityState, list =>
-			{
-				if(CustomSelectHexes != null) 
-				{
-					CustomSelectHexes(abilityState, list);
-				}
-				else
-				{
-					list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, abilityState.AbilityRange).Where(hex => hex.IsEmpty()));
-				}
-			}, 
-			minSelectionCount: Mandatory ? TrapCount : 0,
-			maxSelectionCount: TrapCount, 
-			autoSelectIfMaxCountIsValidCount: false, 
-			hintText: (TrapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {TrapCount} hexes to place the traps");
-		if(targetHexes.Count > 0)
-		{
-			foreach(Hex hex in targetHexes)
-			{
-				abilityState.CreatedTraps.Add(await AbilityCmd.CreateTrap(hex, AssetPath, damage: Damage, conditions: ConditionModels));
-			}
+		List<Trap> createdTraps = await AbilityCmd.CreateTraps(damage: Damage, range: Range, conditions: ConditionModels, 
+			trapCount: TrapCount, authority: abilityState.Authority, performer: abilityState.Performer,
+			customSelectHexes: list => CustomSelectHexes(abilityState, list), mandatory: Mandatory, assetPath: AssetPath);
 
+		if(createdTraps.Count > 0)
+		{
 			abilityState.SetPerformed();
 		}
 	}
