@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://do6aw83k04kmk"]
+[gd_scene load_steps=20 format=3 uid="uid://do6aw83k04kmk"]
 
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_yauc0"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_40csl"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://nm1hasddlxs" path="res://Content/OverlayTiles/Corridors/Earth1H.tscn" id="7_hqyr0"]
 [ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="8_512yc"]
 [ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="9_56l1d"]
-[ext_resource type="PackedScene" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="9_fip2i"]
+[ext_resource type="PackedScene" uid="uid://66brdtbbrdoj" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="9_fip2i"]
 [ext_resource type="PackedScene" uid="uid://b8xrmf63cm4ob" path="res://Content/OverlayTiles/DifficultTerrain/StairsVertical1H.tscn" id="9_gpo4t"]
 [ext_resource type="PackedScene" uid="uid://uprdjwqfqyfh" path="res://Content/MapTiles/C1a.tscn" id="12_1cc0o"]
 [ext_resource type="PackedScene" uid="uid://c55i4i3yqfdx6" path="res://Scenes/Scenario/OverlayTiles/Treasure1H.tscn" id="13_i6374"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://bltkl32a4va15" path="res://Content/MapTiles/B3b.tscn" id="15_5apbb"]
 [ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="15_xsvke"]
 [ext_resource type="PackedScene" uid="uid://0pbco1c20kwb" path="res://Content/OverlayTiles/Doors/WoodDoorHorizontal1H.tscn" id="16_nvrb3"]
-[ext_resource type="Texture2D" uid="uid://cy8m2m242yydo" path="res://Art/Markers/1.png" id="18_4cl7a"]
 [ext_resource type="PackedScene" uid="uid://bfuecjbrotkyw" path="res://Content/OverlayTiles/Doors/WoodDoorVertical1H.tscn" id="18_5oilc"]
 
 [sub_resource type="Resource" id="Resource_65rt5"]
@@ -215,13 +214,9 @@ position = Vector2(109.119, -945)
 _startsLocked = true
 
 [node name="Marker" parent="Map/Doors/WoodDoorHorizontal1H" index="7" instance=ExtResource("15_xsvke")]
-MarkerType = 25
 
 [node name="Visual" parent="Map/Doors/WoodDoorHorizontal1H/Marker" index="1"]
 position = Vector2(-60, -36)
-
-[node name="Sprite2D" parent="Map/Doors/WoodDoorHorizontal1H/Marker/Visual" index="0"]
-texture = ExtResource("18_4cl7a")
 
 [node name="WoodDoorVertical1H" parent="Map/Doors" index="1" instance=ExtResource("18_5oilc")]
 position = Vector2(-327.358, 567)
