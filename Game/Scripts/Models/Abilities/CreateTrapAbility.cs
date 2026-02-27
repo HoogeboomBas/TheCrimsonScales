@@ -11,7 +11,6 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 	public class State : AbilityState
 	{
 		public int AbilityRange { get; set; }
-		public List<ConditionModel> AbilityConditionModels { get; set; }
 		public List<Trap> CreatedTraps { get; set; } = [];
 
 		public void AbilityAdjustRange(int amount)
@@ -111,16 +110,16 @@ public class CreateTrapAbility : Ability<CreateTrapAbility.State>
 		base.InitializeState(abilityState);
 
 		abilityState.AbilityRange = Range;
-		abilityState.AbilityConditionModels = ConditionModels.ToList();
 	}
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		List<Trap> createdTraps = await AbilityCmd.CreateTraps(damage: Damage, range: Range, conditions: ConditionModels, 
-			trapCount: TrapCount, authority: abilityState.Authority, performer: abilityState.Performer,
-			customSelectHexes: CustomSelectHexes != null ? (list => CustomSelectHexes(abilityState, list)) : null, mandatory: Mandatory, assetPath: AssetPath);
+		abilityState.CreatedTraps.AddRange(await AbilityCmd.CreateTraps(damage: Damage, range: abilityState.AbilityRange,
+			conditions: ConditionModels, trapCount: TrapCount, authority: abilityState.Authority, performer: abilityState.Performer,
+			customSelectHexes: CustomSelectHexes != null ? (list => CustomSelectHexes(abilityState, list)) : null, 
+			mandatory: Mandatory, assetPath: AssetPath));
 
-		if(createdTraps.Count > 0)
+		if(abilityState.CreatedTraps.Count > 0)
 		{
 			abilityState.SetPerformed();
 		}
