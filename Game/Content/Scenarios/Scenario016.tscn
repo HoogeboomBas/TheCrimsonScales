@@ -120,7 +120,7 @@ TreasureNumber = 34
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room2" index="2" instance=ExtResource("8_512yc")]
 position = Vector2(0, -1512)
-MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
+MonsterModelId = "EARTH_DEMON.APEX_DEMON"
 MonsterType2Characters = 3
 MonsterType3Characters = 3
 MonsterType4Characters = 3
