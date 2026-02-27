@@ -49,12 +49,10 @@ public static class AbilityCmd
 
 	public static OtherActiveAbility AllOpposingAttacksGainDisadvantageActiveAbility()
 	{
-		object subscriber = new object();
-
 		return OtherActiveAbility.Builder()
-			.WithOnActivate(state =>
+			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, subscriber,
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, state.Performer,
 					parameters => parameters.AbilityState.Target == state.Performer,
 					async parameters =>
 					{
@@ -64,28 +62,27 @@ public static class AbilityCmd
 					}
 				);
 
-				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, state.Performer,
 					parameters => parameters.Target == state.Performer,
 					parameters => parameters.SetDisadvantage(true)
 				);
 
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, state.Performer,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
 						new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 				);
 
-				return GDTask.CompletedTask;
+				await GDTask.CompletedTask;
 			})
-			.WithOnDeactivate(state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, subscriber);
+			.WithOnDeactivate(async state =>
+			{
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, state.Performer);
 
-					return GDTask.CompletedTask;
-				}
-			)
+				await GDTask.CompletedTask;
+			})
 			.Build();
 	}
 
