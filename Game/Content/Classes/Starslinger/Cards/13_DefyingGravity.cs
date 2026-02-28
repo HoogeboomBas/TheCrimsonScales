@@ -27,6 +27,7 @@ public class DefyingGravity : StarslingerCardModel<DefyingGravity.CardTop, Defyi
 					state.AbilityAdjustHealValue(attackAbilityState.SingleTargetState.PullHexes.Count);
 					await GDTask.CompletedTask;
 				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 	}
