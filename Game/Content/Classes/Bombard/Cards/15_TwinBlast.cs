@@ -78,7 +78,7 @@ public class TwinBlast : BombardCardModel<TwinBlast.CardTop, TwinBlast.CardBotto
 						await GDTask.CompletedTask;
 					}
 				)
-				.WithUseSlot(new UseSlot(new Vector2(0.5f, 0.85f), GainXP))
+				.WithUseSlot(new UseSlot(new Vector2(0.49700004f, 0.8750012f), GainXP))
 				.Build())
 		];
 
