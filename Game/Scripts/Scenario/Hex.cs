@@ -153,9 +153,4 @@ public partial class Hex : Node2D
 	{
 		HexObjects.Sort((a, b) => b.DefaultZIndex.CompareTo(a.DefaultZIndex));
 	}
-
-	public Room GetRoom()
-	{
-		return GameController.Instance.Map.Rooms.FirstOrDefault(room => room.MapTiles.Contains(MapTile));
-	}
 }
