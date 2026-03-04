@@ -162,12 +162,13 @@ public partial class ScenarioCheckEvents
 
 	public class CanPassAllyCheck : ScenarioCheckEvent<CanPassAllyCheck.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Figure figure, Figure alliedFigure)
+		public class Parameters(AbilityState abilityState, Figure figure, Figure alliedFigure, MoveType moveType)
 			: ParametersBase
 		{
 			public AbilityState AbilityState { get; } = abilityState;
 			public Figure Figure { get; } = figure;
 			public Figure AlliedFigure { get; } = alliedFigure;
+			public MoveType MoveType { get; } = moveType;
 
 			public bool CanPass { get; private set; } = true;
 

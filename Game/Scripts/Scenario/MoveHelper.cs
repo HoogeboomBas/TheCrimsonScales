@@ -395,7 +395,7 @@ public static class MoveHelper
 			{
 				ScenarioCheckEvents.CanPassAllyCheck.Parameters canPassAllyParameters =
 					ScenarioCheckEvents.CanPassAllyCheckEvent.Fire(
-						new ScenarioCheckEvents.CanPassAllyCheck.Parameters(abilityState, performer, otherFigure));
+						new ScenarioCheckEvents.CanPassAllyCheck.Parameters(abilityState, performer, otherFigure, moveType));
 
 				if(!canPassAllyParameters.CanPass)
 				{

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
-public partial class Trap : OverlayTile
+public partial class Trap : OverlayTile, IEventSubscriber
 {
 	[Export]
 	public bool ScaledDamage { get; set; }
@@ -24,6 +25,13 @@ public partial class Trap : OverlayTile
 		base._Ready();
 
 		_trapViewComponent = GetViewComponent<TrapViewComponent>();
+	}
+
+	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	{
+		await base.Destroy(immediately, forceDestroy);
+
+		ScenarioCheckEvents.CanPassAllyCheckEvent.Unsubscribe(this);
 	}
 
 	public void SetTrapDamage(int damage)
@@ -49,7 +57,19 @@ public partial class Trap : OverlayTile
 	public override async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
 		await base.Init(originHex, rotationIndex, hexCanBeNull);
-
+		
+		if(ConditionModels.Any(condition => condition.Model == Conditions.Immobilize
+		                                    || condition.Model == Conditions.Stun))
+		{
+			// Don't allow movement through an ally that is on the same hex as the trap if the trap will make the figure stop
+			ScenarioCheckEvents.CanPassAllyCheckEvent.Subscribe(this,
+				parameters => (parameters.AlliedFigure.Hex == Hex) && (parameters.MoveType != MoveType.Flying),
+				parameters =>
+				{
+					parameters.SetCannotPass();
+				});
+		}
+		
 		UpdateVisuals();
 	}
 
