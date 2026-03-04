@@ -36,23 +36,28 @@ public class Scenario030 : ScenarioModel
 		{
 			await _door2.Unlock();
 
+			UpdateScenarioText(
+				$"The elite Night Demon is the Shadow Demon.");
+		}
+
+		if(parameters.Room == GameController.Instance.Map.Rooms[2])
+		{
+			int summonCount = GameController.Instance.SavedCampaign.Characters.Count + 2;
+			
 			UpdateScenarioText($"""
-			                    The Living Corpses are the Twin Corpses.
-			                    Whenever a Twin Corpse is killed, summon {GameController.Instance.SavedCampaign.Characters.Count + 2} normal Living Corpses in unoccupied hexes nearest to the hex in which it was killed.
-			                    """);
+								The Living Corpses are the Twin Corpses.
+								Whenever a Twin Corpse is killed, summon {summonCount} normal Living Corpses in unoccupied hexes nearest to the hex in which it was killed.
+								""");
 
 			ScenarioEvents.FigureKilledEvent.Subscribe(this,
 				figureKilledParameters => figureKilledParameters.Figure is Monster monster && monster.MonsterModel is TwinCorpse,
 				async figureKilledParameters =>
 				{
-					await SummonMonster(null, ModelDB.Monster<LivingCorpse>(), MonsterType.Normal, figureKilledParameters.Figure.Hex);
+					for(int monsterIndex = 0; monsterIndex < summonCount; monsterIndex++)
+					{
+						await SummonMonster(null, ModelDB.Monster<LivingCorpse>(), MonsterType.Normal, figureKilledParameters.Figure.Hex);
+					}
 				});
-		}
-
-		if(parameters.Room == GameController.Instance.Map.Rooms[2])
-		{
-			UpdateScenarioText(
-				$"The elite Night Demon is the Shadow Demon.");
 		}
 	}
 }
