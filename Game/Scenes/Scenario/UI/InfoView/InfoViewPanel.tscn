@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://g1nr1j3khjk5"]
+[gd_scene format=3 uid="uid://g1nr1j3khjk5"]
 
 [ext_resource type="Shader" uid="uid://dtwrnvi5agwii" path="res://Shaders/UIBlur.gdshader" id="1_dmxav"]
 [ext_resource type="Script" uid="uid://fgc6quwsx4w2" path="res://Scripts/Scenario/UI/InfoView/InfoViewPanel.cs" id="1_gl340"]
@@ -20,7 +20,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="Panel" type="Control" node_paths=PackedStringArray("_itemParent", "_preferredHeightContainer", "_panel", "_scrollContainer", "_marginContainer")]
+[node name="Panel" type="Control" unique_id=766611609 node_paths=PackedStringArray("_itemParent", "_preferredHeightContainer", "_panel", "_scrollContainer", "_marginContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ _panel = NodePath("Panel")
 _scrollContainer = NodePath("ScrollContainer")
 _marginContainer = NodePath("ScrollContainer/MarginContainer")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=2016126263]
 material = SubResource("ShaderMaterial_4oqg7")
 layout_mode = 1
 anchors_preset = 15
@@ -47,7 +47,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_xbdlp")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=708085803]
 visible = false
 layout_mode = 1
 anchors_preset = 10
@@ -59,7 +59,7 @@ text = "Info"
 label_settings = SubResource("LabelSettings_tl3ik")
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="."]
+[node name="Divider" type="Panel" parent="." unique_id=611193891]
 visible = false
 layout_mode = 1
 anchors_preset = 10
@@ -72,7 +72,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0mkyj")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=2074641617]
 clip_children = 2
 layout_mode = 1
 anchors_preset = 15
@@ -84,13 +84,13 @@ mouse_filter = 0
 mouse_force_pass_scroll_events = false
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer" unique_id=1299357980]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/MarginContainer" unique_id=412035849]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2

@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct44dl1xtfx8e"]
+[gd_scene format=3 uid="uid://ct44dl1xtfx8e"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_h8suc"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_3fiej"]
 
-[node name="EnhancementMarkButton" type="Control"]
+[node name="EnhancementMarkButton" type="Control" unique_id=1275179232]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1333287594]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -52,6 +51,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -65,9 +65,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -83,7 +92,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_h8suc")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Texture" type="TextureRect" parent="BetterButton"]
+[node name="Texture" type="TextureRect" parent="BetterButton" unique_id=1905574418]
 self_modulate = Color(1, 1, 1, 0.435294)
 layout_mode = 1
 anchors_preset = 15

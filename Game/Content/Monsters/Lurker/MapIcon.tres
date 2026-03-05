@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dfn7ruh58n4bi"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dfn7ruh58n4bi"]
 
 [ext_resource type="Texture2D" uid="uid://b68kxibu438fr" path="res://Content/Monsters/Lurker/Icon.jpg" id="1_esp3e"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://godk4xmw8i43"]
+[gd_scene format=4 uid="uid://godk4xmw8i43"]
 
 [ext_resource type="Material" uid="uid://bekw3gb37va8a" path="res://Scenes/CharacterUnlock/Tuckbox.tres" id="1_j4uki"]
 [ext_resource type="Script" uid="uid://bqkf61vwp68dd" path="res://Scripts/UnlockCharacter/Tuckbox.cs" id="1_wvv3h"]
@@ -132,45 +132,39 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_emgmv")
 
-[node name="Tuckbox" type="Node3D" node_paths=PackedStringArray("_top", "_flop", "_floplip")]
+[node name="Tuckbox" type="Node3D" unique_id=1526810494 node_paths=PackedStringArray("_top", "_flop", "_floplip")]
 script = ExtResource("1_wvv3h")
 _top = NodePath("Box/Top")
 _flop = NodePath("Box/Top/Flop")
 _floplip = NodePath("Box/Top/Flop/Floplip")
 
-[node name="Box" type="MeshInstance3D" parent="."]
+[node name="Box" type="MeshInstance3D" parent="." unique_id=1577950477]
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0.5)
 material_override = ExtResource("1_j4uki")
 mesh = SubResource("ArrayMesh_bvoq4")
-skeleton = NodePath("")
 
-[node name="Top" type="MeshInstance3D" parent="Box"]
+[node name="Top" type="MeshInstance3D" parent="Box" unique_id=127160188]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.075)
 material_override = ExtResource("1_j4uki")
 mesh = SubResource("ArrayMesh_o4ejg")
-skeleton = NodePath("")
 
-[node name="Flop" type="MeshInstance3D" parent="Box/Top"]
+[node name="Flop" type="MeshInstance3D" parent="Box/Top" unique_id=669723158]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.0104746)
 material_override = ExtResource("1_j4uki")
 mesh = SubResource("ArrayMesh_nl7gk")
-skeleton = NodePath("")
 
-[node name="Floplip" type="MeshInstance3D" parent="Box/Top/Flop"]
+[node name="Floplip" type="MeshInstance3D" parent="Box/Top/Flop" unique_id=2063970708]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0.038)
 material_override = ExtResource("1_j4uki")
 mesh = SubResource("ArrayMesh_t2xy6")
-skeleton = NodePath("")
 
-[node name="Shadow" type="MeshInstance3D" parent="Box/Top/Flop/Floplip"]
+[node name="Shadow" type="MeshInstance3D" parent="Box/Top/Flop/Floplip" unique_id=211744619]
 transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
 visible = false
 material_override = ExtResource("3_wvv3h")
 mesh = SubResource("ArrayMesh_t2xy6")
-skeleton = NodePath("")
 
-[node name="Shadow" type="MeshInstance3D" parent="Box/Top/Flop"]
+[node name="Shadow" type="MeshInstance3D" parent="Box/Top/Flop" unique_id=391803276]
 transform = Transform3D(1.02, 0, 0, 0, 1.02, -1.42109e-14, 0, 1.42109e-14, 1.02, 0, 0.000209108, 0)
 material_override = ExtResource("3_wvv3h")
 mesh = SubResource("ArrayMesh_nl7gk")
-skeleton = NodePath("")

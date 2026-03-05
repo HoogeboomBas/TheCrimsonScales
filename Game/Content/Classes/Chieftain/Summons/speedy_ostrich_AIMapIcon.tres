@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cfof5vytw0hsy"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://cfof5vytw0hsy"]
 
 [ext_resource type="Texture2D" uid="uid://n1f537om623x" path="res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png" id="1_j7fqc"]
 

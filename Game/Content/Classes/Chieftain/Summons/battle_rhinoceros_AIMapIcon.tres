@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c4eate5ocdiat"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://c4eate5ocdiat"]
 
 [ext_resource type="Texture2D" uid="uid://d2ixpd8krj7m6" path="res://Content/Classes/Chieftain/Summons/battle_rhinoceros_AI.png" id="1_tk3tu"]
 

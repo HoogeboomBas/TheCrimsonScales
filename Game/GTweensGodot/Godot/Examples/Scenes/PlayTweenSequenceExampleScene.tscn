@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkygsjkvxby06"]
+[gd_scene format=3 uid="uid://dkygsjkvxby06"]
 
 [ext_resource type="Script" uid="uid://j1egg18byshp" path="res://GTweensGodot/Godot/Examples/Scripts/PlayTweenSequenceExample.cs" id="1_kqbns"]
 [ext_resource type="Texture2D" uid="uid://cik0j4hik2jqn" path="res://GTweensGodot/Godot/Examples/Textures/GTweensGodot-Examples-BlueSquare.png" id="2_nkcu7"]
 
-[node name="PlayTweenSequenceExampleScene" type="Node2D"]
+[node name="PlayTweenSequenceExampleScene" type="Node2D" unique_id=128223405]
 
-[node name="Example" type="Node2D" parent="." node_paths=PackedStringArray("Target")]
+[node name="Example" type="Node2D" parent="." unique_id=1305455740 node_paths=PackedStringArray("Target")]
 script = ExtResource("1_kqbns")
 Target = NodePath("../Node2D")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=774656021]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=1282742665]
 texture = ExtResource("2_nkcu7")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1301360218]
 zoom = Vector2(2, 2)

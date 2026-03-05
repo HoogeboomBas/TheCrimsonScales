@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnu6wjtrnujjc"]
+[gd_scene format=3 uid="uid://cnu6wjtrnujjc"]
 
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="1_mnmse"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgmrc"]
 
-[node name="CurrentActionView" type="PanelContainer"]
+[node name="CurrentActionView" type="PanelContainer" unique_id=1833704395]
 material = ExtResource("1_mnmse")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_vgmrc")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=300802723]
 layout_mode = 2
 mouse_filter = 2

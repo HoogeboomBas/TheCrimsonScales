@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8jhad1xnhrgi"]
+[gd_scene format=3 uid="uid://c8jhad1xnhrgi"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_0to1f"]
 [ext_resource type="Texture2D" uid="uid://cknyv5crapt1" path="res://Art/OverlayTiles/Boulder 1h.png" id="2_0to1f"]
 [ext_resource type="Script" uid="uid://cf7mejn5kak65" path="res://Scripts/Scenario/HexObjects/Boulder1HObstacle.cs" id="2_i1tlf"]
 
-[node name="Boulder1H" instance=ExtResource("1_0to1f")]
+[node name="Boulder1H" unique_id=62786519 instance=ExtResource("1_0to1f")]
 script = ExtResource("2_i1tlf")
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=140032954]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

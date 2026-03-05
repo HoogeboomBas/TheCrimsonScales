@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwn4iiqm7bpjf"]
+[gd_scene format=3 uid="uid://bwn4iiqm7bpjf"]
 
 [ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_pfcit"]
 [ext_resource type="Script" uid="uid://bsg5rwwjkoi28" path="res://Scripts/BetweenScenarios/Enhancer/EnhancementMarkToggleButton.cs" id="2_dhfk3"]
@@ -16,14 +16,26 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="EnhancementMarkToggleButton" node_paths=PackedStringArray("_button", "_container", "_inactiveOverlay") instance=ExtResource("1_pfcit")]
+[node name="EnhancementMarkToggleButton" unique_id=589707040 node_paths=PackedStringArray("_button", "_container", "_inactiveOverlay") instance=ExtResource("1_pfcit")]
 custom_minimum_size = Vector2(40, 40)
 script = ExtResource("2_dhfk3")
 _button = NodePath("Container/BetterButton")
 _container = NodePath("Container")
 _inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
 
-[node name="Outline" type="Panel" parent="Container/BetterButton" index="0"]
+[node name="BetterButton" parent="Container" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="Outline" type="Panel" parent="Container/BetterButton" index="0" unique_id=489829778]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +45,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_aayhe")
 
-[node name="Texture" type="TextureRect" parent="Container/BetterButton" index="1"]
+[node name="Texture" type="TextureRect" parent="Container/BetterButton" index="1" unique_id=1344384734]
 visible = false
 self_modulate = Color(1, 1, 1, 0.435294)
 layout_mode = 1

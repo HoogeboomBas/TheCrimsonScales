@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpecx0ae1flrj"]
+[gd_scene format=3 uid="uid://cpecx0ae1flrj"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_x2h1b"]
 [ext_resource type="Texture2D" uid="uid://cddsfqs4oy6br" path="res://Art/OverlayTiles/Altar 1h.png" id="2_x2h1b"]
 
-[node name="AltarHorizontal1H" instance=ExtResource("1_x2h1b")]
+[node name="AltarHorizontal1H" unique_id=913039841 instance=ExtResource("1_x2h1b")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1478725320]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

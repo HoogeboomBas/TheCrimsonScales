@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dcdsrxiaxw7y1"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dcdsrxiaxw7y1"]
 
 [ext_resource type="Texture2D" uid="uid://bt3lg84urylrr" path="res://Content/Monsters/InoxGuard/Icon.jpg" id="1_wa0hv"]
 

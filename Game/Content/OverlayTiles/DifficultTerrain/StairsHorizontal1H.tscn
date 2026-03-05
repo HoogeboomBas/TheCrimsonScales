@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://doqrp1q4d2q6f"]
+[gd_scene format=3 uid="uid://doqrp1q4d2q6f"]
 
 [ext_resource type="PackedScene" uid="uid://c48tqburk5etf" path="res://Scenes/Scenario/OverlayTiles/DifficultTerrain1H.tscn" id="1_eyl0v"]
 [ext_resource type="Texture2D" uid="uid://ci2wyrnqx6utd" path="res://Art/OverlayTiles/Stairs Horiz 1h.png" id="2_jabc3"]
 
-[node name="StairsHorizontal1H" instance=ExtResource("1_eyl0v")]
+[node name="StairsHorizontal1H" unique_id=42799593 instance=ExtResource("1_eyl0v")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_jabc3")

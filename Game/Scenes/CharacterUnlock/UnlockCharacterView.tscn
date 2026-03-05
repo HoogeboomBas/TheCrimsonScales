@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d20kxebd41qbn"]
+[gd_scene format=3 uid="uid://d20kxebd41qbn"]
 
 [ext_resource type="Script" uid="uid://c7s5716lt15bd" path="res://Scripts/UnlockCharacter/UnlockCharacterView.cs" id="1_dfw8q"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="3_n5kph"]
@@ -15,7 +15,7 @@
 font = ExtResource("3_n5kph")
 font_size = 120
 
-[node name="UnlockCharacterView" type="Control" node_paths=PackedStringArray("_subViewport", "_root3D", "_camera3D", "_tuckbox", "_skipButton", "_classIconSprites", "_classMat3DSprite", "_classMatContainer", "_classMatTextureRect", "_continueButton")]
+[node name="UnlockCharacterView" type="Control" unique_id=24470023 node_paths=PackedStringArray("_subViewport", "_root3D", "_camera3D", "_tuckbox", "_skipButton", "_classIconSprites", "_classMat3DSprite", "_classMatContainer", "_classMatTextureRect", "_continueButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ _classMatContainer = NodePath("UI/ClassMat")
 _classMatTextureRect = NodePath("UI/ClassMat/TextureRect")
 _continueButton = NodePath("UI/ContinueButton")
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="." unique_id=1244417407]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +42,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI" unique_id=753173806]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,46 +52,46 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer" unique_id=744625090]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="UI/SubViewportContainer/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="UI/SubViewportContainer/SubViewport" unique_id=1429340775]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -14)
 cull_mask = 1024
 current = true
 fov = 50.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="UI/SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="UI/SubViewportContainer/SubViewport" unique_id=2052538736]
 transform = Transform3D(-1, -2.32999e-10, -1.50995e-07, 3.20426e-10, 0.999993, -0.00366518, 1.50995e-07, -0.00366518, -0.999993, 0, 0, 0)
 layers = 1024
 shadow_bias = 0.02
 shadow_opacity = 0.96
 sky_mode = 1
 
-[node name="3DRoot" type="Node3D" parent="UI/SubViewportContainer/SubViewport"]
+[node name="3DRoot" type="Node3D" parent="UI/SubViewportContainer/SubViewport" unique_id=1184620440]
 
-[node name="Tuckbox" parent="UI/SubViewportContainer/SubViewport/3DRoot" instance=ExtResource("7_b7l8o")]
+[node name="Tuckbox" parent="UI/SubViewportContainer/SubViewport/3DRoot" unique_id=1964230420 instance=ExtResource("7_b7l8o")]
 transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, -4, 0)
 
-[node name="Box" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox" index="0"]
+[node name="Box" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox" index="0" unique_id=1577950477]
 layers = 1024
 
-[node name="Top" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box" index="0"]
+[node name="Top" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box" index="0" unique_id=127160188]
 layers = 1024
 
-[node name="Flop" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top" index="0"]
+[node name="Flop" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top" index="0" unique_id=669723158]
 layers = 1024
 
-[node name="Floplip" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="0"]
+[node name="Floplip" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="0" unique_id=2063970708]
 layers = 1024
 
-[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="0"]
+[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="0" unique_id=211744619]
 layers = 1024
 
-[node name="Seal" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="1"]
+[node name="Seal" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop/Floplip" index="1" unique_id=201163554]
 transform = Transform3D(-0.008, -2.32941e-10, -1.31659e-09, 1.09479e-09, 0.00338095, -0.00725046, 7.67531e-10, -0.00725046, -0.00338095, -0.000472244, -0.000999999, 0.002)
 layers = 1024
 double_sided = false
@@ -99,27 +99,27 @@ no_depth_test = true
 render_priority = 1
 texture = ExtResource("6_gwn7s")
 
-[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="1"]
+[node name="Shadow" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox/Box/Top/Flop" index="1" unique_id=391803276]
 layers = 1024
 
-[node name="OpenSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox"]
+[node name="OpenSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox" unique_id=1414335095]
 transform = Transform3D(-0.7, -7.97987e-15, 1.05697e-07, 0, 0.7, 5.28483e-08, -1.05697e-07, 5.28483e-08, -0.7, -3.6, 1.4, -0.51)
 layers = 1024
 modulate = Color(0.0687983, 0.0687983, 0.0687983, 1)
 texture = ExtResource("8_jooh2")
 
-[node name="CloseSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox"]
+[node name="CloseSideIcon" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot/Tuckbox" unique_id=887843564]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 3.75, 0.51)
 layers = 1024
 modulate = Color(0.0687983, 0.0687983, 0.0687983, 1)
 texture = ExtResource("8_jooh2")
 
-[node name="ClassMat3D" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot"]
+[node name="ClassMat3D" type="Sprite3D" parent="UI/SubViewportContainer/SubViewport/3DRoot" unique_id=652527385]
 transform = Transform3D(-0.483, 0, -4.22252e-08, 0, 0.483, 0, 4.22252e-08, 0, -0.483, 0, -0.5, 0)
 layers = 1024
 texture = ExtResource("9_kwl53")
 
-[node name="Header" type="Control" parent="UI"]
+[node name="Header" type="Control" parent="UI" unique_id=2057958326]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Header" type="Label" parent="UI/Header"]
+[node name="Header" type="Label" parent="UI/Header" unique_id=1209623069]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -142,7 +142,7 @@ text = "New Class Unlocked!"
 label_settings = SubResource("LabelSettings_woa5y")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="UI/Header"]
+[node name="Label" type="Label" parent="UI/Header" unique_id=544830602]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -157,8 +157,7 @@ text = "Press the envelope to continue."
 label_settings = ExtResource("4_do51w")
 horizontal_alignment = 1
 
-[node name="SkipButton" type="BaseButton" parent="UI"]
-_import_path = NodePath("")
+[node name="SkipButton" type="BaseButton" parent="UI" unique_id=2054027822]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -200,6 +199,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -213,9 +213,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -231,7 +240,7 @@ shortcut_in_tooltip = true
 script = ExtResource("10_kwl53")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="ClassMat" type="MarginContainer" parent="UI"]
+[node name="ClassMat" type="MarginContainer" parent="UI" unique_id=673736543]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -248,13 +257,13 @@ grow_vertical = 2
 scale = Vector2(0.4, 0.4)
 pivot_offset = Vector2(862.5, 562.5)
 
-[node name="TextureRect" type="TextureRect" parent="UI/ClassMat"]
+[node name="TextureRect" type="TextureRect" parent="UI/ClassMat" unique_id=999108496]
 custom_minimum_size = Vector2(1725, 1125)
 layout_mode = 2
 texture = ExtResource("9_kwl53")
 expand_mode = 1
 
-[node name="BackButton" parent="UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
+[node name="BackButton" parent="UI" unique_id=1349749911 node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -269,10 +278,22 @@ script = ExtResource("7_2523k")
 BetterButton = NodePath("BetterButton")
 _startActive = false
 
+[node name="BetterButton" parent="UI/BackButton" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
 [node name="Label" parent="UI/BackButton/BetterButton/Panel" index="0"]
 text = "Cancel"
 
-[node name="ContinueButton" parent="UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
+[node name="ContinueButton" parent="UI" unique_id=322633714 node_paths=PackedStringArray("BetterButton") instance=ExtResource("6_ycq6m")]
 modulate = Color(0.458824, 1, 0.372549, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -289,6 +310,18 @@ grow_vertical = 0
 script = ExtResource("7_2523k")
 BetterButton = NodePath("BetterButton")
 _startActive = false
+
+[node name="BetterButton" parent="UI/ContinueButton" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 
 [node name="Label" parent="UI/ContinueButton/BetterButton/Panel" index="0"]
 text = "Continue"

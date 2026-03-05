@@ -1,32 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://jocfr1rcko82"]
+[gd_scene format=3 uid="uid://jocfr1rcko82"]
 
 [ext_resource type="PackedScene" uid="uid://w41kadckdv77" path="res://Content/Classes/Chainguard/ChainLink.tscn" id="1_bgvbm"]
 [ext_resource type="Script" uid="uid://ce88fmb73v43w" path="res://Content/Classes/Chainguard/ShackleIndicator.cs" id="1_lx6vu"]
 
-[node name="ShackleIndicator" type="Node2D"]
+[node name="ShackleIndicator" type="Node2D" unique_id=1815918216]
 modulate = Color(0.807843, 0.427451, 0.188235, 1)
 z_index = 11
 scale = Vector2(0.92, 0.92)
 script = ExtResource("1_lx6vu")
 
-[node name="ChainLink" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink" parent="." unique_id=377993353 instance=ExtResource("1_bgvbm")]
 
-[node name="ChainLink2" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink2" parent="." unique_id=1797361043 instance=ExtResource("1_bgvbm")]
 rotation = 1.0472
 
-[node name="ChainLink3" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink3" parent="." unique_id=983322545 instance=ExtResource("1_bgvbm")]
 rotation = 2.0944
 
-[node name="ChainLink4" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink4" parent="." unique_id=1082367230 instance=ExtResource("1_bgvbm")]
 rotation = 3.14159
 
-[node name="ChainLink5" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink5" parent="." unique_id=1021702623 instance=ExtResource("1_bgvbm")]
 rotation = 4.18879
 
-[node name="Sprite2D3" parent="ChainLink5" index="3"]
+[node name="Sprite2D3" parent="ChainLink5" index="3" unique_id=1917023581]
 visible = false
 
-[node name="ChainLink6" parent="." instance=ExtResource("1_bgvbm")]
+[node name="ChainLink6" parent="." unique_id=719155029 instance=ExtResource("1_bgvbm")]
 rotation = 5.23599
 
 [editable path="ChainLink5"]

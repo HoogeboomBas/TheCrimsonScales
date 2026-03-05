@@ -1,29 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://w41kadckdv77"]
+[gd_scene format=3 uid="uid://w41kadckdv77"]
 
 [ext_resource type="Texture2D" uid="uid://bmyjiwek4213p" path="res://Content/Classes/Chainguard/ChainLinkA.svg" id="1_b0nnr"]
 [ext_resource type="Texture2D" uid="uid://cclelps30fkip" path="res://Content/Classes/Chainguard/ChainLinkB.svg" id="2_nu33b"]
 
-[node name="ChainLink" type="Node2D"]
+[node name="ChainLink" type="Node2D" unique_id=1549986317]
 
-[node name="Sprite2D4" type="Sprite2D" parent="."]
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=487109265]
 position = Vector2(93, -26)
 rotation = 1.5708
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_nu33b")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=734931250]
 position = Vector2(93, 0)
 rotation = 1.5708
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("1_b0nnr")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1524387012]
 position = Vector2(93, 26)
 rotation = 1.5708
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_nu33b")
 
-[node name="Sprite2D3" type="Sprite2D" parent="."]
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1917023581]
 position = Vector2(90, 52)
 rotation = 2.0944
 scale = Vector2(0.16, 0.16)

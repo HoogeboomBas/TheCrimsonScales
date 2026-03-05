@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bgkv5k13rr1sy"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://bgkv5k13rr1sy"]
 
 [ext_resource type="Texture2D" uid="uid://bt0klbuwht6h6" path="res://Content/Classes/Chieftain/Summons/swamp_hippo_AI.png" id="1_nh8sg"]
 

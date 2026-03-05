@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcyfacmewuce0"]
+[gd_scene format=3 uid="uid://dcyfacmewuce0"]
 
 [ext_resource type="Texture2D" uid="uid://cw04cve8jr6if" path="res://Art/Icons/Other/EffectInfoViewTriangle.svg" id="1_bdld1"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="1_rvl8j"]
 [ext_resource type="StyleBox" uid="uid://bht73g872t3sp" path="res://Resources/BlurPanel.tres" id="2_rvl8j"]
 
-[node name="EffectInfoView" type="Control"]
+[node name="EffectInfoView" type="Control" unique_id=1046028860]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1595116132]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -29,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Bubble" type="PanelContainer" parent="Container"]
+[node name="Bubble" type="PanelContainer" parent="Container" unique_id=1767556300]
 material = ExtResource("1_rvl8j")
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 1
@@ -47,7 +47,7 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_rvl8j")
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/Bubble"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/Bubble" unique_id=345478077]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
@@ -55,7 +55,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Bottom" type="Control" parent="Container"]
+[node name="Bottom" type="Control" parent="Container" unique_id=1685182200]
 custom_minimum_size = Vector2(40, 20)
 layout_mode = 1
 anchors_preset = 7
@@ -70,7 +70,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Container/Bottom"]
+[node name="TextureRect" type="TextureRect" parent="Container/Bottom" unique_id=893206532]
 self_modulate = Color(0.105882, 0.105882, 0.12549, 0.705882)
 material = ExtResource("1_rvl8j")
 layout_mode = 1

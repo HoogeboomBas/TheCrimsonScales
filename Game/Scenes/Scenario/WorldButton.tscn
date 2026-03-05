@@ -1,14 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://ug7oy7x62yfw"]
+[gd_scene format=3 uid="uid://ug7oy7x62yfw"]
 
 [ext_resource type="Script" uid="uid://g5jg27851es6" path="res://Scripts/Scenario/WorldButton.cs" id="1_iyndh"]
 
-[node name="WorldButton" type="Node2D" node_paths=PackedStringArray("_collisionObject2D")]
+[node name="WorldButton" type="Node2D" unique_id=791310978 node_paths=PackedStringArray("_collisionObject2D")]
 script = ExtResource("1_iyndh")
 _collisionObject2D = NodePath("StaticBody2D")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1459338781]
 input_pickable = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2094086200]
 scale = Vector2(125.3, 125.3)
 polygon = PackedVector2Array(0, -1, 0.866, -0.5, 0.866, 0.5, 0, 1, -0.866, 0.5, -0.866, -0.5)

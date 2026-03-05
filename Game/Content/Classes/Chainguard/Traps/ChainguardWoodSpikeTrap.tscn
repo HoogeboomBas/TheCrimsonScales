@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3qaofrxh8ph"]
+[gd_scene format=3 uid="uid://b3qaofrxh8ph"]
 
 [ext_resource type="PackedScene" uid="uid://diuy1dignnfhi" path="res://Scenes/Scenario/OverlayTiles/Trap1H.tscn" id="1_ba0rb"]
 [ext_resource type="Texture2D" uid="uid://d2dw3ene7nd68" path="res://Content/Classes/Chainguard/Traps/cs-wood-spike-trap.png" id="2_ba0rb"]
 
-[node name="ChainguardRopeTrap" instance=ExtResource("1_ba0rb")]
+[node name="ChainguardRopeTrap" unique_id=1391908279 instance=ExtResource("1_ba0rb")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_ba0rb")

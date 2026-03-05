@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6ydkmedgm2lb"]
+[gd_scene format=3 uid="uid://c6ydkmedgm2lb"]
 
 [ext_resource type="Script" uid="uid://6voml80r2y84" path="res://Scripts/BetweenScenarios/CharacterCreation/CharacterCreationClass.cs" id="1_tpgm2"]
 [ext_resource type="PackedScene" uid="uid://bcx5yve43v6qg" path="res://Scenes/UI/ClassToggleButton.tscn" id="2_tpgm2"]
 
-[node name="CharacterCreationClass" type="Control" node_paths=PackedStringArray("_classToggleButton")]
+[node name="CharacterCreationClass" type="Control" unique_id=1982503738 node_paths=PackedStringArray("_classToggleButton")]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_tpgm2")
 _classToggleButton = NodePath("ClassToggleButton")
 
-[node name="ClassToggleButton" parent="." instance=ExtResource("2_tpgm2")]
+[node name="ClassToggleButton" parent="." unique_id=32498976 instance=ExtResource("2_tpgm2")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

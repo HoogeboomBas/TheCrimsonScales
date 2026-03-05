@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dl84egya5h6dw"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dl84egya5h6dw"]
 
 [ext_resource type="Texture2D" uid="uid://b6a2xkisl2cry" path="res://Content/Classes/Chieftain/Summons/pack_mule_AI.png" id="1_uut0r"]
 

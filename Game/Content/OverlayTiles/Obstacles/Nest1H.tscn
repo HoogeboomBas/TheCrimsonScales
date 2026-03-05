@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccnmnyj2wcdle"]
+[gd_scene format=3 uid="uid://ccnmnyj2wcdle"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_n37fh"]
 [ext_resource type="Texture2D" uid="uid://cmf13jqhxawvx" path="res://Art/OverlayTiles/Nest 1h.png" id="2_n37fh"]
 
-[node name="Nest1H" instance=ExtResource("1_n37fh")]
+[node name="Nest1H" unique_id=1108715797 instance=ExtResource("1_n37fh")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=430670327]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

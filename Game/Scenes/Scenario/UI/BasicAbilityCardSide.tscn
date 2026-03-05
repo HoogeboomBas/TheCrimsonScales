@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://tawethckih5b"]
+[gd_scene format=3 uid="uid://tawethckih5b"]
 
 [ext_resource type="Script" uid="uid://e1u4nmwejxw5" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButton.cs" id="1_ke5lp"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_bo3kv"]
@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="4_dnpv8"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="5_d6dg5"]
 
-[node name="BasicAbilityCardSide" type="Control" node_paths=PackedStringArray("BetterButton")]
+[node name="BasicAbilityCardSide" type="Control" unique_id=1661199072 node_paths=PackedStringArray("BetterButton")]
 custom_minimum_size = Vector2(80, 198)
 layout_mode = 3
 anchors_preset = 0
@@ -16,8 +16,7 @@ mouse_filter = 2
 script = ExtResource("1_ke5lp")
 BetterButton = NodePath("BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1682216027]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -59,6 +58,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -72,9 +72,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -89,7 +98,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("2_bo3kv")
 
-[node name="Panel" type="Panel" parent="BetterButton"]
+[node name="Panel" type="Panel" parent="BetterButton" unique_id=703428301]
 material = ExtResource("3_kso6a")
 layout_mode = 1
 anchors_preset = 15
@@ -100,7 +109,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_dnpv8")
 
-[node name="MarginContainer" type="MarginContainer" parent="BetterButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="BetterButton/Panel" unique_id=247173409]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,7 +122,7 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="RichTextLabel" type="RichTextLabel" parent="BetterButton/Panel/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BetterButton/Panel/MarginContainer" unique_id=1241256373]
 layout_mode = 2
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("5_d6dg5")

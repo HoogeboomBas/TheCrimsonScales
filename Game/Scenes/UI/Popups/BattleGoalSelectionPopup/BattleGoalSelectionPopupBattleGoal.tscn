@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dck04vx4nfhj5"]
+[gd_scene format=3 uid="uid://dck04vx4nfhj5"]
 
 [ext_resource type="Script" uid="uid://dpgl4mcbor530" path="res://Scripts/UI/Popups/BattleGoalSelectionPopup/BattleGoalSelectionPopupBattleGoal.cs" id="1_5umdd"]
 [ext_resource type="PackedScene" uid="uid://ow1k6ehr4jbv" path="res://Scenes/UI/BattleGoals/BattleGoalToggleButton.tscn" id="1_d4ppt"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_ng13d"]
 
-[node name="BattleGoalSelectionPopupBattleGoal" type="MarginContainer" node_paths=PackedStringArray("_battleGoalToggleButton", "_betterButton")]
+[node name="BattleGoalSelectionPopupBattleGoal" type="MarginContainer" unique_id=956734413 node_paths=PackedStringArray("_battleGoalToggleButton", "_betterButton")]
 offset_right = 287.0
 offset_bottom = 445.0
 mouse_filter = 2
@@ -12,8 +12,7 @@ script = ExtResource("1_5umdd")
 _battleGoalToggleButton = NodePath("BetterButton/PersonalQuestToggleButton")
 _betterButton = NodePath("BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1051664082]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -54,9 +53,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -72,7 +80,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_ng13d")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="PersonalQuestToggleButton" parent="BetterButton" instance=ExtResource("1_d4ppt")]
+[node name="PersonalQuestToggleButton" parent="BetterButton" unique_id=1353458361 instance=ExtResource("1_d4ppt")]
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -81,7 +89,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BetterButton" parent="BetterButton/PersonalQuestToggleButton/Container" index="0"]
+[node name="BetterButton" parent="BetterButton/PersonalQuestToggleButton/Container" parent_id_path=PackedInt32Array(1353458361, 521323546) index="0" unique_id=1155449473]
 mouse_filter = 2
 
 [editable path="BetterButton/PersonalQuestToggleButton"]

@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://edi17gpprd2h"]
+[gd_scene format=3 uid="uid://edi17gpprd2h"]
 
 [ext_resource type="PackedScene" uid="uid://dm5lmr3uhvlxy" path="res://Scenes/Scenario/UI/PortraitView/_PortraitViewPortrait.tscn" id="1_xskhl"]
 [ext_resource type="Script" uid="uid://bthidkpubunwh" path="res://Scripts/Scenario/UI/PortraitView/PortraitViewMonsterGroupPortrait.cs" id="2_sy02g"]
 [ext_resource type="Texture2D" uid="uid://8uy37g8olybl" path="res://Content/Monsters/WaterSpirit/Portrait.tres" id="3_gqm0j"]
 
-[node name="MonsterGroupPortrait" node_paths=PackedStringArray("_container", "_portraitTexture", "_initiativeLabel", "_betterButton", "_selectedIndicator") instance=ExtResource("1_xskhl")]
+[node name="MonsterGroupPortrait" unique_id=1637324734 node_paths=PackedStringArray("_container", "_portraitTexture", "_initiativeLabel", "_betterButton", "_selectedIndicator") instance=ExtResource("1_xskhl")]
 script = ExtResource("2_sy02g")
 _container = NodePath("Container")
 _portraitTexture = NodePath("Container/BetterButton/Panel/Mask/TextureRect")
@@ -12,5 +12,5 @@ _initiativeLabel = NodePath("Container/BetterButton/TextureRect/Label")
 _betterButton = NodePath("Container/BetterButton")
 _selectedIndicator = NodePath("SelectedIndicator")
 
-[node name="TextureRect" parent="Container/BetterButton/Panel/Mask" index="0"]
+[node name="TextureRect" parent="Container/BetterButton/Panel/Mask" parent_id_path=PackedInt32Array(639409469) index="0" unique_id=181443034]
 texture = ExtResource("3_gqm0j")

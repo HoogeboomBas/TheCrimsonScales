@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://urqv0bcmxy4r"]
+[gd_scene format=3 uid="uid://urqv0bcmxy4r"]
 
 [ext_resource type="Script" uid="uid://buexgigamnmdb" path="res://Scripts/UI/Popups/PerkConfirmationPopup/PerkConfirmationPopupAMDCard.cs" id="1_kyoqw"]
 [ext_resource type="PackedScene" uid="uid://qdtbf6gtmw42" path="res://Scenes/Scenario/UI/AMDCardView.tscn" id="2_1jok1"]
 
-[node name="PerkConfirmationPopupAMDCard" type="Control" node_paths=PackedStringArray("_amdCardView")]
+[node name="PerkConfirmationPopupAMDCard" type="Control" unique_id=711407669 node_paths=PackedStringArray("_amdCardView")]
 custom_minimum_size = Vector2(360, 240)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_kyoqw")
 _amdCardView = NodePath("AMDCardView")
 
-[node name="AMDCardView" parent="." instance=ExtResource("2_1jok1")]
+[node name="AMDCardView" parent="." unique_id=2049206073 instance=ExtResource("2_1jok1")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

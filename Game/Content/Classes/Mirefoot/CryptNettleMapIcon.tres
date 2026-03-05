@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b3lr8lx5blufu"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://b3lr8lx5blufu"]
 
 [ext_resource type="Texture2D" uid="uid://bgvh1ktg3t0k" path="res://Content/Classes/Mirefoot/CryptNettle.png" id="1_fbqkj"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcjxeakyfta8h"]
+[gd_scene format=3 uid="uid://dcjxeakyfta8h"]
 
 [ext_resource type="Script" uid="uid://bl6tijgm7ty2a" path="res://Scripts/UI/AbilityCardView/AbilityCardSideView.cs" id="1_35wrr"]
 [ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="2_ekf7w"]
@@ -17,7 +17,7 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 anti_aliasing = false
 
-[node name="CardSideView" type="Control" node_paths=PackedStringArray("_abilityCardViews", "_topContainer", "_bottomContainer")]
+[node name="CardSideView" type="Control" unique_id=244695108 node_paths=PackedStringArray("_abilityCardViews", "_topContainer", "_bottomContainer")]
 custom_minimum_size = Vector2(320, 240)
 layout_mode = 3
 anchors_preset = 10
@@ -31,7 +31,7 @@ _abilityCardViews = [NodePath("Top/Mask/AbilityCardView"), NodePath("Bottom/Mask
 _topContainer = NodePath("Top")
 _bottomContainer = NodePath("Bottom")
 
-[node name="Top" type="Control" parent="."]
+[node name="Top" type="Control" parent="." unique_id=1737716283]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -40,7 +40,7 @@ grow_horizontal = 2
 pivot_offset = Vector2(160, 240)
 mouse_filter = 2
 
-[node name="Mask" type="Panel" parent="Top"]
+[node name="Mask" type="Panel" parent="Top" unique_id=1456847730]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -51,12 +51,12 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_35wrr")
 
-[node name="AbilityCardView" parent="Top/Mask" instance=ExtResource("2_ekf7w")]
+[node name="AbilityCardView" parent="Top/Mask" unique_id=1268649140 instance=ExtResource("2_ekf7w")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 208.0
 
-[node name="Bottom" type="Control" parent="."]
+[node name="Bottom" type="Control" parent="." unique_id=1138946263]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -65,7 +65,7 @@ grow_horizontal = 2
 pivot_offset = Vector2(160, 0)
 mouse_filter = 2
 
-[node name="Mask" type="Panel" parent="Bottom"]
+[node name="Mask" type="Panel" parent="Bottom" unique_id=814682685]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -76,7 +76,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ekf7w")
 
-[node name="AbilityCardView" parent="Bottom/Mask" instance=ExtResource("2_ekf7w")]
+[node name="AbilityCardView" parent="Bottom/Mask" unique_id=2084068823 instance=ExtResource("2_ekf7w")]
 layout_mode = 1
 offset_top = -240.0
 offset_right = 0.0

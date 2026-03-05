@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl18focdn4sn2"]
+[gd_scene format=3 uid="uid://dl18focdn4sn2"]
 
 [ext_resource type="Script" uid="uid://bei5wabm6e43g" path="res://Scripts/Scenario/UI/AMDDrawView/AMDDrawCard.cs" id="1_hvfj5"]
 [ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="2_akln5"]
@@ -18,7 +18,7 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="AMDDrawCard" type="Control" node_paths=PackedStringArray("_container", "_textureRect", "_cardBack")]
+[node name="AMDDrawCard" type="Control" unique_id=150982758 node_paths=PackedStringArray("_container", "_textureRect", "_cardBack")]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -37,7 +37,7 @@ _container = NodePath("Container")
 _textureRect = NodePath("Container/Mask/CardTexture")
 _cardBack = NodePath("Container/Mask/CardBack")
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1745637007]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(180, 120)
 
-[node name="TopCardShadow" type="Panel" parent="Container"]
+[node name="TopCardShadow" type="Panel" parent="Container" unique_id=487655469]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ceh5g")
 
-[node name="Mask" type="Panel" parent="Container"]
+[node name="Mask" type="Panel" parent="Container" unique_id=936227764]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -65,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
 
-[node name="CardBack" type="TextureRect" parent="Container/Mask"]
+[node name="CardBack" type="TextureRect" parent="Container/Mask" unique_id=475881524]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,7 +75,7 @@ grow_vertical = 2
 texture = ExtResource("2_akln5")
 expand_mode = 1
 
-[node name="CardTexture" type="TextureRect" parent="Container/Mask"]
+[node name="CardTexture" type="TextureRect" parent="Container/Mask" unique_id=767941539]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

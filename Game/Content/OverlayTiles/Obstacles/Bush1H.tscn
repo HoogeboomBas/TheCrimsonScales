@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgovtiuaxinv"]
+[gd_scene format=3 uid="uid://dgovtiuaxinv"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_86kok"]
 [ext_resource type="Texture2D" uid="uid://bjxw4eax3hp1k" path="res://Art/OverlayTiles/Bush 1h.png" id="2_3wwm2"]
 
-[node name="Bush1H" instance=ExtResource("1_86kok")]
+[node name="Bush1H" unique_id=1800346984 instance=ExtResource("1_86kok")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_3wwm2")

@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://wwedchh2y1oy"]
+[gd_scene format=3 uid="uid://wwedchh2y1oy"]
 
 [ext_resource type="PackedScene" uid="uid://diuy1dignnfhi" path="res://Scenes/Scenario/OverlayTiles/Trap1H.tscn" id="1_mdych"]
 [ext_resource type="Texture2D" uid="uid://dd4ww276kkrxc" path="res://Art/OverlayTiles/SpikeTrap1H.png" id="2_1tkwy"]
 
-[node name="SpikePitTrap1H" instance=ExtResource("1_mdych")]
+[node name="SpikePitTrap1H" unique_id=1074603738 instance=ExtResource("1_mdych")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1535381455]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

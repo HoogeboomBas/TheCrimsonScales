@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhhay14damdhi"]
+[gd_scene format=3 uid="uid://dhhay14damdhi"]
 
 [ext_resource type="FontFile" uid="uid://djm7xa0rh5wqv" path="res://Fonts/HTOWERT.TTF" id="1_3vau3"]
 
-[node name="EventRewardLabel" type="RichTextLabel"]
+[node name="EventRewardLabel" type="RichTextLabel" unique_id=177762188]
 offset_right = 1.0
 offset_bottom = 1914.0
 theme_override_colors/default_color = Color(0.137255, 0.121569, 0.12549, 1)

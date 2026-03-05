@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2frm5bwfain6"]
+[gd_scene format=3 uid="uid://2frm5bwfain6"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_120oi"]
 [ext_resource type="Script" uid="uid://d4k1sm4fcnr77" path="res://Scripts/UI/Popups/TemporaryAMDCardsPopup/TemporaryAMDCardsPopup.cs" id="2_6kw3g"]
@@ -6,22 +6,22 @@
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_xhicp"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="5_mhkbl"]
 
-[node name="TemporaryAMDCardsPopup" node_paths=PackedStringArray("_cardParent", "_cardsAndReceiverLabel", "_confirmButton") instance=ExtResource("1_120oi")]
+[node name="TemporaryAMDCardsPopup" unique_id=12607177 node_paths=PackedStringArray("_cardParent", "_cardsAndReceiverLabel", "_confirmButton") instance=ExtResource("1_120oi")]
 script = ExtResource("2_6kw3g")
 _cardScene = ExtResource("3_ckg6t")
 _cardParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer")
 _cardsAndReceiverLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Label")
 _confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Temporary Attack Modifier Cards"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=1664306471]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=177489393]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_xhicp")
 theme_override_font_sizes/normal_font_size = 36
@@ -32,7 +32,7 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("5_mhkbl")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=456235254 instance=ExtResource("5_mhkbl")]
 layout_mode = 2
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

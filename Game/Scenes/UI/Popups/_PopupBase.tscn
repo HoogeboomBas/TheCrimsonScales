@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp2uff21w610p"]
+[gd_scene format=3 uid="uid://dp2uff21w610p"]
 
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="1_ctvge"]
 [ext_resource type="StyleBox" uid="uid://d3dljvi7ixs6p" path="res://Resources/PopupPanel.tres" id="1_se1au"]
@@ -20,7 +20,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="Popup" type="Control"]
+[node name="Popup" type="Control" unique_id=882399198]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=976323768]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,8 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jr74k")
 
-[node name="Button" type="BaseButton" parent="Background"]
-_import_path = NodePath("")
+[node name="Button" type="BaseButton" parent="Background" unique_id=1721606754]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -81,6 +80,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -94,9 +94,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -112,7 +121,7 @@ shortcut_in_tooltip = true
 script = ExtResource("4_csvw8")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=2112547392]
 material = ExtResource("1_ctvge")
 layout_mode = 1
 anchors_preset = 8
@@ -128,24 +137,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("1_se1au")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1199971098]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=708832376]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer" unique_id=639673785]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CloseButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/Header"]
-_import_path = NodePath("")
+[node name="CloseButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=1584988073]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -187,6 +195,7 @@ grow_vertical = 1
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -200,9 +209,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -218,7 +236,7 @@ shortcut_in_tooltip = true
 script = ExtResource("4_csvw8")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header/CloseButton"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header/CloseButton" unique_id=1277261360]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -228,7 +246,7 @@ grow_vertical = 2
 texture = ExtResource("4_ctvge")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=1728821259]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -238,7 +256,7 @@ text = "Info"
 label_settings = SubResource("LabelSettings_f340v")
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="Divider" type="Panel" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=1940836697]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -248,7 +266,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hkul8")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1836765652]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 10
@@ -256,17 +274,17 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer" unique_id=1052908713]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Content" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1712449809]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1394157472]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 mouse_filter = 2

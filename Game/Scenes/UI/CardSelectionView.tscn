@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpl0163b2ppbv"]
+[gd_scene format=3 uid="uid://cpl0163b2ppbv"]
 
 [ext_resource type="Script" uid="uid://cjcsrsvbxjyn1" path="res://Scripts/Scenario/UI/CardSelectionView/CardSelectionView.cs" id="1_hlgn3"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="5_17wxw"]
@@ -8,7 +8,7 @@
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="8_3x8lk"]
 [ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="9_5atsp"]
 
-[node name="CardSelectionView" type="Control" node_paths=PackedStringArray("_container", "_cardSelectionList", "_restButtons", "_shortRestButton", "_longRestButton", "_longRestIndicatorContainer")]
+[node name="CardSelectionView" type="Control" unique_id=1356815642 node_paths=PackedStringArray("_container", "_cardSelectionList", "_restButtons", "_shortRestButton", "_longRestButton", "_longRestIndicatorContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ _shortRestButton = NodePath("MarginContainer/Container/RestButtons/ShortRest/Bet
 _longRestButton = NodePath("MarginContainer/Container/RestButtons/LongRest/BetterButton")
 _longRestIndicatorContainer = NodePath("MarginContainer/Container/RestButtons/LongRest/InitiativeIndicator")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1950040980]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,11 +37,11 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Container" type="Control" parent="MarginContainer"]
+[node name="Container" type="Control" parent="MarginContainer" unique_id=2002481724]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CardSelectionList" parent="MarginContainer/Container" instance=ExtResource("5_rego2")]
+[node name="CardSelectionList" parent="MarginContainer/Container" unique_id=189719327 instance=ExtResource("5_rego2")]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -50,14 +50,14 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_vertical = 2
 
-[node name="RestButtons" type="Control" parent="MarginContainer/Container"]
+[node name="RestButtons" type="Control" parent="MarginContainer/Container" unique_id=786015970]
 anchors_preset = 0
 offset_left = 30.0
 offset_right = 450.0
 offset_bottom = 80.0
 mouse_filter = 2
 
-[node name="ShortRest" type="Control" parent="MarginContainer/Container/RestButtons"]
+[node name="ShortRest" type="Control" parent="MarginContainer/Container/RestButtons" unique_id=1774806934]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -66,8 +66,7 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BetterButton" type="BaseButton" parent="MarginContainer/Container/RestButtons/ShortRest"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="MarginContainer/Container/RestButtons/ShortRest" unique_id=1479709504]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -109,6 +108,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -122,9 +122,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -139,7 +148,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("5_17wxw")
 
-[node name="Panel" type="Panel" parent="MarginContainer/Container/RestButtons/ShortRest/BetterButton"]
+[node name="Panel" type="Panel" parent="MarginContainer/Container/RestButtons/ShortRest/BetterButton" unique_id=446313425]
 material = ExtResource("6_mmykg")
 layout_mode = 1
 anchors_preset = 15
@@ -150,7 +159,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("7_sfnjd")
 
-[node name="Label" type="Label" parent="MarginContainer/Container/RestButtons/ShortRest/BetterButton/Panel"]
+[node name="Label" type="Label" parent="MarginContainer/Container/RestButtons/ShortRest/BetterButton/Panel" unique_id=1383768878]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,7 +171,7 @@ label_settings = ExtResource("8_3x8lk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LongRest" type="Control" parent="MarginContainer/Container/RestButtons"]
+[node name="LongRest" type="Control" parent="MarginContainer/Container/RestButtons" unique_id=1861814935]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -174,7 +183,7 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="InitiativeIndicator" type="Control" parent="MarginContainer/Container/RestButtons/LongRest"]
+[node name="InitiativeIndicator" type="Control" parent="MarginContainer/Container/RestButtons/LongRest" unique_id=1536059429]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -186,15 +195,14 @@ offset_bottom = 20.0
 grow_vertical = 2
 pivot_offset = Vector2(0, 20)
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Container/RestButtons/LongRest/InitiativeIndicator"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Container/RestButtons/LongRest/InitiativeIndicator" unique_id=1715871222]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_5atsp")
 expand_mode = 1
 
-[node name="BetterButton" type="BaseButton" parent="MarginContainer/Container/RestButtons/LongRest"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="MarginContainer/Container/RestButtons/LongRest" unique_id=1033870703]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -236,6 +244,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -249,9 +258,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -266,7 +284,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("5_17wxw")
 
-[node name="Panel" type="Panel" parent="MarginContainer/Container/RestButtons/LongRest/BetterButton"]
+[node name="Panel" type="Panel" parent="MarginContainer/Container/RestButtons/LongRest/BetterButton" unique_id=1995277034]
 material = ExtResource("6_mmykg")
 layout_mode = 1
 anchors_preset = 15
@@ -277,7 +295,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("7_sfnjd")
 
-[node name="Label" type="Label" parent="MarginContainer/Container/RestButtons/LongRest/BetterButton/Panel"]
+[node name="Label" type="Label" parent="MarginContainer/Container/RestButtons/LongRest/BetterButton/Panel" unique_id=886252075]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

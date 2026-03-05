@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cxg3u8opcit3d"]
+[gd_scene format=3 uid="uid://cxg3u8opcit3d"]
 
 [ext_resource type="Script" uid="uid://ur10y2c2d0qy" path="res://Scripts/NewCampaign/NewCampaignStartingGroup.cs" id="1_byxwj"]
 [ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="1_e2t5o"]
@@ -33,8 +33,7 @@ font_size = 30
 font = ExtResource("6_ilx8c")
 font_size = 25
 
-[node name="StartingGroup" type="BaseButton" node_paths=PackedStringArray("_button")]
-_import_path = NodePath("")
+[node name="StartingGroup" type="BaseButton" unique_id=483905131 node_paths=PackedStringArray("_button")]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -76,6 +75,7 @@ grow_vertical = 1
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -89,9 +89,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -108,24 +117,24 @@ script = ExtResource("1_byxwj")
 _button = NodePath(".")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=466837900]
+layout_mode = 0
 offset_right = 248.0
 offset_bottom = 516.0
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="Box" type="MarginContainer" parent="VBoxContainer"]
+[node name="Box" type="MarginContainer" parent="VBoxContainer" unique_id=599670790]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="VBoxContainer/Box"]
+[node name="Background" type="TextureRect" parent="VBoxContainer/Box" unique_id=862222273]
 self_modulate = Color(0.376659, 0.376658, 0.376658, 0.341176)
 layout_mode = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_p1m44")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box" unique_id=2007394739]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 4
@@ -133,17 +142,17 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Box/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Box/MarginContainer" unique_id=233347960]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="Header" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer"]
+[node name="Header" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer" unique_id=2135590762]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+[node name="Background" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header" unique_id=420562140]
 self_modulate = Color(0.984616, 0.549261, 0.513281, 1)
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 1
@@ -156,7 +165,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture1D_3npii")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+[node name="Label" type="Label" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header" unique_id=1134925745]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -170,7 +179,7 @@ text = "Militants"
 label_settings = ExtResource("1_e2t5o")
 horizontal_alignment = 1
 
-[node name="Divider" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header"]
+[node name="Divider" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/Header" unique_id=289898334]
 self_modulate = Color(0.454589, 0.0747298, 0.0835239, 1)
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 1
@@ -184,54 +193,54 @@ mouse_filter = 2
 texture = SubResource("GradientTexture1D_3npii")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer" unique_id=699690017]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Classes" type="GridContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Classes" type="GridContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer" unique_id=612602172]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="StartingGroupClass" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+[node name="StartingGroupClass" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" unique_id=639951492 instance=ExtResource("2_ilx8c")]
 layout_mode = 2
 
 [node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass" index="0"]
 self_modulate = Color(0.572549, 0.521569, 0.443137, 1)
 texture = ExtResource("3_c6sfd")
 
-[node name="StartingGroupClass2" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+[node name="StartingGroupClass2" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" unique_id=1631802366 instance=ExtResource("2_ilx8c")]
 layout_mode = 2
 
 [node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass2" index="0"]
 self_modulate = Color(0.772549, 0.113725, 0.129412, 1)
 texture = ExtResource("4_byxwj")
 
-[node name="StartingGroupClass3" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+[node name="StartingGroupClass3" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" unique_id=390056438 instance=ExtResource("2_ilx8c")]
 layout_mode = 2
 
 [node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass3" index="0"]
 self_modulate = Color(0.745098, 0.752941, 0.356863, 1)
 texture = ExtResource("5_e0waq")
 
-[node name="StartingGroupClass4" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" instance=ExtResource("2_ilx8c")]
+[node name="StartingGroupClass4" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" unique_id=1848253511 instance=ExtResource("2_ilx8c")]
 layout_mode = 2
 
 [node name="Icon" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass4" index="0"]
 self_modulate = Color(0.913725, 0.411765, 0.0705882, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer" unique_id=617074038]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Divider" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer"]
+[node name="Divider" type="Control" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer" unique_id=1291648469]
 modulate = Color(0.949121, 0.31306, 0.297705, 1)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Horizontal" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider"]
+[node name="Horizontal" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider" unique_id=1213870287]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 1
 anchors_preset = 14
@@ -246,7 +255,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture1D_3npii")
 expand_mode = 1
 
-[node name="Vertical" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider"]
+[node name="Vertical" type="TextureRect" parent="VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider" unique_id=886722939]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 1
 anchors_preset = 14
@@ -263,11 +272,11 @@ mouse_filter = 2
 texture = SubResource("GradientTexture1D_3npii")
 expand_mode = 1
 
-[node name="Border" type="Control" parent="VBoxContainer/Box"]
+[node name="Border" type="Control" parent="VBoxContainer/Box" unique_id=985765486]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Top" type="ColorRect" parent="VBoxContainer/Box/Border"]
+[node name="Top" type="ColorRect" parent="VBoxContainer/Box/Border" unique_id=243618622]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 1
 anchors_preset = 10
@@ -276,7 +285,7 @@ grow_horizontal = 2
 mouse_filter = 2
 color = Color(0.635294, 0.482353, 0.270588, 1)
 
-[node name="Left" type="ColorRect" parent="VBoxContainer/Box/Border"]
+[node name="Left" type="ColorRect" parent="VBoxContainer/Box/Border" unique_id=2089515153]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -285,7 +294,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.635294, 0.482353, 0.270588, 1)
 
-[node name="Right" type="ColorRect" parent="VBoxContainer/Box/Border"]
+[node name="Right" type="ColorRect" parent="VBoxContainer/Box/Border" unique_id=2104498904]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -297,7 +306,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.635294, 0.482353, 0.270588, 1)
 
-[node name="Bottom" type="ColorRect" parent="VBoxContainer/Box/Border"]
+[node name="Bottom" type="ColorRect" parent="VBoxContainer/Box/Border" unique_id=1747553874]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 1
 anchors_preset = 12
@@ -309,67 +318,67 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(0.635294, 0.482353, 0.270588, 1)
 
-[node name="Details" type="MarginContainer" parent="VBoxContainer"]
+[node name="Details" type="MarginContainer" parent="VBoxContainer" unique_id=1816585863]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details" unique_id=1881722604]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="ComplexityRating" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer"]
+[node name="ComplexityRating" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer" unique_id=710941524]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating"]
+[node name="Label" type="Label" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating" unique_id=632348967]
 layout_mode = 2
 text = "Average Complexity:"
 label_settings = SubResource("LabelSettings_c6sfd")
 horizontal_alignment = 1
 
-[node name="Rating" type="HBoxContainer" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating"]
+[node name="Rating" type="HBoxContainer" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating" unique_id=1762537691]
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="RatingCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+[node name="RatingCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" unique_id=1314404276 instance=ExtResource("7_c6sfd")]
 layout_mode = 2
 
-[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle" index="2"]
+[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle" index="2" unique_id=1175699102]
 visible = true
 
-[node name="RatingCircle2" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+[node name="RatingCircle2" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" unique_id=1842833756 instance=ExtResource("7_c6sfd")]
 layout_mode = 2
 
-[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2" index="2"]
+[node name="FullCircle" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2" index="2" unique_id=1175699102]
 visible = true
 
-[node name="RatingCircle3" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+[node name="RatingCircle3" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" unique_id=36126629 instance=ExtResource("7_c6sfd")]
 layout_mode = 2
 
-[node name="RatingCircle4" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+[node name="RatingCircle4" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" unique_id=349700590 instance=ExtResource("7_c6sfd")]
 layout_mode = 2
 
-[node name="RatingCircle5" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" instance=ExtResource("7_c6sfd")]
+[node name="RatingCircle5" parent="VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" unique_id=778273101 instance=ExtResource("7_c6sfd")]
 layout_mode = 2
 
-[node name="Summary" type="MarginContainer" parent="VBoxContainer/Details/VBoxContainer"]
+[node name="Summary" type="MarginContainer" parent="VBoxContainer/Details/VBoxContainer" unique_id=265917114]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer/Summary"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Details/VBoxContainer/Summary" unique_id=1710424059]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Header" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer"]
+[node name="Header" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" unique_id=1715589733]
 layout_mode = 2
 text = "Group Summary:"
 label_settings = SubResource("LabelSettings_c6sfd")
 horizontal_alignment = 1
 
-[node name="Text" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer"]
+[node name="Text" type="Label" parent="VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" unique_id=174258774]
 layout_mode = 2
 text = "Delayed Damage, Protection, Support, Healing, Debuffing, and Terrain Creation."
 label_settings = SubResource("LabelSettings_byxwj")

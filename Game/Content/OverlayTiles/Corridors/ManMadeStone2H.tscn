@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckgq6ohdrpaun"]
+[gd_scene format=3 uid="uid://ckgq6ohdrpaun"]
 
 [ext_resource type="PackedScene" uid="uid://dpxtgytc1d70d" path="res://Scenes/Scenario/OverlayTiles/Corridor2H.tscn" id="1_8454a"]
 [ext_resource type="Texture2D" uid="uid://chlpkbtspqnw4" path="res://Art/OverlayTiles/Corridor - Man Made Stone 2h.png" id="2_265jy"]
 
-[node name="ManMadeStone2H" instance=ExtResource("1_8454a")]
+[node name="ManMadeStone2H" unique_id=1618952346 instance=ExtResource("1_8454a")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_265jy")
 
-[node name="Hex2" parent="." index="5"]
-position = Vector2(218.238, 0)
+[node name="Hex2" parent="." index="6"]
+position = Vector2(218.2384, 0)

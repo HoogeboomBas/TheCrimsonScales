@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtu5tcpjoaulk"]
+[gd_scene format=3 uid="uid://dtu5tcpjoaulk"]
 
 [ext_resource type="Script" uid="uid://c4v3c5k4tns2l" path="res://Scripts/Scenario/UI/SelectFigureView/SelectFigureViewFigure.cs" id="1_183gj"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_183gj"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_wxei3"]
 [ext_resource type="Texture2D" uid="uid://b2ovfdm40bjmj" path="res://Content/Classes/Mirefoot/MapIcon.tres" id="3_wxei3"]
 
-[node name="SelectFigureViewFigure" type="Control" node_paths=PackedStringArray("_button", "_scaleContainer", "_outline", "_sprite")]
+[node name="SelectFigureViewFigure" type="Control" unique_id=1248298703 node_paths=PackedStringArray("_button", "_scaleContainer", "_outline", "_sprite")]
 custom_minimum_size = Vector2(200, 230)
 layout_mode = 3
 anchors_preset = 0
@@ -15,8 +15,7 @@ _scaleContainer = NodePath("BetterButton/FigureAnchor")
 _outline = NodePath("BetterButton/FigureAnchor/Character/Outline")
 _sprite = NodePath("BetterButton/FigureAnchor/Character/Mask/Sprite2D")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1830565075]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -58,6 +57,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -71,9 +71,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -89,7 +98,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_wxei3")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="FigureAnchor" type="Control" parent="BetterButton"]
+[node name="FigureAnchor" type="Control" parent="BetterButton" unique_id=457403905]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,18 +109,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Character" type="Node2D" parent="BetterButton/FigureAnchor"]
+[node name="Character" type="Node2D" parent="BetterButton/FigureAnchor" unique_id=790333111]
 z_index = 10
 
-[node name="Outline" type="Sprite2D" parent="BetterButton/FigureAnchor/Character"]
+[node name="Outline" type="Sprite2D" parent="BetterButton/FigureAnchor/Character" unique_id=17654056]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_183gj")
 
-[node name="Mask" type="Sprite2D" parent="BetterButton/FigureAnchor/Character"]
+[node name="Mask" type="Sprite2D" parent="BetterButton/FigureAnchor/Character" unique_id=939284156]
 clip_children = 1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_183gj")
 
-[node name="Sprite2D" type="Sprite2D" parent="BetterButton/FigureAnchor/Character/Mask"]
+[node name="Sprite2D" type="Sprite2D" parent="BetterButton/FigureAnchor/Character/Mask" unique_id=406415896]
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("3_wxei3")

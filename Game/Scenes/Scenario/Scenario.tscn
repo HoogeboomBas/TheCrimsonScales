@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cifjwk1lx2x1h"]
+[gd_scene format=3 uid="uid://cifjwk1lx2x1h"]
 
 [ext_resource type="Script" uid="uid://7l8cipmdf8wv" path="res://Scripts/Scenario/Scenario.cs" id="1_aoem4"]
 [ext_resource type="Script" uid="uid://dx54yqiewd1rc" path="res://Scripts/Scenario/Map.cs" id="3_ygdw2"]
 
-[node name="Scenario" type="Node2D" node_paths=PackedStringArray("Map")]
+[node name="Scenario" type="Node2D" unique_id=525202084 node_paths=PackedStringArray("Map")]
 script = ExtResource("1_aoem4")
 Map = NodePath("Map")
 
-[node name="Map" type="Node2D" parent="."]
+[node name="Map" type="Node2D" parent="." unique_id=1244327953]
 script = ExtResource("3_ygdw2")
 
-[node name="Rooms" type="Node2D" parent="Map"]
+[node name="Rooms" type="Node2D" parent="Map" unique_id=1508226184]
 
-[node name="Doors" type="Node2D" parent="Map"]
+[node name="Doors" type="Node2D" parent="Map" unique_id=1045544097]

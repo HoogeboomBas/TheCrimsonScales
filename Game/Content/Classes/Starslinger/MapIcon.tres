@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c4shly67fnb1k"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://c4shly67fnb1k"]
 
 [ext_resource type="Texture2D" uid="uid://v5wti0cl81ij" path="res://Content/Classes/Starslinger/Artwork.jpg" id="1_wrbud"]
 

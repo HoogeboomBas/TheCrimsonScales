@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://difhafs7bmdtg"]
+[gd_scene format=3 uid="uid://difhafs7bmdtg"]
 
 [ext_resource type="Script" uid="uid://x286s4f4mlf0" path="res://Scripts/SceneLoading/LoadingSceneController.cs" id="1_y6fwy"]
 
-[node name="LoadingScene" type="Node" node_paths=PackedStringArray("_background")]
+[node name="LoadingScene" type="Node" unique_id=236256950 node_paths=PackedStringArray("_background")]
 script = ExtResource("1_y6fwy")
 _background = NodePath("CanvasLayer/ColorRect")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=71206550]
 layer = 10
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=12444692]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

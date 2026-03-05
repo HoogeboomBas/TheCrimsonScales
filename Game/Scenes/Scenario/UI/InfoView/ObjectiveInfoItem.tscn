@@ -1,24 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://drkb3g8r2m23k"]
+[gd_scene format=3 uid="uid://drkb3g8r2m23k"]
 
 [ext_resource type="PackedScene" uid="uid://cj61uqdsa6bkt" path="res://Scenes/Scenario/UI/InfoView/FigureInfoItem.tscn" id="1_hayha"]
 [ext_resource type="Script" uid="uid://cv7t6ruu0iuve" path="res://Scripts/Scenario/UI/InfoView/ObjectiveInfoItem.cs" id="2_0d3e5"]
 
-[node name="ObjectiveInfoItem" node_paths=PackedStringArray("_sceneAnchor") instance=ExtResource("1_hayha")]
+[node name="ObjectiveInfoItem" unique_id=1335221483 node_paths=PackedStringArray("_sceneAnchor") instance=ExtResource("1_hayha")]
 script = ExtResource("2_0d3e5")
 _sceneAnchor = NodePath("MarginContainer/Content/Container/Container/SceneAnchor")
 
-[node name="LabelContainer" parent="MarginContainer/Content" index="0"]
+[node name="LabelContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="0" unique_id=520630334]
 custom_minimum_size = Vector2(310, 47)
 
-[node name="Container" parent="MarginContainer/Content" index="1"]
+[node name="Container" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=530487584]
 theme_override_constants/separation = 20
 
-[node name="Container" type="Control" parent="MarginContainer/Content/Container" index="0"]
+[node name="Container" type="Control" parent="MarginContainer/Content/Container" index="0" unique_id=550920875]
 custom_minimum_size = Vector2(128, 158)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="SceneAnchor" type="Control" parent="MarginContainer/Content/Container/Container" index="0"]
+[node name="SceneAnchor" type="Control" parent="MarginContainer/Content/Container/Container" index="0" unique_id=1767569990]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,14 +29,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Portrait" parent="MarginContainer/Content/Container" index="1"]
+[node name="Portrait" parent="MarginContainer/Content/Container" index="1" unique_id=1539927641]
 visible = false
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/Health" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/Health" parent_id_path=PackedInt32Array(1648449808) index="1" unique_id=1836023533]
 offset_top = -2.0
 offset_bottom = 2.0
 
-[node name="Effects" parent="MarginContainer/Content" index="2"]
+[node name="Effects" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="2" unique_id=333721468]
 visible = false
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]
