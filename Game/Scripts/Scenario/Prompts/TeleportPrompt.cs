@@ -25,17 +25,19 @@ public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure p
 
 		_possibleHexes.Clear();
 
-		foreach(Hex hex in customHexes?? GameController.Instance.Map.Hexes.Values.ToList())
+		if(customHexes != null)
 		{
-			if(!hex.Revealed)
+			_possibleHexes.AddRange(customHexes);
+		}
+		else
+		{
+			foreach(Hex hex in GameController.Instance.Map.Hexes.Values.Where(hex => hex.Revealed))
 			{
-				continue;
-			}
-
-			int distance = Map.SimpleDistance(hex.Coords, performer.Hex.Coords);
-			if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
-			{
-				_possibleHexes.Add(hex);
+				int distance = Map.SimpleDistance(hex.Coords, performer.Hex.Coords);
+				if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
+				{
+					_possibleHexes.Add(hex);
+				}
 			}
 		}
 	}
