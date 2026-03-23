@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpwuqcoowtyi0"]
+[gd_scene format=3 uid="uid://bpwuqcoowtyi0"]
 
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="1_fi50j"]
 
@@ -31,9 +31,9 @@ scale_max = 0.06
 scale_curve = SubResource("CurveTexture_65c77")
 color_ramp = SubResource("GradientTexture1D_u7m75")
 
-[node name="FigureActiveParticleSystemEdge" type="Node2D"]
+[node name="FigureActiveParticleSystemEdge" type="Node2D" unique_id=1370768702]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1184272359]
 z_index = -1
 material = SubResource("CanvasItemMaterial_krxno")
 position = Vector2(93, 0)

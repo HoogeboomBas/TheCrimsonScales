@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8omhur1edsd1"]
+[gd_scene format=3 uid="uid://b8omhur1edsd1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ea5c1"]
 bg_color = Color(0.501961, 0.333333, 0.156863, 1)
@@ -19,12 +19,12 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ItemShopItemCornerVisual" type="Control"]
+[node name="ItemShopItemCornerVisual" type="Control" unique_id=1371473399]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=986689096]
 layout_mode = 0
 offset_left = -3.0
 offset_top = -3.0
@@ -33,7 +33,7 @@ offset_bottom = 21.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ea5c1")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Panel2" type="Panel" parent="." unique_id=413730738]
 layout_mode = 0
 offset_left = 2.0
 offset_top = -2.0
@@ -41,7 +41,7 @@ offset_right = 8.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwu2m")
 
-[node name="Panel3" type="Panel" parent="."]
+[node name="Panel3" type="Panel" parent="." unique_id=1831299426]
 layout_mode = 0
 offset_left = 11.0
 offset_top = -2.0
@@ -49,7 +49,7 @@ offset_right = 17.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwu2m")
 
-[node name="Panel4" type="Panel" parent="."]
+[node name="Panel4" type="Panel" parent="." unique_id=1879410843]
 layout_mode = 0
 offset_left = -2.0
 offset_top = 2.0
@@ -57,7 +57,7 @@ offset_bottom = 8.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwu2m")
 
-[node name="Panel5" type="Panel" parent="."]
+[node name="Panel5" type="Panel" parent="." unique_id=2110463329]
 layout_mode = 0
 offset_left = -2.0
 offset_top = 11.0

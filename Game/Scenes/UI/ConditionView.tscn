@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3yfqgp66ss0d"]
+[gd_scene format=3 uid="uid://b3yfqgp66ss0d"]
 
 [ext_resource type="Texture2D" uid="uid://b37l4p8l06773" path="res://Art/Icons/ConditionsAndEffects/Poison.svg" id="1_3uvxm"]
 [ext_resource type="Script" uid="uid://c44c8ye5sujig" path="res://Scripts/UI/ConditionView.cs" id="1_027h0"]
@@ -10,7 +10,7 @@ font_size = 60
 outline_size = 12
 outline_color = Color(0, 0, 0, 1)
 
-[node name="ConditionView" type="Control" node_paths=PackedStringArray("_textureRect", "_stackLabel")]
+[node name="ConditionView" type="Control" unique_id=290428234 node_paths=PackedStringArray("_textureRect", "_stackLabel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 56.0
@@ -19,7 +19,7 @@ script = ExtResource("1_027h0")
 _textureRect = NodePath("TextureRect")
 _stackLabel = NodePath("StackLabel")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=403208903]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ grow_vertical = 2
 texture = ExtResource("1_3uvxm")
 expand_mode = 1
 
-[node name="StackLabel" type="Label" parent="."]
+[node name="StackLabel" type="Label" parent="." unique_id=1731691336]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

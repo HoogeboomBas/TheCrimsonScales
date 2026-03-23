@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://gfilfltix5vm"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://gfilfltix5vm"]
 
 [ext_resource type="Shader" uid="uid://cvigpjylr2cci" path="res://Shaders/RotatingCard.gdshader" id="1_xc4mf"]
 

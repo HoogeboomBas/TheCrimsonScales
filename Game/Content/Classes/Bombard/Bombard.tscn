@@ -1,13 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://blkyum1t6f4xl"]
+[gd_scene format=3 uid="uid://blkyum1t6f4xl"]
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_g53na"]
 [ext_resource type="Texture2D" uid="uid://bovaj5jfuqg7r" path="res://Content/Classes/Bombard/Artwork.png" id="2_7f2mq"]
 [ext_resource type="Texture2D" uid="uid://boymfixcadcug" path="res://Content/Classes/Bombard/Animation.jpg" id="3_lxq71"]
 
-[node name="Bombard" instance=ExtResource("1_g53na")]
-
-[node name="Outline" parent="." index="1"]
-self_modulate = Color(0.54902, 0.407843, 0.231373, 1)
+[node name="Bombard" unique_id=49963860 instance=ExtResource("1_g53na")]
 
 [node name="Sprite2D" parent="Mask" index="0"]
 position = Vector2(-1.25, 8.75)
@@ -18,3 +15,6 @@ texture = ExtResource("3_lxq71")
 hframes = 12
 vframes = 13
 _frameCount = 149
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.54902, 0.407843, 0.231373, 1)

@@ -1,21 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://pkypm1g6jmy1"]
+[gd_scene format=3 uid="uid://pkypm1g6jmy1"]
 
 [ext_resource type="PackedScene" uid="uid://5437b8ot5m74" path="res://Scenes/Scenario/OverlayTiles/OverlayTile3H.tscn" id="1_j50ly"]
 [ext_resource type="Script" uid="uid://c0a5dkd14kymt" path="res://Scripts/Scenario/HexObjects/Objectives/Objective.cs" id="2_cy4my"]
 [ext_resource type="Texture2D" uid="uid://cgne8h42572gr" path="res://Art/Icons/OverlayTiles/ObjectiveIcon.svg" id="3_5ashk"]
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="4_48ras"]
 
-[node name="Objective3H" instance=ExtResource("1_j50ly")]
+[node name="Objective3H" unique_id=1672165165 instance=ExtResource("1_j50ly")]
 script = ExtResource("2_cy4my")
 HexObjectShape = 2
 
 [node name="Outline" parent="." index="2"]
 self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
 
-[node name="FigureViewComponent" parent="." index="4" node_paths=PackedStringArray("Outline") instance=ExtResource("4_48ras")]
-Outline = NodePath("../Outline")
+[node name="FigureViewComponent" parent="." index="4" unique_id=840639828 instance=ExtResource("4_48ras")]
 
-[node name="Health" parent="FigureViewComponent" index="0"]
+[node name="Health" parent="FigureViewComponent" index="0" unique_id=375530829]
 position = Vector2(0, 0)
 
 [node name="Icon" parent="OverlayTileViewComponent" index="0"]
@@ -31,10 +30,10 @@ visible = false
 
 [node name="Hex2" parent="." index="7"]
 visible = false
-position = Vector2(218.238, 0)
+position = Vector2(218.2384, 0)
 
 [node name="Hex3" parent="." index="8"]
 visible = false
-position = Vector2(109.119, -189)
+position = Vector2(109.1192, -189)
 
 [editable path="FigureViewComponent"]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://nc1epxsho0mr"]
+[gd_scene format=3 uid="uid://nc1epxsho0mr"]
 
 [ext_resource type="PackedScene" uid="uid://c48tqburk5etf" path="res://Scenes/Scenario/OverlayTiles/DifficultTerrain1H.tscn" id="1_74ujv"]
 [ext_resource type="Script" uid="uid://dcbsel8jyiiuc" path="res://Scripts/Scenario/HexObjects/Water.cs" id="2_t0kgp"]
 
-[node name="Water1H" instance=ExtResource("1_74ujv")]
+[node name="Water1H" unique_id=379592245 instance=ExtResource("1_74ujv")]
 script = ExtResource("2_t0kgp")
 _stepType = 2

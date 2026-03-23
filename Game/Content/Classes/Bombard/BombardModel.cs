@@ -36,6 +36,16 @@ public class BombardModel : ClassModel
 		ModelDB.AbilityCard<TwinBlast>(),
 		ModelDB.AbilityCard<HurriedRepairs>(),
 		ModelDB.AbilityCard<PowerfulBuckshot>(),
+		ModelDB.AbilityCard<UnbreakablePosition>(),
+		ModelDB.AbilityCard<SharpenedFocus>(),
+		ModelDB.AbilityCard<MeteoricBlast>(),
+		ModelDB.AbilityCard<ProlificPerforation>(),
+		ModelDB.AbilityCard<AirborneSkyrockets>(),
+		ModelDB.AbilityCard<BallisticBarrage>(),
+		ModelDB.AbilityCard<DefenseMechanism>(),
+		ModelDB.AbilityCard<QuadrupleCannons>(),
+		ModelDB.AbilityCard<SuperchargedGunpowder>(),
+		ModelDB.AbilityCard<SuperiorUpgrade>()
 	];
 
 	public override List<PerkModel> Perks { get; } =

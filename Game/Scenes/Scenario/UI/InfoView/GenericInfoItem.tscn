@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://s6bf1i55mvmv"]
+[gd_scene format=3 uid="uid://s6bf1i55mvmv"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_h70qi"]
 [ext_resource type="Script" uid="uid://j2g23qwspah3" path="res://Scripts/Scenario/UI/InfoView/GenericInfoItem.cs" id="2_ufmcx"]
@@ -6,19 +6,19 @@
 [ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="4_3nf0c"]
 [ext_resource type="PackedScene" uid="uid://bmmrjlw6yb3gg" path="res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoExtraEffectsView.tscn" id="5_ujst0"]
 
-[node name="GenericInfoItem" node_paths=PackedStringArray("_container", "_sceneAnchor", "_descriptionLabel", "_infoExtraEffectsView") instance=ExtResource("1_h70qi")]
+[node name="GenericInfoItem" unique_id=2131751155 node_paths=PackedStringArray("_container", "_sceneAnchor", "_descriptionLabel", "_infoExtraEffectsView") instance=ExtResource("1_h70qi")]
 script = ExtResource("2_ufmcx")
 _container = NodePath("MarginContainer/Content/Container")
 _sceneAnchor = NodePath("MarginContainer/Content/Container/SceneAnchor")
 _descriptionLabel = NodePath("MarginContainer/Content/Description")
 _infoExtraEffectsView = NodePath("MarginContainer/Content/InfoExtraEffectsView")
 
-[node name="Container" type="Control" parent="MarginContainer/Content" index="1"]
+[node name="Container" type="Control" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=1022149591]
 custom_minimum_size = Vector2(0, 176)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="SceneAnchor" type="Control" parent="MarginContainer/Content/Container" index="0"]
+[node name="SceneAnchor" type="Control" parent="MarginContainer/Content/Container" index="0" unique_id=2106598151]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,16 +30,16 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 mouse_filter = 2
 
-[node name="Description" type="RichTextLabel" parent="MarginContainer/Content" index="2"]
+[node name="Description" type="RichTextLabel" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="2" unique_id=785075966]
 layout_mode = 2
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_ujst0")
 theme_override_fonts/italics_font = ExtResource("4_3nf0c")
-theme_override_font_sizes/italics_font_size = 20
 theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/italics_font_size = 20
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="InfoExtraEffectsView" parent="MarginContainer/Content" index="3" instance=ExtResource("5_ujst0")]
+[node name="InfoExtraEffectsView" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=115921707 instance=ExtResource("5_ujst0")]
 layout_mode = 2

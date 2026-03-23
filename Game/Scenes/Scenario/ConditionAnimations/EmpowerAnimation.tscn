@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb8by1bidkam0"]
+[gd_scene format=3 uid="uid://bb8by1bidkam0"]
 
 [ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_is16o"]
 [ext_resource type="Texture2D" uid="uid://3bxs24lllehu" path="res://Art/Icons/ConditionsAndEffects/Empower/Right.svg" id="2_e18vu"]
@@ -160,44 +160,42 @@ _data = {
 _data = [Vector2(0, 1), 0.0, 0.111574, 0, 0, Vector2(1, 0), -1.6978, 0.0, 0, 0]
 point_count = 2
 
-[node name="ConditionAnimation" instance=ExtResource("1_is16o")]
+[node name="ConditionAnimation" unique_id=2006988872 instance=ExtResource("1_is16o")]
 _sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
 _sfxVolumeDb = -8.0
 _sfxDelay = 0.5
 
-[node name="Inset" parent="ScaleContainer" index="0"]
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(1, 0.666667, 0.00392157, 1)
 
-[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" index="0"]
-libraries = {
-&"": SubResource("AnimationLibrary_vvigo")
-}
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
 speed_scale = 2.0
 
-[node name="Sprite2D3" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="1"]
+[node name="Sprite2D3" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=113245835]
 position = Vector2(12.5, 79.1667)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("2_e18vu")
 
-[node name="Sprite2D4" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="2"]
+[node name="Sprite2D4" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=2084386875]
 position = Vector2(-12.736, 78.7405)
 scale = Vector2(0.893953, 0.893953)
 texture = ExtResource("3_qnmfm")
 
-[node name="ColoredNotch" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" index="3"]
+[node name="ColoredNotch" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=862374072]
 position = Vector2(-0.630396, -474)
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="0" unique_id=1734273434]
 visible = false
 position = Vector2(-11, -37)
 texture = ExtResource("2_is16o")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="1"]
+[node name="Sprite2D2" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/ColoredNotch" index="1" unique_id=246585154]
 position = Vector2(0, -162.5)
 scale = Vector2(0.89, 0.89)
 texture = ExtResource("5_khdbc")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="4"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="4" unique_id=1090300110]
 position = Vector2(2.38419e-07, -200)
 emitting = false
 amount = 5
@@ -218,7 +216,7 @@ scale_amount_min = 0.07
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_awnv4")
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="5"]
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="5" unique_id=286984171]
 position = Vector2(2.38419e-07, -200)
 emitting = false
 amount = 5
@@ -239,5 +237,5 @@ scale_amount_min = 0.07
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_awnv4")
 
-[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" index="6"]
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="6" unique_id=84261608]
 texture = ExtResource("7_c2pj7")

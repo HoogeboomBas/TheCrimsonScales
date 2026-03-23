@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b3nwm4d1nmmvm"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://b3nwm4d1nmmvm"]
 
 [ext_resource type="Texture2D" uid="uid://8q728lxawi12" path="res://Content/Monsters/ForestImp/Icon.jpg" id="1_oglme"]
 

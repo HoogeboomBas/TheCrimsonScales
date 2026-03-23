@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://chrc5f17e6fq1"]
+[gd_scene format=3 uid="uid://chrc5f17e6fq1"]
 
 [ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="1_76nh0"]
 
@@ -14,14 +14,14 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="CheckmarkBox" type="Control"]
+[node name="CheckmarkBox" type="Control" unique_id=1315527475]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 3
 anchors_preset = 0
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Outline" type="Panel" parent="."]
+[node name="Outline" type="Panel" parent="." unique_id=1901167651]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lxurl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Outline"]
+[node name="MarginContainer" type="MarginContainer" parent="Outline" unique_id=879696641]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -40,7 +40,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Checkmark" type="TextureRect" parent="Outline/MarginContainer"]
+[node name="Checkmark" type="TextureRect" parent="Outline/MarginContainer" unique_id=451104094]
 visible = false
 layout_mode = 2
 mouse_filter = 2

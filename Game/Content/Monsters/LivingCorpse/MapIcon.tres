@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bb6fojtnlebfy"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://bb6fojtnlebfy"]
 
 [ext_resource type="Texture2D" uid="uid://j6jvrcru6ayw" path="res://Content/Monsters/LivingCorpse/Icon.jpg" id="1_lhsfq"]
 

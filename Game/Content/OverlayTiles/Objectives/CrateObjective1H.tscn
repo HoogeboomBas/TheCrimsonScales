@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c61q01jxs5wvc"]
+[gd_scene format=3 uid="uid://c61q01jxs5wvc"]
 
 [ext_resource type="PackedScene" uid="uid://c2f7r2flocmsj" path="res://Scenes/Scenario/OverlayTiles/Objective1H.tscn" id="1_xpnel"]
 [ext_resource type="Texture2D" uid="uid://k4dydvjkdv5r" path="res://Art/OverlayTiles/Crate B 1h.png" id="2_qn2vl"]
 
-[node name="CrateObjective1H" instance=ExtResource("1_xpnel")]
+[node name="CrateObjective1H" unique_id=1321994030 instance=ExtResource("1_xpnel")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_qn2vl")
 
 [editable path="FigureViewComponent"]

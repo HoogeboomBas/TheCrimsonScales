@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://biyw2it131ohm"]
+[gd_scene format=3 uid="uid://biyw2it131ohm"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_85se7"]
 [ext_resource type="Script" uid="uid://6r2sxydu7lg0" path="res://Content/Classes/Bombard/BombardProjectileInfoItem.cs" id="2_85se7"]
 [ext_resource type="PackedScene" uid="uid://dcjxeakyfta8h" path="res://Scenes/Scenario/UI/CardSideView.tscn" id="3_52ma0"]
 
-[node name="BombardProjectileInfoItem" node_paths=PackedStringArray("_cardSideView") instance=ExtResource("1_85se7")]
+[node name="BombardProjectileInfoItem" unique_id=441523491 node_paths=PackedStringArray("_cardSideView") instance=ExtResource("1_85se7")]
 script = ExtResource("2_85se7")
 _cardSideView = NodePath("MarginContainer/Content/CardSideView")
 
@@ -14,6 +14,5 @@ custom_minimum_size = Vector2(320, 47)
 [node name="Label" parent="MarginContainer/Content/LabelContainer" index="0"]
 text = "Projectile"
 
-[node name="CardSideView" parent="MarginContainer/Content" index="1" instance=ExtResource("3_52ma0")]
+[node name="CardSideView" parent="MarginContainer/Content" index="1" unique_id=2046928161 instance=ExtResource("3_52ma0")]
 layout_mode = 2
-mouse_filter = 2

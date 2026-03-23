@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmtp4nse86cdv"]
+[gd_scene format=3 uid="uid://dmtp4nse86cdv"]
 
 [ext_resource type="Script" uid="uid://cf6hfr6sluw41" path="res://Scripts/Scenario/MovePath/Waypoint.cs" id="1_24qta"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_pvyds"]
 
-[node name="Waypoint" type="Node2D"]
+[node name="Waypoint" type="Node2D" unique_id=1466200299]
 script = ExtResource("1_24qta")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1861969380]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_pvyds")

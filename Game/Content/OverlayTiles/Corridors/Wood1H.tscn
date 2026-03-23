@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmorkfwbhkqeo"]
+[gd_scene format=3 uid="uid://cmorkfwbhkqeo"]
 
 [ext_resource type="PackedScene" uid="uid://cntexpy84mopg" path="res://Scenes/Scenario/OverlayTiles/Corridor1H.tscn" id="1_35h0j"]
 [ext_resource type="Texture2D" uid="uid://5km6lpx3xqvr" path="res://Art/OverlayTiles/Corridor - Wood 1h.png" id="2_35h0j"]
 
-[node name="Wood1H" instance=ExtResource("1_35h0j")]
+[node name="Wood1H" unique_id=1097058955 instance=ExtResource("1_35h0j")]
 _stepType = 3
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_35h0j")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmjlk65mr5s6w"]
+[gd_scene format=3 uid="uid://cmjlk65mr5s6w"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_40xkq"]
 [ext_resource type="Script" uid="uid://bcfndhlyf4eom" path="res://Scripts/BetweenScenarios/ScenarioFlowchart/ScenarioButton.cs" id="1_b3sbo"]
@@ -33,7 +33,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.137255, 0.121569, 0.12549, 1)
 
-[node name="ScenarioButton" type="Control" node_paths=PackedStringArray("_betterButton", "_label", "_completedContainer")]
+[node name="ScenarioButton" type="Control" unique_id=81342639 node_paths=PackedStringArray("_betterButton", "_label", "_completedContainer")]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
 anchors_preset = 0
@@ -47,8 +47,7 @@ _completedContainer = NodePath("BetterButton/CheckBox")
 _scenarioButtonOutlineScene = ExtResource("2_mdlh1")
 _scenarioFlowchartArrowScene = ExtResource("3_pv3h4")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1782530690]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -90,6 +89,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -103,9 +103,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -121,7 +130,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_40xkq")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Circle" type="Control" parent="BetterButton"]
+[node name="Circle" type="Control" parent="BetterButton" unique_id=848561579]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -136,7 +145,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="BetterButton/Circle"]
+[node name="Panel" type="Panel" parent="BetterButton/Circle" unique_id=2025273407]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,7 +155,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_41e7t")
 
-[node name="NumberLabel" type="Label" parent="BetterButton/Circle"]
+[node name="NumberLabel" type="Label" parent="BetterButton/Circle" unique_id=523134988]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -166,8 +175,7 @@ label_settings = SubResource("LabelSettings_cd1so")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CheckBox" type="Control" parent="BetterButton"]
-layout_mode = 3
+[node name="CheckBox" type="Control" parent="BetterButton" unique_id=391333960]
 anchors_preset = 0
 offset_left = 71.0
 offset_top = 66.0
@@ -175,7 +183,7 @@ offset_right = 107.0
 offset_bottom = 102.0
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="BetterButton/CheckBox"]
+[node name="Panel" type="Panel" parent="BetterButton/CheckBox" unique_id=1312330940]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,7 +193,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8dgpq")
 
-[node name="CheckmarkIcon" type="TextureRect" parent="BetterButton/CheckBox"]
+[node name="CheckmarkIcon" type="TextureRect" parent="BetterButton/CheckBox" unique_id=2133681872]
 self_modulate = Color(0.505882, 0.815686, 0.207843, 1)
 layout_mode = 0
 offset_left = -2.0

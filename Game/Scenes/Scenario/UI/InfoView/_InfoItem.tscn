@@ -1,33 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba70utx6b3kjs"]
+[gd_scene format=3 uid="uid://ba70utx6b3kjs"]
 
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="1_oh4lb"]
 [ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="2_f6lyg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ka6sm"]
 
-[node name="InfoItem" type="PanelContainer"]
+[node name="InfoItem" type="PanelContainer" unique_id=55179994]
 custom_minimum_size = Vector2(360, 0)
 offset_right = 350.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ka6sm")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=640714690]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+[node name="Content" type="VBoxContainer" parent="MarginContainer" unique_id=1858054355]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="LabelContainer" type="Control" parent="MarginContainer/Content"]
+[node name="LabelContainer" type="Control" parent="MarginContainer/Content" unique_id=520630334]
 custom_minimum_size = Vector2(280, 47)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/Content/LabelContainer"]
+[node name="Label" type="Label" parent="MarginContainer/Content/LabelContainer" unique_id=1652435008]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

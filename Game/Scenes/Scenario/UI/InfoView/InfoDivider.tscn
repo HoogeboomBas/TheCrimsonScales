@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7xtr7p4d2mq1"]
+[gd_scene format=3 uid="uid://c7xtr7p4d2mq1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mkyj"]
 bg_color = Color(1, 1, 1, 0.352941)
@@ -7,7 +7,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="InfoDivider" type="Control"]
+[node name="InfoDivider" type="Control" unique_id=517805236]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 3
 anchors_preset = 0
@@ -15,7 +15,7 @@ offset_right = 350.0
 offset_bottom = 20.0
 mouse_filter = 2
 
-[node name="Divider" type="Panel" parent="."]
+[node name="Divider" type="Panel" parent="." unique_id=133966096]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5

@@ -1,31 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://btnvtl0cxfet5"]
+[gd_scene format=3 uid="uid://btnvtl0cxfet5"]
 
 [ext_resource type="Script" uid="uid://camsq3tm6j3c3" path="res://Scripts/Scenario/ConditionAnimation.cs" id="1_1j1uk"]
 [ext_resource type="Texture2D" uid="uid://dcjtkb8a25bn" path="res://Art/Icons/ConditionsAndEffects/ConditionInset.svg" id="1_yeojr"]
 [ext_resource type="Texture2D" uid="uid://dtc1vqtrgqe3w" path="res://Art/Icons/ConditionsAndEffects/ConditionOutline.svg" id="2_xl8xx"]
 [ext_resource type="Texture2D" uid="uid://cf44r7hg4rqej" path="res://Art/Icons/ConditionsAndEffects/Bless.svg" id="3_thg4h"]
 
-[node name="ConditionAnimation" type="Node2D" node_paths=PackedStringArray("_scaleContainer", "_animationPlayer")]
+[node name="ConditionAnimation" type="Node2D" unique_id=1923971578 node_paths=PackedStringArray("_scaleContainer", "_animationPlayer")]
 z_index = 1000
 scale = Vector2(0.24, 0.24)
 script = ExtResource("1_1j1uk")
 _scaleContainer = NodePath("ScaleContainer")
 _animationPlayer = NodePath("ScaleContainer/Inset/AnimationContainer/AnimationPlayer")
 
-[node name="ScaleContainer" type="Node2D" parent="."]
+[node name="ScaleContainer" type="Node2D" parent="." unique_id=1860426973]
 
-[node name="Inset" type="Sprite2D" parent="ScaleContainer"]
+[node name="Inset" type="Sprite2D" parent="ScaleContainer" unique_id=405775494]
 self_modulate = Color(0.839216, 0.647059, 0.160784, 1)
 clip_children = 2
 texture = ExtResource("1_yeojr")
 
-[node name="AnimationContainer" type="Node2D" parent="ScaleContainer/Inset"]
+[node name="AnimationContainer" type="Node2D" parent="ScaleContainer/Inset" unique_id=100062592]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" unique_id=1033924189]
 
-[node name="Preview" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer"]
+[node name="Preview" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" unique_id=84261608]
 visible = false
 texture = ExtResource("3_thg4h")
 
-[node name="Outline" type="Sprite2D" parent="ScaleContainer"]
+[node name="Outline" type="Sprite2D" parent="ScaleContainer" unique_id=730255188]
 texture = ExtResource("2_xl8xx")

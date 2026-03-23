@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://8b2r2gdyvbxc"]
+[gd_scene format=3 uid="uid://8b2r2gdyvbxc"]
 
 [ext_resource type="PackedScene" uid="uid://c2f7r2flocmsj" path="res://Scenes/Scenario/OverlayTiles/Objective1H.tscn" id="1_goh4i"]
 [ext_resource type="Texture2D" uid="uid://bfe8h7wsvtw40" path="res://Art/OverlayTiles/Barrel 1h.png" id="2_goh4i"]
 
-[node name="BarrelObjective1H" instance=ExtResource("1_goh4i")]
+[node name="BarrelObjective1H" unique_id=1167999243 instance=ExtResource("1_goh4i")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_goh4i")
 
 [editable path="FigureViewComponent"]

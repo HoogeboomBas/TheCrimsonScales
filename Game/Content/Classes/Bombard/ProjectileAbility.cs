@@ -11,6 +11,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 	public class State : ActiveAbilityState
 	{
 		public int AbilityRange { get; set; }
+		public Func<Hex, List<Ability>> GetAbilities { get; set; }
 
 		public List<BombardProjectileToken> Tokens { get; } = new List<BombardProjectileToken>();
 
@@ -22,6 +23,31 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 		public void AddToken(BombardProjectileToken token)
 		{
 			Tokens.Add(token);
+		}
+
+		public async GDTask PerformAbilities()
+		{
+			foreach(BombardProjectileToken token in Tokens)
+			{
+				bool targetFound = false;
+
+				foreach(Figure figure in token.Hex.GetHexObjectsOfType<Figure>())
+				{
+					if(Authority.EnemiesWith(figure))
+					{
+						targetFound = true;
+					}
+				}
+
+				if(targetFound)
+				{
+					// Perform the actual abilities
+					ActionState actionState = new ActionState(ActionState, Performer, GetAbilities(token.Hex));
+					await actionState.Perform();
+				}
+			}
+
+			await ActionState.RequestDiscardOrLose();
 		}
 	}
 
@@ -110,6 +136,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 		base.InitializeState(abilityState);
 
 		abilityState.AbilityRange = Range;
+		abilityState.GetAbilities = _getAbilities;
 	}
 
 	protected override async GDTask Perform(State abilityState)
@@ -145,27 +172,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 				canApplyParameters => canApplyParameters.Figure == abilityState.Performer,
 				async applyParameters =>
 				{
-					foreach(BombardProjectileToken token in abilityState.Tokens)
-					{
-						bool targetFound = false;
-
-						foreach(Figure figure in token.Hex.GetHexObjectsOfType<Figure>())
-						{
-							if(abilityState.Authority.EnemiesWith(figure))
-							{
-								targetFound = true;
-							}
-						}
-
-						if(targetFound)
-						{
-							// Perform the actual abilities
-							ActionState actionState = new ActionState(abilityState.ActionState, abilityState.Performer, _getAbilities(token.Hex));
-							await actionState.Perform();
-						}
-					}
-
-					await abilityState.ActionState.RequestDiscardOrLose();
+					await abilityState.PerformAbilities();
 				}
 			);
 		}

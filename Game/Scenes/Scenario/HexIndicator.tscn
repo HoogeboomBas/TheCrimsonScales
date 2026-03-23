@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy3hltp5auige"]
+[gd_scene format=3 uid="uid://cy3hltp5auige"]
 
 [ext_resource type="Script" uid="uid://dxqv2gq48g650" path="res://Scripts/Scenario/HexIndicators/HexIndicator.cs" id="1_ihvcn"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_wgc31"]
@@ -6,42 +6,42 @@
 [ext_resource type="Texture2D" uid="uid://cht3jc2t48x72" path="res://Art/Other/HexagonOutline.svg" id="4_2jatq"]
 [ext_resource type="PackedScene" uid="uid://ug7oy7x62yfw" path="res://Scenes/Scenario/WorldButton.tscn" id="5_o8pc7"]
 
-[node name="HexIndicator" type="Node2D" node_paths=PackedStringArray("_selectedContainer", "_mandatoryContainer", "_worldButton")]
+[node name="HexIndicator" type="Node2D" unique_id=1997667599 node_paths=PackedStringArray("_selectedContainer", "_mandatoryContainer", "_worldButton")]
 z_index = 100
 script = ExtResource("1_ihvcn")
 _selectedContainer = NodePath("SelectedContainer")
 _mandatoryContainer = NodePath("MandatoryContainer")
 _worldButton = NodePath("WorldButton")
 
-[node name="Fill" type="Sprite2D" parent="."]
+[node name="Fill" type="Sprite2D" parent="." unique_id=907352273]
 self_modulate = Color(0.486275, 0.486275, 0.486275, 0.443137)
 texture = ExtResource("2_wgc31")
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=1585994541]
 rotation = 3.14159
 scale = Vector2(1.03, 1.03)
 texture = ExtResource("3_8ekjt")
 
-[node name="SelectedContainer" type="Node2D" parent="."]
+[node name="SelectedContainer" type="Node2D" parent="." unique_id=2101739167]
 
-[node name="Fill" type="Sprite2D" parent="SelectedContainer"]
+[node name="Fill" type="Sprite2D" parent="SelectedContainer" unique_id=1763582251]
 self_modulate = Color(0.156863, 0.643137, 0.894118, 0.505882)
 texture = ExtResource("2_wgc31")
 
-[node name="Outline" type="Sprite2D" parent="SelectedContainer"]
+[node name="Outline" type="Sprite2D" parent="SelectedContainer" unique_id=1575632348]
 scale = Vector2(0.98, 0.98)
 texture = ExtResource("4_2jatq")
 
-[node name="MandatoryContainer" type="Node2D" parent="."]
+[node name="MandatoryContainer" type="Node2D" parent="." unique_id=307000065]
 
-[node name="Fill" type="Sprite2D" parent="MandatoryContainer"]
+[node name="Fill" type="Sprite2D" parent="MandatoryContainer" unique_id=1447895767]
 modulate = Color(1, 1, 1, 0.5)
 self_modulate = Color(0.156863, 0.643137, 0.894118, 0.505882)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_wgc31")
 
-[node name="Outline" type="Sprite2D" parent="MandatoryContainer"]
+[node name="Outline" type="Sprite2D" parent="MandatoryContainer" unique_id=950011043]
 scale = Vector2(0.68, 0.68)
 texture = ExtResource("3_8ekjt")
 
-[node name="WorldButton" parent="." instance=ExtResource("5_o8pc7")]
+[node name="WorldButton" parent="." unique_id=411818227 instance=ExtResource("5_o8pc7")]

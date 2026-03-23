@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwmko0ruwavom"]
+[gd_scene format=3 uid="uid://cwmko0ruwavom"]
 
 [ext_resource type="Script" uid="uid://cawlyqbqn4jba" path="res://GTweensGodot/Godot/Examples/Scripts/SpriteBase3DExample.cs" id="1_d25u5"]
 [ext_resource type="Texture2D" uid="uid://cik0j4hik2jqn" path="res://GTweensGodot/Godot/Examples/Textures/GTweensGodot-Examples-BlueSquare.png" id="2_4ooad"]
@@ -17,39 +17,39 @@ fog_light_energy = 2.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_13f0n"]
 
-[node name="SpriteBase3DExampleScene" type="Node3D" node_paths=PackedStringArray("Target")]
+[node name="SpriteBase3DExampleScene" type="Node3D" unique_id=147434446 node_paths=PackedStringArray("Target")]
 script = ExtResource("1_d25u5")
 Target = NodePath("Sprite3D")
 
-[node name="Example" type="Node" parent="." node_paths=PackedStringArray("Target")]
+[node name="Example" type="Node" parent="." unique_id=1541077035 node_paths=PackedStringArray("Target")]
 script = ExtResource("1_d25u5")
 Target = NodePath("../Sprite3D")
 
-[node name="Plane" type="CSGBox3D" parent="."]
+[node name="Plane" type="CSGBox3D" parent="." unique_id=465320352]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.622862, 0)
 gi_mode = 2
 size = Vector3(3.44605, 0.192549, 3.69502)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Wall" type="CSGBox3D" parent="."]
+[node name="Wall" type="CSGBox3D" parent="." unique_id=1395642274]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.917214, -1.90393)
 gi_mode = 2
 size = Vector3(3.44605, 3.27377, 0.182729)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1130756427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132583, 0)
 pixel_size = 0.02
 texture = ExtResource("2_4ooad")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1590545175]
 transform = Transform3D(0.835807, -0.197646, 0.512213, 0, 0.932954, 0.359997, -0.549023, -0.300888, 0.779769, 3.619, 2.894, 5.146)
 fov = 60.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1740288691]
 environment = SubResource("Environment_4gk0i")
 camera_attributes = SubResource("CameraAttributesPractical_13f0n")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=728870486]
 transform = Transform3D(1, 0, 0, 0, 0.6333, 0.773907, 0, -0.773907, 0.6333, 0, 0, 0)
 shadow_enabled = true

@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256"
-   height="256"
-   viewBox="0 0 64 64"
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
@@ -25,12 +25,12 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="2.1627524"
-     inkscape:cx="221.93942"
+     inkscape:cx="222.1706"
      inkscape:cy="116.74938"
-     inkscape:window-width="1920"
-     inkscape:window-height="1001"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1">
     <inkscape:grid
@@ -57,43 +57,38 @@
      id="layer1">
     <g
        id="g5"
-       transform="matrix(0.11250013,0,0,0.11250005,3.202827,3.1988223)"
+       transform="matrix(0.22500026,0,0,0.2250001,6.4056539,6.3976446)"
        style="fill:#ffffff">
-	<path
-   class="st0"
-   d="M 472.6,285.8 C 510.7,131.7 246.6,72.6 255.2,248 c -0.7,0.2 -1.3,0.3 -2.1,0.5 C 189.6,14.4 567.6,86.1 472.6,285.8 Z"
-   id="path1"
-   style="fill:#ffffff" />
-
-	<path
-   class="st0"
-   d="m 261.4,251 c -0.7,-0.7 -0.9,-0.9 -1.5,-1.8 C 428,75 560.5,435.6 340.8,456.9 492.5,410.4 407.3,153.5 261.4,251 Z"
-   id="path2"
-   style="fill:#ffffff" />
-
-	<path
-   class="st0"
-   d="M 178.9,50.4 C 25.6,90.8 100.8,351 250.4,259.1 c 0.5,0.4 0.9,0.8 1.4,1.3 C 77.4,428.9 -41.9,63.2 178.9,50.1 c 0,0.1 0,0.2 0,0.3 z"
-   id="path3"
-   style="fill:#ffffff" />
-
-	<path
-   class="st0"
-   d="m 38.8,225.9 c -36.6,154.6 228,211.2 217.9,35.6 0.4,-0.1 0.9,-0.3 1.7,-0.5 66.4,233.6 -312.9,165.6 -219.6,-35.1 z"
-   id="path4"
-   style="fill:#ffffff" />
-
-	<path
-   class="st0"
-   d="m 394.9,86.7 c -112,-112.7 -300,81.3 -145.8,166 -0.1,0.4 -0.2,0.9 -0.3,1.7 C 15.5,187 273.7,-98.8 394.9,86.7 Z"
-   id="path5"
-   style="fill:#ffffff" />
-
-</g>
+      <path
+         class="st0"
+         d="M 472.6,285.8 C 510.7,131.7 246.6,72.6 255.2,248 c -0.7,0.2 -1.3,0.3 -2.1,0.5 C 189.6,14.4 567.6,86.1 472.6,285.8 Z"
+         id="path1"
+         style="fill:#ffffff" />
+      <path
+         class="st0"
+         d="m 261.4,251 c -0.7,-0.7 -0.9,-0.9 -1.5,-1.8 C 428,75 560.5,435.6 340.8,456.9 492.5,410.4 407.3,153.5 261.4,251 Z"
+         id="path2"
+         style="fill:#ffffff" />
+      <path
+         class="st0"
+         d="M 178.9,50.4 C 25.6,90.8 100.8,351 250.4,259.1 c 0.5,0.4 0.9,0.8 1.4,1.3 C 77.4,428.9 -41.9,63.2 178.9,50.1 c 0,0.1 0,0.2 0,0.3 z"
+         id="path3"
+         style="fill:#ffffff" />
+      <path
+         class="st0"
+         d="m 38.8,225.9 c -36.6,154.6 228,211.2 217.9,35.6 0.4,-0.1 0.9,-0.3 1.7,-0.5 66.4,233.6 -312.9,165.6 -219.6,-35.1 z"
+         id="path4"
+         style="fill:#ffffff" />
+      <path
+         class="st0"
+         d="m 394.9,86.7 c -112,-112.7 -300,81.3 -145.8,166 -0.1,0.4 -0.2,0.9 -0.3,1.7 C 15.5,187 273.7,-98.8 394.9,86.7 Z"
+         id="path5"
+         style="fill:#ffffff" />
+    </g>
     <path
        class="st0"
-       d="m 32.71161,32.223836 c 0,0 0,0.01125 0,0 17.56127,9.045004 -3.116253,31.477516 -15.952517,19.01251 14.253766,20.936259 42.322549,-12.982507 15.952517,-19.01251 z"
+       d="m 65.42322,64.447672 c 0,0 0,0.0225 0,0 C 100.54576,82.53768 59.190714,127.4027 33.518186,102.47269 62.025718,144.34521 118.16328,76.507678 65.42322,64.447672 Z"
        id="path6"
-       style="fill:#ffffff;stroke-width:0.1125" />
+       style="fill:#ffffff;stroke-width:0.225" />
   </g>
 </svg>

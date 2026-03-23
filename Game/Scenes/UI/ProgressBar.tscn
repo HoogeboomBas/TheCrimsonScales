@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0tqt5fvbsn2x"]
+[gd_scene format=3 uid="uid://d0tqt5fvbsn2x"]
 
 [ext_resource type="Script" uid="uid://kc34l1um7gri" path="res://Scripts/UI/ProgressBar.cs" id="1_6jx7e"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="2_y0b1e"]
@@ -27,7 +27,7 @@ font_size = 20
 font = ExtResource("2_y0b1e")
 font_size = 20
 
-[node name="ProgressBar" type="Control" node_paths=PackedStringArray("_progressBarContainer", "ProgressBarFill", "_valueLabel")]
+[node name="ProgressBar" type="Control" unique_id=1290106675 node_paths=PackedStringArray("_progressBarContainer", "ProgressBarFill", "_valueLabel")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 3
 anchors_preset = 0
@@ -37,7 +37,7 @@ _progressBarContainer = NodePath(".")
 ProgressBarFill = NodePath("ProgressBar")
 _valueLabel = NodePath("Amount")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1638216865]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_blvf2")
 
-[node name="ProgressBar" type="Panel" parent="."]
+[node name="ProgressBar" type="Panel" parent="." unique_id=1418968114]
 self_modulate = Color(0.78451, 0.253912, 0.268934, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -58,7 +58,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wuydi")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=610432765]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -69,7 +69,7 @@ text = "Prosperity"
 label_settings = SubResource("LabelSettings_seeb3")
 vertical_alignment = 1
 
-[node name="Amount" type="Label" parent="."]
+[node name="Amount" type="Label" parent="." unique_id=349370130]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0

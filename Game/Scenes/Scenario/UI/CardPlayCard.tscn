@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://mgukk8qswcte"]
+[gd_scene format=3 uid="uid://mgukk8qswcte"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_bv84a"]
 [ext_resource type="Script" uid="uid://cdwpalad0muhc" path="res://Scripts/Scenario/UI/CardPlayView/CardPlayCard.cs" id="1_jumht"]
 [ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="4_av3t2"]
 [ext_resource type="PackedScene" uid="uid://tawethckih5b" path="res://Scenes/Scenario/UI/BasicAbilityCardSide.tscn" id="8_vh3mo"]
 
-[node name="CardPlayCard" type="Control" node_paths=PackedStringArray("_abilityCardViews", "_topButton", "_bottomButton", "_basicTopButton", "_basicBottomButton")]
+[node name="CardPlayCard" type="Control" unique_id=542563579 node_paths=PackedStringArray("_abilityCardViews", "_topButton", "_bottomButton", "_basicTopButton", "_basicBottomButton")]
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -19,8 +19,7 @@ _bottomButton = NodePath("Bottom")
 _basicTopButton = NodePath("BasicTop")
 _basicBottomButton = NodePath("BasicBottom")
 
-[node name="Top" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="Top" type="BaseButton" parent="." unique_id=706286635]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -62,6 +61,7 @@ grow_vertical = 1
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(160, 240)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -75,9 +75,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -93,7 +102,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_bv84a")
 _centerPivot = false
 
-[node name="Mask" type="Control" parent="Top"]
+[node name="Mask" type="Control" parent="Top" unique_id=2045828879]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -105,13 +114,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AbilityCardView" parent="Top/Mask" instance=ExtResource("4_av3t2")]
+[node name="AbilityCardView" parent="Top/Mask" unique_id=43589889 instance=ExtResource("4_av3t2")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 208.0
 
-[node name="Bottom" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="Bottom" type="BaseButton" parent="." unique_id=804913417]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -153,6 +161,7 @@ grow_vertical = 0
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(160, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -166,9 +175,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -184,7 +202,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_bv84a")
 _centerPivot = false
 
-[node name="Mask" type="Control" parent="Bottom"]
+[node name="Mask" type="Control" parent="Bottom" unique_id=604036354]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -195,27 +213,29 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AbilityCardView" parent="Bottom/Mask" instance=ExtResource("4_av3t2")]
+[node name="AbilityCardView" parent="Bottom/Mask" unique_id=1442276832 instance=ExtResource("4_av3t2")]
 layout_mode = 1
 offset_top = -240.0
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="BasicTop" parent="." instance=ExtResource("8_vh3mo")]
+[node name="BasicTop" parent="." unique_id=294180747 instance=ExtResource("8_vh3mo")]
+layout_mode = 0
 offset_left = 330.0
 offset_top = 37.0
 offset_right = 410.0
 offset_bottom = 235.0
 _startActive = true
 
-[node name="BasicBottom" parent="." instance=ExtResource("8_vh3mo")]
+[node name="BasicBottom" parent="." unique_id=788017558 instance=ExtResource("8_vh3mo")]
+layout_mode = 0
 offset_left = 330.0
 offset_top = 245.0
 offset_right = 410.0
 offset_bottom = 443.0
 _startActive = true
 
-[node name="RichTextLabel" parent="BasicBottom/BetterButton/Panel/MarginContainer" index="0"]
+[node name="RichTextLabel" parent="BasicBottom/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(788017558, 247173409) index="0" unique_id=1241256373]
 text = "[img={{40}}]res://Art/Icons/Abilities/Move.svg[/img]2"
 
 [editable path="BasicBottom"]

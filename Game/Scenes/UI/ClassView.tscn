@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlc378jgp47uy"]
+[gd_scene format=3 uid="uid://dlc378jgp47uy"]
 
 [ext_resource type="Script" uid="uid://dt2gyytbqf4ji" path="res://Scripts/UI/ClassView.cs" id="1_xgvpl"]
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="2_j8cl1"]
@@ -26,7 +26,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[node name="ClassView" type="Control" node_paths=PackedStringArray("_textureRect", "_colorOutline", "_iconTexture", "_iconShadowTexture")]
+[node name="ClassView" type="Control" unique_id=1882316233 node_paths=PackedStringArray("_textureRect", "_colorOutline", "_iconTexture", "_iconShadowTexture")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +40,7 @@ _colorOutline = NodePath("Outline")
 _iconTexture = NodePath("Icon")
 _iconShadowTexture = NodePath("IconShadow")
 
-[node name="Mask" type="Panel" parent="."]
+[node name="Mask" type="Panel" parent="." unique_id=1810863405]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -52,7 +52,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yxgqs")
 
-[node name="Portrait" type="TextureRect" parent="Mask"]
+[node name="Portrait" type="TextureRect" parent="Mask" unique_id=2121922799]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,7 +65,7 @@ texture = ExtResource("2_j8cl1")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="IconShadow" type="TextureRect" parent="."]
+[node name="IconShadow" type="TextureRect" parent="." unique_id=1953207705]
 self_modulate = Color(0, 0, 0, 0.568627)
 layout_mode = 1
 anchors_preset = 1
@@ -80,7 +80,7 @@ mouse_filter = 2
 texture = ExtResource("3_8uuhk")
 expand_mode = 1
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=536396120]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -94,7 +94,7 @@ mouse_filter = 2
 texture = ExtResource("3_8uuhk")
 expand_mode = 1
 
-[node name="Outline" type="Panel" parent="."]
+[node name="Outline" type="Panel" parent="." unique_id=181525112]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

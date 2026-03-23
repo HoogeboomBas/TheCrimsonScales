@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://mp8cee00fmg5"]
+[gd_scene format=3 uid="uid://mp8cee00fmg5"]
 
 [ext_resource type="Script" uid="uid://ci83u44ry3seu" path="res://Scripts/Scenario/UI/ElementsView/ElementsViewElement.cs" id="1_c543b"]
 [ext_resource type="Texture2D" uid="uid://cw1eg163nqbbj" path="res://Art/Icons/Elements/AirEmpty.svg" id="2_450mk"]
 [ext_resource type="Texture2D" uid="uid://cvupsrpor0q1o" path="res://Art/Icons/Elements/Air.svg" id="3_8vwl0"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="4_5xxdp"]
 
-[node name="Element" type="Control" node_paths=PackedStringArray("_container", "_textureProgressBar", "_lineContainer", "_line")]
+[node name="Element" type="Control" unique_id=1525574072 node_paths=PackedStringArray("_container", "_textureProgressBar", "_lineContainer", "_line")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 8
@@ -27,7 +27,7 @@ _textureProgressBar = NodePath("Container/TextureProgressBar")
 _lineContainer = NodePath("Container/MarginContainer/Mask/MarginContainer/LineContainer")
 _line = NodePath("Container/MarginContainer/Mask/MarginContainer/LineContainer/Line")
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1466938003]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(32, 32)
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Container"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Container" unique_id=746887861]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,7 +52,7 @@ nine_patch_stretch = true
 texture_under = ExtResource("2_450mk")
 texture_progress = ExtResource("3_8vwl0")
 
-[node name="MarginContainer" type="MarginContainer" parent="Container"]
+[node name="MarginContainer" type="MarginContainer" parent="Container" unique_id=30986917]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,13 +64,13 @@ theme_override_constants/margin_top = -2
 theme_override_constants/margin_right = -2
 theme_override_constants/margin_bottom = -2
 
-[node name="Mask" type="TextureRect" parent="Container/MarginContainer"]
+[node name="Mask" type="TextureRect" parent="Container/MarginContainer" unique_id=1709691814]
 clip_children = 1
 layout_mode = 2
 texture = ExtResource("4_5xxdp")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Container/MarginContainer/Mask"]
+[node name="MarginContainer" type="MarginContainer" parent="Container/MarginContainer/Mask" unique_id=544928106]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,11 +82,10 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="LineContainer" type="Control" parent="Container/MarginContainer/Mask/MarginContainer"]
+[node name="LineContainer" type="Control" parent="Container/MarginContainer/Mask/MarginContainer" unique_id=2089792355]
 layout_mode = 2
 
-[node name="Line" type="Control" parent="Container/MarginContainer/Mask/MarginContainer/LineContainer"]
-layout_mode = 2
+[node name="Line" type="Control" parent="Container/MarginContainer/Mask/MarginContainer/LineContainer" unique_id=1648555435]
 anchors_preset = 0
 offset_top = 32.0
 offset_right = 64.0
@@ -94,7 +93,7 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="ColorRect" parent="Container/MarginContainer/Mask/MarginContainer/LineContainer/Line"]
+[node name="Panel" type="ColorRect" parent="Container/MarginContainer/Mask/MarginContainer/LineContainer/Line" unique_id=874285930]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

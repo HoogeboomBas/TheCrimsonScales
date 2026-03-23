@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jijaocqypkiy"]
+[gd_scene format=3 uid="uid://jijaocqypkiy"]
 
 [ext_resource type="Script" uid="uid://uxipg5vjnwk4" path="res://Scripts/UI/CardSelectionList/CardSelectionListCategory.cs" id="1_v5t77"]
 [ext_resource type="PackedScene" uid="uid://b7ogm4op7ko2a" path="res://Scenes/UI/CardSelectionList/CardSelectionCard.tscn" id="2_t6w8s"]
@@ -14,7 +14,7 @@ gradient = SubResource("Gradient_xuamw")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2ogp"]
 texture = SubResource("GradientTexture1D_sssfe")
 
-[node name="CardSelectionListCategory" type="Control" node_paths=PackedStringArray("HeaderContainer", "_headerLabel", "_headerIcon", "_cardsContainer")]
+[node name="CardSelectionListCategory" type="Control" unique_id=508655332 node_paths=PackedStringArray("HeaderContainer", "_headerLabel", "_headerIcon", "_cardsContainer")]
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -27,13 +27,13 @@ _headerLabel = NodePath("Header/Panel/Label")
 _headerIcon = NodePath("Header/Panel/TextureRect")
 _cardsContainer = NodePath("Cards")
 
-[node name="Header" type="Control" parent="."]
+[node name="Header" type="Control" parent="." unique_id=1813246931]
 anchors_preset = 0
 offset_right = 470.0
 offset_bottom = 50.0
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="Header"]
+[node name="Panel" type="Panel" parent="Header" unique_id=208746297]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +43,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_x2ogp")
 
-[node name="Label" type="Label" parent="Header/Panel"]
+[node name="Label" type="Label" parent="Header/Panel" unique_id=1124142580]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,7 @@ text = "Discarded"
 label_settings = ExtResource("3_5sqkl")
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Header/Panel"]
+[node name="TextureRect" type="TextureRect" parent="Header/Panel" unique_id=498939483]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -69,7 +69,7 @@ mouse_filter = 2
 texture = ExtResource("4_v5t77")
 expand_mode = 1
 
-[node name="Cards" type="Control" parent="."]
+[node name="Cards" type="Control" parent="." unique_id=222387595]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -78,5 +78,6 @@ offset_bottom = 50.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="CardSelectionCard" parent="Cards" instance=ExtResource("2_t6w8s")]
+[node name="CardSelectionCard" parent="Cards" unique_id=2065277288 instance=ExtResource("2_t6w8s")]
 visible = false
+layout_mode = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://db72d70xnhm2q"]
+[gd_scene format=3 uid="uid://db72d70xnhm2q"]
 
 [ext_resource type="PackedScene" uid="uid://dsaayvr5eg5wl" path="res://Scenes/UI/CardView.tscn" id="1_tyd8s"]
 [ext_resource type="Texture2D" uid="uid://clann014hjaah" path="res://Art/BattleGoals/BattleGoalFrontZoomed.tres" id="2_2efp8"]
@@ -18,7 +18,7 @@ font = ExtResource("4_2efp8")
 font_size = 28
 font_color = Color(0, 0, 0, 1)
 
-[node name="BattleGoalView" node_paths=PackedStringArray("_titleLabel", "_description", "_secondCheckmark") instance=ExtResource("1_tyd8s")]
+[node name="BattleGoalView" unique_id=31681270 node_paths=PackedStringArray("_titleLabel", "_description", "_secondCheckmark") instance=ExtResource("1_tyd8s")]
 offset_right = -1561.6
 offset_bottom = -524.2
 script = ExtResource("2_6ywcw")
@@ -26,16 +26,16 @@ _titleLabel = NodePath("Container/Title")
 _description = NodePath("Container/Description")
 _secondCheckmark = NodePath("Container/Checkmarks/Checkmark2")
 
-[node name="Container" parent="." index="0"]
+[node name="Container" parent="." index="0" unique_id=1927638018]
 offset_right = 358.4
 offset_bottom = 555.8
 
-[node name="TextureRect" parent="Container" index="0"]
+[node name="TextureRect" parent="Container" index="0" unique_id=364472112]
 instance_shader_parameters/atlas_region = Vector4(20, 20, 256, 397)
 instance_shader_parameters/atlas_size = Vector2(296, 437)
 texture = ExtResource("2_2efp8")
 
-[node name="Title" type="Label" parent="Container" index="1"]
+[node name="Title" type="Label" parent="Container" index="1" unique_id=958506364]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -54,7 +54,7 @@ script = ExtResource("4_gp6jy")
 _minSize = 40
 _maxSize = 50
 
-[node name="Description" type="Label" parent="Container" index="2"]
+[node name="Description" type="Label" parent="Container" index="2" unique_id=931222177]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,7 +73,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Checkmarks" type="HBoxContainer" parent="Container" index="3"]
+[node name="Checkmarks" type="HBoxContainer" parent="Container" index="3" unique_id=501218390]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -90,7 +90,7 @@ mouse_filter = 2
 theme_override_constants/separation = -15
 alignment = 1
 
-[node name="Checkmark" type="TextureRect" parent="Container/Checkmarks" index="0"]
+[node name="Checkmark" type="TextureRect" parent="Container/Checkmarks" index="0" unique_id=614394998]
 self_modulate = Color(0.0980392, 0.101961, 0.0823529, 1)
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -98,7 +98,7 @@ mouse_filter = 2
 texture = ExtResource("5_2efp8")
 expand_mode = 1
 
-[node name="Checkmark2" type="TextureRect" parent="Container/Checkmarks" index="1"]
+[node name="Checkmark2" type="TextureRect" parent="Container/Checkmarks" index="1" unique_id=504890163]
 self_modulate = Color(0.0980392, 0.101961, 0.0823529, 1)
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3jgcj8oajqto"]
+[gd_scene format=3 uid="uid://d3jgcj8oajqto"]
 
 [ext_resource type="PackedScene" uid="uid://cj61uqdsa6bkt" path="res://Scenes/Scenario/UI/InfoView/FigureInfoItem.tscn" id="1_kntri"]
 [ext_resource type="Script" uid="uid://qeww406n85ex" path="res://Scripts/Scenario/UI/InfoView/MonsterInfoItem.cs" id="1_pjn8e"]
@@ -17,7 +17,7 @@ corner_radius_bottom_left = 8
 atlas = ExtResource("7_uxyec")
 region = Rect2(0, 0, 600, 400)
 
-[node name="MonsterInfoItem" node_paths=PackedStringArray("_abilityCardContainer", "_abilityCardTexture", "_moveLabel", "_attackLabel", "_rangeLabel") instance=ExtResource("1_kntri")]
+[node name="MonsterInfoItem" unique_id=1004619236 node_paths=PackedStringArray("_abilityCardContainer", "_abilityCardTexture", "_moveLabel", "_attackLabel", "_rangeLabel") instance=ExtResource("1_kntri")]
 script = ExtResource("1_pjn8e")
 _abilityCardContainer = NodePath("MarginContainer/Content/Card")
 _abilityCardTexture = NodePath("MarginContainer/Content/Card/Card")
@@ -25,31 +25,31 @@ _moveLabel = NodePath("MarginContainer/Content/Container/Stats/Move/Label")
 _attackLabel = NodePath("MarginContainer/Content/Container/Stats/Attack/Label")
 _rangeLabel = NodePath("MarginContainer/Content/Container/Stats/Range/Label")
 
-[node name="Move" parent="MarginContainer/Content/Container/Stats" index="1" instance=ExtResource("2_viafp")]
+[node name="Move" parent="MarginContainer/Content/Container/Stats" parent_id_path=PackedInt32Array(1959975807) index="1" unique_id=1815286082 instance=ExtResource("2_viafp")]
 layout_mode = 2
 
-[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Move" index="0"]
+[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Move" index="0" unique_id=1813465417]
 texture = ExtResource("4_jt644")
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/Move" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/Move" index="1" unique_id=1836023533]
 text = "4"
 
-[node name="Attack" parent="MarginContainer/Content/Container/Stats" index="2" instance=ExtResource("2_viafp")]
+[node name="Attack" parent="MarginContainer/Content/Container/Stats" parent_id_path=PackedInt32Array(1959975807) index="2" unique_id=26788466 instance=ExtResource("2_viafp")]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/Attack" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/Attack" index="1" unique_id=1836023533]
 text = "3"
 
-[node name="Range" parent="MarginContainer/Content/Container/Stats" index="3" instance=ExtResource("2_viafp")]
+[node name="Range" parent="MarginContainer/Content/Container/Stats" parent_id_path=PackedInt32Array(1959975807) index="3" unique_id=52286659 instance=ExtResource("2_viafp")]
 layout_mode = 2
 
-[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Range" index="0"]
+[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Range" index="0" unique_id=1813465417]
 texture = ExtResource("5_533ib")
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/Range" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/Range" index="1" unique_id=1836023533]
 text = "3"
 
-[node name="Card" type="Panel" parent="MarginContainer/Content" index="3"]
+[node name="Card" type="Panel" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=212590680]
 clip_children = 1
 custom_minimum_size = Vector2(300, 200)
 layout_mode = 2
@@ -57,7 +57,7 @@ size_flags_horizontal = 4
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_shcie")
 
-[node name="Card" type="TextureRect" parent="MarginContainer/Content/Card" index="0"]
+[node name="Card" type="TextureRect" parent="MarginContainer/Content/Card" index="0" unique_id=653065346]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

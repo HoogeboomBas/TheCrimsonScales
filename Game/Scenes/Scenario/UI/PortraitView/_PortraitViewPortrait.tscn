@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dm5lmr3uhvlxy"]
+[gd_scene format=3 uid="uid://dm5lmr3uhvlxy"]
 
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_bc4hw"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_jv14o"]
@@ -24,14 +24,14 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="Portrait" type="Control"]
+[node name="Portrait" type="Control" unique_id=1941364007]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 150.0
 pivot_offset = Vector2(50, 75)
 
-[node name="SelectedIndicator" type="Control" parent="."]
+[node name="SelectedIndicator" type="Control" parent="." unique_id=1362928422]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -43,7 +43,7 @@ offset_bottom = 24.0
 grow_horizontal = 2
 pivot_offset = Vector2(0, 20)
 
-[node name="TextureRect" type="TextureRect" parent="SelectedIndicator"]
+[node name="TextureRect" type="TextureRect" parent="SelectedIndicator" unique_id=210959735]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -52,7 +52,7 @@ pivot_offset = Vector2(20, 20)
 texture = ExtResource("6_d3ycp")
 expand_mode = 1
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=2105078430]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,8 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BetterButton" type="BaseButton" parent="Container"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="Container" unique_id=1348887168]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -104,6 +103,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -117,9 +117,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -134,7 +143,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("2_jv14o")
 
-[node name="Panel" type="Panel" parent="Container/BetterButton"]
+[node name="Panel" type="Panel" parent="Container/BetterButton" unique_id=1796865303]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,7 +153,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhc2l")
 
-[node name="Mask" type="Panel" parent="Container/BetterButton/Panel"]
+[node name="Mask" type="Panel" parent="Container/BetterButton/Panel" unique_id=639409469]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -155,7 +164,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lonmn")
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Panel/Mask"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Panel/Mask" unique_id=181443034]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,7 +177,7 @@ texture = ExtResource("3_60bu2")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton" unique_id=254905179]
 self_modulate = Color(0.219608, 0.215686, 0.2, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -187,7 +196,7 @@ mouse_filter = 2
 texture = ExtResource("2_bc4hw")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Container/BetterButton/TextureRect"]
+[node name="Label" type="Label" parent="Container/BetterButton/TextureRect" unique_id=1734118080]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

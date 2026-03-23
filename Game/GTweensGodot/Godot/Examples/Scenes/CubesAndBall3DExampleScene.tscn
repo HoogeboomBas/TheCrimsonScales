@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cocfrb0aihf8"]
+[gd_scene format=3 uid="uid://cocfrb0aihf8"]
 
 [ext_resource type="Script" uid="uid://c2noa17ydbq7t" path="res://GTweensGodot/Godot/Examples/Scripts/CubesAndBall3DExample.cs" id="1_7eh4r"]
 
@@ -33,9 +33,9 @@ fog_density = 0.0662
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_13f0n"]
 
-[node name="Cube3DExampleScene" type="Node3D"]
+[node name="Cube3DExampleScene" type="Node3D" unique_id=845473457]
 
-[node name="Example" type="Node" parent="." node_paths=PackedStringArray("GeometryPivot", "Cubes", "BallPivot", "ShakePivot")]
+[node name="Example" type="Node" parent="." unique_id=1948744607 node_paths=PackedStringArray("GeometryPivot", "Cubes", "BallPivot", "ShakePivot")]
 script = ExtResource("1_7eh4r")
 GeometryPivot = NodePath("../ShakePivot/GeometryPivot")
 Cubes = [NodePath("../ShakePivot/GeometryPivot/CSGBox3D"), NodePath("../ShakePivot/GeometryPivot/CSGBox3D2"), NodePath("../ShakePivot/GeometryPivot/CSGBox3D3"), NodePath("../ShakePivot/GeometryPivot/CSGBox3D4"), NodePath("../ShakePivot/GeometryPivot/CSGBox3D5")]
@@ -43,62 +43,62 @@ BallPivot = NodePath("../ShakePivot/GeometryPivot/BallPivot")
 ShakePivot = NodePath("../ShakePivot")
 BaseShakeCurve = SubResource("Curve_uodv4")
 
-[node name="ShakePivot" type="Node3D" parent="."]
+[node name="ShakePivot" type="Node3D" parent="." unique_id=1888482237]
 
-[node name="GeometryPivot" type="Node3D" parent="ShakePivot"]
+[node name="GeometryPivot" type="Node3D" parent="ShakePivot" unique_id=519255246]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="ShakePivot/GeometryPivot"]
+[node name="CSGBox3D" type="CSGBox3D" parent="ShakePivot/GeometryPivot" unique_id=1619143684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477927, 0)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 size = Vector3(2, 2, 2)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="ShakePivot/GeometryPivot"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="ShakePivot/GeometryPivot" unique_id=1801618021]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.272073, -2.5)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="ShakePivot/GeometryPivot"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="ShakePivot/GeometryPivot" unique_id=332937274]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.272073, 2.5)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="ShakePivot/GeometryPivot"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="ShakePivot/GeometryPivot" unique_id=2068627512]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -0.272073, -2.5)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="ShakePivot/GeometryPivot"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="ShakePivot/GeometryPivot" unique_id=696393421]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.272073, 2.5)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="BallPivot" type="Node3D" parent="ShakePivot/GeometryPivot"]
+[node name="BallPivot" type="Node3D" parent="ShakePivot/GeometryPivot" unique_id=618248996]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477927, 0)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="ShakePivot/GeometryPivot/BallPivot"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="ShakePivot/GeometryPivot/BallPivot" unique_id=963001347]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 material_override = SubResource("StandardMaterial3D_8wrf5")
 
-[node name="Base" type="CSGBox3D" parent="ShakePivot"]
+[node name="Base" type="CSGBox3D" parent="ShakePivot" unique_id=1124370430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.83947, 0)
 gi_mode = 2
 size = Vector3(6, 12.626, 6)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1243423027]
 transform = Transform3D(0.835807, -0.197646, 0.512213, 0, 0.932954, 0.359996, -0.549023, -0.300888, 0.779769, 5.468, 4.04, 7.961)
 fov = 65.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=719689951]
 environment = SubResource("Environment_4gk0i")
 camera_attributes = SubResource("CameraAttributesPractical_13f0n")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1868414280]
 transform = Transform3D(1, 0, 0, 0, 0.6333, 0.773907, 0, -0.773907, 0.6333, 0, 0, 0)
 light_energy = 2.0
 shadow_enabled = true

@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7se1lsce2537"]
+[gd_scene format=3 uid="uid://b7se1lsce2537"]
 
 [ext_resource type="PackedScene" uid="uid://diuy1dignnfhi" path="res://Scenes/Scenario/OverlayTiles/Trap1H.tscn" id="1_xn5l0"]
 [ext_resource type="Texture2D" uid="uid://bro5n74ubxbbo" path="res://Art/OverlayTiles/PoisonGasTrap1H.png" id="2_gerjg"]
 
-[node name="PoisonGasTrap1H" instance=ExtResource("1_xn5l0")]
+[node name="PoisonGasTrap1H" unique_id=618483700 instance=ExtResource("1_xn5l0")]
 _stepType = 2
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=974174914]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

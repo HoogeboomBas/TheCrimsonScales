@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://biv5sw06a7dxd"]
+[gd_scene format=3 uid="uid://biv5sw06a7dxd"]
 
 [ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="2_i3owi"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_qh5ej"]
@@ -9,34 +9,34 @@
 [ext_resource type="Script" uid="uid://ceevvjjmamdwm" path="res://Scripts/Scenario/HexObjects/ViewComponents/OverlayTileViewComponent.cs" id="5_2chyt"]
 [ext_resource type="Texture2D" uid="uid://qor5lsm2ht54" path="res://Art/Icons/OverlayTiles/DifficultTerrain.svg" id="7_a0bf3"]
 
-[node name="OverlayTile" type="Node2D"]
+[node name="OverlayTile" type="Node2D" unique_id=1654061161]
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=1220851005]
 script = ExtResource("2_qh5ej")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=786075991]
 material = ExtResource("2_i3owi")
 instance_shader_parameters/tintFactor = 0.0
 texture = ExtResource("4_yj4e0")
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=99128073]
 texture = ExtResource("4_i3owi")
 
-[node name="Stroke" type="Sprite2D" parent="."]
+[node name="Stroke" type="Sprite2D" parent="." unique_id=848910060]
 visible = false
 self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
 texture = ExtResource("3_ehph8")
 
-[node name="OverlayTileViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("_icon")]
+[node name="OverlayTileViewComponent" type="Node2D" parent="." unique_id=949901025 node_paths=PackedStringArray("_icon")]
 z_index = 1
 script = ExtResource("5_2chyt")
 _icon = NodePath("Icon")
 
-[node name="Icon" type="Sprite2D" parent="OverlayTileViewComponent"]
+[node name="Icon" type="Sprite2D" parent="OverlayTileViewComponent" unique_id=478131049]
 position = Vector2(0, 88)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_f3pnr")
 
-[node name="Icon" type="Sprite2D" parent="OverlayTileViewComponent/Icon"]
+[node name="Icon" type="Sprite2D" parent="OverlayTileViewComponent/Icon" unique_id=1672198517]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("7_a0bf3")

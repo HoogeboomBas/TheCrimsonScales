@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://heuevimthjq1"]
+[gd_scene format=3 uid="uid://heuevimthjq1"]
 
 [ext_resource type="PackedScene" uid="uid://dpxtgytc1d70d" path="res://Scenes/Scenario/OverlayTiles/Corridor2H.tscn" id="1_f3wph"]
 [ext_resource type="Texture2D" uid="uid://b6ovtufhijee8" path="res://Art/OverlayTiles/Corridor - Natural Stone 2h.png" id="2_redgy"]
 
-[node name="NaturalStone2H" instance=ExtResource("1_f3wph")]
+[node name="NaturalStone2H" unique_id=1612151355 instance=ExtResource("1_f3wph")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_redgy")
 
-[node name="Hex2" parent="." index="5"]
-position = Vector2(218.238, 0)
+[node name="Hex2" parent="." index="6"]
+position = Vector2(218.2384, 0)

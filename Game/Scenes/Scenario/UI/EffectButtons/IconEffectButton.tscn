@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0o07l8fpajv5"]
+[gd_scene format=3 uid="uid://b0o07l8fpajv5"]
 
 [ext_resource type="Script" uid="uid://d2o1y81pg33kn" path="res://Scripts/Scenario/UI/EffectSelectionView/IconEffectButton.cs" id="1_lvy21"]
 [ext_resource type="PackedScene" uid="uid://c8tg7vd242b32" path="res://Scenes/Scenario/UI/EffectButtons/_EffectButton.tscn" id="1_nttyx"]
 [ext_resource type="Texture2D" uid="uid://ca72vsmwgu28w" path="res://Art/Icons/Abilities/LoseCard.svg" id="3_20x36"]
 
-[node name="IconEffectButton" node_paths=PackedStringArray("_textureRect", "_button", "_panel") instance=ExtResource("1_nttyx")]
+[node name="IconEffectButton" unique_id=922382526 node_paths=PackedStringArray("_textureRect", "_button", "_panel") instance=ExtResource("1_nttyx")]
 script = ExtResource("1_lvy21")
 _textureRect = NodePath("BetterButton/Panel/MarginContainer/TextureRect")
 _button = NodePath("BetterButton")
 _panel = NodePath("BetterButton/Panel")
 
-[node name="TextureRect" type="TextureRect" parent="BetterButton/Panel/MarginContainer" index="0"]
+[node name="TextureRect" type="TextureRect" parent="BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(500216647) index="0" unique_id=1723973169]
 layout_mode = 2
 texture = ExtResource("3_20x36")
 expand_mode = 1

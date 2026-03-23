@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c48tqburk5etf"]
+[gd_scene format=3 uid="uid://c48tqburk5etf"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_l4why"]
 [ext_resource type="Script" uid="uid://d17gymqihxnbp" path="res://Scripts/Scenario/HexObjects/DifficultTerrain.cs" id="2_hjxxo"]
 
-[node name="DifficultTerrain1H" instance=ExtResource("1_l4why")]
+[node name="DifficultTerrain1H" unique_id=440019317 instance=ExtResource("1_l4why")]
 script = ExtResource("2_hjxxo")
 
 [node name="Outline" parent="." index="2"]

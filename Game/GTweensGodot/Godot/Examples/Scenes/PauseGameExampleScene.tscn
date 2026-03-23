@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://hpv0xi7q2eyl"]
+[gd_scene format=3 uid="uid://hpv0xi7q2eyl"]
 
 [ext_resource type="Script" uid="uid://dtrglnvfp0nnn" path="res://GTweensGodot/Godot/Examples/Scripts/PauseGameExample.cs" id="1_kh8d0"]
 
@@ -23,56 +23,56 @@ fog_light_energy = 2.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_13f0n"]
 
-[node name="PauseGameExampleScene" type="Node3D"]
+[node name="PauseGameExampleScene" type="Node3D" unique_id=1997688196]
 
-[node name="Example" type="Node" parent="." node_paths=PackedStringArray("PausableTarget", "UnpausableTarget", "TogglePauseButton")]
+[node name="Example" type="Node" parent="." unique_id=237234198 node_paths=PackedStringArray("PausableTarget", "UnpausableTarget", "TogglePauseButton")]
 script = ExtResource("1_kh8d0")
 PausableTarget = NodePath("../CubePivot/PausableCube")
 UnpausableTarget = NodePath("../CubePivot/UnpausableCube")
 TogglePauseButton = NodePath("../CanvasLayer/Control/Button")
 
-[node name="CubePivot" type="Node3D" parent="."]
+[node name="CubePivot" type="Node3D" parent="." unique_id=1711256309]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.522073, 0)
 
-[node name="PausableCube" type="CSGBox3D" parent="CubePivot"]
+[node name="PausableCube" type="CSGBox3D" parent="CubePivot" unique_id=433863472]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.777, 1.256, 0)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 
-[node name="UnpausableCube" type="CSGBox3D" parent="CubePivot"]
+[node name="UnpausableCube" type="CSGBox3D" parent="CubePivot" unique_id=1707527189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77726, 1.25634, 0)
 material_override = SubResource("StandardMaterial3D_ejucv")
 gi_mode = 2
 
-[node name="Plane" type="CSGBox3D" parent="."]
+[node name="Plane" type="CSGBox3D" parent="." unique_id=2144705303]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.622862, 0)
 gi_mode = 2
 size = Vector3(3.44605, 0.192549, 3.69502)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Wall" type="CSGBox3D" parent="."]
+[node name="Wall" type="CSGBox3D" parent="." unique_id=1446598573]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.917214, -1.90393)
 gi_mode = 2
 size = Vector3(3.44605, 3.27377, 0.182729)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=761885543]
 transform = Transform3D(1, 0, 0, 0, 0.932954, 0.359997, 0, -0.359997, 0.932953, 0, 2.274, 5.146)
 fov = 65.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=654947110]
 environment = SubResource("Environment_4gk0i")
 camera_attributes = SubResource("CameraAttributesPractical_13f0n")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1702891370]
 transform = Transform3D(1, 0, 0, 0, 0.6333, 0.773907, 0, -0.773907, 0.6333, 0, 0, 0)
 light_energy = 1.5
 shadow_enabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=123127622]
 process_mode = 3
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1875438439]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,7 +80,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Control"]
+[node name="Button" type="Button" parent="CanvasLayer/Control" unique_id=669152980]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://wk4dly6sqk7q"]
+[gd_scene format=3 uid="uid://wk4dly6sqk7q"]
 
 [ext_resource type="PackedScene" uid="uid://c48tqburk5etf" path="res://Scenes/Scenario/OverlayTiles/DifficultTerrain1H.tscn" id="1_5vn3h"]
 [ext_resource type="Texture2D" uid="uid://cdu1dfk0f1r54" path="res://Art/OverlayTiles/Rubble 1h.png" id="2_5vn3h"]
 
-[node name="Rubble1H" instance=ExtResource("1_5vn3h")]
+[node name="Rubble1H" unique_id=1105410943 instance=ExtResource("1_5vn3h")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1853645490]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

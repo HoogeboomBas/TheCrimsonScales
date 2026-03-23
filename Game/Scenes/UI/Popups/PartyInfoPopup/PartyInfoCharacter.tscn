@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bohg0fqy18017"]
+[gd_scene format=3 uid="uid://bohg0fqy18017"]
 
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="1_oxie2"]
 [ext_resource type="Script" uid="uid://crxigg1k4jm3r" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoCharacter.cs" id="1_p0hwl"]
@@ -19,7 +19,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[node name="PartyInfoCharacter" type="MarginContainer" node_paths=PackedStringArray("_portraitTextureRect", "_nameLabel", "_healthLabel", "_xpLabel", "_cardSelectionList", "_baseItemSlots", "_smallItemsParent")]
+[node name="PartyInfoCharacter" type="MarginContainer" unique_id=1343809774 node_paths=PackedStringArray("_portraitTextureRect", "_nameLabel", "_healthLabel", "_xpLabel", "_cardSelectionList", "_baseItemSlots", "_smallItemsParent")]
 offset_right = 400.0
 offset_bottom = 870.0
 script = ExtResource("1_p0hwl")
@@ -32,15 +32,15 @@ _baseItemSlots = [NodePath("VBoxContainer/Items/VBoxContainer/TopRow/PartyInfoCh
 _partyInfoCharacterItemScene = ExtResource("10_a1h7m")
 _smallItemsParent = NodePath("VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer/ScrollContainer/SmallItems")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2057799611]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="Control" parent="VBoxContainer"]
+[node name="Header" type="Control" parent="VBoxContainer" unique_id=1789718399]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Header"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Header" unique_id=1144359981]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,11 +50,11 @@ grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer" unique_id=2080138990]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Mask" type="Panel" parent="VBoxContainer/Header/MarginContainer/HBoxContainer"]
+[node name="Mask" type="Panel" parent="VBoxContainer/Header/MarginContainer/HBoxContainer" unique_id=875058468]
 clip_children = 1
 clip_contents = true
 custom_minimum_size = Vector2(100, 0)
@@ -62,7 +62,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wid1p")
 
-[node name="Portrait" type="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/Mask"]
+[node name="Portrait" type="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/Mask" unique_id=1731002379]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -73,11 +73,11 @@ texture = ExtResource("1_oxie2")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="LabelContainer" type="Control" parent="VBoxContainer/Header/MarginContainer/HBoxContainer"]
+[node name="LabelContainer" type="Control" parent="VBoxContainer/Header/MarginContainer/HBoxContainer" unique_id=1976587060]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer" unique_id=2050852756]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -90,7 +90,7 @@ script = ExtResource("3_ou5he")
 _minSize = 20
 _maxSize = 50
 
-[node name="Stats" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer"]
+[node name="Stats" type="HBoxContainer" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer" unique_id=2144680450]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 anchors_preset = 12
@@ -104,11 +104,11 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 30
 
-[node name="Health" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+[node name="Health" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" unique_id=552565189 instance=ExtResource("5_fw44v")]
 custom_minimum_size = Vector2(120, 32)
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="0"]
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="0" unique_id=1813465417]
 anchors_preset = 0
 anchor_top = 0.0
 anchor_bottom = 0.0
@@ -117,87 +117,87 @@ offset_bottom = 34.0
 grow_vertical = 1
 texture = ExtResource("6_a1h7m")
 
-[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="1"]
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Health" index="1" unique_id=1836023533]
 offset_left = 40.0
 offset_top = -2.0
 offset_bottom = 2.0
 horizontal_alignment = 0
 
-[node name="Coins" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+[node name="Coins" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" unique_id=2055327599 instance=ExtResource("5_fw44v")]
 visible = false
 custom_minimum_size = Vector2(80, 32)
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="0"]
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="0" unique_id=1813465417]
 texture = ExtResource("7_fnh86")
 
-[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="1"]
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/Coins" index="1" unique_id=1836023533]
 text = "3"
 
-[node name="XP" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" instance=ExtResource("5_fw44v")]
+[node name="XP" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats" unique_id=689746669 instance=ExtResource("5_fw44v")]
 custom_minimum_size = Vector2(70, 32)
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="0"]
+[node name="TextureRect" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="0" unique_id=1813465417]
 texture = ExtResource("8_l86bb")
 
-[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="1"]
+[node name="Label" parent="VBoxContainer/Header/MarginContainer/HBoxContainer/LabelContainer/Stats/XP" index="1" unique_id=1836023533]
 offset_left = 40.0
 offset_top = -2.0
 offset_bottom = 2.0
 text = "3"
 horizontal_alignment = 0
 
-[node name="Cards" type="Control" parent="VBoxContainer"]
+[node name="Cards" type="Control" parent="VBoxContainer" unique_id=265106663]
 custom_minimum_size = Vector2(400, 600)
 layout_mode = 2
 
-[node name="CardSelectionList" parent="VBoxContainer/Cards" instance=ExtResource("4_gti5s")]
+[node name="CardSelectionList" parent="VBoxContainer/Cards" unique_id=1623301477 instance=ExtResource("4_gti5s")]
 layout_mode = 1
 offset_bottom = 705.0
 scale = Vector2(0.851, 0.851)
 
-[node name="Items" type="MarginContainer" parent="VBoxContainer"]
+[node name="Items" type="MarginContainer" parent="VBoxContainer" unique_id=1638218912]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Items"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="TopRow" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Items" unique_id=1192059135]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PartyInfoCharacterItem" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+[node name="TopRow" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer" unique_id=1294139048]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PartyInfoCharacterItem" parent="VBoxContainer/Items/VBoxContainer/TopRow" unique_id=1614376142 instance=ExtResource("10_a1h7m")]
 layout_mode = 2
 
-[node name="PartyInfoCharacterItem2" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+[node name="PartyInfoCharacterItem2" parent="VBoxContainer/Items/VBoxContainer/TopRow" unique_id=960109764 instance=ExtResource("10_a1h7m")]
 layout_mode = 2
 
-[node name="PartyInfoCharacterItem3" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+[node name="PartyInfoCharacterItem3" parent="VBoxContainer/Items/VBoxContainer/TopRow" unique_id=1643450902 instance=ExtResource("10_a1h7m")]
 layout_mode = 2
 
-[node name="PartyInfoCharacterItem4" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+[node name="PartyInfoCharacterItem4" parent="VBoxContainer/Items/VBoxContainer/TopRow" unique_id=2081730568 instance=ExtResource("10_a1h7m")]
 layout_mode = 2
 
-[node name="PartyInfoCharacterItem5" parent="VBoxContainer/Items/VBoxContainer/TopRow" instance=ExtResource("10_a1h7m")]
+[node name="PartyInfoCharacterItem5" parent="VBoxContainer/Items/VBoxContainer/TopRow" unique_id=1133566041 instance=ExtResource("10_a1h7m")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer" unique_id=258594474]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer" unique_id=1471219890]
 clip_contents = true
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer" unique_id=1833829469]
 clip_contents = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10
 
-[node name="SmallItems" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer/ScrollContainer"]
+[node name="SmallItems" type="HBoxContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer/ScrollContainer" unique_id=1496252285]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0

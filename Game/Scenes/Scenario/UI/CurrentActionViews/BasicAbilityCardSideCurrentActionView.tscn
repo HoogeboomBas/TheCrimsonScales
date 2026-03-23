@@ -1,28 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2slqq4hrera"]
+[gd_scene format=3 uid="uid://c2slqq4hrera"]
 
 [ext_resource type="PackedScene" uid="uid://cnu6wjtrnujjc" path="res://Scenes/Scenario/UI/CurrentActionViews/_CurrentActionView.tscn" id="1_k3p5f"]
 [ext_resource type="Script" uid="uid://txtv4lemmaa7" path="res://Scripts/Scenario/UI/CurrentActionView/BasicAbilityCardSideCurrentActionView.cs" id="2_k3p5f"]
 [ext_resource type="PackedScene" uid="uid://tawethckih5b" path="res://Scenes/Scenario/UI/BasicAbilityCardSide.tscn" id="3_sxkfp"]
 
-[node name="BasicAbilityCardSideCurrentActionView" node_paths=PackedStringArray("_topContainer", "_bottomContainer") instance=ExtResource("1_k3p5f")]
+[node name="BasicAbilityCardSideCurrentActionView" unique_id=1020204046 node_paths=PackedStringArray("_topContainer", "_bottomContainer") instance=ExtResource("1_k3p5f")]
 script = ExtResource("2_k3p5f")
 _topContainer = NodePath("MarginContainer/BasicTop")
 _bottomContainer = NodePath("MarginContainer/BasicBottom")
 
-[node name="BasicTop" parent="MarginContainer" index="0" instance=ExtResource("3_sxkfp")]
+[node name="BasicTop" parent="MarginContainer" parent_id_path=PackedInt32Array(300802723) index="0" unique_id=1474731331 instance=ExtResource("3_sxkfp")]
 layout_mode = 2
 
-[node name="BetterButton" parent="MarginContainer/BasicTop" index="0"]
+[node name="BetterButton" parent="MarginContainer/BasicTop" index="0" unique_id=1682216027]
 script = null
 
-[node name="BasicBottom" parent="MarginContainer" index="1" instance=ExtResource("3_sxkfp")]
+[node name="BasicBottom" parent="MarginContainer" parent_id_path=PackedInt32Array(300802723) index="1" unique_id=741634189 instance=ExtResource("3_sxkfp")]
 visible = false
 layout_mode = 2
 
-[node name="BetterButton" parent="MarginContainer/BasicBottom" index="0"]
+[node name="BetterButton" parent="MarginContainer/BasicBottom" index="0" unique_id=1682216027]
 script = null
 
-[node name="RichTextLabel" parent="MarginContainer/BasicBottom/BetterButton/Panel/MarginContainer" index="0"]
+[node name="RichTextLabel" parent="MarginContainer/BasicBottom/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(741634189, 247173409) index="0" unique_id=1241256373]
 text = "[img={{40}}]res://Art/Icons/Abilities/Move.svg[/img]2"
 
 [editable path="MarginContainer/BasicTop"]

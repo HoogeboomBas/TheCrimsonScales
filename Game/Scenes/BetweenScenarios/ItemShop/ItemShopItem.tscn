@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://corqpq2v7rvh4"]
+[gd_scene format=3 uid="uid://corqpq2v7rvh4"]
 
 [ext_resource type="Script" uid="uid://cl6ceqmsnum3h" path="res://Scripts/BetweenScenarios/ItemShop/ItemShopItem.cs" id="1_rnlen"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_csn16"]
@@ -21,7 +21,7 @@ outline_color = Color(0, 0, 0, 0.352941)
 shadow_color = Color(0, 0, 0, 0.270588)
 shadow_offset = Vector2(0, 1)
 
-[node name="ItemShopItem" type="Control" node_paths=PackedStringArray("_itemView", "_betterButton", "_stockLabel")]
+[node name="ItemShopItem" type="Control" unique_id=1103858546 node_paths=PackedStringArray("_itemView", "_betterButton", "_stockLabel")]
 custom_minimum_size = Vector2(180, 275.4)
 layout_mode = 3
 anchors_preset = 0
@@ -31,8 +31,7 @@ _itemView = NodePath("BetterButton/ItemView")
 _betterButton = NodePath("BetterButton")
 _stockLabel = NodePath("BetterButton/Panel/Label")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1907417080]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -74,6 +73,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -87,9 +87,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -105,15 +114,17 @@ shortcut_in_tooltip = true
 script = ExtResource("2_csn16")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="ItemView" parent="BetterButton" instance=ExtResource("3_s5qk5")]
+[node name="ItemView" parent="BetterButton" unique_id=1585389332 instance=ExtResource("3_s5qk5")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="BetterButton"]
+[node name="Panel" type="Panel" parent="BetterButton" unique_id=167726330]
 visible = false
 layout_mode = 0
 offset_left = 7.0
@@ -123,7 +134,7 @@ offset_bottom = 162.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s5qk5")
 
-[node name="Label" type="Label" parent="BetterButton/Panel"]
+[node name="Label" type="Label" parent="BetterButton/Panel" unique_id=906651951]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -141,10 +152,11 @@ label_settings = SubResource("LabelSettings_hcq8n")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ItemShopItemCornerVisual" parent="." instance=ExtResource("4_hcq8n")]
+[node name="ItemShopItemCornerVisual" parent="." unique_id=288518220 instance=ExtResource("4_hcq8n")]
 visible = false
+layout_mode = 0
 
-[node name="ItemShopItemCornerVisual2" parent="." instance=ExtResource("4_hcq8n")]
+[node name="ItemShopItemCornerVisual2" parent="." unique_id=99383198 instance=ExtResource("4_hcq8n")]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -153,7 +165,7 @@ anchor_right = 1.0
 grow_horizontal = 0
 scale = Vector2(-1, 1)
 
-[node name="ItemShopItemCornerVisual3" parent="." instance=ExtResource("4_hcq8n")]
+[node name="ItemShopItemCornerVisual3" parent="." unique_id=138692858 instance=ExtResource("4_hcq8n")]
 visible = false
 layout_mode = 1
 anchors_preset = 3
@@ -165,7 +177,7 @@ grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(-1, -1)
 
-[node name="ItemShopItemCornerVisual4" parent="." instance=ExtResource("4_hcq8n")]
+[node name="ItemShopItemCornerVisual4" parent="." unique_id=151754049 instance=ExtResource("4_hcq8n")]
 visible = false
 layout_mode = 1
 anchors_preset = 2

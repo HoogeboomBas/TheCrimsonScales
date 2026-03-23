@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://sbub0wyso5d3"]
+[gd_scene format=3 uid="uid://sbub0wyso5d3"]
 
 [ext_resource type="PackedScene" uid="uid://blei03xyk2x63" path="res://Scenes/Scenario/AOE/AOEHexView.tscn" id="1_v47oa"]
 [ext_resource type="Texture2D" uid="uid://cht3jc2t48x72" path="res://Art/Other/HexagonOutline.svg" id="2_axlpd"]
 
-[node name="YellowHexView" instance=ExtResource("1_v47oa")]
+[node name="YellowHexView" unique_id=243099146 instance=ExtResource("1_v47oa")]
 
-[node name="Fill" parent="." index="0"]
+[node name="Fill" parent="." index="0" unique_id=2015018546]
 self_modulate = Color(0.941176, 0.701961, 0.0666667, 0.505882)
 
-[node name="Outline" parent="." index="1"]
+[node name="Outline" parent="." index="1" unique_id=1364723149]
 texture = ExtResource("2_axlpd")

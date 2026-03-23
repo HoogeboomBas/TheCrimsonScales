@@ -1,4 +1,4 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://co0cqpevlny13"]
+[gd_resource type="LabelSettings" format=3 uid="uid://co0cqpevlny13"]
 
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="1_5f4p8"]
 

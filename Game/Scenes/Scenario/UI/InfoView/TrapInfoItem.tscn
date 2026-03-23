@@ -1,21 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpwgh7iu8k0pd"]
+[gd_scene format=3 uid="uid://cpwgh7iu8k0pd"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_hgpsa"]
 [ext_resource type="Script" uid="uid://nqwhomhha7xx" path="res://Scripts/Scenario/UI/InfoView/TrapInfoItem.cs" id="1_txlxe"]
 
-[node name="TrapInfoItem" node_paths=PackedStringArray("_tileParent") instance=ExtResource("1_hgpsa")]
+[node name="TrapInfoItem" unique_id=2033921163 node_paths=PackedStringArray("_tileParent") instance=ExtResource("1_hgpsa")]
 script = ExtResource("1_txlxe")
 _tileParent = NodePath("MarginContainer/Content/Container/TileAnchor")
 
-[node name="Label" parent="MarginContainer/Content/LabelContainer" index="0"]
+[node name="Label" parent="MarginContainer/Content/LabelContainer" parent_id_path=PackedInt32Array(520630334) index="0" unique_id=1652435008]
 text = "Trap"
 
-[node name="Container" type="Control" parent="MarginContainer/Content" index="1"]
+[node name="Container" type="Control" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=473203287]
 custom_minimum_size = Vector2(0, 176)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TileAnchor" type="Control" parent="MarginContainer/Content/Container" index="0"]
+[node name="TileAnchor" type="Control" parent="MarginContainer/Content/Container" index="0" unique_id=1755250832]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

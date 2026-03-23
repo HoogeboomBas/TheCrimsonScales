@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dwbeiongk1mlv"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dwbeiongk1mlv"]
 
 [ext_resource type="Texture2D" uid="uid://c87bd22vg43m0" path="res://Content/Monsters/HarrowerInfester/Icon.jpg" id="1_ysl23"]
 

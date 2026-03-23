@@ -1,19 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdmmng80jwujv"]
+[gd_scene format=3 uid="uid://bdmmng80jwujv"]
 
 [ext_resource type="Script" uid="uid://dynr6dqllxo6i" path="res://Scripts/Scenario/MapTile.cs" id="1_ds8fm"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_up6vf"]
 
-[node name="MapTile" type="Node2D" node_paths=PackedStringArray("_hexParent", "_sprite")]
+[node name="MapTile" type="Node2D" unique_id=2133015316 node_paths=PackedStringArray("_hexParent", "_sprite")]
 script = ExtResource("1_ds8fm")
 _hexParent = NodePath("Hexes")
 _sprite = NodePath("Sprite2D")
 _lockedColor = Color(0.341176, 0.341176, 0.341176, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=697082687]
 z_index = -10
 scale = Vector2(1.12, 1.12)
 
-[node name="Hexes" type="Node2D" parent="."]
+[node name="Hexes" type="Node2D" parent="." unique_id=1438432245]
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=250410985]
 script = ExtResource("2_up6vf")

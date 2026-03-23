@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2lfw1iih6tw5"]
+[gd_scene format=3 uid="uid://d2lfw1iih6tw5"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_v1lvd"]
 [ext_resource type="Texture2D" uid="uid://qq2ww4verdai" path="res://Art/OverlayTiles/Rock Column 1h.png" id="2_kejnu"]
 
-[node name="RockColumn1H" instance=ExtResource("1_v1lvd")]
+[node name="RockColumn1H" unique_id=1261496421 instance=ExtResource("1_v1lvd")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_kejnu")
