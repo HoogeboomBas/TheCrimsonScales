@@ -180,6 +180,14 @@ public class Road19 : RoadEventModel<Road19.ChoiceA, Road19.ChoiceB>
 								}
 							);
 
+							ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(this,
+								parameters => parameters.Figure is Character && RangeHelper.Distance(parameters.Trap.Hex, obstacle.Hex) <= 1,
+								parameters =>
+								{
+									parameters.SetCanPass();
+								}
+							);
+
 							ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
 								parameters => parameters.Figure is Character,
 								async parameters =>

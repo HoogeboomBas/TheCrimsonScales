@@ -141,18 +141,25 @@ public partial class ScenarioCheckEvents
 
 	public class CanPassEnemyCheck : ScenarioCheckEvent<CanPassEnemyCheck.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Figure figure, Figure enemyFigure)
+		public class Parameters(AbilityState abilityState, Figure figure, Figure enemyFigure, MoveType moveType, bool forcedMovement)
 			: ParametersBase
 		{
 			public AbilityState AbilityState { get; } = abilityState;
 			public Figure Figure { get; } = figure;
 			public Figure EnemyFigure { get; } = enemyFigure;
+			public MoveType MoveType { get; } = moveType;
+			public bool ForcedMovement { get; } = forcedMovement;
 
-			public bool CanPass { get; private set; } = false;
+			public bool CanPass { get; private set; } = moveType != MoveType.Regular;
 
 			public void SetCanPass()
 			{
 				CanPass = true;
+			}
+
+			public void SetCannotPass()
+			{
+				CanPass = false;
 			}
 		}
 	}
@@ -162,15 +169,21 @@ public partial class ScenarioCheckEvents
 
 	public class CanPassAllyCheck : ScenarioCheckEvent<CanPassAllyCheck.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Figure figure, Figure alliedFigure, MoveType moveType)
+		public class Parameters(AbilityState abilityState, Figure figure, Figure alliedFigure, MoveType moveType, bool forcedMovement)
 			: ParametersBase
 		{
 			public AbilityState AbilityState { get; } = abilityState;
 			public Figure Figure { get; } = figure;
 			public Figure AlliedFigure { get; } = alliedFigure;
 			public MoveType MoveType { get; } = moveType;
+			public bool ForcedMovement { get; } = forcedMovement;
 
 			public bool CanPass { get; private set; } = true;
+
+			public void SetCanPass()
+			{
+				CanPass = true;
+			}
 
 			public void SetCannotPass()
 			{
@@ -181,6 +194,34 @@ public partial class ScenarioCheckEvents
 
 	private readonly CanPassAllyCheck _canPassAllyCheck = new CanPassAllyCheck();
 	public static CanPassAllyCheck CanPassAllyCheckEvent => GameController.Instance.ScenarioCheckEvents._canPassAllyCheck;
+
+	public class CanPassTrapCheck : ScenarioCheckEvent<CanPassTrapCheck.Parameters>
+	{
+		public class Parameters(AbilityState abilityState, Figure figure, Trap trap, MoveType moveType, bool forcedMovement)
+			: ParametersBase
+		{
+			public AbilityState AbilityState { get; } = abilityState;
+			public Figure Figure { get; } = figure;
+			public Trap Trap { get; } = trap;
+			public MoveType MoveType { get; } = moveType;
+			public bool ForcedMovement { get; } = forcedMovement;
+
+			public bool CanPass { get; private set; } = false;
+
+			public void SetCanPass()
+			{
+				CanPass = true;
+			}
+
+			public void SetCannotPass()
+			{
+				CanPass = false;
+			}
+		}
+	}
+
+	private readonly CanPassTrapCheck _canPassTrapCheck = new CanPassTrapCheck();
+	public static CanPassTrapCheck CanPassTrapCheckEvent => GameController.Instance.ScenarioCheckEvents._canPassTrapCheck;
 
 	public class MoveCanStopAtCheck : ScenarioCheckEvent<MoveCanStopAtCheck.Parameters>
 	{

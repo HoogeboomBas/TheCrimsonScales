@@ -380,22 +380,22 @@ public static class MoveHelper
 
 		foreach(Figure otherFigure in hex.GetHexObjectsOfType<Figure>())
 		{
-			if(performer.EnemiesWith(otherFigure) && (moveType == MoveType.Regular))
+			if(performer.EnemiesWith(otherFigure))
 			{
 				ScenarioCheckEvents.CanPassEnemyCheck.Parameters canPassEnemyParameters =
 					ScenarioCheckEvents.CanPassEnemyCheckEvent.Fire(
-						new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure));
+						new ScenarioCheckEvents.CanPassEnemyCheck.Parameters(abilityState, performer, otherFigure, moveType, forcedMovement));
 
 				if(!canPassEnemyParameters.CanPass)
 				{
 					return false;
 				}
 			}
-			else if(performer.AlliedWith(otherFigure) && !forcedMovement)
+			else if(performer.AlliedWith(otherFigure))
 			{
 				ScenarioCheckEvents.CanPassAllyCheck.Parameters canPassAllyParameters =
 					ScenarioCheckEvents.CanPassAllyCheckEvent.Fire(
-						new ScenarioCheckEvents.CanPassAllyCheck.Parameters(abilityState, performer, otherFigure, moveType));
+						new ScenarioCheckEvents.CanPassAllyCheck.Parameters(abilityState, performer, otherFigure, moveType, forcedMovement));
 
 				if(!canPassAllyParameters.CanPass)
 				{
@@ -403,6 +403,25 @@ public static class MoveHelper
 				}
 			}
 		}
+
+		// To avoid an impossible board situations with 2 figures on the same hex, prevent a move ability through a stun/immobilize trap
+		if(hex.GetHexObjectsOfType<Figure>().Any() && moveType == MoveType.Regular && !forcedMovement)
+		{
+			foreach(Trap trap in hex.GetHexObjectsOfType<Trap>()
+				.Where(trap => trap.ConditionModels
+				.Any(condition => condition.Model == Conditions.Immobilize || condition.Model == Conditions.Stun)))
+			{
+				ScenarioCheckEvents.CanPassTrapCheck.Parameters canPassTrapParameters =
+					ScenarioCheckEvents.CanPassTrapCheckEvent.Fire(
+						new ScenarioCheckEvents.CanPassTrapCheck.Parameters(abilityState, performer, trap, moveType, forcedMovement));
+
+				if(!canPassTrapParameters.CanPass)
+				{
+					return false;
+				}
+			}	
+		}
+
 
 		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(

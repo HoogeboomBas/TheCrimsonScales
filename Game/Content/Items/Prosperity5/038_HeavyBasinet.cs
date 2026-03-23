@@ -1,3 +1,5 @@
+﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class HeavyBasinet : Prosperity5Item
@@ -12,20 +14,11 @@ public class HeavyBasinet : Prosperity5Item
 
 	protected override int AtlasIndex => 4;
 
-	private object _subscriber;
-
-	public override void Init(Character owner)
-	{
-		_subscriber = new object();
-
-		base.Init(owner);
-	}
-
 	protected override void Subscribe()
 	{
 		base.Subscribe();
 
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
+		ScenarioEvents.InflictConditionEvent.Subscribe(this, Owner,
 			parameters =>
 				parameters.Target == Owner &&
 				(AbilityCmd.CheckImmunity(parameters.ConditionModel, Conditions.Stun) ||
@@ -38,12 +31,37 @@ public class HeavyBasinet : Prosperity5Item
 			}
 		);
 
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, Owner,
 			parameters => parameters.Figure == Owner,
 			parameters =>
 			{
 				parameters.AddImmunity(Conditions.Stun);
 				parameters.AddImmunity(Conditions.Muddle);
+			}
+		);
+
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(this, Owner,
+			parameters => 
+			{
+				if(parameters.Figure != Owner)
+				{
+					return false;
+				}
+
+				foreach(ConditionModel stoppingCondition in new List<ConditionModel>([Conditions.Immobilize, Conditions.Stun]))
+				{
+					if(parameters.Trap.ConditionModels.Any(condition => condition.Model == stoppingCondition) 
+						&& !AbilityCmd.CheckImmunity(stoppingCondition, Conditions.Stun))
+					{
+						return false;
+					}
+				}
+
+				return true;
+			},
+			parameters =>
+			{
+				parameters.SetCanPass();
 			}
 		);
 	}
@@ -52,7 +70,8 @@ public class HeavyBasinet : Prosperity5Item
 	{
 		base.Unsubscribe();
 
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, _subscriber);
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this, _subscriber);
+		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, Owner);
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this, Owner);
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(this, Owner);
 	}
 }

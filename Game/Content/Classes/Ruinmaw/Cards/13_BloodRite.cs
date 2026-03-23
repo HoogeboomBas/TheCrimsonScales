@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -84,6 +84,14 @@ public class BloodRite : RuinmawCardModel<BloodRite.CardTop, BloodRite.CardBotto
 						}
 					);
 
+					ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(state, this,
+						parameters => parameters.Figure == state.Performer,
+						parameters =>
+						{
+							parameters.SetCanPass();
+						}
+					);
+
 					if(state.Performer is Ruinmaw ruinmaw)
 					{
 						ruinmaw.SateEvent += OnSated;
@@ -94,6 +102,8 @@ public class BloodRite : RuinmawCardModel<BloodRite.CardTop, BloodRite.CardBotto
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
+					ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(state, this);
+
 					if(state.Performer is Ruinmaw ruinmaw)
 					{
 						ruinmaw.SateEvent -= OnSated;

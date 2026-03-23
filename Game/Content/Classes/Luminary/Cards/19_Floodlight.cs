@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -71,12 +71,39 @@ public class Floodlight : LuminaryCardModel<Floodlight.CardTop, Floodlight.CardB
 							parameters.AddImmunity(Conditions.Immobilize);
 						}
 					);
+
+					ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(state, this,
+						parameters => 
+						{
+							if(parameters.Figure != state.Performer)
+							{
+								return false;
+							}
+
+							foreach(ConditionModel stoppingCondition in new List<ConditionModel>([Conditions.Immobilize, Conditions.Stun]))
+							{
+								if(parameters.Trap.ConditionModels.Any(condition => condition.Model == stoppingCondition) 
+									&& !AbilityCmd.CheckImmunity(stoppingCondition, Conditions.Immobilize))
+								{
+									return false;
+								}
+							}
+
+							return true;
+						},
+						parameters =>
+						{
+							parameters.SetCanPass();
+						}
+					);
+
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
 					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(state, this);
+					ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})
 				.Build()),

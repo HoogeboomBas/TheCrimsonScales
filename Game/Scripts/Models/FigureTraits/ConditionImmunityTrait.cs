@@ -1,5 +1,6 @@
 ﻿using Fractural.Tasks;
 using Godot;
+using System.Collections.Generic;
 using System.Linq;
 
 public class ConditionImmunityTrait : FigureTrait
@@ -42,6 +43,31 @@ public class ConditionImmunityTrait : FigureTrait
 			parameters =>
 			{
 				parameters.AddImmunity(_conditionModel);
+			}
+		);
+
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(figure, this,
+			parameters => 
+			{
+				if(parameters.Figure != figure)
+				{
+					return false;
+				}
+
+				foreach(ConditionModel stoppingCondition in new List<ConditionModel>([Conditions.Immobilize, Conditions.Stun]))
+				{
+					if(parameters.Trap.ConditionModels.Any(condition => condition.Model == stoppingCondition) 
+						&& !AbilityCmd.CheckImmunity(stoppingCondition, _conditionModel))
+					{
+						return false;
+					}
+				}
+
+				return true;
+			},
+			parameters =>
+			{
+				parameters.SetCanPass();
 			}
 		);
 	}

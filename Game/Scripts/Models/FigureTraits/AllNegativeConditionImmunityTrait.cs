@@ -33,6 +33,14 @@ public class AllNegativeConditionImmunityTrait : FigureTrait
 				}
 			}
 		);
+
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(figure, this,
+			parameters => parameters.Figure == figure,
+			parameters =>
+			{
+				parameters.SetCanPass();
+			}
+		);
 	}
 
 	public override async GDTask Deactivate(Figure figure)
