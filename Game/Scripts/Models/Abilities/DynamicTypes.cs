@@ -79,7 +79,7 @@ public abstract class DynamicType<T> where T : struct
 			return Value.Value;
 		}
 
-		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		Log.Error("Both Value and GetValue are null for this dynamic value " + this + ".");
 		return default;
 	}
 }
@@ -118,7 +118,7 @@ public abstract class DynamicType<T, TArg> where T : struct
 			return Value.Value;
 		}
 
-		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		Log.Error("Both Value and GetValue are null for this dynamic value " + this + ".");
 		return default;
 	}
 }
@@ -157,7 +157,7 @@ public abstract class DynamicClassType<T> where T : class
 			return Value;
 		}
 
-		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		Log.Error("Both Value and GetValue are null for this dynamic value " + this + ".");
 		return null;
 	}
 }
@@ -196,7 +196,7 @@ public abstract class DynamicClassType<T, TArg> where T : class
 			return Value;
 		}
 
-		Log.Error("Both Value and GetValue are null for this dynamic value.");
+		Log.Error("Both Value and GetValue are null for this dynamic value " + this + ".");
 		return null;
 	}
 }
