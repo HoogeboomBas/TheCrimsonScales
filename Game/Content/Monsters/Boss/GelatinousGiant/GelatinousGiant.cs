@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
-public class GelatinousGiant : Ooze, IBossMonsterModel
+public class GelatinousGiant : BloodOoze, IBossMonsterModel
 {
 	public override MonsterStats[] BossLevelStats =>
 		base.EliteLevelStats

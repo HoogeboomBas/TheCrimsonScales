@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://61fxgg6lkbhf"]
+[gd_scene format=3 uid="uid://61fxgg6lkbhf"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_0axtw"]
 [ext_resource type="Script" uid="uid://bcjfiji3t6j1u" path="res://Scripts/UI/Popups/CharacterInfoPopup.cs" id="2_pnf13"]
@@ -16,19 +16,6 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyu3w"]
-bg_color = Color(0, 0, 0, 0.305882)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 8.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkkap"]
 bg_color = Color(0, 0, 0, 0.305882)
 border_width_left = 2
@@ -42,7 +29,20 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 expand_margin_left = 8.0
 
-[node name="CharacterInfoPopup" node_paths=PackedStringArray("_matFrontTexture", "_personalQuestProgressView", "_retireButton", "_nameLineEdit", "_header", "_cancelButton", "_confirmButton", "_deleteButton") instance=ExtResource("1_0axtw")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyu3w"]
+bg_color = Color(0, 0, 0, 0.305882)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+
+[node name="CharacterInfoPopup" unique_id=962087423 node_paths=PackedStringArray("_matFrontTexture", "_personalQuestProgressView", "_retireButton", "_nameLineEdit", "_header", "_cancelButton", "_confirmButton", "_deleteButton") instance=ExtResource("1_0axtw")]
 script = ExtResource("2_pnf13")
 _matFrontTexture = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer/MatFront/Mask/TextureRect")
 _personalQuestProgressView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView")
@@ -53,30 +53,30 @@ _cancelButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VB
 _confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
 _deleteButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/DeleteButton/BetterButton")
 
-[node name="Panel" parent="." index="1"]
+[node name="Panel" parent="." index="1" unique_id=2112547392]
 offset_left = -725.0
 offset_top = -467.5
 offset_right = 725.0
 offset_bottom = 467.5
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Character Info"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=1165870274]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="MatContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0"]
+[node name="MatContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0" unique_id=1252361387]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="MatFront" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer" index="0"]
+[node name="MatFront" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer" index="0" unique_id=1312023940]
 custom_minimum_size = Vector2(970, 630)
 layout_mode = 2
 
-[node name="Mask" type="Panel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer/MatFront" index="0"]
+[node name="Mask" type="Panel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer/MatFront" index="0" unique_id=2093371032]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -88,7 +88,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hlxgd")
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer/MatFront/Mask" index="0"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/MatContainer/MatFront/Mask" index="0" unique_id=995134083]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,28 +99,28 @@ texture = ExtResource("5_0aqwi")
 expand_mode = 5
 stretch_mode = 4
 
-[node name="PersonalQuestProgressView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1" instance=ExtResource("4_pnf13")]
+[node name="PersonalQuestProgressView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1" unique_id=1196496836 instance=ExtResource("4_pnf13")]
 layout_mode = 2
 
-[node name="PanelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView" index="2" instance=ExtResource("8_bnawq")]
+[node name="PanelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView" index="2" unique_id=1673532733 instance=ExtResource("8_bnawq")]
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView/PanelButton" index="0"]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView/PanelButton" index="0" unique_id=1214556516]
 modulate = Color(0.458824, 1, 0.372549, 1)
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView/PanelButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView/PanelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1673532733, 62362509) index="0" unique_id=188245078]
 text = "Retire!"
 
-[node name="Name" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+[node name="Name" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=45329600]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Label" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name" index="0"]
+[node name="Label" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name" index="0" unique_id=567328306]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name/Label" index="0"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name/Label" index="0" unique_id=2113481318]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -132,11 +132,11 @@ grow_horizontal = 2
 text = "Name:"
 label_settings = ExtResource("6_qmdv5")
 
-[node name="Name" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name" index="1"]
+[node name="Name" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name" index="1" unique_id=1444909564]
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name/Name" index="0"]
+[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Name/Name" index="0" unique_id=1581719019]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -147,26 +147,26 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/caret_width = 2
 theme_override_fonts/font = ExtResource("7_rgjng")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxFlat_jyu3w")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rkkap")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jyu3w")
 placeholder_text = "..."
 max_length = 20
 caret_blink = true
 
-[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("8_bnawq")]
+[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=2043618015 instance=ExtResource("8_bnawq")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(2043618015, 62362509) index="0" unique_id=188245078]
 text = "Cancel"
 
-[node name="DeleteButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="1" instance=ExtResource("8_bnawq")]
+[node name="DeleteButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="1" unique_id=1755460744 instance=ExtResource("8_bnawq")]
 modulate = Color(1, 0.368627, 0.227451, 1)
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/DeleteButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/DeleteButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1755460744, 62362509) index="0" unique_id=188245078]
 text = "Delete"
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="2" instance=ExtResource("8_bnawq")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="2" unique_id=2098840434 instance=ExtResource("8_bnawq")]
 layout_mode = 2
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/PersonalQuestProgressView/PanelButton"]

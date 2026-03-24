@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c7fhcbpypuy4w"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://c7fhcbpypuy4w"]
 
 [ext_resource type="Texture2D" uid="uid://4hueo6ymbb64" path="res://Content/Monsters/BlackImp/Icon.jpg" id="1_vjevk"]
 

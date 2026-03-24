@@ -30,7 +30,7 @@ public abstract class ConditionModel : AbstractModel
 			GameController.Instance.Map.AddChild(conditionAnimation);
 			conditionAnimation.Init(condition.Owner);
 
-			await GDTask.Delay(0.5f);
+			await GDTask.DelayFastForwardable(0.5f);
 		}
 	}
 

@@ -26,8 +26,7 @@ public class LuckyStars : StarslingerCardModel<LuckyStars.CardTop, LuckyStars.Ca
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustAttackValue(2);
-							parameters.AbilityState.SetCustomValue(this, "Undamaged",
-								parameters.AbilityState.GetCustomValue<int>(this, "Undamaged") + 1);
+							parameters.AbilityState.SetCustomValue(this, "Undamaged", true);
 
 							await GDTask.CompletedTask;
 						}
@@ -35,7 +34,10 @@ public class LuckyStars : StarslingerCardModel<LuckyStars.CardTop, LuckyStars.Ca
 				)
 				.WithOnAbilityEndedPerformed(async state =>
 				{
-					await AbilityCmd.GainXP(state.Performer, state.GetCustomValue<int>(this, "Undamaged"));
+					if(state.GetCustomValue<bool>(this, "Undamaged"))
+					{
+						await AbilityCmd.GainXP(state.Performer, 1);
+					}
 				})
 				.Build())
 		];

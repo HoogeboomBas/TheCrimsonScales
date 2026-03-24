@@ -12,6 +12,9 @@ public class Scenario007 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() => new CustomScenarioGoals("Find all three Golden Eggs to win this scenario.");
 
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<CaveBear>(), ModelDB.Monster<ForestImp>(), ModelDB.Monster<RendingDrake>(), ModelDB.Monster<SpittingDrake>()];
+
 	public override string BGSPath => "res://Audio/BGS/Forest Day.ogg";
 
 	private readonly List<(Water, int)> _waterTiles = new List<(Water, int)>();

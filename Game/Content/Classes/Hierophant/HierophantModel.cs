@@ -14,7 +14,7 @@ public class HierophantModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Hierophant.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<FaithCalling>(),
 		ModelDB.AbilityCard<HarshRebuke>(),
@@ -50,7 +50,11 @@ public class HierophantModel : ClassModel
 		ModelDB.AbilityCard<BringerOfMiracles>(),
 	];
 
-	public IList<AbilityCardModel> AllPrayerCards { get; } =
+	public override List<PerkModel> Perks { get; } =
+	[
+	];
+
+	public List<AbilityCardModel> AllPrayerCards { get; } =
 	[
 		ModelDB.AbilityCard<Aspiration>(),
 		ModelDB.AbilityCard<Devotion>(),

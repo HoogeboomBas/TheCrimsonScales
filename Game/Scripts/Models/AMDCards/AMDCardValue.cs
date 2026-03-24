@@ -93,7 +93,8 @@ public class AMDCardValue(
 				{
 					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(attackAbilityState, this);
 
-					ActionState actionState = new ActionState(this, attackAbilityState.Performer, Abilities);
+					ActionState actionState = new ActionState(this, attackAbilityState.Performer, Abilities,
+						onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);
 					await actionState.Perform();
 				}
 			);
@@ -128,5 +129,17 @@ public class AMDCardValue(
 	{
 		return Pierce.HasValue || Push.HasValue || Pull.HasValue || Swing.HasValue ||
 		       ElementInfusions.Count > 0 || ConditionModels.Count > 0 || Abilities.Count > 0 || ExtraEffects != null;
+	}
+
+	private async GDTask OnDiscardOrLoseRequested(ActionState actionState)
+	{
+		await actionState.Performer.DeactivateOtherRoundActionState(actionState);
+	}
+
+	private async GDTask OnFirstActivateAbilityActivated(ActionState actionState)
+	{
+		actionState.Performer.AddOtherRoundActionState(actionState);
+
+		await GDTask.CompletedTask;
 	}
 }

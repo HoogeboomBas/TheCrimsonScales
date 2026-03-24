@@ -14,7 +14,7 @@ public class BombardModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Bombard.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<ConsistentFiring>(),
 		ModelDB.AbilityCard<DoubleCannons>(),
@@ -36,5 +36,47 @@ public class BombardModel : ClassModel
 		ModelDB.AbilityCard<TwinBlast>(),
 		ModelDB.AbilityCard<HurriedRepairs>(),
 		ModelDB.AbilityCard<PowerfulBuckshot>(),
+		ModelDB.AbilityCard<UnbreakablePosition>(),
+		ModelDB.AbilityCard<SharpenedFocus>(),
+		ModelDB.AbilityCard<MeteoricBlast>(),
+		ModelDB.AbilityCard<ProlificPerforation>(),
+		ModelDB.AbilityCard<AirborneSkyrockets>(),
+		ModelDB.AbilityCard<BallisticBarrage>(),
+		ModelDB.AbilityCard<DefenseMechanism>(),
+		ModelDB.AbilityCard<QuadrupleCannons>(),
+		ModelDB.AbilityCard<SuperchargedGunpowder>(),
+		ModelDB.AbilityCard<SuperiorUpgrade>()
+	];
+
+	public override List<PerkModel> Perks { get; } =
+	[
+		ModelDB.Perk<BombardPerks.RemoveTwoMinusOnes>(),
+
+		ModelDB.Perk<BombardPerks.ReplaceOneMinusOneWithOneShieldOneRolling>(),
+		ModelDB.Perk<BombardPerks.ReplaceOneMinusOneWithOneShieldOneRolling>(),
+
+		ModelDB.Perk<BombardPerks.ReplaceOnePlusZeroWithOnePlusZeroPlusThreeIfProjectile>(),
+		ModelDB.Perk<BombardPerks.ReplaceOnePlusZeroWithOnePlusZeroPlusThreeIfProjectile>(),
+
+		ModelDB.Perk<BombardPerks.ReplaceTwoPlusZeroWithTwoPierceThreeRolling>(),
+
+		ModelDB.Perk<BombardPerks.ReplacePlusZeroWithOnePlusOneWound>(),
+
+		ModelDB.Perk<BombardPerks.ReplacePlusZeroWithOnePlusZeroStun>(),
+
+		ModelDB.Perk<BombardPerks.ReplaceOnePlusOneWithTwoPlusOneRetaliateOne>(),
+
+		ModelDB.Perk<BombardPerks.ReplaceOnePlusOneWithOnePlusZeroStrengthenSelf>(),
+
+		ModelDB.Perk<BombardPerks.AddOnePlusTwoImmobilize>(),
+		ModelDB.Perk<BombardPerks.AddOnePlusTwoImmobilize>(),
+
+		ModelDB.Perk<BombardPerks.AddTwoPlusZeroHealOneSelfRolling>(),
+
+		ModelDB.Perk<BombardPerks.IgnoreNegativeScenarioEffectsAddPlusOnePullSelf>(),
+
+		ModelDB.Perk<BombardPerks.IgnoreNegativeItemEffectsAddPlusOnePullSelf>(),
+
+		ModelDB.Perk<BombardPerks.EmergencyEmplacement>(),
 	];
 }

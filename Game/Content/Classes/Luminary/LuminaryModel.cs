@@ -13,7 +13,7 @@ public class LuminaryModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Luminary.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<BurningSparks>(),
 		ModelDB.AbilityCard<ChillingWave>(),
@@ -46,5 +46,9 @@ public class LuminaryModel : ClassModel
 		ModelDB.AbilityCard<OpticalRefraction>(),
 		ModelDB.AbilityCard<BlazingPincers>(),
 		ModelDB.AbilityCard<LightTheWay>(),
+	];
+
+	public override List<PerkModel> Perks { get; } =
+	[
 	];
 }

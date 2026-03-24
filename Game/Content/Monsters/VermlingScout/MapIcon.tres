@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://2dyr68whwyin"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://2dyr68whwyin"]
 
 [ext_resource type="Texture2D" uid="uid://3s5il1snhuww" path="res://Content/Monsters/VermlingScout/Icon.jpg" id="1_qnb1v"]
 

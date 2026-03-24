@@ -22,13 +22,16 @@ public class MonsterGroup
 	public Initiative Initiative { get; private set; }
 
 	public Texture2D PortraitTexture => ResourceLoader.Load<Texture2D>(MonsterModel.PortraitTexturePath);
+	public bool ExtensionGroup = false;
 
 	public event Action<MonsterGroup> InitiativeChangedEvent;
 
-	public MonsterGroup(MonsterModel monsterModel, int groupIndex, MonsterAbilityCardDeck existingDeckToUse, MonsterGroup parentMonsterGroup)
+	public MonsterGroup(MonsterModel monsterModel, int groupIndex, MonsterAbilityCardDeck existingDeckToUse, MonsterGroup parentMonsterGroup,
+		bool isExtensionGroup)
 	{
 		MonsterModel = monsterModel;
 		GroupIndex = groupIndex;
+		ExtensionGroup = isExtensionGroup;
 
 		if(parentMonsterGroup == null)
 		{

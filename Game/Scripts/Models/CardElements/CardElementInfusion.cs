@@ -2,10 +2,10 @@
 
 public class CardElementInfusion
 {
-	public IReadOnlyCollection<Element> ConsumableElements { get; }
-	public IReadOnlyCollection<Element> PossibleInfusedElements { get; }
+	public IReadOnlyList<Element> ConsumableElements { get; }
+	public IReadOnlyList<Element> PossibleInfusedElements { get; }
 
-	private CardElementInfusion(IReadOnlyCollection<Element> consumableElements, IReadOnlyCollection<Element> possibleInfusedElements)
+	private CardElementInfusion(IReadOnlyList<Element> consumableElements, IReadOnlyList<Element> possibleInfusedElements)
 	{
 		ConsumableElements = consumableElements;
 		PossibleInfusedElements = possibleInfusedElements;
@@ -21,7 +21,7 @@ public class CardElementInfusion
 		return new CardElementInfusion(null, Elements.All);
 	}
 
-	public static CardElementInfusion Consume(IReadOnlyCollection<Element> consumableElements, Element infusedElement)
+	public static CardElementInfusion Consume(IReadOnlyList<Element> consumableElements, Element infusedElement)
 	{
 		return new CardElementInfusion(consumableElements, [infusedElement]);
 	}

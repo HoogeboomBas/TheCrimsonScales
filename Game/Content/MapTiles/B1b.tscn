@@ -1,54 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3cy7d6xfphsa"]
+[gd_scene format=3 uid="uid://d3cy7d6xfphsa"]
 
 [ext_resource type="PackedScene" uid="uid://bdmmng80jwujv" path="res://Scenes/Scenario/MapTile.tscn" id="1_hn41w"]
 [ext_resource type="Texture2D" uid="uid://cdpng7v3cyvqy" path="res://Art/MapTiles/B1b-Earth - D.png" id="2_qtafx"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_3l3ft"]
 
-[node name="B1b" node_paths=PackedStringArray("_hexParent", "_sprite") instance=ExtResource("1_hn41w")]
-_hexParent = NodePath("Hexes")
-_sprite = NodePath("Sprite2D")
+[node name="B1b" unique_id=1304535743 instance=ExtResource("1_hn41w")]
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(109, -95)
 texture = ExtResource("2_qtafx")
 
-[node name="Hex" parent="Hexes" index="0" instance=ExtResource("3_3l3ft")]
-position = Vector2(-109.119, 189)
+[node name="Hex" parent="Hexes" index="0" unique_id=1450449856 instance=ExtResource("3_3l3ft")]
+position = Vector2(-109.1192, 189)
 
-[node name="Hex2" parent="Hexes" index="1" instance=ExtResource("3_3l3ft")]
+[node name="Hex2" parent="Hexes" index="1" unique_id=1215376246 instance=ExtResource("3_3l3ft")]
 
-[node name="Hex3" parent="Hexes" index="2" instance=ExtResource("3_3l3ft")]
-position = Vector2(-218.238, 0)
+[node name="Hex3" parent="Hexes" index="2" unique_id=881672736 instance=ExtResource("3_3l3ft")]
+position = Vector2(-218.2384, 0)
 
-[node name="Hex4" parent="Hexes" index="3" instance=ExtResource("3_3l3ft")]
-position = Vector2(218.238, 0)
+[node name="Hex4" parent="Hexes" index="3" unique_id=1902353018 instance=ExtResource("3_3l3ft")]
+position = Vector2(218.2384, 0)
 
-[node name="Hex5" parent="Hexes" index="4" instance=ExtResource("3_3l3ft")]
-position = Vector2(436.477, 0)
+[node name="Hex5" parent="Hexes" index="4" unique_id=891123602 instance=ExtResource("3_3l3ft")]
+position = Vector2(436.4768, 0)
 
-[node name="Hex6" parent="Hexes" index="5" instance=ExtResource("3_3l3ft")]
-position = Vector2(327.358, -189)
+[node name="Hex6" parent="Hexes" index="5" unique_id=1268115133 instance=ExtResource("3_3l3ft")]
+position = Vector2(327.35757, -189)
 
-[node name="Hex7" parent="Hexes" index="6" instance=ExtResource("3_3l3ft")]
-position = Vector2(109.119, -189)
+[node name="Hex7" parent="Hexes" index="6" unique_id=332216263 instance=ExtResource("3_3l3ft")]
+position = Vector2(109.1192, -189)
 
-[node name="Hex8" parent="Hexes" index="7" instance=ExtResource("3_3l3ft")]
-position = Vector2(-109.119, -189)
+[node name="Hex8" parent="Hexes" index="7" unique_id=409677974 instance=ExtResource("3_3l3ft")]
+position = Vector2(-109.1192, -189)
 
-[node name="Hex9" parent="Hexes" index="8" instance=ExtResource("3_3l3ft")]
-position = Vector2(-218.238, -378)
+[node name="Hex9" parent="Hexes" index="8" unique_id=1739734500 instance=ExtResource("3_3l3ft")]
+position = Vector2(-218.2384, -378)
 
-[node name="Hex10" parent="Hexes" index="9" instance=ExtResource("3_3l3ft")]
-position = Vector2(327.358, 189)
+[node name="Hex10" parent="Hexes" index="9" unique_id=217560250 instance=ExtResource("3_3l3ft")]
+position = Vector2(327.35757, 189)
 
-[node name="Hex11" parent="Hexes" index="10" instance=ExtResource("3_3l3ft")]
-position = Vector2(109.119, 189)
+[node name="Hex11" parent="Hexes" index="10" unique_id=13023638 instance=ExtResource("3_3l3ft")]
+position = Vector2(109.1192, 189)
 
-[node name="Hex12" parent="Hexes" index="11" instance=ExtResource("3_3l3ft")]
+[node name="Hex12" parent="Hexes" index="11" unique_id=1106122940 instance=ExtResource("3_3l3ft")]
 position = Vector2(0, -378)
 
-[node name="Hex13" parent="Hexes" index="12" instance=ExtResource("3_3l3ft")]
-position = Vector2(218.238, -378)
+[node name="Hex13" parent="Hexes" index="12" unique_id=1416277298 instance=ExtResource("3_3l3ft")]
+position = Vector2(218.2384, -378)
 
-[node name="Hex14" parent="Hexes" index="13" instance=ExtResource("3_3l3ft")]
-position = Vector2(436.477, -378)
+[node name="Hex14" parent="Hexes" index="13" unique_id=2115442067 instance=ExtResource("3_3l3ft")]
+position = Vector2(436.47678, -378)

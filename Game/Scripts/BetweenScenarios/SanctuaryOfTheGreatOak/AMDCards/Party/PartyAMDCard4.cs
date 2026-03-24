@@ -3,6 +3,11 @@ using Fractural.Tasks;
 
 public class PartyAMDCard4 : PartyAMDCardModel
 {
+	public override string ToString(RichTextParameters richTextParameters) =>
+		GetBasicString(richTextParameters, AMDCardType.Crit,
+			extraText: $"Perform {Icons.Inline(Icons.Move)}2 at the end of your turn",
+			rolling: true);
+
 	protected override int AtlasIndex => 12;
 
 	public override Func<AttackAbility.State, GDTask> GetExtraEffects(AttackAbility.State attackAbilityState) =>

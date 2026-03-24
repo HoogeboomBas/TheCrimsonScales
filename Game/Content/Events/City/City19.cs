@@ -89,7 +89,8 @@ public class City19 : CityEventModel<City19.ChoiceA, City19.ChoiceB>
 				(itemModel == ModelDB.Item<MinorHealingPotion>() ||
 				 itemModel == ModelDB.Item<MinorManaPotion>() ||
 				 itemModel == ModelDB.Item<MinorPowerPotion>() ||
-				 itemModel == ModelDB.Item<MinorStaminaPotion>());
+				 itemModel == ModelDB.Item<MinorStaminaPotion>() ||
+				 itemModel == ModelDB.Item<MinorCurePotion>());
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7ogm4op7ko2a"]
+[gd_scene format=3 uid="uid://b7ogm4op7ko2a"]
 
 [ext_resource type="Script" uid="uid://d3o61kecora4w" path="res://Scripts/UI/CardSelectionList/CardSelectionCard.cs" id="1_phsj2"]
 [ext_resource type="Texture2D" uid="uid://cdmhpra8ngs7x" path="res://Art/Icons/Other/InitiativeTriangle.svg" id="2_hgfth"]
@@ -16,9 +16,8 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0audc"]
 shader = ExtResource("6_72eni")
-shader_parameter/tint = Color(1, 1, 1, 1)
 
-[node name="CardSelectionCard" type="Control" node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
+[node name="CardSelectionCard" type="Control" unique_id=1027414232 node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 470.0
@@ -32,7 +31,7 @@ _cardButton = NodePath("Container/CardButton")
 _initiativeButton = NodePath("Container/InitiativeButton")
 _initiativeIndicatorContainer = NodePath("InitiativeIndicator")
 
-[node name="InitiativeIndicator" type="Control" parent="."]
+[node name="InitiativeIndicator" type="Control" parent="." unique_id=1088246835]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -44,14 +43,14 @@ offset_bottom = 20.0
 grow_vertical = 2
 pivot_offset = Vector2(0, 20)
 
-[node name="TextureRect" type="TextureRect" parent="InitiativeIndicator"]
+[node name="TextureRect" type="TextureRect" parent="InitiativeIndicator" unique_id=226900223]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_hgfth")
 expand_mode = 1
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=979196443]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,8 +60,7 @@ grow_vertical = 2
 pivot_offset = Vector2(40, 36)
 mouse_filter = 2
 
-[node name="InitiativeButton" type="BaseButton" parent="Container"]
-_import_path = NodePath("")
+[node name="InitiativeButton" type="BaseButton" parent="Container" unique_id=1549599236]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -104,6 +102,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -117,9 +116,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 1
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -134,7 +142,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("3_q33ox")
 
-[node name="TextureRect" type="TextureRect" parent="Container/InitiativeButton"]
+[node name="TextureRect" type="TextureRect" parent="Container/InitiativeButton" unique_id=2049306052]
 self_modulate = Color(0.219608, 0.215686, 0.2, 1)
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 1
@@ -146,7 +154,7 @@ grow_vertical = 2
 texture = ExtResource("4_cy34m")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Container/InitiativeButton/TextureRect"]
+[node name="Label" type="Label" parent="Container/InitiativeButton/TextureRect" unique_id=1449006046]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,8 +166,7 @@ label_settings = ExtResource("5_b7evf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CardButton" type="BaseButton" parent="Container"]
-_import_path = NodePath("")
+[node name="CardButton" type="BaseButton" parent="Container" unique_id=1872657394]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -201,6 +208,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 36)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -214,9 +222,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 1
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -232,7 +249,7 @@ shortcut_in_tooltip = true
 script = ExtResource("3_q33ox")
 _centerPivot = false
 
-[node name="Mask" type="Panel" parent="Container/CardButton"]
+[node name="Mask" type="Panel" parent="Container/CardButton" unique_id=400231170]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -249,7 +266,7 @@ pivot_offset = Vector2(20, 30)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_teg01")
 
-[node name="TextureRect" type="TextureRect" parent="Container/CardButton/Mask"]
+[node name="TextureRect" type="TextureRect" parent="Container/CardButton/Mask" unique_id=302523538]
 material = SubResource("ShaderMaterial_0audc")
 instance_shader_parameters/grayscaleFactor = 0.0
 layout_mode = 1

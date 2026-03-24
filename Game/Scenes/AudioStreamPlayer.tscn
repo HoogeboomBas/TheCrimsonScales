@@ -1,4 +1,4 @@
 [gd_scene format=3 uid="uid://dy57ybgbn2epj"]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=777315596]
 bus = &"SFX"

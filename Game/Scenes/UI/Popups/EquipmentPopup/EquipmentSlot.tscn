@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkpodhjo178w4"]
+[gd_scene format=3 uid="uid://dkpodhjo178w4"]
 
 [ext_resource type="Script" uid="uid://3o8het84ci80" path="res://Scripts/UI/Popups/EquipmentPopup/EquipmentSlot.cs" id="1_4coqd"]
 [ext_resource type="Texture2D" uid="uid://cpnu8xe3fj3i3" path="res://Art/Icons/Items/Head.svg" id="1_dbur0"]
@@ -28,7 +28,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="EquipmentSlot" type="Control" node_paths=PackedStringArray("_itemView", "_itemTypeIcon", "_betterButton")]
+[node name="EquipmentSlot" type="Control" unique_id=1384264554 node_paths=PackedStringArray("_itemView", "_itemTypeIcon", "_betterButton")]
 custom_minimum_size = Vector2(236, 400)
 layout_mode = 3
 anchors_preset = 0
@@ -38,8 +38,7 @@ _itemView = NodePath("BetterButton/ItemContainer/ItemView")
 _itemTypeIcon = NodePath("BetterButton/Icon")
 _betterButton = NodePath("BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1453207150]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -81,6 +80,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -94,9 +94,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 1
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -112,7 +121,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_hcyfw")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="Panel" parent="BetterButton"]
+[node name="Panel" type="Panel" parent="BetterButton" unique_id=1875088555]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,14 +133,14 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n567j")
 
-[node name="TopLeft" type="Panel" parent="BetterButton/Panel"]
+[node name="TopLeft" type="Panel" parent="BetterButton/Panel" unique_id=647516430]
 layout_mode = 1
 offset_right = 88.0
 offset_bottom = 27.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jrt7q")
 
-[node name="TopRight" type="Panel" parent="BetterButton/Panel"]
+[node name="TopRight" type="Panel" parent="BetterButton/Panel" unique_id=1617153307]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -142,7 +151,7 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jrt7q")
 
-[node name="Icon" type="TextureRect" parent="BetterButton"]
+[node name="Icon" type="TextureRect" parent="BetterButton" unique_id=1208625069]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -156,7 +165,7 @@ mouse_filter = 2
 texture = ExtResource("1_dbur0")
 expand_mode = 1
 
-[node name="ItemContainer" type="Control" parent="BetterButton"]
+[node name="ItemContainer" type="Control" parent="BetterButton" unique_id=1475640298]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -171,7 +180,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="PlusIcon" type="TextureRect" parent="BetterButton/ItemContainer"]
+[node name="PlusIcon" type="TextureRect" parent="BetterButton/ItemContainer" unique_id=246279853]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -188,12 +197,14 @@ mouse_filter = 2
 texture = ExtResource("2_hcyfw")
 expand_mode = 1
 
-[node name="ItemView" parent="BetterButton/ItemContainer" instance=ExtResource("2_2yb03")]
+[node name="ItemView" parent="BetterButton/ItemContainer" unique_id=1473792174 instance=ExtResource("2_2yb03")]
 custom_minimum_size = Vector2(216, 330.48)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

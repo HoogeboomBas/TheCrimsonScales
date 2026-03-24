@@ -24,6 +24,9 @@ public partial class BombardProjectileToken : HexObject
 
 		AppController.Instance.AudioController.PlayFastForwardable("res://Content/Classes/Bombard/ProjectileAim.wav", minPitch: 1f, maxPitch: 1f,
 			delay: 0.0f);
+
+		await ScenarioEvents.ProjectileTokenCreatedEvent.CreatePrompt(
+			new ScenarioEvents.ProjectileTokenCreated.Parameters(AbilityCardSide.AbilityCard.Owner, originHex));
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)

@@ -33,6 +33,7 @@ public class SpikedShield : Prosperity6Item
 						async applyParameters =>
 						{
 							AbilityCmd.RemoveRetaliate(user, subscriber);
+							ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(this, subscriber);
 
 							await GDTask.CompletedTask;
 						}

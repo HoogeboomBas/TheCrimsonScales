@@ -12,6 +12,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 	public virtual IEnumerable<ScenarioConnection> Connections { get; } = [];
 	public virtual int[] TreasureNumbers { get; } = [];
 
+	//TODO: Change to being abstract to force scenarios to override for view pre-scenario
+	protected virtual List<MonsterModel> SpawnedMonsterModels { get; } = [];
 	protected virtual IEnumerable<ScenarioRequirement> ScenarioRequirements { get; } = [];
 
 	public virtual string BGMPath => "res://Audio/BGM/Floral-Woods.ogg";
@@ -30,6 +32,11 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 		ScenarioGoals.Start();
 
 		ScenarioEvents.RoomRevealedEvent.Subscribe(this, parameters => true, OnRoomRevealed);
+
+		foreach(MonsterModel monsterModel in SpawnedMonsterModels)
+		{
+			GameController.Instance.Map.AddMonsterGroup(monsterModel);
+		}
 
 		await GDTask.CompletedTask;
 	}

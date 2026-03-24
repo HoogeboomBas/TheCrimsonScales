@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b234qisnye6we"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://b234qisnye6we"]
 
 [ext_resource type="Texture2D" uid="uid://cm0vxel2op1id" path="res://Content/Monsters/BanditGuard/Icon.jpg" id="1_xjljt"]
 

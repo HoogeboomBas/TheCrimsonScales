@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dym5ubdvispys"]
+[gd_scene format=3 uid="uid://dym5ubdvispys"]
 
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_yauc0"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_40csl"]
@@ -15,219 +15,219 @@
 [ext_resource type="PackedScene" uid="uid://c7rpsenxfohuf" path="res://Content/OverlayTiles/Obstacles/Stump1H.tscn" id="12_nx5lk"]
 [ext_resource type="PackedScene" uid="uid://cv4gvlna7tp3e" path="res://Content/OverlayTiles/HazardousTerrain/HotCoals1H.tscn" id="14_idb15"]
 [ext_resource type="PackedScene" uid="uid://b3k6b60tknt8o" path="res://Content/MapTiles/L3a.tscn" id="15_vh28g"]
-[ext_resource type="PackedScene" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="16_nyyv5"]
-[ext_resource type="PackedScene" path="res://Content/OverlayTiles/DifficultTerrain/Log2H.tscn" id="17_5osm6"]
+[ext_resource type="PackedScene" uid="uid://66brdtbbrdoj" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="16_nyyv5"]
+[ext_resource type="PackedScene" uid="uid://b5hfgmgusycc8" path="res://Content/OverlayTiles/DifficultTerrain/Log2H.tscn" id="17_5osm6"]
 [ext_resource type="PackedScene" uid="uid://c7pr2ras6mvmt" path="res://Content/OverlayTiles/Traps/BearTrap1H.tscn" id="18_b1dt4"]
 [ext_resource type="PackedScene" uid="uid://c6ft30fynyoga" path="res://Content/OverlayTiles/Doors/LightFog1H.tscn" id="19_xg5dm"]
 
-[node name="Scenario" instance=ExtResource("1_yauc0")]
+[node name="Scenario" unique_id=1562962450 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0"]
+[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=327752308]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
-[node name="A4a" parent="Map/Rooms/Room" index="0" instance=ExtResource("3_x2wvi")]
+[node name="A4a" parent="Map/Rooms/Room" index="0" unique_id=1822716762 instance=ExtResource("3_x2wvi")]
 
-[node name="G1a" parent="Map/Rooms/Room" index="1" instance=ExtResource("4_51ow3")]
+[node name="G1a" parent="Map/Rooms/Room" index="1" unique_id=1022175905 instance=ExtResource("4_51ow3")]
 position = Vector2(-218.238, -756)
 rotation = 3.14159
 
-[node name="Earth2H" parent="Map/Rooms/Room" index="2" instance=ExtResource("5_vceji")]
+[node name="Earth2H" parent="Map/Rooms/Room" index="2" unique_id=1755666118 instance=ExtResource("5_vceji")]
 position = Vector2(-436.477, -378)
 
-[node name="Earth2H2" parent="Map/Rooms/Room" index="3" instance=ExtResource("5_vceji")]
+[node name="Earth2H2" parent="Map/Rooms/Room" index="3" unique_id=1616285371 instance=ExtResource("5_vceji")]
 position = Vector2(0, -378)
 
-[node name="Earth1H" parent="Map/Rooms/Room" index="4" instance=ExtResource("6_1lutx")]
+[node name="Earth1H" parent="Map/Rooms/Room" index="4" unique_id=233758621 instance=ExtResource("6_1lutx")]
 position = Vector2(436.477, -378)
 
-[node name="Bush1H" parent="Map/Rooms/Room" index="5" instance=ExtResource("7_kpkau")]
+[node name="Bush1H" parent="Map/Rooms/Room" index="5" unique_id=1661487825 instance=ExtResource("7_kpkau")]
 position = Vector2(545.596, -567)
 
-[node name="Bush1H2" parent="Map/Rooms/Room" index="6" instance=ExtResource("7_kpkau")]
+[node name="Bush1H2" parent="Map/Rooms/Room" index="6" unique_id=1731402318 instance=ExtResource("7_kpkau")]
 position = Vector2(-982.073, -567)
 
-[node name="Thorns1H" parent="Map/Rooms/Room" index="7" instance=ExtResource("8_tn6ct")]
+[node name="Thorns1H" parent="Map/Rooms/Room" index="7" unique_id=184171798 instance=ExtResource("8_tn6ct")]
 position = Vector2(327.358, -945)
 
-[node name="Thorns1H2" parent="Map/Rooms/Room" index="8" instance=ExtResource("8_tn6ct")]
+[node name="Thorns1H2" parent="Map/Rooms/Room" index="8" unique_id=1369505428 instance=ExtResource("8_tn6ct")]
 position = Vector2(-763.834, -945)
 
-[node name="MonsterSpawner" parent="Map/Rooms/Room" index="9" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="9" unique_id=1804417884 instance=ExtResource("8_512yc")]
 position = Vector2(545.596, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_ARCHER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="10" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="10" unique_id=942536239 instance=ExtResource("8_512yc")]
 position = Vector2(218.238, -756)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner6" parent="Map/Rooms/Room" index="11" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner6" parent="Map/Rooms/Room" index="11" unique_id=1590154850 instance=ExtResource("8_512yc")]
 position = Vector2(-654.715, -756)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="12" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="12" unique_id=1270016857 instance=ExtResource("8_512yc")]
 position = Vector2(-218.238, -756)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner8" parent="Map/Rooms/Room" index="13" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner8" parent="Map/Rooms/Room" index="13" unique_id=1426014003 instance=ExtResource("8_512yc")]
 position = Vector2(-109.119, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType2Characters = 1
 
-[node name="MonsterSpawner9" parent="Map/Rooms/Room" index="14" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner9" parent="Map/Rooms/Room" index="14" unique_id=1864887463 instance=ExtResource("8_512yc")]
 position = Vector2(-327.358, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType2Characters = 0
 
-[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="15" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="15" unique_id=1910172618 instance=ExtResource("8_512yc")]
 position = Vector2(109.119, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner7" parent="Map/Rooms/Room" index="16" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner7" parent="Map/Rooms/Room" index="16" unique_id=1203488392 instance=ExtResource("8_512yc")]
 position = Vector2(-545.596, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="17" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="17" unique_id=1915229154 instance=ExtResource("8_512yc")]
 position = Vector2(-982.073, -945)
 MonsterModelId = "MONSTER_MODEL.BANDIT_ARCHER"
 MonsterType2Characters = 1
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="CharacterStartHex" parent="Map/Rooms/Room" index="18" instance=ExtResource("9_56l1d")]
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="18" unique_id=1351298491 instance=ExtResource("9_56l1d")]
 
-[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="19" instance=ExtResource("9_56l1d")]
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="19" unique_id=1744000802 instance=ExtResource("9_56l1d")]
 position = Vector2(-218.238, 0)
 
-[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="20" instance=ExtResource("9_56l1d")]
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="20" unique_id=1842673094 instance=ExtResource("9_56l1d")]
 position = Vector2(-436.477, 0)
 
-[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="21" instance=ExtResource("9_56l1d")]
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="21" unique_id=351944879 instance=ExtResource("9_56l1d")]
 position = Vector2(218.238, 0)
 
-[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="22" instance=ExtResource("9_56l1d")]
+[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="22" unique_id=1926206171 instance=ExtResource("9_56l1d")]
 position = Vector2(436.477, 0)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1"]
+[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1794824003]
 script = ExtResource("2_40csl")
 
-[node name="L1b" parent="Map/Rooms/Room2" index="0" instance=ExtResource("11_bc5jf")]
+[node name="L1b" parent="Map/Rooms/Room2" index="0" unique_id=2060719784 instance=ExtResource("11_bc5jf")]
 position = Vector2(-1091.19, -1890)
 
-[node name="Stump1H" parent="Map/Rooms/Room2" index="1" instance=ExtResource("12_nx5lk")]
+[node name="Stump1H" parent="Map/Rooms/Room2" index="1" unique_id=135401600 instance=ExtResource("12_nx5lk")]
 position = Vector2(-763.834, -1701)
 
-[node name="Stump1H2" parent="Map/Rooms/Room2" index="2" instance=ExtResource("12_nx5lk")]
+[node name="Stump1H2" parent="Map/Rooms/Room2" index="2" unique_id=1079604958 instance=ExtResource("12_nx5lk")]
 position = Vector2(-1091.19, -2268)
 
-[node name="Treasure1H" parent="Map/Rooms/Room2" index="3" instance=ExtResource("12_lyaaq")]
+[node name="Treasure1H" parent="Map/Rooms/Room2" index="3" unique_id=1394758 instance=ExtResource("12_lyaaq")]
 position = Vector2(-1418.55, -2457)
 TreasureNumber = 2
 
-[node name="HotCoals1H" parent="Map/Rooms/Room2" index="4" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H" parent="Map/Rooms/Room2" index="4" unique_id=1498750856 instance=ExtResource("14_idb15")]
 position = Vector2(-872.954, -1890)
 
-[node name="HotCoals1H2" parent="Map/Rooms/Room2" index="5" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H2" parent="Map/Rooms/Room2" index="5" unique_id=1792439755 instance=ExtResource("14_idb15")]
 position = Vector2(-763.834, -2079)
 
-[node name="HotCoals1H3" parent="Map/Rooms/Room2" index="6" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H3" parent="Map/Rooms/Room2" index="6" unique_id=1018790885 instance=ExtResource("14_idb15")]
 position = Vector2(-545.596, -2079)
 
-[node name="HotCoals1H4" parent="Map/Rooms/Room2" index="7" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H4" parent="Map/Rooms/Room2" index="7" unique_id=583003381 instance=ExtResource("14_idb15")]
 position = Vector2(-654.715, -1890)
 
-[node name="HotCoals1H5" parent="Map/Rooms/Room2" index="8" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H5" parent="Map/Rooms/Room2" index="8" unique_id=1427875581 instance=ExtResource("14_idb15")]
 position = Vector2(-982.073, -1701)
 
-[node name="HotCoals1H6" parent="Map/Rooms/Room2" index="9" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H6" parent="Map/Rooms/Room2" index="9" unique_id=1613391318 instance=ExtResource("14_idb15")]
 position = Vector2(-1200.31, -1701)
 
-[node name="HotCoals1H7" parent="Map/Rooms/Room2" index="10" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H7" parent="Map/Rooms/Room2" index="10" unique_id=1507975 instance=ExtResource("14_idb15")]
 position = Vector2(-1091.19, -1512)
 
-[node name="HotCoals1H8" parent="Map/Rooms/Room2" index="11" instance=ExtResource("14_idb15")]
+[node name="HotCoals1H8" parent="Map/Rooms/Room2" index="11" unique_id=2059577974 instance=ExtResource("14_idb15")]
 position = Vector2(-1309.43, -1512)
 
-[node name="MonsterSpawner" parent="Map/Rooms/Room2" index="12" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner" parent="Map/Rooms/Room2" index="12" unique_id=745945979 instance=ExtResource("8_512yc")]
 position = Vector2(-1091.19, -1890)
 MonsterModelId = "BANDIT_ARCHER.TERRIBLE_TWO_BANDIT_ARCHER"
 MonsterType2Characters = 3
 MonsterType3Characters = 3
 MonsterType4Characters = 3
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2"]
+[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=80038387]
 script = ExtResource("2_40csl")
 
-[node name="L3a" parent="Map/Rooms/Room3" index="0" instance=ExtResource("15_vh28g")]
+[node name="L3a" parent="Map/Rooms/Room3" index="0" unique_id=2098275905 instance=ExtResource("15_vh28g")]
 position = Vector2(654.715, -1890)
 rotation = 3.14159
 
-[node name="Tree3H" parent="Map/Rooms/Room3" index="1" instance=ExtResource("16_nyyv5")]
+[node name="Tree3H" parent="Map/Rooms/Room3" index="1" unique_id=870478274 instance=ExtResource("16_nyyv5")]
 position = Vector2(763.834, -1323)
 
-[node name="Tree3H2" parent="Map/Rooms/Room3" index="2" instance=ExtResource("16_nyyv5")]
+[node name="Tree3H2" parent="Map/Rooms/Room3" index="2" unique_id=1901516645 instance=ExtResource("16_nyyv5")]
 position = Vector2(218.238, -2268)
 rotation = -1.0472
 
-[node name="Bush1H" parent="Map/Rooms/Room3" index="3" instance=ExtResource("7_kpkau")]
+[node name="Bush1H" parent="Map/Rooms/Room3" index="3" unique_id=2126103549 instance=ExtResource("7_kpkau")]
 position = Vector2(109.119, -1701)
 
-[node name="Log2H" parent="Map/Rooms/Room3" index="4" instance=ExtResource("17_5osm6")]
+[node name="Log2H" parent="Map/Rooms/Room3" index="4" unique_id=1547175719 instance=ExtResource("17_5osm6")]
 position = Vector2(109.119, -1323)
 
-[node name="Log2H2" parent="Map/Rooms/Room3" index="5" instance=ExtResource("17_5osm6")]
+[node name="Log2H2" parent="Map/Rooms/Room3" index="5" unique_id=557077457 instance=ExtResource("17_5osm6")]
 position = Vector2(763.834, -2457)
 rotation = 1.0472
 
-[node name="Treasure1H" parent="Map/Rooms/Room3" index="6" instance=ExtResource("12_lyaaq")]
+[node name="Treasure1H" parent="Map/Rooms/Room3" index="6" unique_id=864903510 instance=ExtResource("12_lyaaq")]
 position = Vector2(982.073, -2457)
 TreasureNumber = 30
 
-[node name="BearTrap1H" parent="Map/Rooms/Room3" index="7" instance=ExtResource("18_b1dt4")]
+[node name="BearTrap1H" parent="Map/Rooms/Room3" index="7" unique_id=1349215311 instance=ExtResource("18_b1dt4")]
 position = Vector2(218.238, -1890)
 
-[node name="BearTrap1H2" parent="Map/Rooms/Room3" index="8" instance=ExtResource("18_b1dt4")]
+[node name="BearTrap1H2" parent="Map/Rooms/Room3" index="8" unique_id=346571363 instance=ExtResource("18_b1dt4")]
 position = Vector2(982.073, -2079)
 
-[node name="MonsterSpawner" parent="Map/Rooms/Room3" index="9" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner" parent="Map/Rooms/Room3" index="9" unique_id=135521434 instance=ExtResource("8_512yc")]
 position = Vector2(763.834, -1701)
 MonsterModelId = "MONSTER_MODEL.HOUND"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner4" parent="Map/Rooms/Room3" index="10" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner4" parent="Map/Rooms/Room3" index="10" unique_id=378125142 instance=ExtResource("8_512yc")]
 position = Vector2(654.715, -1890)
 MonsterModelId = "BANDIT_GUARD.TERRIBLE_TWO_BANDIT_GUARD"
 MonsterType2Characters = 3
 MonsterType3Characters = 3
 MonsterType4Characters = 3
 
-[node name="MonsterSpawner2" parent="Map/Rooms/Room3" index="11" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner2" parent="Map/Rooms/Room3" index="11" unique_id=811130481 instance=ExtResource("8_512yc")]
 position = Vector2(545.596, -1701)
 MonsterModelId = "MONSTER_MODEL.HOUND"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner3" parent="Map/Rooms/Room3" index="12" instance=ExtResource("8_512yc")]
+[node name="MonsterSpawner3" parent="Map/Rooms/Room3" index="12" unique_id=344030475 instance=ExtResource("8_512yc")]
 position = Vector2(654.715, -2268)
 MonsterModelId = "MONSTER_MODEL.HOUND"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="LightFog1H" parent="Map/Doors" index="0" instance=ExtResource("19_xg5dm")]
+[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=432109706 instance=ExtResource("19_xg5dm")]
 position = Vector2(-872.954, -1134)
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" instance=ExtResource("19_xg5dm")]
+[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=74318507 instance=ExtResource("19_xg5dm")]
 position = Vector2(436.477, -1134)

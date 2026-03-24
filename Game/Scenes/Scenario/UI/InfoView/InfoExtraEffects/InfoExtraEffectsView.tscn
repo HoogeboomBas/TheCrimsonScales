@@ -1,22 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmmrjlw6yb3gg"]
+[gd_scene format=3 uid="uid://bmmrjlw6yb3gg"]
 
 [ext_resource type="Script" uid="uid://bye5tx8bfcsjk" path="res://Scripts/Scenario/UI/InfoView/InfoExtraEffects/InfoExtraEffectsView.cs" id="1_k78mf"]
 [ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="1_wewd8"]
 
-[node name="InfoExtraEffectsView" type="VBoxContainer" node_paths=PackedStringArray("_effectParent")]
+[node name="InfoExtraEffectsView" type="VBoxContainer" unique_id=339811883 node_paths=PackedStringArray("_effectParent")]
 theme_override_constants/separation = 0
 script = ExtResource("1_k78mf")
 _effectParent = NodePath("MarginContainer/Effects")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1412193400]
 visible = false
 layout_mode = 2
 text = "Active Effects:"
 label_settings = ExtResource("1_wewd8")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1823569664]
 layout_mode = 2
 
-[node name="Effects" type="VBoxContainer" parent="MarginContainer"]
+[node name="Effects" type="VBoxContainer" parent="MarginContainer" unique_id=1761489136]
 layout_mode = 2
 theme_override_constants/separation = 5

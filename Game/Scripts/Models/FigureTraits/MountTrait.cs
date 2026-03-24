@@ -46,12 +46,12 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 		// Follow the mount when it moves or being forcefully moved
 		ScenarioEvents.MoveTogetherCheckEvent.Subscribe(figure, this,
 			parameters => parameters.Performer == figure && _mounted,
-			parameters =>
+			async parameters =>
 			{
 				parameters.SetOtherFigure(characterOwner);
 				parameters.SetTriggerHexEffects(false);
 
-				return GDTask.CompletedTask;
+				await GDTask.CompletedTask;
 			}
 		);
 
@@ -77,7 +77,7 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 				characterOwner.Reparent(figure.GetNode<Node2D>(MountedAnchorName));
 				characterOwner.TweenScale(1f, 0.3f).SetEasing(Easing.InOutBack).PlayFastForwardable();
 				characterOwner.TweenPosition(Vector2.Zero, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
-				await GDTask.Delay(0.3f);
+				await GDTask.DelayFastForwardable(0.3f);
 
 				if(onMounted != null)
 				{
@@ -158,6 +158,6 @@ public class MountTrait(Func<Figure, Figure, GDTask> onMounted = null, Func<Figu
 		characterOwner.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
 		characterOwner.TweenGlobalPosition(figure.Hex.GlobalPosition, 0.2f)
 			.SetEasing(Easing.InBack).PlayFastForwardable();
-		await GDTask.Delay(0.3f);
+		await GDTask.DelayFastForwardable(0.3f);
 	}
 }

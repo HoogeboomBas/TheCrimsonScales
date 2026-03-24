@@ -15,7 +15,8 @@ public abstract class ClassModel : AbstractModel
 	public abstract Color PrimaryColor { get; }
 	public abstract Color SecondaryColor { get; }
 
-	public abstract IList<AbilityCardModel> AbilityCards { get; }
+	public abstract List<AbilityCardModel> AbilityCards { get; }
+	public abstract List<PerkModel> Perks { get; }
 
 	public virtual XPLevelValues XPLevelValues => XPLevelValues.Default;
 	public abstract PackedScene Scene { get; } // => ResourceLoader.Load<PackedScene>($"{AssetPath}/{ClassName}.tscn");

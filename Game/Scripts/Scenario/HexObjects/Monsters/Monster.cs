@@ -109,7 +109,7 @@ public partial class Monster : Figure
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				await trait.Activate(this);
+				await AddTrait(trait);
 			}
 		}
 
@@ -139,14 +139,6 @@ public partial class Monster : Figure
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
 	{
-		if(Stats.Traits != null)
-		{
-			foreach(FigureTrait trait in Stats.Traits)
-			{
-				await trait.Deactivate(this);
-			}
-		}
-
 		// Unsubscribe from any events that the monster subscribed to using abilities this turn
 		if(MonsterGroup.ActiveMonsterAbilityCard != null)
 		{

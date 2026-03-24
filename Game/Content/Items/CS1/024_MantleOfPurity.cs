@@ -1,4 +1,3 @@
-using System.Linq;
 using Fractural.Tasks;
 
 public class MantleOfPurity : CS1Item
@@ -11,8 +10,9 @@ public class MantleOfPurity : CS1Item
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
 
 	protected override int AtlasIndex => 41;
+
 	private object _subscriber;
-	
+
 	public override void Init(Character owner)
 	{
 		_subscriber = new object();
@@ -32,14 +32,23 @@ public class MantleOfPurity : CS1Item
 				{
 					for(int i = parameters.ConditionModels.Count - 1; i >= 0; i--)
 					{
-						parameters.PreventCondition(parameters.ConditionModels[i]);
+						ConditionModel conditionModel = parameters.ConditionModels[i];
+						if(conditionModel.IsNegative)
+						{
+							parameters.PreventCondition(conditionModel);
+						}
 					}
 
 					await GDTask.CompletedTask;
 				});
 			}
 		);
+	}
 
+	protected override void Unsubscribe()
+	{
+		base.Unsubscribe();
 
+		ScenarioEvents.InflictConditionsEvent.Unsubscribe(this, _subscriber);
 	}
 }

@@ -25,7 +25,7 @@ public class FalconFigurine : Prosperity4Item
 					[
 						SummonAbility.Builder()
 							.WithName("Jade Falcon")
-							.WithTexturePath("res://Content/Items/Prosperity4/JadeFalcon.tres")
+							.WithTexturePath("res://Content/Items/Prosperity4/JadeFalcon.png")
 							.WithHealth(2)
 							.WithMove(3)
 							.WithAttack(2)

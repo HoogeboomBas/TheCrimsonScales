@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Fractural.Tasks;
 
 public abstract class ActiveAbilityState : AbilityState

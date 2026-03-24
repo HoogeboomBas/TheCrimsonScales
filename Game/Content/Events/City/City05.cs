@@ -22,10 +22,7 @@ public class City05 : CityEventModel<City05.ChoiceA, City05.ChoiceB>
 			You demand the Harrower pay you in gold coin, and it hastily snatches the bag of jewels and proceeds to turn away. The rest of the day passes with no other customers visiting your stall. You return home at the end of the day, wondering what could have been.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
-		[
-			new GainCollectiveItemEventReward(ModelDB.Item<WandOfStorms>())
-		];
+		public override List<EventReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel

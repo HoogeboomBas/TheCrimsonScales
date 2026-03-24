@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://u6x4oit5kgdp"]
+[gd_scene format=3 uid="uid://u6x4oit5kgdp"]
 
 [ext_resource type="PackedScene" uid="uid://dcyfacmewuce0" path="res://Scenes/Scenario/UI/EffectInfoViews/_EffectInfoView.tscn" id="1_lsqi2"]
 [ext_resource type="Script" uid="uid://dkm2phdkprlh4" path="res://Scripts/Scenario/UI/EffectInfoView/AbilityCardEffectInfoView.cs" id="2_5677s"]
 [ext_resource type="PackedScene" uid="uid://dcjxeakyfta8h" path="res://Scenes/Scenario/UI/CardSideView.tscn" id="3_5677s"]
 
-[node name="AbilityCardEffectInfoView" node_paths=PackedStringArray("_cardSideView") instance=ExtResource("1_lsqi2")]
+[node name="AbilityCardEffectInfoView" unique_id=1429992617 node_paths=PackedStringArray("_cardSideView") instance=ExtResource("1_lsqi2")]
 script = ExtResource("2_5677s")
 _cardSideView = NodePath("Container/Bubble/MarginContainer/CardSideView")
 
-[node name="CardSideView" parent="Container/Bubble/MarginContainer" index="0" instance=ExtResource("3_5677s")]
+[node name="CardSideView" parent="Container/Bubble/MarginContainer" parent_id_path=PackedInt32Array(345478077) index="0" unique_id=1901358379 instance=ExtResource("3_5677s")]
 layout_mode = 2

@@ -6,7 +6,7 @@ using Godot;
 public class SpiritualGains : HierophantLevelUpCardModel<SpiritualGains.CardTop, SpiritualGains.CardBottom>
 {
 	public override string Name => "Spiritual Gains";
-	public override int Level => 6;
+	public override int Level => 5;
 	public override int Initiative => 94;
 	protected override int AtlasIndex => 15 - 7;
 

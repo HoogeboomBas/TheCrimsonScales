@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
+using Newtonsoft.Json;
 
 public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 {
 	public class Data : PersonalQuestData
 	{
+		[JsonProperty]
 		public List<string> Monsters { get; private set; } = new List<string>();
 	}
 
@@ -21,10 +23,11 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 			parameters =>
 				parameters.PotentialConditionGiver == character &&
 				parameters.ConditionModel is Poison &&
-				!personalQuestData.Monsters.Contains(parameters.ConditionModel.Id.ToString()),
+				parameters.Target is Monster monster &&
+				!personalQuestData.Monsters.Contains(monster.MonsterModel.Id.ToString()),
 			async parameters =>
 			{
-				personalQuestData.Monsters.Add(parameters.ConditionModel.Id.ToString());
+				personalQuestData.Monsters.Add(((Monster)parameters.Target).MonsterModel.Id.ToString());
 
 				personalQuestData.AdjustProgress(1, character);
 

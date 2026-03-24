@@ -79,7 +79,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		{
 			foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
 			{
-				savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosEnded(savedCharacter);
+				savedCharacter.SavedPersonalQuest?.Model.OnBetweenScenariosEnded(savedCharacter);
 			}
 		}
 
@@ -104,6 +104,14 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 					foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
 					{
 						savedCharacter.AddXP(30);
+					}
+				}
+
+				if(inputEventKey.Keycode == Key.C)
+				{
+					foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
+					{
+						savedCharacter.AddCheckmark();
 					}
 				}
 
@@ -207,7 +215,10 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 
 		foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
 		{
-			await savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosStarted(savedCharacter);
+			if(savedCharacter.SavedPersonalQuest != null)
+			{
+				await savedCharacter.SavedPersonalQuest.Model.OnBetweenScenariosStarted(savedCharacter);
+			}
 		}
 
 		if(SavedCampaign.SavedEvents.CanDrawCityEvent && SavedCampaign.SavedEvents.CityEventDeckIds.Count > 0)

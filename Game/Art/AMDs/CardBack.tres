@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://mqfp1jeh80g1"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://mqfp1jeh80g1"]
 
 [ext_resource type="Texture2D" uid="uid://c81cc3yr3m7hw" path="res://Art/AMDs/Other.jpg" id="1_jy7u7"]
 

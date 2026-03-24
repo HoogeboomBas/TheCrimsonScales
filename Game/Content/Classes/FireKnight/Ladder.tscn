@@ -1,19 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnwr3rx3k6sqr"]
+[gd_scene format=3 uid="uid://bnwr3rx3k6sqr"]
 
 [ext_resource type="PackedScene" uid="uid://c48tqburk5etf" path="res://Scenes/Scenario/OverlayTiles/DifficultTerrain1H.tscn" id="1_u4dxb"]
 [ext_resource type="Script" uid="uid://boubpiu2asorv" path="res://Content/Classes/FireKnight/Ladder.cs" id="2_kxgny"]
 [ext_resource type="Texture2D" uid="uid://fy422g0k2wfe" path="res://Content/Classes/FireKnight/cs-ladder.png" id="3_kxgny"]
 
-[node name="Ladder" instance=ExtResource("1_u4dxb")]
+[node name="Ladder" unique_id=2090686359 instance=ExtResource("1_u4dxb")]
 z_index = 1
 script = ExtResource("2_kxgny")
 _stepType = 3
 CannotBeDestroyed = true
 
-[node name="Hexagon" parent="." index="1"]
-visible = false
-
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3_kxgny")
 

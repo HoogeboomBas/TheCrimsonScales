@@ -15,7 +15,11 @@ public abstract partial class CardView : Control
 
 	protected void Init(Texture2D texture)
 	{
-		_textureRect.SetTexture(texture);
+		if(texture != null)
+		{
+			_textureRect.SetTexture(texture);
+		}
+
 		_container.SetScale(Size / _container.Size);
 		this.DelayedCall(() =>
 		{

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bk4q5mr73oy4u"]
+[gd_scene format=3 uid="uid://bk4q5mr73oy4u"]
 
 [ext_resource type="Script" uid="uid://ci617yd6rkyi8" path="res://Scripts/UI/Popups/CardSelectionPopup/CardSelectionPopup.cs" id="1_xq7n6"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_p34pd"]
@@ -24,7 +24,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="CardSelectionPopup" type="Control" node_paths=PackedStringArray("_handCardList", "_availableCardList", "_requiredCountLabel")]
+[node name="CardSelectionPopup" type="Control" unique_id=479157759 node_paths=PackedStringArray("_handCardList", "_availableCardList", "_requiredCountLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,7 +37,7 @@ _handCardList = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VB
 _availableCardList = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container/Lists/AvailableCards")
 _requiredCountLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer/RequiredCountLabel")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1124336374]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,8 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jr74k")
 
-[node name="Button" type="BaseButton" parent="Background"]
-_import_path = NodePath("")
+[node name="Button" type="BaseButton" parent="Background" unique_id=1107020226]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -89,6 +88,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -102,9 +102,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -120,7 +129,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_p34pd")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=117262899]
 material = ExtResource("3_axp7n")
 layout_mode = 1
 anchors_preset = 8
@@ -136,24 +145,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("4_vdhmp")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1463232203]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=78674505]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer" unique_id=25024689]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CloseButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/Header"]
-_import_path = NodePath("")
+[node name="CloseButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=96755429]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -195,6 +203,7 @@ grow_vertical = 1
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -208,9 +217,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -226,7 +244,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_p34pd")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header/CloseButton"]
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Header/CloseButton" unique_id=1114248768]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -236,7 +254,7 @@ grow_vertical = 2
 texture = ExtResource("5_hant3")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=113820107]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -246,7 +264,7 @@ text = "Card Selection"
 label_settings = SubResource("LabelSettings_f340v")
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="Panel/MarginContainer/VBoxContainer/Header"]
+[node name="Divider" type="Panel" parent="Panel/MarginContainer/VBoxContainer/Header" unique_id=1694351509]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -256,7 +274,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hkul8")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1041788201]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 10
@@ -264,21 +282,21 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer" unique_id=2059743916]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Content" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=978144909]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content"]
+[node name="Header" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" unique_id=171006817]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header" unique_id=1070251801]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -288,28 +306,28 @@ grow_vertical = 2
 theme_override_constants/separation = 180
 alignment = 1
 
-[node name="HandLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer"]
+[node name="HandLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer" unique_id=1454841430]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Cards in Hand"
 label_settings = ExtResource("7_i14an")
 horizontal_alignment = 1
 
-[node name="RequiredCountLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer"]
+[node name="RequiredCountLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer" unique_id=974955443]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "9/10"
 label_settings = ExtResource("7_i14an")
 horizontal_alignment = 1
 
-[node name="AvailableLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer"]
+[node name="AvailableLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Header/HBoxContainer" unique_id=349546813]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Available Cards"
 label_settings = ExtResource("7_i14an")
 horizontal_alignment = 1
 
-[node name="CardSelection" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content"]
+[node name="CardSelection" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" unique_id=461781795]
 custom_minimum_size = Vector2(1344, 800)
 layout_mode = 2
 mouse_filter = 2
@@ -318,11 +336,11 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Container" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection"]
+[node name="Container" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection" unique_id=1580748951]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Lists" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container"]
+[node name="Lists" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container" unique_id=1088454676]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -332,13 +350,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HandCards" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container/Lists" instance=ExtResource("10_lmr8x")]
+[node name="HandCards" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container/Lists" unique_id=56167006 instance=ExtResource("10_lmr8x")]
+layout_mode = 0
 
-[node name="AvailableCards" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container/Lists" instance=ExtResource("10_lmr8x")]
+[node name="AvailableCards" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardSelection/Container/Lists" unique_id=660833993 instance=ExtResource("10_lmr8x")]
+layout_mode = 0
 offset_left = 874.0
 offset_right = 1344.0
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=2093390755]
 visible = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
@@ -346,7 +366,7 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" instance=ExtResource("12_sewgo")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" unique_id=1039568771 instance=ExtResource("12_sewgo")]
 visible = false
 layout_mode = 2
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgvdkj4pbdasj"]
+[gd_scene format=3 uid="uid://bgvdkj4pbdasj"]
 
 [ext_resource type="PackedScene" uid="uid://pkypm1g6jmy1" path="res://Scenes/Scenario/OverlayTiles/Objective3H.tscn" id="1_wwfe3"]
 
-[node name="TreeObjective3H" instance=ExtResource("1_wwfe3")]
+[node name="TreeObjective3H" unique_id=916377363 instance=ExtResource("1_wwfe3")]
 
 [editable path="FigureViewComponent"]

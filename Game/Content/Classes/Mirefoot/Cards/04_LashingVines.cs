@@ -40,15 +40,7 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 					{
 						RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 3, true, list);
 
-						for(int i = list.Count - 1; i >= 0; i--)
-						{
-							Hex hex = list[i];
-
-							if(!hex.HasHexObjectOfType<DifficultTerrain>() || hex.HasHexObjectOfType<Figure>())
-							{
-								list.RemoveAt(i);
-							}
-						}
+						list.RemoveAll(hex => !hex.HasHexObjectOfType<DifficultTerrain>() || hex.IsOccupied());
 					}
 				)
 				.Build())

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://hux023lpvkr0"]
+[gd_scene format=3 uid="uid://hux023lpvkr0"]
 
 [ext_resource type="FontFile" uid="uid://djm7xa0rh5wqv" path="res://Fonts/HTOWERT.TTF" id="1_4vkpj"]
 
-[node name="EventRewardLabel" type="RichTextLabel"]
+[node name="EventRewardLabel" type="RichTextLabel" unique_id=960361796]
 offset_right = 1.0
 offset_bottom = 1914.0
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)

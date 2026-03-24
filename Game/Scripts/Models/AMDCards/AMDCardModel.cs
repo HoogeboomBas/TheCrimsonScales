@@ -5,6 +5,9 @@ using Godot;
 
 public abstract class AMDCardModel : AbstractModel
 {
+	public virtual string ToString(RichTextParameters richTextParameters) =>
+		GetBasicString(richTextParameters, Type, GetValue(null), conditionModels: GetConditionModels(null), rolling: GetRolling(null));
+
 	protected abstract string GetTexturePath(AMDCardOwner owner);
 	protected abstract int AtlasIndex { get; }
 	protected abstract int ColumnCount { get; }
@@ -36,5 +39,94 @@ public abstract class AMDCardModel : AbstractModel
 		return AtlasTextureHelper.CreateAtlasTexture(
 			AtlasIndex, ColumnCount, RowCount,
 			ResourceLoader.Load<Texture2D>(GetTexturePath(owner)));
+	}
+
+	protected string GetBasicString(RichTextParameters richTextParameters, int value,
+		List<ConditionModel> conditionModels = null, string extraText = null, bool rolling = false)
+	{
+		return GetBasicString(richTextParameters, AMDCardType.Value, value, conditionModels, extraText, rolling);
+	}
+
+	protected string GetBasicString(RichTextParameters richTextParameters, AMDCardType cardType,
+		List<ConditionModel> conditionModels = null, string extraText = null, bool rolling = false)
+	{
+		return GetBasicString(richTextParameters, cardType, null, conditionModels, extraText, rolling);
+	}
+
+	protected string GetBasicString(RichTextParameters richTextParameters, AMDCardType cardType, int? value,
+		List<ConditionModel> conditionModels = null, string extraText = null, bool rolling = false)
+	{
+		string returnValue = string.Empty;
+		string valueIcon;
+
+		switch(cardType)
+		{
+			case AMDCardType.Crit:
+				valueIcon = "2x";
+				break;
+			case AMDCardType.Null:
+				valueIcon = "null";
+				break;
+			case AMDCardType.Value:
+				valueIcon = $"{(value >= 0 ? "+" : string.Empty)}{value}";
+				break;
+			default:
+				throw new ArgumentOutOfRangeException(nameof(cardType), cardType, null);
+		}
+
+		returnValue += Icons.Inline(Icons.GetAMDValue(valueIcon), richTextParameters, true);
+
+		foreach(CardElementInfusion cardElementInfusion in ElementInfusions)
+		{
+			if(cardElementInfusion.PossibleInfusedElements.Count == 1)
+			{
+				returnValue += Icons.Inline(Icons.GetElement(cardElementInfusion.PossibleInfusedElements[0]), richTextParameters, true);
+			}
+			else if(cardElementInfusion.PossibleInfusedElements.Count == 6)
+			{
+				returnValue += Icons.Inline(Icons.WildElement, richTextParameters, true);
+			}
+		}
+
+		if(conditionModels != null)
+		{
+			for(int i = 0; i < conditionModels.Count; i++)
+			{
+				ConditionModel conditionModel = conditionModels[i];
+				// if(i > 0)
+				// {
+				// 	returnValue += ", ";
+				// }
+
+				returnValue += $" {Icons.Inline(Icons.GetCondition(conditionModel), richTextParameters, true)}";
+			}
+		}
+
+		if(Pierce.HasValue)
+		{
+			returnValue += $" {Icons.Inline(Icons.Pierce, richTextParameters, true)}{Pierce}";
+		}
+
+		if(Push.HasValue)
+		{
+			returnValue += $" {Icons.Inline(Icons.Push, richTextParameters, true)}{Push}";
+		}
+
+		if(Pull.HasValue)
+		{
+			returnValue += $" {Icons.Inline(Icons.Push, richTextParameters, true)}{Pull}";
+		}
+
+		if(extraText != null)
+		{
+			returnValue += $" “{extraText}”";
+		}
+
+		if(rolling)
+		{
+			returnValue += $" {Icons.Inline(Icons.Rolling, richTextParameters, true)}";
+		}
+
+		return returnValue;
 	}
 }

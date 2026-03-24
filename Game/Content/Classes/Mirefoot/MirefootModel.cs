@@ -14,7 +14,7 @@ public class MirefootModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Mirefoot.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<BloodThinner>(),
 		ModelDB.AbilityCard<Bogstep>(),
@@ -37,5 +37,19 @@ public class MirefootModel : ClassModel
 		ModelDB.AbilityCard<HideAndSeek>(),
 		ModelDB.AbilityCard<RadiantForestFungi>(),
 		ModelDB.AbilityCard<FirerootSap>(),
+		ModelDB.AbilityCard<PersonalPoison>(),
+		ModelDB.AbilityCard<CompoundToxin>(),
+		ModelDB.AbilityCard<TaintedWaters>(),
+		ModelDB.AbilityCard<Anticoagulant>(),
+		ModelDB.AbilityCard<WildStings>(),
+		ModelDB.AbilityCard<SludgeBomb>(),
+		ModelDB.AbilityCard<WhitefireBalm>(),
+		ModelDB.AbilityCard<TwistTheBlade>(),
+		ModelDB.AbilityCard<LingeringSwampMoss>(),
+		ModelDB.AbilityCard<ComplexToxicology>(),
+	];
+
+	public override List<PerkModel> Perks { get; } =
+	[
 	];
 }

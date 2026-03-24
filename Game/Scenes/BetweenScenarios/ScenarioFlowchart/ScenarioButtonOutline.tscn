@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bb10ctp48iifh"]
+[gd_scene format=3 uid="uid://bb10ctp48iifh"]
 
 [ext_resource type="Script" uid="uid://cjexxhlgrae2g" path="res://Scripts/BetweenScenarios/ScenarioFlowchart/ScenarioButtonOutline.cs" id="1_anoig"]
 
@@ -23,7 +23,7 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 anti_aliasing = false
 
-[node name="ScenarioButtonOutline" type="Control" node_paths=PackedStringArray("_panel", "_directionalExtensions", "_diagonalExtensions")]
+[node name="ScenarioButtonOutline" type="Control" unique_id=891439296 node_paths=PackedStringArray("_panel", "_directionalExtensions", "_diagonalExtensions")]
 modulate = Color(0.823529, 0.792157, 0.776471, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
@@ -33,7 +33,7 @@ _panel = NodePath("Panel")
 _directionalExtensions = [NodePath("Panel/Up"), NodePath("Panel/Right"), NodePath("Panel/Down"), NodePath("Panel/Left")]
 _diagonalExtensions = [NodePath("Panel/UpRight"), NodePath("Panel/DownRight"), NodePath("Panel/DownLeft"), NodePath("Panel/UpLeft")]
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1367470702]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -51,7 +51,7 @@ grow_vertical = 2
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_bqd0o")
 
-[node name="Up" type="Panel" parent="Panel"]
+[node name="Up" type="Panel" parent="Panel" unique_id=405735955]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -70,7 +70,7 @@ rotation = -1.5708
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="Right" type="Panel" parent="Panel"]
+[node name="Right" type="Panel" parent="Panel" unique_id=1221620587]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -88,7 +88,7 @@ grow_vertical = 2
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="Down" type="Panel" parent="Panel"]
+[node name="Down" type="Panel" parent="Panel" unique_id=1688711830]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -107,7 +107,7 @@ rotation = 1.5708
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="Left" type="Panel" parent="Panel"]
+[node name="Left" type="Panel" parent="Panel" unique_id=887136037]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -126,7 +126,7 @@ rotation = 3.14159
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="UpRight" type="Panel" parent="Panel"]
+[node name="UpRight" type="Panel" parent="Panel" unique_id=792271432]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -145,7 +145,7 @@ rotation = -1.5708
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="DownRight" type="Panel" parent="Panel"]
+[node name="DownRight" type="Panel" parent="Panel" unique_id=1896231126]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -163,7 +163,7 @@ grow_vertical = 2
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="DownLeft" type="Panel" parent="Panel"]
+[node name="DownLeft" type="Panel" parent="Panel" unique_id=1664037420]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1
@@ -182,7 +182,7 @@ rotation = 1.5708
 pivot_offset = Vector2(60, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jo5ws")
 
-[node name="UpLeft" type="Panel" parent="Panel"]
+[node name="UpLeft" type="Panel" parent="Panel" unique_id=1191302667]
 visibility_layer = 65537
 material = SubResource("CanvasItemMaterial_gcm5d")
 layout_mode = 1

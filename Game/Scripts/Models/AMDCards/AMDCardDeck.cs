@@ -12,8 +12,8 @@ public class AMDCardDeck : CardDeck<AMDCard>
 
 	public static List<AMDCard> GetDefaultDeckCards(AMDCardOwner owner)
 	{
-		return new List<AMDCard>()
-		{
+		return
+		[
 			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
 			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
 			new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), owner),
@@ -37,8 +37,8 @@ public class AMDCardDeck : CardDeck<AMDCard>
 			new AMDCard(ModelDB.AMDCard<PlusTwoAMDCard>(), owner),
 
 			new AMDCard(ModelDB.AMDCard<NullAMDCard>(), owner),
-			new AMDCard(ModelDB.AMDCard<CritAMDCard>(), owner),
-		};
+			new AMDCard(ModelDB.AMDCard<CritAMDCard>(), owner)
+		];
 	}
 
 	public void AddMinusOne()

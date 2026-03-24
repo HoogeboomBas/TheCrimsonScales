@@ -11,6 +11,8 @@ public class Scenario039 : ScenarioModel
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new CustomScenarioGoals(
 			$"All characters must occupy a hex {Icons.InlineMarker(Marker.Type.a)} or become exhausted on a hex {Icons.InlineMarker(Marker.Type.a)} to win this scenario.");
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<EarthDemon>()];
 
 	private List<Hex> _markerAHexes;
 	private Hex _markerBHex;
@@ -65,7 +67,7 @@ public class Scenario039 : ScenarioModel
 		);
 
 		ScenarioCheckEvents.CanEnterCheckEvent.Subscribe(this,
-			parameters => parameters.Figure is Character character && character.SavedCharacter.SavedPersonalQuest.Model is AnAdderDivides &&
+			parameters => parameters.Figure is Character character && character.SavedCharacter?.SavedPersonalQuest.Model is AnAdderDivides &&
 			              GameController.Instance.ScenarioPhaseManager.RoundIndex + 1 < 9,
 			parameters =>
 			{
@@ -73,7 +75,7 @@ public class Scenario039 : ScenarioModel
 			});
 
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(this,
-			parameters => parameters.Figure is Character character && character.SavedCharacter.SavedPersonalQuest.Model is AnAdderDivides,
+			parameters => parameters.Figure is Character character && character.SavedCharacter?.SavedPersonalQuest.Model is AnAdderDivides,
 			parameters =>
 			{
 				parameters.Add(new InfoTextExtraEffect.Parameters("Viper Hunter (see special rules)"));

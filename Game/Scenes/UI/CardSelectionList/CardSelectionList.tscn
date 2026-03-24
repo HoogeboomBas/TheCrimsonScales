@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d01x6nmjmss3c"]
+[gd_scene format=3 uid="uid://d01x6nmjmss3c"]
 
 [ext_resource type="Script" uid="uid://cpmk5cj52h78k" path="res://Scripts/UI/CardSelectionList/CardSelectionList.cs" id="1_brlnn"]
 [ext_resource type="PackedScene" uid="uid://jijaocqypkiy" path="res://Scenes/UI/CardSelectionList/CardSelectionListCategory.tscn" id="2_jltnk"]
@@ -10,7 +10,7 @@ border_width_bottom = 10
 border_color = Color(1, 1, 1, 0)
 border_blend = true
 
-[node name="CardSelectionList" type="Control" node_paths=PackedStringArray("_scrollContainer", "_categoriesContainer", "_container")]
+[node name="CardSelectionList" type="Control" unique_id=1266540814 node_paths=PackedStringArray("_scrollContainer", "_categoriesContainer", "_container")]
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 3
 anchors_preset = 0
@@ -23,7 +23,7 @@ _scrollContainer = NodePath("Mask/Container/ScrollContainer")
 _categoriesContainer = NodePath("Mask/Container/ScrollContainer/Categories")
 _container = NodePath("Mask")
 
-[node name="Mask" type="Panel" parent="."]
+[node name="Mask" type="Panel" parent="." unique_id=578581186]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -36,7 +36,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ot54p")
 
-[node name="Container" type="Control" parent="Mask"]
+[node name="Container" type="Control" parent="Mask" unique_id=1740802984]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Mask/Container"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Mask/Container" unique_id=354931334]
 clip_contents = false
 layout_direction = 3
 layout_mode = 1
@@ -61,7 +61,7 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 scroll_deadzone = 10
 
-[node name="Categories" type="Control" parent="Mask/Container/ScrollContainer"]
+[node name="Categories" type="Control" parent="Mask/Container/ScrollContainer" unique_id=1571946694]
 layout_direction = 2
 layout_mode = 2
 mouse_filter = 1

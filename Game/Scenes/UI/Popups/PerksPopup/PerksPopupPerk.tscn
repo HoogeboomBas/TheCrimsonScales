@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://1hpjcock1fcm"]
+
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="1_50y7x"]
+[ext_resource type="Script" uid="uid://bp85k02lk4k5w" path="res://Scripts/UI/Popups/PerksPopup/PerksPopupPerk.cs" id="1_ns48j"]
+[ext_resource type="PackedScene" uid="uid://c8iqgols66v5l" path="res://Scenes/UI/Popups/PerksPopup/PerksPopupPerkBoxes.tscn" id="2_hnck8"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="4_6lufe"]
+
+[node name="PerksPopupPerk" type="MarginContainer" unique_id=1447228837 node_paths=PackedStringArray("_perkBoxContainer", "_description")]
+offset_right = 620.0
+offset_bottom = 75.0
+mouse_filter = 2
+script = ExtResource("1_ns48j")
+_perkBoxesScene = ExtResource("2_hnck8")
+_perkBoxContainer = NodePath("HBoxContainer/PerkBoxes")
+_description = NodePath("HBoxContainer/Description")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2071189325]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="PerkBoxes" type="HBoxContainer" parent="HBoxContainer" unique_id=30202660]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer" unique_id=95447735]
+custom_minimum_size = Vector2(600, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("1_50y7x")
+theme_override_fonts/bold_font = ExtResource("4_6lufe")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Emergency Emplacement:[/b] Replace one -1 card with one +1 card"
+fit_content = true
+vertical_alignment = 1

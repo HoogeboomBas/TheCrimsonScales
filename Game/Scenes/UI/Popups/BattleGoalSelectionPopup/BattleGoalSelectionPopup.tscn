@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://4mxl41wid7pu"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_qlusc"]
+[ext_resource type="Script" uid="uid://ct8r4fkuygy7d" path="res://Scripts/UI/Popups/BattleGoalSelectionPopup/BattleGoalSelectionPopup.cs" id="2_fk0t7"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="3_6la3q"]
+[ext_resource type="PackedScene" uid="uid://dck04vx4nfhj5" path="res://Scenes/UI/Popups/BattleGoalSelectionPopup/BattleGoalSelectionPopupBattleGoal.tscn" id="3_nkx7n"]
+
+[node name="BattleGoalSelectionPopup" unique_id=162337359 node_paths=PackedStringArray("_battleGoalsParent", "_confirmButton") instance=ExtResource("1_qlusc")]
+script = ExtResource("2_fk0t7")
+_battleGoalScene = ExtResource("3_nkx7n")
+_battleGoalsParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/BattleGoals")
+_confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Battle Goal Selection"
+
+[node name="BattleGoals" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=601383713]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="1" unique_id=1394157472]
+visible = false
+
+[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" unique_id=1243385845 instance=ExtResource("3_6la3q")]
+visible = false
+layout_mode = 2
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1243385845, 62362509) index="0" unique_id=188245078]
+text = "Cancel"
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="1" unique_id=1844539915 instance=ExtResource("3_6la3q")]
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 2
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton"]
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

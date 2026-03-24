@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://2uch1snie4at"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://2uch1snie4at"]
 
 [ext_resource type="Texture2D" uid="uid://dhme1mk5irkhc" path="res://Content/Monsters/AncientArtillery/Icon.jpg" id="1_i1uui"]
 

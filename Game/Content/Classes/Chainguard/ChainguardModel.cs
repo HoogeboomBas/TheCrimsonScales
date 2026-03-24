@@ -14,7 +14,7 @@ public class ChainguardModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Chainguard.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<Chokehold>(),
 		ModelDB.AbilityCard<DragThroughDirt>(),
@@ -47,5 +47,9 @@ public class ChainguardModel : ClassModel
 		ModelDB.AbilityCard<SyndicatedAssault>(),
 		ModelDB.AbilityCard<ChampionOfChains>(),
 		ModelDB.AbilityCard<UnendingTorment>(),
+	];
+
+	public override List<PerkModel> Perks { get; } =
+	[
 	];
 }

@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cun442tgtvgh"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cun442tgtvgh"]
 
 [ext_resource type="Shader" uid="uid://dtwrnvi5agwii" path="res://Shaders/UIBlur.gdshader" id="1_m5ttm"]
 

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 public class SavedCharacter
 {
 	[JsonProperty]
-	public string ClassModelId { get; set; }
+	public string ClassModelId { get; private set; }
 
 	[JsonProperty]
 	public int Level { get; private set; }
@@ -41,6 +41,12 @@ public class SavedCharacter
 	public List<string> EquippedSmallItems { get; private set; }
 
 	[JsonProperty]
+	public int TotalAvailablePerkCount { get; private set; }
+
+	[JsonProperty]
+	public List<int> AcquiredPerkIndices { get; private set; } = new List<int>();
+
+	[JsonProperty]
 	public string[] DonationAMDCardIds { get; private set; }
 
 	[JsonProperty]
@@ -60,6 +66,8 @@ public class SavedCharacter
 	public event Action<SavedCharacter> NameChangedEvent;
 	public event Action<SavedCharacter> EquipmentChangedEvent;
 	public event Action<SavedCharacter> CardsChangedEvent;
+	public event Action<SavedCharacter> CheckmarkCountChangedEvent;
+	public event Action<SavedCharacter> PerksChangedEvent;
 
 	public SavedCharacter()
 	{
@@ -69,8 +77,10 @@ public class SavedCharacter
 	{
 		ClassModelId = classModel.Id.ToString();
 		Level = 1;
-		AvailableAbilityCards = classModel.AbilityCards.Where(abilityCardModel => abilityCardModel.Level == 1)
-			.Select(abilityCardModel => new SavedAbilityCard(abilityCardModel)).ToList();
+		AvailableAbilityCards = classModel.AbilityCards
+			.Where(abilityCardModel => abilityCardModel.Level == 1)
+			.Select(abilityCardModel => new SavedAbilityCard(abilityCardModel))
+			.ToList();
 
 		HandAbilityCardIndices = new List<int>();
 		for(int i = 0; i < classModel.HandSize; i++)
@@ -135,6 +145,7 @@ public class SavedCharacter
 		{
 			Level++;
 			LevelUpInProgress = true;
+			AddAvailablePerk();
 
 			LevelChangedEvent?.Invoke(this);
 		}
@@ -277,6 +288,13 @@ public class SavedCharacter
 		}
 
 		CheckmarkCount++;
+
+		if(CheckmarkCount % 3 == 0)
+		{
+			AddAvailablePerk();
+		}
+
+		CheckmarkCountChangedEvent?.Invoke(this);
 	}
 
 	public void RemoveCheckmark()
@@ -288,6 +306,56 @@ public class SavedCharacter
 		}
 
 		CheckmarkCount--;
+		CheckmarkCountChangedEvent?.Invoke(this);
+	}
+
+	public void AcquirePerk(int perkIndex)
+	{
+		if(!CanAcquirePerk(perkIndex))
+		{
+			return;
+		}
+
+		AcquiredPerkIndices.Add(perkIndex);
+
+		PerksChangedEvent?.Invoke(this);
+	}
+
+	public int GetUsedPerkCount()
+	{
+		ClassModel classModel = ClassModel;
+
+		int perkBoxCount = 0;
+
+		foreach(int acquiredPerkIndex in AcquiredPerkIndices)
+		{
+			PerkModel perkModel = classModel.Perks[acquiredPerkIndex];
+			perkBoxCount += perkModel.PerkBoxCount;
+		}
+
+		return perkBoxCount;
+	}
+
+	public int GetAvailablePerkCount()
+	{
+		int usedPerkCount = GetUsedPerkCount();
+		return TotalAvailablePerkCount - usedPerkCount;
+	}
+
+	public void AddAvailablePerk()
+	{
+		TotalAvailablePerkCount++;
+	}
+
+	public bool GetPerkAcquired(int perkIndex)
+	{
+		return AcquiredPerkIndices.Contains(perkIndex);
+	}
+
+	public bool CanAcquirePerk(int perkIndex)
+	{
+		PerkModel perkModel = ClassModel.Perks[perkIndex];
+		return GetAvailablePerkCount() >= perkModel.PerkBoxCount && !GetPerkAcquired(perkIndex);
 	}
 
 	public bool GetCanRetire(SavedCampaign savedCampaign)

@@ -1,15 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn1pqhuh403c3"]
+[gd_scene format=3 uid="uid://bn1pqhuh403c3"]
 
 [ext_resource type="PackedScene" uid="uid://dm5lmr3uhvlxy" path="res://Scenes/Scenario/UI/PortraitView/_PortraitViewPortrait.tscn" id="1_v8f6k"]
 [ext_resource type="Script" uid="uid://b3eqefkeih7nj" path="res://Scripts/Scenario/UI/PortraitView/PortraitViewCharacterPortrait.cs" id="2_ibija"]
 
-[node name="CharacterPortrait" node_paths=PackedStringArray("_container", "_portraitTexture", "_initiativeLabel", "_betterButton", "_selectedIndicator") instance=ExtResource("1_v8f6k")]
+[node name="CharacterPortrait" unique_id=92774329 node_paths=PackedStringArray("_container", "_portraitTexture", "_initiativeLabel", "_betterButton", "_selectedIndicator") instance=ExtResource("1_v8f6k")]
 script = ExtResource("2_ibija")
 _container = NodePath("Container")
 _portraitTexture = NodePath("Container/BetterButton/Panel/Mask/TextureRect")
 _initiativeLabel = NodePath("Container/BetterButton/TextureRect/Label")
 _betterButton = NodePath("Container/BetterButton")
 _selectedIndicator = NodePath("SelectedIndicator")
-
-[node name="BetterButton" parent="Container" index="0"]
-tooltip_auto_translate_mode = 0

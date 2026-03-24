@@ -361,6 +361,18 @@ public partial class GameController : SceneController<GameController>
 			character.SavedCharacter.AddXP(character.ObtainedXP + (scenarioResult == ScenarioResult.Win ? bonusExperience : 0));
 
 			SavedCampaign.SanctuaryOfTheGreatOak.ReturnCards(character.SavedCharacter);
+
+			if(scenarioResult == ScenarioResult.Win)
+			{
+				BattleGoal battleGoal = character.BattleGoal;
+				if(battleGoal != null && battleGoal.GivesCheckmark)
+				{
+					for(int i = 0; i < (int)battleGoal.Model.CheckmarkCount; i++)
+					{
+						character.SavedCharacter.AddCheckmark();
+					}
+				}
+			}
 		}
 
 		if(scenarioResult == ScenarioResult.Win)

@@ -11,6 +11,8 @@ public class Scenario033 : ScenarioModel
 	//public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario034>(true)];
 
 	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals(true);
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<InoxBodyguard>()];
 
 	private IEnumerable<Hex> _hexesLeftOfStaircase;
 	private PressurePlate _markerAPressurePlate;

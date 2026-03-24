@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvih1o1ec48e2"]
+[gd_scene format=3 uid="uid://bvih1o1ec48e2"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_jrovj"]
 [ext_resource type="Script" uid="uid://gox570qu4du3" path="res://Scripts/UI/Popups/ErrorPopup.cs" id="2_jrovj"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="4_lm6km"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_wrtya"]
 
-[node name="ErrorPopup" node_paths=PackedStringArray("_fileLabel", "_fileButton", "_copyErrorToClipboardButton", "_returnToTownButton", "_undoButton", "_toMainMenuButton") instance=ExtResource("1_jrovj")]
+[node name="ErrorPopup" unique_id=725461316 node_paths=PackedStringArray("_fileLabel", "_fileButton", "_copyErrorToClipboardButton", "_returnToTownButton", "_undoButton", "_toMainMenuButton") instance=ExtResource("1_jrovj")]
 script = ExtResource("2_jrovj")
 _fileLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/PathButton/Label")
 _fileButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/PathButton")
@@ -15,22 +15,22 @@ _returnToTownButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContai
 _undoButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/UndoLastButton/BetterButton")
 _toMainMenuButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/MainMenuButton/BetterButton")
 
-[node name="Button" parent="Background" index="0"]
+[node name="Button" parent="Background" parent_id_path=PackedInt32Array(976323768) index="0" unique_id=1721606754]
 visible = false
 
-[node name="Panel" parent="." index="1"]
+[node name="Panel" parent="." index="1" unique_id=2112547392]
 offset_left = -537.0
 offset_top = -359.5
 offset_right = 537.0
 offset_bottom = 359.5
 
-[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" index="0"]
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="0" unique_id=1584988073]
 visible = false
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Error"
 
-[node name="UnfortunatelyLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="UnfortunatelyLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=366225520]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_wrtya")
 theme_override_font_sizes/normal_font_size = 36
@@ -44,8 +44,7 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="PathButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
-_import_path = NodePath("")
+[node name="PathButton" type="BaseButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=964796706]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -86,9 +85,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -104,7 +112,7 @@ shortcut_in_tooltip = true
 script = ExtResource("4_lm6km")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/PathButton" index="0"]
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/PathButton" index="0" unique_id=1859749275]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -127,7 +135,7 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="CopyToClipboardLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="2"]
+[node name="CopyToClipboardLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="2" unique_id=925385561]
 visible = false
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_wrtya")
@@ -139,11 +147,11 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="CopyErrorToClipboardButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="3" instance=ExtResource("3_snfn6")]
+[node name="CopyErrorToClipboardButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="3" unique_id=1253574121 instance=ExtResource("3_snfn6")]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyErrorToClipboardButton" index="0"]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyErrorToClipboardButton" index="0" unique_id=1214556516]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -154,14 +162,14 @@ offset_top = -40.0
 offset_right = 200.0
 offset_bottom = 40.0
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyErrorToClipboardButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyErrorToClipboardButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1253574121, 62362509) index="0" unique_id=188245078]
 text = "Copy Error to Clipboard"
 
-[node name="Separator3" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="4"]
+[node name="Separator3" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="4" unique_id=1540685337]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="IfItIsntTooMuchTroubleLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="5"]
+[node name="IfItIsntTooMuchTroubleLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="5" unique_id=859029555]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_wrtya")
 theme_override_font_sizes/normal_font_size = 36
@@ -172,7 +180,7 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Links" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="6"]
+[node name="Links" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="6" unique_id=317393967]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_wrtya")
 theme_override_font_sizes/normal_font_size = 36
@@ -184,16 +192,16 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="Separator2" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="7"]
+[node name="Separator2" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="7" unique_id=1297648158]
 visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Separator" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="8"]
+[node name="Separator" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="8" unique_id=1596399648]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="ThanksLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="9"]
+[node name="ThanksLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="9" unique_id=739412378]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_wrtya")
 theme_override_font_sizes/normal_font_size = 36
@@ -205,25 +213,25 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="MainMenuButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("3_snfn6")]
+[node name="MainMenuButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=1368551852 instance=ExtResource("3_snfn6")]
 custom_minimum_size = Vector2(250, 80)
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/MainMenuButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/MainMenuButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1368551852, 62362509) index="0" unique_id=188245078]
 text = "To Main Menu"
 
-[node name="ReturnToTownButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="1" instance=ExtResource("3_snfn6")]
+[node name="ReturnToTownButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="1" unique_id=1331299807 instance=ExtResource("3_snfn6")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ReturnToTownButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ReturnToTownButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1331299807, 62362509) index="0" unique_id=188245078]
 text = "Return to Town"
 
-[node name="UndoLastButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="2" instance=ExtResource("3_snfn6")]
+[node name="UndoLastButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="2" unique_id=343964953 instance=ExtResource("3_snfn6")]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/UndoLastButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/UndoLastButton/BetterButton/Panel" parent_id_path=PackedInt32Array(343964953, 62362509) index="0" unique_id=188245078]
 text = "Undo To Previous State"
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyErrorToClipboardButton"]

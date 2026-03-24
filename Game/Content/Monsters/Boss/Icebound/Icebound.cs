@@ -77,12 +77,12 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 
 	private MonsterModel CalculateMonsterModel(Monster monster)
 	{
-		if(monster.Hex.GetRoom() == GameController.Instance.Map.Rooms[1])
+		if(monster.Hex.Room == GameController.Instance.Map.Rooms[1])
 		{
 			return ModelDB.Monster<WindDemon>();
 		}
 
-		if(monster.Hex.GetRoom() == GameController.Instance.Map.Rooms[2])
+		if(monster.Hex.Room == GameController.Instance.Map.Rooms[2])
 		{
 			return ModelDB.Monster<FrostDemon>();
 		}
@@ -93,11 +93,11 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 	private Hex CalculateSpawnPoint(Monster monster)
 	{
 		Marker marker;
-		if(monster.Hex.GetRoom() == GameController.Instance.Map.Rooms[1])
+		if(monster.Hex.Room == GameController.Instance.Map.Rooms[1])
 		{
 			marker = GameController.Instance.Map.GetMarker(Marker.Type.c);
 		}
-		else if(monster.Hex.GetRoom() == GameController.Instance.Map.Rooms[2])
+		else if(monster.Hex.Room == GameController.Instance.Map.Rooms[2])
 		{
 			marker = GameController.Instance.Map.GetMarker(Marker.Type.a);
 		}

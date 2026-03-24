@@ -49,12 +49,10 @@ public static class AbilityCmd
 
 	public static OtherActiveAbility AllOpposingAttacksGainDisadvantageActiveAbility()
 	{
-		object subscriber = new object();
-
 		return OtherActiveAbility.Builder()
-			.WithOnActivate(state =>
+			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, subscriber,
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, state.Performer,
 					parameters => parameters.AbilityState.Target == state.Performer,
 					async parameters =>
 					{
@@ -64,28 +62,27 @@ public static class AbilityCmd
 					}
 				);
 
-				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, state.Performer,
 					parameters => parameters.Target == state.Performer,
 					parameters => parameters.SetDisadvantage(true)
 				);
 
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, state.Performer,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
 						new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 				);
 
-				return GDTask.CompletedTask;
+				await GDTask.CompletedTask;
 			})
-			.WithOnDeactivate(state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, subscriber);
+			.WithOnDeactivate(async state =>
+			{
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, state.Performer);
 
-					return GDTask.CompletedTask;
-				}
-			)
+				await GDTask.CompletedTask;
+			})
 			.Build();
 	}
 
@@ -150,6 +147,8 @@ public static class AbilityCmd
 
 	public static async GDTask KillOrExhaust(AbilityState potentialAbilityState, Figure target, Figure potentialKiller)
 	{
+		await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
+			new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
 		await target.Destroy();
 
 		await ScenarioEvents.FigureKilledEvent.CreatePrompt(
@@ -207,6 +206,9 @@ public static class AbilityCmd
 					{
 						await target.AddCondition(conditionModel, potentialAbilityState?.Performer);
 					}
+
+					await ScenarioEvents.ConditionAddedEvent.CreatePrompt(
+						new ScenarioEvents.ConditionAdded.Parameters(potentialAbilityState, target, potentialConditionGiver, conditionModel), target);
 				}
 			}
 		}
@@ -394,7 +396,7 @@ public static class AbilityCmd
 			ScenarioCheckEvents.SpawnCoinCheckEvent.Fire(new ScenarioCheckEvents.SpawnCoinCheck.Parameters(dropper));
 
 		List<Coin> coins = new List<Coin>();
-		for(int i = spawnCoinCheckEventParameters.CoinsToSpawn; i > 0; i++)
+		for(int i = 0; i < spawnCoinCheckEventParameters.CoinsToSpawn; i++)
 		{
 			PackedScene scene = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/Coin.tscn");
 			Coin coin = scene.Instantiate<Coin>();
@@ -432,7 +434,7 @@ public static class AbilityCmd
 		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel, alignment, enemies);
 	}
 
-	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene)
+	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene, Action<OverlayTile> onInstantiate = null)
 		where T : OverlayTile
 	{
 		if(!hex.IsFeatureless())
@@ -443,12 +445,11 @@ public static class AbilityCmd
 
 		OverlayTile overlayTile = scene.Instantiate<OverlayTile>();
 		GameController.Instance.Map.AddChild(overlayTile);
+		onInstantiate?.Invoke(overlayTile);
 		await overlayTile.Init(hex);
 
 		overlayTile.Scale = Vector2.Zero;
 		overlayTile.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
-
-		await GDTask.CompletedTask;
 
 		await ScenarioEvents.OverlayTileCreatedEvent.CreatePrompt(
 			new ScenarioEvents.OverlayTileCreated.Parameters(overlayTile));
@@ -477,23 +478,46 @@ public static class AbilityCmd
 		return overlayTile.Hex;
 	}
 
-	public static async GDTask<Trap> CreateTrap(Hex hex, string assetPath, int damage = 0, ConditionModel[] conditions = null)
+	public static async GDTask<List<Trap>> CreateTraps(int damage, Figure performer, Figure authority = null,
+		Action<List<Hex>> customSelectHexes = null, int range = 1, int trapCount = 1, ConditionModel[] conditions = null,
+		bool mandatory = false, string assetPath = null)
 	{
-		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
-		Trap trap = scene.Instantiate<Trap>();
-		GameController.Instance.Map.AddChild(trap);
-		trap.SetTrapValues(damage, conditions ?? []);
-		await trap.Init(hex);
+		List<Hex> targetHexes = await SelectHexes(authority ?? performer, list =>
+			{
+				if(customSelectHexes != null)
+				{
+					customSelectHexes(list);
+				}
+				else
+				{
+					list.AddRange(RangeHelper.GetHexesInRange(performer.Hex, range)
+						.Where(hex => hex.IsEmpty()));
+				}
+			},
+			minSelectionCount: mandatory ? trapCount : 0,
+			maxSelectionCount: trapCount,
+			autoSelectIfMaxCountIsValidCount: false,
+			hintText: (trapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {trapCount} hexes to place the traps");
 
-		trap.Scale = Vector2.Zero;
-		trap.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
+		List<Trap> createdTraps = [];
 
-		await GDTask.CompletedTask;
+		if(targetHexes.Count > 0)
+		{
+			foreach(Hex hex in targetHexes)
+			{
+				createdTraps.Add(await PlaceTrap(hex, assetPath: assetPath, damage: damage, conditions: conditions));
+			}
+		}
 
-		await ScenarioEvents.OverlayTileCreatedEvent.CreatePrompt(
-			new ScenarioEvents.OverlayTileCreated.Parameters(trap));
+		return createdTraps;
+	}
 
-		return trap;
+	private static async GDTask<Trap> PlaceTrap(Hex hex, string assetPath = null,
+		int damage = 0, ConditionModel[] conditions = null)
+	{
+		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath ?? "res://Content/OverlayTiles/Traps/BearTrap1H.tscn");
+
+		return await CreateOverlayTile<Trap>(hex, scene, trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
 	}
 
 	public static GDTask<List<Hex>> SelectHexes(AbilityState state, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount,

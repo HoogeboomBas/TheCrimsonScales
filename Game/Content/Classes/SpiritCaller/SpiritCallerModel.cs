@@ -14,7 +14,11 @@ public class SpiritCallerModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/SpiritCaller.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
+	[
+	];
+
+	public override List<PerkModel> Perks { get; } =
 	[
 	];
 }

@@ -11,6 +11,11 @@ public partial class ScenarioSetupButtonsView : Control
 	private ChoiceButton _equipmentButton;
 	[Export]
 	private ChoiceButton _cardsButton;
+	[Export]
+	private ChoiceButton _battleGoalsButton;
+
+	[Export]
+	private ExclamationMark _battleGoalsExclamationMark;
 
 	private readonly List<object> _blockers = new List<object>();
 
@@ -20,6 +25,7 @@ public partial class ScenarioSetupButtonsView : Control
 	private Character _selectedCharacter;
 
 	private event Action StartPressedEvent;
+	private event Action<Character, int> BattleGoalSelectedEvent;
 
 	public override void _Ready()
 	{
@@ -29,23 +35,28 @@ public partial class ScenarioSetupButtonsView : Control
 
 		_equipmentButton.BetterButton.Pressed += OnEquipmentPressed;
 		_cardsButton.BetterButton.Pressed += OnCardsPressed;
+		_battleGoalsButton.BetterButton.Pressed += OnBattleGoalsPressed;
 	}
 
-	public void Open(Action onStartPressed)
+	public void Open(Action onStartPressed, Action<Character, int> battleGoalSelectedEvent)
 	{
 		_opened = true;
 
 		StartPressedEvent = onStartPressed;
+		BattleGoalSelectedEvent = battleGoalSelectedEvent;
 
 		_startScenarioButton.SetActive(false);
 
 		_equipmentButton.SetActive(true);
 		_cardsButton.SetActive(true);
+		_battleGoalsButton.SetActive(true);
 	}
 
 	public void SetCharacter(Character character)
 	{
 		_selectedCharacter = character;
+
+		UpdateButtons();
 	}
 
 	public void SetButtons(bool startActive)
@@ -86,6 +97,9 @@ public partial class ScenarioSetupButtonsView : Control
 
 		_equipmentButton.SetActive(_opened && !blocked);
 		_cardsButton.SetActive(_opened && !blocked);
+		_battleGoalsButton.SetActive(_opened && !blocked);
+
+		_battleGoalsExclamationMark.SetActive(_selectedCharacter != null && _selectedCharacter.SelectedBattleGoalModel == null);
 	}
 
 	private void OnStartScenarioPressed()
@@ -121,6 +135,20 @@ public partial class ScenarioSetupButtonsView : Control
 		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
 		{
 			SavedCharacter = _selectedCharacter.SavedCharacter
+		});
+	}
+
+	private void OnBattleGoalsPressed()
+	{
+		if(!_opened)
+		{
+			return;
+		}
+
+		AppController.Instance.PopupManager.RequestPopup(new BattleGoalSelectionPopup.Request
+		{
+			Character = _selectedCharacter,
+			BattleGoalSelectedEvent = BattleGoalSelectedEvent
 		});
 	}
 }

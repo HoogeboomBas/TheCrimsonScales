@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://d02u5q1n1c7d8"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_x1yiy"]
+[ext_resource type="Script" uid="uid://xr7f6rxkeq2a" path="res://Scripts/UI/Popups/PerkConfirmationPopup/PerkConfirmationPopup.cs" id="2_21o8u"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_invh1"]
+[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="4_xb0gi"]
+[ext_resource type="PackedScene" uid="uid://urqv0bcmxy4r" path="res://Scenes/UI/Popups/PerkConfirmationPopup/PerkConfirmationPopupAMDCard.tscn" id="5_32421"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="5_ysh5x"]
+
+[node name="PerkConfirmationPopup" unique_id=346156619 node_paths=PackedStringArray("_effectsContainer", "_effectsLabel", "_cardsToRemoveContainer", "_cardsToRemoveParent", "_cardsToAddContainer", "_cardsToAddParent", "_confirmationLabel", "_cancelButton", "_confirmButton") instance=ExtResource("1_x1yiy")]
+script = ExtResource("2_21o8u")
+_perkConfirmationPopupAMDCardScene = ExtResource("5_32421")
+_effectsContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Effects")
+_effectsLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Effects/Label")
+_cardsToRemoveContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToRemove")
+_cardsToRemoveParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToRemove/HBoxContainer")
+_cardsToAddContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToAdd")
+_cardsToAddParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToAdd/HBoxContainer")
+_confirmationLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ConfirmationLabel")
+_cancelButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton")
+_confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Acquire Perk"
+
+[node name="Effects" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=41779667]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Effects" index="0" unique_id=553676367]
+layout_mode = 2
+text = "Effects"
+label_settings = ExtResource("4_xb0gi")
+horizontal_alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Effects" index="1" unique_id=1641262772]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_invh1")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Ignore negative item effects"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="CardsToRemove" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=226734017]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToRemove" index="0" unique_id=1805664966]
+layout_mode = 2
+text = "Cards to remove"
+label_settings = ExtResource("4_xb0gi")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToRemove" index="1" unique_id=417181428]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CardsToAdd" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="2" unique_id=101673531]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToAdd" index="0" unique_id=1484005228]
+layout_mode = 2
+text = "Cards to add"
+label_settings = ExtResource("4_xb0gi")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CardsToAdd" index="1" unique_id=2095689110]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ConfirmationLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="3" unique_id=1665541250]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_invh1")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Acquire this perk for [img={30}, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] Mirefoot?"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=592116173 instance=ExtResource("5_ysh5x")]
+layout_mode = 2
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(592116173, 62362509) index="0" unique_id=188245078]
+text = "Cancel"
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="1" unique_id=736933488 instance=ExtResource("5_ysh5x")]
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 2
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton"]
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

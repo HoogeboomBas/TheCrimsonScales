@@ -10,6 +10,8 @@ public class Scenario055 : ScenarioModel
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new CustomScenarioGoals("Kill all monsters and open four coffins to win this scenario.");
+	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
+		[ModelDB.Monster<LivingBonesScenario55>()];
 
 	private readonly List<SarcophagusObstacle> _openedSarcophagi = [];
 	private List<Objective> _springGuns;

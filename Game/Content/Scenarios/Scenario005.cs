@@ -73,7 +73,7 @@ public class Scenario005 : ScenarioModel
 			_infectedWaterSources.Add(marker, waterHexes);
 		}
 
-		_markersLeftToRemove = 4 - GameController.Instance.SavedCampaign.Characters.Count;
+		_markersLeftToRemove = GameController.Instance.SavedCampaign.Characters.Count;
 
 		UpdateScenarioText();
 

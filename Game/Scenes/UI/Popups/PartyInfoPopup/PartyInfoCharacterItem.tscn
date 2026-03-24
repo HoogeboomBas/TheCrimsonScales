@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://2y46md6quvos"]
+[gd_scene format=3 uid="uid://2y46md6quvos"]
 
 [ext_resource type="Script" uid="uid://d4km3e4t53vx5" path="res://Scripts/UI/Popups/PartyInfoPopup/PartyInfoCharacterItem.cs" id="1_nbf60"]
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="2_ulufj"]
@@ -22,7 +22,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="PartyInfoCharacterItem" type="Control" node_paths=PackedStringArray("_itemView", "_itemTypeIcon", "_border")]
+[node name="PartyInfoCharacterItem" type="Control" unique_id=268762860 node_paths=PackedStringArray("_itemView", "_itemTypeIcon", "_border")]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 3
 anchors_preset = 0
@@ -31,7 +31,7 @@ _itemView = NodePath("MarginContainer/Mask/ItemView")
 _itemTypeIcon = NodePath("MarginContainer/MarginContainer/ItemTypeIcon")
 _border = NodePath("MarginContainer/Outline")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1419868872]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,15 +44,15 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Mask" type="Panel" parent="MarginContainer"]
+[node name="Mask" type="Panel" parent="MarginContainer" unique_id=205253278]
 clip_children = 1
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fnh86")
 
-[node name="ItemView" parent="MarginContainer/Mask" instance=ExtResource("2_ulufj")]
+[node name="ItemView" parent="MarginContainer/Mask" unique_id=747328189 instance=ExtResource("2_ulufj")]
 custom_minimum_size = Vector2(129.6, 198.288)
-layout_mode = 2
+layout_mode = 0
 offset_left = -31.0
 offset_top = -30.0
 offset_right = 111.56
@@ -60,16 +60,16 @@ offset_bottom = 188.117
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Container" parent="MarginContainer/Mask/ItemView" index="0"]
+[node name="Container" parent="MarginContainer/Mask/ItemView" index="0" unique_id=662699399]
 scale = Vector2(0.396, 0.396)
 
-[node name="Mask" parent="MarginContainer/Mask/ItemView/Container" index="0"]
+[node name="Mask" parent="MarginContainer/Mask/ItemView/Container" index="0" unique_id=475620982]
 clip_children = 0
 
-[node name="ItemCountMask" parent="MarginContainer/Mask/ItemView/Container" index="1"]
+[node name="ItemCountMask" parent="MarginContainer/Mask/ItemView/Container" index="1" unique_id=768239211]
 visible = false
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" unique_id=1970514545]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 8
@@ -77,13 +77,13 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="ItemTypeIcon" type="TextureRect" parent="MarginContainer/MarginContainer"]
+[node name="ItemTypeIcon" type="TextureRect" parent="MarginContainer/MarginContainer" unique_id=1896912089]
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("3_ulufj")
 expand_mode = 1
 
-[node name="Outline" type="Panel" parent="MarginContainer"]
+[node name="Outline" type="Panel" parent="MarginContainer" unique_id=1084522601]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nbf60")

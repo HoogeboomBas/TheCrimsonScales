@@ -110,6 +110,7 @@ public class RoundPhase : ScenarioPhase
 				}
 			}
 
+			// Deactivate all round items
 			for(int i = character.Items.Count - 1; i >= 0; i--)
 			{
 				ItemModel item = character.Items[i];
@@ -138,9 +139,9 @@ public class RoundPhase : ScenarioPhase
 
 		GameController.Instance.ElementManager.WaneAll();
 
-		foreach(Figure figure in _sortedFigures)
+		foreach(Figure figure in GameController.Instance.Map.Figures)
 		{
-			figure.RoundEnd();
+			await figure.RoundEnd();
 		}
 
 		GameController.Instance.Map.FigureAddedEvent -= OnFigureAdded;

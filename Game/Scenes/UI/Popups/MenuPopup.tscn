@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://fhktc7hrkay6"]
+[gd_scene format=3 uid="uid://fhktc7hrkay6"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_lxlsb"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="2_75vp5"]
 [ext_resource type="Script" uid="uid://bisine75chr5w" path="res://Scripts/UI/Popups/MenuPopup.cs" id="2_mf8xf"]
 
-[node name="MenuPopup" node_paths=PackedStringArray("_resumeButton", "_optionsButton", "_undoTurnButton", "_undoRoundButton", "_resignButton", "_winButton", "_copyToClipboardButton", "_exitButton") instance=ExtResource("1_lxlsb")]
+[node name="MenuPopup" unique_id=1978309019 node_paths=PackedStringArray("_resumeButton", "_optionsButton", "_undoTurnButton", "_undoRoundButton", "_resignButton", "_winButton", "_copyToClipboardButton", "_exitButton") instance=ExtResource("1_lxlsb")]
 script = ExtResource("2_mf8xf")
 _resumeButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResumeButton/BetterButton")
 _optionsButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/OptionsButton/BetterButton")
@@ -15,60 +15,60 @@ _winButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxC
 _copyToClipboardButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyToClipboardButton/BetterButton")
 _exitButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Exit/BetterButton")
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Menu"
 
-[node name="ResumeButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" instance=ExtResource("2_75vp5")]
+[node name="ResumeButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=383370782 instance=ExtResource("2_75vp5")]
 visible = false
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResumeButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResumeButton/BetterButton/Panel" parent_id_path=PackedInt32Array(383370782, 62362509) index="0" unique_id=188245078]
 text = "Resume"
 
-[node name="OptionsButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1" instance=ExtResource("2_75vp5")]
+[node name="OptionsButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=813491875 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/OptionsButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/OptionsButton/BetterButton/Panel" parent_id_path=PackedInt32Array(813491875, 62362509) index="0" unique_id=188245078]
 text = "Options"
 
-[node name="UndoTurnButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="2" instance=ExtResource("2_75vp5")]
+[node name="UndoTurnButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="2" unique_id=1509936060 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/UndoTurnButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/UndoTurnButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1509936060, 62362509) index="0" unique_id=188245078]
 text = "Undo Turn"
 
-[node name="UndoRoundButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="3" instance=ExtResource("2_75vp5")]
+[node name="UndoRoundButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="3" unique_id=1902908593 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/UndoRoundButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/UndoRoundButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1902908593, 62362509) index="0" unique_id=188245078]
 text = "Undo Round"
 
-[node name="ResignButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="4" instance=ExtResource("2_75vp5")]
+[node name="ResignButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="4" unique_id=1797497735 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResignButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResignButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1797497735, 62362509) index="0" unique_id=188245078]
 text = "Resign"
 
-[node name="WinButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="5" instance=ExtResource("2_75vp5")]
+[node name="WinButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="5" unique_id=721952336 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/WinButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/WinButton/BetterButton/Panel" parent_id_path=PackedInt32Array(721952336, 62362509) index="0" unique_id=188245078]
 text = "Win Scenario"
 
-[node name="CopyToClipboardButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="6" instance=ExtResource("2_75vp5")]
+[node name="CopyToClipboardButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="6" unique_id=424381888 instance=ExtResource("2_75vp5")]
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyToClipboardButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/CopyToClipboardButton/BetterButton/Panel" parent_id_path=PackedInt32Array(424381888, 62362509) index="0" unique_id=188245078]
 text = "Copy Save to Clipboard"
 
-[node name="Exit" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="7" instance=ExtResource("2_75vp5")]
+[node name="Exit" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="7" unique_id=137297164 instance=ExtResource("2_75vp5")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Exit/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Exit/BetterButton/Panel" parent_id_path=PackedInt32Array(137297164, 62362509) index="0" unique_id=188245078]
 text = "Exit"
 
-[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="1" unique_id=1394157472]
 visible = false
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ResumeButton"]

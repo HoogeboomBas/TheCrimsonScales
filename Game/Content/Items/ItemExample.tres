@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://sq1077vshk5a"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://sq1077vshk5a"]
 
 [ext_resource type="Texture2D" uid="uid://bwlnj5s11ksc3" path="res://Content/Items/Prosperity1/SpriteSheet.jpg" id="1_pbjh5"]
 

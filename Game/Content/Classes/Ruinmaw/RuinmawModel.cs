@@ -13,7 +13,7 @@ public class RuinmawModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/Ruinmaw.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<StripFlesh>(),
 		ModelDB.AbilityCard<Seize>(),
@@ -47,5 +47,9 @@ public class RuinmawModel : ClassModel
 		ModelDB.AbilityCard<Heartripper>(),
 		ModelDB.AbilityCard<RipAndTear>(),
 		ModelDB.AbilityCard<BellyOfTheBeast>(),
+	];
+
+	public override List<PerkModel> Perks { get; } =
+	[
 	];
 }

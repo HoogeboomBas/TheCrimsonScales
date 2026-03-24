@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="BattleGoal.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="1.1255704"
+     inkscape:cx="189.23739"
+     inkscape:cy="208.33881"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       class=""
+       transform="matrix(0.21294827,0,0,0.21294827,9.1810836,9.3185531)"
+       id="g2">
+      <path
+         d="m 356.688,19.188 c -6.83,-0.032 -12.837,0.64 -18.125,1.843 -24.178,5.495 -36.437,21.983 -50.938,41.157 -14.5,19.175 -31.317,40.993 -62.78,47.47 C 195.08,115.78 154.27,108.253 91.25,78.5 81.237,123.38 57.844,207.12 30.344,257.156 c 60.093,28.5 97.245,34.926 121,30.875 0.01,0 0.02,0.004 0.03,0 21.59,-5.827 34.487,-20.094 47.876,-43.092 17.014,-29.227 32.563,-72.198 60.25,-123.188 l 16.406,8.938 c -16.69,30.735 -28.802,58.617 -40,82.937 8.552,-6.512 18.633,-11.77 31.063,-14.594 27.71,-6.296 65.053,-0.495 121.655,24.75 -6.932,-29.276 -1.885,-61.913 9.875,-92.218 12.686,-32.69 33.038,-62.907 56.28,-84.03 -42.595,-19.553 -73.152,-27.554 -95.124,-28.282 -1.01,-0.033 -1.993,-0.058 -2.97,-0.063 z m 127.54,14.144 a 10.775,10.775 0 0 0 -2.664,0.266 c -4.378,0.977 -8.94,4.424 -12.084,11.097 L 289.53,497.31 h 23.61 L 490.972,49.368 c 3.475,-10.153 -0.75,-15.86 -6.746,-16.035 z"
+         fill="#ffffff"
+         fill-opacity="1"
+         id="path2" />
+    </g>
+  </g>
+</svg>

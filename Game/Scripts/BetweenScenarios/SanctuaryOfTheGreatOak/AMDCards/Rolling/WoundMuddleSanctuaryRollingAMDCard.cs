@@ -4,7 +4,7 @@ public class WoundMuddleSanctuaryRollingAMDCard : SanctuaryRollingAMDCardModel
 {
 	protected override int AtlasIndex => 4;
 
-	public override int? GetValue(AttackAbility.State attackAbilityState) => 0;
+	public override int? GetValue(AttackAbility.State attackAbilityState) => +0;
 
 	public override List<ConditionModel> GetConditionModels(AttackAbility.State attackAbilityState) =>
 	[

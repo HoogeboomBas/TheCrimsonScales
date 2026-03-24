@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dck04vx4nfhj5"]
+
+[ext_resource type="Script" uid="uid://dpgl4mcbor530" path="res://Scripts/UI/Popups/BattleGoalSelectionPopup/BattleGoalSelectionPopupBattleGoal.cs" id="1_5umdd"]
+[ext_resource type="PackedScene" uid="uid://ow1k6ehr4jbv" path="res://Scenes/UI/BattleGoals/BattleGoalToggleButton.tscn" id="1_d4ppt"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_ng13d"]
+
+[node name="BattleGoalSelectionPopupBattleGoal" type="MarginContainer" unique_id=956734413 node_paths=PackedStringArray("_battleGoalToggleButton", "_betterButton")]
+offset_right = 287.0
+offset_bottom = 445.0
+mouse_filter = 2
+script = ExtResource("1_5umdd")
+_battleGoalToggleButton = NodePath("BetterButton/PersonalQuestToggleButton")
+_betterButton = NodePath("BetterButton")
+
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1051664082]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(286.72, 444.64)
+layout_direction = 0
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("2_ng13d")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="PersonalQuestToggleButton" parent="BetterButton" unique_id=1353458361 instance=ExtResource("1_d4ppt")]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BetterButton" parent="BetterButton/PersonalQuestToggleButton/Container" parent_id_path=PackedInt32Array(1353458361, 521323546) index="0" unique_id=1155449473]
+mouse_filter = 2
+
+[editable path="BetterButton/PersonalQuestToggleButton"]

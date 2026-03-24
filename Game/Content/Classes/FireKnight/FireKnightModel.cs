@@ -14,7 +14,7 @@ public class FireKnightModel : ClassModel
 
 	public override PackedScene Scene => ResourceLoader.Load<PackedScene>($"{AssetPath}/FireKnight.tscn");
 
-	public override IList<AbilityCardModel> AbilityCards { get; } =
+	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
 		ModelDB.AbilityCard<ForcibleEntry>(),
 		ModelDB.AbilityCard<BackupSupport>(),
@@ -49,7 +49,11 @@ public class FireKnightModel : ClassModel
 		ModelDB.AbilityCard<IncidentCommander>(),
 	];
 
-	public IList<ItemModel> AllItems { get; } =
+	public override List<PerkModel> Perks { get; } =
+	[
+	];
+
+	public List<ItemModel> AllItems { get; } =
 	[
 		ModelDB.Item<FireKnightEmberCladding>(),
 		ModelDB.Item<FireKnightRescueShield>(),

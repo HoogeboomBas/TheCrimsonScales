@@ -114,7 +114,12 @@ public partial class Map : Node2D
 	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon,
 		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
 	{
-		MonsterGroup monsterGroup = MonsterGroups.First(group => group.MonsterModel == monsterModel);
+		MonsterGroup monsterGroup = MonsterGroups.Find(group => group.MonsterModel == monsterModel);
+		if(monsterGroup == null)
+		{
+			GameController.Instance.Map.AddMonsterGroup(monsterModel);
+			monsterGroup = MonsterGroups.First(group => group.MonsterModel == monsterModel);
+		}
 
 		if(monsterType != MonsterType.None && monsterGroup.TryGetAvailableStandeeNumber(out int standeeNumber))
 		{
@@ -238,6 +243,7 @@ public partial class Map : Node2D
 
 	public void AddMonsterGroup(MonsterModel monsterModel)
 	{
+		bool extensionGroup = false;
 		if(MonsterGroups.Any(group => group.MonsterModel == monsterModel))
 		{
 			return;
@@ -246,6 +252,7 @@ public partial class Map : Node2D
 		if(monsterModel.ParentMonsterModel != null)
 		{
 			AddMonsterGroup(monsterModel.ParentMonsterModel);
+			extensionGroup = true;
 		}
 
 		MonsterAbilityCardDeck deckIsAlreadyInUseByAGroup = MonsterGroups
@@ -254,7 +261,7 @@ public partial class Map : Node2D
 			.FirstOrDefault();
 		MonsterGroup parentMonsterGroup = MonsterGroups.FirstOrDefault(monsterGroup => monsterGroup.MonsterModel == monsterModel.ParentMonsterModel);
 		MonsterGroup group = new MonsterGroup(monsterModel, parentMonsterGroup?.GroupIndex ?? MonsterGroups.Count, deckIsAlreadyInUseByAGroup,
-			parentMonsterGroup);
+			parentMonsterGroup, extensionGroup);
 		MonsterGroups.Add(group);
 	}
 }

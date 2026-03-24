@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bt7gkaay8o10y"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://bt7gkaay8o10y"]
 
 [ext_resource type="Texture2D" uid="uid://b68cyuk51i0db" path="res://Content/Monsters/WindDemon/Icon.jpg" id="1_whvkb"]
 

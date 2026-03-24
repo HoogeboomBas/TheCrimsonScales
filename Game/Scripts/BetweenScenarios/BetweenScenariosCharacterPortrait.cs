@@ -32,11 +32,20 @@ public partial class BetweenScenariosCharacterPortrait : Control
 	private Label _goldLabel;
 
 	[Export]
+	private Control _buttonContainer;
+	[Export]
 	private BetterButton _infoButton;
 	[Export]
 	private BetterButton _equipmentButton;
 	[Export]
 	private BetterButton _cardsButton;
+	[Export]
+	private BetterButton _perksButton;
+
+	[Export]
+	private ExclamationMark _cardsExclamationMark;
+	[Export]
+	private ExclamationMark _perksExclamationMark;
 
 	[Export]
 	private Texture2D _normalInfoTexture;
@@ -46,7 +55,7 @@ public partial class BetweenScenariosCharacterPortrait : Control
 	private TextureRect _infoButtonTextureRect;
 
 	[Export]
-	private Control _levelUpScaleContainer;
+	private ExclamationMark _levelUpExclamationMark;
 	[Export]
 	private BetterButton _levelUpButton;
 
@@ -55,7 +64,6 @@ public partial class BetweenScenariosCharacterPortrait : Control
 
 	private bool _active;
 	private GTween _scaleTween;
-	private GTween _levelUpTween;
 
 	public SavedCharacter SavedCharacter { get; private set; }
 
@@ -84,14 +92,17 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		}
 
 		UpdateVisuals();
+		UpdateScaling();
 
 		BetterButton.SetEnabled(false, false);
 
 		SavedCharacter.GoldChangedEvent += OnGoldChanged;
 		SavedCharacter.XPChangedEvent += OnXPChanged;
-		SavedCharacter.LevelChangedEvent += OnLevelCHanged;
+		SavedCharacter.LevelChangedEvent += OnLevelChanged;
 		SavedCharacter.NameChangedEvent += OnNameChanged;
 		SavedCharacter.CardsChangedEvent += OnCardsChanged;
+		SavedCharacter.CheckmarkCountChangedEvent += OnCheckmarkCountChanged;
+		SavedCharacter.PerksChangedEvent += OnPerksChanged;
 
 		if(_personalQuestData != null)
 		{
@@ -101,7 +112,10 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		_infoButton.Pressed += OnInfoPressed;
 		_equipmentButton.Pressed += OnEquipmentPressed;
 		_cardsButton.Pressed += OnCardsPressed;
+		_perksButton.Pressed += OnPerksPressed;
 		_levelUpButton.Pressed += OnLevelUpPressed;
+
+		GetViewport().SizeChanged += OnViewportSizeChanged;
 	}
 
 	public override void _ExitTree()
@@ -112,14 +126,22 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		{
 			SavedCharacter.GoldChangedEvent -= OnGoldChanged;
 			SavedCharacter.XPChangedEvent -= OnXPChanged;
-			SavedCharacter.LevelChangedEvent -= OnLevelCHanged;
+			SavedCharacter.LevelChangedEvent -= OnLevelChanged;
 			SavedCharacter.NameChangedEvent -= OnNameChanged;
 			SavedCharacter.CardsChangedEvent -= OnCardsChanged;
+			SavedCharacter.CheckmarkCountChangedEvent -= OnCheckmarkCountChanged;
+			SavedCharacter.PerksChangedEvent -= OnPerksChanged;
 		}
 
 		if(_personalQuestData != null)
 		{
 			_personalQuestData.ProgressChangedEvent -= OnPersonalQuestProgressChanged;
+		}
+
+		Viewport viewport = GetViewport();
+		if(viewport != null)
+		{
+			viewport.SizeChanged -= OnViewportSizeChanged;
 		}
 	}
 
@@ -165,20 +187,32 @@ public partial class BetweenScenariosCharacterPortrait : Control
 
 		_infoButtonTextureRect.SetTexture(SavedCharacter.GetCanRetire(_savedCampaign) ? _retireInfoTexture : _normalInfoTexture);
 
-		_levelUpTween?.Complete();
-		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
-		{
-			_levelUpButton.SetEnabled(true, false);
+		bool canLevelUp = SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp();
+		_levelUpExclamationMark.SetActive(canLevelUp);
+		_levelUpButton.SetEnabled(canLevelUp, false);
 
-			_levelUpTween = GTweenSequenceBuilder.New()
-				.Append(_levelUpScaleContainer.TweenScale(1.2f, 0.3f))
-				.Append(_levelUpScaleContainer.TweenScale(1f, 0.3f))
-				.Build().SetMaxLoops().Play();
-		}
-		else
+		bool canAcquirePerk = false;
+		for(int i = 0; i < SavedCharacter.ClassModel.Perks.Count; i++)
 		{
-			_levelUpButton.SetEnabled(false, false);
+			if(SavedCharacter.CanAcquirePerk(i))
+			{
+				canAcquirePerk = true;
+				break;
+			}
 		}
+
+		_perksExclamationMark.SetActive(canAcquirePerk);
+
+		UpdateScaling();
+	}
+
+	private void UpdateScaling()
+	{
+		this.DelayedCall(() =>
+		{
+			float buttonsScale = Mathf.Min(1f, Size.Y / _buttonContainer.Size.Y);
+			_buttonContainer.SetScale(buttonsScale * Vector2.One);
+		});
 	}
 
 	private void OnGoldChanged(SavedCharacter savedCharacter)
@@ -191,7 +225,7 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		UpdateVisuals();
 	}
 
-	private void OnLevelCHanged(SavedCharacter savedCharacter)
+	private void OnLevelChanged(SavedCharacter savedCharacter)
 	{
 		UpdateVisuals();
 	}
@@ -202,6 +236,16 @@ public partial class BetweenScenariosCharacterPortrait : Control
 	}
 
 	private void OnCardsChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnCheckmarkCountChanged(SavedCharacter savedCharacter)
+	{
+		UpdateVisuals();
+	}
+
+	private void OnPerksChanged(SavedCharacter savedCharacter)
 	{
 		UpdateVisuals();
 	}
@@ -236,6 +280,14 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		});
 	}
 
+	private void OnPerksPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new PerksPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
+	}
+
 	private void OnLevelUpPressed()
 	{
 		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
@@ -247,5 +299,10 @@ public partial class BetweenScenariosCharacterPortrait : Control
 				SavedCharacter = SavedCharacter
 			});
 		}
+	}
+
+	private void OnViewportSizeChanged()
+	{
+		UpdateScaling();
 	}
 }

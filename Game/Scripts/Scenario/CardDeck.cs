@@ -45,6 +45,11 @@ public class CardDeck<T>
 		}
 	}
 
+	public void RemoveCard(T card)
+	{
+		DrawPile.Remove(card);
+	}
+
 	public void Reshuffle()
 	{
 		DrawPile.AddRange(DiscardPile);

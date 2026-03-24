@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://qdtbf6gtmw42"]
+[gd_scene format=3 uid="uid://qdtbf6gtmw42"]
 
 [ext_resource type="Script" uid="uid://cpjm6jejkmo63" path="res://Scripts/UI/AMDCardView.cs" id="1_1pr2y"]
 [ext_resource type="Material" uid="uid://bgdcydtsmmrb" path="res://Materials/TintGrayscale.tres" id="3_3gqei"]
@@ -10,7 +10,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="AMDCardView" type="Control" node_paths=PackedStringArray("TextureRect")]
+[node name="AMDCardView" type="Control" unique_id=511743767 node_paths=PackedStringArray("TextureRect")]
 custom_minimum_size = Vector2(360, 240)
 layout_mode = 3
 anchors_preset = 0
@@ -20,7 +20,7 @@ mouse_filter = 2
 script = ExtResource("1_1pr2y")
 TextureRect = NodePath("Mask/TextureRect")
 
-[node name="Mask" type="Panel" parent="."]
+[node name="Mask" type="Panel" parent="." unique_id=1422990038]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -31,7 +31,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
 
-[node name="TextureRect" type="TextureRect" parent="Mask"]
+[node name="TextureRect" type="TextureRect" parent="Mask" unique_id=634375965]
 material = ExtResource("3_3gqei")
 instance_shader_parameters/grayscaleFactor = 0.0
 layout_mode = 1

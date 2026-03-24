@@ -18,7 +18,10 @@ public class SummonEventReward(SummonAbility summonAbility) : EventReward
 			}, hintText: () => $"Select a character to Summon a {summonAbility.Name}"
 		);
 
-		ActionState actionState = new ActionState(selectedFigure, [summonAbility]);
-		await actionState.Perform();
+		if(selectedFigure != null)
+		{
+			ActionState actionState = new ActionState(selectedFigure, [summonAbility]);
+			await actionState.Perform();
+		}
 	}
 }

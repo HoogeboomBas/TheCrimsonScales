@@ -87,25 +87,20 @@ public class WaterSpiritAbilityCard2 : WaterSpiritAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithCustomGetTargets((state, list) =>
 				{
-					List<Figure> sufferDamageTargets = new List<Figure>();
 					foreach(Figure figure in GameController.Instance.Map.Figures)
 					{
 						if(state.Authority.EnemiesWith(figure) && figure.Hex.HasHexObjectOfType<Water>())
 						{
-							sufferDamageTargets.Add(figure);
+							list.Add(figure);
 						}
-					}
-
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 1);
 					}
 				}
 			)
-			.Build())
+			.Build()),
 	];
 }
 

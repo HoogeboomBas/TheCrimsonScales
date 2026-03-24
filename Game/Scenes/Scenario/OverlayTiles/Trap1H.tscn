@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://diuy1dignnfhi"]
+[gd_scene format=3 uid="uid://diuy1dignnfhi"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_2sot3"]
 [ext_resource type="Script" uid="uid://nd3g60pr5wge" path="res://Scripts/Scenario/HexObjects/Trap.cs" id="2_uu8d5"]
@@ -13,36 +13,37 @@
 font = ExtResource("6_hc0ff")
 font_size = 35
 
-[node name="Trap1H" instance=ExtResource("1_2sot3")]
+[node name="Trap1H" unique_id=1942952669 instance=ExtResource("1_2sot3")]
 script = ExtResource("2_uu8d5")
 ScaledDamage = true
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_d1ru4")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
 
-[node name="TrapViewComponent" type="Node2D" parent="." index="4" node_paths=PackedStringArray("DamageContainer", "DamageLabel", "ConditionContainer")]
+[node name="TrapViewComponent" type="Node2D" parent="." index="4" unique_id=1045784555 node_paths=PackedStringArray("DamageContainer", "DamageLabel", "ConditionContainer")]
+z_index = 1
 script = ExtResource("5_l72gb")
 DamageContainer = NodePath("Damage")
 DamageLabel = NodePath("Damage/Label")
 ConditionContainer = NodePath("Conditions")
 
-[node name="Damage" type="Node2D" parent="TrapViewComponent" index="0"]
+[node name="Damage" type="Node2D" parent="TrapViewComponent" index="0" unique_id=344923563]
 visible = false
 
-[node name="Background" type="Sprite2D" parent="TrapViewComponent/Damage" index="0"]
+[node name="Background" type="Sprite2D" parent="TrapViewComponent/Damage" index="0" unique_id=1604780620]
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
 scale = Vector2(0.37, 0.37)
 texture = ExtResource("5_4rank")
 
-[node name="DamageIcon" type="Sprite2D" parent="TrapViewComponent/Damage" index="1"]
+[node name="DamageIcon" type="Sprite2D" parent="TrapViewComponent/Damage" index="1" unique_id=1708315124]
 scale = Vector2(0.37, 0.37)
 texture = ExtResource("7_nt03t")
 
-[node name="Label" type="Label" parent="TrapViewComponent/Damage" index="2"]
+[node name="Label" type="Label" parent="TrapViewComponent/Damage" index="2" unique_id=118478383]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -60,16 +61,16 @@ label_settings = SubResource("LabelSettings_c2qwa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Conditions" type="Node2D" parent="TrapViewComponent" index="1"]
+[node name="Conditions" type="Node2D" parent="TrapViewComponent" index="1" unique_id=2001574773]
 position = Vector2(1, -50)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.603922, 0.121569, 0.129412, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.38)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_to431")
 
-[node name="Hex" parent="." index="6"]
+[node name="Hex" parent="." index="6" unique_id=1961725922]
 visible = false

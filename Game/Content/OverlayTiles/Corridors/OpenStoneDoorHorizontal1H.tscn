@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ce61ayds5k2o4"]
+[gd_scene format=3 uid="uid://ce61ayds5k2o4"]
 
 [ext_resource type="PackedScene" uid="uid://cntexpy84mopg" path="res://Scenes/Scenario/OverlayTiles/Corridor1H.tscn" id="1_w8q4g"]
 [ext_resource type="Texture2D" uid="uid://cya4wy3j0w2yg" path="res://Art/OverlayTiles/Stone Door Open 1h - Horizontal.png" id="2_w8q4g"]
 
-[node name="OpenWoodDoorHorizontal1H" instance=ExtResource("1_w8q4g")]
+[node name="OpenWoodDoorHorizontal1H" unique_id=1403942406 instance=ExtResource("1_w8q4g")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_w8q4g")

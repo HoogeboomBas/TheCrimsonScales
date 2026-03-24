@@ -56,7 +56,7 @@ public partial class Summon : Figure
 		{
 			foreach(FigureTrait trait in Stats.Traits)
 			{
-				await trait.Activate(this);
+				await AddTrait(trait);
 			}
 		}
 
@@ -160,14 +160,6 @@ public partial class Summon : Figure
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
 	{
-		if(Stats.Traits != null)
-		{
-			foreach(FigureTrait trait in Stats.Traits)
-			{
-				await trait.Deactivate(this);
-			}
-		}
-
 		await RemoveTurnActionFromActive();
 
 		ScenarioEvents.FigureFoundFocusEvent.Unsubscribe(this, CharacterOwner);

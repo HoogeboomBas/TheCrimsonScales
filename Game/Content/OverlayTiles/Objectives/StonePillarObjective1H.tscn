@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgm5cunc3643v"]
+[gd_scene format=3 uid="uid://cgm5cunc3643v"]
 
 [ext_resource type="PackedScene" uid="uid://c2f7r2flocmsj" path="res://Scenes/Scenario/OverlayTiles/Objective1H.tscn" id="1_uotah"]
 [ext_resource type="Texture2D" uid="uid://brhpdhepdv4qo" path="res://Art/OverlayTiles/Stone Pillar 1h.png" id="2_uotah"]
 
-[node name="StonePillarObjective1H" instance=ExtResource("1_uotah")]
+[node name="StonePillarObjective1H" unique_id=2068977747 instance=ExtResource("1_uotah")]
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_uotah")
