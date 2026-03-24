@@ -41,15 +41,14 @@ public partial class ActionState
 			{
 				if(Abilities[i] is AttackAbility attackAbility)
 				{
-					AttackAbility.State state = new();
-					Target target = attackAbility.TargetType.GetValue(state);
+					Target target = attackAbility.TargetType.GetValue();
 
 					aiMoveParameters.Targets = target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : 
-						attackAbility.Targets.GetValue(state);
+						attackAbility.Targets.GetValue();
 					aiMoveParameters.TargetAll = target.HasFlag(Target.TargetAll);
-					aiMoveParameters.Range = attackAbility.Range.GetValue(state);
-					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue(state);
-					aiMoveParameters.AOEPattern = attackAbility.AOEPattern?.GetValue(state);
+					aiMoveParameters.Range = attackAbility.Range.GetValue();
+					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue();
+					aiMoveParameters.AOEPattern = attackAbility.AOEPattern?.GetValue();
 
 					break;
 				}

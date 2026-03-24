@@ -298,13 +298,13 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 	private Func<T, string> _getTargetingHintText;
 
-	public DynamicInt<TargetedAbilityState> Range { get; private set; } = 1;
-	public DynamicRangeType<TargetedAbilityState> TypeOfRange { get; private set; } = RangeType.Melee;
+	public DynamicInt Range { get; private set; } = 1;
+	public DynamicRangeType TypeOfRange { get; private set; } = RangeType.Melee;
 	public bool RequiresLineOfSight { get; private set; } = true;
-	public DynamicTarget<TargetedAbilityState> TargetType { get; protected set; } = Target.Enemies;
-	public DynamicInt<TargetedAbilityState> Targets { get; private set; } = 1;
+	public DynamicTarget TargetType { get; protected set; } = Target.Enemies;
+	public DynamicInt Targets { get; private set; } = 1;
 	public Hex TargetHex { get; private set; }
-	public DynamicAOEPattern<TargetedAbilityState> AOEPattern { get; private set; }
+	public DynamicAOEPattern AOEPattern { get; private set; }
 	public bool Mandatory { get; private set; }
 	public int Push { get; private set; }
 	public int Pull { get; private set; }
@@ -316,12 +316,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	public Func<T, Figure, bool> FilterTargets { get; private set; }
 
 	public bool IsMultiTarget =>
-		Targets.GetValue(null) > 1 ||
-		TargetType.GetValue(null).HasFlag(Target.TargetAll) ||
-		(AOEPattern != null && AOEPattern.GetValue(null).LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
+		Targets.GetValue() > 1 ||
+		TargetType.GetValue().HasFlag(Target.TargetAll) ||
+		(AOEPattern != null && AOEPattern.GetValue().LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
 	
 	public AOEPattern AbilityAOEPattern =>
-		AOEPattern?.GetValue(null);
+		AOEPattern?.GetValue();
 	
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -333,8 +333,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : TargetedAbility<T, TSingleTargetState>, new()
 	{
-		protected DynamicTarget<TargetedAbilityState> _target;
-		protected DynamicRangeType<TargetedAbilityState> _rangeType;
+		protected DynamicTarget _target;
+		protected DynamicRangeType _rangeType;
 		protected Func<T, string> GetTargetingHintText;
 
 		public TBuilder WithGetTargetingHintText(Func<T, string> getTargetingHintText)
@@ -344,14 +344,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRange(DynamicInt<TargetedAbilityState> range, params RangeSquare[] enhancementMarks)
+		public TBuilder WithRange(DynamicInt range, params RangeSquare[] enhancementMarks)
 		{
 			Obj.Range = range;
 			AddEnhancements(enhancementMarks);
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRangeType(DynamicRangeType<TargetedAbilityState> rangeType)
+		public TBuilder WithRangeType(DynamicRangeType rangeType)
 		{
 			_rangeType = rangeType;
 			Obj.TypeOfRange = rangeType;
@@ -364,14 +364,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithTarget(DynamicTarget<TargetedAbilityState> target)
+		public TBuilder WithTarget(DynamicTarget target)
 		{
 			_target = target;
 			Obj.TargetType = target;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithTargets(DynamicInt<TargetedAbilityState> targets, params TargetsSquare[] enhancementMarks)
+		public TBuilder WithTargets(DynamicInt targets, params TargetsSquare[] enhancementMarks)
 		{
 			Obj.Targets = targets;
 			AddEnhancements(enhancementMarks);
@@ -384,7 +384,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithAOEPattern(DynamicAOEPattern<TargetedAbilityState> aoePattern, params AOEHexMark[] enhancementMarks)
+		public TBuilder WithAOEPattern(DynamicAOEPattern aoePattern, params AOEHexMark[] enhancementMarks)
 		{
 			Obj.AOEPattern = aoePattern;
 			AddEnhancements(enhancementMarks);
@@ -448,7 +448,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		public override TAbility Build()
 		{
 			Obj.TargetType = _target ?? Target.Enemies;
-			Obj.TypeOfRange = _rangeType ?? new (figure => Obj.Range.GetValue(figure) == 1 ? RangeType.Melee : RangeType.Range);
+			Obj.TypeOfRange = _rangeType ?? new(() => Obj.Range.GetValue() == 1 ? RangeType.Melee : RangeType.Range);
 			Obj._getTargetingHintText = GetTargetingHintText ?? Obj.DefaultTargetingHintText;
 			return base.Build();
 		}
@@ -460,9 +460,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	{
 		base.InitializeState(abilityState);
 
-		abilityState.AbilityTarget = TargetType.GetValue(abilityState);
-		abilityState.AbilityTargets = Targets.GetValue(abilityState);
-		abilityState.AbilityAOEPattern = AOEPattern?.GetValue(abilityState);
+		abilityState.AbilityTarget = TargetType.GetValue();
+		abilityState.AbilityTargets = Targets.GetValue();
+		abilityState.AbilityAOEPattern = AOEPattern?.GetValue();
 
 		if(abilityState.AbilityTarget.HasFlag(Target.TargetAll))
 		{
@@ -471,8 +471,8 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		
 		abilityState.AbilityPerformHex = null;
 
-		abilityState.AbilityRange = Range.GetValue(abilityState);
-		abilityState.AbilityRangeType = TypeOfRange.GetValue(abilityState);
+		abilityState.AbilityRange = Range.GetValue();
+		abilityState.AbilityRangeType = TypeOfRange.GetValue();
 		abilityState.AbilityConditionModels = Conditions.ToList();
 		abilityState.AbilityPush = Push;
 		abilityState.AbilityPull = Pull;

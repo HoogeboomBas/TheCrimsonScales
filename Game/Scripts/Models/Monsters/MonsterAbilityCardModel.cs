@@ -38,13 +38,13 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 
 	public static AttackAbility AttackAbility(Monster monster, 
 		DynamicInt<AttackAbility.State> extraDamage, 
-		DynamicInt<TargetedAbilityState> targets = null,
-		DynamicInt<TargetedAbilityState> range = null, 
-		DynamicInt<TargetedAbilityState> extraRange = null,
-		DynamicRangeType<TargetedAbilityState> rangeType = null, 
-		DynamicTarget<TargetedAbilityState> target = null,
+		DynamicInt targets = null,
+		DynamicInt range = null, 
+		DynamicInt extraRange = null,
+		DynamicRangeType rangeType = null, 
+		DynamicTarget target = null,
 		Hex targetHex = null, bool requiresLineOfSight = true,
-		DynamicAOEPattern<TargetedAbilityState> aoePattern = null, 
+		DynamicAOEPattern aoePattern = null, 
 		int push = 0, int pull = 0, int swing = 0, 
 		DynamicInt<AttackAbility.State> pierce = null,
 		ConditionModel[] conditions = null,
@@ -56,16 +56,16 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
 	{
 		DynamicInt<AttackAbility.State> dynamicAttackValue = new(state => monster.Stats.Attack + extraDamage.GetValue(state));
-		DynamicInt<TargetedAbilityState> dynamicTargets = targets == null ? new(1) : new(state => targets.GetValue(state));
-		DynamicTarget<TargetedAbilityState> dynamicTarget = target == null ? new(Target.Enemies) : new(state => target.GetValue(state));
+		DynamicInt dynamicTargets = targets == null ? new(1) : new(() => targets.GetValue());
+		DynamicTarget dynamicTarget = target == null ? new(Target.Enemies) : new(() => target.GetValue());
 
 		int defaultRange = monster.Stats.Range ?? 1;
-		DynamicInt<TargetedAbilityState> dynamicRange = range ?? (extraRange == null ? new(defaultRange) : new(state => defaultRange + extraRange.GetValue(state)));
-		DynamicRangeType<TargetedAbilityState> dynamicRangeType = 
-			rangeType ?? new(state =>
-				aoePattern != null && aoePattern.GetValue(state).LocalHexes.Any(hex => hex.Type == AOEHexType.Gray)
+		DynamicInt dynamicRange = range ?? (extraRange == null ? new(defaultRange) : new(() => defaultRange + extraRange.GetValue()));
+		DynamicRangeType dynamicRangeType = 
+			rangeType ?? new(() =>
+				aoePattern != null && aoePattern.GetValue().LocalHexes.Any(hex => hex.Type == AOEHexType.Gray)
 					? RangeType.Melee
-					: (dynamicRange.GetValue(state) > 1 ? RangeType.Range : monster.Stats.RangeType));
+					: (dynamicRange.GetValue() > 1 ? RangeType.Range : monster.Stats.RangeType));
 
 		return global::AttackAbility.Builder()
 			.WithDamage(dynamicAttackValue)

@@ -108,7 +108,7 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 			AttackAbility(
 				monster,
 				+0,
-				aoePattern: new(state => CheckElementConsumed(monster, [Element.Air]) ?
+				aoePattern: new(() => CheckElementConsumed(monster, [Element.Air]) ?
 					new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
@@ -156,7 +156,7 @@ public class WindDemonAbilityCard5 : WindDemonAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +1, targets: 
-			new(state => CheckElementConsumed(monster, [Element.Air]) ? 2 : 1))),
+			new(() => CheckElementConsumed(monster, [Element.Air]) ? 2 : 1))),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =

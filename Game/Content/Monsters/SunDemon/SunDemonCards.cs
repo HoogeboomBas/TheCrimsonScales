@@ -118,7 +118,7 @@ public class SunDemonAbilityCard5 : SunDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4, target: new(state =>
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4, target: new(() =>
 			CheckElementConsumed(monster, [Element.Light]) ? Target.Enemies | Target.TargetAll : Target.Enemies)
 		)),
 	];

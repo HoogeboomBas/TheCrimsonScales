@@ -75,7 +75,7 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 2, extraRange: 
-				new(state => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
+				new(() => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
 			duringAttackSubscriptions: [
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
 					applyFunction: async parameters =>

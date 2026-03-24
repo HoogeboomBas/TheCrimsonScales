@@ -117,7 +117,7 @@ public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster,
 			extraDamage: new(state => monster.Stats.Attack + (CheckElementConsumed(monster, [Element.Fire]) ? +1 : -1)),
-			aoePattern: new(state => CheckElementConsumed(monster, [Element.Fire]) ?
+			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
 				new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -150,7 +150,7 @@ public class FlamingDrakeAbilityCard5 : FlamingDrakeAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, extraRange: 
-			new(state => CheckElementConsumed(monster, [Element.Fire]) ? 2 : 0)
+			new(() => CheckElementConsumed(monster, [Element.Fire]) ? 2 : 0)
 		)),
 	];
 

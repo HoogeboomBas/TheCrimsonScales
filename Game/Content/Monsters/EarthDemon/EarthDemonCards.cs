@@ -76,7 +76,7 @@ public class EarthDemonAbilityCard3 : EarthDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 4, 
-			targets: new(state => CheckElementConsumed(monster, [Element.Earth]) ? 2 : 1))
+			targets: new(() => CheckElementConsumed(monster, [Element.Earth]) ? 2 : 1))
 		)
 	];
 

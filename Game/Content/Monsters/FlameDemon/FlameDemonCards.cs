@@ -59,7 +59,7 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, 
-			aoePattern: new(state => CheckElementConsumed(monster, [Element.Fire]) ?
+			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
 				new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Red),
