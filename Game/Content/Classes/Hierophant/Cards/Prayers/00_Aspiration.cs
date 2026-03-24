@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -30,7 +30,8 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 							}
 
 							await GDTask.CompletedTask;
-						});
+						},
+						order: 10);
 
 					await GDTask.CompletedTask;
 				})
@@ -76,7 +77,8 @@ public class Aspiration : HierophantPrayerCardModel<Aspiration.CardTop, Aspirati
 							}
 
 							await GDTask.CompletedTask;
-						});
+						},
+						order: 10);
 
 					await GDTask.CompletedTask;
 				})

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -82,7 +82,7 @@ public class UnendingTorment : ChainguardLevelUpCardModel<UnendingTorment.CardTo
 										parameters.Performer.HasCondition(Chainguard.Shackle),
 									async parameters =>
 									{
-										parameters.SetCannotMoveFurther(false);
+										parameters.SetCanMoveFurther();
 
 										await GDTask.CompletedTask;
 									},

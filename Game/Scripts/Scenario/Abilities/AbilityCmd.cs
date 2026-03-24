@@ -1429,4 +1429,93 @@ public static class AbilityCmd
 
 		return true;
 	}
+
+	public static void AddConditionImmunity(IEventSubscriber subscriber, ConditionModel condition, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		AddConditionsImmunity(subscriber, [condition], figure, customCanApply);
+	}
+
+	public static void AddConditionsImmunity(IEventSubscriber subscriber, List<ConditionModel> conditions, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		ScenarioEvents.InflictConditionEvent.Subscribe(subscriber,
+			parameters =>
+				customCanApply?.Invoke(figure) ?? true && 
+				figure != null ? parameters.Target == figure : parameters.Target is Character &&
+				conditions.Any(condition => CheckImmunity(parameters.ConditionModel, condition)),
+			async parameters =>
+			{
+				parameters.SetPrevented(true);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(subscriber,
+			parameters => 
+				customCanApply?.Invoke(figure) ?? true && 
+				figure != null ? parameters.Figure == figure : parameters.Figure is Character,
+			parameters =>
+			{
+				conditions.ForEach(condition => parameters.AddImmunity(condition));
+			}
+		);
+
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(subscriber,
+			parameters =>
+				customCanApply?.Invoke(figure) ?? true && 
+				figure != null ? parameters.Figure == figure : parameters.Figure is Character &&
+				parameters.Trap.ConditionModels
+					.Where(condition => condition.Model == Conditions.Immobilize || condition.Model == Conditions.Stun)
+					.ToList().TrueForAll(condition => conditions.Any(immunityCondition => CheckImmunity(condition.Model, immunityCondition))),
+			parameters =>
+			{
+				parameters.SetCanPass();
+			}
+		);
+	}
+
+	public static void AddAllNegativeConditionImmunity(IEventSubscriber subscriber, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		ScenarioEvents.InflictConditionEvent.Subscribe(subscriber, parameters =>
+			{
+				return 
+					customCanApply?.Invoke(figure) ?? true &&
+					figure != null ? parameters.Target == figure : parameters.Target is Character &&
+					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+					parameters.ConditionModel.ImmunityCompareBaseConditions
+						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1));
+			},
+			async parameters =>
+			{
+				parameters.SetPrevented(true);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(subscriber,
+			parameters => customCanApply?.Invoke(figure) ?? true && 
+				figure != null ? parameters.Figure == figure : parameters.Figure is Character,
+			parameters =>
+			{
+				Conditions.NegativeBaseConditionModels.ForEach(condition => parameters.AddImmunity(condition));
+			}
+		);
+
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(subscriber,
+			parameters => customCanApply?.Invoke(figure) ?? true && 
+				figure != null ? parameters.Figure == figure : parameters.Figure is Character,
+			parameters =>
+			{
+				parameters.SetCanPass();
+			}
+		);
+	}
+
+	public static void RemoveConditionImmunity(IEventSubscriber subscriber)
+	{
+		ScenarioEvents.InflictConditionEvent.Unsubscribe(subscriber);
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(subscriber);
+		ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(subscriber);
+	}
 }

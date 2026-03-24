@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -53,30 +53,14 @@ public class Floodlight : LuminaryCardModel<Floodlight.CardTop, Floodlight.CardB
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						parameters => parameters.Target == state.Performer &&
-						              AbilityCmd.CheckImmunity(parameters.ConditionModel, Conditions.Immobilize),
-						async parameters =>
-						{
-							parameters.SetPrevented(true);
+					AbilityCmd.AddConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer), Conditions.Immobilize, state.Performer);
 
-							await GDTask.CompletedTask;
-						}
-					);
-
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer,
-						parameters =>
-						{
-							parameters.AddImmunity(Conditions.Immobilize);
-						}
-					);
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(state, this);
+					AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer));
+
 					await GDTask.CompletedTask;
 				})
 				.Build()),

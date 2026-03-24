@@ -29,7 +29,7 @@ public class Immobilize : ConditionModel
 			parameters =>
 			{
 				condition.Flash();
-				parameters.SetCannotMoveFurther(true);
+				parameters.SetCannotMoveFurther();
 
 				return GDTask.CompletedTask;
 			},

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -65,6 +65,15 @@ public class FrostyGlimmer : LuminaryCardModel<FrostyGlimmer.CardTop, FrostyGlim
 									{
 										applyParameters.SetAffectedByNegativeHex(false);
 									}
+								}
+							);
+
+							ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(parameters.AbilityState, this,
+								canApplyParameters =>
+									canApplyParameters.AbilityState == parameters.AbilityState,
+								applyParameters =>
+								{
+									applyParameters.SetCanPass();
 								}
 							);
 

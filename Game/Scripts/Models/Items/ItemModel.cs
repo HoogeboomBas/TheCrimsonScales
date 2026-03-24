@@ -164,9 +164,8 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		ScenarioEvents.LongRestCardSelectionEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.DuringHealEvent.Unsubscribe(this, _subscriber);
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureKilledEvent.Unsubscribe(this, _subscriber);
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this, _subscriber);
+		AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, _subscriber));
 	}
 
 	protected async GDTask Use(Func<Character, GDTask> apply)
@@ -481,30 +480,13 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 	protected void SubscribeConditionImmunity(ConditionModel conditionModel,
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
-			parameters =>
-			{
-				return parameters.Target == Owner &&
-				       parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-				       conditionModel.ImmunityCompareBaseConditions != null &&
-				       parameters.ConditionModel.ImmunityCompareBaseConditions
-					       .Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1));
-			},
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
+		AbilityCmd.AddConditionImmunity(ScenarioEvents.GetSubscriberPair(this, _subscriber), conditionModel, Owner);
+	}
 
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
-			parameters => parameters.Figure == Owner,
-			parameters =>
-			{
-				parameters.AddImmunity(conditionModel);
-			}
-		);
+	protected void SubscribeConditionsImmunity(List<ConditionModel> conditionModels,
+		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+	{
+		AbilityCmd.AddConditionsImmunity(ScenarioEvents.GetSubscriberPair(this, _subscriber), conditionModels, Owner);
 	}
 
 	protected ActionState GetActionState(Figure performer, Ability[] abilities)

@@ -29,7 +29,7 @@ public class Stun : ConditionModel
 			async parameters =>
 			{
 				condition.Flash();
-				parameters.SetCannotMoveFurther(true);
+				parameters.SetCannotMoveFurther();
 
 				await GDTask.CompletedTask;
 			},

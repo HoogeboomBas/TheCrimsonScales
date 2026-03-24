@@ -578,9 +578,14 @@ public partial class ScenarioEvents
 
 			public bool CanMoveFurther { get; private set; } = true;
 
-			public void SetCannotMoveFurther(bool cannotMoveFurther)
+			public void SetCanMoveFurther()
 			{
-				CanMoveFurther = !cannotMoveFurther;
+				CanMoveFurther = true;
+			}
+
+			public void SetCannotMoveFurther()
+			{
+				CanMoveFurther = false;
 			}
 		}
 	}

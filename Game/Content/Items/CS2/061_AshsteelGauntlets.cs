@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class AshsteelGauntlets : CS2Item
 {
@@ -13,8 +13,6 @@ public class AshsteelGauntlets : CS2Item
 
 	protected override void Subscribe()
 	{
-
-		
 		base.Subscribe();
 
 		SubscribeDuringTurn(

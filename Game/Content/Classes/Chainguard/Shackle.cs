@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -29,7 +29,7 @@ public class Shackle : ConditionModel
 			async parameters =>
 			{
 				condition.Flash();
-				parameters.SetCannotMoveFurther(true);
+				parameters.SetCannotMoveFurther();
 
 				await GDTask.CompletedTask;
 			}
@@ -53,11 +53,26 @@ public class Shackle : ConditionModel
 		ScenarioCheckEvents.CanPassAllyCheckEvent.Subscribe(condition,
 			parameters =>
 				parameters.Figure == condition.Owner &&
+				!parameters.ForcedMovement &&
 				RangeHelper.GetFiguresInRange(parameters.AlliedFigure.Hex, 1).Any(figure => figure == condition.PotentialGiver),
 			parameters =>
 			{
 				parameters.SetCannotPass();
-			}
+			},
+			order: 10
+		);
+
+		// Don't allow movement through an enemy that is adjacent to the Chainguard
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.Figure == condition.Owner &&
+				!parameters.ForcedMovement &&
+				RangeHelper.GetFiguresInRange(parameters.EnemyFigure.Hex, 1).Any(figure => figure == condition.PotentialGiver),
+			parameters =>
+			{
+				parameters.SetCannotPass();
+			},
+			order: 10
 		);
 	}
 
