@@ -1,7 +1,4 @@
 ﻿using Fractural.Tasks;
-using Godot;
-using System.Collections.Generic;
-using System.Linq;
 
 public class ConditionImmunityTrait : FigureTrait
 {
@@ -26,57 +23,13 @@ public class ConditionImmunityTrait : FigureTrait
 	{
 		await base.Activate(figure);
 
-		ScenarioEvents.InflictConditionEvent.Subscribe(figure, this,
-			parameters =>
-				parameters.Target == figure &&
-				AbilityCmd.CheckImmunity(parameters.ConditionModel, _conditionModel),
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
-
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(figure, this,
-			parameters => parameters.Figure == figure,
-			parameters =>
-			{
-				parameters.AddImmunity(_conditionModel);
-			}
-		);
-
-		ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(figure, this,
-			parameters => 
-			{
-				if(parameters.Figure != figure)
-				{
-					return false;
-				}
-
-				foreach(ConditionModel stoppingCondition in new List<ConditionModel>([Conditions.Immobilize, Conditions.Stun]))
-				{
-					if(parameters.Trap.ConditionModels.Any(condition => condition.Model == stoppingCondition) 
-						&& !AbilityCmd.CheckImmunity(stoppingCondition, _conditionModel))
-					{
-						return false;
-					}
-				}
-
-				return true;
-			},
-			parameters =>
-			{
-				parameters.SetCanPass();
-			}
-		);
+		AbilityCmd.AddConditionImmunity(ScenarioEvents.GetSubscriberPair(this, figure), _conditionModel, figure);
 	}
 
 	public override async GDTask Deactivate(Figure figure)
 	{
 		await base.Deactivate(figure);
 
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(figure, this);
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(figure, this);
+		AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, figure));
 	}
 }

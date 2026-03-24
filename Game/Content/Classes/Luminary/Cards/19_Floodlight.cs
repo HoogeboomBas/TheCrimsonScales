@@ -53,57 +53,14 @@ public class Floodlight : LuminaryCardModel<Floodlight.CardTop, Floodlight.CardB
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						parameters => parameters.Target == state.Performer &&
-						              AbilityCmd.CheckImmunity(parameters.ConditionModel, Conditions.Immobilize),
-						async parameters =>
-						{
-							parameters.SetPrevented(true);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer,
-						parameters =>
-						{
-							parameters.AddImmunity(Conditions.Immobilize);
-						}
-					);
-
-					ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(state, this,
-						parameters => 
-						{
-							if(parameters.Figure != state.Performer)
-							{
-								return false;
-							}
-
-							foreach(ConditionModel stoppingCondition in new List<ConditionModel>([Conditions.Immobilize, Conditions.Stun]))
-							{
-								if(parameters.Trap.ConditionModels.Any(condition => condition.Model == stoppingCondition) 
-									&& !AbilityCmd.CheckImmunity(stoppingCondition, Conditions.Immobilize))
-								{
-									return false;
-								}
-							}
-
-							return true;
-						},
-						parameters =>
-						{
-							parameters.SetCanPass();
-						}
-					);
+					AbilityCmd.AddConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer), Conditions.Immobilize, state.Performer);
 
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(state, this);
+					AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer));
+
 					await GDTask.CompletedTask;
 				})
 				.Build()),

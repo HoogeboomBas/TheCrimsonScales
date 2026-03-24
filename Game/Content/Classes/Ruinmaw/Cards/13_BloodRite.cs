@@ -70,27 +70,8 @@ public class BloodRite : RuinmawCardModel<BloodRite.CardTop, BloodRite.CardBotto
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						canApplyParameters =>
-							canApplyParameters.Target == state.Performer &&
-							state.Performer is Ruinmaw ruinmaw &&
-							ruinmaw.Sated &&
-							canApplyParameters.ConditionModel.IsNegative,
-						async parameters =>
-						{
-							parameters.SetPrevented(true);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					ScenarioCheckEvents.CanPassTrapCheckEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer,
-						parameters =>
-						{
-							parameters.SetCanPass();
-						}
-					);
+					AbilityCmd.AddAllNegativeConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer), state.Performer, 
+						figure => figure is Ruinmaw ruinmaw && ruinmaw.Sated);
 
 					if(state.Performer is Ruinmaw ruinmaw)
 					{
@@ -101,8 +82,7 @@ public class BloodRite : RuinmawCardModel<BloodRite.CardTop, BloodRite.CardBotto
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.CanPassTrapCheckEvent.Unsubscribe(state, this);
+					AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, state.Performer));
 
 					if(state.Performer is Ruinmaw ruinmaw)
 					{
