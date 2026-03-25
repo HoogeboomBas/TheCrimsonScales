@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class Scenario020 : ScenarioModel
@@ -13,6 +14,7 @@ public class Scenario020 : ScenarioModel
 
 	private bool _summonElite;
 	private List<Objective> _altars = [];
+	private int _currentAltarIndex = 0;
 
 	public override async GDTask StartAfterFirstRoomRevealed()
 	{
@@ -29,24 +31,57 @@ public class Scenario020 : ScenarioModel
 		}
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
-			parameters => parameters.Performer is Monster monster && monster.MonsterModel is CultLeader &&
-			              parameters.AbilityState is MonsterSummonAbility.State,
+			parameters => parameters.Performer is Monster monster && monster.MonsterModel is CultLeader,
 			async parameters =>
 			{
-				MonsterSummonAbility.State abilityState = (MonsterSummonAbility.State)parameters.AbilityState;
-				abilityState.SetMonsterModel(ModelDB.Monster<LivingSpirit>());
-				abilityState.SetMonsterType(CalculateMonsterType());
-				_summonElite = !_summonElite;
-				await GDTask.CompletedTask;
-			});
+				switch (parameters.AbilityState)
+				{
+					case MonsterSummonAbility.State abilityState:
+						abilityState.SetMonsterModel(ModelDB.Monster<LivingSpirit>());
+						abilityState.SetMonsterType(CalculateMonsterType());
+						_summonElite = !_summonElite;
+						break;
+					case OtherAbility.State abilityState:
+						abilityState.SetBlocked();
+						break;
+					case MoveAbility.State abilityState:
+						if(!_altars[_currentAltarIndex].IsDestroyed)
+						{
+							abilityState.SetBlocked();
+							/*
+							ActionState actionState = new ActionState(abilityState.ActionState, abilityState.Performer, [
+								TeleportAbility.Builder()
+									.WithDistance(999)
+									.With
+									.WithGetTargetingHintText(grantAbilityState =>
+										$"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
+									)
+									.Build()
+							]);
+							await actionState.Perform();
+							
+							List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
+								list =>
+								{
+									foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 3, true))
+									{
+										if(possibleHex != null && possibleHex.IsFeatureless())
+										{
+											list.Add(possibleHex);
+										}
+									}
+								},
+								0, 1, false, "Place difficult terrain in a featureless hex"
+							);
+							*/
+							//TODO Teleport ability
+						}
 
-		object subscriber = new object();
-		ScenarioEvents.AbilityStartedEvent.Subscribe(this, subscriber,
-			parameters => parameters.Performer is Monster monster && monster.MonsterModel is CultLeader &&
-			              parameters.AbilityState is MoveAbility.State,
-			async parameters =>
-			{
-				//TODO Teleport ability
+						_currentAltarIndex++;
+						_currentAltarIndex %= _altars.Count;
+						break;
+				}
+				
 				await GDTask.CompletedTask;
 			});
 
