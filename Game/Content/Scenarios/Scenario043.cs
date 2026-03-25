@@ -77,17 +77,13 @@ public class Scenario043 : ScenarioModel
 			{
 				applyParameters.AbilityState.AdjustMoveValue(-1);
 
-				Obstacle obstacle = (await AbilityCmd.SelectHex(applyParameters.Performer, list =>
-				{
-					list.AddRange(RangeHelper.GetHexesInRange(applyParameters.Performer.Hex, 1)
-						.Where(hex => hex.HasHexObjectOfType<Boulder1HObstacle>()));
-				}, mandatory: true, hintText: "Select an obstacle to move")).GetHexObjectOfType<Obstacle>();
+				Hex movedToHex = await AbilityCmd.RelocateOverlayTile(applyParameters.AbilityState,
+					list => list.AddRange(RangeHelper.GetHexesInRange(applyParameters.Performer.Hex, 1)), (boulder, list) =>
+					{
+						list.AddRange(RangeHelper.GetHexesInRange(boulder.Hex, 1)
+							.Where(hex => hex.IsEmpty() || (hex.IsUnoccupied() && hex.GetHexObjectOfType<Trap>() != null)));
+					}, [typeof(Boulder1HObstacle)], "Select a boulder to move");
 
-				Hex movedToHex = await AbilityCmd.MoveOverlayTile(applyParameters.Performer, obstacle, list =>
-				{
-					list.AddRange(RangeHelper.GetHexesInRange(obstacle.Hex, 1)
-						.Where(hex => hex.IsEmpty() || (hex.IsUnoccupied() && hex.GetHexObjectOfType<Trap>() != null)));
-				});
 				movedToHex.GetHexObjectOfType<Trap>()?.Destroy();
 				foreach(Coin coin in movedToHex.GetHexObjectsOfType<Coin>())
 				{

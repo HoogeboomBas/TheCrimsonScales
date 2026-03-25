@@ -1,15 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://03wrj6dvw5hb"]
+[gd_scene format=3 uid="uid://03wrj6dvw5hb"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_c5qgx"]
 [ext_resource type="Script" uid="uid://v1jlv8bckunq" path="res://Scripts/Scenario/HexObjects/Door.cs" id="2_t8aog"]
 [ext_resource type="Texture2D" uid="uid://yy08nv684sxs" path="res://Art/Icons/OverlayTiles/door.png" id="2_vb1s5"]
 [ext_resource type="Texture2D" uid="uid://wimwvbwjm6b5" path="res://Art/Icons/Other/Lock.svg" id="3_qjuhr"]
 
-[node name="Door1H" node_paths=PackedStringArray("_lock") instance=ExtResource("1_c5qgx")]
+[node name="Door1H" unique_id=1807335623 node_paths=PackedStringArray("_lock") instance=ExtResource("1_c5qgx")]
 script = ExtResource("2_t8aog")
 _lock = NodePath("Lock")
 
-[node name="Lock" type="Sprite2D" parent="." index="2"]
+[node name="Lock" type="Sprite2D" parent="." index="2" unique_id=1542851251]
 visible = false
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_qjuhr")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcy0b0q3onk6d"]
+[gd_scene format=3 uid="uid://bcy0b0q3onk6d"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_6mmmh"]
 [ext_resource type="Script" uid="uid://da1rcvg0n87pl" path="res://Scripts/UI/Popups/EquipItemPopup/EquipItemPopupItem.cs" id="1_u0oyw"]
@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="5_dn7v7"]
 [ext_resource type="Texture2D" uid="uid://prsrck177qqc" path="res://Art/Icons/Other/Sell.svg" id="6_0f0wr"]
 
-[node name="EquipItemPopupItem" type="Control" node_paths=PackedStringArray("_itemView", "_betterButton", "_sellButton")]
+[node name="EquipItemPopupItem" type="Control" unique_id=35541008 node_paths=PackedStringArray("_itemView", "_betterButton", "_sellButton")]
 custom_minimum_size = Vector2(270, 413.1)
 layout_mode = 3
 anchors_preset = 0
@@ -16,8 +16,7 @@ _itemView = NodePath("BetterButton/ItemView")
 _betterButton = NodePath("BetterButton")
 _sellButton = NodePath("BetterButton/SellButton/BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1337105755]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -59,6 +58,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -72,9 +72,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 1
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -90,19 +99,20 @@ shortcut_in_tooltip = true
 script = ExtResource("1_6mmmh")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="ItemView" parent="BetterButton" instance=ExtResource("2_u0oyw")]
+[node name="ItemView" parent="BetterButton" unique_id=1560297194 instance=ExtResource("2_u0oyw")]
 custom_minimum_size = Vector2(216, 330.48)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="SellButton" type="Control" parent="BetterButton"]
+[node name="SellButton" type="Control" parent="BetterButton" unique_id=609314518]
 custom_minimum_size = Vector2(80, 80)
-layout_mode = 3
 anchors_preset = 0
 offset_left = 6.0
 offset_top = 167.0
@@ -110,8 +120,7 @@ offset_right = 86.0
 offset_bottom = 247.0
 mouse_filter = 2
 
-[node name="BetterButton" type="BaseButton" parent="BetterButton/SellButton"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="BetterButton/SellButton" unique_id=2067757270]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -153,6 +162,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -166,9 +176,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -184,7 +203,7 @@ shortcut_in_tooltip = true
 script = ExtResource("1_6mmmh")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Panel" type="Panel" parent="BetterButton/SellButton/BetterButton"]
+[node name="Panel" type="Panel" parent="BetterButton/SellButton/BetterButton" unique_id=231243738]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -194,7 +213,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("5_dn7v7")
 
-[node name="MarginContainer" type="MarginContainer" parent="BetterButton/SellButton/BetterButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="BetterButton/SellButton/BetterButton/Panel" unique_id=987234870]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -206,7 +225,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="BetterButton/SellButton/BetterButton/Panel/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="BetterButton/SellButton/BetterButton/Panel/MarginContainer" unique_id=1941285350]
 layout_mode = 2
 texture = ExtResource("6_0f0wr")
 expand_mode = 1

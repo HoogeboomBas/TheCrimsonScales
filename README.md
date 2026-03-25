@@ -1,5 +1,5 @@
 # The Crimson Scales
-Digital implementation of The Crimson Scales, a fanmade expansion for Gloomhaven.
+Digital implementation of The Crimson Scales, a fan-made expansion for Gloomhaven.
 
 ## Project Description
 The Crimson Scales goes Digital!
@@ -11,7 +11,7 @@ Available for both Windows and Android, you can play from the comfort of your co
 ## Installation
 Builds can be downloaded on [itch.io](https://bas-hoogeboom.itch.io/the-crimson-scales).
 
-Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.4.1 .NET with C# support.
+Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.6.1 .NET with C# support.
 
 ## Contributing
 
@@ -30,6 +30,10 @@ The Crimson Scales was created by various creators. The creators whose contribut
 - Themris
 - Dareth
 
+The game also contains custom content contributions from the following creators:
+- Satire Gaming
+- General CGO
+
 The Music and Sound Effects are the property of various artists, including but not limited to:
 - thomas devlin
 - Fictium Sound Design
@@ -38,13 +42,13 @@ The Music and Sound Effects are the property of various artists, including but n
 - Robinhood76
 
 These pieces of Audio are licensed to be used for this product specifically, and cannot be used in other games or products.
-They have been removed from the repo to make sure they're not misused. The game still works without them.
+They have been removed from the repository to make sure they're not misused. The game still works without them.
 
 Included are the following plugins created by various authors, used under the MIT License:
 - [GDTask](https://github.com/Fractural/GDTask)
 - [GTweensGodot](https://github.com/Guillemsc/GTweensGodot)
 
-Contributors:
+Code/content contributors:
 - Sergey Burgsdorf
 - NastoK
 - Saahil Herrero

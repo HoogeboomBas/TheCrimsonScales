@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cu7lldywedgaj"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://cu7lldywedgaj"]
 
 [ext_resource type="Texture2D" uid="uid://di3gvdh16xmqi" path="res://Content/Classes/Chieftain/Summons/sabretooth_tiger.png" id="1_c4vvg"]
 

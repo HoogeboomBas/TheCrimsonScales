@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://q1xxtqo7j5w2"]
+[gd_scene format=3 uid="uid://q1xxtqo7j5w2"]
 
 [ext_resource type="PackedScene" uid="uid://c8tg7vd242b32" path="res://Scenes/Scenario/UI/EffectButtons/_EffectButton.tscn" id="1_1hc4j"]
 [ext_resource type="Script" uid="uid://btpq5i7nh3aun" path="res://Scripts/Scenario/UI/EffectSelectionView/TextEffectButton.cs" id="2_1hc4j"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="3_1hc4j"]
 
-[node name="TextEffectButton" node_paths=PackedStringArray("_label", "_button", "_panel") instance=ExtResource("1_1hc4j")]
+[node name="TextEffectButton" unique_id=1533751126 node_paths=PackedStringArray("_label", "_button", "_panel") instance=ExtResource("1_1hc4j")]
 script = ExtResource("2_1hc4j")
 _label = NodePath("BetterButton/Panel/MarginContainer/RichTextLabel")
 _button = NodePath("BetterButton")
 _panel = NodePath("BetterButton/Panel")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="BetterButton/Panel/MarginContainer" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(500216647) index="0" unique_id=90956792]
 layout_mode = 2
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_1hc4j")

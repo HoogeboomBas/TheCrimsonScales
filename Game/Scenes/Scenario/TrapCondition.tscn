@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2dbtcdimvw4l"]
+[gd_scene format=3 uid="uid://d2dbtcdimvw4l"]
 
 [ext_resource type="Script" uid="uid://dsja5echn6ba2" path="res://Scripts/Scenario/TrapCondition.cs" id="1_jsf8m"]
 [ext_resource type="PackedScene" uid="uid://b3yfqgp66ss0d" path="res://Scenes/UI/ConditionView.tscn" id="2_mkg7x"]
 
-[node name="TrapCondition" type="Node2D" node_paths=PackedStringArray("_conditionView")]
+[node name="TrapCondition" type="Node2D" unique_id=902854082 node_paths=PackedStringArray("_conditionView")]
 script = ExtResource("1_jsf8m")
 _conditionView = NodePath("Container/ConditionView")
 
-[node name="Container" type="Node2D" parent="."]
+[node name="Container" type="Node2D" parent="." unique_id=125210556]
 
-[node name="ConditionView" parent="Container" instance=ExtResource("2_mkg7x")]
+[node name="ConditionView" parent="Container" unique_id=236099325 instance=ExtResource("2_mkg7x")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

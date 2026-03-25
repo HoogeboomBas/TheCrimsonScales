@@ -1,20 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://t14ndn3kkfwm"]
+[gd_scene format=3 uid="uid://t14ndn3kkfwm"]
 
 [ext_resource type="PackedScene" uid="uid://cj61uqdsa6bkt" path="res://Scenes/Scenario/UI/InfoView/FigureInfoItem.tscn" id="1_n7ij5"]
 [ext_resource type="Script" uid="uid://di5g5xfptm74k" path="res://Scripts/Scenario/UI/InfoView/CharacterInfoItem.cs" id="1_sdeou"]
 [ext_resource type="PackedScene" uid="uid://dbuph6sax0stv" path="res://Scenes/Scenario/UI/InfoView/InfoStat.tscn" id="3_gmqkp"]
 [ext_resource type="Texture2D" uid="uid://dupjq43l8w40r" path="res://Art/Icons/Other/Coins.svg" id="5_0kgou"]
+[ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="6_ncvji"]
 [ext_resource type="Texture2D" uid="uid://xcevbjw5n8no" path="res://Art/Icons/Abilities/XP.svg" id="6_v6jv0"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="7_6rkmb"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="8_0gvp2"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="9_ihr84"]
 
-[node name="CharacterInfoItem" node_paths=PackedStringArray("_coinsLabel", "_xpLabel") instance=ExtResource("1_n7ij5")]
+[sub_resource type="LabelSettings" id="LabelSettings_fume0"]
+font = ExtResource("9_ihr84")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_fsxtf"]
+font = ExtResource("9_ihr84")
+font_size = 30
+
+[node name="CharacterInfoItem" unique_id=1388247593 node_paths=PackedStringArray("_coinsLabel", "_xpLabel", "_battleGoalContainer", "_battleGoalTextLabel", "_battleGoalProgressBar") instance=ExtResource("1_n7ij5")]
 script = ExtResource("1_sdeou")
 _coinsLabel = NodePath("MarginContainer/Content/Container/Stats/Coins/Label")
 _xpLabel = NodePath("MarginContainer/Content/Container/Stats/XP/Label")
+_battleGoalContainer = NodePath("MarginContainer/Content/BattleGoal")
+_battleGoalTextLabel = NodePath("MarginContainer/Content/BattleGoal/Text")
+_battleGoalProgressBar = NodePath("MarginContainer/Content/BattleGoal/ProgressBar")
 
-[node name="LabelContainer" parent="MarginContainer/Content" index="0"]
+[node name="LabelContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="0" unique_id=520630334]
 custom_minimum_size = Vector2(310, 47)
 
-[node name="Coins" parent="MarginContainer/Content/Container/Stats" index="1" instance=ExtResource("3_gmqkp")]
+[node name="Coins" parent="MarginContainer/Content/Container/Stats" index="1" unique_id=232145125 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
 [node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Coins" index="0"]
@@ -23,7 +38,7 @@ texture = ExtResource("5_0kgou")
 [node name="Label" parent="MarginContainer/Content/Container/Stats/Coins" index="1"]
 text = "3"
 
-[node name="XP" parent="MarginContainer/Content/Container/Stats" index="2" instance=ExtResource("3_gmqkp")]
+[node name="XP" parent="MarginContainer/Content/Container/Stats" index="2" unique_id=301992874 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
 [node name="TextureRect" parent="MarginContainer/Content/Container/Stats/XP" index="0"]
@@ -32,8 +47,40 @@ texture = ExtResource("6_v6jv0")
 [node name="Label" parent="MarginContainer/Content/Container/Stats/XP" index="1"]
 text = "3"
 
+[node name="BattleGoal" type="VBoxContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=886646671]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/Content/BattleGoal" index="0" unique_id=193649202]
+layout_mode = 2
+text = "Battle Goal:"
+label_settings = ExtResource("6_ncvji")
+
+[node name="Text" type="RichTextLabel" parent="MarginContainer/Content/BattleGoal" index="1" unique_id=643490723]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("7_6rkmb")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Never allow your current hit point value to drop below half your maximum hit point value (rounded up) during the scenario."
+fit_content = true
+
+[node name="ProgressBar" parent="MarginContainer/Content/BattleGoal" index="2" unique_id=113775312 instance=ExtResource("8_0gvp2")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ProgressBar" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="1"]
+self_modulate = Color(0.360127, 0.481895, 0.749454, 1)
+
+[node name="Label" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="2"]
+text = "Progress"
+label_settings = SubResource("LabelSettings_fume0")
+
+[node name="Amount" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="3"]
+text = "1/1"
+label_settings = SubResource("LabelSettings_fsxtf")
+
 [editable path="MarginContainer/Content/Container/Stats/Health"]
 [editable path="MarginContainer/Content/Container/Stats/Coins"]
 [editable path="MarginContainer/Content/Container/Stats/XP"]
 [editable path="MarginContainer/Content/Effects/Conditions"]
 [editable path="MarginContainer/Content/Effects/Applies"]
+[editable path="MarginContainer/Content/BattleGoal/ProgressBar"]

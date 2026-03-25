@@ -116,33 +116,24 @@ public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: -1,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-			]),
-			abilityStartedSubscriptions:
-			[
-				ConsumeElementCheckSubscription<ScenarioEvents.AbilityStarted.Parameters>(monster, [Element.Fire],
-					canApplyFunction: parameters => parameters.AbilityState is AttackAbility.State,
-					applyFunction: async parameters =>
-					{
-						AttackAbility.State attackAbilityState = (AttackAbility.State)parameters.AbilityState;
-						attackAbilityState.AbilityAdjustAttackValue(2);
-						attackAbilityState.AbilitySetAOEPattern(new AOEPattern([
-							new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-							new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-							new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-							new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-							new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-						]));
-
-						await GDTask.CompletedTask;
-					}
-				)
-			]
+			extraDamage: new(state => monster.Stats.Attack + (CheckElementConsumed(monster, [Element.Fire]) ? +1 : -1)),
+			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
+				new AOEPattern(
+				[
+					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+					new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
+					new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
+					new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
+					new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
+				]) :
+				new AOEPattern(
+				[
+					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+					new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
+					new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
+					new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
+				])
+			)
 		)),
 	];
 
@@ -158,18 +149,8 @@ public class FlamingDrakeAbilityCard5 : FlamingDrakeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0,
-			duringAttackSubscriptions:
-			[
-				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Fire],
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.SingleTargetAdjustRange(2);
-
-						await GDTask.CompletedTask;
-					}
-				)
-			]
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, extraRange: 
+			new(() => CheckElementConsumed(monster, [Element.Fire]) ? 2 : 0)
 		)),
 	];
 

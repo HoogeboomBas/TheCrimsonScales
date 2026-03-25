@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cku1wnmetv8x3"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://cku1wnmetv8x3"]
 
 [ext_resource type="Texture2D" uid="uid://dpl4f2ym7v0v2" path="res://Content/Monsters/DeepTerror/Icon.jpg" id="1_lkt4e"]
 

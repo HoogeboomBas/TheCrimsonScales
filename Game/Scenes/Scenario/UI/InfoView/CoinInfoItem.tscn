@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://chmi5yfjboek4"]
+[gd_scene format=3 uid="uid://chmi5yfjboek4"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_2r04v"]
 [ext_resource type="Script" uid="uid://hddv16t7jbiy" path="res://Scripts/Scenario/UI/InfoView/CoinInfoItem.cs" id="1_edvwe"]
@@ -9,19 +9,19 @@
 font = ExtResource("4_strf0")
 font_size = 50
 
-[node name="CoinInfoItem" node_paths=PackedStringArray("_coinCountLabel") instance=ExtResource("1_2r04v")]
+[node name="CoinInfoItem" unique_id=529993554 node_paths=PackedStringArray("_coinCountLabel") instance=ExtResource("1_2r04v")]
 script = ExtResource("1_edvwe")
 _coinCountLabel = NodePath("MarginContainer/Content/Container/Label")
 
-[node name="Label" parent="MarginContainer/Content/LabelContainer" index="0"]
+[node name="Label" parent="MarginContainer/Content/LabelContainer" parent_id_path=PackedInt32Array(520630334) index="0" unique_id=1652435008]
 text = "Coins"
 
-[node name="Container" type="Control" parent="MarginContainer/Content" index="1"]
+[node name="Container" type="Control" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=1152565727]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CoinSprite" type="TextureRect" parent="MarginContainer/Content/Container" index="0"]
+[node name="CoinSprite" type="TextureRect" parent="MarginContainer/Content/Container" index="0" unique_id=2098638404]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,7 +38,7 @@ mouse_filter = 2
 texture = ExtResource("1_q440r")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="MarginContainer/Content/Container" index="1"]
+[node name="Label" type="Label" parent="MarginContainer/Content/Container" index="1" unique_id=2119231898]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

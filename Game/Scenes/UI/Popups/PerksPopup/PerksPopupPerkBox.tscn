@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1e27svta2n7m"]
+[gd_scene format=3 uid="uid://d1e27svta2n7m"]
 
 [ext_resource type="Script" uid="uid://t60y8p0ntep4" path="res://Scripts/UI/Popups/PerksPopup/PerksPopupPerkBox.cs" id="1_xj6q2"]
 [ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="2_2ybgm"]
@@ -15,7 +15,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="PerksPopupPerkBox" type="Control" node_paths=PackedStringArray("_checkmark")]
+[node name="PerksPopupPerkBox" type="Control" unique_id=1921719728 node_paths=PackedStringArray("_checkmark")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 3
 anchors_preset = 0
@@ -23,7 +23,7 @@ mouse_filter = 2
 script = ExtResource("1_xj6q2")
 _checkmark = NodePath("Outline/Checkmark")
 
-[node name="Outline" type="Panel" parent="."]
+[node name="Outline" type="Panel" parent="." unique_id=530560045]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
 anchors_preset = 15
@@ -34,7 +34,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lxurl")
 
-[node name="Checkmark" type="TextureRect" parent="Outline"]
+[node name="Checkmark" type="TextureRect" parent="Outline" unique_id=550338384]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

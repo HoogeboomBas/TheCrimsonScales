@@ -36,11 +36,18 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 			.Build();
 	}
 
-	public static AttackAbility AttackAbility(Monster monster,
-		int? extraDamage, DynamicInt<AttackAbility.State>.GetValueDelegate dynamicValue = null, int extraRange = 0,
-		int targets = 1, int? range = null, RangeType? rangeType = null, Target target = Target.Enemies,
-		Hex targetHex = null, bool requiresLineOfSight = true,
-		AOEPattern aoePattern = null, int push = 0, int pull = 0, int swing = 0, DynamicInt<AttackAbility.State> pierce = null,
+	public static AttackAbility AttackAbility(Monster monster, 
+		DynamicInt<AttackAbility.State> extraDamage, 
+		DynamicInt targets = null,
+		DynamicInt range = null, 
+		DynamicInt extraRange = null,
+		DynamicRangeType rangeType = null, 
+		DynamicTarget target = null,
+		Hex targetHex = null, 
+		bool requiresLineOfSight = true,
+		DynamicAOEPattern aoePattern = null, 
+		int push = 0, int pull = 0, int swing = 0, 
+		DynamicInt<AttackAbility.State> pierce = null,
 		ConditionModel[] conditions = null,
 		Action<AttackAbility.State, List<Figure>> customGetTargets = null,
 		Ability<AttackAbility.State>.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
@@ -49,22 +56,24 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 		List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
 		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
 	{
-		DynamicInt<AttackAbility.State> dynamicAttackValue =
-			new DynamicInt<AttackAbility.State>(extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, dynamicValue);
-		//Monster monster = (Monster)parameters.Performer;
-		int finalRange = range ?? ((monster.Stats.Range ?? 1) + extraRange);
-		RangeType finalRangeType =
-			rangeType ??
-			(aoePattern != null && aoePattern.LocalHexes.Any(hex => hex.Type.HasFlag(AOEHexType.Gray))
-				? RangeType.Melee
-				: (finalRange > 1 ? RangeType.Range : monster.Stats.RangeType));
+		DynamicInt<AttackAbility.State> dynamicAttackValue = new(state => monster.Stats.Attack + extraDamage.GetValue(state));
+		DynamicInt dynamicTargets = targets ?? 1;
+		DynamicTarget dynamicTarget = target ?? Target.Enemies;
+
+		int defaultRange = monster.Stats.Range ?? 1;
+		DynamicInt dynamicRange = range ?? new(() => defaultRange + (extraRange?.GetValue() ?? 0));
+		DynamicRangeType dynamicRangeType = 
+			rangeType ?? new(() =>
+				aoePattern != null && aoePattern.GetValue().LocalHexes.Any(hex => hex.Type == AOEHexType.Gray)
+					? RangeType.Melee
+					: (dynamicRange.GetValue() > 1 ? RangeType.Range : monster.Stats.RangeType));
 
 		return global::AttackAbility.Builder()
-			.WithDamage(dynamicAttackValue) //extraDamage.HasValue ? monster.Stats.Attack + extraDamage.Value : null, getValue: getValue,
-			.WithTargets(targets)
-			.WithRange(finalRange)
-			.WithRangeType(finalRangeType)
-			.WithTarget(target)
+			.WithDamage(dynamicAttackValue)
+			.WithTargets(dynamicTargets)
+			.WithRange(dynamicRange)
+			.WithRangeType(dynamicRangeType)
+			.WithTarget(dynamicTarget)
 			.WithTargetHex(targetHex)
 			.WithRequiresLineOfSight(requiresLineOfSight)
 			.WithAOEPattern(aoePattern)

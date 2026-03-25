@@ -1,7 +1,7 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d2r5s6m6dkg61"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dtjs3qdgw8p8t"]
 
-[ext_resource type="Texture2D" uid="uid://bwjeq8hdt1q4q" path="res://Content/Items/Prosperity4/SpriteSheet.jpg" id="1_lwadn"]
+[ext_resource type="Texture2D" uid="uid://c36gmlce480yb" path="res://Content/Items/Prosperity4/JadeFalcon.png" id="1_0431s"]
 
 [resource]
-atlas = ExtResource("1_lwadn")
-region = Rect2(1170, 1788, 200, 200)
+atlas = ExtResource("1_0431s")
+region = Rect2(0, 20, 740, 740)

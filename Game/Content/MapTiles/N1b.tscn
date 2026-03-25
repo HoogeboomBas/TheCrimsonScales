@@ -1,169 +1,169 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnvas7tg6cxnt"]
+[gd_scene format=3 uid="uid://dnvas7tg6cxnt"]
 
 [ext_resource type="PackedScene" uid="uid://bdmmng80jwujv" path="res://Scenes/Scenario/MapTile.tscn" id="1_2a2c3"]
 [ext_resource type="Texture2D" uid="uid://cor7atmdxte3k" path="res://Art/MapTiles/N1b-Man-Made Stone - D.png" id="2_2a2c3"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_vlqe7"]
 
-[node name="N1a" instance=ExtResource("1_2a2c3")]
+[node name="N1a" unique_id=2135176192 instance=ExtResource("1_2a2c3")]
 StepType = 1
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_2a2c3")
 
-[node name="Hex" parent="Hexes" index="0" instance=ExtResource("3_vlqe7")]
-position = Vector2(-327.358, -567)
+[node name="Hex" parent="Hexes" index="0" unique_id=324731750 instance=ExtResource("3_vlqe7")]
+position = Vector2(-327.35757, -567)
 
-[node name="Hex33" parent="Hexes" index="1" instance=ExtResource("3_vlqe7")]
-position = Vector2(-545.596, -567)
+[node name="Hex33" parent="Hexes" index="1" unique_id=1750580520 instance=ExtResource("3_vlqe7")]
+position = Vector2(-545.59595, -567)
 
-[node name="Hex34" parent="Hexes" index="2" instance=ExtResource("3_vlqe7")]
-position = Vector2(-763.834, -567)
+[node name="Hex34" parent="Hexes" index="2" unique_id=1872970051 instance=ExtResource("3_vlqe7")]
+position = Vector2(-763.8344, -567)
 
-[node name="Hex2" parent="Hexes" index="3" instance=ExtResource("3_vlqe7")]
-position = Vector2(-218.238, -378)
+[node name="Hex2" parent="Hexes" index="3" unique_id=1486127962 instance=ExtResource("3_vlqe7")]
+position = Vector2(-218.2384, -378)
 
-[node name="Hex3" parent="Hexes" index="4" instance=ExtResource("3_vlqe7")]
+[node name="Hex3" parent="Hexes" index="4" unique_id=1980450444 instance=ExtResource("3_vlqe7")]
 position = Vector2(0, -378)
 
-[node name="Hex4" parent="Hexes" index="5" instance=ExtResource("3_vlqe7")]
-position = Vector2(218.238, -378)
+[node name="Hex4" parent="Hexes" index="5" unique_id=1237207450 instance=ExtResource("3_vlqe7")]
+position = Vector2(218.2384, -378)
 
-[node name="Hex5" parent="Hexes" index="6" instance=ExtResource("3_vlqe7")]
-position = Vector2(436.477, -378)
+[node name="Hex5" parent="Hexes" index="6" unique_id=1692570363 instance=ExtResource("3_vlqe7")]
+position = Vector2(436.47678, -378)
 
-[node name="Hex6" parent="Hexes" index="7" instance=ExtResource("3_vlqe7")]
-position = Vector2(109.119, -567)
+[node name="Hex6" parent="Hexes" index="7" unique_id=315690059 instance=ExtResource("3_vlqe7")]
+position = Vector2(109.11921, -567)
 
-[node name="Hex7" parent="Hexes" index="8" instance=ExtResource("3_vlqe7")]
-position = Vector2(545.596, -189)
+[node name="Hex7" parent="Hexes" index="8" unique_id=1729021335 instance=ExtResource("3_vlqe7")]
+position = Vector2(545.59595, -189)
 
-[node name="Hex8" parent="Hexes" index="9" instance=ExtResource("3_vlqe7")]
-position = Vector2(327.358, -189)
+[node name="Hex8" parent="Hexes" index="9" unique_id=472548914 instance=ExtResource("3_vlqe7")]
+position = Vector2(327.35757, -189)
 
-[node name="Hex9" parent="Hexes" index="10" instance=ExtResource("3_vlqe7")]
-position = Vector2(109.119, -189)
+[node name="Hex9" parent="Hexes" index="10" unique_id=2137342676 instance=ExtResource("3_vlqe7")]
+position = Vector2(109.1192, -189)
 
-[node name="Hex10" parent="Hexes" index="11" instance=ExtResource("3_vlqe7")]
-position = Vector2(-109.119, -189)
+[node name="Hex10" parent="Hexes" index="11" unique_id=263397607 instance=ExtResource("3_vlqe7")]
+position = Vector2(-109.1192, -189)
 
-[node name="Hex11" parent="Hexes" index="12" instance=ExtResource("3_vlqe7")]
-position = Vector2(-327.358, -189)
+[node name="Hex11" parent="Hexes" index="12" unique_id=475181713 instance=ExtResource("3_vlqe7")]
+position = Vector2(-327.35757, -189)
 
-[node name="Hex12" parent="Hexes" index="13" instance=ExtResource("3_vlqe7")]
-position = Vector2(-109.119, -567)
+[node name="Hex12" parent="Hexes" index="13" unique_id=1761073746 instance=ExtResource("3_vlqe7")]
+position = Vector2(-109.119194, -567)
 
-[node name="Hex13" parent="Hexes" index="14" instance=ExtResource("3_vlqe7")]
-position = Vector2(-218.238, 0)
+[node name="Hex13" parent="Hexes" index="14" unique_id=1549743904 instance=ExtResource("3_vlqe7")]
+position = Vector2(-218.2384, 0)
 
-[node name="Hex14" parent="Hexes" index="15" instance=ExtResource("3_vlqe7")]
+[node name="Hex14" parent="Hexes" index="15" unique_id=149034965 instance=ExtResource("3_vlqe7")]
 
-[node name="Hex15" parent="Hexes" index="16" instance=ExtResource("3_vlqe7")]
-position = Vector2(218.238, 0)
+[node name="Hex15" parent="Hexes" index="16" unique_id=1537856338 instance=ExtResource("3_vlqe7")]
+position = Vector2(218.2384, 0)
 
-[node name="Hex16" parent="Hexes" index="17" instance=ExtResource("3_vlqe7")]
-position = Vector2(436.477, 0)
+[node name="Hex16" parent="Hexes" index="17" unique_id=250995353 instance=ExtResource("3_vlqe7")]
+position = Vector2(436.4768, 0)
 
-[node name="Hex17" parent="Hexes" index="18" instance=ExtResource("3_vlqe7")]
-position = Vector2(327.358, -567)
+[node name="Hex17" parent="Hexes" index="18" unique_id=1737341236 instance=ExtResource("3_vlqe7")]
+position = Vector2(327.35757, -567)
 
-[node name="Hex18" parent="Hexes" index="19" instance=ExtResource("3_vlqe7")]
-position = Vector2(545.596, 189)
+[node name="Hex18" parent="Hexes" index="19" unique_id=434827710 instance=ExtResource("3_vlqe7")]
+position = Vector2(545.59595, 189)
 
-[node name="Hex19" parent="Hexes" index="20" instance=ExtResource("3_vlqe7")]
-position = Vector2(327.358, 189)
+[node name="Hex19" parent="Hexes" index="20" unique_id=794025473 instance=ExtResource("3_vlqe7")]
+position = Vector2(327.35757, 189)
 
-[node name="Hex20" parent="Hexes" index="21" instance=ExtResource("3_vlqe7")]
-position = Vector2(109.119, 189)
+[node name="Hex20" parent="Hexes" index="21" unique_id=305075091 instance=ExtResource("3_vlqe7")]
+position = Vector2(109.1192, 189)
 
-[node name="Hex21" parent="Hexes" index="22" instance=ExtResource("3_vlqe7")]
-position = Vector2(-109.119, 189)
+[node name="Hex21" parent="Hexes" index="22" unique_id=112503595 instance=ExtResource("3_vlqe7")]
+position = Vector2(-109.1192, 189)
 
-[node name="Hex22" parent="Hexes" index="23" instance=ExtResource("3_vlqe7")]
-position = Vector2(-327.358, 189)
+[node name="Hex22" parent="Hexes" index="23" unique_id=878256906 instance=ExtResource("3_vlqe7")]
+position = Vector2(-327.35757, 189)
 
-[node name="Hex23" parent="Hexes" index="24" instance=ExtResource("3_vlqe7")]
-position = Vector2(-327.358, 567)
+[node name="Hex23" parent="Hexes" index="24" unique_id=728123192 instance=ExtResource("3_vlqe7")]
+position = Vector2(-327.35757, 567)
 
-[node name="Hex24" parent="Hexes" index="25" instance=ExtResource("3_vlqe7")]
-position = Vector2(-218.238, 378)
+[node name="Hex24" parent="Hexes" index="25" unique_id=1179333248 instance=ExtResource("3_vlqe7")]
+position = Vector2(-218.2384, 378)
 
-[node name="Hex25" parent="Hexes" index="26" instance=ExtResource("3_vlqe7")]
+[node name="Hex25" parent="Hexes" index="26" unique_id=713348228 instance=ExtResource("3_vlqe7")]
 position = Vector2(0, 378)
 
-[node name="Hex26" parent="Hexes" index="27" instance=ExtResource("3_vlqe7")]
-position = Vector2(218.238, 378)
+[node name="Hex26" parent="Hexes" index="27" unique_id=894410204 instance=ExtResource("3_vlqe7")]
+position = Vector2(218.2384, 378)
 
-[node name="Hex27" parent="Hexes" index="28" instance=ExtResource("3_vlqe7")]
-position = Vector2(436.477, 378)
+[node name="Hex27" parent="Hexes" index="28" unique_id=287603406 instance=ExtResource("3_vlqe7")]
+position = Vector2(436.4768, 378)
 
-[node name="Hex28" parent="Hexes" index="29" instance=ExtResource("3_vlqe7")]
-position = Vector2(545.596, -567)
+[node name="Hex28" parent="Hexes" index="29" unique_id=1442752878 instance=ExtResource("3_vlqe7")]
+position = Vector2(545.59595, -567)
 
-[node name="Hex29" parent="Hexes" index="30" instance=ExtResource("3_vlqe7")]
-position = Vector2(-109.119, 567)
+[node name="Hex29" parent="Hexes" index="30" unique_id=909834066 instance=ExtResource("3_vlqe7")]
+position = Vector2(-109.11921, 567)
 
-[node name="Hex30" parent="Hexes" index="31" instance=ExtResource("3_vlqe7")]
-position = Vector2(109.119, 567)
+[node name="Hex30" parent="Hexes" index="31" unique_id=1601654078 instance=ExtResource("3_vlqe7")]
+position = Vector2(109.119194, 567)
 
-[node name="Hex31" parent="Hexes" index="32" instance=ExtResource("3_vlqe7")]
-position = Vector2(327.358, 567)
+[node name="Hex31" parent="Hexes" index="32" unique_id=1960950541 instance=ExtResource("3_vlqe7")]
+position = Vector2(327.35757, 567)
 
-[node name="Hex32" parent="Hexes" index="33" instance=ExtResource("3_vlqe7")]
-position = Vector2(545.596, 567)
+[node name="Hex32" parent="Hexes" index="33" unique_id=1921275961 instance=ExtResource("3_vlqe7")]
+position = Vector2(545.59595, 567)
 
-[node name="Hex35" parent="Hexes" index="34" instance=ExtResource("3_vlqe7")]
-position = Vector2(763.834, 567)
+[node name="Hex35" parent="Hexes" index="34" unique_id=1618603558 instance=ExtResource("3_vlqe7")]
+position = Vector2(763.8344, 567)
 
-[node name="Hex36" parent="Hexes" index="35" instance=ExtResource("3_vlqe7")]
-position = Vector2(654.715, 378)
+[node name="Hex36" parent="Hexes" index="35" unique_id=1688872282 instance=ExtResource("3_vlqe7")]
+position = Vector2(654.71515, 378)
 
-[node name="Hex37" parent="Hexes" index="36" instance=ExtResource("3_vlqe7")]
-position = Vector2(763.834, 189)
+[node name="Hex37" parent="Hexes" index="36" unique_id=788408486 instance=ExtResource("3_vlqe7")]
+position = Vector2(763.8344, 189)
 
-[node name="Hex38" parent="Hexes" index="37" instance=ExtResource("3_vlqe7")]
-position = Vector2(654.715, 0)
+[node name="Hex38" parent="Hexes" index="37" unique_id=967215774 instance=ExtResource("3_vlqe7")]
+position = Vector2(654.71515, 0)
 
-[node name="Hex39" parent="Hexes" index="38" instance=ExtResource("3_vlqe7")]
-position = Vector2(763.834, -189)
+[node name="Hex39" parent="Hexes" index="38" unique_id=1359695638 instance=ExtResource("3_vlqe7")]
+position = Vector2(763.8344, -189)
 
-[node name="Hex40" parent="Hexes" index="39" instance=ExtResource("3_vlqe7")]
-position = Vector2(654.715, -378)
+[node name="Hex40" parent="Hexes" index="39" unique_id=562581797 instance=ExtResource("3_vlqe7")]
+position = Vector2(654.71515, -378)
 
-[node name="Hex41" parent="Hexes" index="40" instance=ExtResource("3_vlqe7")]
-position = Vector2(763.834, -567)
+[node name="Hex41" parent="Hexes" index="40" unique_id=2130660320 instance=ExtResource("3_vlqe7")]
+position = Vector2(763.8344, -567)
 
-[node name="Hex42" parent="Hexes" index="41" instance=ExtResource("3_vlqe7")]
-position = Vector2(-436.477, -378)
+[node name="Hex42" parent="Hexes" index="41" unique_id=341022029 instance=ExtResource("3_vlqe7")]
+position = Vector2(-436.4768, -378)
 
-[node name="Hex43" parent="Hexes" index="42" instance=ExtResource("3_vlqe7")]
-position = Vector2(-654.715, -378)
+[node name="Hex43" parent="Hexes" index="42" unique_id=1147607121 instance=ExtResource("3_vlqe7")]
+position = Vector2(-654.71515, -378)
 
-[node name="Hex44" parent="Hexes" index="43" instance=ExtResource("3_vlqe7")]
-position = Vector2(-545.596, -189)
+[node name="Hex44" parent="Hexes" index="43" unique_id=1195495223 instance=ExtResource("3_vlqe7")]
+position = Vector2(-545.59595, -189)
 
-[node name="Hex45" parent="Hexes" index="44" instance=ExtResource("3_vlqe7")]
-position = Vector2(-763.834, -189)
+[node name="Hex45" parent="Hexes" index="44" unique_id=637158127 instance=ExtResource("3_vlqe7")]
+position = Vector2(-763.8344, -189)
 
-[node name="Hex46" parent="Hexes" index="45" instance=ExtResource("3_vlqe7")]
-position = Vector2(-654.715, 0)
+[node name="Hex46" parent="Hexes" index="45" unique_id=1622465909 instance=ExtResource("3_vlqe7")]
+position = Vector2(-654.71515, 0)
 
-[node name="Hex47" parent="Hexes" index="46" instance=ExtResource("3_vlqe7")]
-position = Vector2(-436.477, 0)
+[node name="Hex47" parent="Hexes" index="46" unique_id=1739876736 instance=ExtResource("3_vlqe7")]
+position = Vector2(-436.4768, 0)
 
-[node name="Hex48" parent="Hexes" index="47" instance=ExtResource("3_vlqe7")]
-position = Vector2(-545.596, 189)
+[node name="Hex48" parent="Hexes" index="47" unique_id=1275683612 instance=ExtResource("3_vlqe7")]
+position = Vector2(-545.59595, 189)
 
-[node name="Hex49" parent="Hexes" index="48" instance=ExtResource("3_vlqe7")]
-position = Vector2(-763.834, 189)
+[node name="Hex49" parent="Hexes" index="48" unique_id=1624725256 instance=ExtResource("3_vlqe7")]
+position = Vector2(-763.8344, 189)
 
-[node name="Hex50" parent="Hexes" index="49" instance=ExtResource("3_vlqe7")]
-position = Vector2(-654.715, 378)
+[node name="Hex50" parent="Hexes" index="49" unique_id=1171269446 instance=ExtResource("3_vlqe7")]
+position = Vector2(-654.71515, 378)
 
-[node name="Hex51" parent="Hexes" index="50" instance=ExtResource("3_vlqe7")]
-position = Vector2(-436.477, 378)
+[node name="Hex51" parent="Hexes" index="50" unique_id=1456947007 instance=ExtResource("3_vlqe7")]
+position = Vector2(-436.47678, 378)
 
-[node name="Hex52" parent="Hexes" index="51" instance=ExtResource("3_vlqe7")]
-position = Vector2(-545.596, 567)
+[node name="Hex52" parent="Hexes" index="51" unique_id=531949360 instance=ExtResource("3_vlqe7")]
+position = Vector2(-545.59595, 567)
 
-[node name="Hex53" parent="Hexes" index="52" instance=ExtResource("3_vlqe7")]
-position = Vector2(-763.834, 567)
+[node name="Hex53" parent="Hexes" index="52" unique_id=1252390505 instance=ExtResource("3_vlqe7")]
+position = Vector2(-763.8344, 567)

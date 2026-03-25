@@ -16,7 +16,7 @@ public class ClampingSnare : ChainguardLevelUpCardModel<ClampingSnare.CardTop, C
 			new AbilityCardAbility(CreateTrapAbility.Builder()
 				.WithDamage(5)
 				.WithConditions(Conditions.Muddle)
-				.WithCustomAsset("res://Content/Classes/Chainguard/Traps/ChainguardTrap.tscn")
+				.WithCustomAsset("res://Content/Classes/Chainguard/Traps/ChainguardRopeTrap.tscn")
 				.Build()),
 
 			new AbilityCardAbility(OtherActiveAbility.Builder()

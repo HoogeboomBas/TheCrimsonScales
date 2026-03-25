@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://xs8l57cv4p01"]
+[gd_scene format=3 uid="uid://xs8l57cv4p01"]
 
 [ext_resource type="Script" uid="uid://bevgd4dcfmxhw" path="res://Scripts/UI/Popups/TemporaryAMDCardsPopup/TemporaryAMDCardsPopupCard.cs" id="1_2b2kg"]
 [ext_resource type="PackedScene" uid="uid://qdtbf6gtmw42" path="res://Scenes/Scenario/UI/AMDCardView.tscn" id="2_qjyet"]
 
-[node name="TemporaryAMDCardPopupCard" type="Control" node_paths=PackedStringArray("_amdCardView")]
+[node name="TemporaryAMDCardPopupCard" type="Control" unique_id=1800805752 node_paths=PackedStringArray("_amdCardView")]
 custom_minimum_size = Vector2(360, 240)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_2b2kg")
 _amdCardView = NodePath("AMDCardView")
 
-[node name="AMDCardView" parent="." instance=ExtResource("2_qjyet")]
+[node name="AMDCardView" parent="." unique_id=1123500003 instance=ExtResource("2_qjyet")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

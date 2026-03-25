@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbhgpdqo6w0ho"]
+[gd_scene format=3 uid="uid://dbhgpdqo6w0ho"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_tttxl"]
 [ext_resource type="Texture2D" uid="uid://d341q27gwcsrp" path="res://Art/OverlayTiles/Crystal 1h.png" id="2_q76y0"]
 
-[node name="Crystal1H" instance=ExtResource("1_tttxl")]
+[node name="Crystal1H" unique_id=1554551941 instance=ExtResource("1_tttxl")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_q76y0")

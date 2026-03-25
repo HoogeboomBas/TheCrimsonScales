@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dg81jfpl65sdn"]
+
+[ext_resource type="Texture2D" uid="uid://uo5qrdyyit4t" path="res://Content/Classes/Brightspark/BlackHole.png" id="1_ajbun"]
+
+[resource]
+atlas = ExtResource("1_ajbun")
+region = Rect2(200, 140, 450, 450)

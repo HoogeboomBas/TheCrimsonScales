@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkllt6vje48jv"]
+[gd_scene format=3 uid="uid://bkllt6vje48jv"]
 
 [ext_resource type="PackedScene" uid="uid://c8tg7vd242b32" path="res://Scenes/Scenario/UI/EffectButtons/_EffectButton.tscn" id="1_yi3lj"]
 [ext_resource type="Script" uid="uid://7iqm8i2fffc" path="res://Scripts/Scenario/UI/EffectSelectionView/ConsumeElementEffectButton.cs" id="2_kb35e"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d043xqe7kffio" path="res://Art/Icons/Elements/Consume.svg" id="4_eth7g"]
 [ext_resource type="PackedScene" uid="uid://c8a610q1aglpc" path="res://Scenes/Scenario/UI/EffectButtons/ConsumeElementsEffectButtonElement.tscn" id="5_dou83"]
 
-[node name="ConsumeElementsEffectButton" node_paths=PackedStringArray("_singleElementContainer", "_singleElementTextureRect", "_multipleElementsContainer", "_elementsContainer", "_button", "_panel") instance=ExtResource("1_yi3lj")]
+[node name="ConsumeElementsEffectButton" unique_id=1277349269 node_paths=PackedStringArray("_singleElementContainer", "_singleElementTextureRect", "_multipleElementsContainer", "_elementsContainer", "_button", "_panel") instance=ExtResource("1_yi3lj")]
 script = ExtResource("2_kb35e")
 _singleElementContainer = NodePath("BetterButton/Panel/MarginContainer/Container/SingleElementContainer")
 _singleElementTextureRect = NodePath("BetterButton/Panel/MarginContainer/Container/SingleElementContainer/TextureRect")
@@ -16,12 +16,12 @@ _elementIconScene = ExtResource("5_dou83")
 _button = NodePath("BetterButton")
 _panel = NodePath("BetterButton/Panel")
 
-[node name="Container" type="Control" parent="BetterButton/Panel/MarginContainer" index="0"]
+[node name="Container" type="Control" parent="BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(500216647) index="0" unique_id=1340650268]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="SingleElementContainer" type="Control" parent="BetterButton/Panel/MarginContainer/Container" index="0"]
+[node name="SingleElementContainer" type="Control" parent="BetterButton/Panel/MarginContainer/Container" index="0" unique_id=1082876852]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,15 +30,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/SingleElementContainer" index="0"]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/SingleElementContainer" index="0" unique_id=1609003527]
+layout_mode = 0
 offset_right = 84.0
 offset_bottom = 84.0
 mouse_filter = 2
 texture = ExtResource("3_w5u2t")
 expand_mode = 1
 
-[node name="ConsumeIcon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/SingleElementContainer" index="1"]
+[node name="ConsumeIcon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/SingleElementContainer" index="1" unique_id=1748626904]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ mouse_filter = 2
 texture = ExtResource("4_eth7g")
 expand_mode = 1
 
-[node name="MultipleElementsContainer" type="Control" parent="BetterButton/Panel/MarginContainer/Container" index="1"]
+[node name="MultipleElementsContainer" type="Control" parent="BetterButton/Panel/MarginContainer/Container" index="1" unique_id=953372919]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer" index="0" unique_id=1108514002]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,7 +73,7 @@ mouse_filter = 2
 theme_override_constants/separation = -44
 alignment = 1
 
-[node name="MultipleElementsConsumeIcon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer" index="1"]
+[node name="MultipleElementsConsumeIcon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer" index="1" unique_id=758803234]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

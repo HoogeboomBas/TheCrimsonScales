@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://chh7n6mnorxna"]
+[gd_scene format=3 uid="uid://chh7n6mnorxna"]
 
 [ext_resource type="PackedScene" uid="uid://cnu6wjtrnujjc" path="res://Scenes/Scenario/UI/CurrentActionViews/_CurrentActionView.tscn" id="1_xr272"]
 [ext_resource type="Script" uid="uid://b21c4knxvt5ye" path="res://Scripts/Scenario/UI/CurrentActionView/ItemCurrentActionView.cs" id="2_xr272"]
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="3_sm8g3"]
 
-[node name="ItemCurrentActionView" node_paths=PackedStringArray("_itemView") instance=ExtResource("1_xr272")]
+[node name="ItemCurrentActionView" unique_id=1954682176 node_paths=PackedStringArray("_itemView") instance=ExtResource("1_xr272")]
 script = ExtResource("2_xr272")
 _itemView = NodePath("MarginContainer/ItemView")
 
-[node name="ItemView" parent="MarginContainer" index="0" instance=ExtResource("3_sm8g3")]
+[node name="ItemView" parent="MarginContainer" parent_id_path=PackedInt32Array(300802723) index="0" unique_id=2091968815 instance=ExtResource("3_sm8g3")]
 layout_mode = 2

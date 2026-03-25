@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsp4e6s2i680c"]
+[gd_scene format=3 uid="uid://dsp4e6s2i680c"]
 
 [ext_resource type="Script" uid="uid://cuj3uxutqde8x" path="res://Scripts/UI/BetterSlider.cs" id="1_kaili"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_mftj3"]
@@ -15,7 +15,7 @@ bg_color = Color(1, 1, 1, 1)
 expand_margin_top = 4.0
 expand_margin_bottom = 4.0
 
-[node name="BetterSlider" type="Control" node_paths=PackedStringArray("_slider", "_grabber")]
+[node name="BetterSlider" type="Control" unique_id=718461783 node_paths=PackedStringArray("_slider", "_grabber")]
 custom_minimum_size = Vector2(300, 60)
 layout_mode = 3
 anchors_preset = 0
@@ -23,7 +23,7 @@ script = ExtResource("1_kaili")
 _slider = NodePath("HSlider")
 _grabber = NodePath("HSlider/Grabber")
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="HSlider" type="HSlider" parent="." unique_id=264875928]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,7 +39,7 @@ value = 50.0
 rounded = true
 scrollable = false
 
-[node name="Grabber" type="TextureRect" parent="HSlider"]
+[node name="Grabber" type="TextureRect" parent="HSlider" unique_id=34803912]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

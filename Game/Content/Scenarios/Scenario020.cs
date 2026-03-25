@@ -6,7 +6,7 @@ public class Scenario020 : ScenarioModel
 	public override string ScenePath => "res://Content/Scenarios/Scenario020.tscn";
 	public override int ScenarioNumber => 20;
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
-	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario021>()];
+	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario022>()];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new KillSpecificEnemiesTypeGoals(ModelDB.Monster<CultLeader>(), "Kill the Cult Leader to win the scenario");

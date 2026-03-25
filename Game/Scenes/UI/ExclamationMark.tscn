@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw7b3ccvlqx53"]
+[gd_scene format=3 uid="uid://cw7b3ccvlqx53"]
 
 [ext_resource type="Texture2D" uid="uid://dcjtkb8a25bn" path="res://Art/Icons/ConditionsAndEffects/ConditionInset.svg" id="1_jbx5a"]
 [ext_resource type="Script" uid="uid://b5hdanfixguqr" path="res://Scripts/UI/ExclamationMark.cs" id="1_wvffj"]
 [ext_resource type="Texture2D" uid="uid://bt1v2hc18knbe" path="res://Art/Icons/Other/ExclamationMark.svg" id="2_wvffj"]
 
-[node name="ExclamationMark" type="Control"]
+[node name="ExclamationMark" type="Control" unique_id=1973262968]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 32.0
 offset_bottom = 32.0
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_wvffj")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=29053963]
 self_modulate = Color(0.890196, 0.741176, 0, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -20,10 +20,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_jbx5a")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1283614837]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +37,7 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=583345082]
 self_modulate = Color(0.0846899, 0.0846899, 0.0846899, 1)
 layout_mode = 2
 mouse_filter = 2

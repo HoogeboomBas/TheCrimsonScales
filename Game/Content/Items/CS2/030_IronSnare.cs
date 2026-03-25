@@ -21,19 +21,7 @@ public class IronSnare : CS2Item
 			{
 				await Use(async user =>
 				{
-					Hex targetHex = await AbilityCmd.SelectHex(
-						user,
-						list =>
-							list.AddRange(RangeHelper.GetHexesInRange(user.Hex, 3)
-								.Where(hex => hex.IsEmpty())),
-						hintText: $"Select a hex to place the trap"
-					);
-
-					if(targetHex != null)
-					{
-						await AbilityCmd.CreateTrap(targetHex, "res://Content/OverlayTiles/Traps/BearTrap1H.tscn",
-							conditions: [Conditions.Immobilize]);
-					}
+					await AbilityCmd.CreateTraps(damage: 0, range: 3, conditions: [Conditions.Immobilize], performer: user);
 				});
 			}
 		);

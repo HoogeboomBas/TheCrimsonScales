@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cbtuwtadxyfut"]
+[gd_scene format=3 uid="uid://cbtuwtadxyfut"]
 
 [ext_resource type="Script" uid="uid://x4kpb6u0l25u" path="res://Scripts/AppController.cs" id="1_6s6iu"]
 [ext_resource type="Script" uid="uid://bn4208bsiittm" path="res://Scripts/InputController.cs" id="2_2vstq"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bvih1o1ec48e2" path="res://Scenes/UI/Popups/ErrorPopup.tscn" id="17_g5bd1"]
 [ext_resource type="PackedScene" uid="uid://c0b85tbrwp16b" path="res://Scenes/UI/Popups/PartyInfoPopup/PartyInfoPopup.tscn" id="17_pcrgh"]
 [ext_resource type="PackedScene" uid="uid://d02u5q1n1c7d8" path="res://Scenes/UI/Popups/PerkConfirmationPopup/PerkConfirmationPopup.tscn" id="17_vkcub"]
+[ext_resource type="PackedScene" uid="uid://4mxl41wid7pu" path="res://Scenes/UI/Popups/BattleGoalSelectionPopup/BattleGoalSelectionPopup.tscn" id="18_aa7an"]
 [ext_resource type="PackedScene" uid="uid://dbuus8ix025vl" path="res://Scenes/UI/Popups/RetirementPopup.tscn" id="18_xa2sm"]
 [ext_resource type="Script" uid="uid://cwsakirhn6l0u" path="res://Scripts/UI/LongPressIndicator.cs" id="19_7txjg"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="19_7484g"]
@@ -34,8 +35,10 @@
 [ext_resource type="Script" uid="uid://bgob383cre1d1" path="res://Scripts/ScreenshotHelper.cs" id="28_p2uns"]
 [ext_resource type="Script" uid="uid://ba4uba34l4vdl" path="res://Scripts/UI/PersonalQuests/PersonalQuestProgressUpdateView.cs" id="29_vkcub"]
 [ext_resource type="PackedScene" uid="uid://bq57guwvi3fda" path="res://Scenes/UI/PersonalQuests/PersonalQuestProgressUpdateViewItem.tscn" id="30_naft5"]
+[ext_resource type="Script" uid="uid://b3cf7jannumpp" path="res://Scripts/UI/BattleGoals/BattleGoalProgressUpdateView.cs" id="33_sctt1"]
+[ext_resource type="PackedScene" uid="uid://dd103yylqhymu" path="res://Scenes/UI/BattleGoals/BattleGoalProgressUpdateViewItem.tscn" id="34_u72pp"]
 
-[node name="AppController" type="Node" node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview", "PersonalQuestProgressUpdateView")]
+[node name="AppController" type="Node" unique_id=714369031 node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview", "PersonalQuestProgressUpdateView", "BattleGoalProgressUpdateView")]
 script = ExtResource("1_6s6iu")
 InputController = NodePath("InputController")
 SceneLoader = NodePath("SceneLoader")
@@ -44,20 +47,21 @@ AudioController = NodePath("AudioController")
 CardSelectionCardPreview = NodePath("CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview")
 ItemPreview = NodePath("CanvasLayer/CardPreviewView/MarginContainer/Container/ItemPreview")
 PersonalQuestProgressUpdateView = NodePath("CanvasLayer/PersonalQuestProgressUpdateView")
+BattleGoalProgressUpdateView = NodePath("CanvasLayer/BattleGoalProgressUpdateView")
 
-[node name="InputController" type="Node" parent="."]
+[node name="InputController" type="Node" parent="." unique_id=1860667538]
 script = ExtResource("2_2vstq")
 _dragThreshold = 30.0
 _skipAIDecisionAction = &"skip_ai_decision"
 
-[node name="SceneLoader" type="Node" parent="."]
+[node name="SceneLoader" type="Node" parent="." unique_id=2069144396]
 script = ExtResource("3_8i1ej")
 _loadingScene = ExtResource("4_uwja4")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=528118304]
 layer = 100
 
-[node name="PopupManager" type="Control" parent="CanvasLayer"]
+[node name="PopupManager" type="Control" parent="CanvasLayer" unique_id=1543305569]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,61 +71,64 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5_jovqw")
 
-[node name="BuyItemPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("6_qiebr")]
+[node name="BuyItemPopup" parent="CanvasLayer/PopupManager" unique_id=712374333 instance=ExtResource("6_qiebr")]
 layout_mode = 1
 
-[node name="EquipmentPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("7_tfguv")]
+[node name="EquipmentPopup" parent="CanvasLayer/PopupManager" unique_id=891280707 instance=ExtResource("7_tfguv")]
 layout_mode = 1
 
-[node name="EquipItemPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("8_sayhj")]
+[node name="EquipItemPopup" parent="CanvasLayer/PopupManager" unique_id=142312542 instance=ExtResource("8_sayhj")]
 layout_mode = 1
 
-[node name="TemporaryAMDCardsPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("9_nrl2y")]
+[node name="TemporaryAMDCardsPopup" parent="CanvasLayer/PopupManager" unique_id=1543058658 instance=ExtResource("9_nrl2y")]
 layout_mode = 1
 
-[node name="TreasureItemRewardPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("9_il2vn")]
+[node name="TreasureItemRewardPopup" parent="CanvasLayer/PopupManager" unique_id=1611390089 instance=ExtResource("9_il2vn")]
 layout_mode = 1
 
-[node name="CharacterInfoPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("11_sayhj")]
+[node name="CharacterInfoPopup" parent="CanvasLayer/PopupManager" unique_id=160785008 instance=ExtResource("11_sayhj")]
 layout_mode = 1
 
-[node name="GoldDistributionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("13_admbk")]
+[node name="GoldDistributionPopup" parent="CanvasLayer/PopupManager" unique_id=1515842832 instance=ExtResource("13_admbk")]
 layout_mode = 1
 
-[node name="ItemRewardCharacterSelectionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("14_i0olc")]
+[node name="ItemRewardCharacterSelectionPopup" parent="CanvasLayer/PopupManager" unique_id=1255535045 instance=ExtResource("14_i0olc")]
 layout_mode = 1
 
-[node name="LevelUpCardSelectionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("13_6akjg")]
+[node name="LevelUpCardSelectionPopup" parent="CanvasLayer/PopupManager" unique_id=1692533036 instance=ExtResource("13_6akjg")]
 layout_mode = 1
 
-[node name="CardSelectionPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("12_6akjg")]
+[node name="CardSelectionPopup" parent="CanvasLayer/PopupManager" unique_id=1481202815 instance=ExtResource("12_6akjg")]
 layout_mode = 1
 
-[node name="PerksPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("16_naft5")]
+[node name="PerksPopup" parent="CanvasLayer/PopupManager" unique_id=1301595475 instance=ExtResource("16_naft5")]
 layout_mode = 1
 
-[node name="PerkConfirmationPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("17_vkcub")]
+[node name="PerkConfirmationPopup" parent="CanvasLayer/PopupManager" unique_id=215414425 instance=ExtResource("17_vkcub")]
 layout_mode = 1
 
-[node name="TextPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("11_tfguv")]
+[node name="BattleGoalSelectionPopup" parent="CanvasLayer/PopupManager" unique_id=235451533 instance=ExtResource("18_aa7an")]
 layout_mode = 1
 
-[node name="MenuPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("13_gkkkd")]
+[node name="TextPopup" parent="CanvasLayer/PopupManager" unique_id=1410735729 instance=ExtResource("11_tfguv")]
 layout_mode = 1
 
-[node name="RetirementPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("18_xa2sm")]
+[node name="MenuPopup" parent="CanvasLayer/PopupManager" unique_id=398853740 instance=ExtResource("13_gkkkd")]
 layout_mode = 1
 
-[node name="PartyInfoPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("17_pcrgh")]
+[node name="RetirementPopup" parent="CanvasLayer/PopupManager" unique_id=666515886 instance=ExtResource("18_xa2sm")]
 layout_mode = 1
 
-[node name="OptionsPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("16_448tb")]
+[node name="PartyInfoPopup" parent="CanvasLayer/PopupManager" unique_id=1029167565 instance=ExtResource("17_pcrgh")]
 layout_mode = 1
 
-[node name="ErrorPopup" parent="CanvasLayer/PopupManager" instance=ExtResource("17_g5bd1")]
+[node name="OptionsPopup" parent="CanvasLayer/PopupManager" unique_id=362461435 instance=ExtResource("16_448tb")]
 layout_mode = 1
 
-[node name="CardPreviewView" type="Control" parent="CanvasLayer"]
+[node name="ErrorPopup" parent="CanvasLayer/PopupManager" unique_id=682019035 instance=ExtResource("17_g5bd1")]
+layout_mode = 1
+
+[node name="CardPreviewView" type="Control" parent="CanvasLayer" unique_id=588632189]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CardPreviewView"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CardPreviewView" unique_id=1265318780]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,12 +150,11 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Container" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer"]
+[node name="Container" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer" unique_id=1332420952]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CardSelectionCardPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" node_paths=PackedStringArray("_cardView")]
-layout_mode = 3
+[node name="CardSelectionCardPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" unique_id=173849459 node_paths=PackedStringArray("_cardView")]
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 448.0
@@ -157,14 +163,13 @@ mouse_filter = 2
 script = ExtResource("20_6qf3b")
 _cardView = NodePath("AbilityCardView")
 
-[node name="AbilityCardView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview" instance=ExtResource("23_xa2sm")]
+[node name="AbilityCardView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview" unique_id=923582402 instance=ExtResource("23_xa2sm")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 mouse_filter = 0
 
-[node name="ItemPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" node_paths=PackedStringArray("_itemView")]
-layout_mode = 3
+[node name="ItemPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" unique_id=1586069982 node_paths=PackedStringArray("_itemView")]
 anchors_preset = 0
 offset_right = 180.0
 offset_bottom = 275.4
@@ -173,11 +178,12 @@ mouse_filter = 2
 script = ExtResource("22_x7plq")
 _itemView = NodePath("ItemView")
 
-[node name="ItemView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/ItemPreview" instance=ExtResource("23_p2uns")]
+[node name="ItemView" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/ItemPreview" unique_id=1649330084 instance=ExtResource("23_p2uns")]
+layout_mode = 0
 offset_right = 180.0
 offset_bottom = 275.4
 
-[node name="LongPressIndicator" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("_background", "_fill")]
+[node name="LongPressIndicator" type="Control" parent="CanvasLayer" unique_id=420742749 node_paths=PackedStringArray("_background", "_fill")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -195,7 +201,7 @@ script = ExtResource("19_7txjg")
 _background = NodePath("Background")
 _fill = NodePath("Fill")
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/LongPressIndicator"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/LongPressIndicator" unique_id=882363166]
 self_modulate = Color(0.450648, 0.450648, 0.450648, 0.596078)
 layout_mode = 1
 anchors_preset = 15
@@ -207,7 +213,7 @@ mouse_filter = 2
 texture = ExtResource("19_7484g")
 expand_mode = 1
 
-[node name="Fill" type="TextureRect" parent="CanvasLayer/LongPressIndicator"]
+[node name="Fill" type="TextureRect" parent="CanvasLayer/LongPressIndicator" unique_id=1520445472]
 self_modulate = Color(0.730216, 0.730216, 0.730216, 0.498039)
 layout_mode = 1
 anchors_preset = 15
@@ -220,7 +226,7 @@ mouse_filter = 2
 texture = ExtResource("19_7484g")
 expand_mode = 1
 
-[node name="PersonalQuestProgressUpdateView" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("_itemParent")]
+[node name="PersonalQuestProgressUpdateView" type="Control" parent="CanvasLayer" unique_id=496017519 node_paths=PackedStringArray("_itemParent")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +238,7 @@ script = ExtResource("29_vkcub")
 _personalQuestProgressViewScene = ExtResource("30_naft5")
 _itemParent = NodePath("ItemParent")
 
-[node name="ItemParent" type="Control" parent="CanvasLayer/PersonalQuestProgressUpdateView"]
+[node name="ItemParent" type="Control" parent="CanvasLayer/PersonalQuestProgressUpdateView" unique_id=45199591]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -247,17 +253,44 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AudioController" type="Node" parent="." node_paths=PackedStringArray("_bgmPlayer", "_bgsPlayer")]
+[node name="BattleGoalProgressUpdateView" type="Control" parent="CanvasLayer" unique_id=563128743 node_paths=PackedStringArray("_itemParent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("33_sctt1")
+_battleGoalProgressViewScene = ExtResource("34_u72pp")
+_itemParent = NodePath("ItemParent")
+
+[node name="ItemParent" type="Control" parent="CanvasLayer/BattleGoalProgressUpdateView" unique_id=1762109508]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -376.0
+offset_top = -272.0
+offset_right = -50.0
+offset_bottom = 272.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AudioController" type="Node" parent="." unique_id=1749230539 node_paths=PackedStringArray("_bgmPlayer", "_bgsPlayer")]
 script = ExtResource("16_u3jyv")
 _audioStreamPlayerScene = ExtResource("17_7c1c5")
 _bgmPlayer = NodePath("BGMStreamPlayer")
 _bgsPlayer = NodePath("BGSStreamPlayer")
 
-[node name="BGMStreamPlayer" type="AudioStreamPlayer" parent="AudioController"]
+[node name="BGMStreamPlayer" type="AudioStreamPlayer" parent="AudioController" unique_id=771369964]
 bus = &"BGM"
 
-[node name="BGSStreamPlayer" type="AudioStreamPlayer" parent="AudioController"]
+[node name="BGSStreamPlayer" type="AudioStreamPlayer" parent="AudioController" unique_id=1021057919]
 bus = &"BGS"
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=1780657384]
 script = ExtResource("28_p2uns")

@@ -82,7 +82,7 @@ public abstract class PerkModel : AbstractModel
 	public virtual bool IgnoreNegativeScenarioEffects => false;
 	public virtual bool IgnoreNegativeItemEffects => false;
 
-	public virtual async GDTask OnScenarioSetupPhaseCompleted()
+	public virtual async GDTask OnScenarioSetupPhaseCompleted(Character character)
 	{
 		await GDTask.CompletedTask;
 	}

@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctq7p86l12q82"]
+[gd_scene format=3 uid="uid://ctq7p86l12q82"]
 
 [ext_resource type="PackedScene" uid="uid://m86r4w34m60s" path="res://Scenes/Scenario/OverlayTiles/Obstacle1H.tscn" id="1_gydcr"]
 [ext_resource type="Texture2D" uid="uid://k4dydvjkdv5r" path="res://Art/OverlayTiles/Crate B 1h.png" id="2_gydcr"]
 
-[node name="Crate1H" instance=ExtResource("1_gydcr")]
+[node name="Crate1H" unique_id=661573689 instance=ExtResource("1_gydcr")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_gydcr")

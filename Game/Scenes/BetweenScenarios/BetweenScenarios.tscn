@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://dvuofg15kuckt"]
+[gd_scene format=3 uid="uid://dvuofg15kuckt"]
 
 [ext_resource type="PackedScene" uid="uid://cmjlk65mr5s6w" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButton.tscn" id="1_5l4i3"]
 [ext_resource type="Script" uid="uid://b7sa3xe4kseh8" path="res://Scripts/BetweenScenarios/BetweenScenariosController.cs" id="1_rtyjh"]
@@ -138,26 +138,26 @@ font_color = Color(0.969748, 0.793137, 0.50993, 1)
 outline_size = 3
 outline_color = Color(0.693772, 0.508051, 0.168401, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_807yg"]
-viewport_path = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_sfc7v"]
+viewport_path = NodePath("../../../../../FrontSubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0lwg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4mfb"]
 resource_local_to_scene = true
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = SubResource("ViewportTexture_807yg")
+albedo_texture = SubResource("ViewportTexture_sfc7v")
 metallic_specular = 0.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xjq80"]
-viewport_path = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BackSubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_dbqlu"]
+viewport_path = NodePath("../../../../../BackSubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57ue0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1npy"]
 resource_local_to_scene = true
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = SubResource("ViewportTexture_xjq80")
+albedo_texture = SubResource("ViewportTexture_dbqlu")
 metallic_specular = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_807yg"]
@@ -378,9 +378,9 @@ roughness = 0.51
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tquji"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6rvjw"]
+noise = SubResource("FastNoiseLite_tquji")
 as_normal_map = true
 bump_strength = 4.7
-noise = SubResource("FastNoiseLite_tquji")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tquji"]
 albedo_texture = ExtResource("25_tquji")
@@ -400,10 +400,10 @@ noise_type = 3
 frequency = 0.02
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3tvgr"]
-in_3d_space = true
-seamless = true
-normalize = false
 noise = SubResource("FastNoiseLite_7gbn5")
+seamless = true
+in_3d_space = true
+normalize = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t8hrt"]
 render_priority = -1
@@ -421,14 +421,14 @@ shader_parameter/alpha = 0.7
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_t8hrt"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jvldq"]
-seamless = true
 noise = SubResource("FastNoiseLite_t8hrt")
+seamless = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jvldq"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tquji"]
-seamless = true
 noise = SubResource("FastNoiseLite_jvldq")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tquji"]
 render_priority = 0
@@ -541,19 +541,6 @@ font_size = 60
 font = ExtResource("63_16mqd")
 font_size = 120
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vapya"]
-bg_color = Color(0, 0, 0, 0.305882)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 8.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnord"]
 bg_color = Color(0, 0, 0, 0.305882)
 border_width_left = 2
@@ -567,7 +554,20 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 expand_margin_left = 8.0
 
-[node name="BetweenScenarios" type="Node" node_paths=PackedStringArray("BetweenScenariosSidePanel", "CharacterPortraitManager", "ScenarioFlowchart", "EventOverlay", "ActionManager", "ItemShop", "CharacterCreationOverlay", "UnlockOverlay")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vapya"]
+bg_color = Color(0, 0, 0, 0.305882)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+
+[node name="BetweenScenarios" type="Node" unique_id=871982570 node_paths=PackedStringArray("BetweenScenariosSidePanel", "CharacterPortraitManager", "ScenarioFlowchart", "EventOverlay", "ActionManager", "ItemShop", "CharacterCreationOverlay", "UnlockOverlay")]
 script = ExtResource("1_rtyjh")
 BetweenScenariosSidePanel = NodePath("CanvasLayer/UI/SidePanel")
 CharacterPortraitManager = NodePath("CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/Characters")
@@ -578,9 +578,9 @@ ItemShop = NodePath("CanvasLayer/UI/BetweenScenariosActionManager/ItemShop")
 CharacterCreationOverlay = NodePath("CanvasLayer/UI/CharacterCreationOverlay")
 UnlockOverlay = NodePath("CanvasLayer/UI/ClassUnlockOverlay")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=631066556]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=702014972]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -589,7 +589,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI" unique_id=1948630199]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -600,7 +600,7 @@ texture = ExtResource("2_bqd0o")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI" unique_id=988431166]
 material = SubResource("ShaderMaterial_5k12q")
 layout_mode = 1
 anchors_preset = 15
@@ -610,7 +610,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BetweenScenariosActionManager" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_actions", "_startActiveAction")]
+[node name="BetweenScenariosActionManager" type="Control" parent="CanvasLayer/UI" unique_id=842193252 node_paths=PackedStringArray("_actions", "_startActiveAction")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -622,7 +622,7 @@ script = ExtResource("6_nmjfa")
 _actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("Enhancer"), NodePath("SanctuaryOfTheGreatOak")]
 _startActiveAction = NodePath("ScenarioFlowchart")
 
-[node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "_3dRoot", "Button")]
+[node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1828643396 node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "_3dRoot", "Button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -640,7 +640,7 @@ _subViewport = NodePath("Container/SubViewportContainer/SubViewport")
 _3dRoot = NodePath("AnimationContainer/3D/SubViewport/Root")
 Button = NodePath("../ActionButtons/VBoxContainer/ScenarioFlowchartButton")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart" unique_id=546313486]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -655,7 +655,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container" unique_id=1131421775]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -664,13 +664,13 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer" unique_id=522609141]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1536, 1024)
 render_target_update_mode = 0
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport" unique_id=452059013]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -678,7 +678,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Flowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container"]
+[node name="Flowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container" unique_id=1410979494]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -686,7 +686,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart" unique_id=1748040439]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -696,7 +696,7 @@ grow_vertical = 2
 texture = ExtResource("8_ywvcx")
 expand_mode = 1
 
-[node name="OutlineContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart"]
+[node name="OutlineContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart" unique_id=856242972]
 material = SubResource("ShaderMaterial_fpmem")
 layout_mode = 1
 anchors_preset = 8
@@ -714,13 +714,13 @@ scale = Vector2(0.64, 0.64)
 pivot_offset = Vector2(969, 666)
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer" unique_id=474285579]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1938, 1332)
 render_target_update_mode = 4
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer/SubViewport"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer/SubViewport" unique_id=118412218]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -728,7 +728,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScenarioButtonOutline" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer/SubViewport/Container" node_paths=PackedStringArray("_directionalExtensions", "_diagonalExtensions") instance=ExtResource("8_gcm5d")]
+[node name="ScenarioButtonOutline" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/OutlineContainer/SubViewport/Container" unique_id=1972792167 node_paths=PackedStringArray("_directionalExtensions", "_diagonalExtensions") instance=ExtResource("8_gcm5d")]
 visible = false
 layout_mode = 1
 offset_right = 120.0
@@ -736,7 +736,7 @@ offset_bottom = 120.0
 _directionalExtensions = []
 _diagonalExtensions = []
 
-[node name="Buttons" type="GridContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart"]
+[node name="Buttons" type="GridContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart" unique_id=1226269980]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -755,135 +755,231 @@ theme_override_constants/h_separation = 82
 theme_override_constants/v_separation = 82
 columns = 8
 
-[node name="ScenarioButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=990033337 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 1
 
-[node name="ScenarioButton2" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton2" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=968120309 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 2
 
-[node name="ScenarioButton3" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton3" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=335864868 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 3
 
-[node name="ScenarioButton7" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton7" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1539986103 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 7
 
-[node name="ScenarioButton10" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton10" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1694559059 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 10
 
-[node name="ScenarioButton19" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton19" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=652333384 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 19
 
-[node name="ScenarioButton25" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton25" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=2078490109 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 25
 
-[node name="ScenarioButton31" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton31" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1388095558 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 31
 
-[node name="ScenarioButton6" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton6" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=932636773 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 6
 
-[node name="ScenarioButton5" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton5" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=846801615 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 5
 
-[node name="ScenarioButton4" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton4" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1479689482 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 4
 
-[node name="ScenarioButton8" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton8" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1142211920 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 8
 
-[node name="ScenarioButton17" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton17" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=876401854 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 17
 
-[node name="ScenarioButton23" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton23" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1396729096 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 23
 
-[node name="ScenarioButton24" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton24" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=2078511356 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 24
 
-[node name="ScenarioButton32" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton32" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1279490771 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 32
 
-[node name="ScenarioButton16" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton16" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1768341061 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 16
 
-[node name="ScenarioButton15" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton15" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1073966537 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 15
 
-[node name="ScenarioButton13" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton13" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=453324973 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 13
 
-[node name="ScenarioButton9" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton9" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1630935176 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 9
 
-[node name="ScenarioButton18" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton18" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1207062750 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 18
 
-[node name="ScenarioButton21" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton21" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=47193382 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 21
 
-[node name="ScenarioButton26" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton26" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1430602990 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 26
 
-[node name="ScenarioButton30" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton30" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1662220084 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 30
 
-[node name="ScenarioButton33" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton33" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1729323590 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 33
 
-[node name="ScenarioButton12" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton12" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=746450434 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 12
 
-[node name="ScenarioButton11" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton11" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1704448145 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 11
 
-[node name="ScenarioButton14" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton14" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=792684689 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 14
 
-[node name="ScenarioButton20" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton20" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=616624167 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 20
 
-[node name="ScenarioButton27" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton27" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=2105455591 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 27
 
-[node name="ScenarioButton28" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton28" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1355525898 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 28
 
-[node name="ScenarioButton29" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton29" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1780083522 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 29
 
-[node name="AnimationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart"]
+[node name="ScenarioButton34" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 34
+
+[node name="ScenarioButton40" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 40
+
+[node name="ScenarioButton41" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 41
+
+[node name="ScenarioButton42" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 42
+
+[node name="ScenarioButton43" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 43
+
+[node name="ScenarioButton22" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 22
+
+[node name="ScenarioButton51" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 51
+
+[node name="ScenarioButton52" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 52
+
+[node name="ScenarioButton35" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 35
+
+[node name="ScenarioButton44" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 44
+
+[node name="ScenarioButton45" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 45
+
+[node name="ScenarioButton46" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 46
+
+[node name="ScenarioButton47" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 47
+
+[node name="ScenarioButton53" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 53
+
+[node name="ScenarioButton54" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 54
+
+[node name="ScenarioButton55" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 55
+
+[node name="ScenarioButton36" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 36
+
+[node name="ScenarioButton48" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 48
+
+[node name="ScenarioButton49" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 49
+
+[node name="ScenarioButton50" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 50
+
+[node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 56
+
+[node name="ScenarioButton57" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 57
+
+[node name="ScenarioButton58" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 58
+
+[node name="ScenarioButton59" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 59
+
+[node name="AnimationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart" unique_id=1452696670]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -898,7 +994,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer"]
+[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer" unique_id=1048285100]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -909,43 +1005,42 @@ pivot_offset = Vector2(190, 540)
 mouse_filter = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D" unique_id=2128816463]
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 1
 size = Vector2i(1920, 1080)
 render_target_update_mode = 0
 
-[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport" unique_id=1314637930]
 visible = false
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root" unique_id=1613535758]
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController" unique_id=1580393875]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot"]
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot" unique_id=753067678]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot" unique_id=1784900087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.873)
 cull_mask = 2
 environment = SubResource("Environment_4wnl8")
 fov = 20.8
 
-[node name="Map" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
+[node name="Map" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root" unique_id=889000734]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/Map"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root/Map" unique_id=2054079659]
 layers = 2
 material_override = SubResource("ShaderMaterial_ywvcx")
 mesh = SubResource("PlaneMesh_efp8j")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport/Root" unique_id=1273529028]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0, 0, 0)
 layers = 2
 light_cull_mask = 4293918722
 
-[node name="ItemShop" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_animationPlayer", "_frontSubViewport", "_backSubViewport", "_bookSubViewportContainer", "_leftPageParent", "_rightPageParent", "_frontPageParent", "_backPageParent", "_flipLeftButton", "_flipRightButton", "_bookContainer", "_bookCover", "_frontBookCover", "_leftPageCoverInside", "_backPageCoverInside", "_3dRoot", "Button")]
-visible = false
+[node name="ItemShop" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=2022808695 node_paths=PackedStringArray("_animationPlayer", "_frontSubViewport", "_backSubViewport", "_bookSubViewportContainer", "_leftPageParent", "_rightPageParent", "_frontPageParent", "_backPageParent", "_flipLeftButton", "_flipRightButton", "_bookContainer", "_bookCover", "_frontBookCover", "_leftPageCoverInside", "_backPageCoverInside", "_3dRoot", "Button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -976,7 +1071,7 @@ _backPageCoverInside = NodePath("Book/Container/BackSubViewport/CoverInside")
 _3dRoot = NodePath("Book/Container/3D/SubViewport/Root")
 Button = NodePath("../ActionButtons/VBoxContainer/ItemShopButton")
 
-[node name="Book" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop"]
+[node name="Book" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" unique_id=1041593253]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -991,7 +1086,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(600, 442.5)
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book" unique_id=703289554]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1000,7 +1095,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(600, 442.5)
 
-[node name="RightPage" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="RightPage" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=893190299]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1014,7 +1109,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/RightPage"]
+[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/RightPage" unique_id=274455354]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1026,7 +1121,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ywvcx")
 
-[node name="LeftPage" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="LeftPage" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=1900230108]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1040,7 +1135,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/LeftPage"]
+[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/LeftPage" unique_id=1950779979]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1053,13 +1148,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ywvcx")
 
-[node name="BackSubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="BackSubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=915039567]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(610, 905)
 render_target_update_mode = 0
 
-[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BackSubViewport"]
+[node name="CoverInside" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BackSubViewport" unique_id=1259125911]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1067,7 +1162,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ywvcx")
 
-[node name="Page" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BackSubViewport"]
+[node name="Page" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BackSubViewport" unique_id=663306929]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 10.0
@@ -1075,13 +1170,13 @@ offset_top = 10.0
 offset_right = 610.0
 offset_bottom = 895.0
 
-[node name="FrontSubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="FrontSubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=641130594]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(610, 905)
 render_target_update_mode = 0
 
-[node name="BookCover" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport"]
+[node name="BookCover" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport" unique_id=726793610]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1089,7 +1184,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport/BookCover"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport/BookCover" unique_id=451093933]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1098,7 +1193,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("18_3hv00")
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport/BookCover"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport/BookCover" unique_id=1167107402]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1114,14 +1209,14 @@ grow_vertical = 2
 text = "Catalog"
 label_settings = SubResource("LabelSettings_57ue0")
 
-[node name="Page" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport"]
+[node name="Page" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/FrontSubViewport" unique_id=514043860]
 layout_mode = 3
 anchors_preset = 0
 offset_top = 10.0
 offset_right = 600.0
 offset_bottom = 895.0
 
-[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=1417598455]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1136,47 +1231,47 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D" unique_id=1096145893]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1300)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
-[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport" unique_id=74201994]
 visible = false
 
-[node name="Page" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
+[node name="Page" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=1698018503]
 
-[node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" instance=ExtResource("12_41e7t")]
+[node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" unique_id=1735437367 instance=ExtResource("12_41e7t")]
 
-[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0"]
+[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=1955278241]
 transform = Transform3D(68.9, 0, 0, 0, -4.37114e-06, 102.3, 0, -100, -4.47168e-06, 0, 0, 0)
 
-[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" index="0"]
-material_override = SubResource("StandardMaterial3D_r0lwg")
+[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 859513443) index="0" unique_id=1572919683]
+material_override = SubResource("StandardMaterial3D_n4mfb")
 
-[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" index="1"]
-material_override = SubResource("StandardMaterial3D_57ue0")
+[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 859513443) index="1" unique_id=412232771]
+material_override = SubResource("StandardMaterial3D_r1npy")
 
-[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1"]
+[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=711269995]
 speed_scale = 1.4
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=435648599]
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController" unique_id=926940013]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot"]
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot" unique_id=620239315]
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot" unique_id=1674366759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 cull_mask = 1
 environment = SubResource("Environment_4wnl8")
 fov = 20.8
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=222553847]
 light_cull_mask = 4293918721
 
-[node name="Center" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="Center" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=1057398082]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -1188,7 +1283,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/Center"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/Center" unique_id=922444912]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1197,7 +1292,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_807yg")
 
-[node name="BookCoverContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container"]
+[node name="BookCoverContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container" unique_id=641617873]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1211,7 +1306,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BookCover" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer"]
+[node name="BookCover" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer" unique_id=1949255550]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1220,7 +1315,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer/BookCover"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer/BookCover" unique_id=1088445310]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1230,7 +1325,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("18_3hv00")
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer/BookCover"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/BookCoverContainer/BookCover" unique_id=1776238129]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1246,7 +1341,7 @@ grow_vertical = 2
 text = "Catalog"
 label_settings = SubResource("LabelSettings_57ue0")
 
-[node name="FlipLeftButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" instance=ExtResource("7_blgb5")]
+[node name="FlipLeftButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" unique_id=1509611123 instance=ExtResource("7_blgb5")]
 layout_mode = 1
 anchors_preset = 8
 anchor_top = 0.5
@@ -1257,11 +1352,11 @@ offset_right = -620.0
 offset_bottom = -18.5
 grow_vertical = 2
 
-[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1509611123, 1664087955) index="0" unique_id=1161890966]
 visible = false
 text = "->"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" index="1"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1509611123, 1664087955) index="1" unique_id=1292261812]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1279,7 +1374,7 @@ pivot_offset = Vector2(20, 20)
 texture = ExtResource("16_r0lwg")
 expand_mode = 1
 
-[node name="FlipRightButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" instance=ExtResource("7_blgb5")]
+[node name="FlipRightButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop" unique_id=836931997 instance=ExtResource("7_blgb5")]
 layout_mode = 1
 anchors_preset = 8
 anchor_top = 0.5
@@ -1290,11 +1385,11 @@ offset_right = 700.0
 offset_bottom = -18.5
 grow_vertical = 2
 
-[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" parent_id_path=PackedInt32Array(836931997, 1664087955) index="0" unique_id=1161890966]
 visible = false
 text = "->"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" index="1"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" parent_id_path=PackedInt32Array(836931997, 1664087955) index="1" unique_id=1083488275]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1310,7 +1405,7 @@ grow_vertical = 2
 texture = ExtResource("16_r0lwg")
 expand_mode = 1
 
-[node name="SanctuaryOfTheGreatOak" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_titheBowl3DRoot", "_animationPlayer", "_donationCoinContainer", "_syncingBody", "_bowlVisualContainer", "_donateButton", "_envelopeB", "Button")]
+[node name="SanctuaryOfTheGreatOak" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1400308967 node_paths=PackedStringArray("_titheBowl3DRoot", "_animationPlayer", "_donationCoinContainer", "_syncingBody", "_bowlVisualContainer", "_donateButton", "_envelopeB", "Button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1332,12 +1427,10 @@ _donateButton = NodePath("DonationButton")
 _envelopeB = NodePath("EnvelopeB")
 Button = NodePath("../ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak"]
-libraries = {
-&"": SubResource("AnimationLibrary_j84ia")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" unique_id=1851216654]
+libraries/ = SubResource("AnimationLibrary_j84ia")
 
-[node name="DonationButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" instance=ExtResource("7_blgb5")]
+[node name="DonationButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" unique_id=2040170442 instance=ExtResource("7_blgb5")]
 layout_mode = 1
 anchors_preset = 8
 anchor_top = 0.5
@@ -1346,10 +1439,10 @@ offset_top = 250.0
 offset_bottom = 350.0
 grow_vertical = 2
 
-[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton/BetterButton/Panel" parent_id_path=PackedInt32Array(2040170442, 1664087955) index="0" unique_id=1161890966]
 text = "Donate"
 
-[node name="EnvelopeB" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" node_paths=PackedStringArray("_circleParent", "EnvelopeB3DRoot", "SubViewport", "_animationContainer")]
+[node name="EnvelopeB" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak" unique_id=2014874781 node_paths=PackedStringArray("_circleParent", "EnvelopeB3DRoot", "SubViewport", "_animationContainer")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1370,7 +1463,7 @@ EnvelopeB3DRoot = NodePath("../../Shared3D/Container/3D/SubViewport/Root/Envelop
 SubViewport = NodePath("SubViewportContainer/SubViewport")
 _animationContainer = NodePath("../../Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB" unique_id=1164611717]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1380,12 +1473,12 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer" unique_id=1775029400]
 handle_input_locally = false
 size = Vector2i(260, 632)
 render_target_update_mode = 0
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport" unique_id=1390751926]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1394,7 +1487,7 @@ grow_vertical = 2
 texture = ExtResource("25_8ad0h")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport" unique_id=1939077924]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1405,13 +1498,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/EnvelopeB/SubViewportContainer/SubViewport/MarginContainer" unique_id=624632555]
 layout_mode = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 5
 
-[node name="Shared3D" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager"]
+[node name="Shared3D" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=625849377]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1420,7 +1513,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D" unique_id=647233231]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1429,7 +1522,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container"]
+[node name="3D" type="SubViewportContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container" unique_id=1618644506]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1439,133 +1532,133 @@ grow_vertical = 2
 mouse_filter = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D" unique_id=1425840814]
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 1
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport"]
+[node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport" unique_id=1282304267]
 
-[node name="EnvelopeBRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="EnvelopeBRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=185668267]
 visible = false
 
-[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot"]
+[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot" unique_id=992294073]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26, 0.02, 0)
 
-[node name="AnimationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container"]
+[node name="AnimationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container" unique_id=1100078545]
 
-[node name="Mesh" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer"]
+[node name="Mesh" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer" unique_id=44112283]
 transform = Transform3D(1.165, 0, 0, 0, 1, 0, 0, 0, 2.832, 0, 0, 0)
 
-[node name="Top" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh"]
+[node name="Top" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh" unique_id=1321611504]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.05, 0)
 layers = 524288
 mesh = SubResource("QuadMesh_8ad0h")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_4ql0m")
 
-[node name="Box" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh"]
+[node name="Box" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/EnvelopeBRoot/Container/AnimationContainer/Mesh" unique_id=378320794]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.024, 0)
 layers = 524288
 mesh = SubResource("BoxMesh_fobax")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_8rcsx")
 
-[node name="TitheBowlRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="TitheBowlRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=343716737]
 visible = false
 
-[node name="TitheBowlContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot"]
+[node name="TitheBowlContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot" unique_id=1065770889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.68)
 
-[node name="MoveContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer"]
+[node name="MoveContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer" unique_id=1005349009]
 
-[node name="RotationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer"]
+[node name="RotationContainer" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer" unique_id=1664594215]
 
-[node name="TitheBowl" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer"]
+[node name="TitheBowl" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/TitheBowlContainer/MoveContainer/RotationContainer" unique_id=2037295114]
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot" node_paths=PackedStringArray("_nodeToFollow")]
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot" unique_id=291901935 node_paths=PackedStringArray("_nodeToFollow")]
 physics_material_override = SubResource("PhysicsMaterial_j84ia")
 script = ExtResource("27_w2guo")
 _nodeToFollow = NodePath("../TitheBowlContainer/MoveContainer/RotationContainer/TitheBowl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=196251099]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
 shape = SubResource("CylinderShape3D_8ad0h")
 
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1566642981]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("CylinderShape3D_8ad0h")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1166186812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1994046824]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.7, 0, 0.7)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=718370401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1945034917]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0.7, 0, -0.7)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=690211070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=22192860]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.7, 0, -0.7)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1874795311]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=1861737337]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.7, 0, 0.7)
 shape = SubResource("BoxShape3D_fobax")
 
-[node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" instance=ExtResource("23_t8hrt")]
+[node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=79117744 instance=ExtResource("23_t8hrt")]
 transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0"]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=495332755]
 transform = Transform3D(-33.4565, 37.1572, 1.62419e-06, 0, -2.18557e-06, 50, 37.1572, 33.4565, 1.46243e-06, 0, 0, 0)
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_jvldq")
 surface_material_override/1 = SubResource("StandardMaterial3D_tquji")
 surface_material_override/2 = SubResource("StandardMaterial3D_6rvjw")
 
-[node name="Coins" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot"]
+[node name="Coins" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot" unique_id=1840058066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.635, 0, -0.68)
 
-[node name="CrystalBallRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="CrystalBallRoot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=512159061]
 
-[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot"]
+[node name="Container" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot" unique_id=1229704342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
-[node name="CrystalBall" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container"]
+[node name="CrystalBall" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container" unique_id=1496502175]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
-[node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" instance=ExtResource("17_seeb3")]
+[node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" unique_id=1786094851 instance=ExtResource("17_seeb3")]
 transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0"]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=1227016833]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1"]
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1500232823]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Ball" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall"]
+[node name="Ball" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" unique_id=318407435]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03, 0)
 
-[node name="Distortion" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
+[node name="Distortion" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball" unique_id=109713547]
 transform = Transform3D(-1, -8.44439e-08, -2.26267e-08, 0, 0.258819, -0.965926, 8.74228e-08, -0.965926, -0.258819, 0, 0.000139952, 0)
 layers = 524288
 material_override = SubResource("ShaderMaterial_t8hrt")
@@ -1573,7 +1666,7 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_jvldq")
 skeleton = NodePath("../../../../..")
 
-[node name="SwirlingBack" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
+[node name="SwirlingBack" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball" unique_id=1861440560]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
 layers = 524288
 material_override = SubResource("ShaderMaterial_tquji")
@@ -1581,31 +1674,31 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_jvldq")
 skeleton = NodePath("../../../../..")
 
-[node name="SwirlingTop" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
+[node name="SwirlingTop" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball" unique_id=554507405]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.000139952, 0)
 layers = 524288
 material_override = SubResource("ShaderMaterial_jvldq")
 mesh = SubResource("SphereMesh_jvldq")
 skeleton = NodePath("../../../../..")
 
-[node name="Shadow" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball"]
+[node name="Shadow" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/Ball" unique_id=1687155613]
 layers = 524288
 cast_shadow = 3
 mesh = SubResource("SphereMesh_6t0vk")
 
-[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=103720661]
 
-[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController"]
+[node name="MovePivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController" unique_id=963844672]
 
-[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot"]
+[node name="RotationPivot" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot" unique_id=49524787]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot"]
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CameraController/MovePivot/RotationPivot" unique_id=1339727672]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
 cull_mask = 524288
 environment = SubResource("Environment_6rvjw")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=889171630]
 transform = Transform3D(0.7127, -0.502156, 0.489794, 0, 0.69824, 0.715863, -0.701469, -0.510196, 0.497636, 0, 0, 0)
 layers = 524288
 light_color = Color(0.988235, 1, 0.858824, 1)
@@ -1614,13 +1707,14 @@ shadow_enabled = true
 shadow_caster_mask = 4294443008
 sky_mode = 1
 
-[node name="ShadowPlane" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root"]
+[node name="ShadowPlane" type="MeshInstance3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root" unique_id=1012308165]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.01, 0)
 layers = 524288
 material_override = SubResource("ShaderMaterial_gyc5w")
 mesh = SubResource("PlaneMesh_j84ia")
 
-[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" node_paths=PackedStringArray("_3dRoot", "_crystalBall", "_cardContainer", "_cardRotationContainer", "_cardView", "_cardListContainer", "_cardSelectionList", "_optionsContainer", "_enhancementOptionParent", "_confirmButton", "Button")]
+[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1399130939 node_paths=PackedStringArray("_3dRoot", "_crystalBall", "_cardContainer", "_cardRotationContainer", "_cardView", "_cardListContainer", "_cardSelectionList", "_optionsContainer", "_enhancementOptionParent", "_confirmButton", "Button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1643,7 +1737,7 @@ _enhancementOptionParent = NodePath("EnhancementOptionsAnchor/EnhancementOptions
 _confirmButton = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton/BetterButton")
 Button = NodePath("../ActionButtons/VBoxContainer/EnhancerButton")
 
-[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer" unique_id=375773067]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1660,7 +1754,7 @@ scale = Vector2(1.05, 1.05)
 pivot_offset = Vector2(160, 224)
 mouse_filter = 2
 
-[node name="CardContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor"]
+[node name="CardContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor" unique_id=650082496]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1669,7 +1763,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="RotationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer"]
+[node name="RotationContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer" unique_id=259456376]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1679,13 +1773,13 @@ grow_vertical = 2
 pivot_offset = Vector2(160, 300)
 mouse_filter = 2
 
-[node name="AbilityCardView" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer/RotationContainer" instance=ExtResource("37_6k6qu")]
+[node name="AbilityCardView" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardAnchor/CardContainer/RotationContainer" unique_id=1557030679 instance=ExtResource("37_6k6qu")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 mouse_filter = 0
 
-[node name="CardSelectionAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+[node name="CardSelectionAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer" unique_id=1031008697]
 material = ExtResource("23_1ehwm")
 layout_mode = 1
 anchors_preset = 9
@@ -1696,7 +1790,7 @@ offset_right = 730.0
 offset_bottom = -180.0
 grow_vertical = 2
 
-[node name="CardSelectionContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor"]
+[node name="CardSelectionContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor" unique_id=156251716]
 material = ExtResource("23_1ehwm")
 layout_mode = 1
 anchors_preset = 15
@@ -1706,18 +1800,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ikgp2")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer" unique_id=541247599]
 layout_mode = 2
 theme_override_constants/margin_left = 120
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="CardSelectionList" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer/MarginContainer" instance=ExtResource("18_ikgp2")]
+[node name="CardSelectionList" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/CardSelectionAnchor/CardSelectionContainer/MarginContainer" unique_id=1171515994 instance=ExtResource("18_ikgp2")]
 custom_minimum_size = Vector2(470, 760)
 layout_mode = 2
 
-[node name="EnhancementOptionsAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer"]
+[node name="EnhancementOptionsAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer" unique_id=1819759860]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1730,7 +1824,7 @@ offset_bottom = -180.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="EnhancementOptionsContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor"]
+[node name="EnhancementOptionsContainer" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor" unique_id=333869612]
 material = ExtResource("23_1ehwm")
 layout_mode = 1
 anchors_preset = 15
@@ -1740,23 +1834,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("19_6k6qu")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer" unique_id=473872470]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer" unique_id=881549573]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="OptionContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer"]
+[node name="OptionContainer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer" unique_id=2032040073]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MaskMargin" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer"]
+[node name="MaskMargin" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer" unique_id=1668869119]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1768,28 +1862,28 @@ theme_override_constants/margin_top = -10
 theme_override_constants/margin_right = -10
 theme_override_constants/margin_bottom = -10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin" unique_id=1182128205]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 scroll_deadzone = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer" unique_id=1048685303]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Options" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer/MarginContainer"]
+[node name="Options" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer/MarginContainer" unique_id=2111036838]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="PanelButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer" instance=ExtResource("27_hkul8")]
+[node name="PanelButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer" unique_id=520732460 instance=ExtResource("27_hkul8")]
 layout_mode = 2
 
-[node name="ActionButtons" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager"]
+[node name="ActionButtons" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1904352722]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -1800,7 +1894,7 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons"]
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons" unique_id=313910164]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1810,40 +1904,40 @@ grow_vertical = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="ScenarioFlowchartButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="ScenarioFlowchartButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=512763406 instance=ExtResource("17_3hv00")]
 modulate = Color(0.331482, 0.996455, 1, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(512763406, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("18_nmjfa")
 
-[node name="ItemShopButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="ItemShopButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=504848750 instance=ExtResource("17_3hv00")]
 modulate = Color(0.47451, 1, 0.72549, 1)
 layout_mode = 2
 
-[node name="SanctuaryOfTheGreatOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="SanctuaryOfTheGreatOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=2111888560 instance=ExtResource("17_3hv00")]
 modulate = Color(1, 1, 0.647059, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(2111888560, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("19_ywvcx")
 
-[node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=1579014179 instance=ExtResource("17_3hv00")]
 modulate = Color(0.994686, 0.586915, 1, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(1579014179, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("20_1ehwm")
 
-[node name="EventButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" instance=ExtResource("17_3hv00")]
+[node name="EventButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=45367861 instance=ExtResource("17_3hv00")]
 visible = false
 modulate = Color(1, 0.671158, 0.532482, 1)
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton/Container/BetterButton/Panel" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(45367861, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("22_ywvcx")
 
-[node name="SidePanel" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_partyNameLabel", "_newCharacterButtonContainer", "_newCharacterButton", "_prosperityStat", "_reputationStat")]
+[node name="SidePanel" type="Control" parent="CanvasLayer/UI" unique_id=1236198675 node_paths=PackedStringArray("_partyNameLabel", "_newCharacterButtonContainer", "_newCharacterButton", "_prosperityStat", "_reputationStat")]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1856,7 +1950,7 @@ _newCharacterButton = NodePath("MarginContainer/VBoxContainer/NewCharacterButton
 _prosperityStat = NodePath("MarginContainer/VBoxContainer/PartyStats/Prosperity")
 _reputationStat = NodePath("MarginContainer/VBoxContainer/PartyStats/Reputation")
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel" unique_id=980623126]
 material = ExtResource("23_1ehwm")
 layout_mode = 1
 anchors_preset = 15
@@ -1866,7 +1960,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("24_k7dxu")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/SidePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/SidePanel" unique_id=1093922164]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1878,19 +1972,19 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer" unique_id=1337582061]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="PartyStats" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer"]
+[node name="PartyStats" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" unique_id=376602597]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PartyNameContainer" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats"]
+[node name="PartyNameContainer" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" unique_id=947273636]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="PartyName" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/PartyNameContainer"]
+[node name="PartyName" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/PartyNameContainer" unique_id=1609248567]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1906,25 +2000,25 @@ script = ExtResource("28_psaff")
 _minSize = 10
 _maxSize = 40
 
-[node name="Prosperity" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" instance=ExtResource("45_rtdf2")]
+[node name="Prosperity" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" unique_id=913577658 instance=ExtResource("45_rtdf2")]
 layout_mode = 2
 
-[node name="Reputation" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" instance=ExtResource("45_rtdf2")]
+[node name="Reputation" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" unique_id=445715573 instance=ExtResource("45_rtdf2")]
 layout_mode = 2
 
-[node name="ProgressBar" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="1"]
+[node name="ProgressBar" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="1" unique_id=1418968114]
 self_modulate = Color(0.654877, 0.413723, 0.787502, 1)
 
-[node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="2"]
+[node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation" index="2" unique_id=610432765]
 text = "Reputation"
 
-[node name="OldReputation" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats"]
+[node name="OldReputation" type="Control" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats" unique_id=890268473]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation" unique_id=1057101813]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1934,7 +2028,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_blvf2")
 
-[node name="ProgressBar" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
+[node name="ProgressBar" type="Panel" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation" unique_id=2131725953]
 self_modulate = Color(0.788235, 0.615686, 0.890196, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1946,7 +2040,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wuydi")
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation" unique_id=340229110]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1957,7 +2051,7 @@ text = "Reputation"
 label_settings = SubResource("LabelSettings_seeb3")
 vertical_alignment = 1
 
-[node name="Amount" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation"]
+[node name="Amount" type="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/OldReputation" unique_id=698745062]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1972,7 +2066,7 @@ label_settings = SubResource("LabelSettings_1n38g")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Characters" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" node_paths=PackedStringArray("_portraitParent")]
+[node name="Characters" type="VBoxContainer" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" unique_id=1554534940 node_paths=PackedStringArray("_portraitParent")]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
@@ -1981,14 +2075,14 @@ script = ExtResource("23_cdfbw")
 _portraitParent = NodePath(".")
 _portraitScene = ExtResource("24_cdfbw")
 
-[node name="NewCharacterButton" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" instance=ExtResource("27_hkul8")]
+[node name="NewCharacterButton" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" unique_id=653129271 instance=ExtResource("27_hkul8")]
 layout_mode = 2
 
-[node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton/BetterButton/Panel" parent_id_path=PackedInt32Array(653129271, 62362509) index="0" unique_id=188245078]
 text = "New Character"
 label_settings = SubResource("LabelSettings_f340v")
 
-[node name="EventOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_background", "_skipTextButton", "_rotatingCardView", "_cityEventCard", "_roadEventCard", "_continueButton", "_eventChoiceButtonParent")]
+[node name="EventOverlay" type="Control" parent="CanvasLayer/UI" unique_id=1220187139 node_paths=PackedStringArray("_background", "_skipTextButton", "_rotatingCardView", "_cityEventCard", "_roadEventCard", "_continueButton", "_eventChoiceButtonParent")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2007,7 +2101,7 @@ _continueButton = NodePath("ContinueButton")
 _eventChoiceButtonScene = ExtResource("57_dl2j2")
 _eventChoiceButtonParent = NodePath("HBoxContainer")
 
-[node name="Background" type="ColorRect" parent="CanvasLayer/UI/EventOverlay"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/UI/EventOverlay" unique_id=706232847]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2016,7 +2110,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.705882)
 
-[node name="EventCard" type="Control" parent="CanvasLayer/UI/EventOverlay"]
+[node name="EventCard" type="Control" parent="CanvasLayer/UI/EventOverlay" unique_id=290788991]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2030,7 +2124,7 @@ offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/EventOverlay/EventCard"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/UI/EventOverlay/EventCard" unique_id=1558739024]
 material = ExtResource("51_rtdf2")
 instance_shader_parameters/y_rot = 0.0
 layout_mode = 1
@@ -2042,13 +2136,13 @@ grow_vertical = 2
 stretch = true
 script = ExtResource("52_0un3t")
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer" unique_id=1764808465]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(500, 700)
 render_target_update_mode = 0
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport"]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport" unique_id=49596706]
 clip_children = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2058,7 +2152,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_12j2q")
 
-[node name="City" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
+[node name="City" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" unique_id=1999985826 node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2074,7 +2168,7 @@ NumberLabel = NodePath("Front/NumberLabel")
 _rewardLabelScene = ExtResource("58_rtdf2")
 _rewardLabelParent = NodePath("Back/ShapedEventText/MarginContainer/Labels/Rewards")
 
-[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City"]
+[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City" unique_id=541325594]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2082,7 +2176,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" unique_id=466459460]
 material = ExtResource("32_su2xo")
 layout_mode = 1
 anchors_preset = 15
@@ -2096,7 +2190,7 @@ mouse_filter = 2
 texture = ExtResource("33_2yhfp")
 expand_mode = 1
 
-[node name="Example" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+[node name="Example" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" unique_id=121691500]
 visible = false
 material = ExtResource("32_su2xo")
 layout_mode = 1
@@ -2109,7 +2203,7 @@ mouse_filter = 2
 texture = ExtResource("34_rtdf2")
 expand_mode = 1
 
-[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" node_paths=PackedStringArray("_richTextLabelParent")]
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" unique_id=1937183056 node_paths=PackedStringArray("_richTextLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2124,7 +2218,7 @@ LineHeight = 22.5
 TextColor = Color(1, 1, 1, 1)
 _richTextLabelParent = NodePath("MarginContainer/Labels")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText" unique_id=782964583]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2136,10 +2230,10 @@ theme_override_constants/margin_top = 132
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText/MarginContainer"]
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front/ShapedEventText/MarginContainer" unique_id=1250985832]
 layout_mode = 2
 
-[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front"]
+[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Front" unique_id=224119253]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -2157,7 +2251,7 @@ label_settings = SubResource("LabelSettings_16mqd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City"]
+[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City" unique_id=908672408]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2165,7 +2259,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back" unique_id=765346292]
 material = ExtResource("32_su2xo")
 layout_mode = 1
 anchors_preset = 15
@@ -2181,7 +2275,7 @@ mouse_filter = 2
 texture = ExtResource("33_2yhfp")
 expand_mode = 1
 
-[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back" node_paths=PackedStringArray("_richTextLabelParent")]
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back" unique_id=1483757177 node_paths=PackedStringArray("_richTextLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2196,7 +2290,7 @@ LineHeight = 22.5
 TextColor = Color(1, 1, 1, 1)
 _richTextLabelParent = NodePath("MarginContainer/Labels")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText" unique_id=166126258]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2208,16 +2302,16 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer"]
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer" unique_id=493573920]
 layout_mode = 2
 
-[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer/Labels"]
+[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/City/Back/ShapedEventText/MarginContainer/Labels" unique_id=360160881]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="Road" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
+[node name="Road" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask" unique_id=1747084073 node_paths=PackedStringArray("FrontContainer", "FrontEventText", "BackContainer", "BackEventText", "NumberLabel", "_rewardLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2233,7 +2327,7 @@ NumberLabel = NodePath("Front/NumberLabel")
 _rewardLabelScene = ExtResource("60_0rh5w")
 _rewardLabelParent = NodePath("Back/ShapedEventText/MarginContainer/Labels/Rewards")
 
-[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road"]
+[node name="Front" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road" unique_id=1614754267]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2241,7 +2335,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front" unique_id=1980076881]
 material = ExtResource("32_su2xo")
 layout_mode = 1
 anchors_preset = 15
@@ -2255,7 +2349,7 @@ mouse_filter = 2
 texture = ExtResource("58_su2xo")
 expand_mode = 1
 
-[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front" node_paths=PackedStringArray("_richTextLabelParent")]
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front" unique_id=1266588996 node_paths=PackedStringArray("_richTextLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2270,7 +2364,7 @@ LineHeight = 22.5
 TextColor = Color(0.137255, 0.121569, 0.12549, 1)
 _richTextLabelParent = NodePath("MarginContainer/Labels")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText" unique_id=632899135]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2282,10 +2376,10 @@ theme_override_constants/margin_top = 132
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText/MarginContainer"]
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front/ShapedEventText/MarginContainer" unique_id=1686469881]
 layout_mode = 2
 
-[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front"]
+[node name="NumberLabel" type="Label" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Front" unique_id=508463153]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -2303,7 +2397,7 @@ label_settings = SubResource("LabelSettings_16mqd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road"]
+[node name="Back" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road" unique_id=988829389]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2311,7 +2405,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back" unique_id=682840129]
 material = ExtResource("32_su2xo")
 layout_mode = 1
 anchors_preset = 15
@@ -2327,7 +2421,7 @@ mouse_filter = 2
 texture = ExtResource("58_su2xo")
 expand_mode = 1
 
-[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back" node_paths=PackedStringArray("_richTextLabelParent")]
+[node name="ShapedEventText" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back" unique_id=631318164 node_paths=PackedStringArray("_richTextLabelParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2342,7 +2436,7 @@ LineHeight = 22.5
 TextColor = Color(0.137255, 0.121569, 0.12549, 1)
 _richTextLabelParent = NodePath("MarginContainer/Labels")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText" unique_id=705232607]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2354,16 +2448,16 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer"]
+[node name="Labels" type="Control" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer" unique_id=164590862]
 layout_mode = 2
 
-[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer/Labels"]
+[node name="Rewards" type="VBoxContainer" parent="CanvasLayer/UI/EventOverlay/EventCard/SubViewportContainer/SubViewport/Mask/Road/Back/ShapedEventText/MarginContainer/Labels" unique_id=1861127256]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/EventOverlay"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/EventOverlay" unique_id=1177558787]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2378,8 +2472,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="SkipTextButton" type="BaseButton" parent="CanvasLayer/UI/EventOverlay"]
-_import_path = NodePath("")
+[node name="SkipTextButton" type="BaseButton" parent="CanvasLayer/UI/EventOverlay" unique_id=784706137]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -2421,6 +2514,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -2434,9 +2528,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = []
+accessibility_described_by_nodes = []
+accessibility_labeled_by_nodes = []
+accessibility_flow_to_nodes = []
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -2452,7 +2555,7 @@ shortcut_in_tooltip = true
 script = ExtResource("58_sagt1")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="ContinueButton" parent="CanvasLayer/UI/EventOverlay" instance=ExtResource("7_blgb5")]
+[node name="ContinueButton" parent="CanvasLayer/UI/EventOverlay" unique_id=1107262915 instance=ExtResource("7_blgb5")]
 layout_mode = 1
 anchors_preset = 8
 anchor_top = 0.5
@@ -2461,10 +2564,10 @@ offset_top = 250.0
 offset_bottom = 350.0
 grow_vertical = 2
 
-[node name="Label" parent="CanvasLayer/UI/EventOverlay/ContinueButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/EventOverlay/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1107262915, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
 
-[node name="CharacterCreationOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_steps", "_backButton", "_confirmButton")]
+[node name="CharacterCreationOverlay" type="Control" parent="CanvasLayer/UI" unique_id=1134572089 node_paths=PackedStringArray("_steps", "_backButton", "_confirmButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2477,7 +2580,7 @@ _steps = [NodePath("Steps/Class"), NodePath("Steps/PersonalQuest"), NodePath("St
 _backButton = NodePath("BackButton")
 _confirmButton = NodePath("ConfirmButton")
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay" unique_id=525813945]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2488,7 +2591,7 @@ texture = ExtResource("62_bny7g")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/CharacterCreationOverlay" unique_id=1247917171]
 material = SubResource("ShaderMaterial_wg15a")
 layout_mode = 1
 anchors_preset = 15
@@ -2498,7 +2601,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Steps" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay"]
+[node name="Steps" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay" unique_id=137369246]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2507,7 +2610,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Class" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_classParent", "_matFrontTexture")]
+[node name="Class" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" unique_id=20730692 node_paths=PackedStringArray("_classParent", "_matFrontTexture")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2521,7 +2624,7 @@ _classScene = ExtResource("66_bnord")
 _classParent = NodePath("HBoxContainer/ClassesGrid")
 _matFrontTexture = NodePath("HBoxContainer/VBoxContainer/MatFront/Mask/TextureRect")
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class" unique_id=494155437]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -2535,7 +2638,7 @@ text = "Select a Class"
 label_settings = SubResource("LabelSettings_vapya")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class" unique_id=809673481]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -2550,7 +2653,7 @@ text = "The classes not included in the chosen group can be unlocked during the 
 label_settings = ExtResource("64_tq2dg")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class" unique_id=1933438773]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2566,22 +2669,22 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="ClassesGrid" type="GridContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer"]
+[node name="ClassesGrid" type="GridContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer" unique_id=1626618321]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer" unique_id=1541281353]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="MatFront" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer"]
+[node name="MatFront" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer" unique_id=1116715936]
 custom_minimum_size = Vector2(970, 630)
 layout_mode = 2
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront"]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront" unique_id=1822556551]
 clip_children = 1
 clip_contents = true
 layout_mode = 1
@@ -2593,7 +2696,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d3wm2")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront/Mask"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/Class/HBoxContainer/VBoxContainer/MatFront/Mask" unique_id=1406180785]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2604,7 +2707,7 @@ texture = ExtResource("64_wg15a")
 expand_mode = 5
 stretch_mode = 4
 
-[node name="PersonalQuest" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_questParent", "_noneRemainingLabel")]
+[node name="PersonalQuest" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" unique_id=346558325 node_paths=PackedStringArray("_questParent", "_noneRemainingLabel")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2617,7 +2720,7 @@ _questScene = ExtResource("68_0un3t")
 _questParent = NodePath("HBoxContainer")
 _noneRemainingLabel = NodePath("NoneRemainingLabel")
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest" unique_id=1143004560]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -2631,7 +2734,7 @@ text = "Select a Personal Quest"
 label_settings = SubResource("LabelSettings_vapya")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest" unique_id=662062815]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -2646,7 +2749,7 @@ text = "The classes not included in the chosen group can be unlocked during the 
 label_settings = ExtResource("64_tq2dg")
 horizontal_alignment = 1
 
-[node name="NoneRemainingLabel" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+[node name="NoneRemainingLabel" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest" unique_id=1588242296]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2663,7 +2766,7 @@ text = "No personal quests remaining!"
 label_settings = SubResource("LabelSettings_sursi")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/PersonalQuest" unique_id=1458635315]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -2675,7 +2778,7 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="CharacterName" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" node_paths=PackedStringArray("_nameLineEdit")]
+[node name="CharacterName" type="Control" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps" unique_id=1777915880 node_paths=PackedStringArray("_nameLineEdit")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2687,7 +2790,7 @@ mouse_filter = 2
 script = ExtResource("70_38ram")
 _nameLineEdit = NodePath("LineEdit")
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName" unique_id=2081465722]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -2701,7 +2804,7 @@ text = "Enter a Name for your Character"
 label_settings = SubResource("LabelSettings_0un3t")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName" unique_id=624241045]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -2716,7 +2819,7 @@ text = "The classes not included in the chosen group can be unlocked during the 
 label_settings = ExtResource("64_tq2dg")
 horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName"]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/CharacterCreationOverlay/Steps/CharacterName" unique_id=830249224]
 custom_minimum_size = Vector2(800, 100)
 layout_mode = 1
 anchors_preset = 8
@@ -2734,14 +2837,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/caret_width = 2
 theme_override_fonts/font = ExtResource("28_jr74k")
 theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxFlat_vapya")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bnord")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vapya")
 placeholder_text = "..."
 alignment = 1
 max_length = 20
 caret_blink = true
 
-[node name="BackButton" parent="CanvasLayer/UI/CharacterCreationOverlay" node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
+[node name="BackButton" parent="CanvasLayer/UI/CharacterCreationOverlay" unique_id=112072908 node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -2755,10 +2858,10 @@ script = ExtResource("67_0un3t")
 BetterButton = NodePath("BetterButton")
 _startActive = true
 
-[node name="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/BackButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/BackButton/BetterButton/Panel" parent_id_path=PackedInt32Array(112072908, 62362509) index="0" unique_id=188245078]
 text = "Back"
 
-[node name="ConfirmButton" parent="CanvasLayer/UI/CharacterCreationOverlay" node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
+[node name="ConfirmButton" parent="CanvasLayer/UI/CharacterCreationOverlay" unique_id=876028160 node_paths=PackedStringArray("BetterButton") instance=ExtResource("27_hkul8")]
 modulate = Color(0.458824, 1, 0.372549, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -2776,7 +2879,7 @@ script = ExtResource("67_0un3t")
 BetterButton = NodePath("BetterButton")
 _startActive = false
 
-[node name="ClassUnlockOverlay" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_unlockCharacterView")]
+[node name="ClassUnlockOverlay" type="Control" parent="CanvasLayer/UI" unique_id=1374115008 node_paths=PackedStringArray("_unlockCharacterView")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2787,7 +2890,7 @@ grow_vertical = 2
 script = ExtResource("74_6t0vk")
 _unlockCharacterView = NodePath("UnlockCharacterView")
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI/ClassUnlockOverlay"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI/ClassUnlockOverlay" unique_id=1463403662]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2798,7 +2901,7 @@ texture = ExtResource("62_bny7g")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/ClassUnlockOverlay"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI/ClassUnlockOverlay" unique_id=1923399054]
 material = SubResource("ShaderMaterial_wg15a")
 layout_mode = 1
 anchors_preset = 15
@@ -2808,10 +2911,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="UnlockCharacterView" parent="CanvasLayer/UI/ClassUnlockOverlay" instance=ExtResource("74_8tse7")]
+[node name="UnlockCharacterView" parent="CanvasLayer/UI/ClassUnlockOverlay" unique_id=962751827 instance=ExtResource("74_8tse7")]
 layout_mode = 1
 
-[node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("32_5k12q")]
+[node name="MenuButton" parent="CanvasLayer/UI" unique_id=73570041 instance=ExtResource("32_5k12q")]
 layout_mode = 1
 
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation"]

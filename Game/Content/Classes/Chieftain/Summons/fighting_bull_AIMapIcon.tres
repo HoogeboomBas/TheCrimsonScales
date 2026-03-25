@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://domtb2hv8e0ts"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://domtb2hv8e0ts"]
 
 [ext_resource type="Texture2D" uid="uid://dk3k06dmm06xu" path="res://Content/Classes/Chieftain/Summons/fighting_bull_AI.png" id="1_k02mo"]
 

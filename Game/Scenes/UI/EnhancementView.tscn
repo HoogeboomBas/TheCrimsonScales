@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1bfigwknvxg6"]
+[gd_scene format=3 uid="uid://c1bfigwknvxg6"]
 
 [ext_resource type="Script" uid="uid://dyswqd7yqjo7s" path="res://Scripts/UI/EnhancementView.cs" id="1_dcpx4"]
 [ext_resource type="Texture2D" uid="uid://c50n0lfjv3r6v" path="res://Art/Icons/ConditionsAndEffects/Wound.svg" id="2_fcdbu"]
 
-[node name="EnhancementView" type="Control" node_paths=PackedStringArray("_textureRect")]
+[node name="EnhancementView" type="Control" unique_id=617747942 node_paths=PackedStringArray("_textureRect")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
@@ -12,7 +12,7 @@ mouse_filter = 2
 script = ExtResource("1_dcpx4")
 _textureRect = NodePath("Container/TextureRect")
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1802712348]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Container"]
+[node name="TextureRect" type="TextureRect" parent="Container" unique_id=330382375]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

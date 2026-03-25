@@ -1,80 +1,80 @@
-[gd_scene load_steps=4 format=3 uid="uid://cac2ryoko8fur"]
+[gd_scene format=3 uid="uid://cac2ryoko8fur"]
 
 [ext_resource type="PackedScene" uid="uid://bdmmng80jwujv" path="res://Scenes/Scenario/MapTile.tscn" id="1_53t2p"]
 [ext_resource type="Texture2D" uid="uid://chjr6xknejvmc" path="res://Art/MapTiles/G1b-Man-Made Stone - D1.png" id="2_53t2p"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_ipp64"]
 
-[node name="G1b" instance=ExtResource("1_53t2p")]
+[node name="G1b" unique_id=2052044758 instance=ExtResource("1_53t2p")]
 StepType = 1
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-2, 0)
 texture = ExtResource("2_53t2p")
 
-[node name="Hex" parent="Hexes" index="0" instance=ExtResource("3_ipp64")]
-position = Vector2(-109.119, 189)
+[node name="Hex" parent="Hexes" index="0" unique_id=1157100496 instance=ExtResource("3_ipp64")]
+position = Vector2(-109.1192, 189)
 
-[node name="Hex2" parent="Hexes" index="1" instance=ExtResource("3_ipp64")]
+[node name="Hex2" parent="Hexes" index="1" unique_id=1886171640 instance=ExtResource("3_ipp64")]
 
-[node name="Hex3" parent="Hexes" index="2" instance=ExtResource("3_ipp64")]
-position = Vector2(-218.238, 0)
+[node name="Hex3" parent="Hexes" index="2" unique_id=1566704827 instance=ExtResource("3_ipp64")]
+position = Vector2(-218.2384, 0)
 
-[node name="Hex4" parent="Hexes" index="3" instance=ExtResource("3_ipp64")]
-position = Vector2(218.238, 0)
+[node name="Hex4" parent="Hexes" index="3" unique_id=1374530135 instance=ExtResource("3_ipp64")]
+position = Vector2(218.2384, 0)
 
-[node name="Hex5" parent="Hexes" index="4" instance=ExtResource("3_ipp64")]
-position = Vector2(436.477, 0)
+[node name="Hex5" parent="Hexes" index="4" unique_id=1410892022 instance=ExtResource("3_ipp64")]
+position = Vector2(436.4768, 0)
 
-[node name="Hex6" parent="Hexes" index="5" instance=ExtResource("3_ipp64")]
-position = Vector2(327.358, -189)
+[node name="Hex6" parent="Hexes" index="5" unique_id=1548786597 instance=ExtResource("3_ipp64")]
+position = Vector2(327.35757, -189)
 
-[node name="Hex7" parent="Hexes" index="6" instance=ExtResource("3_ipp64")]
-position = Vector2(109.119, -189)
+[node name="Hex7" parent="Hexes" index="6" unique_id=513643659 instance=ExtResource("3_ipp64")]
+position = Vector2(109.1192, -189)
 
-[node name="Hex8" parent="Hexes" index="7" instance=ExtResource("3_ipp64")]
-position = Vector2(-109.119, -189)
+[node name="Hex8" parent="Hexes" index="7" unique_id=1770676601 instance=ExtResource("3_ipp64")]
+position = Vector2(-109.1192, -189)
 
-[node name="Hex9" parent="Hexes" index="8" instance=ExtResource("3_ipp64")]
-position = Vector2(-327.358, -189)
+[node name="Hex9" parent="Hexes" index="8" unique_id=1063705690 instance=ExtResource("3_ipp64")]
+position = Vector2(-327.35757, -189)
 
-[node name="Hex10" parent="Hexes" index="9" instance=ExtResource("3_ipp64")]
-position = Vector2(327.358, 189)
+[node name="Hex10" parent="Hexes" index="9" unique_id=899911954 instance=ExtResource("3_ipp64")]
+position = Vector2(327.35757, 189)
 
-[node name="Hex11" parent="Hexes" index="10" instance=ExtResource("3_ipp64")]
-position = Vector2(109.119, 189)
+[node name="Hex11" parent="Hexes" index="10" unique_id=266118966 instance=ExtResource("3_ipp64")]
+position = Vector2(109.1192, 189)
 
-[node name="Hex12" parent="Hexes" index="11" instance=ExtResource("3_ipp64")]
-position = Vector2(-545.596, -189)
+[node name="Hex12" parent="Hexes" index="11" unique_id=592297766 instance=ExtResource("3_ipp64")]
+position = Vector2(-545.59595, -189)
 
-[node name="Hex13" parent="Hexes" index="12" instance=ExtResource("3_ipp64")]
-position = Vector2(-763.834, -189)
+[node name="Hex13" parent="Hexes" index="12" unique_id=787533650 instance=ExtResource("3_ipp64")]
+position = Vector2(-763.8344, -189)
 
-[node name="Hex14" parent="Hexes" index="13" instance=ExtResource("3_ipp64")]
-position = Vector2(545.596, -189)
+[node name="Hex14" parent="Hexes" index="13" unique_id=1393940088 instance=ExtResource("3_ipp64")]
+position = Vector2(545.59595, -189)
 
-[node name="Hex15" parent="Hexes" index="14" instance=ExtResource("3_ipp64")]
-position = Vector2(-327.358, 189)
+[node name="Hex15" parent="Hexes" index="14" unique_id=2070707249 instance=ExtResource("3_ipp64")]
+position = Vector2(-327.35757, 189)
 
-[node name="Hex16" parent="Hexes" index="15" instance=ExtResource("3_ipp64")]
-position = Vector2(-545.596, 189)
+[node name="Hex16" parent="Hexes" index="15" unique_id=1431970242 instance=ExtResource("3_ipp64")]
+position = Vector2(-545.59595, 189)
 
-[node name="Hex17" parent="Hexes" index="16" instance=ExtResource("3_ipp64")]
-position = Vector2(-763.834, 189)
+[node name="Hex17" parent="Hexes" index="16" unique_id=2088159580 instance=ExtResource("3_ipp64")]
+position = Vector2(-763.8344, 189)
 
-[node name="Hex18" parent="Hexes" index="17" instance=ExtResource("3_ipp64")]
-position = Vector2(-436.477, 0)
+[node name="Hex18" parent="Hexes" index="17" unique_id=242500474 instance=ExtResource("3_ipp64")]
+position = Vector2(-436.4768, 0)
 
-[node name="Hex19" parent="Hexes" index="18" instance=ExtResource("3_ipp64")]
-position = Vector2(-654.715, 0)
+[node name="Hex19" parent="Hexes" index="18" unique_id=79528616 instance=ExtResource("3_ipp64")]
+position = Vector2(-654.71515, 0)
 
-[node name="Hex20" parent="Hexes" index="19" instance=ExtResource("3_ipp64")]
-position = Vector2(763.834, 189)
+[node name="Hex20" parent="Hexes" index="19" unique_id=1926015459 instance=ExtResource("3_ipp64")]
+position = Vector2(763.8344, 189)
 
-[node name="Hex21" parent="Hexes" index="20" instance=ExtResource("3_ipp64")]
-position = Vector2(545.596, 189)
+[node name="Hex21" parent="Hexes" index="20" unique_id=729975208 instance=ExtResource("3_ipp64")]
+position = Vector2(545.59595, 189)
 
-[node name="Hex22" parent="Hexes" index="21" instance=ExtResource("3_ipp64")]
-position = Vector2(654.715, 0)
+[node name="Hex22" parent="Hexes" index="21" unique_id=1081601088 instance=ExtResource("3_ipp64")]
+position = Vector2(654.71515, 0)
 
-[node name="Hex23" parent="Hexes" index="22" instance=ExtResource("3_ipp64")]
-position = Vector2(763.834, -189)
+[node name="Hex23" parent="Hexes" index="22" unique_id=116151884 instance=ExtResource("3_ipp64")]
+position = Vector2(763.8344, -189)

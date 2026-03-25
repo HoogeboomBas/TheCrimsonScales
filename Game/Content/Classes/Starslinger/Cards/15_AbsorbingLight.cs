@@ -25,6 +25,7 @@ public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, Absor
 					state.AbilityAdjustHealValue(attackAbilityState.DamageDealt);
 					await GDTask.CompletedTask;
 				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
 	}

@@ -21,6 +21,8 @@ public partial class ChoiceButtonsView : Control
 	{
 		base._Ready();
 
+		Show();
+
 		_continueButton.BetterButton.Pressed += OnContinuePressed;
 		_skipButton.BetterButton.Pressed += OnSkipPressed;
 	}

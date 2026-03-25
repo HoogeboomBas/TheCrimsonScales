@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dfqs28tpbn52t"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://dfqs28tpbn52t"]
 
 [ext_resource type="Texture2D" uid="uid://cueo8fhnj1t06" path="res://Content/Monsters/Boss/CaptainOfTheGuard/CaptainOfTheGuard.jpeg" id="1_3gp1n"]
 

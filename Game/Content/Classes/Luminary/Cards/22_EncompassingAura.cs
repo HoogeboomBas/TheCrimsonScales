@@ -17,10 +17,10 @@ public class EncompassingAura : LuminaryCardModel<EncompassingAura.CardTop, Enco
 				.WithGetAbilities(state =>
 				[
 					ShieldAbility.Builder()
-						.WithShieldValue(new DynamicInt<ShieldAbility.State>(1, _ => state.GetCustomValue<int>(this, "IceConsumed")))
+						.WithShieldValue(new DynamicInt<ShieldAbility.State>(_ => 1 + state.GetCustomValue<int>(this, "IceConsumed")))
 						.Build(),
 					RetaliateAbility.Builder()
-						.WithRetaliateValue(new DynamicInt<RetaliateAbility.State>(1, _ => state.GetCustomValue<int>(this, "DarkConsumed")))
+						.WithRetaliateValue(new DynamicInt<RetaliateAbility.State>(_ => 1 + state.GetCustomValue<int>(this, "DarkConsumed")))
 						.Build(),
 				])
 				.WithTarget(Target.SelfOrAllies | Target.TargetAll)

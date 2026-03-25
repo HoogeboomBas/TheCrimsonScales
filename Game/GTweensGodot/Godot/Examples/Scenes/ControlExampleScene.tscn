@@ -1,16 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bv6vwc6kumlqr"]
+[gd_scene format=3 uid="uid://bv6vwc6kumlqr"]
 
 [ext_resource type="Script" uid="uid://dhgjwiyoswlpb" path="res://GTweensGodot/Godot/Examples/Scripts/ControlExample.cs" id="1_rv34w"]
 
-[node name="ControlExampleScene" type="Node2D"]
+[node name="ControlExampleScene" type="Node2D" unique_id=307915946]
 
-[node name="Example" type="Node2D" parent="." node_paths=PackedStringArray("Target")]
+[node name="Example" type="Node2D" parent="." unique_id=52908500 node_paths=PackedStringArray("Target")]
 script = ExtResource("1_rv34w")
 Target = NodePath("../CanvasLayer/Control/ColorRect")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1216688740]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=294817048]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1106390247]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -33,5 +33,5 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1951278704]
 zoom = Vector2(2, 2)

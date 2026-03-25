@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6ft30fynyoga"]
+[gd_scene format=3 uid="uid://c6ft30fynyoga"]
 
 [ext_resource type="PackedScene" uid="uid://03wrj6dvw5hb" path="res://Scenes/Scenario/OverlayTiles/Door1H.tscn" id="1_3ja3u"]
 [ext_resource type="Texture2D" uid="uid://dnf6o2l6rmc6u" path="res://Art/OverlayTiles/Light Fog 1h.png" id="2_hsu1w"]
 [ext_resource type="PackedScene" uid="uid://nm1hasddlxs" path="res://Content/OverlayTiles/Corridors/Earth1H.tscn" id="2_rn53l"]
 
-[node name="LightFog1H" instance=ExtResource("1_3ja3u")]
+[node name="LightFog1H" unique_id=976656958 instance=ExtResource("1_3ja3u")]
 _corridorScene = ExtResource("2_rn53l")
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_hsu1w")

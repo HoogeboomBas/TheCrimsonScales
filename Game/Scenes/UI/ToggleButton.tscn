@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddtpp0xpoq8tq"]
+[gd_scene format=3 uid="uid://ddtpp0xpoq8tq"]
 
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_fj6f1"]
 
@@ -10,13 +10,13 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[node name="ToggleButton" type="Control"]
+[node name="ToggleButton" type="Control" unique_id=1231279648]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=521323546]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,8 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BetterButton" type="BaseButton" parent="Container"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="Container" unique_id=1155449473]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -68,6 +67,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -81,9 +81,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -99,7 +108,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_fj6f1")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="InactiveOverlay" type="Panel" parent="Container/BetterButton"]
+[node name="InactiveOverlay" type="Panel" parent="Container/BetterButton" unique_id=342110485]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(0, 0, 0, 0.588235)
 layout_mode = 1

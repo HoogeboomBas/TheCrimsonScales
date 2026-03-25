@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsbsmwe48hls0"]
+[gd_scene format=3 uid="uid://bsbsmwe48hls0"]
 
 [ext_resource type="PackedScene" uid="uid://c2f7r2flocmsj" path="res://Scenes/Scenario/OverlayTiles/Objective1H.tscn" id="1_wpat8"]
 [ext_resource type="Texture2D" uid="uid://cddsfqs4oy6br" path="res://Art/OverlayTiles/Altar 1h.png" id="2_06nxl"]
 
-[node name="AltarVerticalObjective1H" instance=ExtResource("1_wpat8")]
+[node name="AltarVerticalObjective1H" unique_id=482181997 instance=ExtResource("1_wpat8")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=373370001]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(1, 3)

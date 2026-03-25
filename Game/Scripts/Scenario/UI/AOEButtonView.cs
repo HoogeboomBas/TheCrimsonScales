@@ -20,6 +20,8 @@ public partial class AOEButtonView : Control
 	{
 		base._Ready();
 
+		Show();
+
 		_mirrorButton.BetterButton.Pressed += OnMirrorPressed;
 		_rotateCounterClockwiseButton.BetterButton.Pressed += OnRotateCounterClockwisePressed;
 		_rotateClockwiseButton.BetterButton.Pressed += OnRotateClockwisePressed;

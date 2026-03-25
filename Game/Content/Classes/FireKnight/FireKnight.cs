@@ -109,7 +109,7 @@ public partial class FireKnight : Character
 			effectButtonParameters: effectButtonParameters,
 			effectInfoViewParameters: effectInfoViewParameters);
 
-		ScenarioEvents.LongRestCardSelectionEvent.Subscribe(this, subscriber,
+		ScenarioEvents.LongRestStartedEvent.Subscribe(this, subscriber,
 			canApplyParameters => canApply(canApplyParameters.Character),
 			async applyParameters =>
 			{

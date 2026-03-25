@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bm8we16yjsmag"]
+[gd_scene format=3 uid="uid://bm8we16yjsmag"]
 
 [ext_resource type="Script" uid="uid://dh8df2s3g1u7w" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/DonationCoin.cs" id="1_6v3y5"]
 [ext_resource type="PackedScene" uid="uid://ra88v5tsfvhh" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/Coin.fbx" id="1_ass6a"]
@@ -31,7 +31,7 @@ radius = 0.1
 height = 0.01
 radius = 0.125977
 
-[node name="DonationCoin" type="RigidBody3D" node_paths=PackedStringArray("Visual")]
+[node name="DonationCoin" type="RigidBody3D" unique_id=275623686 node_paths=PackedStringArray("Visual")]
 physics_interpolation_mode = 1
 input_ray_pickable = false
 mass = 0.1
@@ -43,18 +43,18 @@ angular_damp = 6.0
 script = ExtResource("1_6v3y5")
 Visual = NodePath("Coin")
 
-[node name="Coin" parent="." instance=ExtResource("1_ass6a")]
+[node name="Coin" parent="." unique_id=546229570 instance=ExtResource("1_ass6a")]
 
-[node name="Plane" parent="Coin" index="0"]
+[node name="Plane" parent="Coin" index="0" unique_id=670868958]
 transform = Transform3D(15, 0, 0, 0, -6.55671e-07, 20, 0, -15, -8.74228e-07, 0, 0, 0)
 layers = 524288
 material_override = SubResource("StandardMaterial3D_8ad0h")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=559456005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0103882, 0)
 shape = SubResource("CylinderShape3D_8a8my")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=242170189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0103882, 0)
 shape = SubResource("CylinderShape3D_w2guo")
 

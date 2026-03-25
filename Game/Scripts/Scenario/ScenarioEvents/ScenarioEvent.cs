@@ -40,42 +40,8 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
 		}
 
-		public static Subscription ConsumeElement(Element element,
-			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
-			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
-			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
-		{
-			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
-			return new Subscription(
-				parameters =>
-				{
-					Figure potentialConsumer = null;
-					if(parameters is ParametersBaseWithAbilityState parametersBase)
-					{
-						potentialConsumer = parametersBase.BaseAbilityState.Performer;
-					}
-
-					return
-						AbilityCmd.CanConsumeElement(element, potentialConsumer) &&
-						(canApplyFunction == null || canApplyFunction.Invoke(parameters));
-				},
-				async parameters =>
-				{
-					await AbilityCmd.TryConsumeElement(element);
-					if(applyFunction != null)
-					{
-						// if(parameters is ParametersBaseWithAbilityState parametersBaseWithAbilityState)
-						// {
-						// 	parametersBaseWithAbilityState.BaseAbilityState.SetElementConsumed(element);
-						// }
-						await applyFunction.Invoke(parameters);
-					}
-				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
-				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(element),
-				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
-		}
-
-		public static Subscription ConsumeWildElement(CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null,
+		public static Subscription ConsumeElement(List<CardElementConsumption> elements, CanApplyFunction canApplyFunction = null,
+			ApplyFunction applyFunction = null,
 			EffectType effectType = EffectType.Selectable,
 			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
 			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
@@ -89,42 +55,10 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 						potentialConsumer = parametersBase.BaseAbilityState.Performer;
 					}
 
-					bool elementAvailable = false;
-					for(int i = 0; i < 6; i++)
-					{
-						if(AbilityCmd.CanConsumeElement((Element)i, potentialConsumer))
-						{
-							elementAvailable = true;
-							break;
-						}
-					}
-
-					return elementAvailable && (canApplyFunction == null || canApplyFunction.Invoke(parameters));
+					return AbilityCmd.CanConsumeElements(elements, potentialConsumer) &&
+					       (canApplyFunction == null || canApplyFunction.Invoke(parameters));
 				},
 				async parameters =>
-				{
-					Element? wildConsume = await AbilityCmd.AskConsumeWildElement(
-						parameters is ParametersBaseWithAbilityState parametersBase ? parametersBase.BaseAbilityState.Performer : new Character(),
-						true);
-					if(wildConsume.HasValue)
-					{
-						if(applyFunction != null)
-						{
-							await applyFunction.Invoke(parameters);
-						}
-					}
-				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
-				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(),
-				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
-		}
-
-		public static Subscription ConsumeElements(List<Element> elements,
-			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
-			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
-			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
-		{
-			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
-			return new Subscription(parameters =>
 				{
 					Figure potentialConsumer = null;
 					if(parameters is ParametersBaseWithAbilityState parametersBase)
@@ -132,34 +66,24 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 						potentialConsumer = parametersBase.BaseAbilityState.Performer;
 					}
 
-					foreach(Element element in elements)
-					{
-						if(!AbilityCmd.CanConsumeElement(element, potentialConsumer))
-						{
-							return false;
-						}
-					}
-
-					return canApplyFunction == null || canApplyFunction.Invoke(parameters);
-				},
-				async parameters =>
-				{
-					foreach(Element element in elements)
-					{
-						await AbilityCmd.TryConsumeElement(element);
-					}
-
+					await AbilityCmd.ConsumeElements(potentialConsumer, elements);
 					if(applyFunction != null)
 					{
-						// if(parameters is ParametersBaseWithAbilityState parametersBaseWithAbilityState)
-						// {
-						// 	parametersBaseWithAbilityState.BaseAbilityState.SetElementConsumed(element);
-						// }
 						await applyFunction.Invoke(parameters);
 					}
 				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
 				effectButtonParameters ?? new ConsumeElementEffectButton.Parameters(elements),
 				effectInfoViewParameters ?? new TextEffectInfoView.Parameters("TODO"));
+		}
+
+		public static Subscription ConsumeElement(Element element, CanApplyFunction canApplyFunction = null,
+			ApplyFunction applyFunction = null,
+			EffectType effectType = EffectType.Selectable,
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+		{
+			return ConsumeElement([CardElementConsumption.Consume(element)], canApplyFunction, applyFunction, effectType, order,
+				canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters);
 		}
 
 		public override bool CanApply(ParametersBase parameters)

@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cpy4ir5p1cexi"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://cpy4ir5p1cexi"]
 
 [ext_resource type="Texture2D" uid="uid://bq47e8g2ew0sw" path="res://Content/Classes/Chieftain/Summons/warrior_hawk_AI.png" id="1_j4kos"]
 

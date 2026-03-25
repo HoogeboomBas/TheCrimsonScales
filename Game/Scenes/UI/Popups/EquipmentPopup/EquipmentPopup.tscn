@@ -1,46 +1,110 @@
-[gd_scene load_steps=4 format=3 uid="uid://da55w54r560l"]
+[gd_scene format=3 uid="uid://da55w54r560l"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_d1f30"]
 [ext_resource type="Script" uid="uid://dypogdefdxrjb" path="res://Scripts/UI/Popups/EquipmentPopup/EquipmentPopup.cs" id="2_bpafl"]
 [ext_resource type="PackedScene" uid="uid://dkpodhjo178w4" path="res://Scenes/UI/Popups/EquipmentPopup/EquipmentSlot.tscn" id="3_aqr01"]
 
-[node name="EquipmentPopup" node_paths=PackedStringArray("_baseSlots", "_smallItemsParent", "_scrollContainer") instance=ExtResource("1_d1f30")]
+[node name="EquipmentPopup" unique_id=1337128820 node_paths=PackedStringArray("_baseSlots", "_smallItemsParent", "_scrollContainer") instance=ExtResource("1_d1f30")]
 script = ExtResource("2_bpafl")
 _baseSlots = [NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5")]
 _equipmentSlotScene = ExtResource("3_aqr01")
 _smallItemsParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer/BottomRow")
 _scrollContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer")
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Equipment"
 
-[node name="TopRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="TopRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=513294567]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="EquipmentSlot" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="0" instance=ExtResource("3_aqr01")]
+[node name="EquipmentSlot" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="0" unique_id=1276576635 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="EquipmentSlot2" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="1" instance=ExtResource("3_aqr01")]
+[node name="EquipmentSlot2" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="1" unique_id=404840742 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="EquipmentSlot3" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="2" instance=ExtResource("3_aqr01")]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2/BetterButton/ItemContainer" index="1"]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="EquipmentSlot3" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="2" unique_id=1361666112 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="EquipmentSlot4" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="3" instance=ExtResource("3_aqr01")]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3/BetterButton/ItemContainer" index="1"]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="EquipmentSlot4" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="3" unique_id=834149868 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="EquipmentSlot5" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="4" instance=ExtResource("3_aqr01")]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4/BetterButton/ItemContainer" index="1"]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="EquipmentSlot5" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="4" unique_id=544586717 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5/BetterButton/ItemContainer" index="1"]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=212876237]
 layout_mode = 2
 theme_override_constants/margin_left = -10
 theme_override_constants/margin_top = -10
 theme_override_constants/margin_right = -10
 theme_override_constants/margin_bottom = -10
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer" index="0" unique_id=1315253727]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -48,20 +112,20 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0" unique_id=840631407]
 clip_contents = false
 custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10
 
-[node name="BottomRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer" index="0"]
+[node name="BottomRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer" index="0" unique_id=698134885]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="1" unique_id=1394157472]
 visible = false
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dq6ak5hu16kt0"]
+[gd_scene format=3 uid="uid://dq6ak5hu16kt0"]
 
 [ext_resource type="Script" uid="uid://c6kbgvpwnr54x" path="res://GTweensGodot/Godot/Examples/Scripts/Cube3DExample.cs" id="1_k2uvp"]
 
@@ -19,42 +19,42 @@ fog_light_energy = 2.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_13f0n"]
 
-[node name="Cube3DExampleScene" type="Node3D"]
+[node name="Cube3DExampleScene" type="Node3D" unique_id=412313131]
 
-[node name="Example" type="Node" parent="." node_paths=PackedStringArray("Pivot", "Cube")]
+[node name="Example" type="Node" parent="." unique_id=191666021 node_paths=PackedStringArray("Pivot", "Cube")]
 script = ExtResource("1_k2uvp")
 Pivot = NodePath("../CubePivot")
 Cube = NodePath("../CubePivot/CSGBox3D")
 
-[node name="CubePivot" type="Node3D" parent="."]
+[node name="CubePivot" type="Node3D" parent="." unique_id=1193401446]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.522073, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CubePivot"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CubePivot" unique_id=1255945578]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_6j2xr")
 gi_mode = 2
 
-[node name="Plane" type="CSGBox3D" parent="."]
+[node name="Plane" type="CSGBox3D" parent="." unique_id=39106123]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.622862, 0)
 gi_mode = 2
 size = Vector3(3.44605, 0.192549, 3.69502)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Wall" type="CSGBox3D" parent="."]
+[node name="Wall" type="CSGBox3D" parent="." unique_id=481470557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.917214, -1.90393)
 gi_mode = 2
 size = Vector3(3.44605, 3.27377, 0.182729)
 material = SubResource("StandardMaterial3D_wbdrq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1943734420]
 transform = Transform3D(0.835807, -0.197646, 0.512213, 0, 0.932954, 0.359997, -0.549023, -0.300888, 0.779769, 3.619, 4.084, 5.146)
 fov = 65.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1659149395]
 environment = SubResource("Environment_4gk0i")
 camera_attributes = SubResource("CameraAttributesPractical_13f0n")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=2030038089]
 transform = Transform3D(1, 0, 0, 0, 0.6333, 0.773907, 0, -0.773907, 0.6333, 0, 0, 0)
 light_energy = 1.5
 shadow_enabled = true

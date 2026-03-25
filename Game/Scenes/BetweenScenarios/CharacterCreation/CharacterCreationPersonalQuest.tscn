@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsc4dpb4vpe8c"]
+[gd_scene format=3 uid="uid://dsc4dpb4vpe8c"]
 
 [ext_resource type="Material" uid="uid://gfilfltix5vm" path="res://Materials/RotatingCard.tres" id="1_0qoq3"]
 [ext_resource type="Script" uid="uid://t4mcv7pstw0j" path="res://Scripts/BetweenScenarios/CharacterCreation/CharacterCreationPersonalQuest.cs" id="1_kpwqy"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_lk6xs"]
 [ext_resource type="PackedScene" uid="uid://bfpnjhm68e114" path="res://Scenes/UI/PersonalQuests/PersonalQuestToggleButton.tscn" id="5_lk6xs"]
 
-[node name="CharacterCreationPersonalQuestCard" type="Control" node_paths=PackedStringArray("_rotatingCardView", "_personalQuestToggleButton", "_betterButton")]
+[node name="CharacterCreationPersonalQuestCard" type="Control" unique_id=550400096 node_paths=PackedStringArray("_rotatingCardView", "_personalQuestToggleButton", "_betterButton")]
 custom_minimum_size = Vector2(450, 630)
 layout_mode = 3
 anchors_preset = 0
@@ -15,8 +15,7 @@ _rotatingCardView = NodePath("BetterButton/SubViewportContainer")
 _personalQuestToggleButton = NodePath("BetterButton/SubViewportContainer/SubViewport/PersonalQuestToggleButton")
 _betterButton = NodePath("BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=379266106]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -58,6 +57,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -71,9 +71,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -89,7 +98,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_lk6xs")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="BetterButton"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="BetterButton" unique_id=216597334]
 material = ExtResource("1_0qoq3")
 instance_shader_parameters/y_rot = 0.0
 layout_mode = 1
@@ -101,13 +110,13 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_kpwqy")
 
-[node name="SubViewport" type="SubViewport" parent="BetterButton/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="BetterButton/SubViewportContainer" unique_id=790235835]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(450, 630)
 render_target_update_mode = 4
 
-[node name="PersonalQuestToggleButton" parent="BetterButton/SubViewportContainer/SubViewport" instance=ExtResource("5_lk6xs")]
+[node name="PersonalQuestToggleButton" parent="BetterButton/SubViewportContainer/SubViewport" unique_id=364794677 instance=ExtResource("5_lk6xs")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

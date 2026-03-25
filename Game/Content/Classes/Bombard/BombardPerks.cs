@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class BombardPerks
@@ -147,18 +148,28 @@ public class BombardPerks
 		public override bool IgnoreNegativeItemEffects => true;
 	}
 
-	public class EmergencyEmplacement : BombardPerk
+	public class EmergencyEmplacement : BombardPerk, IEventSubscriber
 	{
 		protected override string Title => "Emergency Emplacement";
 
 		public override string GetNonAMDDescription(RichTextParameters richTextParameters) =>
 			$"Whenever you short rest, you may gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), richTextParameters, true)} to immediately resolve any of your active Projectile {Icons.Inline(ModelDB.Class<BombardModel>().IconPath, richTextParameters)} abilities.";
 
-		public override async GDTask OnScenarioSetupPhaseCompleted()
+		public override async GDTask OnScenarioSetupPhaseCompleted(Character character)
 		{
-			await base.OnScenarioSetupPhaseCompleted();
+			await base.OnScenarioSetupPhaseCompleted(character);
 
-			//TODO: Implement
+			ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
+				parameters => parameters.Character == character,
+				async parameters =>
+				{
+					await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
+					foreach(AbilityState abilityState in character.Cards.SelectMany(card => card.ActiveActionStates).SelectMany(actionState => actionState.AbilityStates.Where(abilityState => abilityState is ProjectileAbility.State)))
+					{
+						ProjectileAbility.State projectileState = (ProjectileAbility.State)abilityState;
+						await projectileState.PerformAbilities();
+					}
+				});
 		}
 	}
 }

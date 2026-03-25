@@ -34,7 +34,7 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(OtherActiveAbility.Builder()
-				.WithOnActivate(state =>
+				.WithOnActivate(async state =>
 				{
 					ScenarioCheckEvents.MoveCheckEvent.Subscribe(state, this,
 						canApplyParameters =>
@@ -62,14 +62,14 @@ public class Bogstep : MirefootCardModel<Bogstep.CardTop, Bogstep.CardBottom>
 							return GDTask.CompletedTask;
 						});
 
-					return GDTask.CompletedTask;
+					await GDTask.CompletedTask;
 				})
-				.WithOnDeactivate(state =>
+				.WithOnDeactivate(async state =>
 					{
 						ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(state, this);
 						ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(state, this);
 
-						return GDTask.CompletedTask;
+						await GDTask.CompletedTask;
 					}
 				)
 				.Build()),

@@ -49,12 +49,10 @@ public static class AbilityCmd
 
 	public static OtherActiveAbility AllOpposingAttacksGainDisadvantageActiveAbility()
 	{
-		object subscriber = new object();
-
 		return OtherActiveAbility.Builder()
-			.WithOnActivate(state =>
+			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, subscriber,
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, state.Performer,
 					parameters => parameters.AbilityState.Target == state.Performer,
 					async parameters =>
 					{
@@ -64,28 +62,27 @@ public static class AbilityCmd
 					}
 				);
 
-				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.DisadvantageCheckEvent.Subscribe(state, state.Performer,
 					parameters => parameters.Target == state.Performer,
 					parameters => parameters.SetDisadvantage(true)
 				);
 
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, subscriber,
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, state.Performer,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
 						new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
 				);
 
-				return GDTask.CompletedTask;
+				await GDTask.CompletedTask;
 			})
-			.WithOnDeactivate(state =>
-				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, subscriber);
-					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, subscriber);
+			.WithOnDeactivate(async state =>
+			{
+				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(state, state.Performer);
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, state.Performer);
 
-					return GDTask.CompletedTask;
-				}
-			)
+				await GDTask.CompletedTask;
+			})
 			.Build();
 	}
 
@@ -150,12 +147,17 @@ public static class AbilityCmd
 
 	public static async GDTask KillOrExhaust(AbilityState potentialAbilityState, Figure target, Figure potentialKiller)
 	{
-		await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
-			new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
-		await target.Destroy();
+		ScenarioEvents.BeforeFigureKilled.Parameters beforeFigureKilledParameters =
+			await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
+				new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
 
-		await ScenarioEvents.FigureKilledEvent.CreatePrompt(
-			new ScenarioEvents.FigureKilled.Parameters(potentialAbilityState, target, potentialKiller), target);
+		if(!beforeFigureKilledParameters.Prevented)
+		{
+			await target.Destroy();
+
+			await ScenarioEvents.FigureKilledEvent.CreatePrompt(
+				new ScenarioEvents.FigureKilled.Parameters(potentialAbilityState, target, potentialKiller), target);
+		}
 	}
 
 	public static async GDTask KillOrExhaust(Figure target, Figure potentialKiller)
@@ -209,6 +211,9 @@ public static class AbilityCmd
 					{
 						await target.AddCondition(conditionModel, potentialAbilityState?.Performer);
 					}
+
+					await ScenarioEvents.ConditionAddedEvent.CreatePrompt(
+						new ScenarioEvents.ConditionAdded.Parameters(potentialAbilityState, target, potentialConditionGiver, conditionModel), target);
 				}
 			}
 		}
@@ -389,6 +394,13 @@ public static class AbilityCmd
 	{
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
+	
+	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
+	{
+		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
+
+		return await CreateOverlayTile<Obstacle>(hex, scene);
+	}
 
 	public static async GDTask<List<Coin>> SpawnCoin(Hex hex, Figure dropper = null)
 	{
@@ -457,10 +469,28 @@ public static class AbilityCmd
 		return (T)overlayTile;
 	}
 
-	public static async GDTask<Hex> MoveOverlayTile(Figure performer, OverlayTile overlayTile, Action<List<Hex>> moveToHexes)
+	public static async GDTask<Hex> RelocateOverlayTile(AbilityState state, Action<List<Hex>> selectOverlayHexes,
+		Action<OverlayTile, List<Hex>> moveToHexes, Type[] possibleTypes, string selectionHintText = "Select an overlay tile to relocate")
 	{
-		Hex movedToHex = await SelectHex(performer, moveToHexes, mandatory: true,
-			hintText: $"Select a hex to move the {overlayTile.GetType().ToString().ToLower()} to");
+		//TODO: Change to select overlay tile
+		Action<List<Hex>> selection = list =>
+		{
+			selectOverlayHexes(list);
+			list.RemoveAll(hex => !hex.HexObjects.Any(hexObject => possibleTypes.Contains(hexObject.GetType())));
+		};
+		Hex hex = await SelectHex(state.Performer, selection, hintText: selectionHintText);
+
+		OverlayTile overlayTile = hex?.HexObjects.First(hexObject => possibleTypes.Contains(hexObject.GetType())) as OverlayTile;
+		if(overlayTile == null)
+		{
+			return null;
+		}
+
+		Action<List<Hex>> hexes = list => moveToHexes(overlayTile, list);
+
+		Hex movedToHex = await SelectHex(state.Performer, hexes, mandatory: true,
+			hintText: $"Select a hex to move {overlayTile.GetType().ToString().ToLower()} to");
+
 
 		if(movedToHex == null)
 		{
@@ -475,12 +505,49 @@ public static class AbilityCmd
 		await ScenarioEvents.OverlayTileMovedEvent.CreatePrompt(
 			new ScenarioEvents.OverlayTileMoved.Parameters(overlayTile));
 
+		state.SetPerformed();
+
 		return overlayTile.Hex;
 	}
 
-	public static async GDTask<Trap> CreateTrap(Hex hex, string assetPath, int damage = 0, ConditionModel[] conditions = null)
+	public static async GDTask<List<Trap>> CreateTraps(int damage, Figure performer, Figure authority = null,
+		Action<List<Hex>> customSelectHexes = null, int range = 1, int trapCount = 1, ConditionModel[] conditions = null,
+		bool mandatory = false, string assetPath = null)
 	{
-		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
+		List<Hex> targetHexes = await SelectHexes(authority ?? performer, list =>
+			{
+				if(customSelectHexes != null)
+				{
+					customSelectHexes(list);
+				}
+				else
+				{
+					list.AddRange(RangeHelper.GetHexesInRange(performer.Hex, range)
+						.Where(hex => hex.IsEmpty()));
+				}
+			},
+			minSelectionCount: mandatory ? trapCount : 0,
+			maxSelectionCount: trapCount,
+			autoSelectIfMaxCountIsValidCount: false,
+			hintText: (trapCount == 1) ? $"Select a hex to place the trap" : $"Select up to {trapCount} hexes to place the traps");
+
+		List<Trap> createdTraps = [];
+
+		if(targetHexes.Count > 0)
+		{
+			foreach(Hex hex in targetHexes)
+			{
+				createdTraps.Add(await PlaceTrap(hex, assetPath: assetPath, damage: damage, conditions: conditions));
+			}
+		}
+
+		return createdTraps;
+	}
+
+	private static async GDTask<Trap> PlaceTrap(Hex hex, string assetPath = null,
+		int damage = 0, ConditionModel[] conditions = null)
+	{
+		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath ?? "res://Content/OverlayTiles/Traps/BearTrap1H.tscn");
 
 		return await CreateOverlayTile<Trap>(hex, scene, trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
 	}
@@ -603,7 +670,8 @@ public static class AbilityCmd
 			{
 				ScenarioEvents.HazardousTerrainTriggered.Parameters hazardousTerrainParameters =
 					await ScenarioEvents.HazardousTerrainTriggeredEvent.CreatePrompt(
-						new ScenarioEvents.HazardousTerrainTriggered.Parameters(potentialAbilityState, hex, hazardousTerrain, true), authority);
+						new ScenarioEvents.HazardousTerrainTriggered.Parameters(potentialAbilityState, hex, figure, hazardousTerrain, true),
+						authority);
 				if(hazardousTerrainParameters.AffectedByHazardousTerrain)
 				{
 					int damage = HazardousTerrain.DamageAmount;
@@ -866,6 +934,66 @@ public static class AbilityCmd
 		ScenarioEvents.ConsumeElementEvent.Unsubscribe(authority, subscriber);
 
 		return consumeEventParameters.Consumed;
+	}
+
+	public static async GDTask<List<Element>> ConsumeElements(Figure authority, List<CardElementConsumption> consumptions)
+	{
+		List<List<Element>> possibilities = FindConsumptionPossibilities(consumptions, authority);
+		if(possibilities.Count == 0)
+		{
+			throw new InvalidOperationException("Tried consuming elements, but no possible solutions were found");
+		}
+
+		if(possibilities.Count == 1)
+		{
+			foreach(Element element in possibilities[0])
+			{
+				await TryConsumeElement(element);
+			}
+
+			return possibilities[0];
+		}
+		else
+		{
+			List<ScenarioEvents.GenericChoice.Subscription> subscriptions = [];
+			List<Element> chosenConsumption = null;
+
+			foreach(List<Element> possibility in possibilities)
+			{
+				string text = "Consume";
+				foreach(Element element in possibility)
+				{
+					text += $" {Icons.Inline(Icons.GetElement(element))}";
+				}
+
+				subscriptions.Add(ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(
+					applyFunction: async parameters =>
+					{
+						chosenConsumption = possibility;
+
+						await GDTask.CompletedTask;
+					},
+					effectType: EffectType.SelectableMandatory,
+					effectButtonParameters: new ConsumeElementEffectButton.Parameters(possibility),
+					effectInfoViewParameters: new TextEffectInfoView.Parameters(text)
+				));
+			}
+
+			await GenericChoice(authority ?? GameController.Instance.CharacterManager.FirstAlive(), subscriptions,
+				hintText: consumptions.Count == 1 ? "Select an element to consume" : "Select a set of elements to consume");
+
+			if(chosenConsumption == null)
+			{
+				return null;
+			}
+
+			foreach(Element element in chosenConsumption)
+			{
+				await TryConsumeElement(element);
+			}
+
+			return chosenConsumption;
+		}
 	}
 
 	public static async GDTask<bool> TryConsumeElement(Element element)
@@ -1383,7 +1511,7 @@ public static class AbilityCmd
 		return true;
 	}
 
-	public static bool CanConsumeElement(Element element, Figure potentialConsumer)
+	private static bool CanConsumeElement(Element element, Figure potentialConsumer)
 	{
 		if(GameController.Instance.ElementManager.GetState(element) == ElementState.Inert ||
 		   !ScenarioCheckEvents.CanConsumeElementCheckEvent
@@ -1393,5 +1521,109 @@ public static class AbilityCmd
 		}
 
 		return true;
+	}
+
+	public static bool CanConsumeElements(List<CardElementConsumption> consumptions, Figure potentialConsumer)
+	{
+		List<Element> remainingElements = GetAvailableElementsToConsume(consumptions, potentialConsumer);
+		foreach(CardElementConsumption elementConsumption in consumptions)
+		{
+			foreach(Element element in elementConsumption.ConsumableElements.Except(remainingElements))
+			{
+				if(CanConsumeElement(element, potentialConsumer))
+				{
+					remainingElements.Add(element);
+				}
+			}
+		}
+
+		List<CardElementConsumption> orderedConsumptions = consumptions.OrderBy(consumption => consumption.ConsumableElements.Count).ToList();
+
+		return TryMatchConsumptions(orderedConsumptions, remainingElements, 0);
+	}
+
+	private static bool TryMatchConsumptions(List<CardElementConsumption> consumptions, List<Element> remainingElements, int index)
+	{
+		if(index >= consumptions.Count)
+		{
+			return true;
+		}
+
+		CardElementConsumption consumption = consumptions[index];
+
+		foreach(Element element in consumption.ConsumableElements)
+		{
+			int elementIndex = remainingElements.IndexOf(element);
+			if(elementIndex >= 0)
+			{
+				remainingElements.RemoveAt(elementIndex);
+				if(TryMatchConsumptions(consumptions, remainingElements, index + 1))
+				{
+					return true;
+				}
+
+				remainingElements.Insert(elementIndex, element);
+			}
+		}
+
+		return false;
+	}
+
+	private static List<List<Element>> FindConsumptionPossibilities(List<CardElementConsumption> consumptions, Figure potentialConsumer)
+	{
+		List<Element> remainingElements = GetAvailableElementsToConsume(consumptions, potentialConsumer);
+
+		List<List<Element>> possibilities = [];
+
+		List<CardElementConsumption> orderedConsumptions = consumptions.OrderBy(consumption => consumption.ConsumableElements.Count).ToList();
+
+		TryMatchConsumptionPossibilities(orderedConsumptions, remainingElements, 0, [], possibilities);
+		return possibilities;
+	}
+
+	private static void TryMatchConsumptionPossibilities(List<CardElementConsumption> consumptions, List<Element> remainingElements, int index,
+		List<Element> current, List<List<Element>> possibilities)
+	{
+		if(index >= consumptions.Count)
+		{
+			List<Element> sorted = current.OrderBy(e => e).ToList();
+
+			if(!possibilities.Any(possibility => possibility.SequenceEqual(sorted)))
+			{
+				possibilities.Add(sorted);
+			}
+
+			return;
+		}
+
+		foreach(Element element in consumptions[index].ConsumableElements)
+		{
+			int elementIndex = remainingElements.IndexOf(element);
+			if(elementIndex >= 0)
+			{
+				remainingElements.RemoveAt(elementIndex);
+				current.Add(element);
+				TryMatchConsumptionPossibilities(consumptions, remainingElements, index + 1, current, possibilities);
+				current.RemoveAt(current.Count - 1);
+				remainingElements.Insert(elementIndex, element);
+			}
+		}
+	}
+
+	private static List<Element> GetAvailableElementsToConsume(List<CardElementConsumption> consumptions, Figure potentialConsumer)
+	{
+		List<Element> remainingElements = [];
+		foreach(CardElementConsumption elementConsumption in consumptions)
+		{
+			foreach(Element element in elementConsumption.ConsumableElements.Except(remainingElements))
+			{
+				if(CanConsumeElement(element, potentialConsumer))
+				{
+					remainingElements.Add(element);
+				}
+			}
+		}
+
+		return remainingElements;
 	}
 }

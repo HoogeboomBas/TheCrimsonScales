@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://01qkak46738j"]
+[gd_scene format=3 uid="uid://01qkak46738j"]
 
 [ext_resource type="Script" uid="uid://dydkneeqo4x6j" path="res://Scripts/NewCampaign/NewCampaignController.cs" id="1_h7fbo"]
 [ext_resource type="Texture2D" uid="uid://cw111i6yk01f1" path="res://Art/Backgrounds/ArtbookBackground.jpg" id="1_t6x8m"]
@@ -35,19 +35,6 @@ shader_parameter/vignette_color = Color(0, 0, 0, 1)
 font = ExtResource("2_40brb")
 font_size = 120
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjx63"]
-bg_color = Color(0, 0, 0, 0.305882)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 8.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2s3v0"]
 bg_color = Color(0, 0, 0, 0.305882)
 border_width_left = 2
@@ -61,15 +48,28 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 expand_margin_left = 8.0
 
-[node name="NewCampaign" type="Node" node_paths=PackedStringArray("_steps", "_backButton", "_confirmButton")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjx63"]
+bg_color = Color(0, 0, 0, 0.305882)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+
+[node name="NewCampaign" type="Node" unique_id=774341270 node_paths=PackedStringArray("_steps", "_backButton", "_confirmButton")]
 script = ExtResource("1_h7fbo")
 _steps = [NodePath("CanvasLayer/UI/Steps/StartingGroup"), NodePath("CanvasLayer/UI/Steps/ClassUnlocks"), NodePath("CanvasLayer/UI/Steps/PartyName")]
 _backButton = NodePath("CanvasLayer/UI/BackButton")
 _confirmButton = NodePath("CanvasLayer/UI/ConfirmButton")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=584378598]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1513902462]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,7 +77,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI" unique_id=467999018]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,7 +88,7 @@ texture = ExtResource("1_t6x8m")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI" unique_id=161011007]
 material = SubResource("ShaderMaterial_p5y0s")
 layout_mode = 1
 anchors_preset = 15
@@ -98,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Steps" type="Control" parent="CanvasLayer/UI"]
+[node name="Steps" type="Control" parent="CanvasLayer/UI" unique_id=1944892877]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +107,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="StartingGroup" type="Control" parent="CanvasLayer/UI/Steps" node_paths=PackedStringArray("_startingGroups")]
+[node name="StartingGroup" type="Control" parent="CanvasLayer/UI/Steps" unique_id=387893270 node_paths=PackedStringArray("_startingGroups")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -118,7 +118,7 @@ mouse_filter = 2
 script = ExtResource("3_3ftot")
 _startingGroups = [NodePath("StartingGroups/Groups/Militants"), NodePath("StartingGroups/Groups/Protectors"), NodePath("StartingGroups/Groups/Explorers"), NodePath("StartingGroups/Groups/Trailblazers"), NodePath("StartingGroups/Groups/Naturalists")]
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/StartingGroup"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/StartingGroup" unique_id=1706938887]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -132,7 +132,7 @@ text = "Select a Starting Group"
 label_settings = SubResource("LabelSettings_lqwu3")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Steps/StartingGroup"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Steps/StartingGroup" unique_id=5868103]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -146,7 +146,7 @@ text = "The classes not included in the chosen group can be unlocked during the 
 label_settings = ExtResource("3_h7fbo")
 horizontal_alignment = 1
 
-[node name="StartingGroups" type="MarginContainer" parent="CanvasLayer/UI/Steps/StartingGroup"]
+[node name="StartingGroups" type="MarginContainer" parent="CanvasLayer/UI/Steps/StartingGroup" unique_id=1030892100]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -160,19 +160,43 @@ offset_bottom = 291.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Groups" type="HBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups"]
+[node name="Groups" type="HBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups" unique_id=784018661]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="Militants" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" instance=ExtResource("3_fkfa5")]
+[node name="Militants" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=611321397 instance=ExtResource("3_fkfa5")]
 layout_mode = 2
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="VBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Militants" index="0"]
+layout_mode = 0
 
 [node name="LeftHalf" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Militants/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle3" index="1"]
 visible = true
 
-[node name="Protectors" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" instance=ExtResource("3_fkfa5")]
+[node name="Protectors" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=797288927 instance=ExtResource("3_fkfa5")]
 layout_mode = 2
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 StartingGroup = 1
+
+[node name="VBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Protectors" index="0"]
+layout_mode = 0
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Protectors/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="0"]
 self_modulate = Color(0.721569, 0.858824, 0.929412, 1)
@@ -205,10 +229,22 @@ modulate = Color(0.501961, 0.709804, 0.85098, 1)
 [node name="Text" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Protectors/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="1"]
 text = "Melee Damage, Monster Manipulation, Protection, Summoning, Support, and Healing"
 
-[node name="Explorers" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" instance=ExtResource("3_fkfa5")]
+[node name="Explorers" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=1650824390 instance=ExtResource("3_fkfa5")]
 layout_mode = 2
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 disabled = true
 StartingGroup = 2
+
+[node name="VBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Explorers" index="0"]
+layout_mode = 0
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Explorers/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="0"]
 self_modulate = Color(0.832866, 0.524958, 0.761866, 1)
@@ -244,10 +280,22 @@ visible = true
 [node name="Text" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Explorers/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="1"]
 text = "Elements, Area of Effect, Monster Manipulation, Obstacle Creation, Healing and Mobility."
 
-[node name="Trailblazers" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" instance=ExtResource("3_fkfa5")]
+[node name="Trailblazers" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=409034612 instance=ExtResource("3_fkfa5")]
 layout_mode = 2
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 disabled = true
 StartingGroup = 3
+
+[node name="VBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Trailblazers" index="0"]
+layout_mode = 0
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Trailblazers/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="0"]
 self_modulate = Color(0.985928, 0.922701, 0.585327, 1)
@@ -279,10 +327,22 @@ visible = true
 [node name="Text" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Trailblazers/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="1"]
 text = "Delayed Damage, Protection, Elements, Area of Effect, Support and Healing"
 
-[node name="Naturalists" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" instance=ExtResource("3_fkfa5")]
+[node name="Naturalists" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=1644704465 instance=ExtResource("3_fkfa5")]
 layout_mode = 2
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 disabled = true
 StartingGroup = 4
+
+[node name="VBoxContainer" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Naturalists" index="0"]
+layout_mode = 0
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Naturalists/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="0"]
 self_modulate = Color(0.622564, 0.799572, 0.584768, 1)
@@ -320,7 +380,7 @@ visible = true
 [node name="Text" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Naturalists/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="1"]
 text = "Melee Damage, Summoning, Elements, Support, Area of Effect, Debuffing, and Terrain Creation"
 
-[node name="ClassUnlocks" type="Control" parent="CanvasLayer/UI/Steps" node_paths=PackedStringArray("_unlockCharacterView")]
+[node name="ClassUnlocks" type="Control" parent="CanvasLayer/UI/Steps" unique_id=1945643015 node_paths=PackedStringArray("_unlockCharacterView")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -331,7 +391,7 @@ mouse_filter = 2
 script = ExtResource("16_yoarg")
 _unlockCharacterView = NodePath("UnlockCharacterView")
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/ClassUnlocks"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/ClassUnlocks" unique_id=1997293989]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -346,10 +406,10 @@ text = "Enter a Name for your Party"
 label_settings = SubResource("LabelSettings_lqwu3")
 horizontal_alignment = 1
 
-[node name="UnlockCharacterView" parent="CanvasLayer/UI/Steps/ClassUnlocks" instance=ExtResource("20_72bvk")]
+[node name="UnlockCharacterView" parent="CanvasLayer/UI/Steps/ClassUnlocks" unique_id=193062683 instance=ExtResource("20_72bvk")]
 layout_mode = 1
 
-[node name="PartyName" type="Control" parent="CanvasLayer/UI/Steps" node_paths=PackedStringArray("_nameLineEdit")]
+[node name="PartyName" type="Control" parent="CanvasLayer/UI/Steps" unique_id=880322171 node_paths=PackedStringArray("_nameLineEdit")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -360,7 +420,7 @@ mouse_filter = 2
 script = ExtResource("15_72bvk")
 _nameLineEdit = NodePath("LineEdit")
 
-[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/PartyName"]
+[node name="Header" type="Label" parent="CanvasLayer/UI/Steps/PartyName" unique_id=1889798793]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -374,7 +434,7 @@ text = "Enter a Name for your Party"
 label_settings = SubResource("LabelSettings_lqwu3")
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Steps/PartyName"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Steps/PartyName" unique_id=101896668]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -389,7 +449,7 @@ text = "The classes not included in the chosen group can be unlocked during the 
 label_settings = ExtResource("3_h7fbo")
 horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/Steps/PartyName"]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UI/Steps/PartyName" unique_id=141832453]
 custom_minimum_size = Vector2(800, 100)
 layout_mode = 1
 anchors_preset = 8
@@ -407,14 +467,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/caret_width = 2
 theme_override_fonts/font = ExtResource("14_lqwu3")
 theme_override_font_sizes/font_size = 60
-theme_override_styles/focus = SubResource("StyleBoxFlat_xjx63")
 theme_override_styles/normal = SubResource("StyleBoxFlat_2s3v0")
+theme_override_styles/focus = SubResource("StyleBoxFlat_xjx63")
 placeholder_text = "..."
 alignment = 1
 max_length = 20
 caret_blink = true
 
-[node name="BackButton" parent="CanvasLayer/UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("15_xjx63")]
+[node name="BackButton" parent="CanvasLayer/UI" unique_id=717362477 node_paths=PackedStringArray("BetterButton") instance=ExtResource("15_xjx63")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -428,10 +488,22 @@ script = ExtResource("18_qdqnt")
 BetterButton = NodePath("BetterButton")
 _startActive = true
 
+[node name="BetterButton" parent="CanvasLayer/UI/BackButton" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
 [node name="Label" parent="CanvasLayer/UI/BackButton/BetterButton/Panel" index="0"]
 text = "Back"
 
-[node name="ConfirmButton" parent="CanvasLayer/UI" node_paths=PackedStringArray("BetterButton") instance=ExtResource("15_xjx63")]
+[node name="ConfirmButton" parent="CanvasLayer/UI" unique_id=1186342000 node_paths=PackedStringArray("BetterButton") instance=ExtResource("15_xjx63")]
 modulate = Color(0.458824, 1, 0.372549, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -449,7 +521,19 @@ script = ExtResource("18_qdqnt")
 BetterButton = NodePath("BetterButton")
 _startActive = false
 
-[node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("22_eegg2")]
+[node name="BetterButton" parent="CanvasLayer/UI/ConfirmButton" index="0"]
+pivot_offset_ratio = Vector2(0, 0)
+focus_behavior_recursive = 0
+mouse_behavior_recursive = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+
+[node name="MenuButton" parent="CanvasLayer/UI" unique_id=1693681274 instance=ExtResource("22_eegg2")]
 layout_mode = 1
 
 [editable path="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Militants"]

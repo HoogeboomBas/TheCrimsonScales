@@ -108,12 +108,23 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 			AttackAbility(
 				monster,
 				+0,
-				aoePattern: new AOEPattern([
-					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
-				]),
+				aoePattern: new(() => CheckElementConsumed(monster, [Element.Air]) ?
+					new AOEPattern([
+						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
+					]) :
+					new AOEPattern([
+						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
+					])
+				),
 				duringAttackSubscriptions:
 				[
 					ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(
@@ -122,17 +133,8 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
-							parameters.AbilityState.AbilitySetAOEPattern(new AOEPattern([
-								new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-								new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-								new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-								new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
-								new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-								new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
-								new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
-							]));
+
 							await GDTask.CompletedTask;
-							//TODO: Currently the wind consume will not be taken into account for focus/move ability/whether wind is consumed
 						}
 					)
 				]
@@ -153,17 +155,8 @@ public class WindDemonAbilityCard5 : WindDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AdjustTargets(1);
-					await GDTask.CompletedTask;
-					//TODO: Extra target won't be considered for movement
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +1, targets: 
+			new(() => CheckElementConsumed(monster, [Element.Air]) ? 2 : 1))),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =

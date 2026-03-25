@@ -18,5 +18,5 @@ public class ApexDemon : EarthDemon
 			.ToArray();
 
 	public override string Name => "Apex Demon";
-	public override MonsterModel ParentMonsterModel => ModelDB.Monster<ApexDemon>();
+	public override MonsterModel ParentMonsterModel => ModelDB.Monster<EarthDemon>();
 }

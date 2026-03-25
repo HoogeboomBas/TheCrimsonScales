@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://1ibugddg2iq6"]
+[gd_scene format=3 uid="uid://1ibugddg2iq6"]
 
 [ext_resource type="PackedScene" uid="uid://biv5sw06a7dxd" path="res://Scenes/Scenario/OverlayTiles/OverlayTile.tscn" id="1_flbvd"]
 [ext_resource type="Texture2D" uid="uid://dp7yahgoi3jp" path="res://Art/Other/Outline2H.svg" id="3_uvy1p"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c87uj6rykbfrs" path="res://Art/OverlayTiles/Corridor - Earth 2h.png" id="4_t5oyf"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="5_trw61"]
 
-[node name="OverlayTile2H" instance=ExtResource("1_flbvd")]
+[node name="OverlayTile2H" unique_id=1498989811 instance=ExtResource("1_flbvd")]
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2(110, 0)
@@ -20,7 +20,7 @@ texture = ExtResource("3_uvy1p")
 position = Vector2(127, 0)
 texture = ExtResource("4_ls3f8")
 
-[node name="Hex" parent="." index="5" instance=ExtResource("5_trw61")]
+[node name="Hex" parent="." index="5" unique_id=40864316 instance=ExtResource("5_trw61")]
 
-[node name="Hex2" parent="." index="6" instance=ExtResource("5_trw61")]
+[node name="Hex2" parent="." index="6" unique_id=71774410 instance=ExtResource("5_trw61")]
 position = Vector2(218.238, 0)

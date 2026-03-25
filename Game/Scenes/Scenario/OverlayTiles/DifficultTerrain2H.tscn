@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://5y7yggnntpfb"]
+[gd_scene format=3 uid="uid://5y7yggnntpfb"]
 
 [ext_resource type="PackedScene" uid="uid://1ibugddg2iq6" path="res://Scenes/Scenario/OverlayTiles/OverlayTile2H.tscn" id="1_quus8"]
 [ext_resource type="Script" uid="uid://d17gymqihxnbp" path="res://Scripts/Scenario/HexObjects/DifficultTerrain.cs" id="2_quus8"]
 [ext_resource type="Texture2D" uid="uid://b5bc64mli7vpt" path="res://Art/OverlayTiles/Log 2h.png" id="3_quus8"]
 
-[node name="DifficultTerrain2H" instance=ExtResource("1_quus8")]
+[node name="DifficultTerrain2H" unique_id=1810283568 instance=ExtResource("1_quus8")]
 script = ExtResource("2_quus8")
 HexObjectShape = 1
 
@@ -20,6 +20,3 @@ self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 [node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
 self_modulate = Color(1, 1, 1, 0.309804)
 position = Vector2(0, -16)
-
-[node name="Hex2" parent="." index="6"]
-position = Vector2(218.238, 0)

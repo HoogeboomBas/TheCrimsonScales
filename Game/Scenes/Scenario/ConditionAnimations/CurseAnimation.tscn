@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b50ygjd4t0bs7"]
+[gd_scene format=3 uid="uid://b50ygjd4t0bs7"]
 
 [ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_awnv4"]
 [ext_resource type="Texture2D" uid="uid://bigmbb8ypl2yh" path="res://Art/Icons/ConditionsAndEffects/Curse.svg" id="2_jkiup"]
@@ -113,28 +113,26 @@ _data = {
 _data = [Vector2(0, 1), 0.0, 0.111574, 0, 0, Vector2(1, 0), -1.6978, 0.0, 0, 0]
 point_count = 2
 
-[node name="ConditionAnimation" instance=ExtResource("1_awnv4")]
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_awnv4")]
 _sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
 _sfxVolumeDb = -8.0
 _sfxDelay = 0.5
 
-[node name="Inset" parent="ScaleContainer" index="0"]
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(0.490196, 0.345098, 0.643137, 1)
 
-[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" index="0"]
-libraries = {
-&"": SubResource("AnimationLibrary_vvigo")
-}
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
 speed_scale = 3.0
 
-[node name="Bolt" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" index="1"]
+[node name="Bolt" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=106945629]
 position = Vector2(0, -474)
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Bolt" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Bolt" index="0" unique_id=1239577427]
 position = Vector2(-11, -37)
 texture = ExtResource("3_awnv4")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="2"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=39248190]
 position = Vector2(3, 176)
 emitting = false
 amount = 3
@@ -155,7 +153,7 @@ scale_amount_min = 0.07
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_awnv4")
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" index="3"]
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=1419507501]
 position = Vector2(3, 176)
 emitting = false
 amount = 3
@@ -176,5 +174,5 @@ scale_amount_min = 0.07
 scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_awnv4")
 
-[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" index="4"]
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="4" unique_id=84261608]
 texture = ExtResource("2_jkiup")

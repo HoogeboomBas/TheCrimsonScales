@@ -1,27 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlqet8t2xgyh"]
+[gd_scene format=3 uid="uid://dlqet8t2xgyh"]
 
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="1_orche"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="2_mhnx2"]
 [ext_resource type="Texture2D" uid="uid://gbwor6vopdv6" path="res://Art/Icons/OverlayTiles/StartHexIcon.svg" id="3_48q5k"]
 [ext_resource type="Script" uid="uid://t8p1wbjs8k3" path="res://Scripts/Scenario/CharacterStartHex.cs" id="5_n3yea"]
 
-[node name="CharacterStartHex" type="Node2D"]
+[node name="CharacterStartHex" type="Node2D" unique_id=1635315779]
 z_index = 5
 script = ExtResource("5_n3yea")
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=2084595092]
 script = ExtResource("1_orche")
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=445539372]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_mhnx2")
 
-[node name="Background" type="Sprite2D" parent="Outline"]
+[node name="Background" type="Sprite2D" parent="Outline" unique_id=555534114]
 self_modulate = Color(0, 0.466667, 0.662745, 1)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_mhnx2")
 
-[node name="Icon" type="Sprite2D" parent="Outline/Background"]
+[node name="Icon" type="Sprite2D" parent="Outline/Background" unique_id=1422742581]
 position = Vector2(-6.66667, 0)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("3_48q5k")

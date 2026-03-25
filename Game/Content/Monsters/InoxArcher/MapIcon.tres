@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://0qgj40tjr2vu"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://0qgj40tjr2vu"]
 
 [ext_resource type="Texture2D" uid="uid://gfu0kgaayjf5" path="res://Content/Monsters/InoxArcher/Icon.jpg" id="1_wxjx5"]
 

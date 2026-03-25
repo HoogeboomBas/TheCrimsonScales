@@ -1,12 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjbv81gbsrmne"]
+[gd_scene format=3 uid="uid://bjbv81gbsrmne"]
 
 [ext_resource type="PackedScene" uid="uid://03wrj6dvw5hb" path="res://Scenes/Scenario/OverlayTiles/Door1H.tscn" id="1_hv1se"]
 [ext_resource type="PackedScene" uid="uid://cmfkjpt3s5ain" path="res://Content/OverlayTiles/Corridors/OpenStoneDoorVertical1H.tscn" id="2_hv1se"]
 [ext_resource type="Texture2D" uid="uid://15lkr3xe5qg1" path="res://Art/OverlayTiles/Stone Door Closed 1h - Vertical.png" id="3_ycx5d"]
 
-[node name="StoneDoorVertical1H" instance=ExtResource("1_hv1se")]
+[node name="StoneDoorVertical1H" unique_id=803292388 instance=ExtResource("1_hv1se")]
 _corridorScene = ExtResource("2_hv1se")
 _stepType = 1
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("3_ycx5d")

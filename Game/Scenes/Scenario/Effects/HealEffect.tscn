@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf0m1y04hfxdi"]
+[gd_scene format=3 uid="uid://bf0m1y04hfxdi"]
 
 [ext_resource type="Script" uid="uid://bg7v4ptjtk50b" path="res://Scripts/Scenario/Effects/HealEffect.cs" id="1_hvcqd"]
 [ext_resource type="Texture2D" uid="uid://dctfw1cej5los" path="res://Art/Effects/Healing/HealPlus.svg" id="1_xeast"]
@@ -16,11 +16,11 @@ _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="HealEffect" type="Node2D" node_paths=PackedStringArray("_particles")]
+[node name="HealEffect" type="Node2D" unique_id=2094003990 node_paths=PackedStringArray("_particles")]
 script = ExtResource("1_hvcqd")
 _particles = NodePath("CPUParticles2D")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1224052403]
 position = Vector2(0, 10)
 emitting = false
 amount = 6

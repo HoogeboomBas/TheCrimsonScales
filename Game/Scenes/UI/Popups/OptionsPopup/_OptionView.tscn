@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1al6mehqtk0y"]
+[gd_scene format=3 uid="uid://d1al6mehqtk0y"]
 
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="1_8u8ff"]
 
@@ -9,18 +9,18 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="OptionView" type="PanelContainer"]
+[node name="OptionView" type="PanelContainer" unique_id=629294987]
 custom_minimum_size = Vector2(600, 80)
 offset_right = 600.0
 offset_bottom = 80.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mb4rn")
 
-[node name="LabelContainer" type="Control" parent="."]
+[node name="LabelContainer" type="Control" parent="." unique_id=310290035]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="LabelContainer"]
+[node name="Label" type="Label" parent="LabelContainer" unique_id=982423871]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -33,7 +33,7 @@ grow_vertical = 2
 text = "Option"
 label_settings = ExtResource("1_8u8ff")
 
-[node name="ValueContainer" type="MarginContainer" parent="."]
+[node name="ValueContainer" type="MarginContainer" parent="." unique_id=2093943733]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_top = 10
