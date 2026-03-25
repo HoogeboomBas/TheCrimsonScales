@@ -55,10 +55,15 @@ public class CardDeck<T>
 		}
 	}
 
-	public void AddCardToBottom(T card)
+	public void MoveCardToBottom(T card)
 	{
 		DrawPile.Remove(card);
 		DrawPile.Insert(0, card);
+	}
+
+	public void RemoveCard(T card)
+	{
+		DrawPile.Remove(card);
 	}
 
 	public void Reshuffle()
