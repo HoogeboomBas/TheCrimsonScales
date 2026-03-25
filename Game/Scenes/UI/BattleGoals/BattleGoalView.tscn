@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://db72d70xnhm2q"]
+
+[ext_resource type="PackedScene" uid="uid://dsaayvr5eg5wl" path="res://Scenes/UI/CardView.tscn" id="1_tyd8s"]
+[ext_resource type="Texture2D" uid="uid://clann014hjaah" path="res://Art/BattleGoals/BattleGoalFrontZoomed.tres" id="2_2efp8"]
+[ext_resource type="Script" uid="uid://dgjiftgd74k2l" path="res://Scripts/UI/BattleGoals/BattleGoalView.cs" id="2_6ywcw"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_cyvvo"]
+[ext_resource type="FontVariation" uid="uid://dsy501gwhp4qr" path="res://Fonts/CrimsonProVariation.tres" id="4_2efp8"]
+[ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="4_gp6jy"]
+[ext_resource type="Texture2D" uid="uid://cujq5xx00rww8" path="res://Art/Icons/Other/BattleGoalCheckmark.svg" id="5_2efp8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gp6jy"]
+font = ExtResource("3_cyvvo")
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2plc"]
+font = ExtResource("4_2efp8")
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
+[node name="BattleGoalView" unique_id=31681270 node_paths=PackedStringArray("_titleLabel", "_description", "_secondCheckmark") instance=ExtResource("1_tyd8s")]
+offset_right = -1561.6
+offset_bottom = -524.2
+script = ExtResource("2_6ywcw")
+_titleLabel = NodePath("Container/Title")
+_description = NodePath("Container/Description")
+_secondCheckmark = NodePath("Container/Checkmarks/Checkmark2")
+
+[node name="Container" parent="." index="0" unique_id=1927638018]
+offset_right = 358.4
+offset_bottom = 555.8
+
+[node name="TextureRect" parent="Container" index="0" unique_id=364472112]
+instance_shader_parameters/atlas_region = Vector4(20, 20, 256, 397)
+instance_shader_parameters/atlas_size = Vector2(296, 437)
+texture = ExtResource("2_2efp8")
+
+[node name="Title" type="Label" parent="Container" index="1" unique_id=958506364]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -119.0
+offset_top = 99.0
+offset_right = 119.0
+offset_bottom = 164.0
+grow_horizontal = 2
+text = "Exterminator"
+label_settings = SubResource("LabelSettings_gp6jy")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+script = ExtResource("4_gp6jy")
+_minSize = 40
+_maxSize = 50
+
+[node name="Description" type="Label" parent="Container" index="2" unique_id=931222177]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -174.5
+offset_right = 113.0
+offset_bottom = 174.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Never allow your current hit point value to drop below half your maximum hit point value (rounded up) during the scenario."
+label_settings = SubResource("LabelSettings_g2plc")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Checkmarks" type="HBoxContainer" parent="Container" index="3" unique_id=501218390]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.2
+offset_top = -161.8
+offset_right = 55.8
+offset_bottom = -86.8
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = -15
+alignment = 1
+
+[node name="Checkmark" type="TextureRect" parent="Container/Checkmarks" index="0" unique_id=614394998]
+self_modulate = Color(0.0980392, 0.101961, 0.0823529, 1)
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_2efp8")
+expand_mode = 1
+
+[node name="Checkmark2" type="TextureRect" parent="Container/Checkmarks" index="1" unique_id=504890163]
+self_modulate = Color(0.0980392, 0.101961, 0.0823529, 1)
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_2efp8")
+expand_mode = 1

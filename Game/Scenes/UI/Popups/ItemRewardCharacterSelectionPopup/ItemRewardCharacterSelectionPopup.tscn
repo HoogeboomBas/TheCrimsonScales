@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://4gnhl0ponwls"]
+[gd_scene format=3 uid="uid://4gnhl0ponwls"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_ry06u"]
 [ext_resource type="Script" uid="uid://cd6ibmd4s7kf0" path="res://Scripts/UI/Popups/ItemRewardCharacterSelectionPopup/ItemRewardCharacterSelectionPopup.cs" id="2_1eo3j"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="4_tib2c"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_irvjn"]
 
-[node name="ItemRewardCharacterSelectionPopup" node_paths=PackedStringArray("_itemView", "_label", "_characterParent", "_confirmButton") instance=ExtResource("1_ry06u")]
+[node name="ItemRewardCharacterSelectionPopup" unique_id=925714940 node_paths=PackedStringArray("_itemView", "_label", "_characterParent", "_confirmButton") instance=ExtResource("1_ry06u")]
 script = ExtResource("2_1eo3j")
 _itemView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ItemView")
 _label = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Label")
@@ -15,21 +15,21 @@ _characterScene = ExtResource("3_ry06u")
 _characterParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Characters")
 _confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer/ConfirmButton")
 
-[node name="Button" parent="Background" index="0"]
+[node name="Button" parent="Background" parent_id_path=PackedInt32Array(976323768) index="0" unique_id=1721606754]
 visible = false
 
-[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" index="0"]
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="0" unique_id=1584988073]
 visible = false
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Item Reward"
 
-[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" instance=ExtResource("4_tib2c")]
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=853779186 instance=ExtResource("4_tib2c")]
 custom_minimum_size = Vector2(270, 413.1)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1"]
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=693015381]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_irvjn")
 theme_override_font_sizes/normal_font_size = 36
@@ -40,16 +40,16 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 
-[node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="2"]
+[node name="Characters" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="2" unique_id=581510400]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="ConfirmButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0"]
+[node name="ConfirmButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=612854121]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer" index="0" instance=ExtResource("3_x31xv")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer" index="0" unique_id=2109610035 instance=ExtResource("3_x31xv")]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 1
 anchors_preset = 15

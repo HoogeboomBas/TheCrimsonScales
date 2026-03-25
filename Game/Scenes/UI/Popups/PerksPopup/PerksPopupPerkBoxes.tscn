@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8iqgols66v5l"]
+[gd_scene format=3 uid="uid://c8iqgols66v5l"]
 
 [ext_resource type="Script" uid="uid://5orxujc7fsl0" path="res://Scripts/UI/Popups/PerksPopup/PerksPopupPerkBoxes.cs" id="1_4cutu"]
 [ext_resource type="PackedScene" uid="uid://d1e27svta2n7m" path="res://Scenes/UI/Popups/PerksPopup/PerksPopupPerkBox.tscn" id="2_4cutu"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="2_5d8wy"]
 
-[node name="PerksPopupPerkBoxes" type="Control" node_paths=PackedStringArray("_button", "_perkBoxParent")]
+[node name="PerksPopupPerkBoxes" type="Control" unique_id=1046890613 node_paths=PackedStringArray("_button", "_perkBoxParent")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 3
 anchors_preset = 0
@@ -15,8 +15,7 @@ _button = NodePath("BetterButton")
 _perkBoxScene = ExtResource("2_4cutu")
 _perkBoxParent = NodePath("BetterButton/Boxes")
 
-[node name="BetterButton" type="BaseButton" parent="."]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1717610722]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -58,6 +57,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -71,9 +71,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 1
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -89,7 +98,7 @@ shortcut_in_tooltip = true
 script = ExtResource("2_5d8wy")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Boxes" type="VBoxContainer" parent="BetterButton"]
+[node name="Boxes" type="VBoxContainer" parent="BetterButton" unique_id=1659701533]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

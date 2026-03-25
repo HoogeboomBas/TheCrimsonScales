@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d04w6fpb4i56r"]
+[gd_scene format=3 uid="uid://d04w6fpb4i56r"]
 
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_ed03b"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_l3hub"]
@@ -16,42 +16,42 @@ font = ExtResource("8_vf0v3")
 font_size = 55
 font_color = Color(0, 0, 0, 1)
 
-[node name="Monster" type="Node2D"]
+[node name="Monster" type="Node2D" unique_id=2001172737]
 z_index = 10
 script = ExtResource("7_ihn5g")
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=855723769]
 script = ExtResource("2_ed03b")
 
-[node name="Mask" type="Sprite2D" parent="."]
+[node name="Mask" type="Sprite2D" parent="." unique_id=1347013334]
 clip_children = 1
 scale = Vector2(0.81, 0.81)
 texture = ExtResource("3_l3hub")
 
-[node name="Sprite2D" type="Sprite2D" parent="Mask"]
+[node name="Sprite2D" type="Sprite2D" parent="Mask" unique_id=1894192583]
 material = ExtResource("4_aoqyu")
 instance_shader_parameters/tintFactor = 0.0
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("5_aoqyu")
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=1326181782]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_yc1j3")
 
-[node name="FigureViewComponent" parent="." instance=ExtResource("7_itux6")]
+[node name="FigureViewComponent" parent="." unique_id=1510052848 instance=ExtResource("7_itux6")]
 
-[node name="MonsterViewComponent" type="Node2D" parent="." node_paths=PackedStringArray("StandeeNumberCircle", "StandeeNumberLabel")]
+[node name="MonsterViewComponent" type="Node2D" parent="." unique_id=333948608 node_paths=PackedStringArray("StandeeNumberCircle", "StandeeNumberLabel")]
 z_index = 5
 script = ExtResource("6_sxmxo")
 StandeeNumberCircle = NodePath("StandeeNumber")
 StandeeNumberLabel = NodePath("Label")
 
-[node name="StandeeNumber" type="Sprite2D" parent="MonsterViewComponent"]
+[node name="StandeeNumber" type="Sprite2D" parent="MonsterViewComponent" unique_id=2127187167]
 position = Vector2(0, -92)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("7_v0su2")
 
-[node name="Label" type="Label" parent="MonsterViewComponent"]
+[node name="Label" type="Label" parent="MonsterViewComponent" unique_id=2098544901]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

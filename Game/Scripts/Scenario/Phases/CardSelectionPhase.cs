@@ -89,7 +89,7 @@ public class CardSelectionPhase : ScenarioPhase
 		}
 
 		//SetState(_cardSelectionState);
-		SyncGameWithState();
+		SyncGameWithState(false);
 
 		await PerformSyncedActions();
 
@@ -111,7 +111,7 @@ public class CardSelectionPhase : ScenarioPhase
 
 		// Final state update
 		//SetState(_cardSelectionState);
-		SyncGameWithState();
+		SyncGameWithState(true);
 
 		// foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		// {
@@ -202,9 +202,12 @@ public class CardSelectionPhase : ScenarioPhase
 		}
 	}
 
-	private void SyncGameWithState()
+	private void SyncGameWithState(bool validate)
 	{
-		ValidateState();
+		if(!GameController.FastForward && validate)
+		{
+			ValidateState();
+		}
 
 		for(int i = 0; i < _cardSelectionState.CharacterCardSelectionStates.Length; i++)
 		{
@@ -327,7 +330,7 @@ public class CardSelectionPhase : ScenarioPhase
 			//SetState(_cardSelectionState);
 		}
 
-		SyncGameWithState();
+		SyncGameWithState(true);
 	}
 
 	private void OnIndicatorPressed(HexIndicator hexIndicator)

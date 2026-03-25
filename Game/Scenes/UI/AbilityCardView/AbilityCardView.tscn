@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dweuor8iwy2lm"]
+[gd_scene format=3 uid="uid://dweuor8iwy2lm"]
 
 [ext_resource type="PackedScene" uid="uid://dsaayvr5eg5wl" path="res://Scenes/UI/CardView.tscn" id="1_w0yx6"]
 [ext_resource type="Script" uid="uid://bbf02642hmere" path="res://Scripts/UI/AbilityCardView/AbilityCardView.cs" id="2_mu48a"]
@@ -14,12 +14,12 @@ shader_parameter/rounded_corner_top_right = true
 shader_parameter/rounded_corner_bottom_left = true
 shader_parameter/rounded_corner_bottom_right = true
 
-[node name="AbilityCardView" node_paths=PackedStringArray("_enhancementParent", "_characterTokenParent") instance=ExtResource("1_w0yx6")]
+[node name="AbilityCardView" unique_id=140855323 node_paths=PackedStringArray("_enhancementParent", "_characterTokenParent") instance=ExtResource("1_w0yx6")]
 script = ExtResource("2_mu48a")
 _enhancementScene = ExtResource("3_7udp3")
 _enhancementParent = NodePath(".")
 _characterTokenScene = ExtResource("4_vj2rk")
 _characterTokenParent = NodePath(".")
 
-[node name="TextureRect" parent="Container" index="0"]
+[node name="TextureRect" parent="Container" parent_id_path=PackedInt32Array(1927638018) index="0" unique_id=364472112]
 material = SubResource("ShaderMaterial_wbx5w")

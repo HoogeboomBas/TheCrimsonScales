@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://coxp0vgao3884"]
+[gd_scene format=3 uid="uid://coxp0vgao3884"]
 
 [ext_resource type="Texture2D" uid="uid://d4f8uba4xbe6u" path="res://Art/Backgrounds/BoxArt.jpg" id="1_5mtli"]
 [ext_resource type="Script" uid="uid://cvsbgpslkjhs6" path="res://Scripts/MainMenu/MainMenuController.cs" id="1_056y2"]
@@ -14,16 +14,16 @@ shader_parameter/vignette_strength = 0.8
 shader_parameter/dither_strength = 0.03
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
 
-[node name="MainMenu" type="Node" node_paths=PackedStringArray("_continueButton", "_newGameButton", "_optionsButton", "_exitButton")]
+[node name="MainMenu" type="Node" unique_id=775081676 node_paths=PackedStringArray("_continueButton", "_newGameButton", "_optionsButton", "_exitButton")]
 script = ExtResource("1_056y2")
 _continueButton = NodePath("CanvasLayer/UI/VBoxContainer/ContinueButton/BetterButton")
 _newGameButton = NodePath("CanvasLayer/UI/VBoxContainer/NewGameButton/BetterButton")
 _optionsButton = NodePath("CanvasLayer/UI/VBoxContainer/OptionsButton/BetterButton")
 _exitButton = NodePath("CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=715585943]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1329421968]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/UI"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI" unique_id=316687786]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +44,7 @@ texture = ExtResource("1_5mtli")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="TitleShadow" type="TextureRect" parent="CanvasLayer/UI"]
+[node name="TitleShadow" type="TextureRect" parent="CanvasLayer/UI" unique_id=74110290]
 self_modulate = Color(0, 0, 0, 0.588235)
 layout_mode = 1
 anchors_preset = 5
@@ -57,7 +57,7 @@ offset_bottom = 126.0
 grow_horizontal = 2
 texture = ExtResource("1_fstlw")
 
-[node name="Title" type="TextureRect" parent="CanvasLayer/UI"]
+[node name="Title" type="TextureRect" parent="CanvasLayer/UI" unique_id=1482477935]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -69,7 +69,7 @@ offset_bottom = 122.0
 grow_horizontal = 2
 texture = ExtResource("1_fstlw")
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI" unique_id=1335331580]
 material = SubResource("ShaderMaterial_vapy7")
 layout_mode = 1
 anchors_preset = 15
@@ -79,7 +79,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI" unique_id=1189326839]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -95,36 +95,36 @@ grow_vertical = 0
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="ContinueButton" parent="CanvasLayer/UI/VBoxContainer" instance=ExtResource("3_o2b56")]
+[node name="ContinueButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=810399806 instance=ExtResource("3_o2b56")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
-[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ContinueButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(810399806, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
 
-[node name="NewGameButton" parent="CanvasLayer/UI/VBoxContainer" instance=ExtResource("3_o2b56")]
+[node name="NewGameButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1011399412 instance=ExtResource("3_o2b56")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
-[node name="Label" parent="CanvasLayer/UI/VBoxContainer/NewGameButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/NewGameButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1011399412, 1664087955) index="0" unique_id=1161890966]
 text = "New Campaign"
 
-[node name="OptionsButton" parent="CanvasLayer/UI/VBoxContainer" instance=ExtResource("3_o2b56")]
+[node name="OptionsButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1013233185 instance=ExtResource("3_o2b56")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
-[node name="Label" parent="CanvasLayer/UI/VBoxContainer/OptionsButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/OptionsButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1013233185, 1664087955) index="0" unique_id=1161890966]
 text = "Options"
 
-[node name="ExitButton" parent="CanvasLayer/UI/VBoxContainer" instance=ExtResource("3_o2b56")]
+[node name="ExitButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1790228055 instance=ExtResource("3_o2b56")]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
-[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1790228055, 1664087955) index="0" unique_id=1161890966]
 text = "Exit"
 
 [editable path="CanvasLayer/UI/VBoxContainer/ContinueButton"]

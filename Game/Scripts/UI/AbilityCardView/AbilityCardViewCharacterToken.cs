@@ -59,7 +59,7 @@ public partial class AbilityCardViewCharacterToken : Control
 			Control parent = GetParent<Control>();
 			Position = _normalizedPosition * parent.Size - 0.5f * Size;
 
-			Log.Write(_normalizedPosition.ToString());
+			Log.Write($"({_normalizedPosition.X}f, {_normalizedPosition.Y}f)");
 		}
 	}
 }

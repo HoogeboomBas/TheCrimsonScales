@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp0q1dn0vvinf"]
+[gd_scene format=3 uid="uid://cp0q1dn0vvinf"]
 
 [ext_resource type="PackedScene" uid="uid://d1al6mehqtk0y" path="res://Scenes/UI/Popups/OptionsPopup/_OptionView.tscn" id="1_r2wg2"]
 [ext_resource type="Script" uid="uid://bjswe2n1p1j21" path="res://Scripts/UI/Popups/OptionsPopup/SliderOptionView.cs" id="2_cyw7o"]
 [ext_resource type="PackedScene" uid="uid://dsp4e6s2i680c" path="res://Scenes/UI/BetterSlider.tscn" id="3_cyw7o"]
 
-[node name="SliderOptionView" node_paths=PackedStringArray("_slider") instance=ExtResource("1_r2wg2")]
+[node name="SliderOptionView" unique_id=715228888 node_paths=PackedStringArray("_slider") instance=ExtResource("1_r2wg2")]
 script = ExtResource("2_cyw7o")
 _slider = NodePath("ValueContainer/BetterSlider")
 
-[node name="BetterSlider" parent="ValueContainer" index="0" instance=ExtResource("3_cyw7o")]
+[node name="BetterSlider" parent="ValueContainer" parent_id_path=PackedInt32Array(2093943733) index="0" unique_id=1012900853 instance=ExtResource("3_cyw7o")]
 layout_mode = 2
 size_flags_horizontal = 8

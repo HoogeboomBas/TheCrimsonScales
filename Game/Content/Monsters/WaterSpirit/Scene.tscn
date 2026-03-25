@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhx14k8361wre"]
+[gd_scene format=3 uid="uid://dhx14k8361wre"]
 
 [ext_resource type="PackedScene" uid="uid://d04w6fpb4i56r" path="res://Scenes/Scenario/Monsters/Monster.tscn" id="1_a33o3"]
 
-[node name="Monster" instance=ExtResource("1_a33o3")]
+[node name="Monster" unique_id=1768804229 instance=ExtResource("1_a33o3")]
 
 [node name="Sprite2D" parent="Mask" index="0"]
 position = Vector2(0, 45)

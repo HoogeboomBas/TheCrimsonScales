@@ -1,37 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlwnu4odsbcov"]
+[gd_scene format=3 uid="uid://dlwnu4odsbcov"]
 
 [ext_resource type="Script" uid="uid://befp4v7tgp7g6" path="res://Scripts/Scenario/HexObjects/Monsters/MonsterSpawner.cs" id="1_ayg27"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_7kgdi"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_s84fp"]
 [ext_resource type="PackedScene" uid="uid://c0lqeggfigqtf" path="res://Scenes/Scenario/MonsterSpawnerIndicator.tscn" id="5_2yhxk"]
 
-[node name="MonsterSpawner" type="Node2D"]
+[node name="MonsterSpawner" type="Node2D" unique_id=286336762]
 z_index = 10
 script = ExtResource("1_ayg27")
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=1632794918]
 script = ExtResource("2_7kgdi")
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=618552912]
 self_modulate = Color(0.737255, 0.0823529, 0.0823529, 1)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_s84fp")
 
-[node name="Mask" type="Sprite2D" parent="."]
+[node name="Mask" type="Sprite2D" parent="." unique_id=122156007]
 clip_children = 2
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_s84fp")
 
-[node name="Sprite" type="Sprite2D" parent="Mask"]
+[node name="Sprite" type="Sprite2D" parent="Mask" unique_id=255022978]
 scale = Vector2(0.4, 0.4)
 
-[node name="Indicators" type="Node2D" parent="."]
+[node name="Indicators" type="Node2D" parent="." unique_id=538024343]
 scale = Vector2(0.91, 0.91)
 
-[node name="2Characters" parent="Indicators" instance=ExtResource("5_2yhxk")]
+[node name="2Characters" parent="Indicators" unique_id=734921172 instance=ExtResource("5_2yhxk")]
 rotation = 2.0944
 
-[node name="3Characters" parent="Indicators" instance=ExtResource("5_2yhxk")]
+[node name="3Characters" parent="Indicators" unique_id=1307871511 instance=ExtResource("5_2yhxk")]
 rotation = -2.0944
 
-[node name="4Characters" parent="Indicators" instance=ExtResource("5_2yhxk")]
+[node name="4Characters" parent="Indicators" unique_id=2140919498 instance=ExtResource("5_2yhxk")]

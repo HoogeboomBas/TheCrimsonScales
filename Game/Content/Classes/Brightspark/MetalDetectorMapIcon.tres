@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dvi2c0532uf7v"]
+
+[ext_resource type="Texture2D" uid="uid://k0j6n4kjoj8i" path="res://Content/Classes/Brightspark/MetalDetector.png" id="1_2tc7c"]
+
+[resource]
+atlas = ExtResource("1_2tc7c")
+region = Rect2(0, 0, 512, 512)

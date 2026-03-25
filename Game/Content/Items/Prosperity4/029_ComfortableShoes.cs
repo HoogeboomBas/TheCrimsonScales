@@ -3,9 +3,9 @@ using Fractural.Tasks;
 public class ComfortableShoes : Prosperity4Item
 {
 	public override string Name => "Comfortable Shoes";
-	public override int ItemNumber => 30;
+	public override int ItemNumber => 29;
 	public override int ShopCount => 2;
-	public override int Cost => 29;
+	public override int Cost => 30;
 	public override ItemType ItemType => ItemType.Feet;
 	public override ItemUseType ItemUseType => ItemUseType.Always;
 

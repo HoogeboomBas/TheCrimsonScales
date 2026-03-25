@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dd103yylqhymu"]
+
+[ext_resource type="StyleBox" uid="uid://d3dljvi7ixs6p" path="res://Resources/PopupPanel.tres" id="1_sdw7v"]
+[ext_resource type="Script" uid="uid://bt8cv3amw7jg3" path="res://Scripts/UI/BattleGoals/BattleGoalProgressUpdateViewItem.cs" id="2_nhrs3"]
+[ext_resource type="PackedScene" uid="uid://db72d70xnhm2q" path="res://Scenes/UI/BattleGoals/BattleGoalView.tscn" id="2_srnu0"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="3_nhrs3"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="4_rdn2w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_00c86"]
+font = ExtResource("4_rdn2w")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_q1h0x"]
+font = ExtResource("4_rdn2w")
+font_size = 30
+
+[node name="BattleGoalProgressUpdateViewItem" type="PanelContainer" unique_id=203494106 node_paths=PackedStringArray("_container", "_battleGoalView", "_progressBar")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -163.0
+offset_right = 163.0
+offset_bottom = 544.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_sdw7v")
+script = ExtResource("2_nhrs3")
+_container = NodePath(".")
+_battleGoalView = NodePath("MarginContainer/BattleGoalProgress/BattleGoalView")
+_progressBar = NodePath("MarginContainer/BattleGoalProgress/ProgressBar")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1483511288]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BattleGoalProgress" type="VBoxContainer" parent="MarginContainer" unique_id=757300717]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="BattleGoalView" parent="MarginContainer/BattleGoalProgress" unique_id=327678224 instance=ExtResource("2_srnu0")]
+custom_minimum_size = Vector2(286.72, 444.64)
+layout_mode = 2
+
+[node name="ProgressBar" parent="MarginContainer/BattleGoalProgress" unique_id=1167685564 instance=ExtResource("3_nhrs3")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ProgressBar" parent="MarginContainer/BattleGoalProgress/ProgressBar" index="1" unique_id=1418968114]
+self_modulate = Color(0.360127, 0.481895, 0.749454, 1)
+
+[node name="Label" parent="MarginContainer/BattleGoalProgress/ProgressBar" index="2" unique_id=610432765]
+text = "Progress"
+label_settings = SubResource("LabelSettings_00c86")
+
+[node name="Amount" parent="MarginContainer/BattleGoalProgress/ProgressBar" index="3" unique_id=349370130]
+text = "1/1"
+label_settings = SubResource("LabelSettings_q1h0x")
+
+[editable path="MarginContainer/BattleGoalProgress/ProgressBar"]

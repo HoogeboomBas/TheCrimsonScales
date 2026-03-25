@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq2yw4nbs6g6m"]
+[gd_scene format=3 uid="uid://cq2yw4nbs6g6m"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_7dp8f"]
 [ext_resource type="Texture2D" uid="uid://drlioe1w3t5ny" path="res://Art/Icons/OverlayTiles/flamer.png" id="2_1rfrt"]
 [ext_resource type="Script" uid="uid://buptxkufbhl0w" path="res://Scripts/Scenario/HexObjects/HazardousTerrain.cs" id="3_yrfq0"]
 
-[node name="HazardousTerrain1H" instance=ExtResource("1_7dp8f")]
+[node name="HazardousTerrain1H" unique_id=192967756 instance=ExtResource("1_7dp8f")]
 script = ExtResource("3_yrfq0")
 
 [node name="Outline" parent="." index="2"]

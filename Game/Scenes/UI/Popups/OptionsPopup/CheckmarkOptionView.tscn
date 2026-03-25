@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl8d3myp4d0w6"]
+[gd_scene format=3 uid="uid://cl8d3myp4d0w6"]
 
 [ext_resource type="PackedScene" uid="uid://d1al6mehqtk0y" path="res://Scenes/UI/Popups/OptionsPopup/_OptionView.tscn" id="1_278m4"]
 [ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="2_dib36"]
@@ -17,13 +17,12 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="CheckmarkOptionView" node_paths=PackedStringArray("_checkmark", "_button") instance=ExtResource("1_278m4")]
+[node name="CheckmarkOptionView" unique_id=2112897874 node_paths=PackedStringArray("_checkmark", "_button") instance=ExtResource("1_278m4")]
 script = ExtResource("2_in0hj")
 _checkmark = NodePath("ValueContainer/BetterButton/Box/Checkmark")
 _button = NodePath("ValueContainer/BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="ValueContainer" index="0"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="ValueContainer" parent_id_path=PackedInt32Array(2093943733) index="0" unique_id=731999176]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -64,9 +63,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -82,15 +90,15 @@ shortcut_in_tooltip = true
 script = ExtResource("3_loeln")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Box" type="Panel" parent="ValueContainer/BetterButton" index="0"]
+[node name="Box" type="Panel" parent="ValueContainer/BetterButton" index="0" unique_id=2115112499]
 custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
+layout_mode = 0
 offset_right = 60.0
 offset_bottom = 60.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_278m4")
 
-[node name="Checkmark" type="TextureRect" parent="ValueContainer/BetterButton/Box" index="0"]
+[node name="Checkmark" type="TextureRect" parent="ValueContainer/BetterButton/Box" index="0" unique_id=364134]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

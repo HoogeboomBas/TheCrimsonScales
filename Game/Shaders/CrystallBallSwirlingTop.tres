@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=53 format=3 uid="uid://dcgendyiah7dg"]
+[gd_resource type="VisualShader" format=3 uid="uid://dcgendyiah7dg"]
 
 [ext_resource type="Script" uid="uid://dwaot3d2unux0" path="res://addons/ShaderLib_v2_2_4/UV/ParallaxMappingUV.gd" id="1_odcoe"]
 
@@ -17,8 +17,8 @@ frequency = 0.005
 offset = Vector3(0, 100, 0)
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yo4mv"]
-seamless = true
 noise = SubResource("FastNoiseLite_yo4mv")
+seamless = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ela8m"]
 texture = SubResource("NoiseTexture2D_yo4mv")
@@ -105,8 +105,8 @@ script = ExtResource("1_odcoe")
 frequency = 0.0025
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f8uid"]
-seamless = true
 noise = SubResource("FastNoiseLite_ldujk")
+seamless = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_xixdh"]
 texture = SubResource("NoiseTexture2D_f8uid")
@@ -167,194 +167,6 @@ default_input_values = [0, Vector2(0, 0)]
 op_type = 0
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_toon;
-
-uniform sampler2D tex_frg_7;
-uniform sampler2D heightmap;
-uniform sampler2D tex_frg_13;
-uniform sampler2D tex_frg_21;
-uniform sampler2D heightmap2;
-uniform sampler2D tex_frg_35;
-uniform sampler2D tex_frg_38;
-
-
-// ParallaxMapping
-#include \"res://addons/ShaderLib_v2_2_4/UV/UV.gdshaderinc\"
-
-void fragment() {
-// Input:8
-	vec2 n_out8p0 = UV;
-
-
-// VectorDecompose:9
-	float n_out9p0 = n_out8p0.x;
-	float n_out9p1 = n_out8p0.y;
-
-
-// FloatFunc:10
-	float n_out10p0 = 1.0 - n_out9p1;
-
-
-// Texture2D:7
-	vec4 n_out7p0 = texture(tex_frg_7, vec2(n_out10p0));
-
-
-// FloatConstant:6
-	float n_out6p0 = 0.800000;
-
-
-// FloatConstant:4
-	float n_out4p0 = 0.700000;
-
-
-// FloatConstant:3
-	float n_out3p0 = 0.500000;
-
-
-// FloatConstant:2
-	float n_out2p0 = 0.500000;
-
-
-// FloatConstant:22
-	float n_out22p0 = -0.100000;
-
-
-// Input:14
-	float n_out14p0 = TIME;
-
-
-// FloatOp:23
-	float n_out23p0 = n_out22p0 * n_out14p0;
-
-
-// Input:16
-	vec2 n_out16p0 = UV;
-
-
-// VectorDecompose:17
-	float n_out17p0 = n_out16p0.x;
-	float n_out17p1 = n_out16p0.y;
-
-
-// FloatOp:19
-	float n_out19p0 = n_out23p0 + n_out17p0;
-
-
-// VectorCompose:18
-	vec2 n_out18p0 = vec2(n_out19p0, n_out17p1);
-
-
-	vec2 n_out24p0;
-// ParallaxMapping:24
-	float n_in24p1 = 10.00000;
-	{
-		n_out24p0 = parallax_mapping_uv(heightmap, -n_in24p1, -n_out18p0, TANGENT, NORMAL, BINORMAL, VIEW);
-	}
-
-
-// Texture2D:13
-	vec4 n_out13p0 = texture(tex_frg_13, n_out24p0);
-
-
-// Texture2D:21
-	vec4 n_out21p0 = texture(tex_frg_21, vec2(n_out13p0.xy));
-
-
-// FloatConstant:30
-	float n_out30p0 = -0.050000;
-
-
-// Input:29
-	float n_out29p0 = TIME;
-
-
-// FloatOp:28
-	float n_out28p0 = n_out30p0 * n_out29p0;
-
-
-// Input:26
-	vec2 n_out26p0 = UV;
-
-
-// VectorDecompose:27
-	float n_out27p0 = n_out26p0.x;
-	float n_out27p1 = n_out26p0.y;
-
-
-// FloatOp:32
-	float n_out32p0 = n_out28p0 + n_out27p0;
-
-
-// VectorCompose:33
-	vec2 n_out33p0 = vec2(n_out32p0, n_out27p1);
-
-
-	vec2 n_out34p0;
-// ParallaxMapping:34
-	float n_in34p1 = 10.00000;
-	{
-		n_out34p0 = parallax_mapping_uv(heightmap2, -n_in34p1, -n_out33p0, TANGENT, NORMAL, BINORMAL, VIEW);
-	}
-
-
-// Texture2D:35
-	vec4 n_out35p0 = texture(tex_frg_35, n_out34p0);
-
-
-// Texture2D:38
-	vec4 n_out38p0 = texture(tex_frg_38, vec2(n_out35p0.xy));
-
-
-// VectorOp:37
-	vec4 n_out37p0 = n_out21p0 + n_out38p0;
-
-
-// ColorConstant:11
-	vec4 n_out11p0 = vec4(0.802474, 0.002315, 0.990092, 1.000000);
-
-
-// Fresnel:5
-	float n_in5p3 = 1.00000;
-	float n_out5p0 = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in5p3);
-
-
-// VectorOp:12
-	vec3 n_out12p0 = vec3(n_out11p0.xyz) * vec3(n_out5p0);
-
-
-// Mix:20
-	vec3 n_out20p0 = mix(vec3(n_out37p0.xyz), n_out12p0, vec3(n_out5p0));
-
-
-// ColorConstant:40
-	vec4 n_out40p0 = vec4(0.828617, 0.248864, 0.999999, 1.000000);
-
-
-// Fresnel:39
-	float n_in39p3 = 4.00000;
-	float n_out39p0 = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in39p3);
-
-
-// VectorOp:41
-	vec3 n_out41p0 = vec3(n_out40p0.xyz) * vec3(n_out39p0);
-
-
-// VectorOp:42
-	vec3 n_out42p0 = n_out20p0 + n_out41p0;
-
-
-// Output:0
-	ALBEDO = vec3(n_out7p0.xyz);
-	ALPHA = n_out6p0;
-	METALLIC = n_out4p0;
-	ROUGHNESS = n_out3p0;
-	SPECULAR = n_out2p0;
-	EMISSION = n_out42p0;
-
-
-}
-"
 modes/specular = 1
 nodes/fragment/0/position = Vector2(400, 160)
 nodes/fragment/2/node = SubResource("VisualShaderNodeFloatConstant_yo4mv")

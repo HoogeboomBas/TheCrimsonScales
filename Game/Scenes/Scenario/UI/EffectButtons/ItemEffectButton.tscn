@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://gj8fm0iuufsx"]
+[gd_scene format=3 uid="uid://gj8fm0iuufsx"]
 
 [ext_resource type="PackedScene" uid="uid://c8tg7vd242b32" path="res://Scenes/Scenario/UI/EffectButtons/_EffectButton.tscn" id="1_tq846"]
 [ext_resource type="Script" uid="uid://vi8j5xkjv0ob" path="res://Scripts/Scenario/UI/EffectSelectionView/ItemEffectButton.cs" id="2_tq846"]
@@ -12,7 +12,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="ItemEffectButton" node_paths=PackedStringArray("_itemView", "_iconContainer", "_iconTextureRect", "_button", "_panel") instance=ExtResource("1_tq846")]
+[node name="ItemEffectButton" unique_id=1235373946 node_paths=PackedStringArray("_itemView", "_iconContainer", "_iconTextureRect", "_button", "_panel") instance=ExtResource("1_tq846")]
 script = ExtResource("2_tq846")
 _itemView = NodePath("BetterButton/Panel/MarginContainer/Mask/ItemView")
 _iconContainer = NodePath("BetterButton/Panel/MarginContainer/Mask/Icon")
@@ -20,15 +20,15 @@ _iconTextureRect = NodePath("BetterButton/Panel/MarginContainer/Mask/Icon/Margin
 _button = NodePath("BetterButton")
 _panel = NodePath("BetterButton/Panel")
 
-[node name="Mask" type="Panel" parent="BetterButton/Panel/MarginContainer" index="0"]
+[node name="Mask" type="Panel" parent="BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(500216647) index="0" unique_id=2095588770]
 clip_children = 1
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ipfx")
 
-[node name="ItemView" parent="BetterButton/Panel/MarginContainer/Mask" index="0" instance=ExtResource("3_tq846")]
+[node name="ItemView" parent="BetterButton/Panel/MarginContainer/Mask" index="0" unique_id=1409651326 instance=ExtResource("3_tq846")]
 custom_minimum_size = Vector2(162, 247.86)
-layout_mode = 2
+layout_mode = 0
 offset_left = -39.0
 offset_top = -37.0
 offset_right = 123.0
@@ -45,7 +45,7 @@ clip_children = 0
 [node name="ItemCountMask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="1"]
 visible = false
 
-[node name="Icon" type="Control" parent="BetterButton/Panel/MarginContainer/Mask" index="1"]
+[node name="Icon" type="Control" parent="BetterButton/Panel/MarginContainer/Mask" index="1" unique_id=1328433870]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -55,7 +55,7 @@ offset_bottom = 32.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Background" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Mask/Icon" index="0"]
+[node name="Background" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Mask/Icon" index="0" unique_id=781999732]
 self_modulate = Color(0, 0, 0, 0.705882)
 layout_mode = 1
 anchors_preset = 15
@@ -67,7 +67,7 @@ mouse_filter = 2
 texture = ExtResource("4_m88h6")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="BetterButton/Panel/MarginContainer/Mask/Icon" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="BetterButton/Panel/MarginContainer/Mask/Icon" index="1" unique_id=2134997086]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,7 +80,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Icon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Mask/Icon/MarginContainer" index="0"]
+[node name="Icon" type="TextureRect" parent="BetterButton/Panel/MarginContainer/Mask/Icon/MarginContainer" index="0" unique_id=1366780813]
 self_modulate = Color(0.937255, 0.419608, 0.14902, 1)
 layout_mode = 2
 mouse_filter = 2

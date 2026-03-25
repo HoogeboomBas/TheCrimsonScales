@@ -1,4 +1,4 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://craw7fnd3nuw8"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://craw7fnd3nuw8"]
 
 [ext_resource type="Texture2D" uid="uid://c68iws1m1m6o5" path="res://Content/Monsters/StoneGolem/Icon.jpg" id="1_l7dvn"]
 

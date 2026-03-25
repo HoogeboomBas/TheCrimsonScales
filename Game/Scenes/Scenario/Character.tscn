@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drsppepfslnis"]
+[gd_scene format=3 uid="uid://drsppepfslnis"]
 
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="1_8wrwv"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="2_nubnt"]
@@ -10,25 +10,25 @@
 [ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="6_eo6v4"]
 [ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="6_q6fep"]
 
-[node name="Character" type="Node2D"]
+[node name="Character" type="Node2D" unique_id=591064295]
 z_index = 10
 script = ExtResource("3_bp37c")
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=2062764446]
 script = ExtResource("1_8wrwv")
 
-[node name="Mask" type="Sprite2D" parent="."]
+[node name="Mask" type="Sprite2D" parent="." unique_id=517148938]
 clip_children = 1
 scale = Vector2(0.81, 0.81)
 texture = ExtResource("2_nubnt")
 
-[node name="Sprite2D" type="Sprite2D" parent="Mask"]
+[node name="Sprite2D" type="Sprite2D" parent="Mask" unique_id=1804687506]
 material = ExtResource("6_q6fep")
 instance_shader_parameters/tintFactor = 0.0
 scale = Vector2(0.425, 0.425)
 texture = ExtResource("4_yg5xw")
 
-[node name="AnimatedSpriteSheet2D" type="Sprite2D" parent="Mask"]
+[node name="AnimatedSpriteSheet2D" type="Sprite2D" parent="Mask" unique_id=825112643]
 visible = false
 material = ExtResource("6_q6fep")
 instance_shader_parameters/tintFactor = 0.0
@@ -40,8 +40,8 @@ script = ExtResource("5_hscbi")
 _frameCount = 150
 _framesPerSecond = 10
 
-[node name="Outline" type="Sprite2D" parent="."]
+[node name="Outline" type="Sprite2D" parent="." unique_id=517487183]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("4_pjbno")
 
-[node name="FigureViewComponent" parent="." instance=ExtResource("6_eo6v4")]
+[node name="FigureViewComponent" parent="." unique_id=1421500625 instance=ExtResource("6_eo6v4")]

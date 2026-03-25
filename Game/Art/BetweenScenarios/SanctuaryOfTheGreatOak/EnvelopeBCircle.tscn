@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dichdaj8dgrcy"]
+[gd_scene format=3 uid="uid://dichdaj8dgrcy"]
 
 [ext_resource type="Script" uid="uid://djdmxnvod4dqa" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBCircle.cs" id="1_1mtsw"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="1_o5o8o"]
@@ -10,7 +10,7 @@
 font = ExtResource("3_1mtsw")
 font_size = 22
 
-[node name="EnvelopeBCircle" type="Control" node_paths=PackedStringArray("_label", "_checkmark")]
+[node name="EnvelopeBCircle" type="Control" unique_id=226029031 node_paths=PackedStringArray("_label", "_checkmark")]
 custom_minimum_size = Vector2(50, 68)
 layout_mode = 3
 anchors_preset = 0
@@ -18,7 +18,7 @@ script = ExtResource("1_1mtsw")
 _label = NodePath("Label")
 _checkmark = NodePath("Circle/Checkmark")
 
-[node name="Circle" type="Control" parent="."]
+[node name="Circle" type="Control" parent="." unique_id=538287858]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -28,7 +28,7 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="Background" type="TextureRect" parent="Circle"]
+[node name="Background" type="TextureRect" parent="Circle" unique_id=1486348587]
 self_modulate = Color(1, 1, 1, 0.188235)
 layout_mode = 1
 anchors_preset = 5
@@ -41,7 +41,7 @@ grow_horizontal = 2
 texture = ExtResource("1_o5o8o")
 expand_mode = 1
 
-[node name="Outline" type="TextureRect" parent="Circle"]
+[node name="Outline" type="TextureRect" parent="Circle" unique_id=218869807]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -53,7 +53,7 @@ grow_horizontal = 2
 texture = ExtResource("2_pe7ed")
 expand_mode = 1
 
-[node name="Checkmark" type="TextureRect" parent="Circle"]
+[node name="Checkmark" type="TextureRect" parent="Circle" unique_id=1084960744]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 2.0
@@ -62,7 +62,7 @@ offset_bottom = 37.0
 texture = ExtResource("3_pe7ed")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=934002421]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

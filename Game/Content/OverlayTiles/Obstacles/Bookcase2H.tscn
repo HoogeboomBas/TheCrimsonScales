@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://j172kayux4qu"]
+[gd_scene format=3 uid="uid://j172kayux4qu"]
 
 [ext_resource type="PackedScene" uid="uid://c2tf1larqvhla" path="res://Scenes/Scenario/OverlayTiles/Obstacle2H.tscn" id="1_kuwy7"]
 [ext_resource type="Texture2D" uid="uid://tpksmlby1i08" path="res://Art/OverlayTiles/Bookcase 2h.png" id="2_h0tcx"]
 
-[node name="Bookcase2H" instance=ExtResource("1_kuwy7")]
+[node name="Bookcase2H" unique_id=2066320295 instance=ExtResource("1_kuwy7")]
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1974260711]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(110, 3)
@@ -17,6 +17,3 @@ z_index = 1
 position = Vector2(109, 0)
 scale = Vector2(0.58, 0.58)
 texture = ExtResource("2_h0tcx")
-
-[node name="Hex2" parent="." index="7"]
-position = Vector2(218.238, 0)

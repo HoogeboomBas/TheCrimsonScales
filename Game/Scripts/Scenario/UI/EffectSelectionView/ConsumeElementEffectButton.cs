@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class ConsumeElementEffectButton : EffectButton<ConsumeElementEffectButton.Parameters>
@@ -7,22 +8,25 @@ public partial class ConsumeElementEffectButton : EffectButton<ConsumeElementEff
 	{
 		public override string ScenePath => "res://Scenes/Scenario/UI/EffectButtons/ConsumeElementsEffectButton.tscn";
 
-		public IReadOnlyList<Element> Elements { get; }
-		public bool WildElement { get; } = false;
+		public List<CardElementConsumption> Elements { get; }
 
-		public Parameters(IReadOnlyList<Element> elements)
+		public Parameters(List<CardElementConsumption> elements)
 		{
 			Elements = elements;
 		}
 
 		public Parameters(Element element)
 		{
-			Elements = [element];
+			Elements = [CardElementConsumption.Consume(element)];
 		}
 
-		public Parameters()
+		public Parameters(List<Element> elements)
 		{
-			WildElement = true;
+			Elements = [];
+			foreach(Element element in elements)
+			{
+				Elements.Add(CardElementConsumption.Consume(element));
+			}
 		}
 	}
 
@@ -40,16 +44,10 @@ public partial class ConsumeElementEffectButton : EffectButton<ConsumeElementEff
 
 	protected override void Init(Parameters parameters)
 	{
+		//TODO: Have this work with multi-elements other than wild element
 		base.Init(parameters);
 
-		if(parameters.WildElement)
-		{
-			_singleElementContainer.SetVisible(true);
-			_multipleElementsContainer.SetVisible(false);
-
-			_singleElementTextureRect.SetTexture(ResourceLoader.Load<Texture2D>(Icons.WildElement));
-		}
-		else if(parameters.Elements.Count == 0)
+		if(parameters.Elements.Count == 0)
 		{
 			Log.Error("Trying to instantiate a consume element effect button without elements to consume.");
 			return;
@@ -59,18 +57,27 @@ public partial class ConsumeElementEffectButton : EffectButton<ConsumeElementEff
 			_singleElementContainer.SetVisible(true);
 			_multipleElementsContainer.SetVisible(false);
 
-			_singleElementTextureRect.SetTexture(ResourceLoader.Load<Texture2D>(Icons.GetElement(parameters.Elements[0])));
+			string path = parameters.Elements[0].ConsumableElements.Equals(Elements.All)
+				? Icons.WildElement
+				: Icons.GetElement(parameters.Elements[0].ConsumableElements.First());
+
+			_singleElementTextureRect.SetTexture(ResourceLoader.Load<Texture2D>(path));
 		}
 		else
 		{
 			_singleElementContainer.SetVisible(false);
 			_multipleElementsContainer.SetVisible(true);
 
-			foreach(Element element in parameters.Elements)
+			foreach(CardElementConsumption element in parameters.Elements)
 			{
 				TextureRect textureRect = _elementIconScene.Instantiate<TextureRect>();
 				_elementsContainer.AddChild(textureRect);
-				textureRect.SetTexture(ResourceLoader.Load<Texture2D>(Icons.GetElement(element)));
+
+				string path = element.ConsumableElements.Equals(Elements.All)
+					? Icons.WildElement
+					: Icons.GetElement(element.ConsumableElements.First());
+
+				textureRect.SetTexture(ResourceLoader.Load<Texture2D>(path));
 			}
 
 			int separation = 0;

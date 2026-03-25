@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://diiqsttbrd814"]
+[gd_scene format=3 uid="uid://diiqsttbrd814"]
 
 [ext_resource type="Texture2D" uid="uid://cj2umy03rp8ny" path="res://Art/Other/SelectorSide.svg" id="1_jfke8"]
 
-[node name="SelectorSide" type="Node2D"]
+[node name="SelectorSide" type="Node2D" unique_id=294259468]
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=490504144]
 position = Vector2(0, 120)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_jfke8")

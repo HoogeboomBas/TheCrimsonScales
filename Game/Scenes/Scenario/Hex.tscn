@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmsyl6v3iqfmt"]
+[gd_scene format=3 uid="uid://cmsyl6v3iqfmt"]
 
 [ext_resource type="Script" uid="uid://ber0pl2jelsix" path="res://Scripts/Scenario/Hex.cs" id="1_iabsa"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_1h5ea"]
 [ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_wf0b5"]
 
-[node name="Hex" type="Node2D"]
+[node name="Hex" type="Node2D" unique_id=196685356]
 script = ExtResource("1_iabsa")
 
-[node name="SnapToHexGrid" type="Node" parent="."]
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=1187755003]
 script = ExtResource("2_1h5ea")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=320683266]
 visible = false
 texture = ExtResource("3_wf0b5")

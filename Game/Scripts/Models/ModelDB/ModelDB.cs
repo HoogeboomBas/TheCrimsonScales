@@ -156,6 +156,11 @@ public static class ModelDB
 		return GetOrCreate<T>();
 	}
 
+	public static T BattleGoal<T>() where T : BattleGoalModel
+	{
+		return GetOrCreate<T>();
+	}
+
 	public static IEnumerable<Type> GetSubtypes<T>()
 	{
 		return GetSubtypes(typeof(T));

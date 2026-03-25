@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cb0dip7rd4wim"]
+[gd_scene format=3 uid="uid://cb0dip7rd4wim"]
 
 [ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_ytc7j"]
 [ext_resource type="Texture2D" uid="uid://cj0tka51p356g" path="res://Art/Icons/ConditionsAndEffects/Bless/InnerRing.svg" id="2_ou0iv"]
@@ -153,44 +153,42 @@ _data = {
 &"RESET": SubResource("Animation_3ffv0")
 }
 
-[node name="ConditionAnimation" instance=ExtResource("1_ytc7j")]
+[node name="ConditionAnimation" unique_id=1241545157 instance=ExtResource("1_ytc7j")]
 _sfxPath = "res://Audio/SFX/MAGIC_SPELL_Fade_In_Metallic_Pingpong_Fade_mono.wav"
 _sfxDelay = 0.4
 
 [node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" index="0"]
-libraries = {
-&"": SubResource("AnimationLibrary_xpfdn")
-}
+libraries/ = SubResource("AnimationLibrary_xpfdn")
 speed_scale = 0.8
 
-[node name="InnerRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="1"]
+[node name="InnerRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="1" unique_id=330754006]
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("2_ou0iv")
 
-[node name="OuterRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="2"]
+[node name="OuterRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="2" unique_id=1539937256]
 rotation = 3.14159
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_3ffv0")
 
-[node name="Circle" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="0"]
+[node name="Circle" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="0" unique_id=748793692]
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle" index="0" unique_id=1454769239]
 position = Vector2(0, -124)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_xpfdn")
 
-[node name="Circle2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="1"]
+[node name="Circle2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="1" unique_id=2001604232]
 rotation = 2.0944
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle2" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle2" index="0" unique_id=1644935903]
 position = Vector2(0, -124)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_xpfdn")
 
-[node name="Circle3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="2"]
+[node name="Circle3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing" index="2" unique_id=131991007]
 rotation = 4.18879
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle3" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/OuterRing/Circle3" index="0" unique_id=1799046483]
 position = Vector2(0, -124)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_xpfdn")

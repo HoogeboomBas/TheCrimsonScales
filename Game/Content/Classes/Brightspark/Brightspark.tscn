@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bwylrkavskiiu"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_rd461"]
+[ext_resource type="Texture2D" uid="uid://dgskegyukgbi1" path="res://Content/Classes/Brightspark/Artwork.jpg" id="2_jnfwe"]
+[ext_resource type="Texture2D" uid="uid://b7noggy0ci4m6" path="res://Content/Classes/Brightspark/Animation.jpg" id="3_rthrh"]
+
+[node name="Brightspark" instance=ExtResource("1_rd461")]
+
+[node name="Sprite2D" parent="Mask" index="0"]
+position = Vector2(10, 60)
+scale = Vector2(0.391671, 0.391671)
+texture = ExtResource("2_jnfwe")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+texture = ExtResource("3_rthrh")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.901961, 0.862745, 0.552941, 1)

@@ -1,4 +1,6 @@
-﻿using Fractural.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Fractural.Tasks;
 
 public class ScenarioInitializationPhase : ScenarioPhase
 {
@@ -18,6 +20,18 @@ public class ScenarioInitializationPhase : ScenarioPhase
 
 		// Set initial positions of all characters
 		await GameController.Instance.CharacterManager.PlaceCharacters();
+
+		// Give all characters battle goals to pick from
+		List<BattleGoalModel> battleGoals = BattleGoals.Goals.ToList();
+		battleGoals.Shuffle(GameController.Instance.StateRNG);
+		foreach(Character character in GameController.Instance.CharacterManager.Characters)
+		{
+			for(int i = 0; i < 3; i++)
+			{
+				character.AddAvailableBattleGoal(battleGoals[0]);
+				battleGoals.RemoveAt(0);
+			}
+		}
 
 		await GameController.Instance.ScenarioModel.StartAfterFirstRoomRevealed();
 	}

@@ -1,0 +1,49 @@
+﻿using System.Collections.Generic;
+using Fractural.Tasks;
+
+public class Assistant : TheCrimsonScalesBattleGoal
+{
+	public override string Title => "Assistant";
+	public override string Description => "Kill an enemy attacked by an ally earlier in the round.";
+
+	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
+	{
+		List<Figure> attackedFigures = new List<Figure>();
+
+		ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this,
+			parameters =>
+				character.AlliedWith(parameters.Performer),
+			async parameters =>
+			{
+				attackedFigures.AddIfNew(parameters.AbilityState.Target);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioEvents.RoundEndedEvent.Subscribe(this,
+			parameters => true,
+			async parameters =>
+			{
+				attackedFigures.Clear();
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioEvents.FigureKilledEvent.Subscribe(this,
+			parameters =>
+				parameters.PotentialKiller == character &&
+				character.EnemiesWith(parameters.Figure) &&
+				attackedFigures.Contains(parameters.Figure),
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		await GDTask.CompletedTask;
+	}
+}

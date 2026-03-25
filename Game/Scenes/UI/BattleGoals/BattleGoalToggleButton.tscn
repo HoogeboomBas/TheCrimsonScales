@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ow1k6ehr4jbv"]
+
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_u4esl"]
+[ext_resource type="PackedScene" uid="uid://db72d70xnhm2q" path="res://Scenes/UI/BattleGoals/BattleGoalView.tscn" id="2_cl0u1"]
+[ext_resource type="Script" uid="uid://75nmsltxg6gf" path="res://Scripts/UI/BattleGoals/BattleGoalToggleButton.cs" id="2_rtqay"]
+
+[node name="BattleGoalToggleButton" unique_id=962386803 node_paths=PackedStringArray("_battleGoalView", "_button", "_container", "_inactiveOverlay") instance=ExtResource("1_u4esl")]
+custom_minimum_size = Vector2(256, 397)
+script = ExtResource("2_rtqay")
+_battleGoalView = NodePath("Container/BetterButton/BattleGoalView")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="BattleGoalView" parent="Container/BetterButton" parent_id_path=PackedInt32Array(1155449473) index="0" unique_id=1020068738 instance=ExtResource("2_cl0u1")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
-public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText)
+public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
+	List<Hex> customHexes = null)
 	: Prompt<TeleportPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -23,17 +25,19 @@ public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure p
 
 		_possibleHexes.Clear();
 
-		foreach((Vector2I coords, Hex hex) in GameController.Instance.Map.Hexes)
+		if(customHexes != null)
 		{
-			if(!hex.Revealed)
+			_possibleHexes.AddRange(customHexes);
+		}
+		else
+		{
+			foreach(Hex hex in GameController.Instance.Map.Hexes.Values.Where(hex => hex.Revealed))
 			{
-				continue;
-			}
-
-			int distance = Map.SimpleDistance(coords, performer.Hex.Coords);
-			if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
-			{
-				_possibleHexes.Add(hex);
+				int distance = Map.SimpleDistance(hex.Coords, performer.Hex.Coords);
+				if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
+				{
+					_possibleHexes.Add(hex);
+				}
 			}
 		}
 	}

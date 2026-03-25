@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cj61uqdsa6bkt"]
+[gd_scene format=3 uid="uid://cj61uqdsa6bkt"]
 
 [ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_e1s8h"]
 [ext_resource type="Texture2D" uid="uid://bawa4x7v0yhht" path="res://Content/Classes/Mirefoot/Portrait.tres" id="2_gr6s2"]
@@ -21,20 +21,20 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="FigureInfoItem" instance=ExtResource("1_e1s8h")]
+[node name="FigureInfoItem" unique_id=426445167 instance=ExtResource("1_e1s8h")]
 
-[node name="Container" type="HBoxContainer" parent="MarginContainer/Content" index="1"]
+[node name="Container" type="HBoxContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=530487584]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Portrait" type="PanelContainer" parent="MarginContainer/Content/Container" index="0"]
+[node name="Portrait" type="PanelContainer" parent="MarginContainer/Content/Container" index="0" unique_id=1539927641]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ncvji")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/Container/Portrait" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/Container/Portrait" index="0" unique_id=469500492]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 4
@@ -42,14 +42,14 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Portrait" type="Panel" parent="MarginContainer/Content/Container/Portrait/MarginContainer" index="0"]
+[node name="Portrait" type="Panel" parent="MarginContainer/Content/Container/Portrait/MarginContainer" index="0" unique_id=1555219487]
 clip_children = 1
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6rkmb")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Content/Container/Portrait/MarginContainer/Portrait" index="0"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Content/Container/Portrait/MarginContainer/Portrait" index="0" unique_id=1273180789]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,14 +60,14 @@ mouse_filter = 2
 texture = ExtResource("2_gr6s2")
 expand_mode = 1
 
-[node name="Stats" type="VBoxContainer" parent="MarginContainer/Content/Container" index="1"]
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/Content/Container" index="1" unique_id=1959975807]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Health" parent="MarginContainer/Content/Container/Stats" index="0" instance=ExtResource("3_gmqkp")]
+[node name="Health" parent="MarginContainer/Content/Container/Stats" index="0" unique_id=1648449808 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
 [node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Health" index="0"]
@@ -79,17 +79,17 @@ offset_bottom = 34.0
 grow_vertical = 1
 texture = ExtResource("4_uplxl")
 
-[node name="Effects" type="VBoxContainer" parent="MarginContainer/Content" index="2"]
+[node name="Effects" type="VBoxContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="2" unique_id=333721468]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="SimpleEffects" type="Control" parent="MarginContainer/Content/Effects" index="0"]
+[node name="SimpleEffects" type="Control" parent="MarginContainer/Content/Effects" index="0" unique_id=1116508566]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Content/Effects/SimpleEffects" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Content/Effects/SimpleEffects" index="0" unique_id=543477825]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,22 +103,22 @@ bbcode_enabled = true
 text = "[img={40}]res://Art/Icons/Abilities/Shield.svg[/img]2, [img={40}]res://Art/Icons/Abilities/Retaliate.svg[/img]2, "
 horizontal_alignment = 1
 
-[node name="Conditions" parent="MarginContainer/Content/Effects" index="1" instance=ExtResource("5_jfqbu")]
+[node name="Conditions" parent="MarginContainer/Content/Effects" index="1" unique_id=620335124 instance=ExtResource("5_jfqbu")]
 layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Content/Effects/Conditions/HBoxContainer" index="0"]
 text = "Conditions:"
 
-[node name="Immunities" parent="MarginContainer/Content/Effects" index="2" instance=ExtResource("5_jfqbu")]
+[node name="Immunities" parent="MarginContainer/Content/Effects" index="2" unique_id=1616868014 instance=ExtResource("5_jfqbu")]
 layout_mode = 2
 
-[node name="Applies" parent="MarginContainer/Content/Effects" index="3" instance=ExtResource("5_jfqbu")]
+[node name="Applies" parent="MarginContainer/Content/Effects" index="3" unique_id=361993898 instance=ExtResource("5_jfqbu")]
 layout_mode = 2
 
 [node name="Label" parent="MarginContainer/Content/Effects/Applies/HBoxContainer" index="0"]
 text = "Applies:"
 
-[node name="InfoExtraEffectsView" parent="MarginContainer/Content/Effects" index="4" instance=ExtResource("7_e5o5d")]
+[node name="InfoExtraEffectsView" parent="MarginContainer/Content/Effects" index="4" unique_id=709550068 instance=ExtResource("7_e5o5d")]
 layout_mode = 2
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5hfgmgusycc8"]
+[gd_scene format=3 uid="uid://b5hfgmgusycc8"]
 
 [ext_resource type="PackedScene" uid="uid://5y7yggnntpfb" path="res://Scenes/Scenario/OverlayTiles/DifficultTerrain2H.tscn" id="1_6bf4g"]
 
-[node name="Log2H" instance=ExtResource("1_6bf4g")]
+[node name="Log2H" unique_id=2034391795 instance=ExtResource("1_6bf4g")]
 _stepType = 3
+
+[node name="Hex2" parent="." index="6"]
+position = Vector2(218.2384, 0)

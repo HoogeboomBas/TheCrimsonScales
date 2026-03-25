@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1j0wxttvh7o5"]
+[gd_scene format=3 uid="uid://b1j0wxttvh7o5"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_3uqq6"]
 [ext_resource type="Script" uid="uid://b77sn4icjxcmx" path="res://Scripts/UI/Popups/EquipItemPopup/EquipItemPopup.cs" id="2_p7tck"]
@@ -6,7 +6,7 @@
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_o8eep"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="5_pqjss"]
 
-[node name="EquipItemPopup" node_paths=PackedStringArray("_scrollContainer", "_itemParent", "_nothingAvailableLabel", "_cancelButton", "_clearButton") instance=ExtResource("1_3uqq6")]
+[node name="EquipItemPopup" unique_id=1162355255 node_paths=PackedStringArray("_scrollContainer", "_itemParent", "_nothingAvailableLabel", "_cancelButton", "_clearButton") instance=ExtResource("1_3uqq6")]
 script = ExtResource("2_p7tck")
 _scrollContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer")
 _itemScene = ExtResource("3_ophic")
@@ -15,20 +15,20 @@ _nothingAvailableLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginCon
 _cancelButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton")
 _clearButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ClearButton/BetterButton")
 
-[node name="Panel" parent="." index="1"]
+[node name="Panel" parent="." index="1" unique_id=2112547392]
 material = null
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Equip Item"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=2088373433]
 layout_mode = 2
 theme_override_constants/margin_left = -10
 theme_override_constants/margin_top = -10
 theme_override_constants/margin_right = -10
 theme_override_constants/margin_bottom = -10
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer" index="0" unique_id=1634794718]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -36,35 +36,35 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0" unique_id=37432173]
 clip_contents = false
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10
 
-[node name="Items" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer" index="0"]
+[node name="Items" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer" index="0" unique_id=1378483378]
 custom_minimum_size = Vector2(0, 413)
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="NothingAvailableLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer/Items" index="0"]
+[node name="NothingAvailableLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer/ScrollContainer/Items" index="0" unique_id=1832122759]
 layout_mode = 2
 text = "Nothing available"
 label_settings = ExtResource("5_o8eep")
 
-[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("5_pqjss")]
+[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=411896675 instance=ExtResource("5_pqjss")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(411896675, 62362509) index="0" unique_id=188245078]
 text = "Cancel"
 
-[node name="ClearButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="1" instance=ExtResource("5_pqjss")]
+[node name="ClearButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="1" unique_id=253008399 instance=ExtResource("5_pqjss")]
 layout_mode = 2
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ClearButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ClearButton/BetterButton/Panel" parent_id_path=PackedInt32Array(253008399, 62362509) index="0" unique_id=188245078]
 text = "Clear"
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton"]

@@ -85,7 +85,13 @@ public abstract class LuminaryCardSide : AbilityCardSideModel
 		{
 			if(consumeElements)
 			{
-				subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.ConsumeElements(glowAbility.Elements,
+				List<CardElementConsumption> consumptions = [];
+				foreach(Element element in glowAbility.Elements)
+				{
+					consumptions.Add(CardElementConsumption.Consume(element));
+				}
+
+				subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.ConsumeElement(consumptions,
 					applyFunction: async parameters =>
 					{
 						ActionState actionState = new ActionState(performer, [glowAbility.Ability(glowAbility.Elements)]);

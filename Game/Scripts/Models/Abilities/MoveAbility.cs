@@ -36,7 +36,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 	}
 
-	public int Distance { get; private set; }
+	public DynamicInt<State> Distance { get; private set; }
 	public MoveType MoveType { get; private set; }
 	public List<ScenarioEvents.DuringMovement.Subscription> DuringMovementSubscriptions { get; private set; } = [];
 	//public List<ScenarioEvent<ScenarioEvents.FigureEnteredHex.Parameters>.Subscription> FigureEnteredHexSubscriptions { get; }
@@ -54,10 +54,10 @@ public class MoveAbility : Ability<MoveAbility.State>
 	{
 		public interface IDistanceStep
 		{
-			TBuilder WithDistance(int distance, params MoveEnhancementMark[] enhancementMarks);
+			TBuilder WithDistance(DynamicInt<State> distance, params MoveEnhancementMark[] enhancementMarks);
 		}
 
-		public TBuilder WithDistance(int distance, params MoveEnhancementMark[] enhancementMarks)
+		public TBuilder WithDistance(DynamicInt<State> distance, params MoveEnhancementMark[] enhancementMarks)
 		{
 			Obj.Distance = distance;
 			AddEnhancements(enhancementMarks);
@@ -120,7 +120,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 
 		abilityState.Origin = performer.Hex;
-		abilityState.MoveValue = Distance;
+		abilityState.MoveValue = Distance.GetValue(abilityState);
 		abilityState.MoveType = moveType;
 	}
 

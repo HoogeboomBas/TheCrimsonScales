@@ -25,7 +25,8 @@ public class SparklingGlow : LuminaryCardModel<SparklingGlow.CardTop, SparklingG
 				))
 				.WithDuringAttackSubscriptions(
 				[
-					ScenarioEvents.DuringAttack.Subscription.ConsumeElements([Element.Fire, Element.Light],
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(
+						[CardElementConsumption.Consume(Element.Fire), CardElementConsumption.Consume(Element.Light)],
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AdjustTargets(1);
@@ -34,7 +35,8 @@ public class SparklingGlow : LuminaryCardModel<SparklingGlow.CardTop, SparklingG
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Targets)}")
 					),
-					ScenarioEvents.DuringAttack.Subscription.ConsumeElements([Element.Ice, Element.Dark],
+					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(
+						[CardElementConsumption.Consume(Element.Ice), CardElementConsumption.Consume(Element.Dark)],
 						applyFunction: async parameters =>
 						{
 							parameters.AbilityState.AdjustTargets(1);

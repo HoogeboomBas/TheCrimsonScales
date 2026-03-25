@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds36axqifweqr"]
+[gd_scene format=3 uid="uid://ds36axqifweqr"]
 
 [ext_resource type="PackedScene" uid="uid://cq2yw4nbs6g6m" path="res://Scenes/Scenario/OverlayTiles/HazardousTerrain1H.tscn" id="1_coa6g"]
 [ext_resource type="Texture2D" uid="uid://cc0rl0ku7pnya" path="res://Art/OverlayTiles/Thorns 1h.png" id="2_2uwkh"]
 
-[node name="Thorns1H" instance=ExtResource("1_coa6g")]
+[node name="Thorns1H" unique_id=1475540514 instance=ExtResource("1_coa6g")]
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_2uwkh")

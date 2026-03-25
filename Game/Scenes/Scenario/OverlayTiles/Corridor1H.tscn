@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cntexpy84mopg"]
+[gd_scene format=3 uid="uid://cntexpy84mopg"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_r7qbm"]
 [ext_resource type="Texture2D" uid="uid://cfyeynkvma5qg" path="res://Art/Icons/OverlayTiles/CorridorIcon.svg" id="2_6htyu"]
 [ext_resource type="Script" uid="uid://dypdm1p6dgk36" path="res://Scripts/Scenario/HexObjects/Corridor.cs" id="2_v7ve4"]
 
-[node name="Corridor1H" instance=ExtResource("1_r7qbm")]
+[node name="Corridor1H" unique_id=1175582002 instance=ExtResource("1_r7qbm")]
 z_index = -1
 script = ExtResource("2_v7ve4")
 

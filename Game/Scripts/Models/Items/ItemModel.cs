@@ -232,6 +232,8 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 			}
 		}
 
+		user.TurnItemsUsed.Add(this);
+
 		await ScenarioEvents.ItemUseEndedEvent.CreatePrompt(new ScenarioEvents.ItemUseEnded.Parameters(this, Owner));
 	}
 

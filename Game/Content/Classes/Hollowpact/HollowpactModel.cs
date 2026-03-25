@@ -4,8 +4,8 @@ using Godot;
 public class HollowpactModel : ClassModel
 {
 	public override string Name => "Hollowpact";
-	public override MaxHealthValues MaxHealthValues => MaxHealthValues.LowMedium;
-	public override int HandSize => 10;
+	public override MaxHealthValues MaxHealthValues => MaxHealthValues.Medium;
+	public override int HandSize => 11;
 	public override Ancestry Ancestry => Ancestry.Savvas;
 
 	public override string AssetPath => "res://Content/Classes/Hollowpact";

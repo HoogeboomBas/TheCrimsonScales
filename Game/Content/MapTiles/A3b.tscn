@@ -1,38 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://bacgegl1xxid"]
+[gd_scene format=3 uid="uid://bacgegl1xxid"]
 
 [ext_resource type="PackedScene" uid="uid://bdmmng80jwujv" path="res://Scenes/Scenario/MapTile.tscn" id="1_5g28m"]
 [ext_resource type="Texture2D" uid="uid://d1wy51j25y24i" path="res://Art/MapTiles/A3b-Man-Made Stone - D1.png" id="2_5g28m"]
 [ext_resource type="PackedScene" uid="uid://cmsyl6v3iqfmt" path="res://Scenes/Scenario/Hex.tscn" id="3_hxy6a"]
 
-[node name="A3b" instance=ExtResource("1_5g28m")]
+[node name="A3b" unique_id=2034165065 instance=ExtResource("1_5g28m")]
 StepType = 1
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(-3, -91)
 texture = ExtResource("2_5g28m")
 
-[node name="Hex" parent="Hexes" index="0" instance=ExtResource("3_hxy6a")]
-position = Vector2(-436.477, 0)
+[node name="Hex" parent="Hexes" index="0" unique_id=2072045168 instance=ExtResource("3_hxy6a")]
+position = Vector2(-436.4768, 0)
 
-[node name="Hex2" parent="Hexes" index="1" instance=ExtResource("3_hxy6a")]
+[node name="Hex2" parent="Hexes" index="1" unique_id=339032425 instance=ExtResource("3_hxy6a")]
 
-[node name="Hex3" parent="Hexes" index="2" instance=ExtResource("3_hxy6a")]
-position = Vector2(-218.238, 0)
+[node name="Hex3" parent="Hexes" index="2" unique_id=254022723 instance=ExtResource("3_hxy6a")]
+position = Vector2(-218.2384, 0)
 
-[node name="Hex4" parent="Hexes" index="3" instance=ExtResource("3_hxy6a")]
-position = Vector2(218.238, 0)
+[node name="Hex4" parent="Hexes" index="3" unique_id=1066911984 instance=ExtResource("3_hxy6a")]
+position = Vector2(218.2384, 0)
 
-[node name="Hex5" parent="Hexes" index="4" instance=ExtResource("3_hxy6a")]
-position = Vector2(436.477, 0)
+[node name="Hex5" parent="Hexes" index="4" unique_id=1611387805 instance=ExtResource("3_hxy6a")]
+position = Vector2(436.4768, 0)
 
-[node name="Hex6" parent="Hexes" index="5" instance=ExtResource("3_hxy6a")]
-position = Vector2(327.358, -189)
+[node name="Hex6" parent="Hexes" index="5" unique_id=1702840021 instance=ExtResource("3_hxy6a")]
+position = Vector2(327.35757, -189)
 
-[node name="Hex7" parent="Hexes" index="6" instance=ExtResource("3_hxy6a")]
-position = Vector2(109.119, -189)
+[node name="Hex7" parent="Hexes" index="6" unique_id=683913364 instance=ExtResource("3_hxy6a")]
+position = Vector2(109.1192, -189)
 
-[node name="Hex8" parent="Hexes" index="7" instance=ExtResource("3_hxy6a")]
-position = Vector2(-109.119, -189)
+[node name="Hex8" parent="Hexes" index="7" unique_id=1745418142 instance=ExtResource("3_hxy6a")]
+position = Vector2(-109.1192, -189)
 
-[node name="Hex9" parent="Hexes" index="8" instance=ExtResource("3_hxy6a")]
-position = Vector2(-327.358, -189)
+[node name="Hex9" parent="Hexes" index="8" unique_id=597129245 instance=ExtResource("3_hxy6a")]
+position = Vector2(-327.35757, -189)

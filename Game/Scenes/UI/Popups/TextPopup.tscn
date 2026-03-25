@@ -1,21 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://6c3csquaapgj"]
+[gd_scene format=3 uid="uid://6c3csquaapgj"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_do520"]
 [ext_resource type="Script" uid="uid://ceb86gjmot65s" path="res://Scripts/UI/Popups/TextPopup.cs" id="2_01icc"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_1hysv"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="6_70rw3"]
 
-[node name="TextPopup" node_paths=PackedStringArray("_headerLabel", "_bodyLabel", "_textButtonParent") instance=ExtResource("1_do520")]
+[node name="TextPopup" unique_id=599801622 node_paths=PackedStringArray("_headerLabel", "_bodyLabel", "_textButtonParent") instance=ExtResource("1_do520")]
 script = ExtResource("2_01icc")
 _headerLabel = NodePath("Panel/MarginContainer/VBoxContainer/Header/Label")
 _bodyLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Label")
 _textButtonScene = ExtResource("6_70rw3")
 _textButtonParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons")
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Header"
 
-[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=80047139]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_1hysv")
@@ -27,7 +27,7 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("6_70rw3")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=1318059891 instance=ExtResource("6_70rw3")]
 visible = false
 layout_mode = 2
 

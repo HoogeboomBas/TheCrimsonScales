@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://djnt18thw2ykn"]
+[gd_scene format=3 uid="uid://djnt18thw2ykn"]
 
 [ext_resource type="PackedScene" uid="uid://nylmwfb2he5b" path="res://Scenes/Scenario/UI/InfoView/FigureEffects/FigureInfoIcon.tscn" id="1_yhhh1"]
 [ext_resource type="Texture2D" uid="uid://ms8ejogqljq4" path="res://Art/Icons/Abilities/Targets.svg" id="2_uhp0k"]
 [ext_resource type="LabelSettings" uid="uid://dwxmsjvisoyh5" path="res://Resources/InfoViewStat.tres" id="3_pi6uv"]
 
-[node name="InfoViewTraitEffect" type="Control"]
+[node name="InfoViewTraitEffect" type="Control" unique_id=1785038101]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 3
 anchors_preset = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1117078449]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,13 +18,13 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="InfoViewEffectIcon" parent="HBoxContainer" instance=ExtResource("1_yhhh1")]
+[node name="InfoViewEffectIcon" parent="HBoxContainer" unique_id=1970633103 instance=ExtResource("1_yhhh1")]
 layout_mode = 2
 
-[node name="TextureRect" parent="HBoxContainer/InfoViewEffectIcon" index="0"]
+[node name="TextureRect" parent="HBoxContainer/InfoViewEffectIcon" index="0" unique_id=891678191]
 texture = ExtResource("2_uhp0k")
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=887245276]
 layout_mode = 2
 text = "2"
 label_settings = ExtResource("3_pi6uv")

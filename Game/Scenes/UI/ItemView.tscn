@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmixj6gefxlit"]
+[gd_scene format=3 uid="uid://bmixj6gefxlit"]
 
 [ext_resource type="Texture2D" uid="uid://sq1077vshk5a" path="res://Content/Items/ItemExample.tres" id="1_imbgr"]
 [ext_resource type="Script" uid="uid://dpkrgi18thmnd" path="res://Scripts/UI/ItemView.cs" id="1_keb7s"]
@@ -29,7 +29,7 @@ font_size = 20
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
-[node name="ItemView" type="Control" node_paths=PackedStringArray("_container", "TextureRect", "_costLabel", "_itemCountLabel", "_characterTokenParent", "_maxUseCountTokenParent", "TextureRects")]
+[node name="ItemView" type="Control" unique_id=873347691 node_paths=PackedStringArray("_container", "TextureRect", "_costLabel", "_itemCountLabel", "_characterTokenParent", "_maxUseCountTokenParent", "TextureRects")]
 custom_minimum_size = Vector2(180, 275.4)
 layout_mode = 3
 anchors_preset = 0
@@ -46,14 +46,14 @@ _characterTokenParent = NodePath(".")
 _maxUseCountTokenParent = NodePath("Container/MaxUseTokens")
 TextureRects = [NodePath("Container/Mask/TextureRect"), NodePath("Container/Mask/Coin"), NodePath("Container/ItemCountMask/TextureRect")]
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=662699399]
 layout_mode = 1
 anchors_preset = 0
 offset_right = 360.0
 offset_bottom = 550.8
 mouse_filter = 2
 
-[node name="Mask" type="Panel" parent="Container"]
+[node name="Mask" type="Panel" parent="Container" unique_id=475620982]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -64,7 +64,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
 
-[node name="TextureRect" type="TextureRect" parent="Container/Mask"]
+[node name="TextureRect" type="TextureRect" parent="Container/Mask" unique_id=1509985522]
 material = ExtResource("2_nrwrn")
 instance_shader_parameters/grayscaleFactor = 0.0
 layout_mode = 1
@@ -77,7 +77,7 @@ mouse_filter = 2
 texture = ExtResource("1_imbgr")
 expand_mode = 1
 
-[node name="Coin" type="TextureRect" parent="Container/Mask"]
+[node name="Coin" type="TextureRect" parent="Container/Mask" unique_id=1092965697]
 material = ExtResource("2_nrwrn")
 layout_mode = 0
 offset_left = 255.0
@@ -88,7 +88,7 @@ mouse_filter = 2
 texture = ExtResource("5_gxl1g")
 expand_mode = 1
 
-[node name="CostLabel" type="Label" parent="Container/Mask/Coin"]
+[node name="CostLabel" type="Label" parent="Container/Mask/Coin" unique_id=343829302]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -104,7 +104,7 @@ label_settings = SubResource("LabelSettings_vb1g8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ItemCountMask" type="Panel" parent="Container"]
+[node name="ItemCountMask" type="Panel" parent="Container" unique_id=768239211]
 clip_children = 1
 layout_mode = 1
 offset_left = 20.0
@@ -114,7 +114,7 @@ offset_bottom = 309.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_keb7s")
 
-[node name="TextureRect" type="TextureRect" parent="Container/ItemCountMask"]
+[node name="TextureRect" type="TextureRect" parent="Container/ItemCountMask" unique_id=908386170]
 material = ExtResource("2_nrwrn")
 instance_shader_parameters/grayscaleFactor = 0.0
 layout_mode = 1
@@ -133,7 +133,7 @@ mouse_filter = 2
 texture = ExtResource("7_aqyqe")
 expand_mode = 1
 
-[node name="ItemCountLabel" type="Label" parent="Container/ItemCountMask"]
+[node name="ItemCountLabel" type="Label" parent="Container/ItemCountMask" unique_id=1450124277]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -151,7 +151,7 @@ label_settings = SubResource("LabelSettings_246vr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MaxUseTokens" type="HBoxContainer" parent="Container"]
+[node name="MaxUseTokens" type="HBoxContainer" parent="Container" unique_id=1402714912]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0

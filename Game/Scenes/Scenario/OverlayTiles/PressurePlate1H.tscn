@@ -1,29 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://p5f87r6xqoxl"]
+[gd_scene format=3 uid="uid://p5f87r6xqoxl"]
 
 [ext_resource type="PackedScene" uid="uid://d6v13l8hvtpu" path="res://Scenes/Scenario/OverlayTiles/OverlayTile1H.tscn" id="1_8xpqw"]
 [ext_resource type="Script" uid="uid://bau3qowlgdu41" path="res://Scripts/Scenario/HexObjects/PressurePlate.cs" id="2_ttwjo"]
 [ext_resource type="Texture2D" uid="uid://d1n3ufjp8ngwq" path="res://Art/OverlayTiles/PressurePlate1H.png" id="3_g8dx2"]
 [ext_resource type="Texture2D" uid="uid://r65lmrlpsbqy" path="res://Art/Icons/OverlayTiles/PressurePlateIcon.svg" id="4_svtpc"]
 
-[node name="PressurePlate1H" instance=ExtResource("1_8xpqw")]
+[node name="PressurePlate1H" unique_id=1199103863 instance=ExtResource("1_8xpqw")]
 script = ExtResource("2_ttwjo")
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=419918970]
 self_modulate = Color(0, 0, 0, 0.439216)
 position = Vector2(1, 3)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_g8dx2")
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="2" unique_id=786075991]
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_g8dx2")
 
-[node name="Outline" parent="." index="3"]
+[node name="Outline" parent="." index="3" unique_id=99128073]
 self_modulate = Color(0.529412, 0.529412, 0.529412, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.529412, 0.529412, 0.529412, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.38)
 texture = ExtResource("4_svtpc")

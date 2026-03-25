@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://dc3oqbu0m8jid"]
+[gd_scene format=3 uid="uid://dc3oqbu0m8jid"]
 
 [ext_resource type="Script" uid="uid://bq2pwm6f32li" path="res://Scripts/Scenario/GameController.cs" id="1_arwlr"]
 [ext_resource type="Script" uid="uid://d1n1uymvup76h" path="res://Scripts/Scenario/TeleportPath/TeleportPath.cs" id="6_b23n0"]
@@ -36,7 +36,9 @@
 [ext_resource type="Script" uid="uid://dmf8qeqwtjjtu" path="res://Scripts/Scenario/UI/AOEButtonView.cs" id="27_koqce"]
 [ext_resource type="Texture2D" uid="uid://cxi52t85i1mta" path="res://Art/Icons/Other/RotateClockwise.svg" id="28_3mf4c"]
 [ext_resource type="Script" uid="uid://dfk8lfs8ihi6x" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButtonsView.cs" id="28_pgpxo"]
+[ext_resource type="Texture2D" uid="uid://cfivk5ub57vcr" path="res://Art/Icons/Other/BattleGoal.svg" id="28_spwjx"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="29_4v2ql"]
+[ext_resource type="PackedScene" uid="uid://cw7b3ccvlqx53" path="res://Scenes/UI/ExclamationMark.tscn" id="29_dsbfq"]
 [ext_resource type="Script" uid="uid://d4d7ijusnuvqu" path="res://Scripts/Scenario/UI/PortraitView/PortraitView.cs" id="30_05yo2"]
 [ext_resource type="Script" uid="uid://dvnj5squppncw" path="res://Scripts/Scenario/UI/EffectSelectionView/EffectSelectionView.cs" id="32_07pbp"]
 [ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="34_dfaft"]
@@ -150,7 +152,7 @@ font_size = 100
 font = ExtResource("39_namyh")
 font_size = 50
 
-[node name="Game" type="Node" node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "SpecialRulesView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
+[node name="Game" type="Node" unique_id=836903355 node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "SpecialRulesView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
 script = ExtResource("1_arwlr")
 CameraController = NodePath("CameraController")
 CursorOverUIChecker = NodePath("CanvasLayer/UI/CursorOverUIChecker")
@@ -182,7 +184,7 @@ CharacterStartHexMoveIndicator = NodePath("CanvasLayer/UI/CharacterStartHexMoveI
 HexPin = NodePath("HexPin")
 ScreenDistortion = NodePath("ScreenDistortion")
 
-[node name="CameraController" type="Node2D" parent="." node_paths=PackedStringArray("Camera", "_movePivot")]
+[node name="CameraController" type="Node2D" parent="." unique_id=1572162011 node_paths=PackedStringArray("Camera", "_movePivot")]
 script = ExtResource("15_67ddq")
 Camera = NodePath("MovePivot/Camera2D")
 _movePivot = NodePath("MovePivot")
@@ -197,21 +199,21 @@ _moveLeftAction = &"camera_move_left"
 _moveUpAction = &"camera_move_up"
 _moveDownAction = &"camera_move_down"
 
-[node name="MovePivot" type="Node2D" parent="CameraController"]
+[node name="MovePivot" type="Node2D" parent="CameraController" unique_id=1698450529]
 
-[node name="Camera2D" type="Camera2D" parent="CameraController/MovePivot"]
+[node name="Camera2D" type="Camera2D" parent="CameraController/MovePivot" unique_id=164039507]
 zoom = Vector2(0.6, 0.6)
 
-[node name="Selector" parent="." instance=ExtResource("16_wuepc")]
+[node name="Selector" parent="." unique_id=1474151597 instance=ExtResource("16_wuepc")]
 z_index = 1000
 
-[node name="MovePath" type="Node2D" parent="." node_paths=PackedStringArray("_line2D")]
+[node name="MovePath" type="Node2D" parent="." unique_id=409423786 node_paths=PackedStringArray("_line2D")]
 z_index = 105
 script = ExtResource("17_v4tp5")
 _waypointScene = ExtResource("18_8uwbm")
 _line2D = NodePath("Line2D")
 
-[node name="Line2D" type="Line2D" parent="MovePath"]
+[node name="Line2D" type="Line2D" parent="MovePath" unique_id=725340871]
 z_index = 100
 points = PackedVector2Array(0, 0, 256, 0, 256, 256, 0, 256)
 width = 12.0
@@ -220,13 +222,13 @@ begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
-[node name="TeleportPath" type="Node2D" parent="." node_paths=PackedStringArray("_line2D")]
+[node name="TeleportPath" type="Node2D" parent="." unique_id=104209833 node_paths=PackedStringArray("_line2D")]
 z_index = 105
 script = ExtResource("6_b23n0")
 _waypointScene = ExtResource("18_8uwbm")
 _line2D = NodePath("Line2D")
 
-[node name="Line2D" type="Line2D" parent="TeleportPath"]
+[node name="Line2D" type="Line2D" parent="TeleportPath" unique_id=1560657673]
 z_index = 100
 points = PackedVector2Array(0, 0, 100, -100)
 width = 12.0
@@ -235,7 +237,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
-[node name="AOEView" type="Node2D" parent="." node_paths=PackedStringArray("_hexParent")]
+[node name="AOEView" type="Node2D" parent="." unique_id=649789332 node_paths=PackedStringArray("_hexParent")]
 z_index = 100
 script = ExtResource("19_28h00")
 _redHexScene = ExtResource("20_alilm")
@@ -244,15 +246,15 @@ _grayHexScene = ExtResource("21_wkv7e")
 _emptyHexScene = ExtResource("21_zi34j")
 _hexParent = NodePath("Hexes")
 
-[node name="FollowPivot" type="Node2D" parent="AOEView"]
+[node name="FollowPivot" type="Node2D" parent="AOEView" unique_id=1703246363]
 
-[node name="Hexes" type="Node2D" parent="AOEView"]
+[node name="Hexes" type="Node2D" parent="AOEView" unique_id=42124864]
 
-[node name="LineOfSightVisualizer" type="Node2D" parent="." node_paths=PackedStringArray("_line")]
+[node name="LineOfSightVisualizer" type="Node2D" parent="." unique_id=294726757 node_paths=PackedStringArray("_line")]
 script = ExtResource("22_4rj0i")
 _line = NodePath("Line2D")
 
-[node name="Line2D" type="Line2D" parent="LineOfSightVisualizer"]
+[node name="Line2D" type="Line2D" parent="LineOfSightVisualizer" unique_id=1420650529]
 z_index = 200
 points = PackedVector2Array(0, 0, 500, 0)
 width = 12.0
@@ -261,25 +263,25 @@ begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
-[node name="SufferDamageView" type="Node2D" parent="." node_paths=PackedStringArray("_container", "_label")]
+[node name="SufferDamageView" type="Node2D" parent="." unique_id=989326663 node_paths=PackedStringArray("_container", "_label")]
 z_index = 2000
 script = ExtResource("10_ldvfj")
 _container = NodePath("Container")
 _label = NodePath("Container/Label")
 
-[node name="Container" type="Node2D" parent="SufferDamageView"]
+[node name="Container" type="Node2D" parent="SufferDamageView" unique_id=825304682]
 position = Vector2(0, -20)
 
-[node name="Circle" type="Sprite2D" parent="SufferDamageView/Container"]
+[node name="Circle" type="Sprite2D" parent="SufferDamageView/Container" unique_id=2072937365]
 self_modulate = Color(0.498039, 0, 0, 0.705882)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("10_nbwi6")
 
-[node name="Sprite2D" type="Sprite2D" parent="SufferDamageView/Container"]
+[node name="Sprite2D" type="Sprite2D" parent="SufferDamageView/Container" unique_id=1212487073]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_ldvfj")
 
-[node name="Label" type="Label" parent="SufferDamageView/Container"]
+[node name="Label" type="Label" parent="SufferDamageView/Container" unique_id=1497825075]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -295,23 +297,23 @@ text = "42"
 label_settings = ExtResource("12_lqqm2")
 horizontal_alignment = 1
 
-[node name="HexPin" type="Node2D" parent="." node_paths=PackedStringArray("_scaleContainer", "_worldButton")]
+[node name="HexPin" type="Node2D" parent="." unique_id=1223059567 node_paths=PackedStringArray("_scaleContainer", "_worldButton")]
 z_index = 2000
 script = ExtResource("15_cvckm")
 _scaleContainer = NodePath("ScaleContainer")
 _worldButton = NodePath("ScaleContainer/WorldButton")
 
-[node name="ScaleContainer" type="Node2D" parent="HexPin"]
+[node name="ScaleContainer" type="Node2D" parent="HexPin" unique_id=1449896688]
 position = Vector2(80, -63)
 
-[node name="Sprite2D" type="Sprite2D" parent="HexPin/ScaleContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="HexPin/ScaleContainer" unique_id=1812713727]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("54_uif1r")
 
-[node name="WorldButton" parent="HexPin/ScaleContainer" instance=ExtResource("16_d05wj")]
+[node name="WorldButton" parent="HexPin/ScaleContainer" unique_id=1220873957 instance=ExtResource("16_d05wj")]
 scale = Vector2(0.3, 0.3)
 
-[node name="ScreenDistortion" type="ColorRect" parent="."]
+[node name="ScreenDistortion" type="ColorRect" parent="." unique_id=1762484308]
 visible = false
 z_index = 50
 material = SubResource("ShaderMaterial_fcllr")
@@ -323,9 +325,9 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("18_76yld")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1031292033]
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=54860179]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -334,7 +336,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CursorOverUIChecker" type="Control" parent="CanvasLayer/UI"]
+[node name="CursorOverUIChecker" type="Control" parent="CanvasLayer/UI" unique_id=1318780434]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -344,7 +346,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("23_bndsi")
 
-[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI"]
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI" unique_id=337734118]
 material = SubResource("ShaderMaterial_ldvfj")
 layout_mode = 1
 anchors_preset = 15
@@ -354,7 +356,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ScenarioSetupButtonsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_startScenarioButton", "_equipmentButton", "_cardsButton")]
+[node name="ScenarioSetupButtonsView" type="Control" parent="CanvasLayer/UI" unique_id=1523543017 node_paths=PackedStringArray("_startScenarioButton", "_equipmentButton", "_cardsButton", "_battleGoalsButton", "_battleGoalsExclamationMark")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -366,16 +368,18 @@ script = ExtResource("15_nbwi6")
 _startScenarioButton = NodePath("StartScenario")
 _equipmentButton = NodePath("OptionsContainer/EquipmentButton")
 _cardsButton = NodePath("OptionsContainer/CardsButton")
+_battleGoalsButton = NodePath("OptionsContainer/BattleGoalsButton")
+_battleGoalsExclamationMark = NodePath("OptionsContainer/BattleGoalsButton/ExclamationMark")
 
-[node name="StartScenario" parent="CanvasLayer/UI/ScenarioSetupButtonsView" instance=ExtResource("29_4v2ql")]
+[node name="StartScenario" parent="CanvasLayer/UI/ScenarioSetupButtonsView" unique_id=1479411549 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = -140.0
 offset_right = 140.0
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioSetupButtonsView/StartScenario/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ScenarioSetupButtonsView/StartScenario/BetterButton/Panel" parent_id_path=PackedInt32Array(1479411549, 1664087955) index="0" unique_id=1161890966]
 text = "Start Scenario"
 
-[node name="OptionsContainer" type="HBoxContainer" parent="CanvasLayer/UI/ScenarioSetupButtonsView"]
+[node name="OptionsContainer" type="HBoxContainer" parent="CanvasLayer/UI/ScenarioSetupButtonsView" unique_id=455498563]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -391,16 +395,36 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="EquipmentButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" instance=ExtResource("15_lqqm2")]
+[node name="EquipmentButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" unique_id=945149561 instance=ExtResource("15_lqqm2")]
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/EquipmentButton/BetterButton/Panel/MarginContainer" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/EquipmentButton/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(945149561, 490815368) index="0" unique_id=1722425256]
 texture = ExtResource("16_cvckm")
 
-[node name="CardsButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" instance=ExtResource("15_lqqm2")]
+[node name="CardsButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" unique_id=350385462 instance=ExtResource("15_lqqm2")]
 layout_mode = 2
 
-[node name="AOEButtonView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_buttonContainer", "_mirrorButton", "_rotateCounterClockwiseButton", "_rotateClockwiseButton")]
+[node name="BattleGoalsButton" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer" unique_id=469227691 instance=ExtResource("15_lqqm2")]
+layout_mode = 2
+
+[node name="TextureRect" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/BattleGoalsButton/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(469227691, 490815368) index="0" unique_id=1722425256]
+texture = ExtResource("28_spwjx")
+
+[node name="ExclamationMark" parent="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/BattleGoalsButton" unique_id=2099279231 instance=ExtResource("29_dsbfq")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 24.0
+grow_horizontal = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(16, 16)
+
+[node name="AOEButtonView" type="Control" parent="CanvasLayer/UI" unique_id=1660665315 node_paths=PackedStringArray("_buttonContainer", "_mirrorButton", "_rotateCounterClockwiseButton", "_rotateClockwiseButton")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -414,7 +438,7 @@ _mirrorButton = NodePath("Container/HBoxContainer/MirrorButton")
 _rotateCounterClockwiseButton = NodePath("Container/HBoxContainer/RotateCounterClockwiseButton")
 _rotateClockwiseButton = NodePath("Container/HBoxContainer/RotateClockwiseButton")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/AOEButtonView"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/AOEButtonView" unique_id=818635961]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -428,7 +452,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/AOEButtonView/Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/AOEButtonView/Container" unique_id=214078923]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -439,26 +463,26 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="RotateCounterClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+[node name="RotateCounterClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" unique_id=1635546892 instance=ExtResource("15_lqqm2")]
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateCounterClockwiseButton/BetterButton/Panel/MarginContainer" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateCounterClockwiseButton/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(1635546892, 490815368) index="0" unique_id=1722425256]
 texture = ExtResource("28_3mf4c")
 flip_h = true
 
-[node name="MirrorButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+[node name="MirrorButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" unique_id=204975296 instance=ExtResource("15_lqqm2")]
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/MirrorButton/BetterButton/Panel/MarginContainer" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/MirrorButton/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(204975296, 490815368) index="0" unique_id=1722425256]
 texture = ExtResource("27_6gk2j")
 
-[node name="RotateClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" instance=ExtResource("15_lqqm2")]
+[node name="RotateClockwiseButton" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer" unique_id=102679096 instance=ExtResource("15_lqqm2")]
 layout_mode = 2
 
-[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateClockwiseButton/BetterButton/Panel/MarginContainer" index="0"]
+[node name="TextureRect" parent="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateClockwiseButton/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(102679096, 490815368) index="0" unique_id=1722425256]
 texture = ExtResource("28_3mf4c")
 
-[node name="CardSelectionButtonsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_startRoundButton")]
+[node name="CardSelectionButtonsView" type="Control" parent="CanvasLayer/UI" unique_id=822918594 node_paths=PackedStringArray("_startRoundButton")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -469,13 +493,13 @@ mouse_filter = 2
 script = ExtResource("17_upiru")
 _startRoundButton = NodePath("StartRound")
 
-[node name="StartRound" parent="CanvasLayer/UI/CardSelectionButtonsView" instance=ExtResource("29_4v2ql")]
+[node name="StartRound" parent="CanvasLayer/UI/CardSelectionButtonsView" unique_id=15539073 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 
-[node name="Label" parent="CanvasLayer/UI/CardSelectionButtonsView/StartRound/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/CardSelectionButtonsView/StartRound/BetterButton/Panel" parent_id_path=PackedInt32Array(15539073, 1664087955) index="0" unique_id=1161890966]
 text = "Start Round"
 
-[node name="PortraitView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_portraitParent")]
+[node name="PortraitView" type="Control" parent="CanvasLayer/UI" unique_id=1115225261 node_paths=PackedStringArray("_portraitParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -488,7 +512,7 @@ _characterPortraitScene = ExtResource("18_us76b")
 _monsterGroupPortraitScene = ExtResource("19_mtt54")
 _portraitParent = NodePath("Container")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/PortraitView"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/PortraitView" unique_id=16633134]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -499,7 +523,7 @@ offset_bottom = 200.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="CurrentActionViewManager" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_infoViewParent")]
+[node name="CurrentActionViewManager" type="Control" parent="CanvasLayer/UI" unique_id=98049885 node_paths=PackedStringArray("_infoViewParent")]
 anchors_preset = 0
 offset_left = 50.0
 offset_top = 50.0
@@ -508,7 +532,7 @@ offset_bottom = 50.0
 script = ExtResource("71_b23n0")
 _infoViewParent = NodePath(".")
 
-[node name="HintText" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_container", "_label")]
+[node name="HintText" type="Control" parent="CanvasLayer/UI" unique_id=1605252079 node_paths=PackedStringArray("_container", "_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -520,7 +544,7 @@ script = ExtResource("43_4rdk8")
 _container = NodePath("MarginContainer")
 _label = NodePath("MarginContainer/MarginContainer/RichTextLabel")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/HintText"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/HintText" unique_id=2123184775]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -532,13 +556,13 @@ offset_bottom = 299.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="Background" type="Panel" parent="CanvasLayer/UI/HintText/MarginContainer"]
+[node name="Background" type="Panel" parent="CanvasLayer/UI/HintText/MarginContainer" unique_id=748902338]
 material = ExtResource("64_ldvfj")
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("56_4oqg7")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/HintText/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/HintText/MarginContainer" unique_id=2136644970]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 16
@@ -546,7 +570,7 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 6
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/HintText/MarginContainer/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/UI/HintText/MarginContainer/MarginContainer" unique_id=540830307]
 layout_mode = 2
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("59_2qf5q")
@@ -558,7 +582,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EffectSelectionView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_effectParent")]
+[node name="EffectSelectionView" type="Control" parent="CanvasLayer/UI" unique_id=677647038 node_paths=PackedStringArray("_effectParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -569,7 +593,7 @@ mouse_filter = 2
 script = ExtResource("32_07pbp")
 _effectParent = NodePath("Container")
 
-[node name="Container" type="HBoxContainer" parent="CanvasLayer/UI/EffectSelectionView"]
+[node name="Container" type="HBoxContainer" parent="CanvasLayer/UI/EffectSelectionView" unique_id=2084703443]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -585,7 +609,7 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="EffectInfoViews" type="Control" parent="CanvasLayer/UI/EffectSelectionView" node_paths=PackedStringArray("_infoViewParent")]
+[node name="EffectInfoViews" type="Control" parent="CanvasLayer/UI/EffectSelectionView" unique_id=211144663 node_paths=PackedStringArray("_infoViewParent")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -596,7 +620,7 @@ mouse_filter = 2
 script = ExtResource("20_nbwi6")
 _infoViewParent = NodePath("Views")
 
-[node name="Views" type="Control" parent="CanvasLayer/UI/EffectSelectionView/EffectInfoViews"]
+[node name="Views" type="Control" parent="CanvasLayer/UI/EffectSelectionView/EffectInfoViews" unique_id=1300739356]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -608,7 +632,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="CardPlayView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_cards")]
+[node name="CardPlayView" type="Control" parent="CanvasLayer/UI" unique_id=231110863 node_paths=PackedStringArray("_cards")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,7 +643,7 @@ mouse_filter = 2
 script = ExtResource("41_o26ls")
 _cards = [NodePath("Container/CardPlayCardA"), NodePath("Container/CardPlayCardB")]
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/CardPlayView"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/CardPlayView" unique_id=485757554]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -630,7 +654,7 @@ offset_bottom = -50.0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CardPlayCardA" parent="CanvasLayer/UI/CardPlayView/Container" instance=ExtResource("42_mpncg")]
+[node name="CardPlayCardA" parent="CanvasLayer/UI/CardPlayView/Container" unique_id=839659457 instance=ExtResource("42_mpncg")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -643,7 +667,7 @@ grow_horizontal = 1
 grow_vertical = 2
 scale = Vector2(1.07, 1.07)
 
-[node name="CardPlayCardB" parent="CanvasLayer/UI/CardPlayView/Container" instance=ExtResource("42_mpncg")]
+[node name="CardPlayCardB" parent="CanvasLayer/UI/CardPlayView/Container" unique_id=1079331262 instance=ExtResource("42_mpncg")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -657,7 +681,8 @@ grow_vertical = 2
 scale = Vector2(1.07, 1.07)
 pivot_offset = Vector2(0, 448)
 
-[node name="ShortRestView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_cardView", "_redrawButton", "_confirmButton")]
+[node name="ShortRestView" type="Control" parent="CanvasLayer/UI" unique_id=463509157 node_paths=PackedStringArray("_cardView", "_redrawButton", "_confirmButton")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -670,7 +695,7 @@ _cardView = NodePath("CardPreview/AbilityCardView")
 _redrawButton = NodePath("Redraw")
 _confirmButton = NodePath("Continue")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/ShortRestView"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/ShortRestView" unique_id=573371607]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -680,18 +705,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.3)
 
-[node name="Continue" parent="CanvasLayer/UI/ShortRestView" instance=ExtResource("29_4v2ql")]
+[node name="Continue" parent="CanvasLayer/UI/ShortRestView" unique_id=1973691628 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 
-[node name="Redraw" parent="CanvasLayer/UI/ShortRestView" instance=ExtResource("29_4v2ql")]
+[node name="Redraw" parent="CanvasLayer/UI/ShortRestView" unique_id=21670104 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = 160.0
 offset_right = 400.0
 
-[node name="Label" parent="CanvasLayer/UI/ShortRestView/Redraw/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ShortRestView/Redraw/BetterButton/Panel" parent_id_path=PackedInt32Array(21670104, 1664087955) index="0" unique_id=1161890966]
 text = "Redraw"
 
-[node name="CardPreview" type="Control" parent="CanvasLayer/UI/ShortRestView"]
+[node name="CardPreview" type="Control" parent="CanvasLayer/UI/ShortRestView" unique_id=1308043413]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -707,12 +732,13 @@ grow_vertical = 2
 pivot_offset = Vector2(160, 224)
 mouse_filter = 2
 
-[node name="AbilityCardView" parent="CanvasLayer/UI/ShortRestView/CardPreview" instance=ExtResource("44_3mf4c")]
+[node name="AbilityCardView" parent="CanvasLayer/UI/ShortRestView/CardPreview" unique_id=1807312767 instance=ExtResource("44_3mf4c")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="TreasureItemRewardView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_itemView")]
+[node name="TreasureItemRewardView" type="Control" parent="CanvasLayer/UI" unique_id=1318393589 node_paths=PackedStringArray("_itemView")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -723,7 +749,7 @@ mouse_filter = 2
 script = ExtResource("13_d05wj")
 _itemView = NodePath("ItemView")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/TreasureItemRewardView"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/TreasureItemRewardView" unique_id=14280118]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -733,7 +759,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.3)
 
-[node name="ItemView" parent="CanvasLayer/UI/TreasureItemRewardView" instance=ExtResource("14_76yld")]
+[node name="ItemView" parent="CanvasLayer/UI/TreasureItemRewardView" unique_id=133828894 instance=ExtResource("14_76yld")]
 custom_minimum_size = Vector2(270, 413.1)
 layout_mode = 1
 anchors_preset = 8
@@ -749,7 +775,8 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ChoiceButtonsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_continueButton", "_skipButton")]
+[node name="ChoiceButtonsView" type="Control" parent="CanvasLayer/UI" unique_id=1335285724 node_paths=PackedStringArray("_continueButton", "_skipButton")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -761,20 +788,20 @@ script = ExtResource("28_pgpxo")
 _continueButton = NodePath("Continue")
 _skipButton = NodePath("Skip")
 
-[node name="Continue" parent="CanvasLayer/UI/ChoiceButtonsView" instance=ExtResource("29_4v2ql")]
+[node name="Continue" parent="CanvasLayer/UI/ChoiceButtonsView" unique_id=1294385289 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 
-[node name="Skip" parent="CanvasLayer/UI/ChoiceButtonsView" instance=ExtResource("29_4v2ql")]
+[node name="Skip" parent="CanvasLayer/UI/ChoiceButtonsView" unique_id=52946505 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = 160.0
 offset_top = -140.0
 offset_right = 360.0
 offset_bottom = -60.0
 
-[node name="Label" parent="CanvasLayer/UI/ChoiceButtonsView/Skip/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ChoiceButtonsView/Skip/BetterButton/Panel" parent_id_path=PackedInt32Array(52946505, 1664087955) index="0" unique_id=1161890966]
 text = "Skip"
 
-[node name="UndoView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_undoButton")]
+[node name="UndoView" type="Control" parent="CanvasLayer/UI" unique_id=439699976 node_paths=PackedStringArray("_undoButton")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -785,17 +812,17 @@ mouse_filter = 2
 script = ExtResource("17_mk8kl")
 _undoButton = NodePath("Undo")
 
-[node name="Undo" parent="CanvasLayer/UI/UndoView" instance=ExtResource("29_4v2ql")]
+[node name="Undo" parent="CanvasLayer/UI/UndoView" unique_id=350966229 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = -360.0
 offset_top = -140.0
 offset_right = -160.0
 offset_bottom = -60.0
 
-[node name="Label" parent="CanvasLayer/UI/UndoView/Undo/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/UndoView/Undo/BetterButton/Panel" parent_id_path=PackedInt32Array(350966229, 1664087955) index="0" unique_id=1161890966]
 text = "Undo"
 
-[node name="SelectFigureView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_figureParent", "_backgroundButton")]
+[node name="SelectFigureView" type="Control" parent="CanvasLayer/UI" unique_id=661223580 node_paths=PackedStringArray("_figureParent", "_backgroundButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -809,7 +836,7 @@ _figureParent = NodePath("Figures")
 _selectFigureViewFigureScene = ExtResource("41_b2ul3")
 _backgroundButton = NodePath("BetterButton")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/SelectFigureView"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/SelectFigureView" unique_id=1887281989]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -818,8 +845,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.3)
 
-[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/SelectFigureView"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/SelectFigureView" unique_id=919424131]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -861,6 +887,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -874,9 +901,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -892,7 +928,7 @@ shortcut_in_tooltip = true
 script = ExtResource("38_grpwx")
 metadata/_custom_type_script = "uid://dir5vjdxjac3n"
 
-[node name="Figures" type="HBoxContainer" parent="CanvasLayer/UI/SelectFigureView"]
+[node name="Figures" type="HBoxContainer" parent="CanvasLayer/UI/SelectFigureView" unique_id=2022953937]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -905,7 +941,8 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="AMDDrawView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_deckAnchor", "_discardAnchor", "_discardContainer", "_discardTopCardTextureRect")]
+[node name="AMDDrawView" type="Control" parent="CanvasLayer/UI" unique_id=515860131 node_paths=PackedStringArray("_deckAnchor", "_discardAnchor", "_discardContainer", "_discardTopCardTextureRect")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -920,7 +957,7 @@ _discardAnchor = NodePath("Discard/CardAnchor")
 _discardContainer = NodePath("Discard")
 _discardTopCardTextureRect = NodePath("Discard/CardAnchor/Mask/TextureRect")
 
-[node name="Deck" type="Control" parent="CanvasLayer/UI/AMDDrawView"]
+[node name="Deck" type="Control" parent="CanvasLayer/UI/AMDDrawView" unique_id=1365380714]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -935,7 +972,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck"]
+[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck" unique_id=1930160282]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -945,7 +982,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ijbs")
 
-[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Deck"]
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Deck" unique_id=1212099771]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -954,7 +991,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor"]
+[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor" unique_id=1519664910]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -964,7 +1001,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qbjvo")
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor"]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor" unique_id=196981479]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -975,7 +1012,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor/Mask"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor/Mask" unique_id=52850444]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -986,7 +1023,7 @@ mouse_filter = 2
 texture = ExtResource("34_dfaft")
 expand_mode = 1
 
-[node name="Discard" type="Control" parent="CanvasLayer/UI/AMDDrawView"]
+[node name="Discard" type="Control" parent="CanvasLayer/UI/AMDDrawView" unique_id=2112197146]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1001,7 +1038,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard"]
+[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard" unique_id=1966839248]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1011,7 +1048,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ijbs")
 
-[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Discard"]
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Discard" unique_id=268289797]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1020,7 +1057,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor"]
+[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor" unique_id=1770903785]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1030,7 +1067,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qbjvo")
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor"]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor" unique_id=669611772]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1041,7 +1078,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor/Mask"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor/Mask" unique_id=1425301614]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1052,7 +1089,7 @@ mouse_filter = 2
 texture = ExtResource("34_dfaft")
 expand_mode = 1
 
-[node name="ElementsView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_elements")]
+[node name="ElementsView" type="Control" parent="CanvasLayer/UI" unique_id=726648684 node_paths=PackedStringArray("_elements")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1063,7 +1100,7 @@ mouse_filter = 2
 script = ExtResource("36_6nwhb")
 _elements = [NodePath("Elements/Fire"), NodePath("Elements/Ice"), NodePath("Elements/Air"), NodePath("Elements/Earth"), NodePath("Elements/Light"), NodePath("Elements/Dark")]
 
-[node name="Elements" type="VBoxContainer" parent="CanvasLayer/UI/ElementsView"]
+[node name="Elements" type="VBoxContainer" parent="CanvasLayer/UI/ElementsView" unique_id=437503570]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1079,45 +1116,75 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="Fire" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Fire" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=1172208762 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Fire/Container" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Fire/Container" parent_id_path=PackedInt32Array(1172208762, 1466938003) index="0" unique_id=746887861]
 texture_under = ExtResource("38_bytl6")
 texture_progress = ExtResource("39_gpo0a")
 
-[node name="Ice" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Line" parent="CanvasLayer/UI/ElementsView/Elements/Fire/Container/MarginContainer/Mask/MarginContainer/LineContainer" parent_id_path=PackedInt32Array(1172208762, 2089792355) index="0" unique_id=1648555435]
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Ice" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=1901702058 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Ice/Container" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Ice/Container" parent_id_path=PackedInt32Array(1901702058, 1466938003) index="0" unique_id=746887861]
 texture_under = ExtResource("40_vfiu8")
 texture_progress = ExtResource("41_4cwam")
 
-[node name="Air" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Line" parent="CanvasLayer/UI/ElementsView/Elements/Ice/Container/MarginContainer/Mask/MarginContainer/LineContainer" parent_id_path=PackedInt32Array(1901702058, 2089792355) index="0" unique_id=1648555435]
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Air" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=2017023288 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="Earth" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Earth" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=1304149800 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Earth/Container" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Earth/Container" parent_id_path=PackedInt32Array(1304149800, 1466938003) index="0" unique_id=746887861]
 texture_under = ExtResource("42_1a4nl")
 texture_progress = ExtResource("43_d62nx")
 
-[node name="Light" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Line" parent="CanvasLayer/UI/ElementsView/Elements/Earth/Container/MarginContainer/Mask/MarginContainer/LineContainer" parent_id_path=PackedInt32Array(1304149800, 2089792355) index="0" unique_id=1648555435]
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Light" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=1829066766 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Light/Container" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Light/Container" parent_id_path=PackedInt32Array(1829066766, 1466938003) index="0" unique_id=746887861]
 texture_under = ExtResource("44_krl23")
 texture_progress = ExtResource("45_qr3ow")
 
-[node name="Dark" parent="CanvasLayer/UI/ElementsView/Elements" instance=ExtResource("36_juek3")]
+[node name="Line" parent="CanvasLayer/UI/ElementsView/Elements/Light/Container/MarginContainer/Mask/MarginContainer/LineContainer" parent_id_path=PackedInt32Array(1829066766, 2089792355) index="0" unique_id=1648555435]
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Dark" parent="CanvasLayer/UI/ElementsView/Elements" unique_id=1533921566 instance=ExtResource("36_juek3")]
 layout_mode = 2
 
-[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Dark/Container" index="0"]
+[node name="TextureProgressBar" parent="CanvasLayer/UI/ElementsView/Elements/Dark/Container" parent_id_path=PackedInt32Array(1533921566, 1466938003) index="0" unique_id=746887861]
 texture_under = ExtResource("46_ri0y1")
 texture_progress = ExtResource("47_vmwrb")
 
-[node name="InfoView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_container", "_pinButtonContainer", "_pinButton", "_panelContainer")]
+[node name="Line" parent="CanvasLayer/UI/ElementsView/Elements/Dark/Container/MarginContainer/Mask/MarginContainer/LineContainer" parent_id_path=PackedInt32Array(1533921566, 2089792355) index="0" unique_id=1648555435]
+offset_top = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="InfoView" type="Control" parent="CanvasLayer/UI" unique_id=1580235894 node_paths=PackedStringArray("_container", "_pinButtonContainer", "_pinButton", "_panelContainer")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1132,7 +1199,7 @@ _pinButton = NodePath("Container/Pin/BetterButton")
 _panelScene = ExtResource("49_pcjy7")
 _panelContainer = NodePath("Container/PanelContainer")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/InfoView"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/InfoView" unique_id=1570126583]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1146,11 +1213,11 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Panel" parent="CanvasLayer/UI/InfoView/Container" instance=ExtResource("49_pcjy7")]
+[node name="Panel" parent="CanvasLayer/UI/InfoView/Container" unique_id=1413974276 instance=ExtResource("49_pcjy7")]
 visible = false
 layout_mode = 1
 
-[node name="PanelContainer" type="Control" parent="CanvasLayer/UI/InfoView/Container"]
+[node name="PanelContainer" type="Control" parent="CanvasLayer/UI/InfoView/Container" unique_id=816764435]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1159,7 +1226,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Pin" type="Control" parent="CanvasLayer/UI/InfoView/Container"]
+[node name="Pin" type="Control" parent="CanvasLayer/UI/InfoView/Container" unique_id=1857046086]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1171,8 +1238,7 @@ offset_bottom = 20.0
 grow_horizontal = 0
 pivot_offset = Vector2(20, 20)
 
-[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/InfoView/Container/Pin"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/InfoView/Container/Pin" unique_id=180543445]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -1214,6 +1280,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -1227,9 +1294,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -1244,7 +1320,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("38_grpwx")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/InfoView/Container/Pin/BetterButton"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/InfoView/Container/Pin/BetterButton" unique_id=292837665]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1254,7 +1330,7 @@ grow_vertical = 2
 texture = ExtResource("54_uif1r")
 expand_mode = 1
 
-[node name="SpecialRulesView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_label", "_container")]
+[node name="SpecialRulesView" type="Control" parent="CanvasLayer/UI" unique_id=2003745985 node_paths=PackedStringArray("_label", "_container")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1266,7 +1342,7 @@ script = ExtResource("45_1uc0n")
 _label = NodePath("Container/Panel/Text")
 _container = NodePath("Container")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/SpecialRulesView"]
+[node name="Container" type="Control" parent="CanvasLayer/UI/SpecialRulesView" unique_id=1174330821]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1278,7 +1354,7 @@ offset_bottom = 350.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Panel" type="Control" parent="CanvasLayer/UI/SpecialRulesView/Container"]
+[node name="Panel" type="Control" parent="CanvasLayer/UI/SpecialRulesView/Container" unique_id=217429902]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1286,7 +1362,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=92751741]
 material = SubResource("ShaderMaterial_4oqg7")
 layout_mode = 1
 anchors_preset = 15
@@ -1297,7 +1373,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("56_4oqg7")
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=263253598]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1308,7 +1384,7 @@ text = "Scenario Rules"
 label_settings = SubResource("LabelSettings_tl3ik")
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel"]
+[node name="Divider" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=1272596473]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1320,7 +1396,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0mkyj")
 
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel"]
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=124595086]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1335,13 +1411,13 @@ theme_override_fonts/normal_font = ExtResource("61_2qf5q")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 
-[node name="CardSelectionView" parent="CanvasLayer/UI" instance=ExtResource("59_h6npn")]
+[node name="CardSelectionView" parent="CanvasLayer/UI" unique_id=1503873886 instance=ExtResource("59_h6npn")]
 layout_mode = 1
 
-[node name="MenuButton" parent="CanvasLayer/UI" instance=ExtResource("58_2qf5q")]
+[node name="MenuButton" parent="CanvasLayer/UI" unique_id=1983625362 instance=ExtResource("58_2qf5q")]
 layout_mode = 1
 
-[node name="PartyButton" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_button")]
+[node name="PartyButton" type="Control" parent="CanvasLayer/UI" unique_id=1311588587 node_paths=PackedStringArray("_button")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1354,8 +1430,7 @@ grow_horizontal = 0
 script = ExtResource("68_7tbw1")
 _button = NodePath("BetterButton")
 
-[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/PartyButton"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/PartyButton" unique_id=1823856110]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -1397,6 +1472,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -1410,9 +1486,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -1427,7 +1512,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("38_grpwx")
 
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/PartyButton/BetterButton"]
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/PartyButton/BetterButton" unique_id=755932697]
 material = ExtResource("64_ldvfj")
 layout_mode = 1
 anchors_preset = 15
@@ -1438,7 +1523,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2qf5q")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel" unique_id=1798962610]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1451,12 +1536,12 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/PartyButton/BetterButton/Panel/MarginContainer" unique_id=956486402]
 layout_mode = 2
 texture = ExtResource("69_b2ul3")
 expand_mode = 1
 
-[node name="ScenarioLostView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_retryButton", "_returnToTownButton")]
+[node name="ScenarioLostView" type="Control" parent="CanvasLayer/UI" unique_id=1166739896 node_paths=PackedStringArray("_retryButton", "_returnToTownButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1468,7 +1553,7 @@ script = ExtResource("43_vn1gt")
 _retryButton = NodePath("Retry")
 _returnToTownButton = NodePath("ReturnToTown")
 
-[node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioLostView"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioLostView" unique_id=704371925]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1477,7 +1562,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.729412)
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/ScenarioLostView"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/ScenarioLostView" unique_id=493920321]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1492,27 +1577,27 @@ label_settings = SubResource("LabelSettings_mdo4f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" parent="CanvasLayer/UI/ScenarioLostView" instance=ExtResource("29_4v2ql")]
+[node name="Retry" parent="CanvasLayer/UI/ScenarioLostView" unique_id=611575934 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = -310.0
 offset_top = -250.0
 offset_right = -10.0
 offset_bottom = -150.0
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/Retry/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/Retry/BetterButton/Panel" parent_id_path=PackedInt32Array(611575934, 1664087955) index="0" unique_id=1161890966]
 text = "Replay"
 
-[node name="ReturnToTown" parent="CanvasLayer/UI/ScenarioLostView" instance=ExtResource("29_4v2ql")]
+[node name="ReturnToTown" parent="CanvasLayer/UI/ScenarioLostView" unique_id=905364201 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_left = 10.0
 offset_top = -250.0
 offset_right = 310.0
 offset_bottom = -150.0
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/ReturnToTown/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/ReturnToTown/BetterButton/Panel" parent_id_path=PackedInt32Array(905364201, 1664087955) index="0" unique_id=1161890966]
 text = "Return to Town"
 
-[node name="ScenarioWonView" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_continueButton")]
+[node name="ScenarioWonView" type="Control" parent="CanvasLayer/UI" unique_id=722758123 node_paths=PackedStringArray("_continueButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1523,7 +1608,7 @@ grow_vertical = 2
 script = ExtResource("44_7vhok")
 _continueButton = NodePath("ContinueButton")
 
-[node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioWonView"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioWonView" unique_id=1935944811]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1532,7 +1617,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.729412)
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/ScenarioWonView"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/ScenarioWonView" unique_id=624745359]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1547,15 +1632,15 @@ label_settings = SubResource("LabelSettings_mdo4f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueButton" parent="CanvasLayer/UI/ScenarioWonView" instance=ExtResource("29_4v2ql")]
+[node name="ContinueButton" parent="CanvasLayer/UI/ScenarioWonView" unique_id=1682459466 instance=ExtResource("29_4v2ql")]
 layout_mode = 1
 offset_top = -250.0
 offset_bottom = -150.0
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioWonView/ContinueButton/BetterButton/Panel" index="0"]
+[node name="Label" parent="CanvasLayer/UI/ScenarioWonView/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1682459466, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
 
-[node name="CharacterStartHexMoveIndicator" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_icon", "_line2D")]
+[node name="CharacterStartHexMoveIndicator" type="Control" parent="CanvasLayer/UI" unique_id=1411136690 node_paths=PackedStringArray("_icon", "_line2D")]
 modulate = Color(0.930264, 0.814778, 0.192365, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1568,17 +1653,17 @@ script = ExtResource("65_pcjy7")
 _icon = NodePath("Icon")
 _line2D = NodePath("Line2D")
 
-[node name="Line2D" type="Line2D" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator"]
+[node name="Line2D" type="Line2D" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator" unique_id=1258525319]
 points = PackedVector2Array(0, 0, 100, 100)
 width = 8.0
 begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
-[node name="Icon" type="Control" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator"]
+[node name="Icon" type="Control" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator" unique_id=245552811]
 anchors_preset = 0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator/Icon"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/CharacterStartHexMoveIndicator/Icon" unique_id=1087157404]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1597,7 +1682,7 @@ mouse_filter = 2
 texture = ExtResource("65_h6npn")
 expand_mode = 1
 
-[node name="DebugInfo" type="Control" parent="CanvasLayer/UI" node_paths=PackedStringArray("_coordsLabel")]
+[node name="DebugInfo" type="Control" parent="CanvasLayer/UI" unique_id=1684222448 node_paths=PackedStringArray("_coordsLabel")]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -1610,7 +1695,7 @@ mouse_filter = 2
 script = ExtResource("47_e6ljk")
 _coordsLabel = NodePath("CoordsLabel")
 
-[node name="CoordsLabel" type="Label" parent="CanvasLayer/UI/DebugInfo"]
+[node name="CoordsLabel" type="Label" parent="CanvasLayer/UI/DebugInfo" unique_id=1715936761]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1629,6 +1714,7 @@ label_settings = SubResource("LabelSettings_hctre")
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/StartScenario"]
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/EquipmentButton"]
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/CardsButton"]
+[editable path="CanvasLayer/UI/ScenarioSetupButtonsView/OptionsContainer/BattleGoalsButton"]
 [editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateCounterClockwiseButton"]
 [editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/MirrorButton"]
 [editable path="CanvasLayer/UI/AOEButtonView/Container/HBoxContainer/RotateClockwiseButton"]

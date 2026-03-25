@@ -17,10 +17,16 @@ public partial class Character : Figure
 
 	public int PlayableAbilityCardCount { get; private set; }
 
+	public List<BattleGoalModel> AvailableBattleGoals { get; } = new List<BattleGoalModel>();
+	public BattleGoalModel SelectedBattleGoalModel { get; private set; }
+	public BattleGoal BattleGoal { get; private set; }
+
 	public List<AbilityCard> Cards { get; } = new List<AbilityCard>();
 	public List<ItemModel> Items { get; } = new List<ItemModel>();
 
 	public List<AbilityCard> RoundCards { get; } = new List<AbilityCard>();
+	public List<CardPlayCardData> RoundCardData { get; } = new List<CardPlayCardData>();
+	public List<ItemModel> TurnItemsUsed { get; } = [];
 	public bool LongResting { get; private set; }
 
 	public int ShortRestSeed { get; private set; }
@@ -42,6 +48,8 @@ public partial class Character : Figure
 	public override Node2D Visual =>
 		AppController.Instance.Options.AnimatedCharacters.Value && ClassModel.HasAnimatedSprite ? _animatedSprite : _staticSprite;
 
+	public event Action<Character> BattleGoalChangedEvent;
+	public event Action<Character> BattleGoalProgressChangedEvent;
 	public event Action<Character> ShortRestedEvent;
 	public event Action<Character> CoinsChangedEvent;
 	public event Action<Character> XPChangedEvent;
@@ -168,6 +176,23 @@ public partial class Character : Figure
 		{
 			AppController.Instance.Options.AnimatedCharacters.ValueChangedEvent -= OnAnimatedCharactersChanged;
 		}
+	}
+
+	public void AddAvailableBattleGoal(BattleGoalModel battleGoal)
+	{
+		AvailableBattleGoals.Add(battleGoal);
+	}
+
+	public void SetBattleGoal(BattleGoalModel battleGoal)
+	{
+		if(battleGoal == SelectedBattleGoalModel)
+		{
+			return;
+		}
+
+		SelectedBattleGoalModel = battleGoal;
+
+		BattleGoalChangedEvent?.Invoke(this);
 	}
 
 	public void OnRoundCardsChanged()
@@ -322,11 +347,11 @@ public partial class Character : Figure
 		{
 			bool topPlayed = false;
 			bool bottomPlayed = false;
-			List<CardPlayCardData> cardDatas = new List<CardPlayCardData>();
+			RoundCardData.Clear();
 
 			foreach(AbilityCard card in RoundCards)
 			{
-				cardDatas.Add(new CardPlayCardData()
+				RoundCardData.Add(new CardPlayCardData()
 				{
 					AbilityCard = card,
 					CanPlayTop = true,
@@ -336,9 +361,10 @@ public partial class Character : Figure
 				});
 			}
 
-			for(int i = 0; i < cardDatas.Count; i++)
+			for(int i = 0; i < RoundCardData.Count; i++)
 			{
-				if(IsDead || !TakingTurn)
+				if(IsDead || !TakingTurn || RoundCardData.All(data =>
+					   !data.CanPlayBasicBottom && !data.CanPlayBottom && !data.CanPlayBasicTop && !data.CanPlayTop))
 				{
 					break;
 				}
@@ -347,7 +373,7 @@ public partial class Character : Figure
 					ScenarioEvents.CardSideSelectionEvent.CreateEffectCollection(new ScenarioEvents.CardSideSelection.Parameters(this));
 
 				AbilityCardSectionSelectionPrompt.Answer cardSectionAnswer = await PromptManager.Prompt(
-					new AbilityCardSectionSelectionPrompt(cardDatas, cardSideSelectionEffectCollection, () => "Select card side to play"), this);
+					new AbilityCardSectionSelectionPrompt(RoundCardData, cardSideSelectionEffectCollection, () => "Select card side to play"), this);
 
 				AbilityCard card = GameController.Instance.ReferenceManager.Get<AbilityCard>(cardSectionAnswer.CardReferenceId);
 				AbilityCardSection section = cardSectionAnswer.AbilityCardSection;
@@ -379,7 +405,7 @@ public partial class Character : Figure
 						throw new ArgumentOutOfRangeException();
 				}
 
-				foreach(CardPlayCardData cardData in cardDatas)
+				foreach(CardPlayCardData cardData in RoundCardData)
 				{
 					if(cardData.AbilityCard == card)
 					{
@@ -390,13 +416,13 @@ public partial class Character : Figure
 					}
 				}
 
-				if(i == cardDatas.Count - 2)
+				if(i == RoundCardData.Count - 2)
 				{
 					// Only one card left, make sure both a top and bottom are played
 
 					if(!topPlayed)
 					{
-						foreach(CardPlayCardData cardData in cardDatas)
+						foreach(CardPlayCardData cardData in RoundCardData)
 						{
 							cardData.CanPlayBottom = false;
 							cardData.CanPlayBasicBottom = false;
@@ -405,7 +431,7 @@ public partial class Character : Figure
 
 					if(!bottomPlayed)
 					{
-						foreach(CardPlayCardData cardData in cardDatas)
+						foreach(CardPlayCardData cardData in RoundCardData)
 						{
 							cardData.CanPlayTop = false;
 							cardData.CanPlayBasicTop = false;
@@ -419,6 +445,13 @@ public partial class Character : Figure
 				await ScenarioEvents.AfterCardsPlayedEvent.CreatePrompt(new ScenarioEvents.AfterCardsPlayed.Parameters(this), this, "End turn?");
 			}
 		}
+	}
+
+	protected override async GDTask EndTurn()
+	{
+		await base.EndTurn();
+
+		TurnItemsUsed.Clear();
 	}
 
 	protected override async GDTask EndOfTurnLooting()
@@ -541,6 +574,10 @@ public partial class Character : Figure
 	{
 		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this,
 			hintText: "Select a card to lose");
+
+		await ScenarioEvents.LosingCardToNegateDamageEvent.CreatePrompt(
+			new ScenarioEvents.LosingCardToNegateDamage.Parameters(this, card, parameters));
+
 		await AbilityCmd.LoseCard(card);
 
 		parameters.SetDamagePrevented();
@@ -551,6 +588,9 @@ public partial class Character : Figure
 		foreach(AbilityCard card in await AbilityCmd.SelectAbilityCards(this, CardState.Discarded, 2, 2,
 			        card => card.OriginalOwner == this, hintText: "Select two discarded cards to lose"))
 		{
+			await ScenarioEvents.LosingCardToNegateDamageEvent.CreatePrompt(
+				new ScenarioEvents.LosingCardToNegateDamage.Parameters(this, card, parameters));
+
 			await AbilityCmd.LoseCard(card);
 		}
 
@@ -623,7 +663,7 @@ public partial class Character : Figure
 			PerkModel perkModel = ClassModel.Perks[i];
 			if(SavedCharacter.GetPerkAcquired(i))
 			{
-				await perkModel.OnScenarioSetupPhaseCompleted();
+				await perkModel.OnScenarioSetupPhaseCompleted(this);
 			}
 		}
 
@@ -649,6 +689,13 @@ public partial class Character : Figure
 			await SavedCharacter.SavedPersonalQuest.Model.OnScenarioSetupPhaseCompleted(this);
 		}
 
+		if(SelectedBattleGoalModel != null)
+		{
+			BattleGoal = new BattleGoal(this, SelectedBattleGoalModel);
+			BattleGoal.ProgressChangedEvent += OnBattleGoalProgressChanged;
+			await BattleGoal.OnScenarioSetupPhaseCompleted();
+		}
+
 		await GDTask.CompletedTask;
 	}
 
@@ -656,6 +703,11 @@ public partial class Character : Figure
 	{
 		_staticSprite.SetVisible(!ClassModel.HasAnimatedSprite || !animatedCharacters);
 		_animatedSprite.SetVisible(ClassModel.HasAnimatedSprite && animatedCharacters);
+	}
+
+	private void OnBattleGoalProgressChanged(BattleGoal battleGoal)
+	{
+		BattleGoalProgressChangedEvent?.Invoke(this);
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)

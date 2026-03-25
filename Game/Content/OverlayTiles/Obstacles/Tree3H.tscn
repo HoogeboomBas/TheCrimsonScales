@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://66brdtbbrdoj"]
+[gd_scene format=3 uid="uid://66brdtbbrdoj"]
 
 [ext_resource type="PackedScene" uid="uid://cc2j2ivccsy74" path="res://Scenes/Scenario/OverlayTiles/Obstacle3H.tscn" id="1_8rtwk"]
 
-[node name="Tree3H" instance=ExtResource("1_8rtwk")]
+[node name="Tree3H" unique_id=1144518075 instance=ExtResource("1_8rtwk")]
 _stepType = 3
+
+[node name="Hex2" parent="." index="6"]
+position = Vector2(218.2384, 0)
+
+[node name="Hex3" parent="." index="7"]
+position = Vector2(109.1192, -189)

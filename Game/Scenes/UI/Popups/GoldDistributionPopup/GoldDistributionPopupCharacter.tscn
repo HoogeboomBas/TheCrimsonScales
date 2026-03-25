@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpb365jh40ewc"]
+[gd_scene format=3 uid="uid://dpb365jh40ewc"]
 
 [ext_resource type="Script" uid="uid://bdlg37b8vir5m" path="res://Scripts/UI/Popups/GoldDistributionPopup/GoldDistributionPopupCharacter.cs" id="1_qd540"]
 [ext_resource type="PackedScene" uid="uid://dlc378jgp47uy" path="res://Scenes/UI/ClassView.tscn" id="2_i431j"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d0vsh7qmlrgpg" path="res://Art/Icons/Other/Triangle.svg" id="5_fq1na"]
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="6_svanb"]
 
-[node name="GoldDistributionPopupCharacter" type="MarginContainer" node_paths=PackedStringArray("_classView", "_currentGoldLabel", "_distributionAmountLabel", "_increaseButton", "_increaseMoreButton", "_decreaseButton", "_decreaseMoreButton")]
+[node name="GoldDistributionPopupCharacter" type="MarginContainer" unique_id=1598139233 node_paths=PackedStringArray("_classView", "_currentGoldLabel", "_distributionAmountLabel", "_increaseButton", "_increaseMoreButton", "_decreaseButton", "_decreaseMoreButton")]
 script = ExtResource("1_qd540")
 _classView = NodePath("VBoxContainer/Header/ClassView")
 _currentGoldLabel = NodePath("VBoxContainer/Header/Gold/Label")
@@ -18,60 +18,60 @@ _increaseMoreButton = NodePath("VBoxContainer/MarginContainer/VBoxContainer/TopB
 _decreaseButton = NodePath("VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseButton")
 _decreaseMoreButton = NodePath("VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseMoreButton")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1381628207]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Header" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Header" type="VBoxContainer" parent="VBoxContainer" unique_id=954690185]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="ClassView" parent="VBoxContainer/Header" instance=ExtResource("2_i431j")]
+[node name="ClassView" parent="VBoxContainer/Header" unique_id=310554642 instance=ExtResource("2_i431j")]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 
-[node name="Gold" type="HBoxContainer" parent="VBoxContainer/Header"]
+[node name="Gold" type="HBoxContainer" parent="VBoxContainer/Header" unique_id=198690767]
 custom_minimum_size = Vector2(70, 32)
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Header/Gold"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Header/Gold" unique_id=1181292204]
 custom_minimum_size = Vector2(34, 34)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_qd540")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/Header/Gold"]
+[node name="Label" type="Label" parent="VBoxContainer/Header/Gold" unique_id=491048613]
 layout_mode = 2
 text = "3"
 label_settings = ExtResource("3_i431j")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=747966565]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=313207142]
 layout_mode = 2
 
-[node name="TopButtons" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="TopButtons" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1215377120]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="IncreaseButton" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons" instance=ExtResource("4_fs1wi")]
+[node name="IncreaseButton" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons" unique_id=927833838 instance=ExtResource("4_fs1wi")]
 layout_mode = 2
 
-[node name="IncreaseMoreButton" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons" instance=ExtResource("4_fs1wi")]
+[node name="IncreaseMoreButton" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons" unique_id=1521940957 instance=ExtResource("4_fs1wi")]
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons/IncreaseMoreButton/Container/BetterButton" index="0"]
+[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons/IncreaseMoreButton/Container/BetterButton" parent_id_path=PackedInt32Array(1521940957, 1555061366) index="0" unique_id=1630202009]
 offset_left = -20.0
 offset_top = -18.0
 offset_right = 20.0
 offset_bottom = 22.0
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons/IncreaseMoreButton/Container/BetterButton" index="1"]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/TopButtons/IncreaseMoreButton/Container/BetterButton" parent_id_path=PackedInt32Array(1521940957, 1555061366) index="1" unique_id=1120953963]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 8
@@ -88,42 +88,42 @@ grow_vertical = 2
 texture = ExtResource("5_fq1na")
 expand_mode = 1
 
-[node name="DistributionAmount" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="DistributionAmount" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1483770395]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/DistributionAmount"]
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer/DistributionAmount" unique_id=1009120292]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_svanb")
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/DistributionAmount"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/DistributionAmount" unique_id=1183126259]
 layout_mode = 2
 text = "2"
 label_settings = ExtResource("3_i431j")
 horizontal_alignment = 1
 
-[node name="BottomButtons" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="BottomButtons" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=733230056]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="DecreaseButton" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons" instance=ExtResource("4_fs1wi")]
+[node name="DecreaseButton" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons" unique_id=1520421902 instance=ExtResource("4_fs1wi")]
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseButton/Container/BetterButton" index="0"]
+[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseButton/Container/BetterButton" parent_id_path=PackedInt32Array(1520421902, 1555061366) index="0" unique_id=1630202009]
 flip_v = true
 
-[node name="DecreaseMoreButton" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons" instance=ExtResource("4_fs1wi")]
+[node name="DecreaseMoreButton" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons" unique_id=1208630215 instance=ExtResource("4_fs1wi")]
 layout_mode = 2
 
-[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseMoreButton/Container/BetterButton" index="0"]
+[node name="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseMoreButton/Container/BetterButton" parent_id_path=PackedInt32Array(1208630215, 1555061366) index="0" unique_id=1630202009]
 offset_left = -20.0
 offset_top = -22.0
 offset_right = 20.0
 offset_bottom = 18.0
 flip_v = true
 
-[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseMoreButton/Container/BetterButton" index="1"]
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer/VBoxContainer/BottomButtons/DecreaseMoreButton/Container/BetterButton" parent_id_path=PackedInt32Array(1208630215, 1555061366) index="1" unique_id=1828742573]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = 8

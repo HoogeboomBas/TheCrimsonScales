@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://7nx3jfuarfuy"]
+[gd_scene format=3 uid="uid://7nx3jfuarfuy"]
 
 [ext_resource type="PackedScene" uid="uid://c2f7r2flocmsj" path="res://Scenes/Scenario/OverlayTiles/Objective1H.tscn" id="1_bi1tl"]
 [ext_resource type="Texture2D" uid="uid://co1h1ud4hvi6b" path="res://Art/OverlayTiles/Fountain 1h.png" id="2_bi1tl"]
 
-[node name="FountainObjective1H" instance=ExtResource("1_bi1tl")]
+[node name="FountainObjective1H" unique_id=966039425 instance=ExtResource("1_bi1tl")]
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource("2_bi1tl")

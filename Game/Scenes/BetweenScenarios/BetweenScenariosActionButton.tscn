@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://xx5h6b6pu3ko"]
+[gd_scene format=3 uid="uid://xx5h6b6pu3ko"]
 
 [ext_resource type="Script" uid="uid://rk706iurkw0" path="res://Scripts/BetweenScenarios/BetweenScenariosActionButton.cs" id="1_aytuq"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_niq24"]
@@ -18,7 +18,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="BetweenScenariosActionButton" type="Control" node_paths=PackedStringArray("BetterButton", "_container", "_panel")]
+[node name="BetweenScenariosActionButton" type="Control" unique_id=498428912 node_paths=PackedStringArray("BetterButton", "_container", "_panel")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0
@@ -30,7 +30,7 @@ _container = NodePath("Container")
 _panel = NodePath("Container/BetterButton/Panel")
 _selectedStyleBox = SubResource("StyleBoxFlat_a41uw")
 
-[node name="Container" type="Control" parent="."]
+[node name="Container" type="Control" parent="." unique_id=1764714963]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,8 +40,7 @@ grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 mouse_filter = 2
 
-[node name="BetterButton" type="BaseButton" parent="Container"]
-_import_path = NodePath("")
+[node name="BetterButton" type="BaseButton" parent="Container" unique_id=38648918]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -83,6 +82,7 @@ grow_vertical = 2
 rotation = 0.0
 scale = Vector2(1, 1)
 pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
@@ -96,9 +96,18 @@ focus_neighbor_bottom = NodePath("")
 focus_next = NodePath("")
 focus_previous = NodePath("")
 focus_mode = 2
+focus_behavior_recursive = 0
 mouse_filter = 0
+mouse_behavior_recursive = 0
 mouse_force_pass_scroll_events = true
 mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
 theme = null
 theme_type_variation = &""
 disabled = false
@@ -113,7 +122,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("1_niq24")
 
-[node name="Panel" type="Panel" parent="Container/BetterButton"]
+[node name="Panel" type="Panel" parent="Container/BetterButton" unique_id=436553962]
 material = ExtResource("2_aytuq")
 layout_mode = 1
 anchors_preset = 15
@@ -124,7 +133,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("4_aytuq")
 
-[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Panel"]
+[node name="TextureRect" type="TextureRect" parent="Container/BetterButton/Panel" unique_id=950733184]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

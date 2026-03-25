@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://co1tcon7xucp"]
+[gd_scene format=3 uid="uid://co1tcon7xucp"]
 
 [ext_resource type="PackedScene" uid="uid://cc2j2ivccsy74" path="res://Scenes/Scenario/OverlayTiles/Obstacle3H.tscn" id="1_dokhk"]
 [ext_resource type="Texture2D" uid="uid://d0j4e8nfogpfg" path="res://Art/OverlayTiles/Boulder 3h.png" id="2_6hv8u"]
 
-[node name="Boulder3H" instance=ExtResource("1_dokhk")]
+[node name="Boulder3H" unique_id=1482760826 instance=ExtResource("1_dokhk")]
 _stepType = 1
 
-[node name="Shadow" type="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1883297076]
 self_modulate = Color(0, 0, 0, 0.439216)
 z_index = 1
 position = Vector2(111.5, -105)
@@ -20,7 +20,7 @@ scale = Vector2(0.62, 0.62)
 texture = ExtResource("2_6hv8u")
 
 [node name="Hex2" parent="." index="7"]
-position = Vector2(218.238, 0)
+position = Vector2(218.2384, 0)
 
 [node name="Hex3" parent="." index="8"]
-position = Vector2(109.119, -189)
+position = Vector2(109.1192, -189)

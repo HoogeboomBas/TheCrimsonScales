@@ -1,22 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://b301gw0ephxqc"]
+[gd_scene format=3 uid="uid://b301gw0ephxqc"]
 
 [ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_u3htp"]
 [ext_resource type="Script" uid="uid://c33v3myun5ypu" path="res://Scripts/UI/Popups/OptionsPopup/OptionsPopup.cs" id="2_4yukv"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="5_fxa2p"]
 
-[node name="OptionsPopup" node_paths=PackedStringArray("_confirmButton", "_optionViewParent") instance=ExtResource("1_u3htp")]
+[node name="OptionsPopup" unique_id=2118923670 node_paths=PackedStringArray("_confirmButton", "_optionViewParent") instance=ExtResource("1_u3htp")]
 script = ExtResource("2_4yukv")
 _confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton/BetterButton")
 _optionViewParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Options")
 
-[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" index="1"]
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
 text = "Options"
 
-[node name="Options" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0"]
+[node name="Options" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=1095443701]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" instance=ExtResource("5_fxa2p")]
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=1100841328 instance=ExtResource("5_fxa2p")]
 layout_mode = 2
 
 [editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

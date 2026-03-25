@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://jo6k1p8j56sl"]
+[gd_scene format=3 uid="uid://jo6k1p8j56sl"]
 
 [ext_resource type="PackedScene" uid="uid://dcyfacmewuce0" path="res://Scenes/Scenario/UI/EffectInfoViews/_EffectInfoView.tscn" id="1_1g00o"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_5fgs0"]
 [ext_resource type="Script" uid="uid://clepy6nuq5d4k" path="res://Scripts/Scenario/UI/EffectInfoView/TextEffectInfoView.cs" id="2_jrrr2"]
 
-[node name="TextEffectInfoView" node_paths=PackedStringArray("_richTextLabel") instance=ExtResource("1_1g00o")]
+[node name="TextEffectInfoView" unique_id=111501769 node_paths=PackedStringArray("_richTextLabel") instance=ExtResource("1_1g00o")]
 script = ExtResource("2_jrrr2")
 _richTextLabel = NodePath("Container/Bubble/MarginContainer/RichTextLabel")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Container/Bubble/MarginContainer" index="0"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Container/Bubble/MarginContainer" parent_id_path=PackedInt32Array(345478077) index="0" unique_id=1167836526]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 mouse_filter = 2

@@ -1,26 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwyrv7qe5xvn2"]
+[gd_scene format=3 uid="uid://dwyrv7qe5xvn2"]
 
 [ext_resource type="Script" uid="uid://b5tu11ckrsknn" path="res://Scripts/Scenario/Selector.cs" id="1_d1tqs"]
 [ext_resource type="PackedScene" uid="uid://diiqsttbrd814" path="res://Scenes/Scenario/SelectorSide.tscn" id="2_nrcgr"]
 
-[node name="Selector" type="Node2D" node_paths=PackedStringArray("_scaleContainer")]
+[node name="Selector" type="Node2D" unique_id=1382386052 node_paths=PackedStringArray("_scaleContainer")]
 visible = false
 script = ExtResource("1_d1tqs")
 _scaleContainer = NodePath(".")
 
-[node name="SelectorSide" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide" parent="." unique_id=307350114 instance=ExtResource("2_nrcgr")]
 
-[node name="SelectorSide2" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide2" parent="." unique_id=1660633971 instance=ExtResource("2_nrcgr")]
 rotation = 1.0472
 
-[node name="SelectorSide3" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide3" parent="." unique_id=44706264 instance=ExtResource("2_nrcgr")]
 rotation = 2.0944
 
-[node name="SelectorSide4" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide4" parent="." unique_id=1726960946 instance=ExtResource("2_nrcgr")]
 rotation = 3.14159
 
-[node name="SelectorSide5" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide5" parent="." unique_id=945087021 instance=ExtResource("2_nrcgr")]
 rotation = 4.18879
 
-[node name="SelectorSide6" parent="." instance=ExtResource("2_nrcgr")]
+[node name="SelectorSide6" parent="." unique_id=1744374142 instance=ExtResource("2_nrcgr")]
 rotation = 5.23599
