@@ -85,6 +85,32 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 			return ConsumeElement([CardElementConsumption.Consume(element)], canApplyFunction, applyFunction, effectType, order,
 				canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection, effectButtonParameters, effectInfoViewParameters);
 		}
+		
+		public static Subscription ConsumeResource(ClassResource resource, int quantity,
+			CanApplyFunction canApplyFunction = null, ApplyFunction applyFunction = null, EffectType effectType = EffectType.Selectable,
+			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+		{
+			return new Subscription(parameters =>
+				{
+					if(resource.notenough(quantity))
+					{
+						return false;
+					}
+
+					return canApplyFunction == null || canApplyFunction.Invoke(parameters);
+				},
+				async parameters =>
+				{
+					// resource.tryconsume
+					if(applyFunction != null)
+					{
+						await applyFunction.Invoke(parameters);
+					}
+				}, effectType, order, canApplyMultipleTimesDuringSubscription, canApplyMultipleTimesInEffectCollection,
+				effectButtonParameters ?? new IconEffectButton.Parameters(resource.geticon),
+				effectInfoViewParameters ?? new TextEffectInfoView.Parameters(resource.gettext));
+		}
 
 		public override bool CanApply(ParametersBase parameters)
 		{
