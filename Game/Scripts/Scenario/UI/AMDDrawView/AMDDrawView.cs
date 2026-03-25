@@ -28,6 +28,37 @@ public partial class AMDDrawView : Control
 		Hide();
 	}
 
+	public async GDTask PeekCard(DivinationAbility.State divinationAbilityState)
+	{
+		AMDCardDeck deck = divinationAbilityState.Target.AMDCardDeck;
+
+		Show();
+		UpdateDrawPileSize(deck);
+
+		await this.TweenPositionY(0f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardableAsync();
+		await GDTask.DelayFastForwardable(0.2f);
+
+		AMDCard newCard = deck.PeekCard();
+
+		UpdateDrawPileSize(deck);
+
+		AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
+		AddChild(drawCard);
+		await drawCard.DrawCard(newCard, _deckAnchor, _discardAnchor);
+
+		ScenarioEvents.AMDCardPeeked.Parameters amdCardDrawnParameters =
+			await ScenarioEvents.AMDCardPeekedEvent.CreatePrompt(
+				new ScenarioEvents.AMDCardPeeked.Parameters(divinationAbilityState, newCard));
+
+		if(amdCardDrawnParameters.PlaceAtDeckBottom)
+		{
+			deck.AddCardToBottom(newCard);
+		}
+
+		// Move visuals away
+		await this.TweenPositionY(OpenDistance, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardableAsync();
+	}
+
 	public async GDTask DrawCards(AttackAbility.State attackAbilityState)
 	{
 		AMDCardDeck deck = attackAbilityState.Performer.AMDCardDeck;
