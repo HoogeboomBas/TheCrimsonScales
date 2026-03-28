@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -10,7 +10,7 @@ public class Scenario011 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SailScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario012>(true)];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals(true);
+	protected override ScenarioGoals CreateScenarioGoals() => new KillAllEnemiesScenarioGoals(enemiesToBeSpawned: true);
 
 	protected override List<MonsterModel> SpawnedMonsterModels { get; } =
 	[

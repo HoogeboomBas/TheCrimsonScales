@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -88,7 +88,7 @@ public class Scenario055 : ScenarioModel
 			});
 
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
-			parameters => _openedSarcophagi.Count == 4 && KillAllEnemiesScenarioGoals.NoEnemiesRemaining(false),
+			parameters => _openedSarcophagi.Count == 4 && KillAllEnemiesScenarioGoals.NoEnemiesRemaining(countObjectives: false),
 			async parameters =>
 			{
 				await ((CustomScenarioGoals)ScenarioGoals).Win();
