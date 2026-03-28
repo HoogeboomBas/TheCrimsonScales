@@ -1,4 +1,6 @@
-﻿public class KillAllEnemiesScenarioGoals(bool enemiesToBeSpawned = false, string customText = null) : ScenarioGoals
+﻿using System.Linq;
+
+public class KillAllEnemiesScenarioGoals(bool enemiesToBeSpawned = false, string customText = null) : ScenarioGoals
 {
 	public override string Text => customText ?? "Kill all enemies to win this scenario.";
 	public bool EnemiesToBeSpawned = enemiesToBeSpawned;
@@ -14,14 +16,11 @@
 		);
 	}
 
-	public static bool NoEnemiesRemaining(bool countObjectives = true)
+	public static bool NoEnemiesRemaining(bool countObjectives = true, bool revealedOnly = false)
 	{
-		foreach(Room room in GameController.Instance.Map.Rooms)
+		if(!revealedOnly && GameController.Instance.Map.Rooms.Any(room => !room.Revealed))
 		{
-			if(!room.Revealed)
-			{
-				return false;
-			}
+			return false;
 		}
 
 		foreach(Figure figure in GameController.Instance.Map.Figures)

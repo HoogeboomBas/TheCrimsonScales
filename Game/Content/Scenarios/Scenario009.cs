@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -41,7 +41,7 @@ public class Scenario009 : ScenarioModel
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
 			parameters =>
 			{
-				return _lootedTreasure && KillAllEnemiesScenarioGoals.NoEnemiesRemaining();
+				return _lootedTreasure && KillAllEnemiesScenarioGoals.NoEnemiesRemaining(revealedOnly: true);
 			},
 			async parameters =>
 			{

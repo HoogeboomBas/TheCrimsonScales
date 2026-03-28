@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 
 public class Scenario038 : ScenarioModel
@@ -36,7 +36,7 @@ public class Scenario038 : ScenarioModel
 		_altarOfDisorientation.Init(secondAltarHealth, "Altar of Disorientation");
 
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
-			parameters => KillAllEnemiesScenarioGoals.NoEnemiesRemaining(false) && (_altarOfMystification.IsDestroyed ? 1 : 0) +
+			parameters => KillAllEnemiesScenarioGoals.NoEnemiesRemaining(countObjectives: false, revealedOnly: true) && (_altarOfMystification.IsDestroyed ? 1 : 0) +
 				(_altarOfDisorientation.IsDestroyed ? 1 : 0) + (_altarOfPerplexity.IsDestroyed ? 1 : 0) >= 2,
 			async parameters =>
 			{
