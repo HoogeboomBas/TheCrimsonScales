@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -82,7 +82,8 @@ public class CrewIntegrity : FireKnightLevelUpCardModel<CrewIntegrity.CardTop, C
 							parameters.AbilityState.AdjustTargets(1);
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
-						}
+						},
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Targets)}")
 					)
 				)
 				.Build())

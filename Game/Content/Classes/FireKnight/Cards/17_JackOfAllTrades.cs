@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -36,7 +36,8 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 							parameters.AbilityState.AdjustTargets(2);
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
-						}
+						},
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"-1{Icons.Inline(Icons.Damage)}, +2{Icons.Inline(Icons.Targets)}")
 					)
 				)
 				.Build())
