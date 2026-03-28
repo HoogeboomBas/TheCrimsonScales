@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -58,12 +58,9 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 
 						foreach(Hex hex in moveAbilityState.Hexes)
 						{
-							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>().Where(figure => figure != state.Performer))
 							{
-								if(state.Performer.AlliedWith(figure))
-								{
-									figures.AddIfNew(figure);
-								}
+								figures.AddIfNew(figure);
 							}
 						}
 
