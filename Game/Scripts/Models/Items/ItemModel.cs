@@ -109,12 +109,12 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		ItemState oldItemState = ItemState;
 		ItemState = state;
 
-		if(oldItemState == ItemState.Available)
+		if(state is ItemState.Consumed or ItemState.Spent or ItemState.UnrecoverablyConsumed)
 		{
 			Unsubscribe();
 		}
 
-		if(ItemState == ItemState.Available && Owner != null)
+		if(Owner != null && oldItemState is ItemState.Consumed or ItemState.Spent)
 		{
 			Subscribe();
 		}
@@ -230,6 +230,10 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 						throw new ArgumentOutOfRangeException();
 				}
 			}
+		}
+		else
+		{
+			await SetItemState(ItemState.Available);
 		}
 
 		user.TurnItemsUsed.Add(this);
