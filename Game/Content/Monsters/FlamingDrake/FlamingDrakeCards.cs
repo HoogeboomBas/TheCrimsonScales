@@ -116,7 +116,7 @@ public class FlamingDrakeAbilityCard4 : FlamingDrakeAbilityCard
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: new(state => monster.Stats.Attack + (CheckElementConsumed(monster, [Element.Fire]) ? +1 : -1)),
+			extraDamage: new(state => CheckElementConsumed(monster, [Element.Fire]) ? +1 : -1),
 			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
 				new AOEPattern(
 				[
