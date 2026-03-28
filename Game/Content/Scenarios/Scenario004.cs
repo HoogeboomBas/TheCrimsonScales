@@ -181,9 +181,8 @@ public class Scenario004 : ScenarioModel
 			ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(monster, this,
 				parameters =>
 					parameters.PotentialTarget == monster &&
-					parameters.Performer is not Character &&
-					parameters.PotentialAbilityState != null &&
-					parameters.PotentialAbilityState is not HealAbility.State,
+					(parameters.Performer is not Character || 
+						(parameters.PotentialAbilityState != null && parameters.PotentialAbilityState is not HealAbility.State)),
 				parameters =>
 				{
 					parameters.SetCannotBeTargeted();

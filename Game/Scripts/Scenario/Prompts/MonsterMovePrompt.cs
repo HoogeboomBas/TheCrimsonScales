@@ -138,15 +138,6 @@ public class MonsterMovePrompt(
 							continue;
 						}
 
-						// ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-						// 	ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
-						// 		new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
-						//
-						// if(!canBeFocusedParameters.CanBeFocused)
-						// {
-						// 	continue;
-						// }
-
 						if(potentialTarget == focus)
 						{
 							attackableFocus = potentialTarget;
@@ -250,15 +241,6 @@ public class MonsterMovePrompt(
 									{
 										continue;
 									}
-
-									// ScenarioCheckEvents.CanBeFocusedCheck.Parameters canBeFocusedParameters =
-									// 	ScenarioCheckEvents.CanBeFocusedCheckEvent.Fire(
-									// 		new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(performer, potentialTarget));
-									//
-									// if(!canBeFocusedParameters.CanBeFocused)
-									// {
-									// 	continue;
-									// }
 
 									if(potentialTarget == focus)
 									{
