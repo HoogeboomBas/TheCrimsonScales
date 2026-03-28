@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 using System.Collections.Generic;
 
@@ -141,7 +141,7 @@ public class Scenario004 : ScenarioModel
 		MonsterModel monsterModel = marker.MarkerType == Marker.Type.a ? ModelDB.Monster<CityArcher>() : ModelDB.Monster<CityGuard>();
 		int guardLevel = GameController.Instance.SavedScenario.ScenarioLevel > 0 ? GameController.Instance.SavedScenario.ScenarioLevel - 1 : 0;
 
-		Monster monster = await AbilityCmd.SpawnMonster(monsterModel, MonsterType.Normal, marker.Hex, guardLevel, Alignment.Characters, Alignment.Other);
+		Monster monster = await AbilityCmd.SpawnMonster(monsterModel, MonsterType.Normal, marker.Hex, guardLevel, Alignment.Characters, Alignment.Enemies);
 
 		monster.SetHealth(4);
 		monster.SetMaxHealth(4);
@@ -220,9 +220,6 @@ public class Scenario004 : ScenarioModel
 				parameters => parameters.Figure == monster && parameters.ConditionModel == Conditions.Infect,
 				async parameters =>
 				{
-					monster.SetAlignment(Alignment.Characters);
-					monster.SetEnemies(Alignment.Enemies);
-
 					await Unsubscribe(monster);
 
 					infectedWarriors.Remove(this);
@@ -233,9 +230,6 @@ public class Scenario004 : ScenarioModel
 				parameters => parameters.AbilityState.Target == monster,
 				async parameters =>
 				{
-					monster.SetAlignment(Alignment.Characters);
-					monster.SetEnemies(Alignment.Enemies);
-
 					await Unsubscribe(monster);
 
 					infectedWarriors.Remove(this);
