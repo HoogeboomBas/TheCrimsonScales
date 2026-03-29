@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -85,6 +85,8 @@ public class SharpenedFocus : BombardCardModel<SharpenedFocus.CardTop, Sharpened
 							parameters.AbilityState.SingleTargetSetHasAdvantage();
 							ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 							ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+
+							state.SetPerformed();
 							await GDTask.CompletedTask;
 						});
 
