@@ -157,7 +157,6 @@ public abstract class DynamicClassType<T> where T : class
 			return Value;
 		}
 
-		Log.Error("Both Value and GetValue are null for this dynamic value " + this + ".");
 		return null;
 	}
 }
