@@ -16,6 +16,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(new DynamicInt<HealAbility.State>(state => 1 + state.Performer.TurnMovedHexes.Count))
+				.WithTarget(Target.Self)
 				.Build()),
 
 			new AbilityCardAbility(AbilityCmd.AllOpposingAttacksGainDisadvantageActiveAbility())
