@@ -749,15 +749,15 @@ public static class AbilityCmd
 			return false;
 		}
 
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter =
+		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
 				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
 
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter2 =
+		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
 				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
 
-		if(!canEnter.CanEnter || !canEnter.CanEnter)
+		if(!canEnterA.CanEnter || !canEnterB.CanEnter)
 		{
 			return false;
 		}
