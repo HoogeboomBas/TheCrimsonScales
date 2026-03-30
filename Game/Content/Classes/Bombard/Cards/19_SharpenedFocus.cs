@@ -52,6 +52,7 @@ public class SharpenedFocus : BombardCardModel<SharpenedFocus.CardTop, Sharpened
 				})
 				.WithOnDeactivate(async state =>
 				{
+					ScenarioEvents.ProjectileTokenCreatedEvent.Unsubscribe(state, this);
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})
