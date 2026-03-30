@@ -53,11 +53,9 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 					{
-						MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
 						List<Figure> figures = new List<Figure>();
 
-						foreach(Hex hex in moveAbilityState.Hexes)
+						foreach(Hex hex in state.Hexes)
 						{
 							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>().Where(figure => figure != state.Performer))
 							{
