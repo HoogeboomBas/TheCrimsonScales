@@ -1203,6 +1203,36 @@ public static class AbilityCmd
 		GameController.Instance.EndEvent += OnScenarioEnd;
 	}
 
+	public static async GDTask GainGold(Character character, int amount)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddGold(amount);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+	}
+
+	public static async GDTask GainXP(Character character, int amount)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddXP(amount);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+	}
+
+	public static async GDTask GainCheckmark(Character character)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddCheckmark();
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+	}
+
 	public static ItemModel GetRandomAvailableOrb()
 	{
 		return GetRandomAvailableItem(

@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class Scenario047 : ScenarioModel
 {
@@ -17,7 +17,7 @@ public class Scenario047 : ScenarioModel
 
 		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(async lootingCharacter =>
 		{
-			lootingCharacter.SavedCharacter.AddGold(15);
+			await AbilityCmd.GainGold(lootingCharacter, 15);
 			await GDTask.CompletedTask;
 		});
 

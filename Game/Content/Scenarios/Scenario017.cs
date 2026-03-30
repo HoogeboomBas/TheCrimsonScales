@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -24,7 +24,7 @@ public class Scenario017 : ScenarioModel
 
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 6).SetObtainLootFunction(async character =>
 		{
-			character.SavedCharacter.AddGold(20);
+			await AbilityCmd.GainGold(character, 20);
 			foreach(Trap trap in RangeHelper.GetHexesInRange(character.Hex, 1).SelectMany(hex => hex.GetHexObjectsOfType<Trap>())
 				        .Where(trap => trap != null))
 			{
@@ -33,12 +33,12 @@ public class Scenario017 : ScenarioModel
 		});
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 19).SetObtainLootFunction(async character =>
 		{
-			character.SavedCharacter.AddCheckmark();
+			await AbilityCmd.GainCheckmark(character);
 			await AbilityCmd.InfuseWildElement(null, character);
 		});
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 43).SetObtainLootFunction(async character =>
 		{
-			character.SavedCharacter.AddXP(10);
+			await AbilityCmd.GainXP(character, 10);
 			foreach(ItemModel item in character.Items.Where(item => item.ItemState == ItemState.Spent))
 			{
 				await AbilityCmd.RefreshItem(item);

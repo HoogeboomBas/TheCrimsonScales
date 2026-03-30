@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
@@ -26,7 +26,7 @@ public class Scenario042 : ScenarioModel
 		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<WovenPlateArmor>());
 		GameController.Instance.Map.Treasures[1].SetObtainLootFunction(async lootingCharacter =>
 		{
-			lootingCharacter.SavedCharacter.AddGold(25);
+			await AbilityCmd.GainGold(lootingCharacter, 25);
 			await AbilityCmd.AddCondition(null, lootingCharacter, Conditions.Poison1);
 		});
 		GameController.Instance.Map.Treasures[2].SetItemLoot(ModelDB.Item<SteelHelmet>());

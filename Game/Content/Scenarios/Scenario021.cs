@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -18,7 +18,7 @@ public class Scenario021 : ScenarioModel
 
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 4).SetObtainLootFunction(async character =>
 		{
-			character.SavedCharacter.AddGold(15);
+			await AbilityCmd.GainGold(character, 15);
 			AbilityCard selectedAbilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Lost,
 				hintText: $"Select a lost card to {Icons.Inline(Icons.RecoverCard)}");
 			if(selectedAbilityCard != null)
@@ -28,7 +28,7 @@ public class Scenario021 : ScenarioModel
 		});
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 36).SetObtainLootFunction(async character =>
 		{
-			character.SavedCharacter.AddXP(10);
+			await AbilityCmd.GainXP(character, 10);
 			await AbilityCmd.AddCondition(null, character, Conditions.Invisible);
 		});
 
