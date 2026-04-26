@@ -22,9 +22,9 @@ public class City27 : CityEventModel<City27.ChoiceA, City27.ChoiceB>
 			You point to the amulet of security and a frown falls upon the Vermling's face. "You have been warned! Curses upon you!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Curse)
+			new AllStartScenarioWithConditionReward(Conditions.Curse)
 		];
 	}
 
@@ -39,10 +39,10 @@ public class City27 : CityEventModel<City27.ChoiceA, City27.ChoiceB>
 			You point to the amulet of restoration and a smile forms upon the Vermling's face. "You shall be blessed! Blesses upon you!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO: You may choose to ignore the effects of the next road event drawn.
-			new DoNotDrawRoadEventEventReward()
+			new DoNotDrawRoadReward()
 		];
 	}
 }

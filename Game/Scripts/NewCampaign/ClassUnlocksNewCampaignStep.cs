@@ -17,7 +17,7 @@ public partial class ClassUnlocksNewCampaignStep : NewCampaignStep
 		base.Activate();
 
 		_cancellationTokenSource = new CancellationTokenSource();
-		_classModels = SavedCampaign.GetStartingClasses(NewCampaignController.Instance.StartingGroup);
+		_classModels = SavedCampaign.GetStartingClasses(NewCampaignController.Instance.StartingGroup!.Value);
 		_classIndex = 0;
 
 		_unlockCharacterView.ClosedEvent += OnUnlockViewClosed;

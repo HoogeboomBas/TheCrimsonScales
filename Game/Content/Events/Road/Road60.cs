@@ -66,28 +66,28 @@ public class Road60 : RoadEventModel<Road60.ChoiceA, Road60.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainProsperityEventReward(5)
+					new GainProsperityReward(5)
 				];
 			}
 			else if(state.GetCustomValue<bool>(OtherConditionsMetKey))
 			{
 				return
 				[
-					new GainProsperityEventReward(5)
+					new GainProsperityReward(5)
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioWithDamageEventReward(1),
-					new AllStartScenarioWithConditionEventReward(Conditions.Muddle)
+					new AllStartScenarioWithDamageReward(1),
+					new AllStartScenarioWithConditionReward(Conditions.Muddle)
 				];
 			}
 		}
@@ -127,21 +127,21 @@ public class Road60 : RoadEventModel<Road60.ChoiceA, Road60.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainProsperityEventReward(5)
+					new GainProsperityReward(5)
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioWithDamageEventReward(1),
-					new AllStartScenarioWithConditionEventReward(Conditions.Muddle)
+					new AllStartScenarioWithDamageReward(1),
+					new AllStartScenarioWithConditionReward(Conditions.Muddle)
 				];
 			}
 		}

@@ -106,7 +106,16 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 	{
 		int addedIconCount = 0;
 
+		RichTextParameters richTextParameters = _simpleEffectsLabel.GetRichTextParameters();
+
 		StringBuilder stringBuilder = new StringBuilder();
+
+		ScenarioCheckEvents.FlyingCheck.Parameters flyingCheckParameters =
+			ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(_figure));
+		if(flyingCheckParameters.HasFlying)
+		{
+			AppendIconValue(Icons.Flying, null);
+		}
 
 		ScenarioCheckEvents.TargetsCheck.Parameters targetsCheckParameters =
 			ScenarioCheckEvents.TargetsCheckEvent.Fire(new ScenarioCheckEvents.TargetsCheck.Parameters(_figure));
@@ -145,14 +154,21 @@ public abstract partial class FigureInfoItem<T> : InfoItem<T>
 		_simpleEffectsContainer.SetVisible(addedIconCount > 0);
 		_simpleEffectsLabel.SetText(stringBuilder.ToString());
 
-		void AppendIconValue(string iconPath, int value)
+		void AppendIconValue(string iconPath, int? value)
 		{
 			if(addedIconCount > 0)
 			{
 				stringBuilder.Append(", ");
 			}
 
-			stringBuilder.Append($"{Icons.Inline(iconPath, 40)}{value}");
+			if(value.HasValue)
+			{
+				stringBuilder.Append($"{Icons.Inline(iconPath, richTextParameters)}{value}");
+			}
+			else
+			{
+				stringBuilder.Append($"{Icons.Inline(iconPath, richTextParameters)}");
+			}
 
 			addedIconCount++;
 		}

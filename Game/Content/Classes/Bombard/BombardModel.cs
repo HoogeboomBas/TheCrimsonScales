@@ -8,6 +8,18 @@ public class BombardModel : ClassModel
 	public override int HandSize => 9;
 	public override Ancestry Ancestry => Ancestry.Quatryl;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City39>(),
+		//ModelDB.Event<Road39>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City40>(),
+		ModelDB.Event<Road40>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Bombard";
 	public override Color PrimaryColor => Color.FromHtml("8c683b");
 	public override Color SecondaryColor => Color.FromHtml("948572");
@@ -73,9 +85,9 @@ public class BombardModel : ClassModel
 
 		ModelDB.Perk<BombardPerks.AddTwoPlusZeroHealOneSelfRolling>(),
 
-		ModelDB.Perk<BombardPerks.IgnoreNegativeScenarioEffectsAddPlusOnePullSelf>(),
+		ModelDB.Perk<BombardPerks.IgnoreScenarioEffectsAddPlusOnePullSelf>(),
 
-		ModelDB.Perk<BombardPerks.IgnoreNegativeItemEffectsAddPlusOnePullSelf>(),
+		ModelDB.Perk<BombardPerks.IgnoreItemMinusOneEffectsAddPlusOnePullSelf>(),
 
 		ModelDB.Perk<BombardPerks.EmergencyEmplacement>(),
 	];

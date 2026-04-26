@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dqge1igxu7nf4"]
+
+[ext_resource type="Script" uid="uid://vq8cysajjnoe" path="res://Scripts/Scenario/UI/GoalsView/GoalsViewGoal.cs" id="1_wd7f5"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_7w4os"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="3_8v6me"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="4_hdpcu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3of5a"]
+font = ExtResource("4_hdpcu")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_k30ti"]
+font = ExtResource("4_hdpcu")
+font_size = 30
+
+[node name="GoalsViewGoal" type="MarginContainer" unique_id=1556831806 node_paths=PackedStringArray("_label", "_progressBar")]
+script = ExtResource("1_wd7f5")
+_label = NodePath("VBoxContainer/Text")
+_progressBar = NodePath("VBoxContainer/ProgressBar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=116510381]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer" unique_id=1525031200]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_7w4os")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Kill all enemies."
+fit_content = true
+
+[node name="ProgressBar" parent="VBoxContainer" unique_id=1290106675 instance=ExtResource("3_8v6me")]
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" parent="VBoxContainer/ProgressBar" index="2" unique_id=610432765]
+text = "Progress"
+label_settings = SubResource("LabelSettings_3of5a")
+
+[node name="Amount" parent="VBoxContainer/ProgressBar" index="3" unique_id=349370130]
+text = "13/?"
+label_settings = SubResource("LabelSettings_k30ti")
+
+[editable path="VBoxContainer/ProgressBar"]

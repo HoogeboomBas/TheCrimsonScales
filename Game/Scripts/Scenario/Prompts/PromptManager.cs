@@ -112,7 +112,7 @@ public class PromptManager
 
 				if(!GameController.FastForward)
 				{
-					AppController.Instance.SaveFile.Save();
+					AppController.Instance.SaveGame();
 				}
 
 				_promptIndex++;

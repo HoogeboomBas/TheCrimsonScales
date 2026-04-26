@@ -60,6 +60,9 @@ public partial class Door : OverlayTile, IEventSubscriber
 	{
 		Opened = true;
 
+		await ScenarioEvents.DoorOpenedEvent.CreatePrompt(
+			new ScenarioEvents.DoorOpened.Parameters(this, potentialOpener));
+
 		ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
 
 		foreach(Room room in _roomsToOpen)

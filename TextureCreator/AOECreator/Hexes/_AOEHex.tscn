@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ccqd7gjbphheu"]
+
+[ext_resource type="Script" uid="uid://spajtv2vpfkd" path="res://AOECreator/AOEHexView.cs" id="1_jfewi"]
+[ext_resource type="Texture2D" uid="uid://b25ibhqm7wdjc" path="res://OverlayTileCreator/Hexagon.svg" id="1_r1cob"]
+[ext_resource type="Script" uid="uid://cfdw1gi2r8xk2" path="res://AOECreator/SnapToHexGrid.cs" id="2_piqoo"]
+
+[node name="AOEHex" type="Node2D" unique_id=1133035251]
+script = ExtResource("1_jfewi")
+
+[node name="Outline" type="Sprite2D" parent="." unique_id=1607675899]
+self_modulate = Color(0, 0, 0, 1)
+texture = ExtResource("1_r1cob")
+
+[node name="White" type="Sprite2D" parent="." unique_id=582480572]
+scale = Vector2(0.95, 0.95)
+texture = ExtResource("1_r1cob")
+
+[node name="Color" type="Sprite2D" parent="." unique_id=1910492485]
+self_modulate = Color(0.7764706, 0.12156863, 0.14509805, 1)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_r1cob")
+
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=374497170]
+script = ExtResource("2_piqoo")
+metadata/_custom_type_script = "uid://cfdw1gi2r8xk2"

@@ -28,7 +28,8 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 										retaliateAbilityState.AdjustRange(2);
 										await AbilityCmd.GainXP(grantAbilityState.Performer, 1);
 									},
-									effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2 {Icons.Inline(Icons.Range)} to {Icons.Inline(Icons.Retaliate)}")
+									effectInfoViewParameters: new TextEffectInfoView.Parameters(
+										$"+2 {Icons.Inline(Icons.Range)} to {Icons.Inline(Icons.Retaliate)}")
 								)
 							)
 							.Build()
@@ -95,7 +96,7 @@ public class EncouragedConviction : HierophantLevelUpCardModel<EncouragedConvict
 						await AbilityCmd.GainXP(state.Performer, 1);
 
 						if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Light,
-							   $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
+							   hintText: $"Consume {Icons.Inline(Icons.GetElement(Element.Light))} to give a Prayer card?"))
 						{
 							if(section == AbilityCardSection.Bottom)
 							{

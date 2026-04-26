@@ -53,20 +53,20 @@ public class City51 : CityEventModel<City51.ChoiceA, City51.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<AmuletOfLife>())
+					new GainCollectiveItemReward(ModelDB.Item<AmuletOfLife>())
 				];
 			}
 			else
 			{
 				return
 				[
-					new GainReputationEventReward(1)
+					new GainReputationReward(1)
 				];
 			}
 		}
@@ -109,21 +109,21 @@ public class City51 : CityEventModel<City51.ChoiceA, City51.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainGoldEachEventReward(10)
+					new GainGoldEachReward(10)
 				];
 			}
 			else
 			{
 				return
 				[
-					new GainGoldEachEventReward(3),
-					new LoseReputationEventReward(1)
+					new GainGoldEachReward(3),
+					new LoseReputationReward(1)
 				];
 			}
 		}

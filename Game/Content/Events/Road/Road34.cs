@@ -21,7 +21,7 @@ public class Road34 : RoadEventModel<Road34.ChoiceA, Road34.ChoiceB>
 			You set up a bear trap near the Vermling and eagerly wait for it to awaken. After what seems like hours, the Vermling finally stands up and you hear a loud snap. You pop out of the bushes, only to find both the Vermling and the trap to have disappeared. You groan upon realizing that it'll take more than a bear trap to subdue this beast, and hope to encounter it again in the future.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -33,9 +33,9 @@ public class Road34 : RoadEventModel<Road34.ChoiceA, Road34.ChoiceB>
 			You sneak up toward the Vermling and swing at it with your blade. Having been awoken from the gash, the Vermling jolts awake and lunges toward you, claws extended and slashes you across the face before running off into the mountains. You wipe the blood from the wound and recognize that you could have prepared yourself better for the fight.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Wound1)
+			new AllStartScenarioWithConditionReward(Conditions.Wound1)
 		];
 	}
 }

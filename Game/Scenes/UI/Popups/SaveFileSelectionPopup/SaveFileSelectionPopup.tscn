@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cgrysgfw0s6em"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_7aa5g"]
+[ext_resource type="Script" uid="uid://b217wnn7w0brr" path="res://Scripts/UI/Popups/SaveFileSelectionPopup/SaveFileSelectionPopup.cs" id="2_37rjh"]
+[ext_resource type="PackedScene" uid="uid://bxg5ag688qjsa" path="res://Scenes/UI/Popups/SaveFileSelectionPopup/SaveFileSelectionPopupSaveFile.tscn" id="2_corf0"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="4_w2kxb"]
+
+[node name="SaveFileSelectionPopup" unique_id=162337359 node_paths=PackedStringArray("_saveFileParent", "_closeButton") instance=ExtResource("1_7aa5g")]
+script = ExtResource("2_37rjh")
+_saveFileScene = ExtResource("2_corf0")
+_saveFileParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/SaveFiles")
+_closeButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton")
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Select a Save File"
+
+[node name="SaveFiles" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=1881204802]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CancelButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=1243385845 instance=ExtResource("4_w2kxb")]
+layout_mode = 2
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1243385845, 62362509) index="0" unique_id=188245078]
+text = "Cancel"
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="1" unique_id=1844539915 instance=ExtResource("4_w2kxb")]
+visible = false
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 2
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CancelButton"]
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButton"]

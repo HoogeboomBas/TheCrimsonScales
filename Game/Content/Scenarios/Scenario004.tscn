@@ -18,7 +18,7 @@
 
 [node name="Scenario" unique_id=1234219757 instance=ExtResource("1_kdsd8")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1003419509]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1003419509]
 script = ExtResource("2_nxabk")
 StartsRevealed = true
 
@@ -97,7 +97,7 @@ position = Vector2(436.47678, -378)
 [node name="CharacterStartHex6" parent="Map/Rooms/Room" index="15" unique_id=2061875994 instance=ExtResource("5_h3ci0")]
 position = Vector2(654.71515, -378)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=764854965]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=764854965]
 script = ExtResource("2_nxabk")
 metadata/_custom_type_script = "uid://bbtc25ohouat7"
 
@@ -111,6 +111,7 @@ position = Vector2(1091.1919, -378)
 [node name="Marker" parent="Map/Rooms/Room2" index="2" unique_id=314578908 instance=ExtResource("8_25atf")]
 position = Vector2(1418.5497, -567)
 MarkerType = 1
+_hideDuringPlay = true
 
 [node name="PoisonGasTrap1H" parent="Map/Rooms/Room2" index="3" unique_id=278237139 instance=ExtResource("9_k3jho")]
 position = Vector2(1527.6688, -378)
@@ -155,7 +156,7 @@ position = Vector2(1527.6688, 0)
 MonsterModelId = "FOREST_IMP.TOXIC_IMP"
 MonsterType3Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=2038261322]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=2038261322]
 script = ExtResource("2_nxabk")
 metadata/_custom_type_script = "uid://bbtc25ohouat7"
 
@@ -178,9 +179,11 @@ position = Vector2(-545.59595, 1323)
 
 [node name="Marker" parent="Map/Rooms/Room3" index="5" unique_id=738351709 instance=ExtResource("8_25atf")]
 position = Vector2(-436.47678, 1512)
+_hideDuringPlay = true
 
 [node name="Marker2" parent="Map/Rooms/Room3" index="6" unique_id=652791431 instance=ExtResource("8_25atf")]
 position = Vector2(0, 1512)
+_hideDuringPlay = true
 
 [node name="Treasure1H" parent="Map/Rooms/Room3" index="7" unique_id=374447035 instance=ExtResource("12_2hp81")]
 position = Vector2(218.23842, 1512)
@@ -220,7 +223,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1413189273]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1413189273]
 script = ExtResource("2_nxabk")
 metadata/_custom_type_script = "uid://bbtc25ohouat7"
 
@@ -236,6 +239,7 @@ position = Vector2(-1418.5496, -189)
 [node name="Marker" parent="Map/Rooms/Room4" index="3" unique_id=1494128367 instance=ExtResource("8_25atf")]
 position = Vector2(-1527.6688, 0)
 MarkerType = 1
+_hideDuringPlay = true
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room4" index="4" unique_id=1884099600 instance=ExtResource("4_saeyq")]
 position = Vector2(-1309.4303, 0)
@@ -258,11 +262,11 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="0" unique_id=1932063013 instance=ExtResource("6_lto6f")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1932063013 instance=ExtResource("6_lto6f")]
 position = Vector2(763.8344, -189)
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="1" unique_id=1021525574 instance=ExtResource("7_pgrk6")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1021525574 instance=ExtResource("7_pgrk6")]
 position = Vector2(109.119194, 567)
 
-[node name="StoneDoorVertical1H2" parent="Map/Doors" index="2" unique_id=759182 instance=ExtResource("6_lto6f")]
+[node name="StoneDoorVertical1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=759182 instance=ExtResource("6_lto6f")]
 position = Vector2(-545.59595, -189)

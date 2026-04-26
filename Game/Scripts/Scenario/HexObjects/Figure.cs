@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
@@ -106,6 +105,10 @@ public abstract partial class Figure : HexObject, IActionSource
 		OnRetaliateSubscriptionsChanged();
 		OnFlyingSubscriptionsChanged();
 		//OnIsMountedSubscriptionsChanged();
+
+		//await GameController.Instance.Map.RegisterFigure(this);
+
+		//await ScenarioEvents.FigureInitializedEvent.CreatePrompt(new ScenarioEvents.FigureInitialized.Parameters(this));
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)

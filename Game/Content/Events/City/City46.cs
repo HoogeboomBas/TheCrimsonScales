@@ -20,9 +20,9 @@ public class City46 : CityEventModel<City46.ChoiceA, City46.ChoiceB>
 			You rush to the Lurker and attempt to tackle it, but it throws you off its back with great force. As you fall to the ground, several Inox carrying a battering ram call toward you. You jump to your feet and take hold of the battering ram as the Inox count down from three before you all charge together toward the Lurker. The Lurker is knocked back from the battering ram and is instantly rendered unconscious. The Inox proceed to carry the Lurker away, leaving the battering ram behind. 
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<BatteringRam>())
+			new GainCollectiveItemReward(ModelDB.Item<BatteringRam>())
 		];
 	}
 
@@ -35,10 +35,10 @@ public class City46 : CityEventModel<City46.ChoiceA, City46.ChoiceB>
 			You run to the little girl as you hear a woman crying out, "Help! My daughter!" You scoop the girl up into your ams and carry her to her mother, who tearfully thanks you in the midst of the calamity. You turn back to see the Lurker unconscious in the arms of several Inox who appear to be hauling it out of the arena.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainReputationEventReward(2),
-			new GainProsperityEventReward(1)
+			new GainReputationReward(2),
+			new GainProsperityReward(1)
 		];
 	}
 }

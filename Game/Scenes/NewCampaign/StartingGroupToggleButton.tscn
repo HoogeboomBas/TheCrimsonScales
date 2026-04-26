@@ -1,0 +1,326 @@
+[gd_scene format=3 uid="uid://1mixyqqpklvl"]
+
+[ext_resource type="PackedScene" uid="uid://ddtpp0xpoq8tq" path="res://Scenes/UI/ToggleButton.tscn" id="1_31mem"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="2_swrgm"]
+[ext_resource type="Script" uid="uid://tjrb2s1rhl80" path="res://Scripts/NewCampaign/NewCampaignStartingGroupToggleButton.cs" id="2_u077g"]
+[ext_resource type="PackedScene" uid="uid://c1raw4u7yce4g" path="res://Scenes/NewCampaign/StartingGroupClass.tscn" id="3_u077g"]
+[ext_resource type="Texture2D" uid="uid://ukntvb1ygx0s" path="res://Content/Classes/Bombard/Icon.svg" id="4_plu0e"]
+[ext_resource type="Texture2D" uid="uid://cjvut1gbp27rw" path="res://Content/Classes/FireKnight/Icon.svg" id="5_kc7t5"]
+[ext_resource type="Texture2D" uid="uid://m8jmlvd740dq" path="res://Content/Classes/Hierophant/Icon.svg" id="6_ewlh5"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="7_xjl0o"]
+[ext_resource type="PackedScene" uid="uid://c1lpk04wsc2xx" path="res://Scenes/NewCampaign/RatingCircle.tscn" id="8_m2p4b"]
+
+[sub_resource type="Gradient" id="Gradient_2p2e3"]
+colors = PackedColorArray(0.752582, 0.752582, 0.752582, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_av2fl"]
+gradient = SubResource("Gradient_2p2e3")
+fill = 1
+fill_from = Vector2(0.527066, 0.555556)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_fkfa5"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yi0ud"]
+gradient = SubResource("Gradient_fkfa5")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gh302"]
+font = ExtResource("7_xjl0o")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_2itvq"]
+font = ExtResource("7_xjl0o")
+font_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plu0e"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="StartingGroupToggleButton" unique_id=1313157086 node_paths=PackedStringArray("_button", "_container", "_inactiveOverlay") instance=ExtResource("1_31mem")]
+custom_minimum_size = Vector2(248, 542)
+script = ExtResource("2_u077g")
+_button = NodePath("Container/BetterButton")
+_container = NodePath("Container")
+_inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton" parent_id_path=PackedInt32Array(1155449473) index="0" unique_id=1527585755]
+layout_mode = 0
+offset_right = 248.0
+offset_bottom = 516.0
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Box" type="MarginContainer" parent="Container/BetterButton/VBoxContainer" index="0" unique_id=1545854708]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="Container/BetterButton/VBoxContainer/Box" index="0" unique_id=1560339703]
+self_modulate = Color(0.376659, 0.376658, 0.376658, 0.341176)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_av2fl")
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/VBoxContainer/Box" index="1" unique_id=1389701834]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer" index="0" unique_id=1729032927]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Control" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer" index="0" unique_id=1118588208]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="0" unique_id=163133792]
+self_modulate = Color(0.984616, 0.549261, 0.513281, 1)
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_yi0ud")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="1" unique_id=1193041074]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.5
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Militants"
+label_settings = ExtResource("2_swrgm")
+horizontal_alignment = 1
+
+[node name="Divider" type="TextureRect" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" index="2" unique_id=1486610091]
+self_modulate = Color(0.454589, 0.0747298, 0.0835239, 1)
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_yi0ud")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer" index="1" unique_id=1171189612]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Classes" type="GridContainer" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer" index="0" unique_id=589593282]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="StartingGroupClass" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" index="0" unique_id=715348505 instance=ExtResource("3_u077g")]
+layout_mode = 2
+
+[node name="Icon" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass" index="0" unique_id=1610838255]
+self_modulate = Color(0.572549, 0.521569, 0.443137, 1)
+texture = ExtResource("4_plu0e")
+
+[node name="StartingGroupClass2" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" index="1" unique_id=1681825265 instance=ExtResource("3_u077g")]
+layout_mode = 2
+
+[node name="Icon" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass2" index="0" unique_id=1610838255]
+self_modulate = Color(0.772549, 0.113725, 0.129412, 1)
+texture = ExtResource("5_kc7t5")
+
+[node name="StartingGroupClass3" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" index="2" unique_id=1707129642 instance=ExtResource("3_u077g")]
+layout_mode = 2
+
+[node name="Icon" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass3" index="0" unique_id=1610838255]
+self_modulate = Color(0.745098, 0.752941, 0.356863, 1)
+texture = ExtResource("6_ewlh5")
+
+[node name="StartingGroupClass4" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes" index="3" unique_id=1902722722 instance=ExtResource("3_u077g")]
+layout_mode = 2
+
+[node name="Icon" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass4" index="0" unique_id=1610838255]
+self_modulate = Color(0.913725, 0.411765, 0.0705882, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer" index="1" unique_id=2130298925]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Divider" type="Control" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer" index="0" unique_id=1712364359]
+modulate = Color(0.949121, 0.31306, 0.297705, 1)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Horizontal" type="TextureRect" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider" index="0" unique_id=1751378748]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_yi0ud")
+expand_mode = 1
+
+[node name="Vertical" type="TextureRect" parent="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/MarginContainer/Divider" index="1" unique_id=1503893605]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(120, 2)
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_yi0ud")
+expand_mode = 1
+
+[node name="Border" type="Control" parent="Container/BetterButton/VBoxContainer/Box" index="2" unique_id=1065421972]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Top" type="ColorRect" parent="Container/BetterButton/VBoxContainer/Box/Border" index="0" unique_id=503254116]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Left" type="ColorRect" parent="Container/BetterButton/VBoxContainer/Box/Border" index="1" unique_id=635613643]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Right" type="ColorRect" parent="Container/BetterButton/VBoxContainer/Box/Border" index="2" unique_id=27095691]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Bottom" type="ColorRect" parent="Container/BetterButton/VBoxContainer/Box/Border" index="3" unique_id=1379978153]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(0.635294, 0.482353, 0.270588, 1)
+
+[node name="Details" type="MarginContainer" parent="Container/BetterButton/VBoxContainer" index="1" unique_id=522412128]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton/VBoxContainer/Details" index="0" unique_id=950947893]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="ComplexityRating" type="VBoxContainer" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer" index="0" unique_id=406224397]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating" index="0" unique_id=744221161]
+layout_mode = 2
+text = "Average Complexity:"
+label_settings = SubResource("LabelSettings_gh302")
+horizontal_alignment = 1
+
+[node name="Rating" type="HBoxContainer" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating" index="1" unique_id=958144738]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="RatingCircle" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" index="0" unique_id=1590506911 instance=ExtResource("8_m2p4b")]
+layout_mode = 2
+
+[node name="FullCircle" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle" index="2" unique_id=1175699102]
+visible = true
+
+[node name="RatingCircle2" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" index="1" unique_id=856803848 instance=ExtResource("8_m2p4b")]
+layout_mode = 2
+
+[node name="FullCircle" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2" index="2" unique_id=1175699102]
+visible = true
+
+[node name="RatingCircle3" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" index="2" unique_id=1157550253 instance=ExtResource("8_m2p4b")]
+layout_mode = 2
+
+[node name="RatingCircle4" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" index="3" unique_id=1314596749 instance=ExtResource("8_m2p4b")]
+layout_mode = 2
+
+[node name="RatingCircle5" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating" index="4" unique_id=1001422941 instance=ExtResource("8_m2p4b")]
+layout_mode = 2
+
+[node name="Summary" type="MarginContainer" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer" index="1" unique_id=1251755312]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/Summary" index="0" unique_id=1980411645]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Header" type="Label" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="0" unique_id=318752221]
+layout_mode = 2
+text = "Group Summary:"
+label_settings = SubResource("LabelSettings_gh302")
+horizontal_alignment = 1
+
+[node name="Text" type="Label" parent="Container/BetterButton/VBoxContainer/Details/VBoxContainer/Summary/VBoxContainer" index="1" unique_id=1339227210]
+layout_mode = 2
+text = "Delayed Damage, Protection, Support, Healing, Debuffing, and Terrain Creation."
+label_settings = SubResource("LabelSettings_2itvq")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InactiveOverlay" parent="Container/BetterButton" parent_id_path=PackedInt32Array(1155449473) index="1" unique_id=342110485]
+theme_override_styles/panel = SubResource("StyleBoxFlat_plu0e")
+
+[editable path="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass"]
+[editable path="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass2"]
+[editable path="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass3"]
+[editable path="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass4"]
+[editable path="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle"]
+[editable path="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle2"]
+[editable path="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle3"]
+[editable path="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle4"]
+[editable path="Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle5"]

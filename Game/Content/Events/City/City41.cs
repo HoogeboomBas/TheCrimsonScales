@@ -46,14 +46,14 @@ public class City41 : CityEventModel<City41.ChoiceA, City41.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(5),
-					new AllStartScenarioWithConditionEventReward(Conditions.Bless)
+					new LoseCollectiveGoldReward(5),
+					new AllStartScenarioWithConditionReward(Conditions.Bless)
 				];
 			}
 			else
@@ -95,14 +95,14 @@ public class City41 : CityEventModel<City41.ChoiceA, City41.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(20),
-					new GainCollectiveItemEventReward(ModelDB.Item<ResplendentMitre>())
+					new LoseCollectiveGoldReward(20),
+					new GainCollectiveItemReward(ModelDB.Item<ResplendentMitre>())
 				];
 			}
 			else

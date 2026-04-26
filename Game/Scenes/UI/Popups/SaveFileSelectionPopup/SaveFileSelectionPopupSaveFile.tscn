@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://bxg5ag688qjsa"]
+
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="1_c85tf"]
+[ext_resource type="Script" uid="uid://cegrds3ikwksf" path="res://Scripts/UI/Popups/SaveFileSelectionPopup/SaveFileSelectionPopupSaveFile.cs" id="1_gksbr"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="2_1ywqw"]
+[ext_resource type="PackedScene" uid="uid://cwssh8m5tb3t5" path="res://Scenes/UI/Popups/SaveFileSelectionPopup/SaveFileSelectionPopupSaveFileCharacter.tscn" id="2_gksbr"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="3_qy2to"]
+[ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="6_fmafd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jymqk"]
+font = ExtResource("1_c85tf")
+font_size = 60
+
+[node name="SaveFileSelectionPopupSaveFile" type="MarginContainer" unique_id=644443270 node_paths=PackedStringArray("_numberLabel", "_emptyContainer", "_saveFileContainer", "_characterParent", "_nameLabel", "_dateLabel", "_locationLabel", "_difficultyLabel", "_newCampaignButton", "_loadButton", "_deleteButton")]
+custom_minimum_size = Vector2(0, 180)
+script = ExtResource("1_gksbr")
+_numberLabel = NodePath("Container/Number")
+_emptyContainer = NodePath("Container/EmptyContainer")
+_saveFileContainer = NodePath("Container/SaveFileContainer")
+_characterScene = ExtResource("2_gksbr")
+_characterParent = NodePath("Container/SaveFileContainer/CharacterPortraits")
+_nameLabel = NodePath("Container/SaveFileContainer/VBoxContainer/Name")
+_dateLabel = NodePath("Container/SaveFileContainer/VBoxContainer/Date/Value")
+_locationLabel = NodePath("Container/SaveFileContainer/VBoxContainer/Location/Value")
+_difficultyLabel = NodePath("Container/SaveFileContainer/VBoxContainer/Difficulty/Value")
+_newCampaignButton = NodePath("Container/EmptyContainer/MarginContainer/NewCampaignButton/BetterButton")
+_loadButton = NodePath("Container/SaveFileContainer/Load/LoadButton/BetterButton")
+_deleteButton = NodePath("Container/SaveFileContainer/Delete/DeleteButton/BetterButton")
+
+[node name="Container" type="HBoxContainer" parent="." unique_id=1750086135]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Number" type="Label" parent="Container" unique_id=1552311734]
+layout_mode = 2
+text = "1:"
+label_settings = SubResource("LabelSettings_jymqk")
+
+[node name="EmptyContainer" type="HBoxContainer" parent="Container" unique_id=1933881848]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Container/EmptyContainer" unique_id=781737858]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Empty"
+label_settings = ExtResource("2_1ywqw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/EmptyContainer" unique_id=1386772575]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="NewCampaignButton" parent="Container/EmptyContainer/MarginContainer" unique_id=1713316230 instance=ExtResource("3_qy2to")]
+custom_minimum_size = Vector2(250, 80)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" parent="Container/EmptyContainer/MarginContainer/NewCampaignButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1713316230, 62362509) index="0" unique_id=188245078]
+text = "New Campaign"
+
+[node name="SaveFileContainer" type="HBoxContainer" parent="Container" unique_id=1649315100]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="CharacterPortraits" type="HBoxContainer" parent="Container/SaveFileContainer" unique_id=1159006269]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/SaveFileContainer" unique_id=494113547]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="Container/SaveFileContainer/VBoxContainer" unique_id=494806921]
+layout_mode = 2
+text = "Party Squad"
+label_settings = ExtResource("2_1ywqw")
+horizontal_alignment = 1
+script = ExtResource("6_fmafd")
+_minSize = 20
+_maxSize = 40
+
+[node name="Date" type="HBoxContainer" parent="Container/SaveFileContainer/VBoxContainer" unique_id=886065720]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Date" unique_id=1892151435]
+layout_mode = 2
+text = "Save date:"
+label_settings = ExtResource("2_1ywqw")
+
+[node name="Value" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Date" unique_id=1720306344]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2026/02/29"
+label_settings = ExtResource("2_1ywqw")
+horizontal_alignment = 2
+
+[node name="Location" type="HBoxContainer" parent="Container/SaveFileContainer/VBoxContainer" unique_id=632103454]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Location" unique_id=992793049]
+layout_mode = 2
+text = "Location:"
+label_settings = ExtResource("2_1ywqw")
+
+[node name="Value" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Location" unique_id=1266638267]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Scenario 67"
+label_settings = ExtResource("2_1ywqw")
+horizontal_alignment = 2
+
+[node name="Difficulty" type="HBoxContainer" parent="Container/SaveFileContainer/VBoxContainer" unique_id=1488931186]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Difficulty" unique_id=43333973]
+layout_mode = 2
+text = "Difficulty:"
+label_settings = ExtResource("2_1ywqw")
+
+[node name="Value" type="Label" parent="Container/SaveFileContainer/VBoxContainer/Difficulty" unique_id=382918050]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Very Hard"
+label_settings = ExtResource("2_1ywqw")
+horizontal_alignment = 2
+
+[node name="Delete" type="MarginContainer" parent="Container/SaveFileContainer" unique_id=717933304]
+layout_mode = 2
+
+[node name="DeleteButton" parent="Container/SaveFileContainer/Delete" unique_id=699340975 instance=ExtResource("3_qy2to")]
+modulate = Color(1, 0.36862746, 0.22745098, 1)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" parent="Container/SaveFileContainer/Delete/DeleteButton/BetterButton/Panel" parent_id_path=PackedInt32Array(699340975, 62362509) index="0" unique_id=188245078]
+text = "Delete"
+
+[node name="Load" type="MarginContainer" parent="Container/SaveFileContainer" unique_id=1102099174]
+layout_mode = 2
+
+[node name="LoadButton" parent="Container/SaveFileContainer/Load" unique_id=1476904353 instance=ExtResource("3_qy2to")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" parent="Container/SaveFileContainer/Load/LoadButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1476904353, 62362509) index="0" unique_id=188245078]
+text = "Load"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=993474122]
+visible = false
+layout_mode = 2
+
+[editable path="Container/EmptyContainer/MarginContainer/NewCampaignButton"]
+[editable path="Container/SaveFileContainer/Delete/DeleteButton"]
+[editable path="Container/SaveFileContainer/Load/LoadButton"]

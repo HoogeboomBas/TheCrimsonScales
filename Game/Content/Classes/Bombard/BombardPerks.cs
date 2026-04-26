@@ -128,24 +128,24 @@ public class BombardPerks
 		];
 	}
 
-	public class IgnoreNegativeScenarioEffectsAddPlusOnePullSelf : BombardPerk
+	public class IgnoreScenarioEffectsAddPlusOnePullSelf : BombardPerk
 	{
 		public override List<AMDCardModel> CardsToAdd { get; } =
 		[
 			ModelDB.AMDCard<BombardAMDCards.PlusOnePullSelfTowardTarget>()
 		];
 
-		public override bool IgnoreNegativeScenarioEffects => true;
+		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class IgnoreNegativeItemEffectsAddPlusOnePullSelf : BombardPerk
+	public class IgnoreItemMinusOneEffectsAddPlusOnePullSelf : BombardPerk
 	{
 		public override List<AMDCardModel> CardsToAdd { get; } =
 		[
 			ModelDB.AMDCard<BombardAMDCards.PlusOnePullSelfTowardTarget>()
 		];
 
-		public override bool IgnoreNegativeItemEffects => true;
+		public override bool IgnoreItemMinusOneEffects => true;
 	}
 
 	public class EmergencyEmplacement : BombardPerk, IEventSubscriber
@@ -153,7 +153,7 @@ public class BombardPerks
 		protected override string Title => "Emergency Emplacement";
 
 		public override string GetNonAMDDescription(RichTextParameters richTextParameters) =>
-			$"Whenever you short rest, you may gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), richTextParameters, true)} to immediately resolve any of your active Projectile {Icons.Inline(ModelDB.Class<BombardModel>().IconPath, richTextParameters)} abilities.";
+			$"Whenever you short rest, you may gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), richTextParameters, true)} to immediately resolve any of your active {Icons.Inline(BombardCardSide.ProjectileIconPath, richTextParameters)} abilities.";
 
 		public override async GDTask OnScenarioSetupPhaseCompleted(Character character)
 		{

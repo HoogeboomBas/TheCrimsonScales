@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="TextureCreator"
-run/main_scene="uid://cmx0pt8pmx30m"
-config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+run/main_scene="uid://dauhiq1khpsot"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]

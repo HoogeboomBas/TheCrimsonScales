@@ -22,10 +22,10 @@ public class Road22 : RoadEventModel<Road22.ChoiceA, Road22.ChoiceB>
 			The man smiles as he pats your shoulder before he gathers his belongings and begins to walk away, leaving you short of breath.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioDiscardingEventReward(1),
-			new AddCityEventEventReward(ModelDB.Event<City33>())
+			new AllStartScenarioDiscardingReward(1),
+			new AddCityReward(ModelDB.Event<City33>())
 		];
 	}
 
@@ -40,6 +40,6 @@ public class Road22 : RoadEventModel<Road22.ChoiceA, Road22.ChoiceB>
 			You pick up his bag with the hopes to sell the valuables within during your next trip to town, but the bag turns out to be filled with nothing but snacks and some old rope.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

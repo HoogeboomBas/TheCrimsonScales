@@ -75,8 +75,8 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters($"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))}"
-						                                                  + $" after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
+						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+							$"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))} after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
 					}
 				);
 				await GDTask.CompletedTask;

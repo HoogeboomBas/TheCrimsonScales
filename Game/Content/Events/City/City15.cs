@@ -22,9 +22,9 @@ public class City15 : CityEventModel<City15.ChoiceA, City15.ChoiceB>
 			You make your way to the Traveler's District where Sir Kenhaven resides and knock on his mansion door. After handing the bird over, the servant who answers the door assures you that Sir Kenhaven will hear about this when he returns from his travels, and welcomes you back to visit another time.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddCityEventEventReward(ModelDB.Event<City31>())
+			new AddCityReward(ModelDB.Event<City31>())
 		];
 	}
 
@@ -39,6 +39,6 @@ public class City15 : CityEventModel<City15.ChoiceA, City15.ChoiceB>
 			You quietly tiptoe toward the bird, and as you approach arm's length you lunge toward the it with the pot. Frightened, it flaps its wings and proceeds to speedily fly away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

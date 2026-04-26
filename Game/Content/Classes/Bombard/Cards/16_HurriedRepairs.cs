@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -16,6 +16,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(new DynamicInt<HealAbility.State>(state => 1 + state.Performer.TurnMovedHexes.Count))
+				.WithTarget(Target.Self)
 				.Build()),
 
 			new AbilityCardAbility(AbilityCmd.AllOpposingAttacksGainDisadvantageActiveAbility())
@@ -52,18 +53,13 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 					{
-						MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
 						List<Figure> figures = new List<Figure>();
 
-						foreach(Hex hex in moveAbilityState.Hexes)
+						foreach(Hex hex in state.Hexes)
 						{
-							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
+							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>().Where(figure => figure != state.Performer))
 							{
-								if(state.Performer.AlliedWith(figure))
-								{
-									figures.AddIfNew(figure);
-								}
+								figures.AddIfNew(figure);
 							}
 						}
 

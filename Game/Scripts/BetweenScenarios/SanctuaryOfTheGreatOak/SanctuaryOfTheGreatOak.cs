@@ -202,7 +202,7 @@ public partial class SanctuaryOfTheGreatOak : BetweenScenariosAction
 				{
 					savedSanctuaryOfTheGreatOak.Donate(selectedCharacter, savedCampaign);
 
-					AppController.Instance.SaveFile.Save();
+					AppController.Instance.SaveGame();
 
 					_envelopeB.Donate();
 

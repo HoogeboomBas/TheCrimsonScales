@@ -70,7 +70,7 @@ alignment = 1
 [node name="Health" parent="MarginContainer/Content/Container/Stats" index="0" unique_id=1648449808 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
-[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Health" index="0"]
+[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Health" index="0" unique_id=1813465417]
 anchors_preset = 0
 anchor_top = 0.0
 anchor_bottom = 0.0
@@ -106,7 +106,7 @@ horizontal_alignment = 1
 [node name="Conditions" parent="MarginContainer/Content/Effects" index="1" unique_id=620335124 instance=ExtResource("5_jfqbu")]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/Content/Effects/Conditions/HBoxContainer" index="0"]
+[node name="Label" parent="MarginContainer/Content/Effects/Conditions/HBoxContainer" parent_id_path=PackedInt32Array(620335124, 517629473) index="0" unique_id=176725713]
 text = "Conditions:"
 
 [node name="Immunities" parent="MarginContainer/Content/Effects" index="2" unique_id=1616868014 instance=ExtResource("5_jfqbu")]
@@ -115,11 +115,12 @@ layout_mode = 2
 [node name="Applies" parent="MarginContainer/Content/Effects" index="3" unique_id=361993898 instance=ExtResource("5_jfqbu")]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/Content/Effects/Applies/HBoxContainer" index="0"]
+[node name="Label" parent="MarginContainer/Content/Effects/Applies/HBoxContainer" parent_id_path=PackedInt32Array(361993898, 517629473) index="0" unique_id=176725713]
 text = "Applies:"
 
 [node name="InfoExtraEffectsView" parent="MarginContainer/Content/Effects" index="4" unique_id=709550068 instance=ExtResource("7_e5o5d")]
 layout_mode = 2
+mouse_filter = 2
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]
 [editable path="MarginContainer/Content/Effects/Conditions"]

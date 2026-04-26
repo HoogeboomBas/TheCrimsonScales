@@ -65,9 +65,9 @@ public class GlowActiveAbility : ActiveAbility<GlowActiveAbility.State>
 				await LuminaryCardSide.GlowAbility(character, GlowAbilities);
 				await GDTask.CompletedTask;
 			},
-			effectButtonParameters: new IconEffectButton.Parameters("res://Content/Classes/Luminary/Glow.svg"),
+			effectButtonParameters: new IconEffectButton.Parameters(LuminaryCardSide.GlowIconPath),
 			effectInfoViewParameters: new TextEffectInfoView.Parameters(
-				$"Perform {Icons.Inline("res://Content/Classes/Luminary/Glow.svg")}"));
+				$"Perform {Icons.Inline(LuminaryCardSide.GlowIconPath)}"));
 
 		abilityState.GlowAbilityModels = GlowAbilities;
 		await GDTask.CompletedTask;

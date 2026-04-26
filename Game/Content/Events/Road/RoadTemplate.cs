@@ -19,7 +19,7 @@ public class RoadTemplate : RoadEventModel<RoadTemplate.ChoiceA, RoadTemplate.Ch
 			TODO
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => []; //TODO
+		public override List<SavedReward> GetRewards(SavedEventState state) => []; //TODO
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -55,7 +55,7 @@ public class RoadTemplate : RoadEventModel<RoadTemplate.ChoiceA, RoadTemplate.Ch
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{

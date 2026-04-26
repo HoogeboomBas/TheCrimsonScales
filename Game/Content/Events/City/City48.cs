@@ -22,7 +22,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 			"These spirits must depart back to the realm of the spiritual soon, but not before they impart their hidden knowledge upon you!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO: At start of scenario, each character may reveal the top two cards of their attack modifier decks
 		];
@@ -39,7 +39,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 			"These spirits must depart back to the realm of the spiritual soon, but not before they reveal the secrets of your enemies!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO: At start of scenario, reveal the top four cards of the monster attack modifier deck
 		];

@@ -12,11 +12,12 @@ public partial class InputController : Node
 
 	public const float LongPressDuration = 0.5f;
 
-	[Export] private float _dragThreshold;
-	[Export] private StringName _skipAIDecisionAction;
+	[Export]
+	private float _dragThreshold;
+	[Export]
+	private StringName _skipAIDecisionAction;
 
 	private readonly List<Touch> _touches = new List<Touch>();
-
 
 	private float _dragDistance;
 	private bool _releasedTouches;
@@ -159,11 +160,14 @@ public partial class InputController : Node
 		// 	Drag(screenDrag.Position - screenDrag.Relative, screenDrag.Position);
 		// }
 
-		// if(@event is InputEventMagnifyGesture magnifyGesture)
-		// {
-		// 	Magnifying = true;
-		// 	MagnifyEvent?.Invoke(magnifyGesture.Factor);
-		// }
+		if(Platform.DeskTop)
+		{
+			if(@event is InputEventMagnifyGesture magnifyGesture)
+			{
+				// Magnifying = true;
+				MagnifyEvent?.Invoke(magnifyGesture.Factor);
+			}
+		}
 
 		if(@event.IsActionPressed(_skipAIDecisionAction, true))
 		{

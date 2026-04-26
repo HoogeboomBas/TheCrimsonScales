@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Fractural.Tasks;
+using Godot;
 
 public partial class ErrorPopup : Popup<ErrorPopup.Request>
 {
@@ -61,8 +62,14 @@ public partial class ErrorPopup : Popup<ErrorPopup.Request>
 
 	private void OnReturnToTownPressed()
 	{
-		GameController.Instance.EndScenario(ScenarioResult.Loss);
+		ReturnToTown().Forget();
+	}
+
+	private async GDTaskVoid ReturnToTown()
+	{
+		GameController.Instance.SetScenarioResult(ScenarioResult.Loss);
 		Log.ResetHasLoggedError();
+		await GameController.Instance.EndScenario();
 	}
 
 	private void OnUndoPressed()

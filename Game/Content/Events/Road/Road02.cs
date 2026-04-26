@@ -46,20 +46,20 @@ public class Road02 : RoadEventModel<Road02.ChoiceA, Road02.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new AllStartScenarioWithConditionEventReward(Conditions.Strengthen)
+					new AllStartScenarioWithConditionReward(Conditions.Strengthen)
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioWithConditionEventReward(Conditions.Muddle)
+					new AllStartScenarioWithConditionReward(Conditions.Muddle)
 				];
 			}
 		}
@@ -74,9 +74,9 @@ public class Road02 : RoadEventModel<Road02.ChoiceA, Road02.ChoiceB>
 			You spend hours searching for another meal, but the land seems to be devoid of anything remotely edible. You reach your destination weary and hungry.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Muddle)
+			new AllStartScenarioWithConditionReward(Conditions.Muddle)
 		];
 	}
 }

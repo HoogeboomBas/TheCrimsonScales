@@ -24,7 +24,7 @@ public class Road56 : RoadEventModel<Road56.ChoiceA, Road56.ChoiceB>
 			A moment passes and rage is instantly replaced by calm. The Hollowpact speaks again with a ponderous, gravelly voice, "I can track and destroy my quarry easily enough. I save this young one from itself. Stop me again and die." With that, the Hollowpact vanishes.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -38,9 +38,9 @@ public class Road56 : RoadEventModel<Road56.ChoiceA, Road56.ChoiceB>
 			The elder Savvas dodges several blows and then, in between incoming strikes, grabs the glowing stone in the chest of the younger fighter and shatters it in a burst of energy. The younger Hollowpact's eyes go wide as it begins to disintegrate from the inside out. Your former ally nods, kicks the slain Savvas's coin purse to you, and vanishes.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(12)
+			new GainCollectiveGoldReward(12)
 		];
 	}
 }

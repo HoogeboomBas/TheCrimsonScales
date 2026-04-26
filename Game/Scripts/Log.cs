@@ -162,8 +162,8 @@ namespace Godot
 						using FileAccess errorFile = FileAccess.Open(ErrorLogPath, FileAccess.ModeFlags.Write);
 
 						string json = GameController.Instance == null
-							? JsonConvert.SerializeObject(AppController.Instance!.SaveFile.SaveData, SaveFile.JsonSerializerSettings)
-							: JsonConvert.SerializeObject(GameController.Instance.SavedCampaign, SaveFile.JsonSerializerSettings);
+							? JsonConvert.SerializeObject(AppController.Instance!.CampaignSaveData, SaveManager.JsonSerializerSettings)
+							: JsonConvert.SerializeObject(GameController.Instance.SavedCampaign, SaveManager.JsonSerializerSettings);
 						string fullErrorMessage = $"{json}\n\n\n{entry}";
 
 						errorFile.StoreLine(fullErrorMessage);

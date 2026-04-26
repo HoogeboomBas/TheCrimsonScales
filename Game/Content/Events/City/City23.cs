@@ -2,7 +2,7 @@
 
 public class City23 : CityEventModel<City23.ChoiceA, City23.ChoiceB>
 {
-	public override int Number => 00;
+	public override int Number => 23;
 
 	public override string Text =>
 		"""
@@ -22,7 +22,7 @@ public class City23 : CityEventModel<City23.ChoiceA, City23.ChoiceB>
 			You try to throw the thing away but it holds you fast, its intent clear. Then suddenly the mechanical monstrosity shudders as it sparks fly from its backside, slumping forward, cold and quiet. A Quatryl in a blue coat approaches. She looks at you, then to the machine, then back at you and finally says, "Well, that wasn't supposed to happen."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -34,6 +34,6 @@ public class City23 : CityEventModel<City23.ChoiceA, City23.ChoiceB>
 			Following at a safe distance, you're able to keep an eye on the bronze creature while not being discovered. It stops at the city walls, appearing as best you can tell to be looking to the top. You step out from your hiding spot when the creature finally notices you. It scrabbles the wall, digging rough pits with its strong metal clamps. As quickly as it takes you to decide to nock an arrow, the thing is up and over the wall. You try to make sense of the peculiar situation when a Quatryl in a blue coat approaches you. She looks to the wall, and then to you, and finally says, "Well, that wasn't supposed to happen."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

@@ -62,7 +62,7 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 
 					for(int i = 0; i < itemCount; i++)
 					{
-						ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
+						ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, hintText: "Select an item to give");
 
 						if(itemModel == null)
 						{
@@ -138,11 +138,18 @@ public class ForgedByFire : FireKnightLevelUpCardModel<ForgedByFire.CardTop, For
 							FireKnight fireKnight = GetOriginalOwner(state);
 
 							if(await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire,
+								   hintText:
 								   $"Consume {Icons.Inline(Icons.GetElement(Element.Fire))} to give an adjacent ally a {Icons.Inline(fireKnight.ClassModel.IconPath)} item."))
 							{
 								FireKnightModel fireKnightModel = (FireKnightModel)fireKnight.ClassModel;
 								List<ItemModel> remainingItemModels = fireKnightModel.AllItems.ToList();
-								ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels, "Select an item to give");
+								ItemModel itemModel = await AbilityCmd.SelectItem(state.Performer, remainingItemModels,
+									hintText: "Select an item to give");
+
+								if(itemModel == null)
+								{
+									return;
+								}
 
 								Figure figure = await AbilityCmd.SelectFigure(state,
 									list =>

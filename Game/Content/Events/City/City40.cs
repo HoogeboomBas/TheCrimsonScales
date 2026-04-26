@@ -22,9 +22,9 @@ public class City40 : CityEventModel<City40.ChoiceA, City40.ChoiceB>
 			The night proves uneventful as you proceed to supervise the shipment. Ensuring all inventory remains intact. A Bombard greets you later that night at the Sleeping Lion and pays you in full for a job well done.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(20)
+			new GainCollectiveGoldReward(20)
 		];
 	}
 
@@ -37,9 +37,9 @@ public class City40 : CityEventModel<City40.ChoiceA, City40.ChoiceB>
 			You take note of the details of the shipment and arrive at the docks late at night, finding several crates of unattended goods. You help yourself to a piece of equipment from within the crate and quickly exit the scene before a witness could show up.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<CanisterProjectile>())
+			new GainCollectiveItemReward(ModelDB.Item<CanisterProjectile>())
 		];
 	}
 }

@@ -22,9 +22,9 @@ public class Road36 : RoadEventModel<Road36.ChoiceA, Road36.ChoiceB>
 			As you approach the group of men, you recognize one particular Brighspark from your previous adventures. This warm sense of familiarity provides you with a sense of trust as you proceed to help the men mix their concoction. After several minutes of tiresome mixing, the brew turns a bright orange color. "We've done it!" the Brightspark jumps for joy as he grabs hold of your shoulders and shakes them with joy. "Here, have some! It will surely help you."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Bless, Conditions.Bless)
+			new AllStartScenarioWithConditionReward(Conditions.Bless, Conditions.Bless)
 		];
 	}
 
@@ -37,9 +37,9 @@ public class Road36 : RoadEventModel<Road36.ChoiceA, Road36.ChoiceB>
 			The men among the group angrily scold you for not wanting to help. Although you declined in a polite manner, the men begin unclipping vials of liquid from their belts and start throwing them in your direction. You flee the scene, but not before enduring a few bruises and burns from the pelting.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithDamageEventReward(3)
+			new AllStartScenarioWithDamageReward(3)
 		];
 	}
 }

@@ -62,7 +62,7 @@ public partial class Summon : Figure
 
 		CharacterOwner.RegisterSummon(this);
 
-		GameController.Instance.Map.RegisterFigure(this);
+		await GameController.Instance.Map.RegisterFigure(this);
 
 		UpdateInitiative();
 

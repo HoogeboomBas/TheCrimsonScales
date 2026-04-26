@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="MerchantsGuildHall.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="0.39794922"
+     inkscape:cx="96.746012"
+     inkscape:cy="547.80859"
+     inkscape:window-width="1729"
+     inkscape:window-height="1008"
+     inkscape:window-x="371"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ffffff;stroke-width:1.34698;stroke-linecap:round"
+       d="m 37.060345,37.060345 c -2.539895,0 -2.693966,0 -5.387931,5.38793 -1.703814,3.407628 -13.469828,37.715517 -13.469828,37.715517 0,0 8.081896,5.387931 18.857759,5.387931 10.775862,0 18.857758,-5.387931 18.857758,-5.387931 0,0 -11.766014,-34.307889 -13.469828,-37.715517 -2.693965,-5.38793 -2.848036,-5.38793 -5.38793,-5.38793 z"
+       id="path2"
+       sodipodi:nodetypes="sscscss" />
+    <path
+       style="fill:#ffffff;stroke-width:1.34698;stroke-linecap:round"
+       d="m 90.939655,37.060345 c -2.539892,0 -2.693965,0 -5.38793,5.38793 -1.703815,3.407628 -13.469828,37.715517 -13.469828,37.715517 0,0 8.081896,5.387931 18.857758,5.387931 10.775865,0 18.857765,-5.387931 18.857765,-5.387931 0,0 -11.76602,-34.307891 -13.46984,-37.715517 -2.693959,-5.38793 -2.848033,-5.38793 -5.387925,-5.38793 z"
+       id="path2-8"
+       sodipodi:nodetypes="sscscss" />
+    <path
+       style="fill:#ffffff;stroke-width:1.46038;stroke-linecap:round"
+       d="M 32.333333,40.775876 19.666666,32.693969 16.5,27.306031 19.666666,24.612062 22.833332,30 32.333333,35.387938 48.166666,30 60.833333,32.693969 v -5.387938 l -3.166666,-5.387937 3.166666,-5.387938 0.633335,-11.8534641 h 5.066665 l 0.633334,11.8534641 3.166666,5.387938 -3.166666,5.387937 v 5.387938 L 79.833334,30 95.66667,35.387938 105.16666,30 108.33333,24.612062 111.5,27.306031 108.33333,32.693969 95.66667,40.775876 79.833334,34.234323 67.166667,38.081908 V 100.04319 H 60.833333 V 38.081908 l -12.666667,-2.69397 z"
+       id="path3"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccc" />
+    <path
+       style="fill:#ffffff;stroke-width:1.34698;stroke-linecap:round"
+       d="m 61.306035,90.939653 -8.081897,10.775867 -10.775863,2.69396 H 31.672414 l -10.775862,0.53879 4.310345,6.46552 6.465517,-1.61637 H 50.530172 L 60,112 h 4 4 l 9.469828,-2.20258 H 96.32758 l 6.46553,1.61637 4.31034,-6.46552 -10.77587,-0.53879 H 85.551725 L 74.775862,101.71552 66.693965,90.939653 Z"
+       id="path4"
+       sodipodi:nodetypes="cccccccccccccccccccc" />
+    <circle
+       style="fill:none;stroke:#ffffff;stroke-width:4.31034;stroke-linecap:round;stroke-dasharray:none"
+       id="path5"
+       cx="64"
+       cy="64"
+       r="60.34483" />
+  </g>
+</svg>

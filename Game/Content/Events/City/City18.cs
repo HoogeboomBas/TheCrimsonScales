@@ -22,10 +22,10 @@ public class City18 : CityEventModel<City18.ChoiceA, City18.ChoiceB>
 			You begin chanting along with the crowd when a group of city guards arrive to break up the protest. They take down all names and collect a small fine from each protester for being a public nuisance.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseReputationEventReward(1),
-			new LoseCollectiveGoldEventReward(5)
+			new LoseReputationReward(1),
+			new LoseCollectiveGoldReward(5)
 		];
 	}
 
@@ -38,10 +38,10 @@ public class City18 : CityEventModel<City18.ChoiceA, City18.ChoiceB>
 			You demand the Inox move aside but he adamantly refuses. A screaming match ensues, and a group of city guards arrive to break up the protest and mistake your desire for ale for a desire for peace. They commend your efforts to break up the protest as they collect a small fine from each protestor, and one of the city guards slips you a small pouch of coin out of appreciation.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainReputationEventReward(1),
-			new GainCollectiveGoldEventReward(5)
+			new GainReputationReward(1),
+			new GainCollectiveGoldReward(5)
 		];
 	}
 }

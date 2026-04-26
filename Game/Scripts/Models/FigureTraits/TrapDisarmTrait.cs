@@ -24,7 +24,7 @@ public class TrapDisarmTrait(int range) : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 					$"Whenever this figure enters a hex, immediately destroy all traps in range {range}."));
 			}
 		);

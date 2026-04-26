@@ -13,6 +13,8 @@ public abstract class LuminaryCardModel<TTop, TBottom> : AbilityCardModel<TTop, 
 
 public abstract class LuminaryCardSide : AbilityCardSideModel
 {
+	public const string GlowIconPath = "res://Content/Classes/Luminary/Glow.svg";
+
 	protected AbilityCardAbility Scuttle(int distance, IReadOnlyCollection<Element> possibleElements)
 	{
 		return new AbilityCardAbility(MoveAbility.Builder()
@@ -59,9 +61,9 @@ public abstract class LuminaryCardSide : AbilityCardSideModel
 			.Build());
 	}
 
-	protected AbilityCardAbility PerformFreeGlow()
+	public static OtherAbility PerformFreeGlow()
 	{
-		return new AbilityCardAbility(OtherAbility.Builder()
+		return OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
 				GlowActiveAbility.State abilityState = (GlowActiveAbility.State)((Character)state.Performer).Cards
@@ -75,7 +77,7 @@ public abstract class LuminaryCardSide : AbilityCardSideModel
 
 				await GDTask.CompletedTask;
 			})
-			.Build());
+			.Build();
 	}
 
 	public static async GDTask GlowAbility(Figure performer, GlowAbilityModel[] glowAbilities, bool consumeElements = true)

@@ -42,20 +42,20 @@ public class City02 : CityEventModel<City02.ChoiceA, City02.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainReputationEventReward(1)
+					new GainReputationReward(1)
 				];
 			}
 			else
 			{
 				return
 				[
-					new LoseReputationEventReward(1)
+					new LoseReputationReward(1)
 				];
 			}
 		}
@@ -91,20 +91,20 @@ public class City02 : CityEventModel<City02.ChoiceA, City02.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveGoldEventReward(10)
+					new GainCollectiveGoldReward(10)
 				];
 			}
 			else
 			{
 				return
 				[
-					new LoseReputationEventReward(1)
+					new LoseReputationReward(1)
 				];
 			}
 		}

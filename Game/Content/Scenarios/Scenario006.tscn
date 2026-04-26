@@ -19,7 +19,7 @@
 
 [node name="Scenario" unique_id=750931183 instance=ExtResource("1_kdsd8")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1407382544]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1407382544]
 script = ExtResource("2_nxabk")
 StartsRevealed = true
 
@@ -103,11 +103,9 @@ position = Vector2(327.35757, 189)
 position = Vector2(436.4768, 0)
 
 [node name="Fountain1H" parent="Map/Rooms/Room" index="16" unique_id=2099141822 instance=ExtResource("11_1mlcp")]
-rotation = 1.0471976
 CannotBeDestroyed = true
 
 [node name="Marker" parent="Map/Rooms/Room/Fountain1H" index="5" unique_id=1406278279 instance=ExtResource("13_fupj6")]
-rotation = -1.0471976
 MarkerType = 26
 _hideDuringPlay = true
 
@@ -245,5 +243,5 @@ rotation = -1.0471976
 position = Vector2(-436.4768, 0)
 rotation = -1.0471976
 
-[node name="Doors" parent="Map" index="1"]
+[node name="Doors" parent="Map" parent_id_path=PackedInt32Array(1244327953) index="1" unique_id=1045544097]
 position = Vector2(635, 749)

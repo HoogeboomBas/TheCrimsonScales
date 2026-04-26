@@ -16,8 +16,7 @@ public partial class SatedIndicator : Node2D
 			.Join(this.TweenScale(0.8f, 0.3f))
 			.Append(this.TweenScale(destinationScale, 0.2f)
 				.SetEasing(Easing.OutBack))
-			.Build()
-			.PlayFastForwardable();
+			.Build().PlayFastForwardable();
 	}
 
 	public void HideAnimated()
@@ -31,7 +30,6 @@ public partial class SatedIndicator : Node2D
 				Visible = false;
 				QueueFree();
 			})
-			.Build()
-			.PlayFastForwardable();
+			.Build().PlayFastForwardable();
 	}
 }

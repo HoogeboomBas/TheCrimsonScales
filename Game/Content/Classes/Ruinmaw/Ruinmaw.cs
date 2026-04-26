@@ -4,6 +4,8 @@ using Godot;
 
 public partial class Ruinmaw : Character, IHasEmpower
 {
+	public const string SatedIconPath = "res://Content/Classes/Ruinmaw/SatedIcon.png";
+	public const string SatedUpIconPath = "res://Content/Classes/Ruinmaw/SatedUpIcon.png";
 	public static EmpowerRuinmaw Empower { get; } = ModelDB.Condition<EmpowerRuinmaw>();
 
 	[Export]
@@ -16,9 +18,10 @@ public partial class Ruinmaw : Character, IHasEmpower
 
 	public event Func<Ruinmaw, GDTask> SateEvent;
 
-	public override void Spawn(SavedCharacter savedCharacter, int index)
+	public override async GDTask Spawn(SavedCharacter savedCharacter, int index)
 	{
-		base.Spawn(savedCharacter, index);
+		await base.Spawn(savedCharacter, index);
+
 		_satedIndicator.Hide();
 	}
 
@@ -58,7 +61,8 @@ public partial class Ruinmaw : Character, IHasEmpower
 			parameters => parameters.Figure == this,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters($"{Icons.Inline("res://Content/Classes/Ruinmaw/RuinmawSated.png")}"));
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+					$"{Icons.Inline("res://Content/Classes/Ruinmaw/RuinmawSated.png")}"));
 			}
 		);
 

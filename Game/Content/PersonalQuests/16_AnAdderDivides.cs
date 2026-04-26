@@ -42,4 +42,10 @@ public class AnAdderDivides : TheCrimsonScalesPersonalQuest<AnAdderDivides.Data>
 			}
 		);
 	}
+
+	protected override bool GetCanRetire(SavedCampaign savedCampaign, Data personalQuestData)
+	{
+		// This personal quest is manually completed by an event card (City 57)
+		return false;
+	}
 }

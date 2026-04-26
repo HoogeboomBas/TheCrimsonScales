@@ -46,13 +46,13 @@ public class City50 : CityEventModel<City50.ChoiceA, City50.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<BottledMoonlight>())
+					new GainCollectiveItemReward(ModelDB.Item<BottledMoonlight>())
 				];
 			}
 			else
@@ -71,6 +71,6 @@ public class City50 : CityEventModel<City50.ChoiceA, City50.ChoiceB>
 			You ask the Aesther to allow you to closer examine the jar and the Aesther tosses it in your direction. Not anticipating the jar to be thrown your way, you fumble to catch it but it shatters to the ground and a burst of soft light emanates from the shattered glass. "You fool!" the Aesther scowls as it turns and walks away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

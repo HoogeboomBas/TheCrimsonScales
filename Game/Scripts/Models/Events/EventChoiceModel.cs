@@ -12,5 +12,5 @@ public abstract class EventChoiceModel : AbstractModel
 
 	public abstract string GetStoryText(SavedEventState state);
 
-	public abstract List<EventReward> GetRewards(SavedEventState state);
+	public abstract List<SavedReward> GetRewards(SavedEventState state);
 }

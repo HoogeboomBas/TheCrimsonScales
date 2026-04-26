@@ -18,7 +18,7 @@ public class ForcedMovementImmunityTrait : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters("Immune to forced movement."));
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters => "Immune to forced movement."));
 			}
 		);
 	}

@@ -8,6 +8,18 @@ public class MirefootModel : ClassModel
 	public override int HandSize => 10;
 	public override Ancestry Ancestry => Ancestry.Quatryl;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City53>(),
+		ModelDB.Event<Road53>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City54>(),
+		// ModelDB.Event<Road54>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Mirefoot";
 	public override Color PrimaryColor => Color.FromHtml("ef6b26");
 	public override Color SecondaryColor => Color.FromHtml("4b732e");
@@ -51,5 +63,30 @@ public class MirefootModel : ClassModel
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<MirefootPerks.ReplaceOneMinusTwoWithOnePlusZero>(),
+
+		ModelDB.Perk<MirefootPerks.ReplaceOneMinusOneWithOnePlusOne>(),
+		ModelDB.Perk<MirefootPerks.ReplaceOneMinusOneWithOnePlusOne>(),
+
+		ModelDB.Perk<MirefootPerks.ReplaceTwoPlusZeroWithTwoPlusZeroPlusXWhereXIsTargetPoisonValue>(),
+		ModelDB.Perk<MirefootPerks.ReplaceTwoPlusZeroWithTwoPlusZeroPlusXWhereXIsTargetPoisonValue>(),
+
+		ModelDB.Perk<MirefootPerks.ReplaceOnePlusZeroWithTwoPlusZeroCreateDifficultTerrainRolling>(),
+		ModelDB.Perk<MirefootPerks.ReplaceOnePlusZeroWithTwoPlusZeroCreateDifficultTerrainRolling>(),
+
+		ModelDB.Perk<MirefootPerks.ReplaceTwoPlusOneWithTwoPlusTwo>(),
+
+		ModelDB.Perk<MirefootPerks.ReplaceOnePlusOneWithOnePlusZeroWoundTwo>(),
+		ModelDB.Perk<MirefootPerks.ReplaceOnePlusOneWithOnePlusZeroWoundTwo>(),
+
+		ModelDB.Perk<MirefootPerks.AddTwoPlusZeroIfOccupyingDifficultTerrainGainInvisibleRolling>(),
+
+		ModelDB.Perk<MirefootPerks.AddFourPlusZeroIfOccupyingDifficultTerrainPlusOneInsteadRolling>(),
+
+		ModelDB.Perk<MirefootPerks.IgnoreScenarioEffectsRemoveOneMinusOne>(),
+
+		ModelDB.Perk<MirefootPerks.SilentStepOfTheBogWraith>(),
+
+		ModelDB.Perk<MirefootPerks.HiddenBlade>()
 	];
 }

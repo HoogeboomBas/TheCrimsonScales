@@ -26,9 +26,9 @@ public class City54 : CityEventModel<City54.ChoiceA, City54.ChoiceB>
 			When you try to pay for your meal, you are told that the Mirefoot already paid your bill before leaving earlier.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Bless, Conditions.Strengthen)
+			new AllStartScenarioWithConditionReward(Conditions.Bless, Conditions.Strengthen)
 		];
 	}
 
@@ -45,10 +45,10 @@ public class City54 : CityEventModel<City54.ChoiceA, City54.ChoiceB>
 			The chef was right, the duck was astounding. You pay your bill, and leave feeling well-fed and full of energy for your next adventure.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Strengthen),
-			new LoseGoldEachEventReward(3)
+			new AllStartScenarioWithConditionReward(Conditions.Strengthen),
+			new LoseGoldEachReward(3)
 		];
 	}
 }

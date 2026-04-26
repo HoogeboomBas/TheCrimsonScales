@@ -44,7 +44,7 @@ public class Road40 : RoadEventModel<Road40.ChoiceA, Road40.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
@@ -54,7 +54,7 @@ public class Road40 : RoadEventModel<Road40.ChoiceA, Road40.ChoiceB>
 			{
 				return
 				[
-					new AllStartScenarioWithDamageEventReward(3)
+					new AllStartScenarioWithDamageReward(3)
 				];
 			}
 		}
@@ -92,20 +92,20 @@ public class Road40 : RoadEventModel<Road40.ChoiceA, Road40.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(5)
+					new LoseCollectiveGoldReward(5)
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioDiscardingEventReward(1)
+					new AllStartScenarioDiscardingReward(1)
 				];
 			}
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using Godot;
+﻿using Godot;
 
 public partial class CharacterInfoItem : FigureInfoItem<CharacterInfoItem.Parameters>
 {

@@ -31,12 +31,12 @@ public static class AbilityCmd
 
 	public static async GDTask DiscardOrLose(AbilityCard card)
 	{
-		if(card.CardState == CardState.Round || card.CardState == CardState.Persistent || card.CardState == CardState.PersistentNoDeactivate)
+		if(card.CardState is CardState.Round or CardState.Persistent or CardState.PersistentNoDeactivate)
 		{
 			await DiscardCard(card);
 		}
 
-		if(card.CardState == CardState.RoundLoss || card.CardState == CardState.PersistentLoss)
+		if(card.CardState is CardState.RoundLoss or CardState.PersistentLoss)
 		{
 			await LoseCard(card);
 		}
@@ -70,7 +70,7 @@ public static class AbilityCmd
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, state.Performer,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters("All attacks targeting this figure this round gain disadvantage."))
+						new InfoTextExtraEffect.Parameters(textParameters => "All attacks targeting this figure this round gain disadvantage."))
 				);
 
 				await GDTask.CompletedTask;
@@ -304,11 +304,11 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, string effectText)
+	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, Func<RichTextParameters, string> getEffectText)
 	{
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(abilityState, target,
 			parameters => parameters.Figure == target,
-			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(effectText))
+			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(getEffectText))
 		);
 
 		if(abilityState.Performer is Character character)
@@ -319,11 +319,11 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask AddCharacterToken(Character character, Figure target, string effectText)
+	public static async GDTask AddCharacterToken(Character character, Figure target, Func<RichTextParameters, string> getEffectText)
 	{
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(character, target,
 			parameters => parameters.Figure == target,
-			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(effectText))
+			parameters => parameters.Add(new InfoTextExtraEffect.Parameters(getEffectText))
 		);
 
 		target.AddEffectView<CharacterTokenHexObjectEffectView>(new CharacterTokenHexObjectEffectView.Parameters(character, target));
@@ -394,7 +394,7 @@ public static class AbilityCmd
 	{
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
-	
+
 	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
 	{
 		PackedScene scene = ResourceLoader.Load<PackedScene>(assetPath);
@@ -497,8 +497,7 @@ public static class AbilityCmd
 			return null;
 		}
 
-		await overlayTile.TweenGlobalPosition(movedToHex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine)
-			.PlayFastForwardableAsync();
+		await overlayTile.TweenGlobalPosition(movedToHex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardableAsync();
 		await GDTask.DelayFastForwardable(0.03f);
 		overlayTile.SetOriginHexAndRotation(movedToHex);
 
@@ -749,15 +748,15 @@ public static class AbilityCmd
 			return false;
 		}
 
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter =
+		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
 				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
 
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter2 =
+		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
 				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
 
-		if(!canEnter.CanEnter || !canEnter.CanEnter)
+		if(!canEnterA.CanEnter || !canEnterB.CanEnter)
 		{
 			return false;
 		}
@@ -909,7 +908,8 @@ public static class AbilityCmd
 		return consumeEventParameters.Consumed ? consumeEventParameters.ConsumedElement : null;
 	}
 
-	public static async GDTask<bool> AskConsumeElement(Figure authority, Element element, string effectInfoText = null, string hintText = null)
+	public static async GDTask<bool> AskConsumeElement(Figure authority, Element element, bool mandatory = false, string effectInfoText = null,
+		string hintText = null)
 	{
 		object subscriber = new object();
 		ScenarioEvents.ConsumeElementEvent.Subscribe(authority, subscriber,
@@ -922,7 +922,8 @@ public static class AbilityCmd
 			{
 				applyParameters.SetConsumed(element);
 				await TryConsumeElement(element);
-			}, EffectType.Selectable, 0, false, false,
+			},
+			mandatory ? EffectType.SelectableMandatory : EffectType.Selectable, 0, false, false,
 			new ConsumeElementEffectButton.Parameters(element),
 			new TextEffectInfoView.Parameters(effectInfoText ?? $"Consume {Icons.Inline(Icons.GetElement(element))}"));
 
@@ -1055,7 +1056,8 @@ public static class AbilityCmd
 		return selectedItem;
 	}
 
-	public static async GDTask<ItemModel> SelectItem(Figure authority, List<ItemModel> items, string hintText = "Select an item")
+	public static async GDTask<ItemModel> SelectItem(Figure authority, List<ItemModel> items, bool mandatory = false,
+		string hintText = "Select an item")
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
 			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
@@ -1071,7 +1073,7 @@ public static class AbilityCmd
 
 					await GDTask.CompletedTask;
 				},
-				effectType: EffectType.SelectableMandatory,
+				effectType: mandatory ? EffectType.SelectableMandatory : EffectType.Selectable,
 				effectButtonParameters: new ItemEffectButton.Parameters(item),
 				effectInfoViewParameters: new ItemEffectInfoView.Parameters(item)
 			));
@@ -1202,51 +1204,50 @@ public static class AbilityCmd
 		GameController.Instance.EndEvent += OnScenarioEnd;
 	}
 
+	public static async GDTask GainGold(Character character, int amount)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddGold(amount);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+
+		await GDTask.CompletedTask;
+	}
+
+	public static async GDTask GainXP(Character character, int amount)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddXP(amount);
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+
+		await GDTask.CompletedTask;
+	}
+
+	public static async GDTask GainCheckmark(Character character)
+	{
+		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+		{
+			character.SavedCharacter.AddCheckmark();
+		}
+
+		GameController.Instance.EndEvent += OnScenarioEnd;
+
+		await GDTask.CompletedTask;
+	}
+
 	public static ItemModel GetRandomAvailableOrb()
 	{
-		return GetRandomAvailableItem(
-		[
-			ModelDB.Item<OrbOfConfusion>(),
-			ModelDB.Item<OrbOfMomentum>(),
-			ModelDB.Item<OrbOfAgility>(),
-			ModelDB.Item<OrbOfVigor>(),
-			ModelDB.Item<OrbOfRetribution>(),
-			ModelDB.Item<OrbOfInfection>(),
-			ModelDB.Item<OrbOfVitality>(),
-			ModelDB.Item<OrbOfProtection>(),
-			ModelDB.Item<OrbOfFortune>(),
-			ModelDB.Item<OrbOfDespair>(),
-		]);
+		return AppController.GetRandomAvailableOrb(GameController.Instance.SavedCampaign, GameController.Instance.StateRNG);
 	}
 
 	public static ItemModel GetRandomAvailableStone()
 	{
-		return GetRandomAvailableItem(
-		[
-			ModelDB.Item<FrostStone>(),
-			ModelDB.Item<StormStone>(),
-			ModelDB.Item<InfernoStone>(),
-			ModelDB.Item<TremorStone>(),
-			ModelDB.Item<BrilliantStone>(),
-			ModelDB.Item<DarkStone>(),
-			ModelDB.Item<WonderStone>(),
-		]);
-	}
-
-	private static ItemModel GetRandomAvailableItem(IEnumerable<ItemModel> itemModels)
-	{
-		List<ItemModel> availableItems = new List<ItemModel>();
-		foreach(ItemModel itemModel in itemModels)
-		{
-			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-			int unlockedCount = savedItem.UnlockedCount;
-			for(int i = 0; i < itemModel.ShopCount - unlockedCount; i++)
-			{
-				availableItems.Add(itemModel);
-			}
-		}
-
-		return availableItems.Count == 0 ? null : availableItems.PickRandom(GameController.Instance.StateRNG);
+		return AppController.GetRandomAvailableStone(GameController.Instance.SavedCampaign, GameController.Instance.StateRNG);
 	}
 
 	public static async GDTask Lose()
@@ -1255,6 +1256,11 @@ public static class AbilityCmd
 
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioLostView.Open();
+
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+
+		await GameController.Instance.EndScenario();
+
 		await GDTask.Never(GameController.CancellationToken);
 	}
 
@@ -1262,8 +1268,15 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(true));
 
+		await GameController.Instance.OpenStoryViewConclusion();
+
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioWonView.Open();
+
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+
+		await GameController.Instance.EndScenario();
+
 		await GDTask.Never(GameController.CancellationToken);
 	}
 
@@ -1511,7 +1524,7 @@ public static class AbilityCmd
 		return true;
 	}
 
-	private static bool CanConsumeElement(Element element, Figure potentialConsumer)
+	public static bool CanConsumeElement(Element element, Figure potentialConsumer)
 	{
 		if(GameController.Instance.ElementManager.GetState(element) == ElementState.Inert ||
 		   !ScenarioCheckEvents.CanConsumeElementCheckEvent

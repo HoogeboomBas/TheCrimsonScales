@@ -31,11 +31,11 @@ public partial class ScenarioLostView : Control
 
 	private void OnRetryPressed()
 	{
-		GameController.Instance.EndScenario(ScenarioResult.Retry);
+		GameController.Instance.SetScenarioResult(ScenarioResult.Retry);
 	}
 
 	private void OnReturnToTownPressed()
 	{
-		GameController.Instance.EndScenario(ScenarioResult.Loss);
+		GameController.Instance.SetScenarioResult(ScenarioResult.Loss);
 	}
 }

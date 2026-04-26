@@ -30,4 +30,9 @@ public class CardElementInfusion
 	{
 		return Consume(Elements.All, infusedElement);
 	}
+
+	public static CardElementInfusion ConsumeWildInfuseWild()
+	{
+		return new CardElementInfusion(Elements.All, Elements.All);
+	}
 }

@@ -20,10 +20,10 @@ public class Road27 : RoadEventModel<Road27.ChoiceA, Road27.ChoiceB>
 			As you dust off your clothes, you reach into your pockets and realize you've been pickpocketed.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddRoadEventEventReward(ModelDB.Event<Road33>()),
-			new LoseCollectiveGoldEventReward(10)
+			new AddRoadReward(ModelDB.Event<Road33>()),
+			new LoseCollectiveGoldReward(10)
 		];
 	}
 
@@ -36,9 +36,9 @@ public class Road27 : RoadEventModel<Road27.ChoiceA, Road27.ChoiceB>
 			After patiently waiting for about an hour, several large Inox wearing heavy armor wrapped in chains approach the caravan. You question the circumstances and the Inox explain that they're bounty hunters, and this Orchid is a dangerous wanted criminal. They thank you with a gift for guarding the caravan and begin to prepare for the next leg of their journey.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<StaffOfRetribution>())
+			new GainCollectiveItemReward(ModelDB.Item<StaffOfRetribution>())
 		];
 	}
 }

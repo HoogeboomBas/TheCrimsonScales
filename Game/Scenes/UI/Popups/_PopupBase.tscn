@@ -135,6 +135,7 @@ offset_right = 100.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_styles/panel = ExtResource("1_se1au")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1199971098]

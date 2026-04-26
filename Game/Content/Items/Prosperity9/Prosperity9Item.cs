@@ -4,5 +4,5 @@
 
 	protected override int ColumnCount => 6;
 	protected override int RowCount => 3;
-	protected override string TexturePath => "res://Content/Items/Prosperity3/SpriteSheet.jpg";
+	protected override string TexturePath => "res://Content/Items/Prosperity9/SpriteSheet.jpg";
 }

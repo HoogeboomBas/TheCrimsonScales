@@ -15,6 +15,59 @@ public class Road18 : RoadEventModel<Road18.ChoiceA, Road18.ChoiceB>
 		The Inox places two totems on the table of his booth. "Today, I can sell you the Bull Totem of Aggression or the Dog Totem of Protection. Which would you care to buy?"
 		""";
 
+	public class ChoiceATotemReward : TotemReward
+	{
+		protected override string Name => "Bull";
+
+		protected override string GetDescriptionLabelText(RichTextParameters textParameters) =>
+			$"All characters adjacent to this obstacle gain {Icons.Inline(Icons.Retaliate, textParameters)}1.";
+
+		protected override void OnTotemPlaced(Obstacle obstacle)
+		{
+			base.OnTotemPlaced(obstacle);
+
+			ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(this,
+				parameters =>
+					parameters.Figure is Character &&
+					RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
+				parameters =>
+				{
+					parameters.AddRetaliate(1, 1);
+				}
+			);
+
+			ScenarioEvents.RetaliateEvent.Subscribe(this,
+				parameters =>
+					parameters.RetaliatingFigure is Character &&
+					RangeHelper.Distance(parameters.RetaliatingFigure.Hex, obstacle.Hex) <= 1 &&
+					RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
+				async parameters =>
+				{
+					parameters.AdjustRetaliate(1);
+					await GDTask.CompletedTask;
+				}
+			);
+
+			ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
+				parameters => parameters.Figure is Character,
+				async parameters =>
+				{
+					ScenarioCheckEvents.RetaliateCheckEvent.FireChangedEvent();
+					await GDTask.CompletedTask;
+				}
+			);
+		}
+
+		protected override void OnTotemDestroyed(Obstacle obstacle)
+		{
+			base.OnTotemDestroyed(obstacle);
+
+			ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(this);
+			ScenarioEvents.RetaliateEvent.Unsubscribe(this);
+			ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
+		}
+	}
+
 	public class ChoiceA : EventChoiceModel, IEventSubscriber
 	{
 		private const string ConditionsMetKey = "ConditionsMet";
@@ -59,63 +112,72 @@ public class Road18 : RoadEventModel<Road18.ChoiceA, Road18.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10),
-					new TotemEventReward(
-						obstacle =>
-						{
-							ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(this,
-								parameters =>
-									parameters.Figure is Character &&
-									RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
-								parameters =>
-								{
-									parameters.AddRetaliate(1, 1);
-								}
-							);
-
-							ScenarioEvents.RetaliateEvent.Subscribe(this,
-								parameters =>
-									parameters.RetaliatingFigure is Character &&
-									RangeHelper.Distance(parameters.RetaliatingFigure.Hex, obstacle.Hex) <= 1 &&
-									RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
-								async parameters =>
-								{
-									parameters.AdjustRetaliate(1);
-									await GDTask.CompletedTask;
-								}
-							);
-
-							ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
-								parameters => parameters.Figure is Character,
-								async parameters =>
-								{
-									ScenarioCheckEvents.RetaliateCheckEvent.FireChangedEvent();
-									await GDTask.CompletedTask;
-								}
-							);
-						},
-						obstacle =>
-						{
-							ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(this);
-							ScenarioEvents.RetaliateEvent.Unsubscribe(this);
-							ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
-						},
-						"Bull",
-						color =>
-							$"All characters adjacent to this obstacle gain {Icons.Inline(Icons.Retaliate, color: color)}1."
-					)
+					new LoseCollectiveGoldReward(10),
+					new ChoiceATotemReward()
 				];
 			}
 			else
 			{
 				return [];
 			}
+		}
+	}
+
+	public class ChoiceBTotemReward : TotemReward
+	{
+		protected override string Name => "Dog";
+
+		protected override string GetDescriptionLabelText(RichTextParameters textParameters) =>
+			$"All characters adjacent to this obstacle gain {Icons.Inline(Icons.Shield, textParameters)}1.";
+
+		protected override void OnTotemPlaced(Obstacle obstacle)
+		{
+			base.OnTotemPlaced(obstacle);
+
+			ScenarioCheckEvents.ShieldCheckEvent.Subscribe(this,
+				parameters =>
+					parameters.Figure is Character &&
+					RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
+				applyParameters =>
+				{
+					applyParameters.AdjustShield(1);
+				}
+			);
+
+			ScenarioEvents.SufferDamageEvent.Subscribe(this,
+				parameters =>
+					parameters.Figure is Character &&
+					RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
+				async parameters =>
+				{
+					parameters.AdjustShield(1);
+					await GDTask.CompletedTask;
+				}
+			);
+
+			ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
+				parameters => parameters.Figure is Character,
+				async parameters =>
+				{
+					ScenarioCheckEvents.ShieldCheckEvent.FireChangedEvent();
+					await GDTask.CompletedTask;
+				}
+			);
+		}
+
+		protected override void OnTotemDestroyed(Obstacle obstacle)
+		{
+			base.OnTotemDestroyed(obstacle);
+
+			ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(this);
+			ScenarioEvents.SufferDamageEvent.Unsubscribe(this);
+			ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
 		}
 	}
 
@@ -163,56 +225,14 @@ public class Road18 : RoadEventModel<Road18.ChoiceA, Road18.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10),
-					new TotemEventReward(
-						obstacle =>
-						{
-							ScenarioCheckEvents.ShieldCheckEvent.Subscribe(this,
-								parameters =>
-									parameters.Figure is Character &&
-									RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
-								applyParameters =>
-								{
-									applyParameters.AdjustShield(1);
-								}
-							);
-
-							ScenarioEvents.SufferDamageEvent.Subscribe(this,
-								parameters =>
-									parameters.Figure is Character &&
-									RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
-								async parameters =>
-								{
-									parameters.AdjustShield(1);
-									await GDTask.CompletedTask;
-								}
-							);
-
-							ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
-								parameters => parameters.Figure is Character,
-								async parameters =>
-								{
-									ScenarioCheckEvents.ShieldCheckEvent.FireChangedEvent();
-									await GDTask.CompletedTask;
-								}
-							);
-						},
-						obstacle =>
-						{
-							ScenarioCheckEvents.ShieldCheckEvent.Unsubscribe(this);
-							ScenarioEvents.SufferDamageEvent.Unsubscribe(this);
-							ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
-						},
-						"Dog",
-						color =>
-							$"All characters adjacent to this obstacle gain {Icons.Inline(Icons.Shield, color: color)}1."
-					)
+					new LoseCollectiveGoldReward(10),
+					new ChoiceBTotemReward()
 				];
 			}
 			else

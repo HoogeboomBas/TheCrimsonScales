@@ -14,10 +14,10 @@ public class SavedEvents
 		ModelDB.Event<City03>(),
 		ModelDB.Event<City04>(),
 		ModelDB.Event<City05>(),
-		// ModelDB.Event<City06>(),
+		ModelDB.Event<City06>(),
 		ModelDB.Event<City07>(),
 		ModelDB.Event<City08>(),
-		// ModelDB.Event<City09>(),
+		// ModelDB.Event<City09>(), // TODO: Unlock later after unlocking Enhancer
 		ModelDB.Event<City10>(),
 		ModelDB.Event<City11>(),
 		ModelDB.Event<City12>(),
@@ -43,7 +43,7 @@ public class SavedEvents
 
 	private static readonly EventModel[] StartingRoadEventDeck =
 	[
-		// ModelDB.Event<Road01>(),
+		ModelDB.Event<Road01>(),
 		ModelDB.Event<Road02>(),
 		ModelDB.Event<Road03>(),
 		ModelDB.Event<Road04>(),
@@ -52,7 +52,7 @@ public class SavedEvents
 		ModelDB.Event<Road07>(),
 		ModelDB.Event<Road08>(),
 		ModelDB.Event<Road09>(),
-		// ModelDB.Event<Road10>(),
+		ModelDB.Event<Road10>(),
 		ModelDB.Event<Road11>(),
 		// ModelDB.Event<Road12>(),
 		ModelDB.Event<Road13>(),
@@ -79,10 +79,16 @@ public class SavedEvents
 	public List<string> CityEventDeckIds { get; private set; }
 
 	[JsonProperty]
+	public List<string> TopCityDeckQueueIds { get; private set; } = new List<string>();
+
+	[JsonProperty]
 	public List<string> RoadEventDeckIds { get; private set; }
 
 	[JsonProperty]
-	public List<SavedEventState> SavedEventStates { get; private set; } = new List<SavedEventState>();
+	public List<string> TopRoadDeckQueueIds { get; private set; } = new List<string>();
+
+	// [JsonProperty]
+	// public List<SavedEventState> SavedEventStates { get; private set; } = new List<SavedEventState>();
 
 	[JsonProperty]
 	public bool CanDrawCityEvent { get; private set; }
@@ -98,45 +104,56 @@ public class SavedEvents
 		RoadEventDeckIds.Shuffle(tempRNG);
 	}
 
-	public void AddSavedEventState(SavedEventState savedEventState)
-	{
-		SavedEventStates.Add(savedEventState);
-	}
-
-	public void RemoveSavedEventState(SavedEventState savedEventState)
-	{
-		SavedEventStates.Remove(savedEventState);
-	}
-
 	public void OnScenarioEnded()
 	{
 		CanDrawCityEvent = true;
-		SavedEventStates.Clear();
 	}
 
 	public EventModel DrawCityEvent()
 	{
-		if(CityEventDeckIds.Count == 0)
+		string id;
+		if(TopCityDeckQueueIds.Count > 0)
 		{
-			throw new Exception("The City Event deck is empty!");
+			id = TopCityDeckQueueIds[TopCityDeckQueueIds.Count - 1];
+			TopCityDeckQueueIds.RemoveAt(TopCityDeckQueueIds.Count - 1);
+		}
+		else
+		{
+			if(CityEventDeckIds.Count == 0)
+			{
+				throw new Exception("The City Event deck is empty!");
+			}
+
+			id = CityEventDeckIds[CityEventDeckIds.Count - 1];
+			CityEventDeckIds.RemoveAt(CityEventDeckIds.Count - 1);
 		}
 
 		CanDrawCityEvent = false;
 
-		EventModel eventModel = ModelDB.GetById<EventModel>(CityEventDeckIds[CityEventDeckIds.Count - 1]);
-		CityEventDeckIds.RemoveAt(CityEventDeckIds.Count - 1);
+		EventModel eventModel = ModelDB.GetById<EventModel>(id);
 		return eventModel;
 	}
 
 	public EventModel DrawRoadEvent()
 	{
-		if(RoadEventDeckIds.Count == 0)
+		string id;
+		if(TopRoadDeckQueueIds.Count > 0)
 		{
-			throw new Exception("The Road Event deck is empty!");
+			id = TopRoadDeckQueueIds[TopRoadDeckQueueIds.Count - 1];
+			TopRoadDeckQueueIds.RemoveAt(TopRoadDeckQueueIds.Count - 1);
+		}
+		else
+		{
+			if(RoadEventDeckIds.Count == 0)
+			{
+				throw new Exception("The Road Event deck is empty!");
+			}
+
+			id = RoadEventDeckIds[RoadEventDeckIds.Count - 1];
+			RoadEventDeckIds.RemoveAt(RoadEventDeckIds.Count - 1);
 		}
 
-		EventModel eventModel = ModelDB.GetById<EventModel>(RoadEventDeckIds[RoadEventDeckIds.Count - 1]);
-		RoadEventDeckIds.RemoveAt(RoadEventDeckIds.Count - 1);
+		EventModel eventModel = ModelDB.GetById<EventModel>(id);
 		return eventModel;
 	}
 
@@ -184,5 +201,27 @@ public class SavedEvents
 
 		RoadEventDeckIds.Add(eventModel.Id.ToString());
 		RoadEventDeckIds.Shuffle(rng);
+	}
+
+	public void AddCityEventToTopQueue(EventModel eventModel)
+	{
+		if(eventModel.EventType != EventType.City)
+		{
+			Log.Error("Trying to add an event of the wrong type!");
+			return;
+		}
+
+		TopCityDeckQueueIds.Add(eventModel.Id.ToString());
+	}
+
+	public void AddRoadEventToTopQueue(EventModel eventModel)
+	{
+		if(eventModel.EventType != EventType.Road)
+		{
+			Log.Error("Trying to add an event of the wrong type!");
+			return;
+		}
+
+		TopRoadDeckQueueIds.Add(eventModel.Id.ToString());
 	}
 }

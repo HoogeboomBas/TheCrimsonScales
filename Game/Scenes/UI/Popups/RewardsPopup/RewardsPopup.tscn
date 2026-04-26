@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://csspferq1wa8d"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_r4vwb"]
+[ext_resource type="Script" uid="uid://bs215b88ahm47" path="res://Scripts/UI/Popups/RewardsPopup/RewardsPopup.cs" id="2_1q54q"]
+[ext_resource type="PackedScene" uid="uid://ceyxerjjfld0s" path="res://Scenes/UI/Popups/RewardsPopup/RewardLabel.tscn" id="3_vbqpb"]
+[ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="7_ejlv5"]
+
+[node name="RewardsPopup" unique_id=372709560 node_paths=PackedStringArray("_rewardLabelParent", "_confirmButton") instance=ExtResource("1_r4vwb")]
+script = ExtResource("2_1q54q")
+_rewardLabelScene = ExtResource("3_vbqpb")
+_rewardLabelParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Labels")
+_confirmButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer/ConfirmButton")
+
+[node name="Button" parent="Background" parent_id_path=PackedInt32Array(976323768) index="0" unique_id=1721606754]
+visible = false
+
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="0" unique_id=1584988073]
+visible = false
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Rewards"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="0" unique_id=1712449809]
+custom_minimum_size = Vector2(400, 0)
+
+[node name="Labels" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" unique_id=668819816]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ConfirmButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" parent_id_path=PackedInt32Array(1394157472) index="0" unique_id=1971031713]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+
+[node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ConfirmButtonContainer" index="0" unique_id=963866337 instance=ExtResource("7_ejlv5")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+_startActive = true

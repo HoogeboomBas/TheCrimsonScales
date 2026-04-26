@@ -20,7 +20,7 @@ public class City21 : CityEventModel<City21.ChoiceA, City21.ChoiceB>
 			You begin to slay the black imps, but there are too many to count. It seems that for every black imp you kill, another two take its place. Weary from slinging your blade, you eventually leave the establishment with a lingering curiosity as to how this infestation occurred in the first place.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -34,9 +34,9 @@ public class City21 : CityEventModel<City21.ChoiceA, City21.ChoiceB>
 			After reporting the infestation to the authorities, the librarian returns to consciousness and explains that she is the wife of Sir Kenhaven, one of the wealthiest merchants in all of Gloomhaven, and promises to return the favor of escorting her out of the library with a guarded escort of her own.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new DoNotDrawRoadEventEventReward()
+			new DoNotDrawRoadReward()
 		];
 	}
 }

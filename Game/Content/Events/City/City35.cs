@@ -24,9 +24,9 @@ public class City35 : CityEventModel<City35.ChoiceA, City35.ChoiceB>
 			"We brought too much inventory and can't bring it all back to our homeland," the Quatryl explains. "Help yourself to these."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<ComfortableShoes>())
+			new GainCollectiveItemReward(ModelDB.Item<ComfortableShoes>())
 		];
 	}
 
@@ -41,9 +41,9 @@ public class City35 : CityEventModel<City35.ChoiceA, City35.ChoiceB>
 			"We brought an assortment of health potions to showcase here today. However, we brought one too many and decided to give out the remaining for free. If you care for one, feel free to take the last one."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<MajorHealingPotion>())
+			new GainCollectiveItemReward(ModelDB.Item<MajorHealingPotion>())
 		];
 	}
 }

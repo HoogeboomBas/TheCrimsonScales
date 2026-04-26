@@ -20,10 +20,10 @@ public class Road15 : RoadEventModel<Road15.ChoiceA, Road15.ChoiceB>
 			You head into the forest but the density of the trees blocks the sunlight and you have trouble staying on the path. In the midst of the darkness you accidentally stumble into a large beehive and eventually make it out of the forest with a few burning stings to remember your journey by.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Wound1),
-			new AllStartScenarioWithDamageEventReward(2)
+			new AllStartScenarioWithConditionReward(Conditions.Wound1),
+			new AllStartScenarioWithDamageReward(2)
 		];
 	}
 
@@ -38,9 +38,9 @@ public class Road15 : RoadEventModel<Road15.ChoiceA, Road15.ChoiceB>
 			As the sun shines down from above, you walk through the dirt path and are easily able to avoid the thornbushes in the daylight. You manage to make it through the path without a single scratch.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainXPEventReward(6)
+			new GainXPReward(6)
 		];
 	}
 }

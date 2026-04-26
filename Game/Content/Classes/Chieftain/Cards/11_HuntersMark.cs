@@ -16,7 +16,8 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 				.WithOnActivate(async state =>
 				{
 					Figure chosenFigure = state.GetCustomValue<Figure>(this, "Figure");
-					await AbilityCmd.AddCharacterToken(state, chosenFigure, $"This enemy focuses on you before your mounted summon.");
+					await AbilityCmd.AddCharacterToken(state, chosenFigure,
+						textParameters => $"This enemy focuses on you before your mounted summon.");
 
 					// If targeted by chosen enemy, reduce own sorting initiative for targeting purposes
 					ScenarioCheckEvents.PotentialTargetCheckEvent.Subscribe(state, this,

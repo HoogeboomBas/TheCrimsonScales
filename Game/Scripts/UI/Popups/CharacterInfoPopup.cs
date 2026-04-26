@@ -64,7 +64,7 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 			return;
 		}
 
-		BetweenScenariosController.Instance?.RetireCharacter(PopupRequest.SavedCharacter, PopupRequest.SavedCampaign);
+		AppController.Instance.RetireCharacter(PopupRequest.SavedCharacter, PopupRequest.SavedCampaign);
 
 		Close();
 	}
@@ -89,7 +89,7 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 	private void OnDeletePressed()
 	{
 		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?",
-			"Are you sure you want to delete this character?\nThis can not be undone!",
+			"Are you sure you want to delete this character?\nThis can not be reverted!",
 			new TextButton.Parameters("Cancel",
 				() =>
 				{
@@ -100,7 +100,7 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 				{
 					PopupRequest.SavedCampaign.DeleteCharacter(PopupRequest.SavedCharacter);
 
-					AppController.Instance.SaveFile.Save();
+					AppController.Instance.SaveGame();
 
 					Close();
 				},

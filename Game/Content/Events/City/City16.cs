@@ -20,9 +20,9 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 			You return to the tavern with claims of having witnessed the gigantic Vermling, but the rest of the patrons laugh off your story and consider your tale to be brought upon by too much ale.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseReputationEventReward(1)
+			new LoseReputationReward(1)
 		];
 	}
 
@@ -37,9 +37,9 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 			You return to the tavern and showcase your findings. The bartender places the fur in a jar as a trophy and the other patrons offer you a round of drinks in victory.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddRoadEventEventReward(ModelDB.Event<Road34>())
+			new AddRoadReward(ModelDB.Event<Road34>())
 		];
 	}
 }

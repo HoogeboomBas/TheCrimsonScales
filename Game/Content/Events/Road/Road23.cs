@@ -46,7 +46,7 @@ public class Road23 : RoadEventModel<Road23.ChoiceA, Road23.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
@@ -56,7 +56,7 @@ public class Road23 : RoadEventModel<Road23.ChoiceA, Road23.ChoiceB>
 			{
 				return
 				[
-					new AllStartScenarioWithConditionEventReward(Conditions.Muddle, Conditions.Wound1)
+					new AllStartScenarioWithConditionReward(Conditions.Muddle, Conditions.Wound1)
 				];
 			}
 		}
@@ -73,9 +73,9 @@ public class Road23 : RoadEventModel<Road23.ChoiceA, Road23.ChoiceB>
 			"You made the right decision, these were bandit thieves," the Orchid explains with an expression of gratitude. "These special crystals are of vital importance for my order, the order of Shardrenders, and your deed will not be forgotten." He hands you a small purse of gold before taking his leave.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(15)
+			new GainCollectiveGoldReward(15)
 		];
 	}
 }

@@ -104,6 +104,16 @@ public class CaptainOfTheGuard : MonsterModel, IBossMonsterModel
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
 
 	// IBossMonsterModel
+	public string GetSpecial1Description(Monster monster) =>
+		$"""
+		 TODO
+		 """;
+
+	public string GetSpecial2Description(Monster monster) =>
+		$"""
+		 TODO
+		 """;
+
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.TargetAll | Target.SelfOrAllies).Build())

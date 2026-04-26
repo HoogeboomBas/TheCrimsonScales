@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://do7n0wiqeo3tw"]
+
+[ext_resource type="Script" uid="uid://dsa74s52gsopg" path="res://Scripts/BetweenScenarios/PartyGoals/PartyGoalsPartyGoal.cs" id="1_rqoyy"]
+[ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="4_yobpj"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_t4gdf"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="6_te63d"]
+[ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="7_6xhnr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxurl"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_3of5a"]
+font = ExtResource("6_te63d")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_k30ti"]
+font = ExtResource("6_te63d")
+font_size = 30
+
+[node name="PartyGoalsPartyGoal" type="MarginContainer" unique_id=1877228202 node_paths=PackedStringArray("_checkmark", "_label", "_progressBar")]
+mouse_filter = 2
+script = ExtResource("1_rqoyy")
+_checkmark = NodePath("HBoxContainer/PerkBoxes/CheckmarkBox/Outline/Checkmark")
+_label = NodePath("HBoxContainer/Description")
+_progressBar = NodePath("HBoxContainer/ProgressBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1828431441]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="PerkBoxes" type="HBoxContainer" parent="HBoxContainer" unique_id=1174381387]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="CheckmarkBox" type="Control" parent="HBoxContainer/PerkBoxes" unique_id=490119054]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="HBoxContainer/PerkBoxes/CheckmarkBox" unique_id=130075227]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lxurl")
+
+[node name="Checkmark" type="TextureRect" parent="HBoxContainer/PerkBoxes/CheckmarkBox/Outline" unique_id=1272178193]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_yobpj")
+expand_mode = 1
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer" unique_id=1255753595]
+custom_minimum_size = Vector2(600, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("5_t4gdf")
+theme_override_fonts/bold_font = ExtResource("6_te63d")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "Complete 5 battle goals with at least 4 characters"
+fit_content = true
+vertical_alignment = 1
+
+[node name="ProgressBar" parent="HBoxContainer" unique_id=1290106675 instance=ExtResource("7_6xhnr")]
+custom_minimum_size = Vector2(286, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ProgressBar" parent="HBoxContainer/ProgressBar" index="1" unique_id=1418968114]
+self_modulate = Color(1, 0.67058825, 0.53333336, 1)
+
+[node name="Label" parent="HBoxContainer/ProgressBar" index="2" unique_id=610432765]
+text = "Progress"
+label_settings = SubResource("LabelSettings_3of5a")
+
+[node name="Amount" parent="HBoxContainer/ProgressBar" index="3" unique_id=349370130]
+text = "1/1"
+label_settings = SubResource("LabelSettings_k30ti")
+
+[editable path="HBoxContainer/ProgressBar"]

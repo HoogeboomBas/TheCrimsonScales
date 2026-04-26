@@ -44,7 +44,7 @@ public class CultistAbilityCard0 : CultistAbilityCard
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters(
+						new InfoTextExtraEffect.Parameters(textParameters =>
 							$"On death, this monster performs {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Targets)} all adjacent enemies"))
 				);
 
@@ -86,7 +86,7 @@ public class CultistAbilityCard1 : CultistAbilityCard
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters(
+						new InfoTextExtraEffect.Parameters(textParameters =>
 							$"On death, this monster performs {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Targets)} all adjacent enemies"))
 				);
 

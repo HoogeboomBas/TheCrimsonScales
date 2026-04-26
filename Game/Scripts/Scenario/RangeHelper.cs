@@ -3,6 +3,8 @@ using Godot;
 
 public static class RangeHelper
 {
+	public const int InfiniteRange = 100;
+
 	private static readonly List<Node> OpenList = new List<Node>();
 	private static readonly Dictionary<Hex, Node> ClosedList = new Dictionary<Hex, Node>();
 
@@ -11,10 +13,11 @@ public static class RangeHelper
 
 	public static int Distance(Hex origin, Hex destination)
 	{
-		return GameController.Instance.Map.Distance(origin, destination) ?? int.MaxValue;
+		return GameController.Instance.Map.Distance(origin, destination) ?? InfiniteRange;
 	}
 
-	public static void FindHexesInRange(Hex origin, int range, bool requiresLineOfSight, List<Hex> list, bool requiresHexesRevealed = true)
+	public static void FindHexesInRange(Hex origin, int range, bool requiresLineOfSight, List<Hex> list,
+		bool requiresHexesRevealed = true, bool allowDoors = false)
 	{
 		OpenList.Clear();
 		ClosedList.Clear();
@@ -37,7 +40,7 @@ public static class RangeHelper
 					continue;
 				}
 
-				if(newHex.HasHexObjectOfType<Door>()) //newHex != null)
+				if(!allowDoors && newHex.HasHexObjectOfType<Door>()) //newHex != null)
 				{
 					continue;
 				}
@@ -129,10 +132,11 @@ public static class RangeHelper
 		list.AddRange(ClosedCoordsList);
 	}
 
-	public static IEnumerable<Hex> GetHexesInRange(Hex origin, int range, bool includeOrigin = true, bool requiresLineOfSight = true)
+	public static IEnumerable<Hex> GetHexesInRange(Hex origin, int range, bool includeOrigin = true, bool requiresLineOfSight = true,
+		bool requiresHexesRevealed = true, bool allowDoors = false)
 	{
 		List<Hex> hexes = new List<Hex>();
-		FindHexesInRange(origin, range, requiresLineOfSight, hexes);
+		FindHexesInRange(origin, range, requiresLineOfSight, hexes, requiresHexesRevealed, allowDoors);
 
 		foreach(Hex hex in hexes)
 		{

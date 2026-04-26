@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://c61uvdpqa62d5"]
+
+[ext_resource type="Texture2D" uid="uid://bj03vc6rpjr3f" path="res://Art/Icons/Other/CheckMark.svg" id="1_2nrdp"]
+[ext_resource type="Script" uid="uid://djydg4ukvyiv8" path="res://Scripts/BetweenScenarios/MerchantsGuildHall/MerchantsGuildHallReward.cs" id="1_5hnws"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="1_nh4aq"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_nh4aq"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="3_5hnws"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxurl"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MerchantsGuildHallReward" type="Control" unique_id=378914981 node_paths=PackedStringArray("_button", "_checkmark", "_description")]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 500.0
+offset_bottom = 75.0
+mouse_filter = 2
+script = ExtResource("1_5hnws")
+_button = NodePath("BetterButton")
+_checkmark = NodePath("BetterButton/HBoxContainer/PerkBoxes/CheckmarkBox/Outline/Checkmark")
+_description = NodePath("BetterButton/HBoxContainer/Description")
+
+[node name="BetterButton" type="BaseButton" parent="." unique_id=1994310231]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 500.0
+offset_bottom = 75.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(30, 37.5)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("1_nh4aq")
+_centerPivot = false
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BetterButton" unique_id=838618526]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 75.0
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="PerkBoxes" type="HBoxContainer" parent="BetterButton/HBoxContainer" unique_id=1103548012]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="CheckmarkBox" type="Control" parent="BetterButton/HBoxContainer/PerkBoxes" unique_id=1221388315]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="BetterButton/HBoxContainer/PerkBoxes/CheckmarkBox" unique_id=1667462092]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lxurl")
+
+[node name="Checkmark" type="TextureRect" parent="BetterButton/HBoxContainer/PerkBoxes/CheckmarkBox/Outline" unique_id=688862588]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_2nrdp")
+expand_mode = 1
+
+[node name="Description" type="RichTextLabel" parent="BetterButton/HBoxContainer" unique_id=1296042558]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_nh4aq")
+theme_override_fonts/bold_font = ExtResource("3_5hnws")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "Gain +3 Prosperity"
+fit_content = true
+vertical_alignment = 1

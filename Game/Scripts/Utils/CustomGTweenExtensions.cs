@@ -9,13 +9,17 @@ using GTweensGodot.Extensions;
 
 public static class CustomGTweenExtensions
 {
-	public static async GDTask PlayFastForwardableAsync(this GTween gTween)
+	public static async GDTask PlayFastForwardableAsync(this GTween gTween, TimeScale timeScale = TimeScale.Gameplay)
 	{
+		gTween.SetTimeScaleType(timeScale);
+
 		await gTween.PlayAsync(GameController.FastForward, GameController.CancellationToken);
 	}
 
-	public static GTween PlayFastForwardable(this GTween gTween)
+	public static GTween PlayFastForwardable(this GTween gTween, TimeScale timeScale = TimeScale.Gameplay)
 	{
+		gTween.SetTimeScaleType(timeScale);
+
 		return gTween.Play(GameController.FastForward);
 	}
 
@@ -145,5 +149,16 @@ public static class CustomGTweenExtensions
 	public static GTween Tween(float from, float to, Tweener<float>.Setter setter, float duration)
 	{
 		return GTweenExtensions.Tween(() => from, setter, to, duration);
+	}
+
+	public static GTween SetGameplayTimeScale(this GTween gTween)
+	{
+		return gTween.SetTimeScaleType(TimeScale.Gameplay);
+	}
+
+	public static GTween SetTimeScaleType(this GTween gTween, TimeScale timeScale)
+	{
+		gTween.SetTimeScale(AppController.Instance.DeviceOptions.GetTimeScale(timeScale));
+		return gTween;
 	}
 }

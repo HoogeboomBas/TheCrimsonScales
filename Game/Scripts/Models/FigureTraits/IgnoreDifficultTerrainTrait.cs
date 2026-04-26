@@ -20,7 +20,7 @@ public class IgnoreDifficultTerrainTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 					$"This figure ignores the effects of difficult terrain."));
 			}
 		);

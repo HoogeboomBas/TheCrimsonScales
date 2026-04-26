@@ -19,7 +19,7 @@ public class AtEndOfTurnTrait(Func<Figure, GDTask> endOfTurn, string endOfTurnDe
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters($"{endOfTurnDescription} at end of turn"));
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters => $"{endOfTurnDescription} at end of turn"));
 			}
 		);
 	}

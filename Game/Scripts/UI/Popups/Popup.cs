@@ -105,11 +105,6 @@ public abstract partial class Popup<T> : PopupBase
 		_background.SelfModulate = Colors.Transparent;
 		_panelContainer.Scale = 0.001f * Vector2.One;
 
-		this.DelayedCall(() =>
-		{
-			_panelContainer.PivotOffset = _panelContainer.Size * 0.5f;
-		});
-
 		sequenceBuilder.Append(_background.TweenSelfModulateAlpha(1f, 0.2f));
 		sequenceBuilder.Join(_panelContainer.TweenScale(1f, 0.2f).SetEasing(Easing.OutBack));
 	}
@@ -132,7 +127,6 @@ public abstract partial class Popup<T> : PopupBase
 	protected virtual void CloseAnimation(GTweenSequenceBuilder sequenceBuilder)
 	{
 		_panelContainer.Scale = Vector2.One;
-		_panelContainer.PivotOffset = _panelContainer.Size * 0.5f;
 
 		sequenceBuilder.Append(_background.TweenSelfModulateAlpha(0f, 0.2f));
 		sequenceBuilder.Join(_panelContainer.TweenScale(0.001f, 0.2f).SetEasing(Easing.InBack));

@@ -11,7 +11,7 @@ public static class VibrationController
 
 	public static void Vibrate(VibrationType type = VibrationType.Short)
 	{
-		if(!AppController.Instance.SaveFile.SaveData.Options.VibrationsEnabled.Value)
+		if(!AppController.Instance.DeviceOptions.VibrationsEnabled.Value)
 		{
 			return;
 		}

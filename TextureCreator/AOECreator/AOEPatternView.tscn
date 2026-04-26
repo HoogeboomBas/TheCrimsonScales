@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d2437egv2vh8b"]
+
+[ext_resource type="Script" uid="uid://ymp82074jkkc" path="res://AOECreator/AOEPatternView.cs" id="1_byeql"]
+[ext_resource type="PackedScene" uid="uid://cgtl32ii2ijpy" path="res://AOECreator/Hexes/RedAOEHex.tscn" id="2_2kgvm"]
+[ext_resource type="PackedScene" uid="uid://npgpkeokm2mq" path="res://AOECreator/Hexes/YellowAOEHex.tscn" id="3_p1sd3"]
+[ext_resource type="PackedScene" uid="uid://bo2kmqeebe331" path="res://AOECreator/Hexes/GrayAOEHex.tscn" id="3_pfpaf"]
+[ext_resource type="PackedScene" uid="uid://dkkr66vv6ujnu" path="res://AOECreator/Hexes/EmptyAOEHex.tscn" id="4_2kgvm"]
+
+[node name="AOEPatternView" type="Node2D" unique_id=385338492 node_paths=PackedStringArray("_hexParent")]
+script = ExtResource("1_byeql")
+_redHexScene = ExtResource("2_2kgvm")
+_yellowHexScene = ExtResource("3_p1sd3")
+_grayHexScene = ExtResource("3_pfpaf")
+_emptyHexScene = ExtResource("4_2kgvm")
+_hexParent = NodePath(".")

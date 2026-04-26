@@ -20,7 +20,7 @@ public class AdjacentAlliesGainAdvantageTrait() : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters("All adjacent allies gain advantage on all their attacks."));
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters => "All adjacent allies gain advantage on all their attacks."));
 			}
 		);
 	}

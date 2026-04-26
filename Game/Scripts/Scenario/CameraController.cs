@@ -115,6 +115,14 @@ public partial class CameraController : Node
 				_zoomTarget *= 1 - _zoomSpeed;
 			}
 		}
+
+		if(Platform.DeskTop)
+		{
+			if(@event is InputEventPanGesture panGesture)
+			{
+				_moveTarget += 50f * panGesture.Delta / _zoomTarget;
+			}
+		}
 	}
 
 	private void OnDrag(Vector2 previousPosition, Vector2 currentPosition)

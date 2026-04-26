@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 
 [Serializable, JsonObject(MemberSerialization.OptIn)]
-public class SaveData
+public abstract class SaveData
 {
 	[JsonProperty]
 	public int MigrationVersion { get; set; }
@@ -11,11 +11,5 @@ public class SaveData
 	public string AppVersion { get; set; }
 
 	[JsonProperty]
-	public Guid PlayerId { get; set; }
-
-	[JsonProperty]
-	public SavedOptions Options { get; set; } = new SavedOptions();
-
-	[JsonProperty]
-	public SavedCampaign SavedCampaign { get; set; }
+	public DateTime? LastSaved { get; set; }
 }

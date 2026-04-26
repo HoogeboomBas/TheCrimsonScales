@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class Road46 : RoadEventModel<Road46.ChoiceA, Road46.ChoiceB>
 {
@@ -13,6 +14,20 @@ public class Road46 : RoadEventModel<Road46.ChoiceA, Road46.ChoiceB>
 		You have a feeling the glowing lights will help you on your journey, but only have room for two.
 		""";
 
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"At the start of the next scenario, {Icons.Inline(Icons.GetElement(Element.Ice), textParameters)}, {Icons.Inline(Icons.GetElement(Element.Fire), textParameters)}.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			await AbilityCmd.InfuseElement(null, Element.Ice, immediately: true);
+			await AbilityCmd.InfuseElement(null, Element.Fire, immediately: true);
+		}
+	}
+
 	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Take the soft blue and glowing red claws.";
@@ -22,18 +37,24 @@ public class Road46 : RoadEventModel<Road46.ChoiceA, Road46.ChoiceB>
 			You take the soft blue and glowing red claws and continue on with your journey. As you reach your destination, each claw emits one last burst before their glow fades away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					await AbilityCmd.InfuseElement(null, Element.Ice, immediately: true);
-					await AbilityCmd.InfuseElement(null, Element.Fire, immediately: true);
-				},
-				color =>
-					$"At the start of the next scenario, {Icons.Inline(Icons.GetElement(Element.Ice), color: color)}, {Icons.Inline(Icons.GetElement(Element.Fire), color: color)}."
-			),
+			new ChoiceAOnScenarioStartedReward()
 		];
+	}
+
+	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"At the start of the next scenario, {Icons.Inline(Icons.GetElement(Element.Light), textParameters)}, {Icons.Inline(Icons.GetElement(Element.Dark), textParameters)}.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			await AbilityCmd.InfuseElement(null, Element.Light, immediately: true);
+			await AbilityCmd.InfuseElement(null, Element.Dark, immediately: true);
+		}
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -45,17 +66,9 @@ public class Road46 : RoadEventModel<Road46.ChoiceA, Road46.ChoiceB>
 			You take the bright yellow and dim black claws and continue on with your journey. As you reach your destination, each claw emits one last burst of light before their glow fades away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					await AbilityCmd.InfuseElement(null, Element.Light, immediately: true);
-					await AbilityCmd.InfuseElement(null, Element.Dark, immediately: true);
-				},
-				color =>
-					$"At the start of the next scenario, {Icons.Inline(Icons.GetElement(Element.Light), color: color)}, {Icons.Inline(Icons.GetElement(Element.Dark), color: color)}."
-			),
+			new ChoiceBOnScenarioStartedReward()
 		];
 	}
 }

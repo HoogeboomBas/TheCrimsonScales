@@ -660,4 +660,22 @@ public partial class ScenarioCheckEvents
 
 	private readonly MoneyTokenValueCheck _moneyTokenValueCheck = new MoneyTokenValueCheck();
 	public static MoneyTokenValueCheck MoneyTokenValueCheckEvent => GameController.Instance.ScenarioCheckEvents._moneyTokenValueCheck;
+
+	public class ApplyScenarioEffectsCheck : ScenarioCheckEvent<ApplyScenarioEffectsCheck.Parameters>
+	{
+		public class Parameters(Character character)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+			public bool CanApply { get; private set; } = true;
+
+			public void SetIgnoreScenarioEffects()
+			{
+				CanApply = false;
+			}
+		}
+	}
+
+	private readonly ApplyScenarioEffectsCheck _applyScenarioEffectsCheck = new ApplyScenarioEffectsCheck();
+	public static ApplyScenarioEffectsCheck ApplyScenarioEffectsCheckEvent => GameController.Instance.ScenarioCheckEvents._applyScenarioEffectsCheck;
 }

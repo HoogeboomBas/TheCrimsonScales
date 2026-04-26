@@ -20,21 +20,6 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 		base._Ready();
 
 		_confirmButton.Pressed += OnConfirmPressed;
-
-		SavedOptions options = AppController.Instance.SaveFile.SaveData.Options;
-
-		AddSliderOption(options.BGMVolume, "Music");
-		AddSliderOption(options.BGSVolume, "Ambience");
-		AddSliderOption(options.SFXVolume, "Sound Effects");
-
-		if(!Platform.DeskTop)
-		{
-			AddCheckmarkOption(options.VibrationsEnabled, "Vibrations");
-		}
-
-		AddCheckmarkOption(options.AnimatedCharacters, "Animated Characters");
-
-		AddOption(new DifficultySliderOptionView.Parameters(options.Difficulty, "Difficulty"));
 	}
 
 	protected override void OnOpen()
@@ -42,6 +27,34 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 		base.OnOpen();
 
 		_confirmButton.SetEnabled(true, false);
+
+		SavedDeviceOptions deviceOptions = AppController.Instance.DeviceOptions;
+		SavedCampaignOptions campaignOptions = AppController.Instance.CampaignOptions;
+
+		AddSliderOption(deviceOptions.BGMVolume, "Music");
+		AddSliderOption(deviceOptions.BGSVolume, "Ambience");
+		AddSliderOption(deviceOptions.SFXVolume, "Sound Effects");
+
+		if(Platform.DeskTop)
+		{
+			DisplayServer.WindowMode windowMode = DisplayServer.WindowGetMode();
+			deviceOptions.FullScreen.SetValue(windowMode == DisplayServer.WindowMode.Fullscreen);
+
+			AddCheckmarkOption(deviceOptions.FullScreen, "Full Screen");
+		}
+		else
+		{
+			AddCheckmarkOption(deviceOptions.VibrationsEnabled, "Vibrations");
+		}
+
+		AddLabeledSliderOption(deviceOptions.GameplaySpeed, "Gameplay Speed", SavedDeviceOptions.SpeedOptions);
+
+		AddCheckmarkOption(deviceOptions.AnimatedCharacters, "Animated Characters");
+
+		if(campaignOptions != null)
+		{
+			AddLabeledSliderOption(campaignOptions.Difficulty, "Difficulty", SavedCampaignOptions.DifficultyOptions);
+		}
 
 		foreach(OptionViewBase option in _options)
 		{
@@ -53,7 +66,19 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 	{
 		base.OnClose();
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveManager.SaveCampaignAndDevice();
+	}
+
+	protected override void OnClosed()
+	{
+		base.OnClosed();
+
+		foreach(OptionViewBase option in _options)
+		{
+			option.QueueFree();
+		}
+
+		_options.Clear();
 	}
 
 	private void AddCheckmarkOption(SavedOption<bool> option, string label)
@@ -64,6 +89,11 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 	private void AddSliderOption(SavedOption<int> option, string label)
 	{
 		AddOption(new SliderOptionView.Parameters(option, label));
+	}
+
+	private void AddLabeledSliderOption(SavedOption<int> option, string label, LabeledOptions options)
+	{
+		AddOption(new LabeledSliderOptionView.Parameters(option, label, options));
 	}
 
 	private void AddOption(OptionViewParameters parameters)

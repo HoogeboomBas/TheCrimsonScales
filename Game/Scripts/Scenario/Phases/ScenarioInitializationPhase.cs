@@ -8,7 +8,7 @@ public class ScenarioInitializationPhase : ScenarioPhase
 	{
 		await base.Activate();
 
-		await GameController.Instance.ScenarioModel.StartBeforeFirstRoomRevealed();
+		await GameController.Instance.ScenarioModel.InitializeBeforeFirstRoomRevealed();
 
 		foreach(Room room in GameController.Instance.Map.Rooms)
 		{
@@ -33,6 +33,8 @@ public class ScenarioInitializationPhase : ScenarioPhase
 			}
 		}
 
-		await GameController.Instance.ScenarioModel.StartAfterFirstRoomRevealed();
+		await GameController.Instance.ScenarioModel.InitializeAfterFirstRoomRevealed();
+
+		await GameController.Instance.OpenStoryViewIntroduction();
 	}
 }

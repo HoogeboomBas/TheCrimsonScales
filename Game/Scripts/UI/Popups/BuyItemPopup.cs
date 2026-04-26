@@ -64,7 +64,7 @@ public partial class BuyItemPopup : Popup<BuyItemPopup.Request>
 				new BetweenScenariosEvents.ItemBought.Parameters(PopupRequest.Buyer, PopupRequest.ItemModel, PopupRequest.Price));
 		}
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
 		Close();
 	}

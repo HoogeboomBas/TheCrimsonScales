@@ -10,7 +10,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="OptionView" type="PanelContainer" unique_id=629294987]
-custom_minimum_size = Vector2(600, 80)
+custom_minimum_size = Vector2(800, 80)
 offset_right = 600.0
 offset_bottom = 80.0
 mouse_filter = 2

@@ -28,7 +28,7 @@ public class WhitefireBalm : MirefootCardModel<WhitefireBalm.CardTop, WhitefireB
 
 					state.SetCustomValue(this, "Figure", figure);
 
-					await AbilityCmd.AddCharacterToken(state, figure,
+					await AbilityCmd.AddCharacterToken(state, figure, textParameters =>
 						$"On the next two sources of {Icons.Inline(Icons.Damage)} from attacks targeting you, gain {Icons.Inline(Icons.Shield)}3 and {Icons.Inline(Icons.Retaliate)}3");
 
 					ScenarioEvents.SufferDamageEvent.Subscribe(state, this,

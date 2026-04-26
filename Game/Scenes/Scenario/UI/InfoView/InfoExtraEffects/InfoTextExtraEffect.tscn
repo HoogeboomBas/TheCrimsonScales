@@ -6,11 +6,13 @@
 [node name="InfoTextExtraEffect" type="MarginContainer" unique_id=1624508762 node_paths=PackedStringArray("_label")]
 offset_right = 1.0
 offset_bottom = 1560.0
+mouse_filter = 2
 script = ExtResource("1_g5a0a")
 _label = NodePath("Text")
 
 [node name="Text" type="RichTextLabel" parent="." unique_id=431877736]
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_vrho1")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true

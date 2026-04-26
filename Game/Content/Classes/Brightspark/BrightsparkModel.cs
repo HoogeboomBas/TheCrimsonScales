@@ -8,6 +8,18 @@ public class BrightsparkModel : ClassModel
 	public override int HandSize => 11;
 	public override Ancestry Ancestry => Ancestry.Human;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City35>(),
+		ModelDB.Event<Road35>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City36>(),
+		ModelDB.Event<Road36>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Brightspark";
 	public override Color PrimaryColor => Color.FromHtml("e6dc8d");
 	public override Color SecondaryColor => Color.FromHtml("bcae52");
@@ -52,5 +64,30 @@ public class BrightsparkModel : ClassModel
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<BrightsparkPerks.ReplaceOneMinusTwoWithOneMinusTwoRecoverRandomCardFromDiscard>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceOneMinusOneWithOnePlusZeroConsumeElementForPlusTwo>(),
+		ModelDB.Perk<BrightsparkPerks.ReplaceOneMinusOneWithOnePlusZeroConsumeElementForPlusTwo>(),
+		ModelDB.Perk<BrightsparkPerks.ReplaceOneMinusOneWithOnePlusZeroConsumeElementForPlusTwo>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceOnePlusZeroWithOnePlusOneHealOneAllyRangeTwo>(),
+		ModelDB.Perk<BrightsparkPerks.ReplaceOnePlusZeroWithOnePlusOneHealOneAllyRangeTwo>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceTwoPlusZeroWithOnePlusOneGrantOneAllyWithinRangeTwoShieldOne>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceTwoPlusZeroWithThreePlusZeroConsumeElementToInfuseElementRolling>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceOnePlusOneWithOnePlusTwoWildElement>(),
+		ModelDB.Perk<BrightsparkPerks.ReplaceOnePlusOneWithOnePlusTwoWildElement>(),
+
+		ModelDB.Perk<BrightsparkPerks.ReplaceTwoPlusOneWithTwoPlusOneStrengthenAllyRangeTwo>(),
+
+		ModelDB.Perk<BrightsparkPerks.AddOnePlusZeroImmobilizeIceRollingOnePlusZeroPushOneOrPullOneAirRolling>(),
+
+		ModelDB.Perk<BrightsparkPerks.AddOnePlusZeroPierceTwoFireRollingOnePlusZeroHealOneRangeThreeLightRolling>(),
+
+		ModelDB.Perk<BrightsparkPerks.IgnoreScenarioEffectsRemoveOneMinusOne>(),
+
+		ModelDB.Perk<BrightsparkPerks.SparkOfInspiration>(),
 	];
 }

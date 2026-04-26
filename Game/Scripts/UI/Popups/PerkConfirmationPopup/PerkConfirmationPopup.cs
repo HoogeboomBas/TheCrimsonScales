@@ -6,7 +6,6 @@ public partial class PerkConfirmationPopup : Popup<PerkConfirmationPopup.Request
 	public class Request : PopupRequest
 	{
 		public SavedCharacter SavedCharacter { get; init; }
-		public PerkModel PerkModel { get; init; }
 		public int PerkIndex { get; init; }
 	}
 
@@ -49,26 +48,27 @@ public partial class PerkConfirmationPopup : Popup<PerkConfirmationPopup.Request
 	{
 		base.OnOpen();
 
-		PerkModel perkModel = PopupRequest.PerkModel;
+		PerkModel perkModel = PopupRequest.SavedCharacter.ClassModel.Perks[PopupRequest.PerkIndex];
 
 		string effectsText = string.Empty;
 
-		if(perkModel.IgnoreNegativeScenarioEffects)
+		if(perkModel.IgnoreScenarioEffects)
 		{
-			effectsText += "Ignore negative scenario effects.";
+			effectsText += "Ignore scenario effects.";
 		}
 
-		if(perkModel.IgnoreNegativeItemEffects)
+		RichTextParameters richTextParameters = _effectsLabel.GetRichTextParameters();
+		if(perkModel.IgnoreItemMinusOneEffects)
 		{
 			if(!string.IsNullOrEmpty(effectsText))
 			{
 				effectsText += "\n";
 			}
 
-			effectsText += "Ignore negative item effects.";
+			effectsText += $"Ignore item {Icons.Inline(Icons.MinusOneCard, richTextParameters)} effects.";
 		}
 
-		string nonAMDDescription = perkModel.GetNonAMDDescription(_effectsLabel.GetRichTextParameters());
+		string nonAMDDescription = perkModel.GetNonAMDDescription(richTextParameters);
 		if(!string.IsNullOrEmpty(nonAMDDescription))
 		{
 			if(!string.IsNullOrEmpty(effectsText))
@@ -129,7 +129,7 @@ public partial class PerkConfirmationPopup : Popup<PerkConfirmationPopup.Request
 	{
 		PopupRequest.SavedCharacter.AcquirePerk(PopupRequest.PerkIndex);
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
 		Close();
 	}

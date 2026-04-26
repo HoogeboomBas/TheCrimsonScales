@@ -22,7 +22,7 @@ public class City42 : CityEventModel<City42.ChoiceA, City42.ChoiceB>
 			You take the side of the Hierophant, much to the dismay of the Inox. "Thank you, dear friends!" the Hierophant beams. "Your allegiance shall be rewarded. We shall meet again soon!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario049>())
 		];
@@ -39,7 +39,7 @@ public class City42 : CityEventModel<City42.ChoiceA, City42.ChoiceB>
 			The Inox shake your hand as they thank you for your support and provide you with the coordinates of their campground.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario050>())
 		];

@@ -18,9 +18,9 @@ public class Road09 : RoadEventModel<Road09.ChoiceA, Road09.ChoiceB>
 			With all your might, you manage to pull the Savvas out from the rock formation. He stumbles forward and clutches his throbbing leg, but he's smiling from ear to ear. "Please, take this mantle I've been wearing in return for your kindness," the Savvas says. "Don't worry about me, I'll make my way home."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<MantleOfPurity>())
+			new GainCollectiveItemReward(ModelDB.Item<MantleOfPurity>())
 		];
 	}
 
@@ -33,9 +33,9 @@ public class Road09 : RoadEventModel<Road09.ChoiceA, Road09.ChoiceB>
 			You ignore the Savvas groaning as you proceed to rummage through his bags. You find a peculiar pair of boots along with some rope and a blade. "Wait, please, don't abandon me!" the Savvas begs as you hand him the blade from the bag and leave him to figure out his own solution.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<ShoesOfPhasing>())
+			new GainCollectiveItemReward(ModelDB.Item<ShoesOfPhasing>())
 		];
 	}
 }

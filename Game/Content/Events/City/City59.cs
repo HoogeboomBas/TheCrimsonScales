@@ -32,20 +32,20 @@ public class City59 : CityEventModel<City59.ChoiceA, City59.ChoiceB>
 			You ask to be honored in the hospital, and the men assure you that your funds will ensure the Great Oak can continue to provide continuous care to those in need.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new UnlockPartyAMDEventReward(ModelDB.AMDCard<PartyAMDCard1>())
+					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard1>())
 				];
 			}
 			else
 			{
 				return
 				[
-					new UnlockPartyAMDEventReward(ModelDB.AMDCard<PartyAMDCard2>())
+					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard2>())
 				];
 			}
 		}
@@ -70,20 +70,20 @@ public class City59 : CityEventModel<City59.ChoiceA, City59.ChoiceB>
 			You ask to be honored in the temple, and the men assure you that your funds will ensure the Great Oak can continue to help carry their message throughout Gloomhaven.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new UnlockPartyAMDEventReward(ModelDB.AMDCard<PartyAMDCard3>())
+					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard3>())
 				];
 			}
 			else
 			{
 				return
 				[
-					new UnlockPartyAMDEventReward(ModelDB.AMDCard<PartyAMDCard4>())
+					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard4>())
 				];
 			}
 		}

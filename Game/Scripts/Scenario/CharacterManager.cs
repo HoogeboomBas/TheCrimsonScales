@@ -25,7 +25,7 @@ public class CharacterManager
 			GameController.Instance.Map.AddChild(characterHexObject, true);
 			Hex hex = characterStartHex.Hex;
 			await characterHexObject.Init(hex);
-			characterHexObject.Spawn(savedCharacter, i);
+			await characterHexObject.Spawn(savedCharacter, i);
 
 			Characters.Add(characterHexObject);
 		}

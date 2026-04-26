@@ -42,14 +42,14 @@ public class City03 : CityEventModel<City03.ChoiceA, City03.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(25),
-					new GainCollectiveItemEventReward(ModelDB.Item<TranslocationDevice>())
+					new LoseCollectiveGoldReward(25),
+					new GainCollectiveItemReward(ModelDB.Item<TranslocationDevice>())
 				];
 			}
 			else
@@ -89,14 +89,14 @@ public class City03 : CityEventModel<City03.ChoiceA, City03.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(15),
-					new GainCollectiveItemEventReward(ModelDB.Item<TranslocationDevice>())
+					new LoseCollectiveGoldReward(15),
+					new GainCollectiveItemReward(ModelDB.Item<TranslocationDevice>())
 				];
 			}
 			else

@@ -151,7 +151,7 @@ public partial class EquipItemPopup : Popup<EquipItemPopup.Request>
 							new BetweenScenariosEvents.ItemSold.Parameters(PopupRequest.SavedCharacter, item.ItemModel, sellPrice));
 					}
 
-					AppController.Instance.SaveFile.Save();
+					AppController.Instance.SaveGame();
 
 					UpdateView();
 				},

@@ -54,7 +54,18 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 		);
 	}
 
-	private async GDTask OnCardGiven(AbilityState abilityState, AbilityCard abilityCard)
+	public static async GDTask GivePrayerCard(AbilityState abilityState, Hierophant hierophant, Figure target)
+	{
+		await GiveAbilityCardAbility.GiveAbilityCard(abilityState, target,
+			(state, list) =>
+			{
+				list.AddRange(hierophant.PrayerCards);
+			},
+			OnCardGiven, OnCardDiscarded, OnCardLost
+		);
+	}
+
+	private static async GDTask OnCardGiven(AbilityState abilityState, AbilityCard abilityCard)
 	{
 		Hierophant hierophant = (Hierophant)abilityCard.OriginalOwner;
 		hierophant.PrayerCards.Remove(abilityCard);
@@ -62,7 +73,7 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 		await GDTask.CompletedTask;
 	}
 
-	private async GDTask OnCardDiscarded(AbilityCard abilityCard)
+	private static async GDTask OnCardDiscarded(AbilityCard abilityCard)
 	{
 		abilityCard.Owner.RemoveCard(abilityCard);
 
@@ -73,7 +84,7 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 		await AbilityCmd.ReturnToHand(abilityCard);
 	}
 
-	private async GDTask OnCardLost(AbilityCard abilityCard)
+	private static async GDTask OnCardLost(AbilityCard abilityCard)
 	{
 		abilityCard.Owner.RemoveCard(abilityCard);
 

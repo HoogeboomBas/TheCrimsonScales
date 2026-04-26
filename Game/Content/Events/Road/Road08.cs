@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class Road08 : RoadEventModel<Road08.ChoiceA, Road08.ChoiceB>
 {
@@ -11,6 +12,43 @@ public class Road08 : RoadEventModel<Road08.ChoiceA, Road08.ChoiceB>
 		"I've never seen anything like this," the Vermling shudders. "White powder falling from the sky, and it's cold! Oh, so cold! I'm afraid of leaving here since I don't know what it will do to me, will you kindly lead me away from whatever this is? I'll gladly pay you good coin!"
 		""";
 
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"At the start of the next scenario, an allied Vermling Scout will spawn next to any character.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			Hex hex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.GetCharacter(0),
+				list =>
+				{
+					foreach(Character character in GameController.Instance.CharacterManager.Characters)
+					{
+						foreach(Hex hex in RangeHelper.GetHexesInRange(character.Hex, 1, false))
+						{
+							if(hex.IsEmpty())
+							{
+								list.AddIfNew(hex);
+							}
+						}
+					}
+				}, hintText: "Select a hex to spawn the allied Vermling Scout"
+			);
+
+			if(hex != null)
+			{
+				Monster monster = await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Normal, hex);
+				if(monster != null)
+				{
+					monster.SetAlignment(Alignment.Characters);
+					monster.SetEnemies(Alignment.Enemies);
+				}
+			}
+		}
+	}
+
 	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Explain to the Vermling that it's harmless snow.";
@@ -20,39 +58,9 @@ public class Road08 : RoadEventModel<Road08.ChoiceA, Road08.ChoiceB>
 			You explain to the Vermling that it's harmless snow, and snowfall is natural this high up in the peaks. She thanks you for clearing up the confusion and offers to accompany you on your journey.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					Hex hex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.GetCharacter(0),
-						list =>
-						{
-							foreach(Character character in GameController.Instance.CharacterManager.Characters)
-							{
-								foreach(Hex hex in RangeHelper.GetHexesInRange(character.Hex, 1, false))
-								{
-									if(hex.IsEmpty())
-									{
-										list.AddIfNew(hex);
-									}
-								}
-							}
-						}, hintText: "Select a hex to spawn the allied Vermling Scout"
-					);
-
-					if(hex != null)
-					{
-						Monster monster = await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Normal, hex);
-						if(monster != null)
-						{
-							monster.SetAlignment(Alignment.Characters);
-							monster.SetEnemies(Alignment.Enemies);
-						}
-					}
-				},
-				color => "At the start of the next scenario, an allied Vermling Scout will spawn next to any character."
-			)
+			new ChoiceAOnScenarioStartedReward()
 		];
 	}
 
@@ -65,9 +73,9 @@ public class Road08 : RoadEventModel<Road08.ChoiceA, Road08.ChoiceB>
 			You agree to escort the Vermling out of the mountains and lead her out of the snowy mountains. She thanks you, pays you and vows never to return to what she calls the 'cursed powder mountains' again.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(15)
+			new GainCollectiveGoldReward(15)
 		];
 	}
 }

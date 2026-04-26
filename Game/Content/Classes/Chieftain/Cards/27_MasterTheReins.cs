@@ -86,7 +86,7 @@ public class MasterTheReins : ChieftainCardModel<MasterTheReins.CardTop, MasterT
 					ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.AlliedWith(parameters.Figure),
 						parameters => parameters.Add(
-							new InfoTextExtraEffect.Parameters(
+							new InfoTextExtraEffect.Parameters(textParameters =>
 								$"This summon adds +1{Icons.Inline(Icons.Attack)} to all its attacks and you control its abilities"))
 					);
 				})

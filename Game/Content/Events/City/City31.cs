@@ -2,7 +2,7 @@
 
 public class City31 : CityEventModel<City31.ChoiceA, City31.ChoiceB>
 {
-	public override int Number => 35;
+	public override int Number => 31;
 
 	public override string Text =>
 		"""
@@ -20,7 +20,7 @@ public class City31 : CityEventModel<City31.ChoiceA, City31.ChoiceB>
 			You explain that you must have gotten lost on your way. "Leave here at once," one of the guards snarls. "This is no place for lost fools."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -34,7 +34,7 @@ public class City31 : CityEventModel<City31.ChoiceA, City31.ChoiceB>
 			Sir Kenhaven himself appears and the guards quickly move out of his way. "Welcome to my mansion grounds. As an adventurer, I'm sure you'd appreciate the labyrinth maze I put together. There's a great reward for anyone who solves the puzzle and escapes. Care to see it?"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario043>())
 		];

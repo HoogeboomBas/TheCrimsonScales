@@ -46,7 +46,7 @@ public partial class EventOverlay : Control
 
 	public async GDTask DrawEventCard(EventType eventType, CancellationToken cancellationToken)
 	{
-		AppController.Instance.SaveFile.BlockSaving(this);
+		AppController.Instance.SaveManager.BlockSaving(this);
 
 		EventModel eventModel;
 		if(eventType == EventType.City)
@@ -136,23 +136,17 @@ public partial class EventOverlay : Control
 
 		_continueButton.SetActive(false);
 
-		bool hasNonImmediateReward = false;
-		List<EventReward> rewards = _chosenModel.GetRewards(savedEventState);
-		foreach(EventReward reward in rewards)
+		List<SavedReward> rewards = _chosenModel.GetRewards(savedEventState);
+		foreach(SavedReward reward in rewards)
 		{
-			if(reward.Type == EventRewardType.Immediate)
+			if(reward.Type == RewardType.Immediate)
 			{
-				await reward.ImmediateResolve();
+				await reward.ImmediateResolve(BetweenScenariosController.Instance.SavedCampaign, cancellationToken);
 			}
 			else
 			{
-				hasNonImmediateReward = true;
+				BetweenScenariosController.Instance.SavedCampaign.SavedRewards.AddReward(reward);
 			}
-		}
-
-		if(hasNonImmediateReward)
-		{
-			BetweenScenariosController.Instance.SavedCampaign.SavedEvents.AddSavedEventState(savedEventState);
 		}
 
 		EventResolveType eventResolveType = _chosenModel.GetEventResolveType(savedEventState);
@@ -168,8 +162,8 @@ public partial class EventOverlay : Control
 			}
 		}
 
-		AppController.Instance.SaveFile.UnblockSaving(this);
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveManager.UnblockSaving(this);
+		AppController.Instance.SaveManager.SaveGame();
 
 		_background.TweenModulateAlpha(0f, 0.3f).Play();
 		await _rotatingCardView.TweenScale(0f, 0.3f).SetEasing(Easing.InBack).PlayAsync(cancellationToken: cancellationToken);

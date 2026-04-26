@@ -46,13 +46,13 @@ public class City01 : CityEventModel<City01.ChoiceA, City01.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<LightweightBoots>())
+					new GainCollectiveItemReward(ModelDB.Item<LightweightBoots>())
 				];
 			}
 			else
@@ -92,13 +92,13 @@ public class City01 : CityEventModel<City01.ChoiceA, City01.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<LightweightBoots>())
+					new GainCollectiveItemReward(ModelDB.Item<LightweightBoots>())
 				];
 			}
 			else

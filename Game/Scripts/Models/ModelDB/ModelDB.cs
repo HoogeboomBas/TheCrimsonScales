@@ -161,6 +161,16 @@ public static class ModelDB
 		return GetOrCreate<T>();
 	}
 
+	public static T PartyGoal<T>() where T : PartyGoalModel
+	{
+		return GetOrCreate<T>();
+	}
+
+	public static T MerchantsGuildHallReward<T>() where T : MerchantsGuildHallRewardModel
+	{
+		return GetOrCreate<T>();
+	}
+
 	public static IEnumerable<Type> GetSubtypes<T>()
 	{
 		return GetSubtypes(typeof(T));
