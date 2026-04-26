@@ -31,7 +31,7 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 					if(targetedEnemies > 0)
 					{
 						await AbilityCmd.SufferDamage(grantState, grantState.Target, targetedEnemies);
-						//TODO: Produce
+						await GainVoidEnergy(grantState);
 					}
 				})
 				.Build()),

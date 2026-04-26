@@ -23,9 +23,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					await GDTask.CompletedTask;
-					//TODO: Consume 3
-					return false;
+					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 3, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}6, advantage, {Icons.Inline(Icons.Push)}1"));
 				})
 				.Build()),
 			
@@ -51,7 +49,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 					if(hex != null)
 					{
 						await hex.HexObjects.First(hexObject => hexObject is Obstacle).Destroy();
-						//TODO: Produce 1
+						await GainVoidEnergy(state);
 						
 						state.SetPerformed();
 						state.SetCustomValue(this, "DestroyedObstacleHex", hex);

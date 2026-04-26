@@ -20,8 +20,14 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
-					//TODO: Consume 2, +2dmg, +1xp
 				]))
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(2,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(2);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					},
+					new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")))
 				.Build())
 		];
 		
@@ -40,7 +46,7 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 			new AbilityCardAbility(CreateObstacleAbility.Builder()
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
 				.WithRange(2)
-				//.WithOnAbilityEndedPerformed(async state => //Produce)
+				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
 		];
 	}

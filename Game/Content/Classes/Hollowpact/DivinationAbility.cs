@@ -1,5 +1,7 @@
 ﻿using Fractural.Tasks;
 using Godot;
+using System.Collections.Generic;
+using System.Linq;
 
 public class DivinationAbility : TargetedAbility<DivinationAbility.State, SingleTargetState>
 {
@@ -73,36 +75,49 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		return new DivinationBuilder();
 	}
 
-	protected override async GDTask Perform(State abilityState)
+	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		ScenarioEvents.AMDCardPeekedEvent.Subscribe(abilityState, this,
 			canApplyParameters => canApplyParameters.AbilityState == abilityState,
 			async applyParameters =>
 			{
-				applyParameters.SetPlaceAtDeckBottom();
-				abilityState.CardsPlacedAtBottom++;
+				ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription placeAtDeckTopSubscription =
+					ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(applyFunction: async _ =>
+						{
+							applyParameters.SetPlaceAtDeckTop();
 
-				await GDTask.CompletedTask;
+							await GDTask.CompletedTask;
+						}, 
+						effectType: EffectType.Selectable,
+						effectButtonParameters: new IconEffectButton.Parameters(Icons.Triangle),
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"Place the card at the top of the deck."));
+
+				ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription placeAtDeckBottomSubscription = 
+					ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription.New(applyFunction: async _ =>
+						{
+							applyParameters.SetPlaceAtDeckBottom();
+							abilityState.CardsPlacedAtBottom++;
+				
+							await GDTask.CompletedTask;
+						}, 
+						effectType: EffectType.Selectable,
+						effectButtonParameters: new IconEffectButton.Parameters(Icons.EffectInfoViewTriangle),
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"Place the card at the bottom of the deck."));
+
+				List<ScenarioEvents.GenericChoice.Subscription> subscriptions = [placeAtDeckTopSubscription];
+
+				if(abilityState.CardsPlacedAtBottom < _maxCardsToPlaceAtBottom)
+				{
+					subscriptions.Add(placeAtDeckBottomSubscription);
+				}
+
+				await AbilityCmd.GenericChoice(abilityState.Authority, subscriptions);
 			},
-			effectButtonParameters: new IconEffectButton.Parameters(Icons.EffectInfoViewTriangle),
-			effectInfoViewParameters: new TextEffectInfoView.Parameters($"Place the card at the bottom of the deck."),
-			effectType: EffectType.Selectable
+			effectType: EffectType.MandatoryBeforeOptionals
 		);
 
-		for(int cardIndex = 0; cardIndex < _cardsToPeek; cardIndex++)
-		{	
-			await GameController.Instance.AMDDrawView.PeekCard(abilityState);
-
-			if(abilityState.CardsPlacedAtBottom == _maxCardsToPlaceAtBottom)
-			{
-				ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(abilityState, this);
-			}
-		}
+		await GameController.Instance.AMDDrawView.PeekCards(abilityState, _cardsToPeek);
 
 		ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(abilityState, this);
-
-		await GDTask.CompletedTask;
-
-		//finish graphics
 	}
 }

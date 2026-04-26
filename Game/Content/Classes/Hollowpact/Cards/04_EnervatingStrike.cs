@@ -14,8 +14,15 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAddCondition(Conditions.Poison1);
+						parameters.AbilityState.AbilityAddCondition(Conditions.Muddle);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					}, 
+					new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Disarm))}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")))
 				.Build()),
-			//TODO: Consume, +poison, +muddle, +1xp
 			
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)

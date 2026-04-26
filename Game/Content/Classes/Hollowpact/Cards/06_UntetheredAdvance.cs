@@ -20,8 +20,14 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red)
-					//TODO: Consume 1, +1dmg, +1xp
 				]))
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					},
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}")))
 				.Build()),
 			
 			new AbilityCardAbility(MoveAbility.Builder()
@@ -45,14 +51,14 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
 						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, range: 1)
-							.Where(hex => (hex.GetHexObjectsOfType<Trap>().Any(hexObject => !hexObject.CannotBeDestroyed) ||
-							               hex.GetHexObjectsOfType<Obstacle>().Any(hexObject => !hexObject.CannotBeDestroyed))));
+							.Where(hex => hex.GetHexObjectsOfType<Trap>().Any(hexObject => !hexObject.CannotBeDestroyed) ||
+							               hex.GetHexObjectsOfType<Obstacle>().Any(hexObject => !hexObject.CannotBeDestroyed)));
 					});
 
 					if(hex != null)
 					{
 						await hex.HexObjects.First(hexObject => hexObject is Trap or Obstacle).Destroy();
-						//TODO: Produce 1
+						await GainVoidEnergy(state);
 						
 						state.SetPerformed();
 					}

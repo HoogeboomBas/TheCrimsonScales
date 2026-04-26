@@ -43,9 +43,8 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					//TODO: Consume &&
-					
-					return await AbilityCmd.HasPerformedAbility(state, 0);
+					return await AbilityCmd.HasPerformedAbility(state, 0) && await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)} to any hex adjacent to the enemy, then perform {Icons.Inline(Icons.Attack)}2, {Icons.Inline(Icons.GetCondition(Conditions.Stun))}"));;
 				})
 				.Build()),
 			
@@ -54,8 +53,6 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				.WithConditions(Conditions.Stun)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					//TODO: Consume &&
-					
 					return await AbilityCmd.HasPerformedAbility(state, 1);
 				})
 				.WithCustomGetTargets((state, list) =>

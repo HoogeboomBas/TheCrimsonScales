@@ -16,6 +16,14 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						parameters.AbilityState.AbilityAdjustPierce(1);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					},
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.Pierce)} 1")))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
@@ -37,7 +45,6 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 					await GDTask.CompletedTask;
 				})
 				.Build())
-			//TODO: Consume +1dmg, +1pierce, +1xp
 		];
 	}
 
@@ -49,12 +56,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 				.WithRange(3)
 				.WithObstacleCount(2)
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-				.WithOnAbilityEndedPerformed(async state =>
-				{
-					//TODO: Produce
-					
-					await GDTask.CompletedTask;
-				})
+				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
 			
 			new AbilityCardAbility(AttackAbility.Builder()

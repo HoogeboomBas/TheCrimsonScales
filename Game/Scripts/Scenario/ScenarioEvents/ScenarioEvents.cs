@@ -123,10 +123,18 @@ public partial class ScenarioEvents
 			: ParametersBase<DivinationAbility.State>(abilityState)
 		{
 			public AMDCard AMDCard = amdCard;
+			public bool PlaceAtDeckTop { get; private set; } = false;
 			public bool PlaceAtDeckBottom { get; private set; } = false;
+
+			public void SetPlaceAtDeckTop()
+			{
+				PlaceAtDeckTop = true;
+				PlaceAtDeckBottom = false;
+			}
 
 			public void SetPlaceAtDeckBottom()
 			{
+				PlaceAtDeckTop = false;
 				PlaceAtDeckBottom = true;
 			}
 		}

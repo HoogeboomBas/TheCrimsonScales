@@ -17,8 +17,14 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
 				.WithConditions(Conditions.Stun)
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					},
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.GetElement(Element.Dark))}")))
 				.Build())
-			//TODO: Consume +1dmg, generate dark, +1xp
 		];
 	}
 
@@ -55,14 +61,14 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					//TODO: Produce 1
+					await GainVoidEnergy(state);
 					await state.AdvanceUseSlot();
 					
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
 							async parameters =>
 							{
-								//TODO: Produce 1
+								await GainVoidEnergy(state);
 								await state.AdvanceUseSlot();
 							});
 				})

@@ -15,17 +15,12 @@ public class GreedBeforeNeed : HollowpactCardModel<GreedBeforeNeed.CardTop, Gree
 			new AbilityCardAbility(SufferDamageAbility.Builder()
 				.WithDamage(1)
 				.WithRange(1)
-				.WithOnAbilityEndedPerformed(async state =>
-				{
-					//TODO: Produce
-					await GDTask.CompletedTask;
-				})
+				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
 			
 			new AbilityCardAbility(LootAbility.Builder()
 				.WithRange(1)
 				.Build())
-			//TODO: Consume +1dmg, +1xp
 		];
 	}
 

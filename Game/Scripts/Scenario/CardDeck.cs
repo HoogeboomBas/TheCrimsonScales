@@ -14,14 +14,14 @@ public class CardDeck<T>
 		Reshuffle();
 	}
 
-	public T PeekCard()
+	public T PeekCard(int position)
 	{
-		if(DrawPile.Count == 0)
+		if(DrawPile.Count < position + 1)
 		{
 			Reshuffle();
 		}
 
-		return DrawPile[^1];
+		return DrawPile[DrawPile.Count - 1 - position];
 	}
 
 	public T DrawCard()
@@ -53,6 +53,12 @@ public class CardDeck<T>
 		{
 			ShuffleDrawPile();
 		}
+	}
+
+	public void MoveCardToTop(T card)
+	{
+		DrawPile.Remove(card);
+		DrawPile.Add(card);
 	}
 
 	public void MoveCardToBottom(T card)

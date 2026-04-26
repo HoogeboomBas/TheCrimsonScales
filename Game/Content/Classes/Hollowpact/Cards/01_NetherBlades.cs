@@ -35,10 +35,10 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 				.WithDistance(2)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					//TODO: Don't do if consumed
-					await GDTask.CompletedTask;
+					bool usedVoidEnergy = await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}4 instead"));
 
-					return true;
+					state.SetCustomValue(this, "UsedVoidEnergy", usedVoidEnergy);
+					return !usedVoidEnergy;
 				})
 				.Build()),
 			
@@ -46,10 +46,7 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 				.WithDistance(4)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					//TODO: Do if consumed
-					await GDTask.CompletedTask;
-
-					return false;
+					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "UsedVoidEnergy");
 				})
 				.Build()),
 		];

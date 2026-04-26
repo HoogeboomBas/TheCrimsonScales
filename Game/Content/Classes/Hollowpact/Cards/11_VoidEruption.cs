@@ -24,8 +24,8 @@ public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidErupti
 						await AbilityCmd.CreateObstacle(hex, "res://Content/Classes/Hollowpact/VoidPit.tscn");
 					}
 					
-					//TODO: Produce 2
-					await GDTask.CompletedTask;
+					await GainVoidEnergy(state);
+					await GainVoidEnergy(state);
 				})
 				.Build()),
 			
@@ -53,10 +53,7 @@ public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidErupti
 				.WithDistance(3)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					//TODO: Consume
-					await GDTask.CompletedTask;
-
-					return false;
+					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}3, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}, self"));
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 				{

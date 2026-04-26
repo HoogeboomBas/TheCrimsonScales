@@ -35,8 +35,11 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 						await AbilityCmd.SufferDamage(parameters.AbilityState, figure, 2);
 
 						parameters.AbilityState.AbilityAdjustHealValue(2);
-						//TODO: Produce 2
-					}, effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}")))//, +2{Icons.Inline((Icons.VoidEnergy))}")))
+
+						await GainVoidEnergy(parameters.AbilityState);
+						await GainVoidEnergy(parameters.AbilityState);
+					}, 
+					effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}")))//, +2{Icons.Inline((Icons.VoidEnergy))}")))
 				.Build())
 		];
 	}
@@ -53,6 +56,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 				.WithHealValue(2)
 				.WithConditions(Conditions.Regenerate)
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
+				.WithOnAbilityEndedPerformed(state => AbilityCmd.GainXP(state.Performer, 1))
 				.Build())
 		];
 	}

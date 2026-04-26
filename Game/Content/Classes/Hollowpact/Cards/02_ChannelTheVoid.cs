@@ -42,7 +42,13 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
 				.WithConditions(Conditions.Curse)
-				//TODO: Consume 2, +2dmg, +1xp
+				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(2,
+					async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(2);
+						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
+					},
+					new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")))
 				.Build())
 		];
 	}
