@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using Godot;
 
 public class DivinationAbility : TargetedAbility<DivinationAbility.State, SingleTargetState>
@@ -36,7 +36,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		public IMaxCardsToPlaceAtBottomStep WithCardsToPeek(int cardsToPeek)
 		{
 			Obj._cardsToPeek = cardsToPeek;
-			return this;
+			return (TBuilder)this;
 		}
 
 		public TBuilder WithMaxCardsToPlaceAtBottom(int maxCardsToPlaceAtBottom)
@@ -50,7 +50,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		/// </summary>
 		public override TAbility Build()
 		{
-			Obj.Target = _target ?? Target.SelfOrAllies;
+			Obj.TargetType = _target ?? Target.SelfOrAllies;
 			return base.Build();
 		}
 	}
@@ -65,7 +65,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 	}
 
 	/// <summary>
-	/// A convenience method that returns an instance of ControlBuilder.
+	/// A convenience method that returns an instance of DivinationBuilder.
 	/// </summary>
 	/// <returns></returns>
 	public static DivinationBuilder.ICardsToPeekStep Builder()
@@ -95,7 +95,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 
 			if(abilityState.CardsPlacedAtBottom == _maxCardsToPlaceAtBottom)
 			{
-				break;
+				ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(abilityState, this);
 			}
 		}
 

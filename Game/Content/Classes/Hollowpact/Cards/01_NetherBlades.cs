@@ -13,8 +13,7 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			//TODO: Voidsight
-
+			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
 				.WithAOEPattern(new AOEPattern([

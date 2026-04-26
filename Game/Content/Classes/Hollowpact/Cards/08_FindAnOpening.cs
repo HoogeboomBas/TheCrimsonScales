@@ -13,8 +13,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			//TODO: Voidsight
-			
+			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
 				.WithOnAbilityStarted(async state =>

@@ -52,7 +52,7 @@ public partial class AMDDrawView : Control
 
 		if(amdCardDrawnParameters.PlaceAtDeckBottom)
 		{
-			deck.AddCardToBottom(newCard);
+			deck.MoveCardToBottom(newCard);
 		}
 
 		// Move visuals away

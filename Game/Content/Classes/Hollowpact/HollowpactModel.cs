@@ -28,6 +28,21 @@ public class HollowpactModel : ClassModel
 
 	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
+		ModelDB.AbilityCard<VoidStep>(),
+		ModelDB.AbilityCard<NetherBlades>(),
+		ModelDB.AbilityCard<ChannelTheVoid>(),
+		ModelDB.AbilityCard<WitheringDeluge>(),
+		ModelDB.AbilityCard<EnervatingStrike>(),
+		ModelDB.AbilityCard<BorrowedVitality>(),
+		ModelDB.AbilityCard<UntetheredAdvance>(),
+		ModelDB.AbilityCard<TouchOfTheVoid>(),
+		ModelDB.AbilityCard<FindAnOpening>(),
+		ModelDB.AbilityCard<ReachingDarkness>(),
+		ModelDB.AbilityCard<GreedBeforeNeed>(),
+
+		ModelDB.AbilityCard<VoidEruption>(),
+		ModelDB.AbilityCard<HollowEmbrace>(),
+		ModelDB.AbilityCard<TheVoidConsumes>(),
 	];
 
 	public override List<PerkModel> Perks { get; } =

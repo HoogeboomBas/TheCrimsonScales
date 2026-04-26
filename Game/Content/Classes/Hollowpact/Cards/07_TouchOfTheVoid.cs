@@ -13,8 +13,7 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			//TODO: Voidsight
-			
+			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(1)
 				.WithConditions(Conditions.Stun)
