@@ -34,19 +34,18 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				.Build()),
 			
 			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(999)
-				.WithConditionalAbilityCheck(async state =>
-				{
-					//TODO: Consume &&
-					
-					return await AbilityCmd.HasPerformedAbility(state, 0);
-				})
 				.WithCustomGetHexes((state, list) =>
 				{
 					foreach(Hex targetedHex in state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).TargetedHexes)
 					{
 						list.AddRange(RangeHelper.GetHexesInRange(targetedHex, 1).Where(hex => hex.IsUnoccupied()));
 					}
+				})
+				.WithConditionalAbilityCheck(async state =>
+				{
+					//TODO: Consume &&
+					
+					return await AbilityCmd.HasPerformedAbility(state, 0);
 				})
 				.Build()),
 			

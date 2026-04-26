@@ -7,7 +7,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 	public override string Name => "Borrowed Vitality";
 	public override int Level => 1;
 	public override int Initiative => 37;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 5;
 
 	public class CardTop : HollowpactCardSide
 	{

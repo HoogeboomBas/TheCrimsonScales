@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://brfgdrj0oe87w"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
+[ext_resource type="Script" uid="uid://bdptembfi3oox" path="res://Content/Classes/Hollowpact/Hollowpact.cs" id="2_g3iuo"]
+[ext_resource type="Texture2D" uid="uid://de7morplgfcwt" path="res://Content/Classes/Hollowpact/Portrait.tres" id="3_g3iuo"]
+[ext_resource type="Texture2D" uid="uid://dhekqxcjlwjj5" path="res://Content/Classes/Hollowpact/Animation.jpg" id="4_g3iuo"]
+
+[node name="Hollowpact" unique_id=391697815 instance=ExtResource("1_q7cyt")]
+script = ExtResource("2_g3iuo")
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = ExtResource("3_g3iuo")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+texture = ExtResource("4_g3iuo")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.866667, 0.870588, 0.541176, 1)

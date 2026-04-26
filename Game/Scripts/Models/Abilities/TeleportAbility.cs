@@ -38,6 +38,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		public interface IDistanceStep
 		{
 			TBuilder WithDistance(int distance);
+			TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes);
 		}
 
 		public TBuilder WithDistance(int distance)

@@ -35,7 +35,7 @@ public class GreedBeforeNeed : HollowpactCardModel<GreedBeforeNeed.CardTop, Gree
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
 				.WithDistance(3)
-				.WithDuringMovementSubscription(ScenarioEvents.DuringMovement.Subscription.ConsumeWildElement(
+				.WithDuringMovementSubscription(ScenarioEvents.DuringMovement.Subscription.ConsumeElement([CardElementConsumption.ConsumeWild()],
 					applyFunction: async parameters =>
 					{
 						await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Dark);
