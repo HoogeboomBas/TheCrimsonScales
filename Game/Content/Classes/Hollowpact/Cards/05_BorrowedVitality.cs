@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, BorrowedVitality.CardBottom>
 {
@@ -38,7 +37,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 
 						await GainVoidEnergy(parameters.AbilityState, 2);
 					}, 
-					effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}")))//, +2{Icons.Inline((Icons.VoidEnergy))}")))
+					effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Heal)}, +2{Icons.Inline(Hollowpact.VoidEnergy)}")))
 				.Build())
 		];
 	}

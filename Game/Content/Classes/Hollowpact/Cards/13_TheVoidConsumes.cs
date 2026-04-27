@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheVoidConsumes.CardBottom>
 {
@@ -29,6 +28,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 			
 			new AbilityCardAbility(CreateObstacleAbility.Builder()
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
+				.WithCustomName("Void pit")
 				.Build())
 		];
 	}

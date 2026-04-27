@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, ReachingDarkness.CardBottom>
 {

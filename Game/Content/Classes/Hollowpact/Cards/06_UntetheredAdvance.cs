@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 using Godot;
 
 public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, UntetheredAdvance.CardBottom>

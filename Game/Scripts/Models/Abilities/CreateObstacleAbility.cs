@@ -16,6 +16,7 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 	public int Range { get; private set; } = 1;
 	public int ObstacleCount { get; private set; } = 1;
 	public string AssetPath = "res://Content/OverlayTiles/Obstacles/Boulder1H.tscn";
+	public string ObstacleName = "obstacle";
 	
 	public Action<State, List<Hex>> CustomSelectHexes { get; private set; } = null;
 	public bool Mandatory = false;
@@ -51,6 +52,12 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 		public TBuilder WithCustomAsset(string assetPath)
 		{
 			Obj.AssetPath = assetPath;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithCustomName(string obstacleName)
+		{
+			Obj.ObstacleName = obstacleName;
 			return (TBuilder)this;
 		}
 
@@ -95,7 +102,7 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 		minSelectionCount: Mandatory ? ObstacleCount : 0,
 		maxSelectionCount: ObstacleCount, 
 		autoSelectIfMaxCountIsValidCount: false, 
-		hintText: (ObstacleCount == 1) ? $"Select a hex to place the Obstacle" : $"Select up to {ObstacleCount} hexes to place the Obstacles");
+		hintText: (ObstacleCount == 1) ? $"Select a hex to place the {ObstacleName}" : $"Select up to {ObstacleCount} hexes to place the {ObstacleName}s");
 
 		if(targetHexes.Count > 0)
 		{

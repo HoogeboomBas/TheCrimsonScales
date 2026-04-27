@@ -14,6 +14,7 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 		[
 			new AbilityCardAbility(CreateObstacleAbility.Builder()
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
+				.WithCustomName("Void pit")
 				.Build()),
 
 			new AbilityCardAbility(ShieldAbility.Builder()

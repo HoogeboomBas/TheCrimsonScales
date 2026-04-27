@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, WitheringDeluge.CardBottom>
@@ -45,6 +44,7 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 			
 			new AbilityCardAbility(CreateObstacleAbility.Builder()
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
+				.WithCustomName("Void pit")
 				.WithRange(2)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),

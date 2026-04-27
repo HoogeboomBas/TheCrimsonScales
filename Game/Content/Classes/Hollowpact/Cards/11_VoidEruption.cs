@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fractural.Tasks;
 
 public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidEruption.CardBottom>
 {

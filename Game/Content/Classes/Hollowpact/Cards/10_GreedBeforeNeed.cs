@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class GreedBeforeNeed : HollowpactCardModel<GreedBeforeNeed.CardTop, GreedBeforeNeed.CardBottom>
 {

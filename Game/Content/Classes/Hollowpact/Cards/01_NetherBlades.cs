@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlades.CardBottom>
@@ -26,7 +25,7 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					await GainVoidEnergy(state, state.ActionState.GetAbilityState<AttackAbility.State>(0).UniqueTargetedFigures.Count);
+					await GainVoidEnergy(state, state.ActionState.GetAbilityState<AttackAbility.State>(1).UniqueTargetedFigures.Count);
 					state.SetPerformed();
 				})
 				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))

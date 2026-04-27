@@ -132,6 +132,7 @@ public class HollowpactAMDCards
 		[
 			CreateObstacleAbility.Builder()
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
+				.WithCustomName("Void pit")
 				.WithRange(2)
 				.Build(),
 		];

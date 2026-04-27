@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 
 public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, EnervatingStrike.CardBottom>
 {

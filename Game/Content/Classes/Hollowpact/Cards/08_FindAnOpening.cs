@@ -55,6 +55,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 			new AbilityCardAbility(CreateObstacleAbility.Builder()
 				.WithRange(3)
 				.WithObstacleCount(2)
+				.WithCustomName("Void pit")
 				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),

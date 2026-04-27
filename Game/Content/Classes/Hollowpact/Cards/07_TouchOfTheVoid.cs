@@ -21,6 +21,7 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 					async parameters =>
 					{
 						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Dark);
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					},
 					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.GetElement(Element.Dark))}")))
