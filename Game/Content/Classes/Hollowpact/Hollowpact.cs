@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using Godot;
 
 public partial class Hollowpact : Character
 {
 	public const string VoidEnergy = "res://Content/Classes/Hollowpact/Icon.svg";
+	public const string VoidEnergyAlt = "res://Content/Classes/Hollowpact/cs-void-energy.png";
 
-	//[Export]
-	//private voidEnergyIndicator _voidEnergyIndicator;
+	[Export]
+	private VoidEnergyIndicator _voidEnergyIndicator;
 
 	private int _voidEnergyCount;
 
 	public override async GDTask Spawn(SavedCharacter savedCharacter, int index)
 	{
 		await base.Spawn(savedCharacter, index);
-		//_voidEnergyIndicator.Hide();
+		_voidEnergyIndicator.Hide();
 	}
 
 	public override async GDTask OnScenarioSetupCompleted()
@@ -40,6 +38,8 @@ public partial class Hollowpact : Character
 				await GDTask.CompletedTask;
 			}
 		);
+
+		GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) => _voidEnergyIndicator.QueueFree();
 	}
 
 	public void GainVoidEnergy(int count = 1)
@@ -54,11 +54,11 @@ public partial class Hollowpact : Character
 			_voidEnergyCount++;
 			if(_voidEnergyCount == 1)
 			{
-				//_voidEnergyIndicator.ShowAnimated();
+				_voidEnergyIndicator.ShowAnimated();
 			}
 		}
 
-		//_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
+		_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
 	}
 
 	public void LoseVoidEnergy(int count = 1)
@@ -75,11 +75,11 @@ public partial class Hollowpact : Character
 
 		if(_voidEnergyCount == 0)
 		{
-			//_voidEnergyIndicator.HideAnimated();
+			_voidEnergyIndicator.HideAnimated();
 		}
 		else
 		{
-			//_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
+			_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
 		}
 	}
 

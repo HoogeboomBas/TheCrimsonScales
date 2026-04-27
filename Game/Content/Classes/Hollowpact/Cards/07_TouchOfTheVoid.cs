@@ -80,10 +80,10 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 				})
 				.WithUseSlots(
 				[
-					new UseSlot(new Vector2(0.16650043f, 0.3549993f)),
-					new UseSlot(new Vector2(0.36999783f, 0.3549993f)),
-					new UseSlot(new Vector2(0.57749975f, 0.3549993f), GainXP),
-					new UseSlot(new Vector2(0.78700954f, 0.3549993f))
+					new UseSlot(new Vector2(0.17400035f, 0.81451213f)),
+					new UseSlot(new Vector2(0.38299766f, 0.81451213f)),
+					new UseSlot(new Vector2(0.59050035f, 0.81451213f), GainXP),
+					new UseSlot(new Vector2(0.8010102f, 0.81451213f))
 				])
 				.Build())
 		];

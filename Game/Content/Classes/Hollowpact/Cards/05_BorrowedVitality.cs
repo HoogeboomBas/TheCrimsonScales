@@ -53,6 +53,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 			
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)
+				.WithTarget(Target.Self)
 				.WithConditions(Conditions.Regenerate)
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
 				.WithOnAbilityEndedPerformed(state => AbilityCmd.GainXP(state.Performer, 1))

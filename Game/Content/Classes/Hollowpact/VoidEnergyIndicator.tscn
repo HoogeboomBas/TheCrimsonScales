@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://djkbotukpnxk2"]
+
+[ext_resource type="Script" uid="uid://0rbjawoms8hp" path="res://Content/Classes/Hollowpact/VoidEnergyIndicator.cs" id="1_ds85k"]
+[ext_resource type="Texture2D" uid="uid://brrrcca8usje2" path="res://Content/Classes/Hollowpact/cs-void-energy.png" id="2_3kw8n"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_epnjg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_11iqu"]
+font = ExtResource("3_epnjg")
+font_size = 60
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="VoidEnergyIndicator" type="Node2D" unique_id=1204759387 node_paths=PackedStringArray("_stackLabel")]
+z_index = 11
+script = ExtResource("1_ds85k")
+_stackLabel = NodePath("StackLabel")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=978478059]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_3kw8n")
+
+[node name="StackLabel" type="Label" parent="." unique_id=1972607740]
+visible = false
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 78.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(20, -39)
+text = "4"
+label_settings = SubResource("LabelSettings_11iqu")
+horizontal_alignment = 1
+vertical_alignment = 1
