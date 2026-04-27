@@ -35,36 +35,6 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 					}
 				})
 				.Build()),
-			/*
-			new AbilityCardAbility(SufferDamageAbility.Builder()
-				.WithDamage(new DynamicInt<SufferDamageAbility.State>(state =>
-				{
-					GrantAbility.State grantState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
-					
-					return grantState.GrantAbilityActionStates.First().AbilityStates.Count(attackState => attackState.Performed);
-				}))
-				.WithConditionalAbilityCheck(async state =>
-				{
-					await GDTask.CompletedTask;
-					
-					GrantAbility.State grantState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
-
-					if(!grantState.Performed || grantState.GrantAbilityActionStates.Count == 0)
-					{
-						return false;
-					}
-
-					return grantState.GrantAbilityActionStates.First().AbilityStates.Any(attackState => attackState.Performed);
-				})
-				.WithOnAbilityEndedPerformed(async state =>
-				{
-					//TODO: Produce
-
-					await GDTask.CompletedTask;
-				})
-				.WithMandatory(true)
-				.Build())
-				*/
 		];
 	}
 
