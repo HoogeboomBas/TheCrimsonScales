@@ -39,8 +39,14 @@ public class VoidStep : HollowpactCardModel<VoidStep.CardTop, VoidStep.CardBotto
 				.WithMandatory(true)
 				.Build()),
 
-			// GainVoidEnergy(1),
-			
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					await GainVoidEnergy(state);
+					state.SetPerformed();
+				})
+				.Build()),
+				
 			new AbilityCardAbility(TeleportAbility.Builder()
 				.WithDistance(4)
 				.WithConditionalAbilityCheck(async state =>

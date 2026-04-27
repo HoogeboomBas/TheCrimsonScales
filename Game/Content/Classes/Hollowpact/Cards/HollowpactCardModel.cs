@@ -21,24 +21,19 @@ public abstract class HollowpactCardModel<TTop, TBottom> : AbilityCardModel<TTop
 
 public abstract class HollowpactCardSide : AbilityCardSideModel
 {
-	public static async GDTask GainVoidEnergy(AbilityState state)
+	public static async GDTask GainVoidEnergy(AbilityState state, int count)
 	{
 		if(state.Performer is Hollowpact hollowpact)
 		{
-			hollowpact.GainVoidEnergy();
+			hollowpact.GainVoidEnergy(count);
 		}
 
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask GainVoidEnergy(Character character)
+	public static async GDTask GainVoidEnergy(AbilityState state)
 	{
-		if(character is Hollowpact hollowpact)
-		{
-			hollowpact.GainVoidEnergy();
-		}
-
-		await GDTask.CompletedTask;
+		await GainVoidEnergy(state, 1);
 	}
 
 	public static void LoseVoidEnergy(Figure figure, int count = 1)

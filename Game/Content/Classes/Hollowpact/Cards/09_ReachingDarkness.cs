@@ -18,7 +18,13 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				.WithRange(5)
 				.Build()),
 			
-			//TODO: Produce
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					await GainVoidEnergy(state);
+					state.SetPerformed();
+				})
+				.Build()),
 		];
 		
 		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Dark)];

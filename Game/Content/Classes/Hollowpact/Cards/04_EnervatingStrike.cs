@@ -46,7 +46,13 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 				.WithMandatory(true)
 				.Build()),
 			
-			// Produce 2
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					await GainVoidEnergy(state, 2);
+					state.SetPerformed();
+				})
+				.Build()),
 		];
 		
 		public override int XP => 2;

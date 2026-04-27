@@ -24,8 +24,7 @@ public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidErupti
 						await AbilityCmd.CreateObstacle(hex, "res://Content/Classes/Hollowpact/VoidPit.tscn");
 					}
 					
-					await GainVoidEnergy(state);
-					await GainVoidEnergy(state);
+					await GainVoidEnergy(state, 2);
 				})
 				.Build()),
 			

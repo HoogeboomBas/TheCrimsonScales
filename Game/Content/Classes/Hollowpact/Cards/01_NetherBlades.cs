@@ -21,9 +21,16 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
 				]))
-				.Build())
+				.Build()),
 			
-			//TODO: Produce 1 for each target
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					await GainVoidEnergy(state, state.ActionState.GetAbilityState<AttackAbility.State>(0).UniqueTargetedFigures.Count);
+					state.SetPerformed();
+				})
+				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
+				.Build()),
 		];
 	}
 

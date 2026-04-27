@@ -6,7 +6,7 @@ using Godot;
 
 public partial class Hollowpact : Character
 {
-	public const string VoidEnergy = "res://Content/Classes/Hollowpact/cs-void-energy.png";
+	public const string VoidEnergy = "res://Content/Classes/Hollowpact/Icon.svg";
 
 	//[Export]
 	//private voidEnergyIndicator _voidEnergyIndicator;
@@ -42,17 +42,20 @@ public partial class Hollowpact : Character
 		);
 	}
 
-	public void GainVoidEnergy()
+	public void GainVoidEnergy(int count = 1)
 	{
-		if(_voidEnergyCount == 3)
+		for(int i = 0; i < count; i++)
 		{
-			return;
-		}
+			if(_voidEnergyCount == 3)
+			{
+				return;
+			}
 
-		_voidEnergyCount++;
-		if(_voidEnergyCount == 1)
-		{
-			//_voidEnergyIndicator.ShowAnimated();
+			_voidEnergyCount++;
+			if(_voidEnergyCount == 1)
+			{
+				//_voidEnergyIndicator.ShowAnimated();
+			}
 		}
 
 		//_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
