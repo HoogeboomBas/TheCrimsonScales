@@ -43,13 +43,16 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				{
 					foreach(Hex targetedHex in state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).TargetedHexes)
 					{
-						list.AddRange(RangeHelper.GetHexesInRange(targetedHex, 1).Where(hex => hex.IsUnoccupied()));
+						list.AddRange(RangeHelper.GetHexesInRange(origin: targetedHex, range: 1, includeOrigin: false).Where(hex => hex.IsUnoccupied()));
 					}
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					return await AbilityCmd.HasPerformedAbility(state, 0) && await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
-						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)} to any hex adjacent to the enemy, then perform {Icons.Inline(Icons.Attack)}2, {Icons.Inline(Icons.GetCondition(Conditions.Stun))}"));;
+					return 
+						await AbilityCmd.HasPerformedAbility(state, 0) &&
+						!state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).UniqueTargetedFigures.First().IsDead &&
+						await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
+							new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)} to any hex adjacent to the enemy, then perform {Icons.Inline(Icons.Attack)}2, {Icons.Inline(Icons.GetCondition(Conditions.Stun))}"));;
 				})
 				.Build()),
 			

@@ -60,7 +60,7 @@ public abstract class HollowpactCardSide : AbilityCardSideModel
 		await AbilityCmd.GenericChoice(figure,
 		[
 			ScenarioEvents.GenericChoice.Subscription.New(
-				_ => true,
+				_ => HasXVoidEnergy(figure, count),
 				async _ =>
 				{
 					LoseVoidEnergy(figure, count);

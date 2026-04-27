@@ -62,6 +62,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 			
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(2)
+				.WithTargets(4)
 				.WithCustomGetTargets((state, list) =>
 				{
 					list.AddRange(GameController.Instance.Map.Figures
