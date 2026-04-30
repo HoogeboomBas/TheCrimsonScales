@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System.Linq;
+using Fractural.Tasks;
 
 public class Contagious : TheCrimsonScalesBattleGoal
 {
@@ -11,7 +12,7 @@ public class Contagious : TheCrimsonScalesBattleGoal
 			parameters =>
 				parameters.PotentialConditionGiver == character &&
 				character.EnemiesWith(parameters.Target) &&
-				character.Conditions.Count > 0,
+				character.Conditions.Count(condition => condition.ConditionModel.IsNegative) > 0,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
