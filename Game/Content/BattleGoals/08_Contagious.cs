@@ -12,7 +12,7 @@ public class Contagious : TheCrimsonScalesBattleGoal
 			parameters =>
 				parameters.PotentialConditionGiver == character &&
 				character.EnemiesWith(parameters.Target) &&
-				character.Conditions.Count(condition => condition.ConditionModel.IsNegative) > 0,
+				character.Conditions.Any(condition => condition.ConditionModel.IsNegative),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
