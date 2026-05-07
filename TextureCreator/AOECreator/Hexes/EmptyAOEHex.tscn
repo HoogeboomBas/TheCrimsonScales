@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dkkr66vv6ujnu"]
+
+[ext_resource type="PackedScene" uid="uid://ccqd7gjbphheu" path="res://AOECreator/Hexes/_AOEHex.tscn" id="1_xtn5r"]
+[ext_resource type="Texture2D" uid="uid://cxovy0el2ev4s" path="res://AOECreator/BlankHexOutline.svg" id="2_shc8q"]
+
+[node name="AOEHex" unique_id=1133035251 instance=ExtResource("1_xtn5r")]
+
+[node name="Outline" parent="." index="0" unique_id=1607675899]
+visible = false
+
+[node name="White" parent="." index="1" unique_id=582480572]
+texture = ExtResource("2_shc8q")
+
+[node name="Color" parent="." index="2" unique_id=1910492485]
+visible = false
+self_modulate = Color(0.3529412, 0.3529412, 0.35686275, 1)

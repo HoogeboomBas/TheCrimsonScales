@@ -91,10 +91,10 @@ public partial class MenuPopup : Popup<MenuPopup.Request>
 	{
 		Close();
 
-		Formatting oldFormatting = SaveFile.JsonSerializerSettings.Formatting;
-		SaveFile.JsonSerializerSettings.Formatting = Formatting.Indented;
-		string json = JsonConvert.SerializeObject(GameController.Instance.SavedCampaign, SaveFile.JsonSerializerSettings);
-		SaveFile.JsonSerializerSettings.Formatting = oldFormatting;
+		Formatting oldFormatting = SaveManager.JsonSerializerSettings.Formatting;
+		SaveManager.JsonSerializerSettings.Formatting = Formatting.Indented;
+		string json = JsonConvert.SerializeObject(GameController.Instance.SavedCampaign, SaveManager.JsonSerializerSettings);
+		SaveManager.JsonSerializerSettings.Formatting = oldFormatting;
 		//GD.Print(json);
 		DisplayServer.ClipboardSet(json);
 	}

@@ -36,20 +36,20 @@ public class Road55 : RoadEventModel<Road55.ChoiceA, Road55.ChoiceB>
 			As you touch the glowing stones and ashen blades, you feel a corrupt energy coarse through your body. You immediately drop the items, realizing in horror that these items must have been tainted by the Void. Those of you who are not fortified against the Void feel their life essence drained by the contact. You abandon these accursed items with all haste.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new AllStartScenarioWithConditionEventReward(Conditions.Strengthen)
+					new AllStartScenarioWithConditionReward(Conditions.Strengthen)
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioWithConditionEventReward(Conditions.Curse)
+					new AllStartScenarioWithConditionReward(Conditions.Curse)
 				];
 			}
 		}
@@ -66,9 +66,9 @@ public class Road55 : RoadEventModel<Road55.ChoiceA, Road55.ChoiceB>
 			Carefully, without touching the bodies or equipment, you take time to hide the site. Perhaps someday you can return and safely cleanse or destroy these items, but for now, it's better if no one stumbles across them.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioDiscardingEventReward(1)
+			new AllStartScenarioDiscardingReward(1)
 		];
 	}
 }

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cwssh8m5tb3t5"]
+
+[ext_resource type="Script" uid="uid://cckg6mtqdoebh" path="res://Scripts/UI/Popups/SaveFileSelectionPopup/SaveFileSelectionPopupSaveFileCharacter.cs" id="1_dwygk"]
+[ext_resource type="PackedScene" uid="uid://dlc378jgp47uy" path="res://Scenes/UI/ClassView.tscn" id="2_k11tp"]
+
+[node name="SaveFileSelectionPopupSaveFileCharacter" type="Control" unique_id=252845524 node_paths=PackedStringArray("_classView")]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_dwygk")
+_classView = NodePath("ClassView")
+
+[node name="ClassView" parent="." unique_id=1882316233 instance=ExtResource("2_k11tp")]
+layout_mode = 1

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -22,7 +22,8 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 						{
 							((HealAbility.State)applyParameters.AbilityState).AbilityAddCondition(Conditions.Strengthen);
 							await AbilityCmd.GainXP(applyParameters.AbilityState.Performer, 1);
-						}
+						},
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Strengthen))}")
 					)
 				)
 				.Build()),

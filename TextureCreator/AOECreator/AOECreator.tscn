@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dauhiq1khpsot"]
+
+[ext_resource type="Script" uid="uid://hlqihay7xnc7" path="res://AOECreator/AOECreator.cs" id="1_rwpur"]
+[ext_resource type="PackedScene" uid="uid://d2437egv2vh8b" path="res://AOECreator/AOEPatternView.tscn" id="2_8r7vk"]
+
+[node name="AOECreator" type="Node2D" unique_id=1427783930 node_paths=PackedStringArray("_camera", "_aoePatternViewParent")]
+script = ExtResource("1_rwpur")
+_camera = NodePath("Camera2D")
+_aoePatternViewScene = ExtResource("2_8r7vk")
+_aoePatternViewParent = NodePath(".")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=802918517]

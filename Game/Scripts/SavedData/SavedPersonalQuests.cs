@@ -7,26 +7,26 @@ public class SavedPersonalQuests
 {
 	private static readonly PersonalQuestModel[] StartingPersonalQuestDeck =
 	[
-		// ModelDB.PersonalQuest<ProtectAndServe>(),
+		// ModelDB.PersonalQuest<ProtectAndServe>(), // Requires scenario 34
 		ModelDB.PersonalQuest<WeaponsSpecialist>(),
-		// ModelDB.PersonalQuest<Experimentation>(),
-		// ModelDB.PersonalQuest<ThrillSeeker>(),
+		ModelDB.PersonalQuest<Experimentation>(),
+		ModelDB.PersonalQuest<ThrillSeeker>(),
 		ModelDB.PersonalQuest<TrapSetter>(),
-		// ModelDB.PersonalQuest<BanditBanisher>(),
+		// ModelDB.PersonalQuest<BanditBanisher>(), // Requires scenario 35
 		ModelDB.PersonalQuest<CreaturesInTheNight>(),
 		ModelDB.PersonalQuest<ExperiencedLeader>(),
-		// ModelDB.PersonalQuest<AdrenalineSpike>(),
+		ModelDB.PersonalQuest<AdrenalineSpike>(),
 		ModelDB.PersonalQuest<MutualSupport>(),
 		ModelDB.PersonalQuest<ThyBeBlessed>(),
 		ModelDB.PersonalQuest<SpiritualGainsPersonalQuest>(),
-		// ModelDB.PersonalQuest<ThePathOfAgony>(),
-		// ModelDB.PersonalQuest<TheDyingOfLight>(),
-		// ModelDB.PersonalQuest<NaturalSelection>(),
-		// ModelDB.PersonalQuest<PredatorAndPrey>(),
-		// ModelDB.PersonalQuest<AnAdderDivides>(),
+		// ModelDB.PersonalQuest<ThePathOfAgony>(), // Requires Hollowpact
+		// ModelDB.PersonalQuest<TheDyingOfLight>(), // Requires Hollowpact
+		ModelDB.PersonalQuest<NaturalSelection>(),
+		ModelDB.PersonalQuest<PredatorAndPrey>(),
+		ModelDB.PersonalQuest<AnAdderDivides>(),
 		ModelDB.PersonalQuest<FieldResearch>(),
-		// ModelDB.PersonalQuest<ConjurersHand>(),
-		// ModelDB.PersonalQuest<NoRestForTheWicked>(),
+		// ModelDB.PersonalQuest<ConjurersHand>(), // Requires Spirit Caller
+		// ModelDB.PersonalQuest<NoRestForTheWicked>(), // Requires Spirit Caller
 		ModelDB.PersonalQuest<HealthFirst>(),
 		ModelDB.PersonalQuest<LimitlessSearching>(),
 	];

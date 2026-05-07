@@ -8,6 +8,18 @@ public class ChieftainModel : ClassModel
 	public override int HandSize => 10;
 	public override Ancestry Ancestry => Ancestry.Orchid;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City37>(),
+		ModelDB.Event<Road37>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City38>(),
+		ModelDB.Event<Road38>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Chieftain";
 	public override Color PrimaryColor => Color.FromHtml("76c7c3");
 	public override Color SecondaryColor => Color.FromHtml("5e7574");
@@ -51,5 +63,31 @@ public class ChieftainModel : ClassModel
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusTwoWithOneMinusTwoBlessSelf>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusOneWithOnePlusZeroPoison>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusOneWithOnePlusZeroHealOneChieftain>(),
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusOneWithOnePlusZeroHealOneChieftain>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusOneWithOnePlusZeroHealTargetAllYourSummons>(),
+		ModelDB.Perk<ChieftainPerks.ReplaceOneMinusOneWithOnePlusZeroHealTargetAllYourSummons>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceTwoPlusZeroWithPlusZeroPushOneImmobilize>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplacePlusZeroWithOnePlusZeroAddPlusOneForEachOfYourSummons>(),
+		ModelDB.Perk<ChieftainPerks.ReplacePlusZeroWithOnePlusZeroAddPlusOneForEachOfYourSummons>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceOnePlusZeroWithTwoPlusZeroPierceTwoUnaffectedByRetaliateRolling>(),
+
+		ModelDB.Perk<ChieftainPerks.ReplaceOnePlusZeroWithOnePlusOneIfDrawnBySummonRolling>(),
+
+		ModelDB.Perk<ChieftainPerks.AddTwoPlusOneEarth>(),
+
+		ModelDB.Perk<ChieftainPerks.IgnoreScenarioEffectsAddPlusZeroPierceOneWound>(),
+
+		ModelDB.Perk<ChieftainPerks.PracticedControl>(),
+
+		ModelDB.Perk<ChieftainPerks.Stampede>(),
 	];
 }

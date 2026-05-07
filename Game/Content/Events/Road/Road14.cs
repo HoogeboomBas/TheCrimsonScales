@@ -20,9 +20,9 @@ public class Road14 : RoadEventModel<Road14.ChoiceA, Road14.ChoiceB>
 			You head into the forest and find that the bioluminescent bugs provide you with a clean, bright light that illuminates the path before you. You take advantage of the light and stride through the path, avoiding several large beehives on the way.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainXPEventReward(6)
+			new GainXPReward(6)
 		];
 	}
 
@@ -37,10 +37,10 @@ public class Road14 : RoadEventModel<Road14.ChoiceA, Road14.ChoiceB>
 			You head into the thorn-laden path but find it difficult to navigate around the hazardous bushes in the dark. You end up reaching your destination with a few bleeding cuts after stumbling headfirst into a thornbush.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Wound1),
-			new AllStartScenarioWithDamageEventReward(2)
+			new AllStartScenarioWithConditionReward(Conditions.Wound1),
+			new AllStartScenarioWithDamageReward(2)
 		];
 	}
 }

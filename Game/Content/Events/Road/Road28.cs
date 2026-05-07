@@ -52,20 +52,20 @@ public class Road28 : RoadEventModel<Road28.ChoiceA, Road28.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10)
+					new LoseCollectiveGoldReward(10)
 				];
 			}
 			else
 			{
 				return
 				[
-					new GainCollectiveGoldEventReward(5)
+					new GainCollectiveGoldReward(5)
 				];
 			}
 		}
@@ -82,9 +82,9 @@ public class Road28 : RoadEventModel<Road28.ChoiceA, Road28.ChoiceB>
 			He grabs an armful of totems and dashes off into the distance, leaving behind his booth and a small tin filled with gold.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(5)
+			new GainCollectiveGoldReward(5)
 		];
 	}
 }

@@ -16,6 +16,8 @@ public static class RichTextLabelExtensionMethods
 {
 	public static RichTextParameters GetRichTextParameters(this RichTextLabel richTextLabel)
 	{
-		return new RichTextParameters(richTextLabel.GetThemeFontSize("normal_font_size"), richTextLabel.SelfModulate);
+		Color color = richTextLabel.GetThemeColor("default_color");
+		int fontSize = richTextLabel.GetThemeFontSize("normal_font_size");
+		return new RichTextParameters(fontSize, color);
 	}
 }

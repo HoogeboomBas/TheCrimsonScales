@@ -20,9 +20,9 @@ public class City32 : CityEventModel<City32.ChoiceA, City32.ChoiceB>
 			You decide to enter Shiela's potion shop and she embraces you as you walk through the door. "Thank you so much for getting me home safe the other day!" Shiela beams with enthusiasm. "Here, we just got a batch of new potions in the morning. Take one, on me!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<IntoxicatingPotion>())
+			new GainCollectiveItemReward(ModelDB.Item<IntoxicatingPotion>())
 		];
 	}
 
@@ -35,10 +35,10 @@ public class City32 : CityEventModel<City32.ChoiceA, City32.ChoiceB>
 			You decide to head into the armory and are greeted by a tall Valrath wearing light plate armor. He happily escorts you into the shop and proceeds to show you his latest wares.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainItemDesignEventReward(ModelDB.Item<WovenPlateArmor>()),
-			new GainItemDesignEventReward(ModelDB.Item<MantleOfPurity>()),
+			new GainItemDesignReward(ModelDB.Item<WovenPlateArmor>()),
+			new GainItemDesignReward(ModelDB.Item<MantleOfPurity>()),
 		];
 	}
 }

@@ -14,7 +14,7 @@ public partial class SceneLoader : Node
 
 	public bool RequestSceneChange(SceneRequest sceneRequest)
 	{
-		if(IsTransitioning)
+		if(IsTransitioning || AppController.Instance == null || !AppController.Instance.SaveManager.CanSave)
 		{
 			return false;
 		}

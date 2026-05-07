@@ -120,4 +120,15 @@
 
 	private readonly DrawRoadEvent _drawRoadEvent = new DrawRoadEvent();
 	public static DrawRoadEvent DrawRoadEventEvent => BetweenScenariosController.Instance.Events._drawRoadEvent;
+
+	public class XPChanged : BetweenScenariosEvent<XPChanged.Parameters>
+	{
+		public class Parameters(SavedCharacter character) : ParametersBase
+		{
+			public SavedCharacter Character { get; } = character;
+		}
+	}
+
+	private readonly XPChanged _xpChanged = new XPChanged();
+	public static XPChanged XPChangedEvent => BetweenScenariosController.Instance.Events._xpChanged;
 }

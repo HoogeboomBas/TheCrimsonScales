@@ -22,7 +22,7 @@ public class Road10 : RoadEventModel<Road10.ChoiceA, Road10.ChoiceB>
 			You search through the corpses, hoping to find something of value, but there is nothing worth scavenging besides rotten flesh.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -34,9 +34,9 @@ public class Road10 : RoadEventModel<Road10.ChoiceA, Road10.ChoiceB>
 			You ask the Vermling to point you in the direction of the gardens. As it draws its final breath, the Vermling scratches coordinates into the dirt before collapsing to the ground.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario046>())
+			new UnlockScenarioReward(ModelDB.Scenario<Scenario046>())
 		];
 	}
 }

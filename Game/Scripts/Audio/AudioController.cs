@@ -24,13 +24,13 @@ public partial class AudioController : Node
 		_bgmBusIndex = AudioServer.GetBusIndex("BGM");
 		_bgsBusIndex = AudioServer.GetBusIndex("BGS");
 
-		AppController.Instance.SaveFile.SaveData.Options.SFXVolume.ValueChangedEvent += OnSFXVolumeChanged;
-		AppController.Instance.SaveFile.SaveData.Options.BGMVolume.ValueChangedEvent += OnBGMVolumeChanged;
-		AppController.Instance.SaveFile.SaveData.Options.BGSVolume.ValueChangedEvent += OnBGSVolumeChanged;
+		AppController.Instance.DeviceOptions.SFXVolume.ValueChangedEvent += OnSFXVolumeChanged;
+		AppController.Instance.DeviceOptions.BGMVolume.ValueChangedEvent += OnBGMVolumeChanged;
+		AppController.Instance.DeviceOptions.BGSVolume.ValueChangedEvent += OnBGSVolumeChanged;
 
-		OnSFXVolumeChanged(AppController.Instance.SaveFile.SaveData.Options.SFXVolume.Value);
-		OnBGMVolumeChanged(AppController.Instance.SaveFile.SaveData.Options.BGMVolume.Value);
-		OnBGSVolumeChanged(AppController.Instance.SaveFile.SaveData.Options.BGSVolume.Value);
+		OnSFXVolumeChanged(AppController.Instance.DeviceOptions.SFXVolume.Value);
+		OnBGMVolumeChanged(AppController.Instance.DeviceOptions.BGMVolume.Value);
+		OnBGSVolumeChanged(AppController.Instance.DeviceOptions.BGSVolume.Value);
 	}
 
 	public void Play(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f)

@@ -19,7 +19,7 @@ public class PerformOnDeathTrait(params Ability[] abilities) : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters($"Performs abilities on death"));
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters => $"Performs abilities on death"));
 			}
 		);
 	}

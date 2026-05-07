@@ -63,7 +63,6 @@
 [ext_resource type="Script" uid="uid://bxa761yuhmqnl" path="res://Scripts/Scenario/UI/ScenarioWonView.cs" id="44_7vhok"]
 [ext_resource type="Script" uid="uid://vywttw4n4suv" path="res://Scripts/Scenario/UI/AMDDrawView/AMDDrawView.cs" id="44_j1euc"]
 [ext_resource type="Texture2D" uid="uid://b2i43ibv0m6ow" path="res://Art/Icons/Elements/LightEmpty.svg" id="44_krl23"]
-[ext_resource type="Script" uid="uid://da4wan5xkcn7v" path="res://Scripts/Scenario/UI/SpecialRulesView.cs" id="45_1uc0n"]
 [ext_resource type="PackedScene" uid="uid://dl18focdn4sn2" path="res://Scenes/Scenario/UI/AMDDrawCard.tscn" id="45_bopvg"]
 [ext_resource type="Texture2D" uid="uid://bg6ru16ao38c7" path="res://Art/Icons/Elements/Light.svg" id="45_qr3ow"]
 [ext_resource type="Texture2D" uid="uid://bfw0bpipq037p" path="res://Art/Icons/Elements/DarkEmpty.svg" id="46_ri0y1"]
@@ -72,18 +71,20 @@
 [ext_resource type="Script" uid="uid://b5bc6ttunxi7h" path="res://Scripts/Scenario/UI/InfoView/InfoView.cs" id="48_sv35a"]
 [ext_resource type="PackedScene" uid="uid://g1nr1j3khjk5" path="res://Scenes/Scenario/UI/InfoView/InfoViewPanel.tscn" id="49_pcjy7"]
 [ext_resource type="Texture2D" uid="uid://bvs5smm6hx6rc" path="res://Art/Icons/Other/Pin.svg" id="54_uif1r"]
-[ext_resource type="Shader" uid="uid://dtwrnvi5agwii" path="res://Shaders/UIBlur.gdshader" id="55_uxp20"]
 [ext_resource type="StyleBox" uid="uid://bht73g872t3sp" path="res://Resources/BlurPanel.tres" id="56_4oqg7"]
 [ext_resource type="PackedScene" uid="uid://ct6pmvbmsh7lf" path="res://Scenes/UI/MenuButton.tscn" id="58_2qf5q"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="59_2qf5q"]
 [ext_resource type="PackedScene" uid="uid://cpl0163b2ppbv" path="res://Scenes/UI/CardSelectionView.tscn" id="59_h6npn"]
-[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="61_2qf5q"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="64_ldvfj"]
 [ext_resource type="Texture2D" uid="uid://ba4nlrsbyojkl" path="res://Art/Icons/Other/StartHexMoveIcon.svg" id="65_h6npn"]
 [ext_resource type="Script" uid="uid://bctno8ajvg8at" path="res://Scripts/Scenario/CharacterStartHexMoveIndicator.cs" id="65_pcjy7"]
 [ext_resource type="Script" uid="uid://bdesfx5saafxe" path="res://Scripts/Scenario/UI/PartyButton.cs" id="68_7tbw1"]
 [ext_resource type="Texture2D" uid="uid://u3h3kga0ipcv" path="res://Art/Icons/Other/Party.svg" id="69_b2ul3"]
+[ext_resource type="Script" uid="uid://w03e1kq1r83b" path="res://Scripts/Scenario/UI/GoalsView/GoalsView.cs" id="70_fmnch"]
 [ext_resource type="Script" uid="uid://opd3xcxouwh5" path="res://Scripts/Scenario/UI/CurrentActionView/CurrentActionViewManager.cs" id="71_b23n0"]
+[ext_resource type="PackedScene" uid="uid://dqge1igxu7nf4" path="res://Scenes/Scenario/UI/GoalsViewGoal.tscn" id="71_m5nxw"]
+[ext_resource type="Script" uid="uid://da4wan5xkcn7v" path="res://Scripts/Scenario/UI/SpecialRulesView/SpecialRulesView.cs" id="72_dpg3j"]
+[ext_resource type="PackedScene" uid="uid://bdrvfcj24y2s1" path="res://Scenes/Scenario/UI/SpecialRulesViewRule.tscn" id="72_m5nxw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcllr"]
 shader = ExtResource("20_76yld")
@@ -128,20 +129,6 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4oqg7"]
-shader = ExtResource("55_uxp20")
-
-[sub_resource type="LabelSettings" id="LabelSettings_tl3ik"]
-font = ExtResource("59_2qf5q")
-font_size = 40
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mkyj"]
-bg_color = Color(1, 1, 1, 0.352941)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2qf5q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mdo4f"]
@@ -152,7 +139,7 @@ font_size = 100
 font = ExtResource("39_namyh")
 font_size = 50
 
-[node name="Game" type="Node" unique_id=836903355 node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "SpecialRulesView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
+[node name="Game" type="Node" unique_id=836903355 node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion")]
 script = ExtResource("1_arwlr")
 CameraController = NodePath("CameraController")
 CursorOverUIChecker = NodePath("CanvasLayer/UI/CursorOverUIChecker")
@@ -175,7 +162,6 @@ EffectSelectionView = NodePath("CanvasLayer/UI/EffectSelectionView")
 EffectInfoViewManager = NodePath("CanvasLayer/UI/EffectSelectionView/EffectInfoViews")
 AMDDrawView = NodePath("CanvasLayer/UI/AMDDrawView")
 HintTextView = NodePath("CanvasLayer/UI/HintText")
-SpecialRulesView = NodePath("CanvasLayer/UI/SpecialRulesView")
 ElementsView = NodePath("CanvasLayer/UI/ElementsView")
 ScenarioLostView = NodePath("CanvasLayer/UI/ScenarioLostView")
 ScenarioWonView = NodePath("CanvasLayer/UI/ScenarioWonView")
@@ -1184,13 +1170,87 @@ offset_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="InfoView" type="Control" parent="CanvasLayer/UI" unique_id=1580235894 node_paths=PackedStringArray("_container", "_pinButtonContainer", "_pinButton", "_panelContainer")]
+[node name="RightView" type="Control" parent="CanvasLayer/UI" unique_id=462404578]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="Container" type="Control" parent="CanvasLayer/UI/RightView" unique_id=492399963]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -460.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/RightView/Container" unique_id=705212830]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="GoalsView" type="PanelContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer" unique_id=192258129 node_paths=PackedStringArray("_goalParent")]
+material = ExtResource("64_ldvfj")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("56_4oqg7")
+script = ExtResource("70_fmnch")
+_goalScene = ExtResource("71_m5nxw")
+_goalParent = NodePath("MarginContainer/VBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/GoalsView" unique_id=1985729548]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/GoalsView/MarginContainer" unique_id=1461806104]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SpecialRulesView" type="PanelContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer" unique_id=1188960962 node_paths=PackedStringArray("_ruleParent", "_scrollContainer")]
+material = ExtResource("64_ldvfj")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("56_4oqg7")
+script = ExtResource("72_dpg3j")
+_ruleScene = ExtResource("72_m5nxw")
+_ruleParent = NodePath("MarginContainer/ScrollContainer/VBoxContainer")
+_scrollContainer = NodePath("MarginContainer/ScrollContainer")
+_maxScrollContainerSize = 300
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/SpecialRulesView" unique_id=2030375109]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/SpecialRulesView/MarginContainer" unique_id=2034938476]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/SpecialRulesView/MarginContainer/ScrollContainer" unique_id=1872726048]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="InfoView" type="Control" parent="CanvasLayer/UI/RightView/Container/VBoxContainer" unique_id=1580235894 node_paths=PackedStringArray("_container", "_pinButtonContainer", "_pinButton", "_panelContainer")]
+layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("48_sv35a")
 _container = NodePath("Container")
@@ -1199,25 +1259,7 @@ _pinButton = NodePath("Container/Pin/BetterButton")
 _panelScene = ExtResource("49_pcjy7")
 _panelContainer = NodePath("Container/PanelContainer")
 
-[node name="Container" type="Control" parent="CanvasLayer/UI/InfoView" unique_id=1570126583]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -450.0
-offset_top = 400.0
-offset_right = -90.0
-offset_bottom = -50.0
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Panel" parent="CanvasLayer/UI/InfoView/Container" unique_id=1413974276 instance=ExtResource("49_pcjy7")]
-visible = false
-layout_mode = 1
-
-[node name="PanelContainer" type="Control" parent="CanvasLayer/UI/InfoView/Container" unique_id=816764435]
+[node name="Container" type="Control" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView" unique_id=1570126583]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1226,7 +1268,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Pin" type="Control" parent="CanvasLayer/UI/InfoView/Container" unique_id=1857046086]
+[node name="Panel" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView/Container" unique_id=1413974276 instance=ExtResource("49_pcjy7")]
+visible = false
+layout_mode = 1
+
+[node name="PanelContainer" type="Control" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView/Container" unique_id=816764435]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Pin" type="Control" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView/Container" unique_id=1857046086]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1238,7 +1293,7 @@ offset_bottom = 20.0
 grow_horizontal = 0
 pivot_offset = Vector2(20, 20)
 
-[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/InfoView/Container/Pin" unique_id=180543445]
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView/Container/Pin" unique_id=180543445]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -1320,7 +1375,7 @@ shortcut_feedback = true
 shortcut_in_tooltip = true
 script = ExtResource("38_grpwx")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/InfoView/Container/Pin/BetterButton" unique_id=292837665]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/RightView/Container/VBoxContainer/InfoView/Container/Pin/BetterButton" unique_id=292837665]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1329,87 +1384,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("54_uif1r")
 expand_mode = 1
-
-[node name="SpecialRulesView" type="Control" parent="CanvasLayer/UI" unique_id=2003745985 node_paths=PackedStringArray("_label", "_container")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("45_1uc0n")
-_label = NodePath("Container/Panel/Text")
-_container = NodePath("Container")
-
-[node name="Container" type="Control" parent="CanvasLayer/UI/SpecialRulesView" unique_id=1174330821]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -450.0
-offset_top = 50.0
-offset_right = -90.0
-offset_bottom = 350.0
-grow_horizontal = 0
-mouse_filter = 2
-
-[node name="Panel" type="Control" parent="CanvasLayer/UI/SpecialRulesView/Container" unique_id=217429902]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=92751741]
-material = SubResource("ShaderMaterial_4oqg7")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("56_4oqg7")
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=263253598]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 10.0
-offset_bottom = 63.0
-grow_horizontal = 2
-text = "Scenario Rules"
-label_settings = SubResource("LabelSettings_tl3ik")
-horizontal_alignment = 1
-
-[node name="Divider" type="Panel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=1272596473]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 20.0
-offset_top = 70.0
-offset_right = -20.0
-offset_bottom = 74.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0mkyj")
-
-[node name="Text" type="RichTextLabel" parent="CanvasLayer/UI/SpecialRulesView/Container/Panel" unique_id=124595086]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 84.0
-offset_right = -20.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("61_2qf5q")
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
 
 [node name="CardSelectionView" parent="CanvasLayer/UI" unique_id=1503873886 instance=ExtResource("59_h6npn")]
 layout_mode = 1

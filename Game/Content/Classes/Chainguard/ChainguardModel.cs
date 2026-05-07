@@ -8,6 +8,18 @@ public class ChainguardModel : ClassModel
 	public override int HandSize => 10;
 	public override Ancestry Ancestry => Ancestry.Inox;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		//ModelDB.Event<City43>(),
+		ModelDB.Event<Road43>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City44>(),
+		ModelDB.Event<Road44>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Chainguard";
 	public override Color PrimaryColor => Color.FromHtml("ce6d30");
 	public override Color SecondaryColor => Color.FromHtml("1e1d1d");
@@ -51,5 +63,28 @@ public class ChainguardModel : ClassModel
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<ChainguardPerks.ReplaceOneMinusWithOnePlusOneShackle>(),
+		ModelDB.Perk<ChainguardPerks.ReplaceOneMinusWithOnePlusOneShackle>(),
+
+		ModelDB.Perk<ChainguardPerks.ReplaceOneMinusOneWithOnePlusZeroIfTargetHasShacklePlusTwo>(),
+		ModelDB.Perk<ChainguardPerks.ReplaceOneMinusOneWithOnePlusZeroIfTargetHasShacklePlusTwo>(),
+
+		ModelDB.Perk<ChainguardPerks.ReplaceTwoPlusZeroWithOnePlusZeroShieldOneRollingOnePlusZeroRetaliateOneRolling>(),
+		ModelDB.Perk<ChainguardPerks.ReplaceTwoPlusZeroWithOnePlusZeroShieldOneRollingOnePlusZeroRetaliateOneRolling>(),
+
+		ModelDB.Perk<ChainguardPerks.ReplaceTwoPlusZeroWithThreePlusZeroSwingThreeRolling>(),
+
+		ModelDB.Perk<ChainguardPerks.ReplaceOnePlusOneWithOnePlusTwoWound>(),
+
+		ModelDB.Perk<ChainguardPerks.AddOnePlusOneIfTargetHasShackleDisarm>(),
+
+		ModelDB.Perk<ChainguardPerks.AddTwoPlusZeroHealOneSelfRolling>(),
+
+		ModelDB.Perk<ChainguardPerks.AddOnePlusTwoShackle>(),
+		ModelDB.Perk<ChainguardPerks.AddOnePlusTwoShackle>(),
+
+		ModelDB.Perk<ChainguardPerks.IgnoreItemMinusOneEffectsAddPlusOneCreateDamageTwoTrap>(),
+
+		ModelDB.Perk<ChainguardPerks.UnyieldingJailer>(),
 	];
 }

@@ -113,7 +113,7 @@ public class GiveItemAbility : TargetedAbility<GiveItemAbility.State, SingleTarg
 		}
 		else
 		{
-			item = await AbilityCmd.SelectItem(abilityState.Authority, items, "Select an item to give");
+			item = await AbilityCmd.SelectItem(abilityState.Authority, items, hintText: "Select an item to give");
 		}
 
 		if(item != null && target is Character character)

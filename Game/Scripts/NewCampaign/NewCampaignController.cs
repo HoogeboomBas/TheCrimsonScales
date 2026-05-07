@@ -18,7 +18,7 @@ public partial class NewCampaignController : SceneController<NewCampaignControll
 	private NewCampaignStep _currentStep;
 
 	public string PartyName { get; private set; }
-	public StartingGroup StartingGroup { get; private set; }
+	public StartingGroup? StartingGroup { get; private set; }
 
 	public override void _EnterTree()
 	{
@@ -26,7 +26,7 @@ public partial class NewCampaignController : SceneController<NewCampaignControll
 
 		if(_sceneRequest == null)
 		{
-			_sceneRequest = new NewCampaignSceneRequest();
+			_sceneRequest = new NewCampaignSceneRequest(0);
 		}
 	}
 
@@ -66,7 +66,7 @@ public partial class NewCampaignController : SceneController<NewCampaignControll
 		PartyName = partyName;
 	}
 
-	public void SetStartingParty(StartingGroup startingGroup)
+	public void SetStartingGroup(StartingGroup? startingGroup)
 	{
 		StartingGroup = startingGroup;
 	}
@@ -97,14 +97,21 @@ public partial class NewCampaignController : SceneController<NewCampaignControll
 
 	private void StartCampaign()
 	{
-		SavedCampaign campaign = SavedCampaign.New(PartyName, StartingGroup);
+		if(!StartingGroup.HasValue)
+		{
+			return;
+		}
 
-		AppController.Instance.SaveFile.SaveData.SavedCampaign = campaign;
+		SavedCampaign campaign = SavedCampaign.New(PartyName, StartingGroup.Value);
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveManager.SetCampaignIndex(_sceneRequest.CampaignIndex);
+		AppController.Instance.DeviceSaveData.LastCampaignIndex = _sceneRequest.CampaignIndex;
+		AppController.Instance.CampaignSaveData.SavedCampaign = campaign;
+
+		AppController.Instance.SaveManager.SaveCampaignAndDevice();
 
 		AppController.Instance.SceneLoader.RequestSceneChange(
-			new BetweenScenariosSceneRequest(AppController.Instance.SaveFile.SaveData.SavedCampaign));
+			new BetweenScenariosSceneRequest(AppController.Instance.CampaignSaveData.SavedCampaign));
 	}
 
 	private void OnBackPressed()

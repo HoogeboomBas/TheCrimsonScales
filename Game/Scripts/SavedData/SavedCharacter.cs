@@ -319,6 +319,7 @@ public class SavedCharacter
 		AcquiredPerkIndices.Add(perkIndex);
 
 		PerksChangedEvent?.Invoke(this);
+		ClassModel.Perks[perkIndex].OnPerkAcquired(this);
 	}
 
 	public int GetUsedPerkCount()

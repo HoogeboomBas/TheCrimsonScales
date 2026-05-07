@@ -22,10 +22,10 @@ public class Road29 : RoadEventModel<Road29.ChoiceA, Road29.ChoiceB>
 			You escort Shiela back to the Mixed District, and she thanks you profusely before heading into her apartment. It was an uneventful journey, but you find yourself far behind schedule as this was much out of your way.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioSpendingItemTypeEventReward(ItemType.Feet),
-			new AddCityEventEventReward(ModelDB.Event<City32>())
+			new AllStartScenarioSpendingItemTypeReward(ItemType.Feet),
+			new AddCityReward(ModelDB.Event<City32>())
 		];
 	}
 
@@ -38,9 +38,9 @@ public class Road29 : RoadEventModel<Road29.ChoiceA, Road29.ChoiceB>
 			"Please!" Shiela begs as you adamantly refuse to go out of your way. She bursts into tears as you walk away, shouting after you, "The other patrons in the Sleeping Lion will surely hear about this!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseReputationEventReward(2)
+			new LoseReputationReward(2)
 		];
 	}
 }

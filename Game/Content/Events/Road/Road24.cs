@@ -20,9 +20,9 @@ public class Road24 : RoadEventModel<Road24.ChoiceA, Road24.ChoiceB>
 			As the last trap shuts closed, you realize one of these could be useful in your journey forward.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<IronSnare>())
+			new GainCollectiveItemReward(ModelDB.Item<IronSnare>())
 		];
 	}
 
@@ -35,10 +35,10 @@ public class Road24 : RoadEventModel<Road24.ChoiceA, Road24.ChoiceB>
 			You tiptoe your way around the traps when you hear a loud 'SNAP!' and feel a sharp pain run up your leg. You've accidentally stepped into one of the traps, and it's going to be painful to remove.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithDamageEventReward(2),
-			new AllStartScenarioWithConditionEventReward(Conditions.Immobilize)
+			new AllStartScenarioWithDamageReward(2),
+			new AllStartScenarioWithConditionReward(Conditions.Immobilize)
 		];
 	}
 }

@@ -83,31 +83,6 @@ public class BellyOfTheBeast : RuinmawCardModel<BellyOfTheBeast.CardTop, BellyOf
 							default:
 								throw new ArgumentOutOfRangeException();
 						}
-
-						foreach(CardPlayCardData cardData in cardDatas)
-						{
-							if(cardData.AbilityCard == card)
-							{
-								cardData.CanPlayTop = false;
-								cardData.CanPlayBottom = false;
-							}
-						}
-
-						if(topsPlayed == 2)
-						{
-							foreach(CardPlayCardData cardData in cardDatas)
-							{
-								cardData.CanPlayBottom = false;
-							}
-						}
-
-						if(bottomsPlayed == 2)
-						{
-							foreach(CardPlayCardData cardData in cardDatas)
-							{
-								cardData.CanPlayTop = false;
-							}
-						}
 					}
 				})
 				.Build()),

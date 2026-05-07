@@ -1,8 +1,6 @@
 ﻿public abstract class ChieftainAMDCardModel : AMDCardModel
 {
-	protected override string GetTexturePath(AMDCardOwner owner) => "res://Art/AMDs/ChieftainAMD.jpg";
+	protected override string GetTexturePath(AMDCardOwner owner) => "res://Content/Classes/Chieftain/AMDCards.jpg";
 	protected override int ColumnCount => 4;
 	protected override int RowCount => 5;
-
-	public override AMDCardType Type => AMDCardType.Value;
 }

@@ -10,16 +10,16 @@ public class PartyAMDCard4 : PartyAMDCardModel
 
 	protected override int AtlasIndex => 12;
 
-	public override Func<AttackAbility.State, GDTask> GetExtraEffects(AttackAbility.State attackAbilityState) =>
-		async state =>
+	public override Func<AttackAbility.State, Figure, GDTask> GetExtraEffects() =>
+		async (state, _) =>
 		{
 			ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
-				parameters => parameters.Figure == attackAbilityState.Performer,
+				parameters => parameters.Figure == state.Performer,
 				async parameters =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 
-					ActionState actionState = new ActionState(attackAbilityState.Performer, [MoveAbility.Builder().WithDistance(2).Build()]);
+					ActionState actionState = new ActionState(state.Performer, [MoveAbility.Builder().WithDistance(2).Build()]);
 					await actionState.Perform();
 				}
 			);

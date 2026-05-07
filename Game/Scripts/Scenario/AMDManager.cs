@@ -63,6 +63,7 @@ public class AMDManager
 
 		return true;
 	}
+
 	public async GDTask<bool> Empower(IHasEmpower originalOwner, Figure figure)
 	{
 		if(originalOwner.RemainingEmpowerCount == 0)
@@ -71,7 +72,7 @@ public class AMDManager
 		}
 
 		originalOwner.RemainingEmpowerCount--;
-		AMDCard card = new AMDCard( originalOwner.CreateEmpower(), figure.AMDCardDeck.Owner, (Figure)originalOwner);
+		AMDCard card = new AMDCard(originalOwner.CreateEmpower(), figure.AMDCardDeck.Owner, potentialOriginalCardOwner: (Character)originalOwner);
 		ScenarioEvents.EmpowerAdded.Parameters empowerAddedParameters =
 			await ScenarioEvents.EmpowerAddedEvent.CreatePrompt(
 				new ScenarioEvents.EmpowerAdded.Parameters(figure));
@@ -99,6 +100,6 @@ public class AMDManager
 
 	private void OnEmpowerDrawn(AMDCard card)
 	{
-		((IHasEmpower)card.PotentialOriginalOwner).RemainingEmpowerCount++;
+		((IHasEmpower)card.PotentialOriginalCardOwner).RemainingEmpowerCount++;
 	}
 }

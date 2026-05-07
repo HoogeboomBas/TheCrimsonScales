@@ -22,9 +22,9 @@ public class City47 : CityEventModel<City47.ChoiceA, City47.ChoiceB>
 			After making it home safely, you crawl into bed and close your eyes but wake up with an insufferable headache. You can't quite remember your dreams from last night, but the sweat stains on your sheets indicate that they weren't too pleasant.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseCheckmarkEventReward()
+			new LoseCheckmarkReward()
 		];
 	}
 
@@ -37,9 +37,9 @@ public class City47 : CityEventModel<City47.ChoiceA, City47.ChoiceB>
 			You turn around and take the longer route home. You weren't sure what the Vermling meant with her warning, but you head to bed and find yourself well-rested the next morning, ready for a brand new day.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCheckmarkEventReward()
+			new GainCheckmarkReward()
 		];
 	}
 }

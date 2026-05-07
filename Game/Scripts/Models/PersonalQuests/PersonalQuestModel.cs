@@ -31,7 +31,7 @@ public abstract class PersonalQuestModel<T> : PersonalQuestModel
 	{
 		// Clone the quest data to overwrite the original later, after the scenario is finished
 		T personalQuestData = GetData(character.SavedCharacter);
-		string serializedData = JsonConvert.SerializeObject(personalQuestData, SaveFile.JsonSerializerSettings);
+		string serializedData = JsonConvert.SerializeObject(personalQuestData, SaveManager.JsonSerializerSettings);
 		T clonedQuestData = JsonConvert.DeserializeObject<T>(serializedData);
 
 		await OnScenarioSetupPhaseCompleted(character, clonedQuestData);

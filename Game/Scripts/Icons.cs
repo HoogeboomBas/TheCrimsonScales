@@ -1,16 +1,19 @@
-﻿using System;
-﻿using Godot;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Godot;
 
 public static class Icons
 {
 	public const string LoseCard = "res://Art/Icons/Abilities/LoseCard.svg";
 	public const string LoseDiscardedCards = "res://Art/Icons/Abilities/LoseDiscardedCards.svg";
-	public const string RecoverCard = "res://Art/Icons/Abilities/LoseCard.svg";
+	public const string RecoverCard = "res://Art/Icons/Abilities/RecoverCard.svg";
 	public const string Attack = "res://Art/Icons/Abilities/Attack.svg";
 	public const string Move = "res://Art/Icons/Abilities/Move.svg";
 	public const string Heal = "res://Art/Icons/Abilities/Heal.svg";
 	public const string Range = "res://Art/Icons/Abilities/Range.svg";
 	public const string Damage = "res://Art/Icons/Abilities/Damage.svg";
+	public const string Flying = "res://Art/Icons/Abilities/Flying.svg";
 	public const string Push = "res://Art/Icons/ConditionsAndEffects/Push.svg";
 	public const string Pull = "res://Art/Icons/ConditionsAndEffects/Pull.svg";
 	public const string Swing = "res://Art/Icons/ConditionsAndEffects/Swing.svg";
@@ -37,10 +40,21 @@ public static class Icons
 	public const string PlusOneEnhancement = "res://Art/Icons/Other/PlusOneEnhancement.svg";
 	public const string JumpEnhancement = "res://Art/Icons/Other/JumpEnhancement.svg";
 	public const string Rolling = "res://Art/Icons/Other/Rolling.svg";
+	public const string MinusOneCard = "res://Art/Icons/Other/-1Card.svg";
 
 	public static string GetElement(Element element)
 	{
 		return $"res://Art/Icons/Elements/{element.ToString()}.svg";
+	}
+
+	public static string InlineElement(Element element, RichTextParameters richTextParameters)
+	{
+		return Inline(GetElement(element), richTextParameters, true);
+	}
+
+	public static string InlineWildElement(RichTextParameters richTextParameters)
+	{
+		return Inline(WildElement, richTextParameters, true);
 	}
 
 	public static string GetItem(ItemType itemType)
@@ -53,14 +67,19 @@ public static class Icons
 		return conditionModel.IconPath;
 	}
 
+	public static string InlineCondition(ConditionModel conditionModel, RichTextParameters richTextParameters)
+	{
+		return Inline(GetCondition(conditionModel), richTextParameters, true);
+	}
+
 	public static string GetAMDValue(string amdValue)
 	{
 		return $"res://Art/Icons/AMDs/{amdValue}.png";
 	}
 
-	public static string InlineMarker(Marker.Type markerType, int size = 30)
+	public static string InlineMarker(Marker.Type markerType, RichTextParameters richTextParameters)
 	{
-		return Inline(GetMarker(markerType), size);
+		return Inline(GetMarker(markerType), richTextParameters, true);
 	}
 
 	public static string GetMarker(Marker.Type markerType)
@@ -68,20 +87,50 @@ public static class Icons
 		return $"res://Art/Markers/{markerType.ToString().Replace("_", string.Empty)}.png";
 	}
 
+	public static string InlineAOEPattern(AOEPattern aoePattern, RichTextParameters richTextParameters)
+	{
+		string path = GetAOEPattern(aoePattern);
+		Texture2D aoePatternImage = ResourceLoader.Load<Texture2D>(path);
+		int overrideHeight = (richTextParameters.FontSize * aoePatternImage.GetHeight()) / 100;
+		return Inline(path, richTextParameters, true, overrideHeight: overrideHeight);
+	}
+
+	public static string GetAOEPattern(AOEPattern aoePattern)
+	{
+		return $"res://Art/AOEPatterns/{PatternToString(aoePattern)}.png";
+	}
+
 	public static string Inline(string iconPath, int size = 30, Color? color = null)
 	{
 		Color finalColor = color ?? Colors.White;
-		return $"[img width={size} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
+		return $"[img height={size} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
 	}
 
-	public static string Inline(string iconPath, RichTextParameters richTextParameters, bool ignoreParametersColor = false)
+	public static string Inline(string iconPath, RichTextParameters richTextParameters, bool ignoreParametersColor = false,
+		int? overrideHeight = null)
 	{
 		Color finalColor = ignoreParametersColor ? Colors.White : richTextParameters.Color;
-		return $"[img width={richTextParameters.FontSize} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
+		int finalHeight = overrideHeight ?? richTextParameters.FontSize;
+		return $"[img height={finalHeight} color=#{finalColor.ToHtml()}]{iconPath}[/img]";
 	}
 
 	public static string HintText(string iconPath)
 	{
 		return $"[img={{{50}}}]{iconPath}[/img]";
+	}
+
+	private static string PatternToString(AOEPattern aoePattern)
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+		List<AOEHex> listCopy = aoePattern.LocalHexes.ToList();
+		listCopy.Sort((a, b) => (a.Coords.X + a.Coords.Y * 100).CompareTo((b.Coords.X + b.Coords.Y * 100)));
+		foreach(AOEHex aoeHex in listCopy)
+		{
+			stringBuilder.Append(aoeHex.Coords.X);
+			stringBuilder.Append(aoeHex.Coords.Y);
+			stringBuilder.Append(aoeHex.Type.ToString()[0]);
+		}
+
+		return stringBuilder.ToString();
 	}
 }

@@ -22,9 +22,9 @@ public class Road03 : RoadEventModel<Road03.ChoiceA, Road03.ChoiceB>
 			The Vermling looks up to you gratefully with watery eyes before hurriedly scurrying away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainXPEventReward(5)
+			new GainXPReward(5)
 		];
 	}
 
@@ -37,9 +37,9 @@ public class Road03 : RoadEventModel<Road03.ChoiceA, Road03.ChoiceB>
 			You grab a loaf of bread from your bag and throw it down into the pit. As the Vermling reaches toward it, the snakes in the pit hiss and extend their fangs. You watch in horror as the snakes indulge in their meal, leaving the bread untouched. You can't help but feel a tinge of remorse as you turn and slowly walk away.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Curse)
+			new AllStartScenarioWithConditionReward(Conditions.Curse)
 		];
 	}
 }

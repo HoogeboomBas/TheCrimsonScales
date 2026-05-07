@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://datb4w0nwrm8m"]
+
+[ext_resource type="Script" uid="uid://sbmgh20yp0y4" path="res://Scripts/UI/StoryView.cs" id="1_e6wkd"]
+[ext_resource type="Texture2D" uid="uid://cw111i6yk01f1" path="res://Art/Backgrounds/ArtbookBackground.jpg" id="2_ovskb"]
+[ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="3_t32ql"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_gjp26"]
+[ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="5_bk3ju"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="6_ndvlv"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="7_hu6wr"]
+[ext_resource type="Script" uid="uid://e1u4nmwejxw5" path="res://Scripts/Scenario/UI/ChoiceButtonsView/ChoiceButton.cs" id="8_wgwab"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g11d3"]
+shader = ExtResource("3_t32ql")
+shader_parameter/inner_radius = 0.3
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.8
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ab6n"]
+font = ExtResource("4_gjp26")
+font_size = 120
+
+[node name="StoryView" type="Control" unique_id=297419416 node_paths=PackedStringArray("_title", "_subtitle", "_text", "_skipTextButton", "_backButton", "_continueButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e6wkd")
+_title = NodePath("Header/Title")
+_subtitle = NodePath("Header/Subtitle")
+_text = NodePath("Text")
+_skipTextButton = NodePath("SkipButton")
+_backButton = NodePath("BackButton")
+_continueButton = NodePath("ConfirmButton")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1368188792]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ovskb")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="." unique_id=1922833356]
+material = SubResource("ShaderMaterial_g11d3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Header" type="Control" parent="." unique_id=1308138594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Header" unique_id=1078120919]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 187.0
+grow_horizontal = 2
+text = "1 - The Dark Lake"
+label_settings = SubResource("LabelSettings_2ab6n")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Header" unique_id=1743418474]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -565.0
+offset_top = 180.0
+offset_right = 565.0
+offset_bottom = 221.0
+grow_horizontal = 2
+text = "Main Campaign"
+label_settings = ExtResource("5_bk3ju")
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="." unique_id=492211634]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -139.0
+offset_right = 600.0
+offset_bottom = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_gjp26")
+theme_override_font_sizes/normal_font_size = 50
+text = "Following the vague instructions you were given, you head to the Dark Lake. As you arrive at the shore you see... nothing. The shore, and the lake are deserted of all wildlife, let alone ‘strange creatures.’ You start to walk round the lake, growing slowly more dispirited as you go. You’ve clearly been tricked, and accusing looks pass between the party as you mutter about whose fault it was."
+fit_content = true
+horizontal_alignment = 3
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="SkipButton" type="BaseButton" parent="." unique_id=1104647856]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("6_ndvlv")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="BackButton" parent="." unique_id=1713316230 node_paths=PackedStringArray("BetterButton") instance=ExtResource("7_hu6wr")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -180.0
+offset_right = 300.0
+offset_bottom = -100.0
+grow_vertical = 0
+script = ExtResource("8_wgwab")
+BetterButton = NodePath("BetterButton")
+_startActive = false
+
+[node name="Label" parent="BackButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1713316230, 62362509) index="0" unique_id=188245078]
+text = "Back"
+
+[node name="ConfirmButton" parent="." unique_id=487929148 node_paths=PackedStringArray("BetterButton") instance=ExtResource("7_hu6wr")]
+modulate = Color(0.458824, 1, 0.372549, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -180.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("8_wgwab")
+BetterButton = NodePath("BetterButton")
+_startActive = true
+
+[node name="Label" parent="ConfirmButton/BetterButton/Panel" parent_id_path=PackedInt32Array(487929148, 62362509) index="0" unique_id=188245078]
+text = "Continue"
+
+[editable path="BackButton"]
+[editable path="ConfirmButton"]

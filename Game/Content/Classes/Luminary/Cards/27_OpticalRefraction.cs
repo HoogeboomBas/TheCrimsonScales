@@ -107,9 +107,9 @@ public class OpticalRefraction : LuminaryCardModel<OpticalRefraction.CardTop, Op
 
 							await GDTask.CompletedTask;
 						}, effectType: EffectType.Selectable,
-						effectButtonParameters: new IconEffectButton.Parameters("res://Content/Classes/Luminary/Glow.svg"),
+						effectButtonParameters: new IconEffectButton.Parameters(GlowIconPath),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters(
-							$"Discard your active {Icons.Inline("res://Content/Classes/Luminary/Glow.svg")}")
+							$"Discard your active {Icons.Inline(GlowIconPath)}")
 					);
 
 					ScenarioEvents.RoundEndedEvent.Subscribe(state, this,

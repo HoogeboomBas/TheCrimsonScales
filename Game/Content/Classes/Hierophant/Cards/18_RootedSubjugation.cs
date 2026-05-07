@@ -41,7 +41,7 @@ public class RootedSubjugation : HierophantLevelUpCardModel<RootedSubjugation.Ca
 						parameters => parameters.Figure == target,
 						parameters =>
 						{
-							parameters.Add(new InfoTextExtraEffect.Parameters(
+							parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 								$"Attacks targeting this figure are unaffected by {Icons.Inline(Icons.Retaliate)} this round."));
 						}
 					);

@@ -102,7 +102,7 @@ public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters(
+						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 							$"Self and all allies within {Icons.Inline(Icons.Range)}2 gain {Icons.Inline(Icons.Shield)}1"));
 					}
 				);

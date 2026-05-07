@@ -6,19 +6,29 @@ public partial class TextPopup : Popup<TextPopup.Request>
 	public class Request : PopupRequest
 	{
 		public string HeaderText { get; }
-		public string BodyText { get; }
+		public TextHelper.LabelTextDelegate GetText { get; }
 
 		public TextButton.Parameters[] ButtonParameters { get; }
 
-		public Request(string headerText, string bodyText)
-			: this(headerText, bodyText, new TextButton.Parameters("Confirm", null))
+		public Request(string headerText, string text)
+			: this(headerText, text, new TextButton.Parameters("Confirm", null))
 		{
 		}
 
-		public Request(string headerText, string bodyText, params TextButton.Parameters[] buttonParameters)
+		public Request(string headerText, TextHelper.LabelTextDelegate getText)
+			: this(headerText, getText, new TextButton.Parameters("Confirm", null))
+		{
+		}
+
+		public Request(string headerText, string getText, params TextButton.Parameters[] buttonParameters)
+			: this(headerText, parameters => getText, buttonParameters)
+		{
+		}
+
+		public Request(string headerText, TextHelper.LabelTextDelegate getText, params TextButton.Parameters[] buttonParameters)
 		{
 			HeaderText = headerText;
-			BodyText = bodyText;
+			GetText = getText;
 			ButtonParameters = buttonParameters;
 		}
 	}
@@ -40,7 +50,8 @@ public partial class TextPopup : Popup<TextPopup.Request>
 		base.OnOpen();
 
 		_headerLabel.SetText(PopupRequest.HeaderText);
-		_bodyLabel.SetText(PopupRequest.BodyText);
+		RichTextParameters textParameters = _bodyLabel.GetRichTextParameters();
+		_bodyLabel.SetText(PopupRequest.GetText(textParameters));
 
 		foreach(TextButton.Parameters buttonParameters in PopupRequest.ButtonParameters)
 		{

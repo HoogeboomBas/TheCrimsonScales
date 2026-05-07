@@ -23,9 +23,9 @@ public abstract partial class BetweenScenariosAction : Control
 		SetVisible(false);
 	}
 
-	public void SetActive(bool active, BetweenScenariosAction previousActiveAction)
-	{
-	}
+	// public void SetActive(bool active, BetweenScenariosAction previousActiveAction)
+	// {
+	// }
 
 	public void Activate(BetweenScenariosAction previousActiveAction)
 	{

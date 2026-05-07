@@ -9,11 +9,12 @@ public partial class Treasure : LootableObject
 	public int TreasureNumber = -1;
 
 	private Character _lootingCharacter;
+	private Func<Figure, bool> _canLootFunction;
+	private Func<Character, GDTask> _obtainLootFunction;
 
 	public bool Looted { get; private set; }
 
-	private Func<Character, GDTask> _obtainLootFunction;
-	public Func<Figure, bool> CanLootFunction = _ => true;
+	public bool IsGoal => TreasureNumber <= 0;
 
 	public override async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
@@ -38,7 +39,7 @@ public partial class Treasure : LootableObject
 			}
 		);
 	}
-	
+
 	public void SetItemDesignLoot(ItemModel itemModel)
 	{
 		SetObtainLootFunction(async character =>
@@ -50,7 +51,12 @@ public partial class Treasure : LootableObject
 
 	public override bool CanLoot(Figure lootObtainer)
 	{
-		return base.CanLoot(lootObtainer) && lootObtainer is Character && CanLootFunction(lootObtainer);
+		return base.CanLoot(lootObtainer) && lootObtainer is Character && (_canLootFunction == null || _canLootFunction(lootObtainer));
+	}
+
+	public void SetCanLootFunction(Func<Figure, bool> canLootFunction)
+	{
+		_canLootFunction = canLootFunction;
 	}
 
 	public override async GDTask Loot(Figure lootObtainer)
@@ -62,7 +68,10 @@ public partial class Treasure : LootableObject
 		Looted = true;
 		_lootingCharacter = (Character)lootObtainer;
 
-		await _obtainLootFunction.Invoke(_lootingCharacter);
+		if(_obtainLootFunction != null)
+		{
+			await _obtainLootFunction.Invoke(_lootingCharacter);
+		}
 
 		GameController.Instance.EndEvent += OnScenarioEnd;
 	}

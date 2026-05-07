@@ -36,7 +36,7 @@ public class City12 : CityEventModel<City12.ChoiceA, City12.ChoiceB>
 		{
 			base.InitState(state, savedCampaign);
 
-			bool conditionsMet = savedCampaign.Characters.Sum(character => character.Gold) >= 30;
+			bool conditionsMet = savedCampaign.Characters.Sum(character => character.Gold) >= 15;
 			state.SetCustomValue(ConditionsMetKey, conditionsMet);
 		}
 
@@ -58,13 +58,14 @@ public class City12 : CityEventModel<City12.ChoiceA, City12.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<DrakescaleDagger>())
+					new LoseCollectiveGoldReward(15),
+					new GainCollectiveItemReward(ModelDB.Item<DrakescaleDagger>())
 				];
 			}
 			else
@@ -83,9 +84,9 @@ public class City12 : CityEventModel<City12.ChoiceA, City12.ChoiceB>
 			You threaten to report the Inox for trading without a permit and his face turns white. "Please, no! I can't afford to spend any more time in jail. Here, take the dagger! Just promise me you won't tell anyone!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<DrakescaleDagger>())
+			new GainCollectiveItemReward(ModelDB.Item<DrakescaleDagger>())
 		];
 	}
 }

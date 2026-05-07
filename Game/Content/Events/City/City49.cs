@@ -22,9 +22,9 @@ public class City49 : CityEventModel<City49.ChoiceA, City49.ChoiceB>
 			You kneel down on the floor and scoop up a pile of coins that fell from the Aesther's pockets. The Aesther runs out of sight as the woman cries hysterically. You look around to ensure there are no witnesses as you shuffle yourself back into the crowd.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(15)
+			new GainCollectiveGoldReward(15)
 		];
 	}
 
@@ -39,10 +39,10 @@ public class City49 : CityEventModel<City49.ChoiceA, City49.ChoiceB>
 			City guards arrive to arrest the Aesther, and proceed to explain there was a bounty reward on this thief.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainReputationEventReward(2),
-			new GainCollectiveGoldEventReward(20)
+			new GainReputationReward(2),
+			new GainCollectiveGoldReward(20)
 		];
 	}
 }

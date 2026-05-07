@@ -22,9 +22,9 @@ public class Road21 : RoadEventModel<Road21.ChoiceA, Road21.ChoiceB>
 			You guzzle the glowing red liquid, and it has a delicious berry taste. Moments after licking the last drop, your head begins to pulse and ache. You stumble away, feeling weary and confused.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Muddle)
+			new AllStartScenarioWithConditionReward(Conditions.Muddle)
 		];
 	}
 
@@ -39,9 +39,9 @@ public class Road21 : RoadEventModel<Road21.ChoiceA, Road21.ChoiceB>
 			You gulp down the bubbling green ooze, and it has a spicy, bitter aftertaste. Moments after finishing the last drop, you feel a rush of energy surge throughout your body. You turn away with your head held high, feeling invigorated and refreshed.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Strengthen)
+			new AllStartScenarioWithConditionReward(Conditions.Strengthen)
 		];
 	}
 }

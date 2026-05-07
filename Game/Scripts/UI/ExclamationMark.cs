@@ -10,9 +10,9 @@ public partial class ExclamationMark : Control
 
 	private GTween _tween;
 
-	public override void _Ready()
+	public override void _EnterTree()
 	{
-		base._Ready();
+		base._EnterTree();
 
 		SetVisible(false);
 		SetPivotOffset(Size * 0.5f);

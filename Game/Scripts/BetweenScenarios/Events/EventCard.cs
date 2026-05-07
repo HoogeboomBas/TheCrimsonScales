@@ -38,7 +38,7 @@ public partial class EventCard : Control
 			ShowFront();
 		}
 
-		FrontEventText.SetText(eventModel.Text, showText);
+		FrontEventText.SetText(TextHelper.Prettify(eventModel.Text), showText);
 		NumberLabel.SetText(eventModel.Number.ToString());
 	}
 
@@ -49,7 +49,7 @@ public partial class EventCard : Control
 			ShowBack();
 		}
 
-		BackEventText.SetText(savedEventState.Choice.GetStoryText(savedEventState), showText);
+		BackEventText.SetText(TextHelper.Prettify(savedEventState.Choice.GetStoryText(savedEventState)), showText);
 
 		foreach(RichTextLabel rewardLabel in _rewardLabels)
 		{
@@ -58,18 +58,18 @@ public partial class EventCard : Control
 
 		_rewardLabels.Clear();
 
-		List<EventReward> eventRewards = savedEventState.Choice.GetRewards(savedEventState);
+		List<SavedReward> eventRewards = savedEventState.Choice.GetRewards(savedEventState);
 		if(eventRewards.Count == 0)
 		{
-			eventRewards.Add(new NoEffectEventReward());
+			eventRewards.Add(new NoEffectReward());
 		}
 
-		foreach(EventReward eventReward in eventRewards)
+		foreach(SavedReward eventReward in eventRewards)
 		{
 			RichTextLabel rewardLabel = _rewardLabelScene.Instantiate<RichTextLabel>();
 			_rewardLabelParent.AddChild(rewardLabel);
-			Color textColor = rewardLabel.GetThemeColor("default_color");
-			rewardLabel.SetText(eventReward.GetLabelText(textColor));
+			RichTextParameters textParameters = rewardLabel.GetRichTextParameters();
+			rewardLabel.SetText(eventReward.GetLabelText(textParameters));
 			rewardLabel.SetVisibleCharacters(0);
 			_rewardLabels.Add(rewardLabel);
 		}

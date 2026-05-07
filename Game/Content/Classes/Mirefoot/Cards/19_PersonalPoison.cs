@@ -55,7 +55,7 @@ public class PersonalPoison : MirefootCardModel<PersonalPoison.CardTop, Personal
 						parameters => parameters.Figure is Monster monster && monsterGroup.Monsters.Contains(monster),
 						parameters =>
 						{
-							parameters.Add(new InfoTextExtraEffect.Parameters(
+							parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 								$"Whenever this figure gains {Icons.Inline(Icons.GetCondition(Conditions.Poison1))}, it also gains {Icons.Inline(Icons.GetCondition(Conditions.Wound1))}"));
 						});
 				})

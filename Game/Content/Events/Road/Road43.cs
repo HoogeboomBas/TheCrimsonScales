@@ -18,9 +18,9 @@ public class Road43 : RoadEventModel<Road43.ChoiceA, Road43.ChoiceB>
 			You begin to slowly tie rope around her hands when her snoring comes to an abrupt halt. "What are you doing?!" she exclaims. As you explain you're there to collect her bounty and won't leave without a fight, she retrieves identification and proves you mistaken. She curses you for disturbing her slumber and rolls back into the straw.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Curse)
+			new AllStartScenarioWithConditionReward(Conditions.Curse)
 		];
 	}
 
@@ -35,9 +35,9 @@ public class Road43 : RoadEventModel<Road43.ChoiceA, Road43.ChoiceB>
 			After a bit of conversation, you find out she's been separated from her group and you invite her to join you on your journey.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new SpawnEventReward(ModelDB.Monster<BanditArcher>(), 3)
+			new SpawnReward(ModelDB.Monster<BanditArcher>(), 3)
 		];
 	}
 }

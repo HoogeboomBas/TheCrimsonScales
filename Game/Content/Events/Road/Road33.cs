@@ -18,9 +18,9 @@ public class Road33 : RoadEventModel<Road33.ChoiceA, Road33.ChoiceB>
 			You approach the Orchid and catch her by surprise. Startled, her hands begin to glow but you explain that you're not interested in a fight and only want to reclaim what's been stolen. She proceeds to explain that she spent all the gold, but she can give you the armor she's wearing if you promise not to report her to the authorities.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<SilhouetteCuirass>())
+			new GainCollectiveItemReward(ModelDB.Item<SilhouetteCuirass>())
 		];
 	}
 
@@ -33,9 +33,9 @@ public class Road33 : RoadEventModel<Road33.ChoiceA, Road33.ChoiceB>
 			You sneak up to the Orchid and press your blade against her throat from behind. Not wanting to be harmed, she allows you to tie her arms together with rope. She claims to have spent all the gold, so you proceed to return her to town to collect her bounty instead.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(40)
+			new GainCollectiveGoldReward(40)
 		];
 	}
 }

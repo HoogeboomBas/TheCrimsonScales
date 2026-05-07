@@ -65,7 +65,7 @@ public class HalfElementsShieldRetaliateTrait : FigureTrait
 			canApplyParameters => canApplyParameters.Figure == figure,
 			applyParameters =>
 			{
-				applyParameters.Add(new InfoTextExtraEffect.Parameters(
+				applyParameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 					$"Gains {Icons.Inline(Icons.Shield)}X and {Icons.Inline(Icons.Retaliate)}X, where X is half the number of strong and waning elements, rounded up."));
 			});
 	}

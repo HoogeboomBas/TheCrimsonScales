@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 public partial class GameController : SceneController<GameController>
 {
 	private static string DefaultSavedGame;
+	private static bool ShownIntroduction;
 
 	[Export]
 	public CameraController CameraController { get; private set; }
@@ -142,6 +143,8 @@ public partial class GameController : SceneController<GameController>
 	public bool ResignRequested { get; private set; }
 	public bool CheatWinRequested { get; private set; }
 
+	public ScenarioResult ScenarioResult { get; private set; }
+
 	public Map Map => Scenario.Map;
 	public SavedScenario SavedScenario => SavedCampaign.SavedScenario;
 
@@ -152,6 +155,7 @@ public partial class GameController : SceneController<GameController>
 	public event Action ReadyEvent;
 	public event Action StartEvent;
 	public static event Action<bool> FastForwardChangedEvent;
+	public event Action<SavedCharacter, BattleGoalModel> BattleGoalCompletedEvent;
 
 	public delegate void EndEventHandler(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress);
 
@@ -175,23 +179,26 @@ public partial class GameController : SceneController<GameController>
 
 			if(string.IsNullOrEmpty(DefaultSavedGame))
 			{
-				savedCampaign = SavedCampaign.Test();
+				savedCampaign = SavedCampaign.Test(true);
 				float characterLevelSum = savedCampaign.Characters.Sum(character => character.Level);
 				savedCampaign.SetSavedScenario(new SavedScenario
 				{
 					Id = Guid.NewGuid(),
-					AppVersion = AppController.Instance.SaveFile.SaveData.AppVersion,
-					ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
+					AppVersion = AppController.Instance.DeviceSaveData.AppVersion,
+					ScenarioModelId = ModelDB.Scenario<Scenario007>().Id.ToString(),
 					//Seed = GD.RandRange(0, int.MaxValue),
 					Seed = 0,
 					ScenarioLevel =
-						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) + AppController.Instance.Options.Difficulty.Value,
+						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) +
+						(AppController.Instance.CampaignOptions == null
+							? 0
+							: SavedCampaignOptions.DifficultyOptions.GetValue(AppController.Instance.CampaignOptions.Difficulty)),
 					IsOnline = false
 				});
 			}
 			else
 			{
-				savedCampaign = JsonConvert.DeserializeObject<SavedCampaign>(DefaultSavedGame, SaveFile.JsonSerializerSettings);
+				savedCampaign = JsonConvert.DeserializeObject<SavedCampaign>(DefaultSavedGame, SaveManager.JsonSerializerSettings);
 			}
 
 			SceneRequest = new GameSceneRequest(savedCampaign);
@@ -250,7 +257,7 @@ public partial class GameController : SceneController<GameController>
 
 	public override void _ExitTree()
 	{
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
 		FastForwardChangedEvent -= OnFastForwardChanged;
 
@@ -349,8 +356,19 @@ public partial class GameController : SceneController<GameController>
 		CheatWinRequested = true;
 	}
 
-	public void EndScenario(ScenarioResult scenarioResult)
+	public void SetScenarioResult(ScenarioResult scenarioResult)
 	{
+		ScenarioResult = scenarioResult;
+	}
+
+	public async GDTask EndScenario()
+	{
+		if(ScenarioResult == ScenarioResult.None)
+		{
+			Log.Error("Trying to end the scenario while the result hasn't been set.");
+			return;
+		}
+
 		string scenarioModelId = SavedCampaign.SavedScenario.ScenarioModelId;
 
 		int goldConversion = GoldConversion();
@@ -358,11 +376,11 @@ public partial class GameController : SceneController<GameController>
 		foreach(Character character in CharacterManager.Characters)
 		{
 			character.SavedCharacter.AddGold(character.ObtainedCoins * goldConversion);
-			character.SavedCharacter.AddXP(character.ObtainedXP + (scenarioResult == ScenarioResult.Win ? bonusExperience : 0));
+			character.SavedCharacter.AddXP(character.ObtainedXP + (ScenarioResult == ScenarioResult.Win ? bonusExperience : 0));
 
 			SavedCampaign.SanctuaryOfTheGreatOak.ReturnCards(character.SavedCharacter);
 
-			if(scenarioResult == ScenarioResult.Win)
+			if(ScenarioResult == ScenarioResult.Win)
 			{
 				BattleGoal battleGoal = character.BattleGoal;
 				if(battleGoal != null && battleGoal.GivesCheckmark)
@@ -371,16 +389,28 @@ public partial class GameController : SceneController<GameController>
 					{
 						character.SavedCharacter.AddCheckmark();
 					}
+
+					BattleGoalCompletedEvent?.Invoke(character.SavedCharacter, battleGoal.Model);
 				}
 			}
 		}
 
-		if(scenarioResult == ScenarioResult.Win)
+		if(ScenarioResult == ScenarioResult.Win)
 		{
+			if(!SavedScenarioProgress.Completed)
+			{
+				// Give scenario rewards only if the scenario hasn't been completed before
+				await AppController.Instance.GiveRewards(SavedCampaign, ScenarioModel.Rewards, true, CancellationToken);
+			}
+
 			SavedScenarioProgress.Complete();
+
+			SavedCampaign.SetCompletedScenario(ScenarioModel);
+
+			SavedCampaign.SavedMerchantsGuildHall.AddCompletedScenario();
 		}
 
-		if(scenarioResult == ScenarioResult.Retry)
+		if(ScenarioResult == ScenarioResult.Retry)
 		{
 			SavedCampaign.SetSavedScenario(new SavedScenario
 			{
@@ -397,14 +427,17 @@ public partial class GameController : SceneController<GameController>
 			SavedCampaign.SetSavedScenario(null);
 		}
 
-		EndEvent?.Invoke(scenarioResult, SavedScenarioProgress);
+		EndEvent?.Invoke(ScenarioResult, SavedScenarioProgress);
 
-		// Clear any event rewards and allow a new city event card to be drawn
+		// Clear any old lingering rewards and allow a new city event card to be drawn
 		SavedCampaign.SavedEvents.OnScenarioEnded();
+		SavedCampaign.SavedRewards.OnScenarioEnded();
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
-		if(scenarioResult == ScenarioResult.Retry)
+		ShownIntroduction = false;
+
+		if(ScenarioResult == ScenarioResult.Retry)
 		{
 			AppController.Instance.SceneLoader.RequestSceneChange(new GameSceneRequest(SavedCampaign));
 		}
@@ -414,9 +447,41 @@ public partial class GameController : SceneController<GameController>
 		}
 	}
 
+	public async GDTask OpenStoryViewIntroduction()
+	{
+		if(string.IsNullOrEmpty(ScenarioModel.Name) || string.IsNullOrEmpty(ScenarioModel.IntroductionText))
+		{
+			return;
+		}
+
+		if(ShownIntroduction || (SavedScenario.ScenarioSetupState?.Completed ?? false))
+		{
+			return;
+		}
+
+		SetFastForward(false);
+		ShownIntroduction = true;
+
+		string title = $"{ScenarioModel.ScenarioNumber} - {ScenarioModel.Name}";
+		await AppController.Instance.StoryView.OpenAsync(title, "Introduction", ScenarioModel.IntroductionText, fadeInDuration: 0f,
+			cancellationToken: CancellationToken);
+	}
+
+	public async GDTask OpenStoryViewConclusion()
+	{
+		if(string.IsNullOrEmpty(ScenarioModel.Name) || string.IsNullOrEmpty(ScenarioModel.ConclusionText))
+		{
+			return;
+		}
+
+		string title = $"{ScenarioModel.ScenarioNumber} - {ScenarioModel.Name}";
+		await AppController.Instance.StoryView.OpenAsync(title, "Conclusion", ScenarioModel.ConclusionText,
+			cancellationToken: CancellationToken);
+	}
+
 	private void EditorPrintSaveGame()
 	{
-		string json = JsonConvert.SerializeObject(SavedCampaign, SaveFile.JsonSerializerSettings);
+		string json = JsonConvert.SerializeObject(SavedCampaign, SaveManager.JsonSerializerSettings);
 		DisplayServer.ClipboardSet(json);
 	}
 

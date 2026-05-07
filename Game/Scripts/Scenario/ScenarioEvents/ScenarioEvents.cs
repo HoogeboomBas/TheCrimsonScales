@@ -541,6 +541,28 @@ public partial class ScenarioEvents
 	private readonly FigureKilled _figureKilled = new FigureKilled();
 	public static FigureKilled FigureKilledEvent => GameController.Instance.ScenarioEvents._figureKilled;
 
+	// public class FigureInitialized : ScenarioEvent<FigureInitialized.Parameters>
+	// {
+	// 	public class Parameters(Figure figure) : ParametersBase
+	// 	{
+	// 		public Figure Figure { get; } = figure;
+	// 	}
+	// }
+	//
+	// private readonly FigureInitialized _figureInitialized = new FigureInitialized();
+	// public static FigureInitialized FigureInitializedEvent => GameController.Instance.ScenarioEvents._figureInitialized;
+
+	public class FigureRegistered : ScenarioEvent<FigureRegistered.Parameters>
+	{
+		public class Parameters(Figure figure) : ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+		}
+	}
+
+	private readonly FigureRegistered _figureRegistered = new FigureRegistered();
+	public static FigureRegistered FigureRegisteredEvent => GameController.Instance.ScenarioEvents._figureRegistered;
+
 	public class Retaliate : ScenarioEvent<Retaliate.Parameters>
 	{
 		public class Parameters(AttackAbility.State abilityState, Figure retaliatingFigure) : ParametersBase<AttackAbility.State>(abilityState)
@@ -958,6 +980,17 @@ public partial class ScenarioEvents
 	private readonly LongRestCardSelection _longRestCardSelection = new LongRestCardSelection();
 	public static LongRestCardSelection LongRestCardSelectionEvent => GameController.Instance.ScenarioEvents._longRestCardSelection;
 
+	public class LongRestEnded : ScenarioEvent<LongRestEnded.Parameters>
+	{
+		public class Parameters(Character character) : ParametersBase
+		{
+			public Character Character { get; } = character;
+		}
+	}
+
+	private readonly LongRestEnded _longRestEnded = new LongRestEnded();
+	public static LongRestEnded LongRestEndedEvent => GameController.Instance.ScenarioEvents._longRestEnded;
+
 	public class FigureTurnStarted : ScenarioEvent<FigureTurnStarted.Parameters>
 	{
 		public class Parameters(Figure figure)
@@ -1135,6 +1168,19 @@ public partial class ScenarioEvents
 	private readonly RoomRevealed _roomRevealed = new RoomRevealed();
 	public static RoomRevealed RoomRevealedEvent => GameController.Instance.ScenarioEvents._roomRevealed;
 
+	public class DoorOpened : ScenarioEvent<DoorOpened.Parameters>
+	{
+		public class Parameters(Door openedDoor, Figure potentialOpener)
+			: ParametersBase
+		{
+			public Door OpenedDoor { get; } = openedDoor;
+			public Figure PotentialOpener { get; } = potentialOpener;
+		}
+	}
+
+	private readonly DoorOpened _doorOpened = new DoorOpened();
+	public static DoorOpened DoorOpenedEvent => GameController.Instance.ScenarioEvents._doorOpened;
+
 	public class ItemUseStarted : ScenarioEvent<ItemUseStarted.Parameters>
 	{
 		public class Parameters(ItemModel item, Figure performer) : ParametersBase
@@ -1262,4 +1308,62 @@ public partial class ScenarioEvents
 
 	private readonly LootableObjectLooted _lootableObjectLooted = new LootableObjectLooted();
 	public static LootableObjectLooted LootableObjectLootedEvent => GameController.Instance.ScenarioEvents._lootableObjectLooted;
+
+	public class InflictConditionEventReward : ScenarioEvent<InflictConditionEventReward.Parameters>
+	{
+		public class Parameters(Character character, ConditionModel conditionModel)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+			public ConditionModel ConditionModel { get; } = conditionModel;
+
+			public bool Prevented { get; private set; }
+
+			public void SetPrevented(bool prevented)
+			{
+				Prevented = prevented;
+			}
+		}
+	}
+
+	private readonly InflictConditionEventReward _inflictConditionEventReward = new InflictConditionEventReward();
+	public static InflictConditionEventReward InflictConditionEventRewardEvent => GameController.Instance.ScenarioEvents._inflictConditionEventReward;
+
+	public class SufferDamageEventReward : ScenarioEvent<SufferDamageEventReward.Parameters>
+	{
+		public class Parameters(Character character)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+
+			public bool Prevented { get; private set; }
+
+			public void SetPrevented(bool prevented)
+			{
+				Prevented = prevented;
+			}
+		}
+	}
+
+	private readonly SufferDamageEventReward _sufferDamageEventReward = new SufferDamageEventReward();
+	public static SufferDamageEventReward SufferDamageEventRewardEvent => GameController.Instance.ScenarioEvents._sufferDamageEventReward;
+
+	public class AddMinusOnesEventReward : ScenarioEvent<AddMinusOnesEventReward.Parameters>
+	{
+		public class Parameters(Character character)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+
+			public bool Prevented { get; private set; }
+
+			public void SetPrevented(bool prevented)
+			{
+				Prevented = prevented;
+			}
+		}
+	}
+
+	private readonly AddMinusOnesEventReward _addMinusOnesEventReward = new AddMinusOnesEventReward();
+	public static AddMinusOnesEventReward AddMinusOnesEventRewardEvent => GameController.Instance.ScenarioEvents._addMinusOnesEventReward;
 }

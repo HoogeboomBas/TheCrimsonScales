@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 
 public class AMDCardValue(
-	bool rolling, AMDCardType cardType, int? value, int? pierce, int? push, int? pull, int? swing, int? addedTargets,
+	Character potentialDeckOwner, bool rolling, AMDCardType cardType, int? value, int? pierce, int? push, int? pull, int? swing, int? addedTargets,
 	List<CardElementInfusion> elementInfusions, List<ConditionModel> conditionModels, List<Ability> abilities,
-	Func<AttackAbility.State, GDTask> extraEffects) : IActionSource
+	Func<AttackAbility.State, Character, GDTask> extraEffects) : IActionSource
 {
+	public Character PotentialDeckOwner { get; } = potentialDeckOwner;
 	public bool Rolling { get; } = rolling;
 
 	public AMDCardType CardType { get; } = cardType;
@@ -20,7 +21,7 @@ public class AMDCardValue(
 	public List<CardElementInfusion> ElementInfusions { get; } = elementInfusions;
 	public List<ConditionModel> ConditionModels { get; } = conditionModels;
 	public List<Ability> Abilities { get; } = abilities;
-	public Func<AttackAbility.State, GDTask> ExtraEffects { get; } = extraEffects;
+	public Func<AttackAbility.State, Character, GDTask> ExtraEffects { get; } = extraEffects;
 
 	public async GDTask Apply(AttackAbility.State attackAbilityState)
 	{
@@ -102,7 +103,7 @@ public class AMDCardValue(
 
 		if(ExtraEffects != null)
 		{
-			await ExtraEffects.Invoke(attackAbilityState);
+			await ExtraEffects.Invoke(attackAbilityState, PotentialDeckOwner);
 		}
 	}
 

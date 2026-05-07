@@ -50,7 +50,7 @@ public partial class LevelUpCardSelectionPopup : Popup<LevelUpCardSelectionPopup
 
 		PopupRequest.SavedCharacter.AddLevelUpCard(card.SavedAbilityCard.Model);
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
 		Close();
 	}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dikwguar40ifq"]
+[gd_scene format=3 uid="uid://dikwguar40ifq"]
 
 [ext_resource type="Texture2D" uid="uid://8hp1f1qtd2yr" path="res://OverlayTileCreator/OverlayTileMask2H.svg" id="1_cikni"]
 [ext_resource type="Script" uid="uid://cxqshwgq4sj75" path="res://OverlayTileCreator/OverlayTileCreator.cs" id="1_xu81x"]
@@ -46,7 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://dnstej73vg4sy" path="res://OverlayTileCreator/OverlayTileMask3H.svg" id="41_yfemh"]
 [ext_resource type="Texture2D" uid="uid://b7hn8gphsbtwn" path="res://OverlayTileCreator/OverlayTileStroke3H.svg" id="42_us188"]
 
-[node name="OverlayTileCreator" type="Node2D" node_paths=PackedStringArray("_camera", "_1HContainer", "_1HSprite", "_2HContainer", "_2HSprite", "_3HContainer", "_3HSprite")]
+[node name="OverlayTileCreator" type="Node2D" unique_id=1563691990 node_paths=PackedStringArray("_camera", "_1HContainer", "_1HSprite", "_2HContainer", "_2HSprite", "_3HContainer", "_3HSprite")]
 script = ExtResource("1_xu81x")
 _camera = NodePath("Camera2D")
 _1HContainer = NodePath("Tile/1H")
@@ -59,58 +59,58 @@ _3HContainer = NodePath("Tile/3H")
 _3HTextures = Array[Texture2D]([ExtResource("36_uuhbv")])
 _3HSprite = NodePath("Tile/3H/Mask/Sprite")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=707191469]
 zoom = Vector2(2.4, 2.4)
 
-[node name="Tile" type="Node2D" parent="."]
+[node name="Tile" type="Node2D" parent="." unique_id=757755283]
 
-[node name="1H" type="Node2D" parent="Tile"]
+[node name="1H" type="Node2D" parent="Tile" unique_id=27219465]
 visible = false
 
-[node name="Mask" type="Sprite2D" parent="Tile/1H"]
+[node name="Mask" type="Sprite2D" parent="Tile/1H" unique_id=671667868]
 clip_children = 1
 texture = ExtResource("37_jfpta")
 
-[node name="Sprite" type="Sprite2D" parent="Tile/1H/Mask"]
+[node name="Sprite" type="Sprite2D" parent="Tile/1H/Mask" unique_id=1991857059]
 scale = Vector2(0.52, 0.52)
 texture = ExtResource("10_fu3ms")
 
-[node name="Stroke" type="Sprite2D" parent="Tile/1H"]
+[node name="Stroke" type="Sprite2D" parent="Tile/1H" unique_id=412707470]
 self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
 texture = ExtResource("38_t4log")
 
-[node name="2H" type="Node2D" parent="Tile"]
+[node name="2H" type="Node2D" parent="Tile" unique_id=146878785]
 visible = false
 
-[node name="Mask" type="Sprite2D" parent="Tile/2H"]
+[node name="Mask" type="Sprite2D" parent="Tile/2H" unique_id=816368456]
 clip_children = 1
 position = Vector2(18, 0)
 texture = ExtResource("1_cikni")
 
-[node name="Sprite" type="Sprite2D" parent="Tile/2H/Mask"]
+[node name="Sprite" type="Sprite2D" parent="Tile/2H/Mask" unique_id=842953440]
 position = Vector2(-18, 0)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_dj2yd")
 
-[node name="Stroke" type="Sprite2D" parent="Tile/2H"]
+[node name="Stroke" type="Sprite2D" parent="Tile/2H" unique_id=1758457747]
 self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
 position = Vector2(18, 0)
 texture = ExtResource("3_ukowq")
 
-[node name="3H" type="Node2D" parent="Tile"]
+[node name="3H" type="Node2D" parent="Tile" unique_id=436240247]
 
-[node name="Mask" type="Sprite2D" parent="Tile/3H"]
+[node name="Mask" type="Sprite2D" parent="Tile/3H" unique_id=350664856]
 clip_children = 1
 position = Vector2(18, -34)
 scale = Vector2(1, -1)
 texture = ExtResource("41_yfemh")
 
-[node name="Sprite" type="Sprite2D" parent="Tile/3H/Mask"]
+[node name="Sprite" type="Sprite2D" parent="Tile/3H/Mask" unique_id=2057840621]
 position = Vector2(-18, -34)
 scale = Vector2(0.54, -0.54)
 texture = ExtResource("36_uuhbv")
 
-[node name="Stroke" type="Sprite2D" parent="Tile/3H"]
+[node name="Stroke" type="Sprite2D" parent="Tile/3H" unique_id=275484473]
 self_modulate = Color(0.133333, 0.0627451, 0.0313726, 1)
 position = Vector2(18, -34)
 scale = Vector2(1, -1)

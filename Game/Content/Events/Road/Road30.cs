@@ -22,9 +22,9 @@ public class Road30 : RoadEventModel<Road30.ChoiceA, Road30.ChoiceB>
 			You turn to see the Frostborn, who offers to teach you one of her powerful spells to help you on your journey.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllMonstersStartScenarioWithConditionEventReward(Conditions.Immobilize)
+			new AllMonstersStartScenarioWithConditionReward(Conditions.Immobilize)
 		];
 	}
 
@@ -37,9 +37,9 @@ public class Road30 : RoadEventModel<Road30.ChoiceA, Road30.ChoiceB>
 			You depart from the cave and continue on through the snowstorm. You eventually make it to your destination, but your hands are numb from the cold and you can no longer feel you feet.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Immobilize)
+			new AllStartScenarioWithConditionReward(Conditions.Immobilize)
 		];
 	}
 }

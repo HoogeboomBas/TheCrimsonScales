@@ -115,6 +115,16 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
 
 	// IBossMonsterModel
+	public string GetSpecial1Description(Monster monster) =>
+		$"""
+		 TODO
+		 """;
+
+	public string GetSpecial2Description(Monster monster) =>
+		$"""
+		 TODO
+		 """;
+
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0, MoveType.Jump)),

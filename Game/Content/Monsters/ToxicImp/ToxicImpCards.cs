@@ -93,7 +93,8 @@ public class ToxicImpAbilityCard4 : ToxicImpAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters("Attackers gain disadvantage on all their attacks targeting this figure."));
+						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+							"Attackers gain disadvantage on all their attacks targeting this figure."));
 					}
 				);
 

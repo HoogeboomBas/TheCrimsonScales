@@ -43,7 +43,7 @@ public partial class CardSelectionPopup : Popup<CardSelectionPopup.Request>
 
 		base.OnClosed();
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 	}
 
 	private void UpdateLabel()

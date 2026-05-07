@@ -1,5 +1,7 @@
 @tool
-class_name VisualShaderNodeUVParallaxMapping extends ShaderLib
+class_name VisualShaderNodeUVParallaxMapping extends VisualShaderNodeCustom
+
+var version: String = "v2_2_4"
 
 func _get_name() -> String:
 	return "ParallaxMapping"

@@ -5,20 +5,22 @@ namespace Fractural.Tasks
 {
 	public partial struct GDTask
 	{
-		public static GDTask Delay(float secondsDelay, PlayerLoopTiming delayTiming = PlayerLoopTiming.Process, CancellationToken cancellationToken = default)
+		public static GDTask Delay(float secondsDelay, TimeScale timeScale = TimeScale.Other, PlayerLoopTiming delayTiming = PlayerLoopTiming.Process,
+			CancellationToken cancellationToken = default)
 		{
-			TimeSpan delayTimeSpan = TimeSpan.FromSeconds(secondsDelay);
+			TimeSpan delayTimeSpan = TimeSpan.FromSeconds(secondsDelay / AppController.Instance.DeviceOptions.GetTimeScale(timeScale));
 			return Delay(delayTimeSpan, delayTiming, cancellationToken);
 		}
 
-		public static GDTask DelayFastForwardable(float secondsDelay, PlayerLoopTiming delayTiming = PlayerLoopTiming.Process)
+		public static GDTask DelayFastForwardable(float secondsDelay, TimeScale timeScale = TimeScale.Gameplay,
+			PlayerLoopTiming delayTiming = PlayerLoopTiming.Process)
 		{
 			if(GameController.FastForward)
 			{
 				return CompletedTask;
 			}
 
-			return Delay(secondsDelay, delayTiming, cancellationToken: GameController.CancellationToken);
+			return Delay(secondsDelay, timeScale, delayTiming, cancellationToken: GameController.CancellationToken);
 		}
 	}
 }

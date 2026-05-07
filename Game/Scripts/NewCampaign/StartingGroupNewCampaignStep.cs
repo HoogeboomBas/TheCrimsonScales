@@ -3,26 +3,33 @@
 public partial class StartingGroupNewCampaignStep : NewCampaignStep
 {
 	[Export]
-	private NewCampaignStartingGroup[] _startingGroups;
+	private NewCampaignStartingGroupToggleButton[] _startingGroups;
 
-	public override bool ConfirmButtonActive => false;
+	public override bool ConfirmButtonActive => NewCampaignController.Instance.StartingGroup.HasValue;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		foreach(NewCampaignStartingGroup startingParty in _startingGroups)
+		foreach(NewCampaignStartingGroupToggleButton startingGroup in _startingGroups)
 		{
-			startingParty.PressedEvent += OnStartingPartyPressed;
+			startingGroup.Init();
+
+			startingGroup.PressedEvent += OnStartingPartyPressed;
 		}
 	}
 
-	private void OnStartingPartyPressed(NewCampaignStartingGroup startingGroup)
+	private void OnStartingPartyPressed(NewCampaignStartingGroupToggleButton startingGroup)
 	{
 		if(Active)
 		{
-			NewCampaignController.Instance.SetStartingParty(startingGroup.StartingGroup);
-			NewCampaignController.Instance.NextStep();
+			NewCampaignController.Instance.SetStartingGroup(startingGroup.StartingGroup);
+			NewCampaignController.Instance.UpdateConfirmVisible();
+
+			foreach(NewCampaignStartingGroupToggleButton toggleButton in _startingGroups)
+			{
+				toggleButton.SetSelected(toggleButton.StartingGroup == NewCampaignController.Instance.StartingGroup, true);
+			}
 		}
 	}
 }

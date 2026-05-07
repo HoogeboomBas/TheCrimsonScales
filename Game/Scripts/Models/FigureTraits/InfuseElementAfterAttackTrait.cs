@@ -18,7 +18,7 @@ public class InfuseElementAfterAttackTrait(Element element) : FigureTrait
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{
-				parameters.Add(new InfoTextExtraEffect.Parameters(
+				parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
 					$"After each attack, infuse {Icons.Inline(Icons.GetElement(element))}"));
 			}
 		);

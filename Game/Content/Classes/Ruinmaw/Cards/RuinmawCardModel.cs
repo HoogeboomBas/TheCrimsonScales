@@ -23,7 +23,7 @@ public abstract class RuinmawCardSide : AbilityCardSideModel
 		}
 	}
 
-	protected async GDTask SateRuinmaw(Figure figure)
+	public static async GDTask SateRuinmaw(Figure figure)
 	{
 		if(figure is Ruinmaw ruinmaw)
 		{

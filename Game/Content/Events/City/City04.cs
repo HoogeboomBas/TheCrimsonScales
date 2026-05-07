@@ -22,9 +22,9 @@ public class City04 : CityEventModel<City04.ChoiceA, City04.ChoiceB>
 			You declare the Aeromancer to be correct and the Rimehearth storms off in anger. "Thank you, dear stranger. Here, take this wand so you can show the world how powerful it is to blast your enemies away with a gust of wind."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<WandOfStorms>())
+			new GainCollectiveItemReward(ModelDB.Item<WandOfStorms>())
 		];
 	}
 
@@ -37,9 +37,9 @@ public class City04 : CityEventModel<City04.ChoiceA, City04.ChoiceB>
 			You declare the Rimehearth to be correct and the Aeromancer expresses disgust before turning its head and walking away. "Thank you for supporting the power of flames," the Rimehearth nods. "Here, take this so you can spread the power of fire across the world."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<WandOfInfernos>())
+			new GainCollectiveItemReward(ModelDB.Item<WandOfInfernos>())
 		];
 	}
 }

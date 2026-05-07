@@ -22,7 +22,6 @@ public class WingedShoes : Prosperity1Item
 				await Use(async user =>
 				{
 					state.AddJump();
-					//state.AdjustMoveType(MoveType.Jump);
 
 					await GDTask.CompletedTask;
 				});

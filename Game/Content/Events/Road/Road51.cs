@@ -54,21 +54,21 @@ public class Road51 : RoadEventModel<Road51.ChoiceA, Road51.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainItemDesignEventReward(ModelDB.Item<FlamingAxe>())
+					new GainItemDesignReward(ModelDB.Item<FlamingAxe>())
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioDiscardingEventReward(2),
-					new GainGoldEachEventReward(5)
+					new AllStartScenarioDiscardingReward(2),
+					new GainGoldEachReward(5)
 				];
 			}
 		}
@@ -115,20 +115,20 @@ public class Road51 : RoadEventModel<Road51.ChoiceA, Road51.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new GainItemDesignEventReward(ModelDB.Item<FlamingAxe>())
+					new GainItemDesignReward(ModelDB.Item<FlamingAxe>())
 				];
 			}
 			else
 			{
 				return
 				[
-					new AllStartScenarioWithDamageEventReward(2)
+					new AllStartScenarioWithDamageReward(2)
 				];
 			}
 		}

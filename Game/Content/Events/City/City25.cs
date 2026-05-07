@@ -18,10 +18,10 @@ public class City25 : CityEventModel<City25.ChoiceA, City25.ChoiceB>
 			You draw your blade and charge forward with a roar. Not wanting to be harmed, the bandits scatter in all directions, leaving the grateful old man with his coin behind.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainXPEventReward(8),
-			new GainProsperityEventReward(1)
+			new GainXPReward(8),
+			new GainProsperityReward(1)
 		];
 	}
 
@@ -34,10 +34,10 @@ public class City25 : CityEventModel<City25.ChoiceA, City25.ChoiceB>
 			You jump into the fray and begin kicking the man as he lays on the floor groaning with his arms wrapped around his knees. After a minute or so, the man agrees to empty his pockets and the bandits leave you with your share of the plunder.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveGoldEventReward(15),
-			new LoseReputationEventReward(1)
+			new GainCollectiveGoldReward(15),
+			new LoseReputationReward(1)
 		];
 	}
 }

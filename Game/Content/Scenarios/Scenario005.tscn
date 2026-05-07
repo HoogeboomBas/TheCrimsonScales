@@ -18,7 +18,7 @@
 
 [node name="Scenario" unique_id=1535216160 instance=ExtResource("1_t4bfx")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1478404589]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1478404589]
 script = ExtResource("2_w461r")
 StartsRevealed = true
 
@@ -111,7 +111,7 @@ MonsterModelId = "FOREST_IMP.TOXIC_IMP"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1649099624]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1649099624]
 script = ExtResource("2_w461r")
 metadata/_custom_type_script = "uid://bbtc25ohouat7"
 
@@ -207,19 +207,15 @@ TreasureNumber = 45
 
 [node name="Marker" parent="Map/Rooms/Room2" index="24" unique_id=376771716 instance=ExtResource("8_a2qfp")]
 position = Vector2(982.0728, 567)
-_hideDuringPlay = true
 
 [node name="Marker2" parent="Map/Rooms/Room2" index="25" unique_id=2096042731 instance=ExtResource("8_a2qfp")]
 position = Vector2(1636.7881, -189)
-_hideDuringPlay = true
 
 [node name="Marker3" parent="Map/Rooms/Room2" index="26" unique_id=989092380 instance=ExtResource("8_a2qfp")]
 position = Vector2(982.0728, -945)
-_hideDuringPlay = true
 
 [node name="Marker4" parent="Map/Rooms/Room2" index="27" unique_id=325475571 instance=ExtResource("8_a2qfp")]
 position = Vector2(1636.788, -1701)
-_hideDuringPlay = true
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room2" index="28" unique_id=1780187643 instance=ExtResource("9_vx3hm")]
 position = Vector2(1200.3112, 567)
@@ -258,5 +254,5 @@ MonsterType2Characters = 2
 MonsterType3Characters = 2
 MonsterType4Characters = 2
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="0" unique_id=1493934696 instance=ExtResource("6_rabhe")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1493934696 instance=ExtResource("6_rabhe")]
 position = Vector2(654.71515, 0)

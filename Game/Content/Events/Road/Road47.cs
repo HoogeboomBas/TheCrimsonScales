@@ -12,7 +12,33 @@ public class Road47 : RoadEventModel<Road47.ChoiceA, Road47.ChoiceB>
 		"Alas!" he exclaims. "A gift, for your troubles." The Vermling ruses into the carriage and pulls out two glowing rods. "Please take one. It will help you rest on your journey."
 		""";
 
-	public class ChoiceA : EventChoiceModel, IEventSubscriber
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"Whenever a character takes a short rest during the scenario, they may perform “{Icons.Inline(Icons.Heal, textParameters)}1, self”.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
+				parameters => true,
+				async parameters =>
+				{
+					ActionState actionState = new ActionState(parameters.Character,
+					[
+						HealAbility.Builder()
+							.WithHealValue(1)
+							.WithTarget(Target.Self)
+							.Build()
+					]);
+					await actionState.Perform();
+				}
+			);
+		}
+	}
+
+	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Take the shorter rod on the left.";
 
@@ -21,35 +47,38 @@ public class Road47 : RoadEventModel<Road47.ChoiceA, Road47.ChoiceB>
 			"Ah! The shorter rod will serve you well if you ever decide to quickly rest," the Vermling glees as he hands you the shorter rod.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
-						parameters => true,
-						async parameters =>
-						{
-							ActionState actionState = new ActionState(parameters.Character,
-							[
-								HealAbility.Builder()
-									.WithHealValue(1)
-									.WithTarget(Target.Self)
-									.Build()
-							]);
-							await actionState.Perform();
-						}
-					);
-
-					await GDTask.CompletedTask;
-				},
-				color =>
-					$"Whenever a character takes a short rest during the scenario, they may perform “{Icons.Inline(Icons.Heal, color: color)}1, self”."
-			)
+			new ChoiceAOnScenarioStartedReward()
 		];
 	}
 
-	public class ChoiceB : EventChoiceModel, IEventSubscriber
+	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"Whenever a character takes a long rest during the scenario, add +1{Icons.Inline(Icons.Heal, textParameters)} to the heal ability.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			ScenarioEvents.DuringHealEvent.Subscribe(this,
+				parameters =>
+					parameters.Performer is Character character &&
+					parameters.AbilityState.Target == character &&
+					character.LongResting &&
+					parameters.AbilityState.ActionState.ActionSource == null,
+				async parameters =>
+				{
+					parameters.AbilityState.AbilityAdjustHealValue(1);
+
+					await GDTask.CompletedTask;
+				}
+			);
+		}
+	}
+
+	public class ChoiceB : EventChoiceModel
 	{
 		public override string ChoiceText => "Take the longer rod on the right.";
 
@@ -58,30 +87,9 @@ public class Road47 : RoadEventModel<Road47.ChoiceA, Road47.ChoiceB>
 			"The longer rod, very well! This rod will ensure that you get the most fulfilment out of your resting," the Vermling smiles while gleefully handing out the longer rod.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					ScenarioEvents.DuringHealEvent.Subscribe(this,
-						parameters =>
-							parameters.Performer is Character character &&
-							parameters.AbilityState.Target == character &&
-							character.LongResting &&
-							parameters.AbilityState.ActionState.ActionSource == null,
-						async parameters =>
-						{
-							parameters.AbilityState.AbilityAdjustHealValue(1);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					await GDTask.CompletedTask;
-				},
-				color =>
-					$"Whenever a character takes a long rest during the scenario, add +1{Icons.Inline(Icons.Heal, color: color)} to the heal ability."
-			)
+			new ChoiceBOnScenarioStartedReward()
 		];
 	}
 }

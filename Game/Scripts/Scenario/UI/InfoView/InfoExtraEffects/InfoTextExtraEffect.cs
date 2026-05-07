@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public partial class InfoTextExtraEffect : InfoExtraEffect<InfoTextExtraEffect.Parameters>
 {
@@ -6,11 +7,11 @@ public partial class InfoTextExtraEffect : InfoExtraEffect<InfoTextExtraEffect.P
 	{
 		public override string ScenePath => "res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoTextExtraEffect.tscn";
 
-		public string Text { get; }
+		public Func<RichTextParameters, string> GetText { get; }
 
-		public Parameters(string text)
+		public Parameters(Func<RichTextParameters, string> getText)
 		{
-			Text = text;
+			GetText = getText;
 		}
 	}
 
@@ -21,6 +22,6 @@ public partial class InfoTextExtraEffect : InfoExtraEffect<InfoTextExtraEffect.P
 	{
 		base.Init(parameters);
 
-		_label.SetText(parameters.Text);
+		_label.SetText(parameters.GetText(_label.GetRichTextParameters()));
 	}
 }

@@ -9,7 +9,7 @@ public class CloakOfPhasing : Prosperity8Item
 	public override ItemType ItemType => ItemType.Body;
 	public override ItemUseType ItemUseType => ItemUseType.Always;
 
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 2;
 
 	private object _subscriber;
 
@@ -36,7 +36,8 @@ public class CloakOfPhasing : Prosperity8Item
 			});
 
 		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(this, _subscriber,
-			parameters => ItemState is ItemState.Available && parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner) && Owner.Hex.HasHexObjectOfType<Obstacle>(),
+			parameters => ItemState is ItemState.Available && parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner) &&
+			              Owner.Hex.HasHexObjectOfType<Obstacle>(),
 			parameters =>
 			{
 				parameters.SetCannotBeFocused();
@@ -44,7 +45,8 @@ public class CloakOfPhasing : Prosperity8Item
 		);
 
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(this, _subscriber,
-			parameters => ItemState is ItemState.Available && parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner) && Owner.Hex.HasHexObjectOfType<Obstacle>(),
+			parameters => ItemState is ItemState.Available && parameters.PotentialTarget == Owner && parameters.Performer.EnemiesWith(Owner) &&
+			              Owner.Hex.HasHexObjectOfType<Obstacle>(),
 			parameters =>
 			{
 				parameters.SetCannotBeTargeted();

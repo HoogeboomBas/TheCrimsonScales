@@ -41,7 +41,7 @@ public static class Migrator
 			}
 		}
 
-		json = JsonConvert.SerializeObject(saveData, SaveFile.JsonSerializerSettings);
+		json = JsonConvert.SerializeObject(saveData, SaveManager.JsonSerializerSettings);
 
 		return json;
 	}

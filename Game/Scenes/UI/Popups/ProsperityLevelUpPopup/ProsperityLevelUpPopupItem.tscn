@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bk8uw1lrmicqv"]
+
+[ext_resource type="Script" uid="uid://8ickfnsxieip" path="res://Scripts/UI/Popups/ProsperityLevelUpPopup/ProsperityLevelUpPopupItem.cs" id="1_204i6"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="2_amny4"]
+
+[node name="ProsperityLevelUpPopupItem" type="MarginContainer" unique_id=1598200138 node_paths=PackedStringArray("_itemView")]
+script = ExtResource("1_204i6")
+_itemView = NodePath("ItemView")
+
+[node name="ItemView" parent="." unique_id=873347691 node_paths=PackedStringArray("TextureRects") instance=ExtResource("2_amny4")]
+custom_minimum_size = Vector2(270, 413.1)
+layout_mode = 2
+size_flags_horizontal = 4
+TextureRects = [NodePath(""), NodePath(""), NodePath("")]

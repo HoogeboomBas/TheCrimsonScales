@@ -20,10 +20,36 @@ public class City09 : CityEventModel<City09.ChoiceA, City09.ChoiceB>
 			They continue calling your name as you slink out the back door. Looks like they'll have to find another patron to fill the slot.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseReputationEventReward(1)
+			new LoseReputationReward(1)
 		];
+	}
+
+	public class ChoiceBDowntimeEnhancementCostReward : DowntimeEnhancementCostReward
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"The next {Icons.Inline(Icons.PlusOneEnhancement, textParameters)} enhancement for a level 1/X card purchased this City Phase will be free.";
+
+		public ChoiceBDowntimeEnhancementCostReward()
+		{
+		}
+
+		protected override void CalculateCostApplyFunction(BetweenScenariosEvents.CalculateEnhancementCost.Parameters parameters)
+		{
+			if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
+			{
+				parameters.AdjustCost(-parameters.Cost);
+			}
+		}
+
+		protected override void EnhancementBoughtApplyFunction(BetweenScenariosEvents.EnhancementBought.Parameters parameters)
+		{
+			if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
+			{
+				Complete();
+			}
+		}
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -37,27 +63,9 @@ public class City09 : CityEventModel<City09.ChoiceA, City09.ChoiceB>
 			You're pleasantly surprised when you hear your name being called up as one of the winners of the show.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new DowntimeEnhancementCostEventReward(
-				eventReward =>
-					parameters =>
-					{
-						if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
-						{
-							parameters.AdjustCost(-parameters.Cost);
-						}
-					},
-				eventReward =>
-					parameters =>
-					{
-						if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
-						{
-							state.Complete(eventReward);
-						}
-					},
-				color =>
-					$"The next {Icons.Inline(Icons.PlusOneEnhancement, color: color)} enhancement for a level 1/X card purchased this City Phase will be free.")
+			new ChoiceBDowntimeEnhancementCostReward()
 		];
 	}
 }

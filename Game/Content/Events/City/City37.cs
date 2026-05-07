@@ -46,14 +46,14 @@ public class City37 : CityEventModel<City37.ChoiceA, City37.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(EnoughGoldKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(15),
-					new GainCollectiveItemEventReward(ModelDB.Item<SummonersWhistle>())
+					new LoseCollectiveGoldReward(15),
+					new GainCollectiveItemReward(ModelDB.Item<SummonersWhistle>())
 				];
 			}
 			else
@@ -106,21 +106,21 @@ public class City37 : CityEventModel<City37.ChoiceA, City37.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(OrchidInPartyKey))
 			{
 				return
 				[
-					new GainCollectiveItemEventReward(ModelDB.Item<SummonersWhistle>())
+					new GainCollectiveItemReward(ModelDB.Item<SummonersWhistle>())
 				];
 			}
 			else if(state.GetCustomValue<bool>(EnoughGoldKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(15),
-					new GainCollectiveItemEventReward(ModelDB.Item<SummonersWhistle>())
+					new LoseCollectiveGoldReward(15),
+					new GainCollectiveItemReward(ModelDB.Item<SummonersWhistle>())
 				];
 			}
 			else

@@ -20,9 +20,9 @@ public class Road11 : RoadEventModel<Road11.ChoiceA, Road11.ChoiceB>
 			"I am forever grateful," the Aesther bows toward you as he dusts himself off. "I am Nerro, the noble dream interpreter who practices in the Ward of Scales. Come see me if you ever need a dream interpreted."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddCityEventEventReward(ModelDB.Event<City34>())
+			new AddCityReward(ModelDB.Event<City34>())
 		];
 	}
 
@@ -35,6 +35,6 @@ public class Road11 : RoadEventModel<Road11.ChoiceA, Road11.ChoiceB>
 			You throw food in the other direction, hoping to distract the bear. You remain hopeful as the bear stands up and sniffs the air, but your hopes are then crushed when the bear leans back over the Aesther and smacks its lips. You turn away as the bear opens its jaws wide and proceeds to indulge in its tasty meal.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

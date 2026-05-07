@@ -22,7 +22,7 @@ public abstract class FireKnightCardModel<TTop, TBottom> : AbilityCardModel<TTop
 
 public abstract class FireKnightCardSide : AbilityCardSideModel<FireKnight>
 {
-	protected const string LadderIconPath = "res://Content/Classes/FireKnight/LadderIcon.svg";
+	public const string LadderIconPath = "res://Content/Classes/FireKnight/LadderIcon.svg";
 
 	protected GiveItemAbility GiveFireKnightItemAbility(Func<AbilityState, IList<ItemModel>> getPossibleItemModels,
 		int targets = 1, int range = 1, Target target = Target.Allies | Target.MustTargetCharacters,

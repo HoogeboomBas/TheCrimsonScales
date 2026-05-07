@@ -8,6 +8,18 @@ public class HollowpactModel : ClassModel
 	public override int HandSize => 11;
 	public override Ancestry Ancestry => Ancestry.Savvas;
 
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City55>(),
+		ModelDB.Event<Road55>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City56>(),
+		ModelDB.Event<Road56>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Hollowpact";
 	public override Color PrimaryColor => Color.FromHtml("a765a9");
 	public override Color SecondaryColor => Color.FromHtml("310f33");

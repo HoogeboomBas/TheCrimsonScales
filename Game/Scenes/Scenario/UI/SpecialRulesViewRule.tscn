@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bdrvfcj24y2s1"]
+
+[ext_resource type="Script" uid="uid://c372cgjhwwsw3" path="res://Scripts/Scenario/UI/SpecialRulesView/SpecialRulesViewRule.cs" id="1_5f2tw"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_wy44n"]
+
+[node name="SpecialRulesViewRule" type="MarginContainer" unique_id=1556831806 node_paths=PackedStringArray("_label")]
+custom_minimum_size = Vector2(300, 0)
+script = ExtResource("1_5f2tw")
+_label = NodePath("VBoxContainer/Text")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=116510381]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer" unique_id=1525031200]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_wy44n")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Special Rule."
+fit_content = true

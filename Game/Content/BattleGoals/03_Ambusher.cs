@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class Ambusher : TheCrimsonScalesBattleGoal
@@ -8,7 +9,7 @@ public class Ambusher : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		Room revealedRoom = null;
+		List<Room> revealedRooms = new List<Room>();
 
 		ScenarioEvents.RoomRevealedEvent.Subscribe(this,
 			parameters =>
@@ -16,7 +17,7 @@ public class Ambusher : TheCrimsonScalesBattleGoal
 				parameters.PotentialOpener == character,
 			async parameters =>
 			{
-				revealedRoom = parameters.Room;
+				revealedRooms.Add(parameters.Room);
 
 				await GDTask.CompletedTask;
 			}
@@ -24,11 +25,11 @@ public class Ambusher : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.AbilityEndedEvent.Subscribe(this,
 			parameters =>
-				revealedRoom != null &&
+				revealedRooms.Count > 0 &&
 				parameters.AbilityState is MoveAbility.State moveAbilityState &&
 				moveAbilityState.Performer == character &&
 				moveAbilityState.Hexes.Count > 0 && RangeHelper.GetFiguresInRange(moveAbilityState.Hexes[^1], 1, false, false)
-					.Any(figure => character.EnemiesWith(figure) && figure.Hex.Room == revealedRoom),
+					.Any(figure => character.EnemiesWith(figure) && revealedRooms.Contains(figure.Hex.Room)),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
@@ -41,7 +42,7 @@ public class Ambusher : TheCrimsonScalesBattleGoal
 			parameters => true,
 			async parameters =>
 			{
-				revealedRoom = null;
+				revealedRooms.Clear();
 
 				await GDTask.CompletedTask;
 			}

@@ -20,9 +20,9 @@ public class City06 : CityEventModel<City06.ChoiceA, City06.ChoiceB>
 			You offer to investigate the mansion and Shiela claps her hands together in excitement, "Amazing! I know I could count on you. That place simply spooks me," she shudders. "Here, let me get you the coordinates and you can be on your way."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario044>())
+			new UnlockScenarioReward(ModelDB.Scenario<Scenario044>())
 		];
 	}
 
@@ -37,6 +37,6 @@ public class City06 : CityEventModel<City06.ChoiceA, City06.ChoiceB>
 			You agree to investigate the mansion in exchange for a larger sum. "How dare you! I thought we were friends!" Shiela scoffs before standing up and angrily storming out of the tavern.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

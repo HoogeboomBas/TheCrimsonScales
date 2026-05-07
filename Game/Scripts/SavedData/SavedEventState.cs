@@ -66,14 +66,4 @@ public class SavedEventState
 		value = castValue;
 		return true;
 	}
-
-	public void Complete(EventReward eventReward)
-	{
-		Completed = true;
-
-		if(BetweenScenariosController.Instance != null)
-		{
-			BetweenScenariosController.Instance.UnsubscribeDuringDowntime(eventReward);
-		}
-	}
 }

@@ -20,10 +20,10 @@ public class City29 : CityEventModel<City29.ChoiceA, City29.ChoiceB>
 			You approach the Inox from behind, drink in hand, and pour the remainder of the glass over his head. He turns around to face you, horns dripping with ale, before grumbling to his friends. Seeing you mean business, the group of Inox quickly shuffle themselves out of the tavern, leaving you with a cheering crowd and a table full of untouched drinks to enjoy.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainXPEventReward(5),
-			new GainReputationEventReward(1)
+			new GainXPReward(5),
+			new GainReputationReward(1)
 		];
 	}
 
@@ -36,9 +36,9 @@ public class City29 : CityEventModel<City29.ChoiceA, City29.ChoiceB>
 			You quietly order another drink as the Inox continue their bellowing. The noise gets so loud that you decide to call it an early night and go home to sleep off the incident. The Inox cheer and spit in your direction as you leave the tavern shamefaced.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new LoseCheckmarkEventReward()
+			new LoseCheckmarkReward()
 		];
 	}
 }

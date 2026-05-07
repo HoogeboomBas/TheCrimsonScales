@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cgtl32ii2ijpy"]
+
+[ext_resource type="PackedScene" uid="uid://ccqd7gjbphheu" path="res://AOECreator/Hexes/_AOEHex.tscn" id="1_faeql"]
+[ext_resource type="Texture2D" uid="uid://6gv56xpkbqnl" path="res://AOECreator/RedHexIcon.svg" id="2_uvxwm"]
+
+[node name="AOEHex" unique_id=1133035251 instance=ExtResource("1_faeql")]
+
+[node name="Icon" type="Sprite2D" parent="." index="3" unique_id=244605407]
+self_modulate = Color(0.8901961, 0.56078434, 0.57254905, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_uvxwm")

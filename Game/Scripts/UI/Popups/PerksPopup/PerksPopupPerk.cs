@@ -76,7 +76,6 @@ public partial class PerksPopupPerk : Control
 		AppController.Instance.PopupManager.OpenPopupOnTop(new PerkConfirmationPopup.Request()
 		{
 			SavedCharacter = _savedCharacter,
-			PerkModel = PerkModel,
 			PerkIndex = perkBoxes.PerkIndex
 		});
 	}

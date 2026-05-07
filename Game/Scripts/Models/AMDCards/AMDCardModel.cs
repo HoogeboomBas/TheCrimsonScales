@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -32,7 +33,7 @@ public abstract class AMDCardModel : AbstractModel
 	public virtual List<ConditionModel> GetConditionModels(AttackAbility.State attackAbilityState) => [];
 	public virtual List<Ability> GetAbilities(AttackAbility.State attackAbilityState) => [];
 
-	public virtual Func<AttackAbility.State, GDTask> GetExtraEffects(AttackAbility.State attackAbilityState) => null;
+	public virtual Func<AttackAbility.State, Character, GDTask> GetExtraEffects() => null;
 
 	public Texture2D GetTexture(AMDCardOwner owner)
 	{
@@ -76,18 +77,6 @@ public abstract class AMDCardModel : AbstractModel
 
 		returnValue += Icons.Inline(Icons.GetAMDValue(valueIcon), richTextParameters, true);
 
-		foreach(CardElementInfusion cardElementInfusion in ElementInfusions)
-		{
-			if(cardElementInfusion.PossibleInfusedElements.Count == 1)
-			{
-				returnValue += Icons.Inline(Icons.GetElement(cardElementInfusion.PossibleInfusedElements[0]), richTextParameters, true);
-			}
-			else if(cardElementInfusion.PossibleInfusedElements.Count == 6)
-			{
-				returnValue += Icons.Inline(Icons.WildElement, richTextParameters, true);
-			}
-		}
-
 		if(conditionModels != null)
 		{
 			for(int i = 0; i < conditionModels.Count; i++)
@@ -117,9 +106,31 @@ public abstract class AMDCardModel : AbstractModel
 			returnValue += $" {Icons.Inline(Icons.Push, richTextParameters, true)}{Pull}";
 		}
 
+		if(Swing.HasValue)
+		{
+			returnValue += $" {Icons.Inline(Icons.Swing, richTextParameters, true)}{Swing}";
+		}
+
 		if(extraText != null)
 		{
 			returnValue += $" “{extraText}”";
+		}
+
+		foreach(CardElementInfusion cardElementInfusion in ElementInfusions)
+		{
+			if(cardElementInfusion.ConsumableElements?.Any() == true)
+			{
+				continue;
+			}
+
+			if(cardElementInfusion.PossibleInfusedElements.Count == 1)
+			{
+				returnValue += Icons.Inline(Icons.GetElement(cardElementInfusion.PossibleInfusedElements[0]), richTextParameters, true);
+			}
+			else if(cardElementInfusion.PossibleInfusedElements.Count == 6)
+			{
+				returnValue += Icons.Inline(Icons.WildElement, richTextParameters, true);
+			}
 		}
 
 		if(rolling)
@@ -128,5 +139,15 @@ public abstract class AMDCardModel : AbstractModel
 		}
 
 		return returnValue;
+	}
+
+	protected Character GetCharacter(AttackAbility.State state)
+	{
+		return state?.Performer switch
+		{
+			Character performer => performer,
+			Summon summon => summon.CharacterOwner,
+			_ => null
+		};
 	}
 }

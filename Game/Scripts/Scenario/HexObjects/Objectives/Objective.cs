@@ -36,7 +36,7 @@ public partial class Objective : Figure
 		SetAlignment(Alignment.Enemies);
 		SetEnemies(Alignment.Characters);
 
-		GameController.Instance.Map.RegisterFigure(this);
+		await GameController.Instance.Map.RegisterFigure(this);
 
 		UpdateInitiative();
 

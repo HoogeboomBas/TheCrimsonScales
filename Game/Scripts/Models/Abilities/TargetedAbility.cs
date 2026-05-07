@@ -319,10 +319,10 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		Targets.GetValue() > 1 ||
 		TargetType.GetValue().HasFlag(Target.TargetAll) ||
 		(AOEPattern != null && AOEPattern.GetValue().LocalHexes.Count(hex => hex.Type == AOEHexType.Red) > 1);
-	
+
 	public AOEPattern AbilityAOEPattern =>
 		AOEPattern?.GetValue();
-	
+
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
 	/// for values defined in TargetedAbility. Enables inheritors of TargetedAbility to further extend the builder.
@@ -348,6 +348,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		{
 			Obj.Range = range;
 			AddEnhancements(enhancementMarks);
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithInfiniteRange()
+		{
+			Obj.Range = RangeHelper.InfiniteRange;
 			return (TBuilder)this;
 		}
 
@@ -468,7 +474,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		{
 			abilityState.AbilityTargets = int.MaxValue;
 		}
-		
+
 		abilityState.AbilityPerformHex = null;
 
 		abilityState.AbilityRange = Range.GetValue();
@@ -515,7 +521,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType, 
+						new MonsterAOEPrompt(abilityState, abilityState.AbilityAOEPattern, abilityState.AbilityRange, abilityState.AbilityRangeType,
 							focus, null,
 							() => "Select where to target"), abilityState.Authority);
 
@@ -549,9 +555,9 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 			if(abilityState.Authority is Character)
 			{
-				bool autoSelectIfOne = Mandatory || 
-					abilityState.AbilityTarget == Target.Self || 
-					(TargetHex != null && abilityState.AbilityAOEPattern == null);
+				bool autoSelectIfOne = Mandatory ||
+				                       abilityState.AbilityTarget == Target.Self ||
+				                       (TargetHex != null && abilityState.AbilityAOEPattern == null);
 				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, Mandatory, autoSelectIfOne,
 					duringTargetedAbilityEffectCollection,
 					() => _getTargetingHintText(abilityState));

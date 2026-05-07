@@ -7,6 +7,19 @@ public class LuminaryModel : ClassModel
 	public override MaxHealthValues MaxHealthValues => MaxHealthValues.High;
 	public override int HandSize => 11;
 	public override Ancestry Ancestry => Ancestry.Lurker;
+
+	public override List<EventModel> UnlockEvents { get; } =
+	[
+		ModelDB.Event<City45>(),
+		ModelDB.Event<Road45>(),
+	];
+
+	public override List<EventModel> RetirementEvents { get; } =
+	[
+		ModelDB.Event<City46>(),
+		ModelDB.Event<Road46>(),
+	];
+
 	public override string AssetPath => "res://Content/Classes/Luminary";
 	public override Color PrimaryColor => Color.FromHtml("b289be");
 	public override Color SecondaryColor => Color.FromHtml("383f74");
@@ -50,5 +63,31 @@ public class LuminaryModel : ClassModel
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<LuminaryPerks.ReplaceOneMinusTwoWithOneMinusTwoPerformGlowAbilityWithoutConsumingElement>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceOneMinusOneWithOnePlusZeroFire>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceOneMinusOneWithOnePlusZeroIce>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceOneMinusOneWithOnePlusZeroLight>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceOneMinusOneWithOnePlusZeroDark>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceTwoPlusZeroWithOnePlusZeroWild>(),
+		ModelDB.Perk<LuminaryPerks.ReplaceTwoPlusZeroWithOnePlusZeroWild>(),
+
+		ModelDB.Perk<LuminaryPerks.ReplaceOnePlusZeroWithOnePlusTwo>(),
+
+		ModelDB.Perk<LuminaryPerks.AddOnePlusZeroPerformPoisonAbility>(),
+		ModelDB.Perk<LuminaryPerks.AddOnePlusZeroPerformPoisonAbility>(),
+
+		ModelDB.Perk<LuminaryPerks.AddOnePlusOneHealOneSelfRolling>(),
+		ModelDB.Perk<LuminaryPerks.AddOnePlusOneHealOneSelfRolling>(),
+
+		ModelDB.Perk<LuminaryPerks.IgnoreScenarioEffectsAddOnePlusZeroConsumeElementToInfuseElementRolling>(),
+
+		ModelDB.Perk<LuminaryPerks.IgnoreItemEffectsRemoveOnePlusZero>(),
+
+		ModelDB.Perk<LuminaryPerks.IgnitedPower>(),
 	];
 }

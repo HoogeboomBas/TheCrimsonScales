@@ -5,30 +5,61 @@ using Fractural.Tasks;
 public class Scenario005 : ScenarioModel
 {
 	public override string ScenePath => "res://Content/Scenarios/Scenario005.tscn";
+
 	public override int ScenarioNumber => 5;
+	public override string Name => "Blood of the Oozes";
+
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
 
-	protected override ScenarioGoals CreateScenarioGoals() => new KillSpecificEnemiesTypeGoals(
-		[ModelDB.Monster<GelatinousGiant>(), ModelDB.Monster<GelatinousGiantSecondStage>()], "Kill the Gelatinous Giant to win this scenario.");
+	public override string IntroductionText =>
+		"""
+		Following the dramatic infection of the guards, you proceed out of the gates with caution, extremely wary of the plagueridden monster, but it doesn’t take long before you find what you are looking for.
+
+		Around the corner from the stricken guards, you see an alley which you know to normally be quiet. Tonight, it is far from quiet. You find it partially flooded, and more unusually, a collection of imps and demons block the way. Whether or not this leads to the plague carrier, this needs to be dealt with.
+		""";
+
+	public override string ConclusionText =>
+		"""
+		You dodge a last salvo from the Gelatinous Giant, before a final strike kills it. The gruesome rubbery structure is somehow still the same, but you can tell that it is now devoid of the evil life force that inhabited it. The sticky remains slide around and down the fountain. If it wasn’t in the water supply before, it is now.
+
+		You race to the lake above Gloomhaven to try and purify the water at its source.
+		""";
+
+	public override List<MonsterModel> MonsterModels { get; } =
+	[
+		ModelDB.Monster<GelatinousGiant>(),
+		ModelDB.Monster<GelatinousGiantSecondStage>(),
+		ModelDB.Monster<BloodOoze>(),
+		ModelDB.Monster<EarthDemon>(),
+		ModelDB.Monster<FlamingDrake>(),
+		ModelDB.Monster<ToxicImp>(),
+	];
+
+	public override List<SavedReward> Rewards =>
+	[
+		new GainPartyAchievementReward(PartyAchievement.OozeDestroyed)
+	];
 
 	private int _markersLeftToRemove;
 	private List<Marker> _markers = null;
-	private Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
+	private readonly Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
 	private Figure _gelatinousGiant = null;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	private CustomScenarioGoal _infectedWaterGoal;
+	private ScenarioRule _gelatinousGiantInvulnerableRule;
+	private ScenarioRule _spawnEliteBloodOozeRule;
+
+	public override async GDTask StartOfScenarioEffects(Character character)
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await AbilityCmd.AddCondition(null, character, Conditions.Infect);
+	}
 
-		UpdateScenarioText(
-			$"All characters start with {Icons.Inline(Icons.GetCondition(Conditions.Infect))} as a scenario effect");
+	public override async GDTask InitializeAfterFirstRoomRevealed()
+	{
+		await base.InitializeAfterFirstRoomRevealed();
 
-		//TODO: Scenario effect
-		foreach(Character character in GameController.Instance.CharacterManager.Characters)
-		{
-			await AbilityCmd.AddCondition(null, character, Conditions.Infect);
-		}
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<GelatinousGiantSecondStage>(), specificCount: 1));
 
 		GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) =>
 		{
@@ -48,7 +79,7 @@ public class Scenario005 : ScenarioModel
 		_gelatinousGiant =
 			GameController.Instance.Map.Figures.First(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is GelatinousGiant);
 
-		_markers = GameController.Instance.Map.Markers;
+		_markers = GameController.Instance.Map.Markers.ToList();
 
 		foreach(Marker marker in _markers)
 		{
@@ -75,8 +106,6 @@ public class Scenario005 : ScenarioModel
 
 		_markersLeftToRemove = GameController.Instance.SavedCampaign.Characters.Count;
 
-		UpdateScenarioText();
-
 		int doorOpenedRoundNumber = GameController.Instance.ScenarioPhaseManager.RoundIndex + 1;
 		int doorOpenedRoundNumberOddness = doorOpenedRoundNumber % 2;
 
@@ -100,6 +129,23 @@ public class Scenario005 : ScenarioModel
 				await DrainInfectedWater();
 			}
 		);
+
+		_infectedWaterGoal =
+			await AddGoal(new CustomScenarioGoal(textParameters => "Drain 4 infected water tiles to make the Gelatinous Giant vulnerable.",
+				hasProgress: true, maxProgress: 4, order: -1));
+
+		_gelatinousGiantInvulnerableRule =
+			AddScenarioRule(
+				"The Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained.");
+
+		_spawnEliteBloodOozeRule =
+			AddScenarioRule(
+				"At the end of every other round, an Elite Blood Ooze spawns at an infected water source closest to the Gelatinous Giant.");
+
+		await ShowText(
+			"""
+			You kick down the door to find more demons, and the source of the Bloody Pox—a huge Blood Ooze, its viscous shape surrounding a central fountain. You are momentarily distracted by the strange, pulsing shape—until a screech from one of the two Drakes snaps you back to reality...
+			""");
 	}
 
 	private async GDTask DrainInfectedWater()
@@ -109,12 +155,17 @@ public class Scenario005 : ScenarioModel
 			hexes.AddRange(_markers.Select(marker => marker.Hex));
 		}, mandatory: true, hintText: "Choose infected water to drain");
 
+		if(chosenHex == null)
+		{
+			return;
+		}
+
+		await _infectedWaterGoal.AdjustProgress(1);
+
 		// Hide the marker and remove it from the list
 		Marker chosenMarker = _markers.First(marker => marker.Hex == chosenHex);
 		_markers.Remove(chosenMarker);
 		_markersLeftToRemove--;
-
-		UpdateScenarioText();
 
 		// Remove all connected water tiles
 		await DrainAllConnectedWater(chosenMarker);
@@ -167,7 +218,7 @@ public class Scenario005 : ScenarioModel
 						break;
 					}
 				}
-			}, true, $"Select where to summon the Elite Bloode Ooze"
+			}, true, $"Select where to summon the Elite Blood Ooze"
 		);
 
 		if(chosenHex != null)
@@ -193,22 +244,9 @@ public class Scenario005 : ScenarioModel
 
 		_gelatinousGiant.SetMaxHealth(bossHealth);
 		_gelatinousGiant.SetHealth(bossHealth);
-	}
 
-	private void UpdateScenarioText()
-	{
-		if(_markersLeftToRemove > 0)
-		{
-			UpdateScenarioText(
-				"Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained." +
-				System.Environment.NewLine + System.Environment.NewLine +
-				"At the end of every other round, an Elite Blood Ooze spawns at an infected water source closest to the Gelationous Giant." +
-				System.Environment.NewLine + System.Environment.NewLine +
-				$"Drain {_markersLeftToRemove} more sources of infected water by killing Elite Blood Ooze.");
-		}
-		else
-		{
-			UpdateScenarioText(null);
-		}
+		_gelatinousGiantInvulnerableRule.Remove();
+		_spawnEliteBloodOozeRule.Remove();
+		AddScenarioRule("The Gelatinous Giant now draws from the Blood Ooze ability deck.");
 	}
 }

@@ -44,15 +44,15 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 			ApplyFunction applyFunction = null,
 			EffectType effectType = EffectType.Selectable,
 			int order = 0, bool canApplyMultipleTimesDuringSubscription = false, bool canApplyMultipleTimesInEffectCollection = false,
-			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null)
+			EffectButtonParameters effectButtonParameters = null, EffectInfoViewParameters effectInfoViewParameters = null,
+			Figure potentialConsumer = null)
 		{
 			//TODO: Make sure this works for items that make you skip an element consumption (perhaps after clicking, a new prompt opens up to select what to use)
 			return new Subscription(parameters =>
 				{
-					Figure potentialConsumer = null;
 					if(parameters is ParametersBaseWithAbilityState parametersBase)
 					{
-						potentialConsumer = parametersBase.BaseAbilityState.Performer;
+						potentialConsumer ??= parametersBase.BaseAbilityState.Performer;
 					}
 
 					return AbilityCmd.CanConsumeElements(elements, potentialConsumer) &&

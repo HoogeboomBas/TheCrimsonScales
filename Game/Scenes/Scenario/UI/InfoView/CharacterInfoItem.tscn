@@ -29,22 +29,22 @@ _battleGoalProgressBar = NodePath("MarginContainer/Content/BattleGoal/ProgressBa
 [node name="LabelContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="0" unique_id=520630334]
 custom_minimum_size = Vector2(310, 47)
 
-[node name="Coins" parent="MarginContainer/Content/Container/Stats" index="1" unique_id=232145125 instance=ExtResource("3_gmqkp")]
+[node name="Coins" parent="MarginContainer/Content/Container/Stats" parent_id_path=PackedInt32Array(1959975807) index="1" unique_id=232145125 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
-[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Coins" index="0"]
+[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/Coins" index="0" unique_id=1813465417]
 texture = ExtResource("5_0kgou")
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/Coins" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/Coins" index="1" unique_id=1836023533]
 text = "3"
 
-[node name="XP" parent="MarginContainer/Content/Container/Stats" index="2" unique_id=301992874 instance=ExtResource("3_gmqkp")]
+[node name="XP" parent="MarginContainer/Content/Container/Stats" parent_id_path=PackedInt32Array(1959975807) index="2" unique_id=301992874 instance=ExtResource("3_gmqkp")]
 layout_mode = 2
 
-[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/XP" index="0"]
+[node name="TextureRect" parent="MarginContainer/Content/Container/Stats/XP" index="0" unique_id=1813465417]
 texture = ExtResource("6_v6jv0")
 
-[node name="Label" parent="MarginContainer/Content/Container/Stats/XP" index="1"]
+[node name="Label" parent="MarginContainer/Content/Container/Stats/XP" index="1" unique_id=1836023533]
 text = "3"
 
 [node name="BattleGoal" type="VBoxContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=886646671]
@@ -57,6 +57,7 @@ label_settings = ExtResource("6_ncvji")
 
 [node name="Text" type="RichTextLabel" parent="MarginContainer/Content/BattleGoal" index="1" unique_id=643490723]
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("7_6rkmb")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
@@ -67,14 +68,14 @@ fit_content = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="ProgressBar" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="1"]
+[node name="ProgressBar" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="1" unique_id=1418968114]
 self_modulate = Color(0.360127, 0.481895, 0.749454, 1)
 
-[node name="Label" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="2"]
+[node name="Label" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="2" unique_id=610432765]
 text = "Progress"
 label_settings = SubResource("LabelSettings_fume0")
 
-[node name="Amount" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="3"]
+[node name="Amount" parent="MarginContainer/Content/BattleGoal/ProgressBar" index="3" unique_id=349370130]
 text = "1/1"
 label_settings = SubResource("LabelSettings_fsxtf")
 

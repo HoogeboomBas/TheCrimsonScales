@@ -36,6 +36,9 @@ public partial class Enhancer : BetweenScenariosAction
 	[Export]
 	private BetterButton _confirmButton;
 
+	[Export]
+	private ExclamationMark _exclamationMark;
+
 	private readonly List<EnhancementMarkToggleButton> _enhancementMarkToggleButtons = new List<EnhancementMarkToggleButton>();
 	private readonly List<EnhancementOptionToggleButton> _enhancementOptionToggleButtons = new List<EnhancementOptionToggleButton>();
 
@@ -59,12 +62,27 @@ public partial class Enhancer : BetweenScenariosAction
 
 		_confirmButton.Pressed += OnConfirmPressed;
 
+		Button.SetVisible(BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlocked);
+
 		BetweenScenariosController.Instance.CharacterPortraitManager.SelectedPortraitChangedEvent += OnSelectedPortraitChanged;
+		BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlockedChangedEvent += OnEnhancementsUnlocked;
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+
+		if(BetweenScenariosController.Instance != null)
+		{
+			BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlockedChangedEvent -= OnEnhancementsUnlocked;
+		}
 	}
 
 	protected override void AnimateIn(GTweenSequenceBuilder sequenceBuilder, BetweenScenariosAction previousActiveAction)
 	{
 		base.AnimateIn(sequenceBuilder, previousActiveAction);
+
+		_exclamationMark.SetActive(false);
 
 		_3dRoot.SetVisible(true);
 		_crystalBall.SetVisible(false);
@@ -342,7 +360,7 @@ public partial class Enhancer : BetweenScenariosAction
 					_selectedAbilityCard.AddSavedEnhancement(_selectedMark.Top, _selectedMark.Index,
 						new SavedEnhancement(_selectedOption.EnhancementModel));
 
-					AppController.Instance.SaveFile.Save();
+					AppController.Instance.SaveGame();
 
 					BetweenScenariosEvents.EnhancementBoughtEvent.Fire(
 						new BetweenScenariosEvents.EnhancementBought.Parameters(_selectedCharacter, _selectedAbilityCard,
@@ -359,5 +377,11 @@ public partial class Enhancer : BetweenScenariosAction
 	private void OnSelectedPortraitChanged(BetweenScenariosCharacterPortrait portrait)
 	{
 		UpdateCardList();
+	}
+
+	private void OnEnhancementsUnlocked()
+	{
+		Button.SetVisible(true);
+		_exclamationMark.SetActive(true);
 	}
 }

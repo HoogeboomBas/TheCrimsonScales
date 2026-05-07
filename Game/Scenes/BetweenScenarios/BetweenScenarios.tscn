@@ -31,12 +31,13 @@
 [ext_resource type="Texture2D" uid="uid://cgvuos5ph5e6r" path="res://Art/Icons/BetweenScenariosActions/HazardSign.svg" id="22_ywvcx"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="23_1ehwm"]
 [ext_resource type="Script" uid="uid://co64dv05t1htu" path="res://Scripts/BetweenScenarios/BetweenScenariosSidePanel.cs" id="23_5k12q"]
-[ext_resource type="Shader" uid="uid://dpr1nhb31kvce" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
+[ext_resource type="Shader" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
 [ext_resource type="Script" uid="uid://chjh44dw8f42s" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortraitManager.cs" id="23_cdfbw"]
 [ext_resource type="Script" uid="uid://d0y7qlayk04fe" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SanctuaryOfTheGreatOak.cs" id="23_gyc5w"]
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="23_psaff"]
 [ext_resource type="PackedScene" uid="uid://vw723d5w85gv" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/TitheBowl.fbx" id="23_t8hrt"]
 [ext_resource type="PackedScene" uid="uid://drmjh44chpm2j" path="res://Scenes/BetweenScenarios/BetweenScenariosCharacterPortrait.tscn" id="24_cdfbw"]
+[ext_resource type="Script" uid="uid://blr4jx7dfmm5a" path="res://Scripts/BetweenScenarios/PartyGoals/BetweenScenariosPartyGoals.cs" id="24_gkvnn"]
 [ext_resource type="StyleBox" uid="uid://dgsnjspchrans" path="res://Resources/BlurBackground.tres" id="24_k7dxu"]
 [ext_resource type="Texture2D" uid="uid://i20crnpy2d6" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/natural-wooden-background.jpg" id="24_tquji"]
 [ext_resource type="Texture2D" uid="uid://c8teuaycn85r6" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBBackground.jpg" id="25_8ad0h"]
@@ -44,15 +45,19 @@
 [ext_resource type="Texture2D" uid="uid://c0g8n1f0aqnub" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/RedCloth.jpg" id="25_tquji"]
 [ext_resource type="PackedScene" uid="uid://dichdaj8dgrcy" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/EnvelopeBCircle.tscn" id="26_4ql0m"]
 [ext_resource type="PackedScene" uid="uid://cu61j2vgh7agu" path="res://Art/BetweenScenarios/SanctuaryOfTheGreatOak/YellowEnvelopeBCircle.tscn" id="27_8rcsx"]
+[ext_resource type="Texture2D" uid="uid://c7hi6q082ullr" path="res://Art/Icons/Other/CloseIcon.svg" id="27_30ktq"]
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="27_hkul8"]
 [ext_resource type="PackedScene" uid="uid://bm8we16yjsmag" path="res://Scenes/BetweenScenarios/SanctuaryOfTheGreatOak/DonationCoin.tscn" id="27_j84ia"]
 [ext_resource type="Script" uid="uid://d2lbo81ici357" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SyncingBody.cs" id="27_w2guo"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="28_jr74k"]
 [ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="28_psaff"]
+[ext_resource type="PackedScene" uid="uid://do7n0wiqeo3tw" path="res://Scenes/BetweenScenarios/PartyGoals/PartyGoalsPartyGoal.tscn" id="29_r1npy"]
 [ext_resource type="Script" uid="uid://cupkvjgt2qge0" path="res://Scripts/BetweenScenarios/Events/EventCard.cs" id="30_dl2j2"]
+[ext_resource type="Script" uid="uid://bgvyd3pbf5qvk" path="res://Scripts/BetweenScenarios/MerchantsGuildHall/MerchantsGuildHall.cs" id="32_2o0ty"]
 [ext_resource type="PackedScene" uid="uid://ct6pmvbmsh7lf" path="res://Scenes/UI/MenuButton.tscn" id="32_5k12q"]
 [ext_resource type="Material" uid="uid://bgdcydtsmmrb" path="res://Materials/TintGrayscale.tres" id="32_su2xo"]
 [ext_resource type="Texture2D" uid="uid://byfj7yio15h8c" path="res://Art/BetweenScenarios/Events/CityFront.jpg" id="33_2yhfp"]
+[ext_resource type="PackedScene" uid="uid://c61uvdpqa62d5" path="res://Scenes/BetweenScenarios/MerchantsGuildHall/MerchantsGuildHallReward.tscn" id="33_al8mn"]
 [ext_resource type="Texture2D" uid="uid://bbdiabye37ueg" path="res://Art/BetweenScenarios/Events/cs-ce-01-f.png" id="34_rtdf2"]
 [ext_resource type="Script" uid="uid://b0n1q2n5kef18" path="res://Scripts/BetweenScenarios/Events/ShapedEventText.cs" id="35_0rh5w"]
 [ext_resource type="PackedScene" uid="uid://bwn4iiqm7bpjf" path="res://Scenes/BetweenScenarios/Enhancer/EnhancementMarkToggleButton.tscn" id="35_sfc7v"]
@@ -60,9 +65,12 @@
 [ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="37_6k6qu"]
 [ext_resource type="PackedScene" uid="uid://y2bfrxa1ebd5" path="res://Scenes/BetweenScenarios/Enhancer/EnhancementOptionToggleButton.tscn" id="39_3p1c5"]
 [ext_resource type="PackedScene" uid="uid://d0tqt5fvbsn2x" path="res://Scenes/UI/ProgressBar.tscn" id="45_rtdf2"]
+[ext_resource type="Texture2D" uid="uid://dq7i1fq5m4x3b" path="res://Art/Icons/BetweenScenariosActions/PartyGoals.svg" id="46_n4mfb"]
 [ext_resource type="Script" uid="uid://cc4ctr6004sg4" path="res://Scripts/BetweenScenarios/Events/EventOverlay.cs" id="49_dl2j2"]
 [ext_resource type="Material" uid="uid://gfilfltix5vm" path="res://Materials/RotatingCard.tres" id="51_rtdf2"]
 [ext_resource type="Script" uid="uid://b4tm7wjgmvnd2" path="res://Scripts/UI/RotatingCardView.cs" id="52_0un3t"]
+[ext_resource type="Texture2D" uid="uid://beyj543vj2xgm" path="res://Art/Icons/BetweenScenariosActions/MerchantsGuildHall2.svg" id="52_30ktq"]
+[ext_resource type="PackedScene" uid="uid://cw7b3ccvlqx53" path="res://Scenes/UI/ExclamationMark.tscn" id="52_vlt2p"]
 [ext_resource type="PackedScene" uid="uid://co015244vhv5u" path="res://Scenes/BetweenScenarios/Events/EventChoiceButton.tscn" id="57_dl2j2"]
 [ext_resource type="PackedScene" uid="uid://hux023lpvkr0" path="res://Scenes/BetweenScenarios/Events/CityEventRewardLabel.tscn" id="58_rtdf2"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="58_sagt1"]
@@ -138,26 +146,26 @@ font_color = Color(0.969748, 0.793137, 0.50993, 1)
 outline_size = 3
 outline_color = Color(0.693772, 0.508051, 0.168401, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_sfc7v"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2o0ty"]
 viewport_path = NodePath("../../../../../FrontSubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n4mfb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_al8mn"]
 resource_local_to_scene = true
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = SubResource("ViewportTexture_sfc7v")
+albedo_texture = SubResource("ViewportTexture_2o0ty")
 metallic_specular = 0.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_dbqlu"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_lw45v"]
 viewport_path = NodePath("../../../../../BackSubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1npy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3cuy"]
 resource_local_to_scene = true
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = SubResource("ViewportTexture_dbqlu")
+albedo_texture = SubResource("ViewportTexture_lw45v")
 metallic_specular = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_807yg"]
@@ -340,6 +348,29 @@ _data = {
 &"TitheBowlMoveIn": SubResource("Animation_6rvjw"),
 &"TitheBowlMoveOut": SubResource("Animation_j84ia")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_q3cuy"]
+font = ExtResource("28_jr74k")
+font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol6qn"]
+bg_color = Color(1, 1, 1, 0.352941)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_ttpxi"]
+font = ExtResource("28_jr74k")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_2o0ty"]
+font = ExtResource("28_jr74k")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_al8mn"]
+font = ExtResource("28_jr74k")
+font_size = 30
 
 [sub_resource type="QuadMesh" id="QuadMesh_8ad0h"]
 
@@ -619,11 +650,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_nmjfa")
-_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("Enhancer"), NodePath("SanctuaryOfTheGreatOak")]
+_actions = [NodePath("ScenarioFlowchart"), NodePath("ItemShop"), NodePath("SanctuaryOfTheGreatOak"), NodePath("PartyGoals"), NodePath("Enhancer"), NodePath("MerchantsGuildHall")]
 _startActiveAction = NodePath("ScenarioFlowchart")
 
 [node name="ScenarioFlowchart" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1828643396 node_paths=PackedStringArray("OutlineParent", "_gridContainer", "_3dContainer", "_scrollMesh", "_subViewportContainer", "_subViewport", "_3dRoot", "Button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -668,7 +698,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1536, 1024)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="Container" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport" unique_id=452059013]
 layout_mode = 3
@@ -883,99 +913,99 @@ ScenarioNumber = 28
 layout_mode = 2
 ScenarioNumber = 29
 
-[node name="ScenarioButton34" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton34" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=550834610 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 34
 
-[node name="ScenarioButton40" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton40" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1363299494 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 40
 
-[node name="ScenarioButton41" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton41" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1239970449 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 41
 
-[node name="ScenarioButton42" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton42" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=2113444849 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 42
 
-[node name="ScenarioButton43" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton43" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1472729765 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 43
 
-[node name="ScenarioButton22" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton22" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1474199340 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 22
 
-[node name="ScenarioButton51" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton51" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1962991318 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 51
 
-[node name="ScenarioButton52" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton52" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1780257419 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 52
 
-[node name="ScenarioButton35" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton35" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1337599821 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 35
 
-[node name="ScenarioButton44" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton44" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=296589987 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 44
 
-[node name="ScenarioButton45" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton45" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1782416496 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 45
 
-[node name="ScenarioButton46" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton46" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1033371666 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 46
 
-[node name="ScenarioButton47" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton47" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1797627263 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 47
 
-[node name="ScenarioButton53" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton53" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1961083057 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 53
 
-[node name="ScenarioButton54" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton54" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=2112716777 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 54
 
-[node name="ScenarioButton55" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton55" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=963435962 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 55
 
-[node name="ScenarioButton36" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton36" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=765949587 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 36
 
-[node name="ScenarioButton48" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton48" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=555980141 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 48
 
-[node name="ScenarioButton49" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton49" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=84834644 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 49
 
-[node name="ScenarioButton50" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton50" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=10301195 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 50
 
-[node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1347778320 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 56
 
-[node name="ScenarioButton57" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton57" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=387404376 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 57
 
-[node name="ScenarioButton58" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton58" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=29491520 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 58
 
-[node name="ScenarioButton59" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton59" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=883831638 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 59
 
@@ -1010,7 +1040,7 @@ transparent_bg = true
 handle_input_locally = false
 msaa_3d = 1
 size = Vector2i(1920, 1080)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/AnimationContainer/3D/SubViewport" unique_id=1314637930]
 visible = false
@@ -1041,6 +1071,7 @@ layers = 2
 light_cull_mask = 4293918722
 
 [node name="ItemShop" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=2022808695 node_paths=PackedStringArray("_animationPlayer", "_frontSubViewport", "_backSubViewport", "_bookSubViewportContainer", "_leftPageParent", "_rightPageParent", "_frontPageParent", "_backPageParent", "_flipLeftButton", "_flipRightButton", "_bookContainer", "_bookCover", "_frontBookCover", "_leftPageCoverInside", "_backPageCoverInside", "_3dRoot", "Button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1235,7 +1266,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1920, 1300)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Root" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport" unique_id=74201994]
 visible = false
@@ -1244,16 +1275,16 @@ visible = false
 
 [node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" unique_id=1735437367 instance=ExtResource("12_41e7t")]
 
-[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=1955278241]
+[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=486664386]
 transform = Transform3D(68.9, 0, 0, 0, -4.37114e-06, 102.3, 0, -100, -4.47168e-06, 0, 0, 0)
 
-[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 859513443) index="0" unique_id=1572919683]
-material_override = SubResource("StandardMaterial3D_n4mfb")
+[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="0" unique_id=237816969]
+material_override = SubResource("StandardMaterial3D_al8mn")
 
-[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 859513443) index="1" unique_id=412232771]
-material_override = SubResource("StandardMaterial3D_r1npy")
+[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="1" unique_id=151070975]
+material_override = SubResource("StandardMaterial3D_q3cuy")
 
-[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=711269995]
+[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=1227387750]
 speed_scale = 1.4
 
 [node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=435648599]
@@ -1504,6 +1535,408 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 5
 
+[node name="PartyGoals" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1254709443 node_paths=PackedStringArray("_container", "_partyGoalParent", "_exclamationMark", "Button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("24_gkvnn")
+_container = NodePath("Anchor/Container")
+_partyGoalScene = ExtResource("29_r1npy")
+_partyGoalParent = NodePath("Anchor/Container/MarginContainer/VBoxContainer/Goals")
+_exclamationMark = NodePath("../ActionButtons/VBoxContainer/PartyGoalsButton/ExclamationMark")
+Button = NodePath("../ActionButtons/VBoxContainer/PartyGoalsButton")
+
+[node name="Anchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals" unique_id=1226348375]
+custom_minimum_size = Vector2(1026, 540)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -513.0
+offset_top = -320.0
+offset_right = 513.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor" unique_id=2094032375]
+material = ExtResource("23_1ehwm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("19_6k6qu")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container" unique_id=1974447131]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer" unique_id=1066463476]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer" unique_id=1524077372]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CloseButton" type="BaseButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=1049340851]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = false
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -36.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = []
+accessibility_described_by_nodes = []
+accessibility_labeled_by_nodes = []
+accessibility_flow_to_nodes = []
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("58_sagt1")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/Header/CloseButton" unique_id=1999414875]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_30ktq")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=1170913706]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.5
+grow_horizontal = 2
+text = "Complete 4 of these Party Goals to Unlock New Features"
+label_settings = SubResource("LabelSettings_q3cuy")
+horizontal_alignment = 1
+
+[node name="Divider" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=2026097551]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 64.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ol6qn")
+
+[node name="Top" type="HBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer" unique_id=460369750]
+visible = false
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/Top" unique_id=1849320937]
+layout_mode = 2
+text = "Complete 4 Party Goals to unlock new features!"
+label_settings = SubResource("LabelSettings_ttpxi")
+
+[node name="Goals" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer" unique_id=489794446]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PanelButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer" unique_id=1713316230 instance=ExtResource("27_hkul8")]
+visible = false
+layout_mode = 2
+
+[node name="MerchantsGuildHall" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=136246191 node_paths=PackedStringArray("_container", "_progressBar", "_leftParent", "_rightParent", "_exclamationMark", "Button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("32_2o0ty")
+_container = NodePath("Anchor/Container")
+_progressBar = NodePath("Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/ProgressBar")
+_rewardScene = ExtResource("33_al8mn")
+_leftParent = NodePath("Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Left")
+_rightParent = NodePath("Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Right")
+_exclamationMark = NodePath("../ActionButtons/VBoxContainer/MerchantsGuildHallButton/ExclamationMark")
+Button = NodePath("../ActionButtons/VBoxContainer/MerchantsGuildHallButton")
+
+[node name="Anchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall" unique_id=1893722479]
+custom_minimum_size = Vector2(1050, 780)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -525.0
+offset_top = -420.0
+offset_right = 525.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="PanelContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor" unique_id=1583457268]
+material = ExtResource("23_1ehwm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("19_6k6qu")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container" unique_id=690873254]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer" unique_id=29261820]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer" unique_id=719324559]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CloseButton" type="BaseButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=1000486188]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = false
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = -36.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = []
+accessibility_described_by_nodes = []
+accessibility_labeled_by_nodes = []
+accessibility_flow_to_nodes = []
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("58_sagt1")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/Header/CloseButton" unique_id=2027300003]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_30ktq")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=1232694418]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.5
+grow_horizontal = 2
+text = "Unlock a Reward Every 5 Scenarios"
+label_settings = SubResource("LabelSettings_q3cuy")
+horizontal_alignment = 1
+
+[node name="Divider" type="Panel" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/Header" unique_id=745180154]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 60.0
+offset_bottom = 64.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ol6qn")
+
+[node name="Top" type="HBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer" unique_id=1465980417]
+visible = false
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/Top" unique_id=1010815639]
+layout_mode = 2
+text = "Complete 4 Party Goals to unlock new features!"
+label_settings = SubResource("LabelSettings_ttpxi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer" unique_id=474406708]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ProgressBar" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1290106675 instance=ExtResource("45_rtdf2")]
+custom_minimum_size = Vector2(286, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ProgressBar" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/ProgressBar" index="1" unique_id=1418968114]
+self_modulate = Color(0.9529412, 0.43529412, 0.5058824, 1)
+
+[node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/ProgressBar" index="2" unique_id=610432765]
+text = "Progress"
+label_settings = SubResource("LabelSettings_2o0ty")
+
+[node name="Amount" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/ProgressBar" index="3" unique_id=349370130]
+text = "1/5"
+label_settings = SubResource("LabelSettings_al8mn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer" unique_id=969211032]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Left" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=963305833]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Right" type="VBoxContainer" parent="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1169924386]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
 [node name="Shared3D" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=625849377]
 layout_mode = 1
 anchors_preset = 15
@@ -1626,7 +2059,7 @@ shape = SubResource("BoxShape3D_fobax")
 [node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=79117744 instance=ExtResource("23_t8hrt")]
 transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=495332755]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=1577485582]
 transform = Transform3D(-33.4565, 37.1572, 1.62419e-06, 0, -2.18557e-06, 50, 37.1572, 33.4565, 1.46243e-06, 0, 0, 0)
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_jvldq")
@@ -1647,11 +2080,11 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 [node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" unique_id=1786094851 instance=ExtResource("17_seeb3")]
 transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=1227016833]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=1187616634]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1500232823]
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1704719961]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
@@ -1713,7 +2146,7 @@ layers = 524288
 material_override = SubResource("ShaderMaterial_gyc5w")
 mesh = SubResource("PlaneMesh_j84ia")
 
-[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1399130939 node_paths=PackedStringArray("_3dRoot", "_crystalBall", "_cardContainer", "_cardRotationContainer", "_cardView", "_cardListContainer", "_cardSelectionList", "_optionsContainer", "_enhancementOptionParent", "_confirmButton", "Button")]
+[node name="Enhancer" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1399130939 node_paths=PackedStringArray("_3dRoot", "_crystalBall", "_cardContainer", "_cardRotationContainer", "_cardView", "_cardListContainer", "_cardSelectionList", "_optionsContainer", "_enhancementOptionParent", "_confirmButton", "_exclamationMark", "Button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1735,6 +2168,7 @@ _optionsContainer = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContain
 _enhancementOptionScene = ExtResource("39_3p1c5")
 _enhancementOptionParent = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/OptionContainer/MaskMargin/ScrollContainer/MarginContainer/Options")
 _confirmButton = NodePath("EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton/BetterButton")
+_exclamationMark = NodePath("../ActionButtons/VBoxContainer/EnhancerButton/ExclamationMark")
 Button = NodePath("../ActionButtons/VBoxContainer/EnhancerButton")
 
 [node name="CardAnchor" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer" unique_id=375773067]
@@ -1905,29 +2339,88 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="ScenarioFlowchartButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=512763406 instance=ExtResource("17_3hv00")]
-modulate = Color(0.331482, 0.996455, 1, 1)
 layout_mode = 2
+
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton" index="0" unique_id=1764714963]
+modulate = Color(0.33333334, 0.99607843, 1, 1)
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(512763406, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("18_nmjfa")
 
 [node name="ItemShopButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=504848750 instance=ExtResource("17_3hv00")]
-modulate = Color(0.47451, 1, 0.72549, 1)
 layout_mode = 2
 
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ItemShopButton" index="0" unique_id=1764714963]
+modulate = Color(0.4745098, 1, 0.7254902, 1)
+
 [node name="SanctuaryOfTheGreatOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=2111888560 instance=ExtResource("17_3hv00")]
-modulate = Color(1, 1, 0.647059, 1)
 layout_mode = 2
+
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton" index="0" unique_id=1764714963]
+modulate = Color(1, 1, 0.64705884, 1)
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(2111888560, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("19_ywvcx")
 
-[node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=1579014179 instance=ExtResource("17_3hv00")]
-modulate = Color(0.994686, 0.586915, 1, 1)
+[node name="PartyGoalsButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=498428912 instance=ExtResource("17_3hv00")]
 layout_mode = 2
+
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton" index="0" unique_id=1764714963]
+modulate = Color(1, 0.67058825, 0.53333336, 1)
+
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(498428912, 436553962) index="0" unique_id=950733184]
+texture = ExtResource("46_n4mfb")
+
+[node name="ExclamationMark" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton" unique_id=1973262968 instance=ExtResource("52_vlt2p")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -23.0
+offset_top = -6.0
+offset_right = 9.0
+offset_bottom = 26.0
+grow_horizontal = 0
+
+[node name="MerchantsGuildHallButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=131465697 instance=ExtResource("17_3hv00")]
+layout_mode = 2
+
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton" index="0" unique_id=1764714963]
+modulate = Color(0.9519314, 0.43623045, 0.50443244, 1)
+
+[node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(131465697, 436553962) index="0" unique_id=950733184]
+texture = ExtResource("52_30ktq")
+
+[node name="ExclamationMark" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton" unique_id=2132959569 instance=ExtResource("52_vlt2p")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -23.0
+offset_top = -6.0
+offset_right = 9.0
+offset_bottom = 26.0
+grow_horizontal = 0
+
+[node name="EnhancerButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=1579014179 instance=ExtResource("17_3hv00")]
+layout_mode = 2
+
+[node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton" index="0" unique_id=1764714963]
+modulate = Color(0.99607843, 0.5882353, 1, 1)
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(1579014179, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("20_1ehwm")
+
+[node name="ExclamationMark" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton" unique_id=457487008 instance=ExtResource("52_vlt2p")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -23.0
+offset_top = -6.0
+offset_right = 9.0
+offset_bottom = 26.0
+grow_horizontal = 0
 
 [node name="EventButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=45367861 instance=ExtResource("17_3hv00")]
 visible = false
@@ -2921,11 +3414,16 @@ layout_mode = 1
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/PanelButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/MerchantsGuildHall/Anchor/Container/MarginContainer/VBoxContainer/VBoxContainer/ProgressBar"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ItemShopButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton"]
+[editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton"]
 [editable path="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton"]
 [editable path="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/PartyStats/Reputation"]

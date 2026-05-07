@@ -1,4 +1,4 @@
-public class PendantOfDarkPacts : Prosperity5Item
+public class PendantOfDarkPacts : Prosperity6Item
 {
 	public override string Name => "Pendant of Dark Pacts";
 	public override int ItemNumber => 45;

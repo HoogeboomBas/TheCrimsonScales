@@ -126,7 +126,7 @@ public partial class CharacterCreationOverlay : Control
 		SavedCampaign.SavedPersonalQuests.DrawPersonalQuest(PersonalQuestModel);
 		SavedCampaign.AddCharacter(ClassModel, PersonalQuestModel, CharacterName);
 
-		AppController.Instance.SaveFile.Save();
+		AppController.Instance.SaveGame();
 
 		Close();
 	}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public partial class Hierophant : Character
 {
@@ -6,9 +7,9 @@ public partial class Hierophant : Character
 
 	public List<AbilityCard> PrayerCards { get; } = new List<AbilityCard>();
 
-	public override void Spawn(SavedCharacter savedCharacter, int index)
+	public override async GDTask Spawn(SavedCharacter savedCharacter, int index)
 	{
-		base.Spawn(savedCharacter, index);
+		await base.Spawn(savedCharacter, index);
 
 		_hierophantModel = (HierophantModel)savedCharacter.ClassModel;
 

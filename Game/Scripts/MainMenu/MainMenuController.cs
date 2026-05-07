@@ -5,7 +5,7 @@ public partial class MainMenuController : SceneController<MainMenuController>
 	[Export]
 	private BetterButton _continueButton;
 	[Export]
-	private BetterButton _newGameButton;
+	private BetterButton _playButton;
 	[Export]
 	private BetterButton _optionsButton;
 	[Export]
@@ -22,11 +22,10 @@ public partial class MainMenuController : SceneController<MainMenuController>
 			_sceneRequest = new MainMenuSceneRequest();
 		}
 
-		bool continueAvailable = AppController.Instance.SaveFile.SaveData.SavedCampaign != null;
-		_continueButton.GetParent<Control>().SetVisible(continueAvailable);
+		UpdateContinueButton();
 
 		_continueButton.Pressed += OnContinuePressed;
-		_newGameButton.Pressed += OnNewGamePressed;
+		_playButton.Pressed += OnPlayPressed;
 		_optionsButton.Pressed += OnOptionsPressed;
 		_exitButton.Pressed += OnExitPressed;
 
@@ -39,11 +38,16 @@ public partial class MainMenuController : SceneController<MainMenuController>
 
 		AppController.Instance.AudioController.SetBGM("res://Audio/BGM/Call to Adventure FULL LOOP TomMusic.ogg");
 		AppController.Instance.AudioController.SetBGS(null);
+
+		AppController.Instance.SaveManager.SetCampaignIndex(-1);
 	}
 
-	private void OnContinuePressed()
+	public void OpenSaveFile(int index)
 	{
-		SavedCampaign savedCampaign = AppController.Instance.SaveFile.SaveData.SavedCampaign;
+		AppController.Instance.DeviceSaveData.LastCampaignIndex = index;
+		AppController.Instance.SaveManager.SaveCampaignAndDevice();
+		AppController.Instance.SaveManager.SetCampaignIndex(AppController.Instance.DeviceSaveData.LastCampaignIndex);
+		SavedCampaign savedCampaign = AppController.Instance.CampaignSaveData.SavedCampaign;
 		if(savedCampaign.SavedScenario == null)
 		{
 			AppController.Instance.SceneLoader.RequestSceneChange(new BetweenScenariosSceneRequest(savedCampaign));
@@ -54,42 +58,30 @@ public partial class MainMenuController : SceneController<MainMenuController>
 		}
 	}
 
-	private void OnNewGamePressed()
+	public void UpdateContinueButton()
 	{
-		if(AppController.Instance.SaveFile.SaveData.SavedCampaign == null)
+		bool continueAvailable =
+			AppController.Instance.DeviceSaveData.LastCampaignIndex >= 0 &&
+			AppController.Instance.SaveManager.CampaignSaveFiles[AppController.Instance.DeviceSaveData.LastCampaignIndex].SaveData.SavedCampaign !=
+			null;
+		_continueButton.GetParent<Control>().SetVisible(continueAvailable);
+	}
+
+	private void OnContinuePressed()
+	{
+		OpenSaveFile(AppController.Instance.DeviceSaveData.LastCampaignIndex);
+	}
+
+	private void OnPlayPressed()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new SaveFileSelectionPopup.Request()
 		{
-			StartNewCampaign();
-		}
-		else
-		{
-			AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Are you sure?",
-				"Are you sure you want to start a new campaign?\nThis will overwrite your saved campaign and can not be undone!",
-				new TextButton.Parameters("Cancel",
-					() =>
-					{
-					}
-				),
-				new TextButton.Parameters("New Campaign",
-					() =>
-					{
-						StartNewCampaign();
-					},
-					TextButton.ColorType.Red,
-					width: 300
-				)
-			));
-		}
+		});
 	}
 
 	private void OnOptionsPressed()
 	{
 		AppController.Instance.PopupManager.RequestPopup(new OptionsPopup.Request());
-	}
-
-	private void StartNewCampaign()
-	{
-		AppController.Instance.SceneLoader.RequestSceneChange(new NewCampaignSceneRequest());
-		//AppController.Instance.PopupManager.RequestPopup(new CreateCampaignPopup.Request());
 	}
 
 	private void OnExitPressed()

@@ -1,6 +1,6 @@
 using Fractural.Tasks;
 
-public class WallShield : Prosperity4Item
+public class WallShield : Prosperity8Item
 {
 	public override string Name => "Wall Shield";
 	public override int ItemNumber => 61;

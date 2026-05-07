@@ -12,7 +12,26 @@ public class City28 : CityEventModel<City28.ChoiceA, City28.ChoiceB>
 		"Which will you choose?" the shaman lifts up the trinkets to reveal two amulets dangling from their chains. "The amulet of security or the amulet of restoration?"
 		""";
 
-	public class ChoiceA : EventChoiceModel, IEventSubscriber
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			$"All money tokens acquired during the next scenario are worth {Icons.Inline(Icons.Coins, textParameters)}1 more each.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			ScenarioCheckEvents.MoneyTokenValueCheckEvent.Subscribe(this,
+				parameters => true,
+				parameters =>
+				{
+					parameters.AdjustValue(1);
+				}
+			);
+		}
+	}
+
+	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Choose the amulet of security.";
 
@@ -23,24 +42,9 @@ public class City28 : CityEventModel<City28.ChoiceA, City28.ChoiceB>
 			You point to the amulet of security and a smile forms upon the Vermling's face. "You shall be blessed! Blessings upon you!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					ScenarioCheckEvents.MoneyTokenValueCheckEvent.Subscribe(this,
-						parameters => true,
-						parameters =>
-						{
-							parameters.AdjustValue(1);
-						}
-					);
-
-					await GDTask.CompletedTask;
-				},
-				color =>
-					$"All money tokens acquired during the next scenario are worth {Icons.Inline(Icons.Coins, color: color)}1 more each."
-			)
+			new ChoiceAOnScenarioStartedReward()
 		];
 	}
 
@@ -55,9 +59,9 @@ public class City28 : CityEventModel<City28.ChoiceA, City28.ChoiceB>
 			You point to the amulet of restoration and a frown falls upon the Vermling's face. "You have been warned! Curses upon you!"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AllStartScenarioWithConditionEventReward(Conditions.Curse)
+			new AllStartScenarioWithConditionReward(Conditions.Curse)
 		];
 	}
 }

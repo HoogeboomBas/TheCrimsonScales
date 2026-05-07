@@ -52,6 +52,9 @@ public class SavedCampaign
 	public SavedScenarioProgresses SavedScenarioProgresses { get; private set; }
 
 	[JsonProperty]
+	public string CompletedScenarioModelId { get; private set; }
+
+	[JsonProperty]
 	public Dictionary<string, SavedItem> SavedItems { get; private set; } = new Dictionary<string, SavedItem>();
 
 	[JsonProperty]
@@ -70,15 +73,55 @@ public class SavedCampaign
 	public SavedPersonalQuests SavedPersonalQuests { get; private set; } = new SavedPersonalQuests();
 
 	[JsonProperty]
+	public SavedPartyGoals SavedPartyGoals { get; private set; } = new SavedPartyGoals();
+
+	[JsonProperty]
+	public SavedMerchantsGuildHall SavedMerchantsGuildHall { get; private set; } = new SavedMerchantsGuildHall();
+
+	[JsonProperty]
+	public SavedRewards SavedRewards { get; private set; } = new SavedRewards();
+
+	[JsonProperty]
 	public int Reputation { get; private set; }
 
 	[JsonProperty]
 	public int Prosperity { get; private set; }
 
+	[JsonProperty]
+	public bool EnhancementsUnlocked { get; private set; }
+
+	[JsonProperty]
+	public bool GodMode { get; private set; }
+
+	[JsonProperty]
+	public Dictionary<string, object> CustomValues { get; private set; } = new Dictionary<string, object>();
+
+	// Collection of ALL characters, even retired and benched ones
+	public IEnumerable<SavedCharacter> AllCharacters
+	{
+		get
+		{
+			foreach(SavedCharacter character in Characters)
+			{
+				yield return character;
+			}
+
+			foreach(SavedCharacter retiredCharacter in RetiredCharacters)
+			{
+				yield return retiredCharacter;
+			}
+
+			//TODO: Benched characters
+		}
+	}
+
+	public ScenarioModel CompletedScenarioModel => ModelDB.GetById<ScenarioModel>(CompletedScenarioModelId);
+
 	public event Action CharactersChangedEvent;
 	public event Action ProsperityChangedEvent;
 	public event Action ReputationChangedEvent;
 	public event Action<int> ProsperityLevelChangedEvent;
+	public event Action EnhancementsUnlockedChangedEvent;
 
 	public static SavedCampaign New(string partyName, StartingGroup startingGroup)
 	{
@@ -112,7 +155,7 @@ public class SavedCampaign
 		return savedCampaign;
 	}
 
-	public static SavedCampaign Test()
+	public static SavedCampaign Test(bool godMode = false)
 	{
 		SavedCampaign savedCampaign = New("Party Time", StartingGroup.Militants);
 
@@ -140,6 +183,10 @@ public class SavedCampaign
 		// testScenario.Discover();
 		// savedCampaign.SavedScenarioProgresses.ScenarioProgresses.Add(ModelDB.GetId<Scenario029>().ToString(), testScenario);
 
+		savedCampaign.SetCustomValue("IntroductionSeen", true);
+
+		savedCampaign.GodMode = godMode;
+
 		return savedCampaign;
 	}
 
@@ -164,7 +211,7 @@ public class SavedCampaign
 		return savedItem;
 	}
 
-	public void UnlockClass(ClassModel classModel)
+	public SavedClass GetSavedClass(ClassModel classModel)
 	{
 		string classModelId = classModel.Id.ToString();
 		if(!SavedClasses.TryGetValue(classModelId, out SavedClass savedClass))
@@ -173,7 +220,31 @@ public class SavedCampaign
 			SavedClasses.Add(classModelId, savedClass);
 		}
 
-		savedClass.Unlock();
+		return savedClass;
+	}
+
+	public void UnlockClass(ClassModel classModel)
+	{
+		SavedClass savedClass = GetSavedClass(classModel);
+
+		if(!savedClass.Unlocked)
+		{
+			RandomNumberGenerator tempRNG = new RandomNumberGenerator();
+			tempRNG.Randomize();
+			foreach(EventModel eventModel in classModel.UnlockEvents)
+			{
+				if(eventModel.EventType == EventType.City)
+				{
+					SavedEvents.AddCityEventToDeck(eventModel, tempRNG);
+				}
+				else if(eventModel.EventType == EventType.Road)
+				{
+					SavedEvents.AddRoadEventToDeck(eventModel, tempRNG);
+				}
+			}
+
+			savedClass.Unlock();
+		}
 	}
 
 	public bool CheckClassUnlocked(ClassModel classModel)
@@ -201,7 +272,7 @@ public class SavedCampaign
 		CharactersChangedEvent?.Invoke();
 	}
 
-	public void RetireCharacter(SavedCharacter savedCharacter)
+	public void RetireCharacter(SavedCharacter savedCharacter, bool addRetirementEvents)
 	{
 		ReturnCards(savedCharacter);
 
@@ -210,6 +281,30 @@ public class SavedCampaign
 		Characters.Remove(savedCharacter);
 		RetiredCharacters.Add(savedCharacter);
 
+		if(addRetirementEvents)
+		{
+			ClassModel classModel = savedCharacter.ClassModel;
+			SavedClass savedClass = GetSavedClass(classModel);
+			if(!savedClass.Retired)
+			{
+				RandomNumberGenerator tempRNG = new RandomNumberGenerator();
+				tempRNG.Randomize();
+				foreach(EventModel eventModel in classModel.RetirementEvents)
+				{
+					if(eventModel.EventType == EventType.City)
+					{
+						SavedEvents.AddCityEventToDeck(eventModel, tempRNG);
+					}
+					else if(eventModel.EventType == EventType.Road)
+					{
+						SavedEvents.AddRoadEventToDeck(eventModel, tempRNG);
+					}
+				}
+
+				savedClass.Retire();
+			}
+		}
+
 		ClassModel unlockedClass = GetUnlockedClass(savedCharacter);
 		if(unlockedClass != null)
 		{
@@ -217,6 +312,11 @@ public class SavedCampaign
 		}
 
 		CharactersChangedEvent?.Invoke();
+	}
+
+	public void SetCompletedScenario(ScenarioModel scenarioModel)
+	{
+		CompletedScenarioModelId = scenarioModel?.Id.ToString();
 	}
 
 	public void AdjustProsperity(int prosperityAmount)
@@ -254,6 +354,11 @@ public class SavedCampaign
 	public void AddPartyAchievement(PartyAchievement partyAchievement)
 	{
 		CollectedPartyAchievements.AddIfNew(partyAchievement);
+	}
+
+	public bool HasPartyAchievement(PartyAchievement partyAchievement)
+	{
+		return CollectedPartyAchievements.Contains(partyAchievement);
 	}
 
 	public void AdjustReputation(int reputationAmount)
@@ -340,6 +445,57 @@ public class SavedCampaign
 		return null;
 	}
 
+	public void UnlockEnhancements()
+	{
+		if(EnhancementsUnlocked)
+		{
+			return;
+		}
+
+		EnhancementsUnlocked = true;
+		EnhancementsUnlockedChangedEvent?.Invoke();
+	}
+
+	public void SetCustomValue(string key, object value)
+	{
+		CustomValues[key] = value;
+	}
+
+	public T GetCustomValue<T>(string key)
+	{
+		if(!CustomValues.TryGetValue(key, out object value))
+		{
+			return default;
+		}
+
+		if(value is not T castValue)
+		{
+			Log.Error($"Could not cast custom value for: {key}");
+			return default;
+		}
+
+		return castValue;
+	}
+
+	public bool TryGetCustomValue<T>(string key, out T value)
+	{
+		if(!CustomValues.TryGetValue(key, out object retrievedValue))
+		{
+			value = default;
+			return false;
+		}
+
+		if(retrievedValue is not T castValue)
+		{
+			Log.Error($"Could not cast custom value for: {key}");
+			value = default;
+			return false;
+		}
+
+		value = castValue;
+		return true;
+	}
+
 	private void UnlockItems(int prosperityLevel)
 	{
 		ItemModel[] itemModels = ItemCollections.Levels[prosperityLevel - 1];
@@ -349,6 +505,15 @@ public class SavedCampaign
 			int currentlyUnlockedCount = savedItem.UnlockedCount;
 			savedItem.AddUnlocked(itemModel.ShopCount - currentlyUnlockedCount);
 			savedItem.AddStock(itemModel.ShopCount - currentlyUnlockedCount);
+		}
+
+		if(prosperityLevel > 1)
+		{
+			AppController.Instance.PopupManager.RequestPopup(new ProsperityLevelUpPopup.Request()
+			{
+				Level = prosperityLevel,
+				ItemModels = itemModels
+			});
 		}
 	}
 

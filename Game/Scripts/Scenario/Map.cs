@@ -91,9 +91,11 @@ public partial class Map : Node2D
 		UpdateContainerRect();
 	}
 
-	public void RegisterFigure(Figure figure)
+	public async GDTask RegisterFigure(Figure figure)
 	{
 		Figures.Add(figure);
+
+		await ScenarioEvents.FigureRegisteredEvent.CreatePrompt(new ScenarioEvents.FigureRegistered.Parameters(figure));
 
 		FigureAddedEvent?.Invoke(figure);
 	}

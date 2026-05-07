@@ -20,7 +20,7 @@ public class ProsperousConcord : HierophantCardModel<ProsperousConcord.CardTop, 
 				{
 					Figure figure = state.GetCustomValue<Figure>(this, "Figure");
 
-					await AbilityCmd.AddCharacterToken(state, figure,
+					await AbilityCmd.AddCharacterToken(state, figure, textParameters =>
 						$"The next time an ally attacks this enemy this round, they add +2{Icons.Inline(Icons.Attack)} to the attack.");
 
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,

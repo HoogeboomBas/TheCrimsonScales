@@ -24,9 +24,9 @@ public class City33 : CityEventModel<City33.ChoiceA, City33.ChoiceB>
 			He stands up from tying his shoes and lifts them up for you to see. "Great pair, by the way. Why don't I tell you where I got them from, in case you ever find yourself needing a pair?"
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainItemDesignEventReward(ModelDB.Item<LightweightBoots>())
+			new GainItemDesignReward(ModelDB.Item<LightweightBoots>())
 		];
 	}
 
@@ -41,9 +41,9 @@ public class City33 : CityEventModel<City33.ChoiceA, City33.ChoiceB>
 			You point toward the shiny pair of boots he's wearing and make it clear that he won't be leaving without repaying your kindness. "What's a pair of shoes anyways" he laughs nervously as he slips them off and hands them to you.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemEventReward(ModelDB.Item<LightweightBoots>())
+			new GainCollectiveItemReward(ModelDB.Item<LightweightBoots>())
 		];
 	}
 }

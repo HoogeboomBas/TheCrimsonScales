@@ -10,6 +10,8 @@ public abstract class ClassModel : AbstractModel
 	public abstract MaxHealthValues MaxHealthValues { get; }
 	public abstract int HandSize { get; }
 	public abstract Ancestry Ancestry { get; }
+	public abstract List<EventModel> UnlockEvents { get; }
+	public abstract List<EventModel> RetirementEvents { get; }
 
 	public abstract string AssetPath { get; }
 	public abstract Color PrimaryColor { get; }

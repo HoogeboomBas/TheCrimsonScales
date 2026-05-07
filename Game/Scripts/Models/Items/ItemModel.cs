@@ -93,10 +93,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 		Owner = character;
 
-		if(Owner != null)
-		{
-			Subscribe();
-		}
+		TrySubscribe();
 	}
 
 	public async GDTask SetItemState(ItemState state)
@@ -109,14 +106,14 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		ItemState oldItemState = ItemState;
 		ItemState = state;
 
-		if(oldItemState == ItemState.Available)
+		if(state is ItemState.Consumed or ItemState.Spent or ItemState.UnrecoverablyConsumed or ItemState.Active)
 		{
 			Unsubscribe();
 		}
 
-		if(ItemState == ItemState.Available && Owner != null)
+		if(oldItemState is ItemState.Consumed or ItemState.Spent or ItemState.UnrecoverablyConsumed or ItemState.Active)
 		{
-			Subscribe();
+			TrySubscribe();
 		}
 
 		await ScenarioEvents.ItemStateChangedEvent.CreatePrompt(new ScenarioEvents.ItemStateChanged.Parameters(this));
@@ -143,6 +140,14 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		}
 
 		_activeActionStates.Clear();
+	}
+
+	private void TrySubscribe()
+	{
+		if(Owner != null && ItemState is ItemState.Available)
+		{
+			Subscribe();
+		}
 	}
 
 	protected virtual void Subscribe()
@@ -230,6 +235,10 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 						throw new ArgumentOutOfRangeException();
 				}
 			}
+		}
+		else
+		{
+			await SetItemState(ItemState.Available);
 		}
 
 		user.TurnItemsUsed.Add(this);

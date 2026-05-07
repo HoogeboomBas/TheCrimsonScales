@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -14,6 +15,39 @@ public class Road17 : RoadEventModel<Road17.ChoiceA, Road17.ChoiceB>
 
 		The Inox places two totems on the table of his booth. "Today, I can sell you the Drake Totem of Confusion or the Eagle Totem of Watchfulness. Which would you care to buy?"
 		""";
+
+	public class ChoiceATotemReward : TotemReward
+	{
+		protected override string Name => "Drake";
+
+		protected override string GetDescriptionLabelText(RichTextParameters textParameters) =>
+			$"All characters adjacent to this obstacle add {Icons.Inline(Icons.GetCondition(Conditions.Muddle), textParameters)} to all their melee attacks.";
+
+		protected override void OnTotemPlaced(Obstacle obstacle)
+		{
+			base.OnTotemPlaced(obstacle);
+
+			ScenarioEvents.DuringAttackEvent.Subscribe(this,
+				parameters =>
+					parameters.Performer is Character &&
+					parameters.AbilityState.SingleTargetRangeType == RangeType.Melee &&
+					RangeHelper.Distance(parameters.Performer.Hex, obstacle.Hex) <= 1,
+				async parameters =>
+				{
+					parameters.AbilityState.SingleTargetAddCondition(Conditions.Muddle);
+
+					await GDTask.CompletedTask;
+				}
+			);
+		}
+
+		protected override void OnTotemDestroyed(Obstacle obstacle)
+		{
+			base.OnTotemDestroyed(obstacle);
+
+			ScenarioEvents.DuringAttackEvent.Unsubscribe(this);
+		}
+	}
 
 	public class ChoiceA : EventChoiceModel, IEventSubscriber
 	{
@@ -59,43 +93,55 @@ public class Road17 : RoadEventModel<Road17.ChoiceA, Road17.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10),
-					new TotemEventReward(
-						obstacle =>
-						{
-							ScenarioEvents.DuringAttackEvent.Subscribe(this,
-								parameters =>
-									parameters.Performer is Character &&
-									parameters.AbilityState.SingleTargetRangeType == RangeType.Melee &&
-									RangeHelper.Distance(parameters.Performer.Hex, obstacle.Hex) <= 1,
-								async parameters =>
-								{
-									parameters.AbilityState.SingleTargetAddCondition(Conditions.Muddle);
-
-									await GDTask.CompletedTask;
-								}
-							);
-						},
-						obstacle =>
-						{
-							ScenarioEvents.DuringAttackEvent.Unsubscribe(this);
-						},
-						"Drake",
-						color =>
-							$"All characters adjacent to this obstacle add {Icons.Inline(Icons.GetCondition(Conditions.Muddle), color: color)} to all their melee attacks."
-					)
+					new LoseCollectiveGoldReward(10),
+					new ChoiceATotemReward()
 				];
 			}
 			else
 			{
 				return [];
 			}
+		}
+	}
+
+	public class ChoiceBTotemReward : TotemReward
+	{
+		protected override string Name => "Eagle";
+
+		protected override string GetDescriptionLabelText(RichTextParameters textParameters) =>
+			$"Whenever a character ends their turn adjacent to this obstacle, they may perform “{Icons.Inline(Icons.Heal, textParameters)}1, self”.";
+
+		protected override void OnTotemPlaced(Obstacle obstacle)
+		{
+			base.OnTotemPlaced(obstacle);
+
+			ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
+				parameters =>
+					parameters.Figure is Character &&
+					RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
+				async parameters =>
+				{
+					ActionState actionState = new ActionState(parameters.Figure,
+						[
+							HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()
+						]
+					);
+					await actionState.Perform();
+				}
+			);
+		}
+
+		protected override void OnTotemDestroyed(Obstacle obstacle)
+		{
+			base.OnTotemDestroyed(obstacle);
+
+			ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this);
 		}
 	}
 
@@ -143,39 +189,14 @@ public class Road17 : RoadEventModel<Road17.ChoiceA, Road17.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10),
-					new TotemEventReward(
-						obstacle =>
-						{
-							ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-								parameters =>
-									parameters.Figure is Character &&
-									RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
-								async parameters =>
-								{
-									ActionState actionState = new ActionState(parameters.Figure,
-										[
-											HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()
-										]
-									);
-									await actionState.Perform();
-								}
-							);
-						},
-						obstacle =>
-						{
-							ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this);
-						},
-						"Eagle",
-						color =>
-							$"Whenever a character ends their turn adjacent to this obstacle, they may perform “{Icons.Inline(Icons.Heal, color: color)}1, self”."
-					)
+					new LoseCollectiveGoldReward(10),
+					new ChoiceBTotemReward()
 				];
 			}
 			else

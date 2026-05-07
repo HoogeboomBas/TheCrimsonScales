@@ -18,7 +18,7 @@ public class CityTemplate : CityEventModel<CityTemplate.ChoiceA, CityTemplate.Ch
 			TODO
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -30,6 +30,6 @@ public class CityTemplate : CityEventModel<CityTemplate.ChoiceA, CityTemplate.Ch
 			TODO
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
 	}
 }

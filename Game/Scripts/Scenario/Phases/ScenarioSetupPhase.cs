@@ -88,19 +88,28 @@ public class ScenarioSetupPhase : ScenarioPhase
 
 		GameController.Instance.UndoManager.AddStep(new ScenarioSetupUndoStep());
 
+		await GameController.Instance.ScenarioModel.OnSetupCompleted();
+
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
 			await character.OnScenarioSetupCompleted();
+			if(ScenarioCheckEvents.ApplyScenarioEffectsCheckEvent.Fire(new ScenarioCheckEvents.ApplyScenarioEffectsCheck.Parameters(character))
+			   .CanApply)
+			{
+				await GameController.Instance.ScenarioModel.StartOfScenarioEffects(character);
+			}
 		}
 
-		foreach(SavedEventState savedEventState in GameController.Instance.SavedCampaign.SavedEvents.SavedEventStates)
+		foreach(SavedPartyGoal savedPartyGoal in GameController.Instance.SavedCampaign.SavedPartyGoals.PartyGoals)
 		{
-			foreach(EventReward eventReward in savedEventState.Choice.GetRewards(savedEventState))
+			await savedPartyGoal.Model.OnScenarioSetupPhaseCompleted(savedPartyGoal);
+		}
+
+		foreach(SavedReward reward in GameController.Instance.SavedCampaign.SavedRewards.Rewards)
+		{
+			if(reward.Type == RewardType.ScenarioStart)
 			{
-				if(eventReward.Type == EventRewardType.ScenarioStart)
-				{
-					await eventReward.OnScenarioSetupPhaseCompleted();
-				}
+				await reward.OnScenarioSetupPhaseCompleted();
 			}
 		}
 	}

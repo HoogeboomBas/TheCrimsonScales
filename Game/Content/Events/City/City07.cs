@@ -23,7 +23,20 @@ public class City07 : CityEventModel<City07.ChoiceA, City07.ChoiceB>
 			Gables turns to walk away, but not before flashing you a wink and whispering in your ear, "Quite delicious."
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) => [];
+		public override List<SavedReward> GetRewards(SavedEventState state) => [];
+	}
+
+	public class ChoiceBSummonReward : SummonReward
+	{
+		public override SummonAbility SummonAbility { get; } =
+			SummonAbility.Builder()
+				.WithName("Battle Turkey")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png") //TODO: Generic or AI summon visual?
+				.WithHealth(5)
+				.WithMove(2)
+				.WithAttack(2)
+				.WithTraits(new PierceTrait(2))
+				.Build();
 	}
 
 	public class ChoiceB : EventChoiceModel
@@ -58,23 +71,14 @@ public class City07 : CityEventModel<City07.ChoiceA, City07.ChoiceB>
 			}
 		}
 
-		public override List<EventReward> GetRewards(SavedEventState state)
+		public override List<SavedReward> GetRewards(SavedEventState state)
 		{
 			if(state.GetCustomValue<bool>(ConditionsMetKey))
 			{
 				return
 				[
-					new LoseCollectiveGoldEventReward(10),
-					new SummonEventReward(
-						SummonAbility.Builder()
-							.WithName("Battle Turkey")
-							.WithTexturePath("res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png") //TODO: Generic or AI summon visual?
-							.WithHealth(5)
-							.WithMove(2)
-							.WithAttack(2)
-							.WithTraits(new PierceTrait(2))
-							.Build()
-					)
+					new LoseCollectiveGoldReward(10),
+					new ChoiceBSummonReward()
 				];
 			}
 			else

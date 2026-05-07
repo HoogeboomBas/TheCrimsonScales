@@ -14,6 +14,43 @@ public class Road32 : RoadEventModel<Road32.ChoiceA, Road32.ChoiceB>
 		As you approach the bag of food, a light from behind shines in your direction. You turn around to find a Vermling, wide-awake and holding a portable tech lamp. He asks you what you are doing here and you have to react quickly.
 		""";
 
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"At the start of the next scenario, an elite Vermling Scout will spawn next to any character. It is an enemy to all figures.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			Hex hex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.GetCharacter(0),
+				list =>
+				{
+					foreach(Character character in GameController.Instance.CharacterManager.Characters)
+					{
+						foreach(Hex hex in RangeHelper.GetHexesInRange(character.Hex, 1, false))
+						{
+							if(hex.IsEmpty())
+							{
+								list.AddIfNew(hex);
+							}
+						}
+					}
+				}, mandatory: true, hintText: "Select a hex to spawn the elite Vermling Scout"
+			);
+
+			if(hex != null)
+			{
+				Monster monster = await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Elite, hex);
+				if(monster != null)
+				{
+					monster.SetAlignment(Alignment.Other);
+					monster.SetEnemies(Alignment.Characters | Alignment.Enemies | Alignment.Other);
+				}
+			}
+		}
+	}
+
 	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Explain you're here for the food and aren't leaving without it.";
@@ -25,41 +62,41 @@ public class Road32 : RoadEventModel<Road32.ChoiceA, Road32.ChoiceB>
 			You eventually outrun the Vermling and enjoy a hearty meal, but as you reach your destination you turn around and find the Vermling has caught up and is angrily charging toward you.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					Hex hex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.GetCharacter(0),
-						list =>
-						{
-							foreach(Character character in GameController.Instance.CharacterManager.Characters)
-							{
-								foreach(Hex hex in RangeHelper.GetHexesInRange(character.Hex, 1, false))
-								{
-									if(hex.IsEmpty())
-									{
-										list.AddIfNew(hex);
-									}
-								}
-							}
-						}, mandatory: true, hintText: "Select a hex to spawn the elite Vermling Scout"
-					);
-
-					if(hex != null)
-					{
-						Monster monster = await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Elite, hex);
-						if(monster != null)
-						{
-							monster.SetAlignment(Alignment.Other);
-							monster.SetEnemies(Alignment.Characters | Alignment.Enemies | Alignment.Other);
-						}
-					}
-				},
-				color =>
-					"At the start of the next scenario, an elite Vermling Scout will spawn next to any character. It is an enemy to all figures."
-			)
+			new ChoiceAOnScenarioStartedReward()
 		];
+	}
+
+	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"During the first round of the scenario, all characters act on Initiative 99 instead of their leading Initiative.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			ScenarioCheckEvents.InitiativeCheckEvent.Subscribe(this,
+				parameters =>
+					parameters.Figure is Character,
+				parameters =>
+				{
+					parameters.SetInitiative(99);
+				}
+			);
+
+			ScenarioEvents.RoundEndedEvent.Subscribe(this,
+				parameters => true,
+				async parameters =>
+				{
+					ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
+					ScenarioCheckEvents.InitiativeCheckEvent.Unsubscribe(this);
+
+					await GDTask.CompletedTask;
+				}
+			);
+		}
 	}
 
 	public class ChoiceB : EventChoiceModel, IEventSubscriber
@@ -73,36 +110,9 @@ public class Road32 : RoadEventModel<Road32.ChoiceA, Road32.ChoiceB>
 			You continue on with your journey but have no luck finding more food. You manage to make it to your destination but feel sluggish and worn out from the lack of sustenance.
 			""";
 
-		public override List<EventReward> GetRewards(SavedEventState state) =>
+		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new OnScenarioStartedEventReward(
-				async () =>
-				{
-					ScenarioCheckEvents.InitiativeCheckEvent.Subscribe(this,
-						parameters =>
-							parameters.Figure is Character,
-						parameters =>
-						{
-							parameters.SetInitiative(99);
-						}
-					);
-
-					ScenarioEvents.RoundEndedEvent.Subscribe(this,
-						parameters => true,
-						async parameters =>
-						{
-							ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
-							ScenarioCheckEvents.InitiativeCheckEvent.Unsubscribe(this);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					await GDTask.CompletedTask;
-				},
-				color =>
-					"During the first round of the scenario, all characters act on Initiative 99 instead of their leading Initiative."
-			)
+			new ChoiceBOnScenarioStartedReward()
 		];
 	}
 }

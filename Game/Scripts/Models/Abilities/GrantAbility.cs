@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 /// <summary>
@@ -30,13 +31,13 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 		public interface IGetAbilitiesStep
 		{
-			TBuilder WithAbilities(List<Ability> abilities);
+			TBuilder WithAbilities(params Ability[] abilities);
 			TBuilder WithGetAbilities(Func<State, List<Ability>> getAbilities);
 		}
 
-		public TBuilder WithAbilities(List<Ability> abilities)
+		public TBuilder WithAbilities(params Ability[] abilities)
 		{
-			Obj._abilities = abilities;
+			Obj._abilities = abilities.ToList();
 			return (TBuilder)this;
 		}
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using Fractural.Tasks;
 
 public class AshsteelGauntlets : CS2Item
@@ -8,13 +9,47 @@ public class AshsteelGauntlets : CS2Item
 	public override int Cost => 60;
 	public override ItemType ItemType => ItemType.OneHand;
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
+	public override bool Round => true;
+	public override int MinusOneCount => 2;
 
 	protected override int AtlasIndex => 34;
 
+	private object _subscriber;
+
+	public override void Init(Character owner)
+	{
+		_subscriber = new object();
+
+		ConditionModel conditionModel = Conditions.Disarm;
+		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
+			parameters =>
+				Owner != null &&
+				parameters.Target == Owner &&
+				parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+				conditionModel.ImmunityCompareBaseConditions != null &&
+				parameters.ConditionModel.ImmunityCompareBaseConditions
+					.Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1)),
+			async parameters =>
+			{
+				parameters.SetPrevented(true);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
+			parameters => parameters.Figure == Owner,
+			parameters =>
+			{
+				parameters.AddImmunity(conditionModel);
+			}
+		);
+
+		base.Init(owner);
+	}
+
 	protected override void Subscribe()
 	{
-
-		
 		base.Subscribe();
 
 		SubscribeDuringTurn(
@@ -23,12 +58,15 @@ public class AshsteelGauntlets : CS2Item
 			{
 				await Use(async user =>
 				{
-					//TODO: Code actual ability (Not sure how to do a round ability for an item)
-					await GDTask.CompletedTask;
+					await GetActionState(user,
+					[
+						GrantAbility.Builder()
+							.WithAbilities(ShieldAbility.Builder().WithShieldValue(1).Build())
+							.WithTarget(Target.Self)
+							.Build()
+					]).Perform();
 				});
 			}
 		);
-
-		SubscribeConditionImmunity(Conditions.Disarm);
 	}
 }

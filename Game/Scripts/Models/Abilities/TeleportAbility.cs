@@ -45,7 +45,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			Obj.Distance = distance;
 			return (TBuilder)this;
 		}
-		
+
 		public TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes)
 		{
 			Obj.CustomGetHexes = getHexes;

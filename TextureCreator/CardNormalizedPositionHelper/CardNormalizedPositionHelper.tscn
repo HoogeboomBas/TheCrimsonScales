@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmx0pt8pmx30m"]
+[gd_scene format=3 uid="uid://cmx0pt8pmx30m"]
 
 [ext_resource type="Script" uid="uid://xj83t2ln2l5m" path="res://CardNormalizedPositionHelper/CardNormalizedPositionHelper.cs" id="1_ybs26"]
 [ext_resource type="Texture2D" uid="uid://h808t4w28ke3" path="res://CardNormalizedPositionHelper/Items/Prosperity9/SpriteSheet.jpg" id="2_u76aj"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Circle.svg" id="3_hw28d"]
 [ext_resource type="Texture2D" uid="uid://c00nq6ibei8jq" path="res://CircleOutline.svg" id="3_u76aj"]
 
-[node name="CardNormalizedPositionHelper" type="Control" node_paths=PackedStringArray("_cardContainer", "_cardTextureRect", "_markerContainer")]
+[node name="CardNormalizedPositionHelper" type="Control" unique_id=1105409110 node_paths=PackedStringArray("_cardContainer", "_cardTextureRect", "_markerContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,12 +20,12 @@ _cardContainer = NodePath("CardContainer")
 _cardTextureRect = NodePath("CardContainer/TextureRect")
 _markerContainer = NodePath("Marker")
 
-[node name="CardContainer" type="Control" parent="."]
+[node name="CardContainer" type="Control" parent="." unique_id=1956068207]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CardContainer"]
+[node name="TextureRect" type="TextureRect" parent="CardContainer" unique_id=1901051091]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,12 +33,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Marker" type="Control" parent="."]
+[node name="Marker" type="Control" parent="." unique_id=281720581]
 anchors_preset = 0
 offset_right = 130.0
 offset_bottom = 130.0
 
-[node name="TextureRect" type="TextureRect" parent="Marker"]
+[node name="TextureRect" type="TextureRect" parent="Marker" unique_id=1952383218]
 self_modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 1
 anchors_preset = 15
@@ -49,7 +49,7 @@ grow_vertical = 2
 texture = ExtResource("3_u76aj")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Marker"]
+[node name="MarginContainer" type="MarginContainer" parent="Marker" unique_id=1319974183]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,13 +61,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer" unique_id=1073941913]
 self_modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 2
 texture = ExtResource("3_hw28d")
 expand_mode = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Marker"]
+[node name="MarginContainer2" type="MarginContainer" parent="Marker" unique_id=452517408]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,13 +79,13 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer2"]
+[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer2" unique_id=1955483883]
 self_modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 2
 texture = ExtResource("3_hw28d")
 expand_mode = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="Marker"]
+[node name="MarginContainer3" type="MarginContainer" parent="Marker" unique_id=1584294845]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,7 +97,7 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer3"]
+[node name="TextureRect" type="TextureRect" parent="Marker/MarginContainer3" unique_id=1224468290]
 layout_mode = 2
 texture = ExtResource("3_hw28d")
 expand_mode = 1

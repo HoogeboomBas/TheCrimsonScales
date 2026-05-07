@@ -2,7 +2,7 @@
 {
 	public SavedOption<T> SavedOption { get; }
 
-	public OptionViewParameters(string label, SavedOption<T> savedOption)
+	public OptionViewParameters(SavedOption<T> savedOption, string label)
 	{
 		SavedOption = savedOption;
 		Label = label;
