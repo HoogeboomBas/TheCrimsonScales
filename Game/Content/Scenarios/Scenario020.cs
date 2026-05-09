@@ -1,13 +1,43 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
 public class Scenario020 : ScenarioModel
 {
 	public override string ScenePath => "res://Content/Scenarios/Scenario020.tscn";
+
 	public override int ScenarioNumber => 20;
+	public override string Name => "Midnight Ritual";
+
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario022>()];
+
+	public override string IntroductionText =>
+		"""
+		Following the old man’s warning, you cautiously head in the direction he came from. Bloody pox is a constant threat to the city of Gloomhaven, and is both highly contagious and lethal. It can be healed, but time is of the essence.
+		""";
+
+	public override string ConclusionText =>
+		"""
+		As the last monster is destroyed, the Captain of the Guard approaches you.
+
+		“Thank you” he nods, “but the work is not yet complete. We gained the pox from a creature that is threatening Gloomhaven’s water supply. You need to kill the creature, and cleanse the water, or the whole of Gloomhaven will be poisoned.”
+		""";
+
+	public override List<MonsterModel> MonsterModels { get; } =
+	[
+		ModelDB.Monster<Cultist>(),
+		ModelDB.Monster<DeepTerror>(),
+		ModelDB.Monster<LivingSpirit>(),
+	];
+
+	public override List<SavedReward> Rewards =>
+	[
+		new GainReputationReward(),
+		new GainProsperityReward(),
+		new GainRandomOrbEachReward(),
+		new UnlockScenarioReward(ModelDB.Scenario<Scenario022>()),
+	];
 
 	protected override ScenarioGoals CreateScenarioGoals() =>
 		new KillSpecificEnemiesTypeGoals(ModelDB.Monster<CultLeader>(), "Kill the Cult Leader to win the scenario");
