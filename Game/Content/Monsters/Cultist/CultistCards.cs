@@ -153,11 +153,10 @@ public class CultistAbilityCard5 : CultistAbilityCard
 			.WithMonsterType(MonsterType.Normal)
 			.Build()),
 
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 2);
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Self)
+			.WithMandatory(true)
 			.Build())
 	];
 }
@@ -175,11 +174,10 @@ public class CultistAbilityCard6 : CultistAbilityCard
 			.WithMonsterType(MonsterType.Normal)
 			.Build()),
 
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 2);
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Self)
+			.WithMandatory(true)
 			.Build())
 	];
 }

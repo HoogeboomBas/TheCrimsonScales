@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class Scenario020 : ScenarioModel
 {
@@ -14,14 +15,50 @@ public class Scenario020 : ScenarioModel
 
 	public override string IntroductionText =>
 		"""
-		Following the old man’s warning, you cautiously head in the direction he came from. Bloody pox is a constant threat to the city of Gloomhaven, and is both highly contagious and lethal. It can be healed, but time is of the essence.
+		You take the Orb of Embers straight to Athan (knocking cautiously on the office door this time). Rather than his slightly grumpy call of “Enter!,” instead he sounds weary as he invites you in.
+
+		As you enter the office, an atmosphere of gloom envelopes his study, and he barely raises his head as you enter. Learning from past mistakes, you say to him, “We have something to show you, but is everything ok?
+
+		At this, he raises his head, shaking it slowly. “On the contrary, there is a serious problem affecting my congregation.” He continues “I generally leave the rumor-mongers of Gloomhaven to their tales, and rise above the various goings-on of this city to focus on my work. On this occasion though, I cannot pull my thoughts away from my fellow worshippers who have been led down a dangerous path.”
+
+		“As you know, The Keeper of The Great Oak is a responsible position, and one that I am deeply privileged to hold. Although maintaining the Oak and communicating its incredible properties is a big part of my calling, caring for the less fortunate souls of Gloomhaven through the donations we receive, is something I take equally seriously.”
+
+		“Recently however, a corrupting and dangerous cult has sprung up, deliberately seeking to recruit those most vulnerable to their evil. We have lost many people, who desperately need help from The Great Oak. This is not a power struggle, it is a humanitarian issue, but we do not have the ability to penetrate this cult and cannot help those who need us now more than ever.”
+
+		Sensing an opportunity, but still a little wary, you reply “We have recovered the Orb of Embers. Would you like us to infiltrate the cult and free the victims, while you examine the Orb and the book we brought to you previously?”
+
+		Athan’s eyes light up briefly, before a flicker of concern crosses his face. “You are kind and good people, thank you. And I will, of course, examine the Orb and the detailed writings you have brought for me.
+
+		“One thing though, please—no unnecessary violence. The Oak abhors it.”
+
+		You nod understandingly and take your leave; after all ‘unnecessary’ is open to interpretation…
+
+		Athan provides with the details he has of the cult’s hideout, and that their rituals tend to take place at night. You find the chamber late in the afternoon and settle down to watch and wait.
+
+		As midnight begins to approach, you begin to observe activity from your hiding place, followed by a good deal of ceremony centering around a hooded figure. You are sure you have just seen the cult leader, and experience tells you that if you can reach him, the cult should collapse. Taking out the cult leader probably doesn’t count as ‘unnecessary’ either, though you may keep quiet about any collateral damage.
 		""";
 
 	public override string ConclusionText =>
 		"""
-		As the last monster is destroyed, the Captain of the Guard approaches you.
+		There is little question that you underestimated the cultist. Whatever dark skills he possessed were impressive, just not quite impressive enough.
 
-		“Thank you” he nods, “but the work is not yet complete. We gained the pox from a creature that is threatening Gloomhaven’s water supply. You need to kill the creature, and cleanse the water, or the whole of Gloomhaven will be poisoned.”
+		As you strike the final blow, he screams in agony, before his cloak blows open and his body transforms into swirling purple smoke before you.
+
+		Taken aback by this for a moment, you initially fail to notice that the cavern has somehow lightened and feels less oppressive. Also, from a small, roughly-hewn corridor you had not noticed before, there emerges a steady trail of disorientated and scruffy drifters and beggars, who seem to have come straight from the Sinking Market. You realize that they must have been the people that Athan was helping, and lead them out of the cavern.
+
+		While shaking off the effects of the cultist’s indoctrination, they are still very dazed and compliant, and you have little trouble in herding the confused crowd back to Gloomhaven. You make a strange sight as you parade through Gloomhaven and Athan emerges from the Sanctuary just in time to see them.
+
+		“By the light!” he cries, “You did it!” He sidles a little closer before saying quietly “No-one got hurt… too badly, I hope?”
+
+		You assure him that the cultist was the only person killed. He looks at you sideways, but says nothing further for a moment.
+
+		Still beaming at the sight of his flock, he cries out as if remembering something. “Oh! I have something to share with you!” ushering you back into his study. In your absence, he has examined both the Orb of Embers and The Book of Naiqa and has written extensive notes, much of which mean little to you.
+
+		“As I told you, the twin Orbs are extremely powerful and great care must be used in their handling and operation. They will however, come in very useful if you come in contact with either the Icebound or the Lavalite.”
+
+		“Once again, I must express my gratitude, you have made an enormous difference to those who are often overlooked by others. I cannot offer you much by way of thanks, but you may want to take a look at the old Imp Temple on the edge of the Dagger Forest. A good soul will find their reward there.
+
+		Thanking the old man once more, you leave his office, quietly proud that you have won him over and softened the grumpy exterior. As you walk down the corridor however, you hear him bellow “Shut the door, you fools—my cuttings! And look at these dirty footprints! Weevils and bark beetles, the lot of you!”
 		""";
 
 	public override List<MonsterModel> MonsterModels { get; } =
@@ -33,22 +70,30 @@ public class Scenario020 : ScenarioModel
 
 	public override List<SavedReward> Rewards =>
 	[
-		new GainReputationReward(),
-		new GainProsperityReward(),
+		new GainReputationReward(1),
+		new GainProsperityReward(1),
 		new GainRandomOrbEachReward(),
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario022>()),
 	];
-
-	protected override ScenarioGoals CreateScenarioGoals() =>
-		new KillSpecificEnemiesTypeGoals(ModelDB.Monster<CultLeader>(), "Kill the Cult Leader to win the scenario");
 
 	private bool _summonElite;
 	private List<Objective> _altars = [];
 	private int _currentAltarIndex = 0;
 
-	public override async GDTask StartAfterFirstRoomRevealed()
+	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
-		await base.StartAfterFirstRoomRevealed();
+		await base.InitializeAfterFirstRoomRevealed();
+
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<CultLeader>(), specificCount: 1));
+
+		AddScenarioRule(textParameters =>
+			$"""
+			 The Cultist is the Cult Leader. It does not suffer damage when summoning. Instead of summoning Living Bones, the Cultist summons Living Spirits. The cultist is immune to {Icons.Inline(Icons.GetCondition(Conditions.Stun))}, {Icons.Inline(Icons.GetCondition(Conditions.Disarm))}, and {Icons.Inline(Icons.GetCondition(Conditions.Immobilize))}. For three characters, every other Living Spirit summoned is elite. For four characters, every Living Spirit summoned is elite.
+
+			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)} in that order.
+
+			 The altars have (C+L)x3 hit points, and if an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
+			 """);
 
 		_altars.Add(GameController.Instance.Map.GetMarker(Marker.Type.a).GetHexObject<Objective>());
 		_altars.Add(GameController.Instance.Map.GetMarker(Marker.Type.b).GetHexObject<Objective>());
@@ -59,6 +104,60 @@ public class Scenario020 : ScenarioModel
 			altar.Init((GameController.Instance.SavedCampaign.Characters.Count + GameController.Instance.SavedScenario.ScenarioLevel) * 3,
 				"Altar");
 		}
+	
+		ScenarioEvents.FigureTurnStartedEvent.Subscribe(this, 
+			parameters => 
+				parameters.Figure is Monster monster && 
+				monster.MonsterModel is CultLeader && 
+				monster.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(monster).Any(monsterAbility => monsterAbility.Ability is MoveAbility) &&
+				_altars.Count(altar => altar.IsDestroyed) < 2,
+			async parameters =>
+			{
+				if(!_altars[_currentAltarIndex].IsDestroyed)
+				{
+					ActionState actionState = new ActionState(parameters.Figure, [
+						TeleportAbility.Builder()
+							.WithDistance(999)
+							.WithCustomGetHexes((state, hexes) =>
+							{
+								int closestRange = int.MaxValue;
+
+								foreach(Hex neighbourHex in _altars[_currentAltarIndex].Hex.Neighbours)
+								{
+									if(!neighbourHex.IsEmpty())
+									{
+										continue;
+									}
+
+									foreach(Figure figure in GameController.Instance.Map.Figures)
+									{
+										if(state.Performer.EnemiesWith(figure))
+										{
+											int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+											
+											if(range == closestRange)
+											{
+												hexes.Add(neighbourHex);
+											}
+											else if(range < closestRange)
+											{
+												closestRange = range;
+												hexes.Clear();
+												hexes.Add(neighbourHex);
+											}
+										}
+									}
+								}
+							})
+							.Build()
+					]);
+					await actionState.Perform();
+				}
+				_currentAltarIndex++;
+				_currentAltarIndex %= _altars.Count;
+			}, order: 10
+
+		);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
 			parameters => parameters.Performer is Monster monster && monster.MonsterModel is CultLeader,
@@ -71,56 +170,16 @@ public class Scenario020 : ScenarioModel
 						abilityState.SetMonsterType(CalculateMonsterType());
 						_summonElite = !_summonElite;
 						break;
-					case OtherAbility.State abilityState:
-						abilityState.SetBlocked();
-						break;
-					case MoveAbility.State abilityState:
-						if(!_altars[_currentAltarIndex].IsDestroyed)
+					case SufferDamageAbility.State abilityState:
+						if(abilityState.AbilityTarget == Target.Self)
 						{
 							abilityState.SetBlocked();
-							/*
-							ActionState actionState = new ActionState(abilityState.ActionState, abilityState.Performer, [
-								TeleportAbility.Builder()
-									.WithDistance(999)
-									.With
-									.WithGetTargetingHintText(grantAbilityState =>
-										$"Select an ally to grant {Icons.HintText(Icons.Attack)}3, {Icons.HintText(Icons.Range)}3"
-									)
-									.Build()
-							]);
-							await actionState.Perform();
-							
-							List<Hex> selectedHexes = await AbilityCmd.SelectHexes(abilityState,
-								list =>
-								{
-									foreach(Hex possibleHex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, 3, true))
-									{
-										if(possibleHex != null && possibleHex.IsFeatureless())
-										{
-											list.Add(possibleHex);
-										}
-									}
-								},
-								0, 1, false, "Place difficult terrain in a featureless hex"
-							);
-							*/
-							//TODO Teleport ability
 						}
-
-						_currentAltarIndex++;
-						_currentAltarIndex %= _altars.Count;
 						break;
 				}
 				
 				await GDTask.CompletedTask;
 			});
-
-		UpdateScenarioText($"""
-		                    The Cultist is the Cult Leader. It does not suffer damage when summoning. Instead of summoning Living Bones, the Cultist summons Living Spirits. The cultist is immune to {Icons.Inline(Icons.GetCondition(Conditions.Stun))}, {Icons.Inline(Icons.GetCondition(Conditions.Disarm))}, and {Icons.Inline(Icons.GetCondition(Conditions.Immobilize))}. For three characters, every other Living Spirit summoned is elite. For four characters, every Living Spirit summoned is elite.
-		                    If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a)}, {Icons.InlineMarker(Marker.Type.b)}, then {Icons.InlineMarker(Marker.Type.c)} in that order.
-
-		                    The altars have (C+L)x3 hit points, and if an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
-		                    """);
 	}
 
 	private MonsterType CalculateMonsterType()

@@ -98,7 +98,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
 					new TeleportPrompt(abilityState, performer, null, customHexes: customHexes,
-						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}{abilityState.Distance}"),
+						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
 			if(!teleportAnswer.Skipped)
@@ -108,7 +108,19 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		}
 		else
 		{
-			// Monster teleporting is not implemented (yet)
+			Figure focus = await abilityState.ActionState.GetFocus(abilityState);
+
+			// Monster teleporting
+			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
+				await PromptManager.Prompt(
+					new MonsterTeleportPrompt(abilityState, performer, null, abilityState.ActionState.GetAIMoveParameters(), focus, customHexes: customHexes,
+						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
+					abilityState.Authority);
+
+			if(!monsterTeleportAnswer.Skipped)
+			{
+				destination = GameController.Instance.Map.GetHex(monsterTeleportAnswer.DestinationCoords);
+			}
 		}
 
 		if(destination == null)
