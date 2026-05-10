@@ -110,7 +110,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		{
 			Figure focus = await abilityState.ActionState.GetFocus(abilityState);
 
-			// Monster teleporting
+			// TODO: Not a real monster movement, focus and movement AI not included, works with custom hexes
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
 					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: customHexes,
