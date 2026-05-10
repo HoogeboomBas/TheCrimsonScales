@@ -149,10 +149,12 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 			.WithDistance(999)
 			.WithCustomGetHexes((state, hexes) =>
 			{
+				// Find all void pits
 				List<Objective> objectives = GameController.Instance.Map.GetChildrenOfType<Objective>().Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed).ToList();
 
 				Dictionary<Objective, int> objectiveDistanceToClosestCharacter = [];
 
+				// Find the distance to the closest character for each
 				foreach(Objective objective in objectives)
 				{
 					int closestCharacterRange = int.MaxValue;
@@ -175,8 +177,10 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 					}
 				}
 
+				// Sort the objectives by distance to the closest character in descending order
 				objectives.Sort((objectiveA, objectiveB) => objectiveDistanceToClosestCharacter[objectiveB].CompareTo(objectiveDistanceToClosestCharacter[objectiveA]));
 
+				// Take the closest one that has an empty hex within range 4
 				Objective targetObjective = objectives.First(objective => objective.Hex.Neighbours.Any(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
 
 				hexes.AddRange(targetObjective.Hex.Neighbours.Where(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
