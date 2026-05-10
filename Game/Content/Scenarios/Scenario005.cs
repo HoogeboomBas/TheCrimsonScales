@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -104,7 +104,8 @@ public class Scenario005 : ScenarioModel
 			_infectedWaterSources.Add(marker, waterHexes);
 		}
 
-		_markersLeftToRemove = GameController.Instance.SavedCampaign.Characters.Count;
+		int characterCount = GameController.Instance.SavedCampaign.Characters.Count;
+		_markersLeftToRemove = characterCount;
 
 		int doorOpenedRoundNumber = GameController.Instance.ScenarioPhaseManager.RoundIndex + 1;
 		int doorOpenedRoundNumberOddness = doorOpenedRoundNumber % 2;
@@ -131,8 +132,8 @@ public class Scenario005 : ScenarioModel
 		);
 
 		_infectedWaterGoal =
-			await AddGoal(new CustomScenarioGoal(textParameters => "Drain 4 infected water tiles to make the Gelatinous Giant vulnerable.",
-				hasProgress: true, maxProgress: 4, order: -1));
+			await AddGoal(new CustomScenarioGoal(textParameters => $"Drain {characterCount} infected water tiles to make the Gelatinous Giant vulnerable.",
+				hasProgress: true, maxProgress: characterCount, order: -1));
 
 		_gelatinousGiantInvulnerableRule =
 			AddScenarioRule(

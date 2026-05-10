@@ -63,7 +63,7 @@ public class Scenario020 : ScenarioModel
 
 	public override List<MonsterModel> MonsterModels { get; } =
 	[
-		ModelDB.Monster<Cultist>(),
+		ModelDB.Monster<CultLeader>(),
 		ModelDB.Monster<DeepTerror>(),
 		ModelDB.Monster<LivingSpirit>(),
 	];
@@ -120,7 +120,10 @@ public class Scenario020 : ScenarioModel
 							.WithDistance(999)
 							.WithCustomGetHexes((state, hexes) =>
 							{
-								int closestRange = int.MaxValue;
+								// First find hexes around the altar that are closest to the Cultist
+								int closestAltarHexRange = int.MaxValue;
+
+								List<Hex> closestAltarHexes = [];
 
 								foreach(Hex neighbourHex in _altars[_currentAltarIndex].Hex.Neighbours)
 								{
@@ -129,21 +132,42 @@ public class Scenario020 : ScenarioModel
 										continue;
 									}
 
+									// Teleporting so calculating direct distance
+									int range = Map.SimpleDistance(neighbourHex.Coords, parameters.Figure.Hex.Coords);
+
+									if(range == closestAltarHexRange)
+									{
+										closestAltarHexes.Add(neighbourHex);
+									}
+									else if(range < closestAltarHexRange)
+									{
+										closestAltarHexRange = range;
+										closestAltarHexes.Clear();
+										closestAltarHexes.Add(neighbourHex);
+									}
+								}
+
+								// From these hexes find those that are also closest to his enemy
+								int closestEnemyRange = int.MaxValue;
+
+								foreach(Hex altarHex in closestAltarHexes)
+								{
 									foreach(Figure figure in GameController.Instance.Map.Figures)
 									{
 										if(state.Performer.EnemiesWith(figure))
 										{
-											int range = RangeHelper.Distance(neighbourHex, figure.Hex);
+											// Moving to the enemy after the teleport
+											int range = RangeHelper.Distance(altarHex, figure.Hex);
 											
-											if(range == closestRange)
+											if(range == closestEnemyRange)
 											{
-												hexes.Add(neighbourHex);
+												hexes.Add(altarHex);
 											}
-											else if(range < closestRange)
+											else if(range < closestEnemyRange)
 											{
-												closestRange = range;
+												closestEnemyRange = range;
 												hexes.Clear();
-												hexes.Add(neighbourHex);
+												hexes.Add(altarHex);
 											}
 										}
 									}
@@ -155,7 +179,7 @@ public class Scenario020 : ScenarioModel
 				}
 				_currentAltarIndex++;
 				_currentAltarIndex %= _altars.Count;
-			}, order: 10
+			}, order: 100
 
 		);
 

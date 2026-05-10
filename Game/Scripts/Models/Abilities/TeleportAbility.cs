@@ -113,7 +113,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// Monster teleporting
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
-					new MonsterTeleportPrompt(abilityState, performer, null, abilityState.ActionState.GetAIMoveParameters(), focus, customHexes: customHexes,
+					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: customHexes,
 						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 

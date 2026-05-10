@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Godot;
 
 public class InoxBodyguard : MonsterModel, IBossMonsterModel
@@ -104,12 +104,12 @@ public class InoxBodyguard : MonsterModel, IBossMonsterModel
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
 
 	// IBossMonsterModel
-	public string GetSpecial1Description(Monster monster) =>
+	public string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
 		 TODO
 		 """;
 
-	public string GetSpecial2Description(Monster monster) =>
+	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
 		 TODO
 		 """;

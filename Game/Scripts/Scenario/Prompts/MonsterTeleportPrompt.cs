@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, AIMoveParameters aiMoveParameters, Figure focus, Func<string> getHintText,
+public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
 	List<Hex> customHexes = null)
 	: Prompt<MonsterTeleportPrompt.Answer>(effectCollection, getHintText)
 {
