@@ -12,9 +12,7 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(CreateObstacleAbility.Builder()
-				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-				.WithCustomName("Void pit")
+			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
 				.Build()),
 
 			new AbilityCardAbility(ShieldAbility.Builder()

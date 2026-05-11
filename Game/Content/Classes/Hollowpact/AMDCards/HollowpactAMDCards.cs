@@ -130,9 +130,7 @@ public class HollowpactAMDCards
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +1;
 		public override List<Ability> GetAbilities(AttackAbility.State attackAbilityState) =>
 		[
-			CreateObstacleAbility.Builder()
-				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-				.WithCustomName("Void pit")
+			Hollowpact.CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(2)
 				.Build(),
 		];

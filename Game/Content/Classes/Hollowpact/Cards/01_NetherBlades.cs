@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 using Godot;
 
 public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlades.CardBottom>
@@ -52,6 +53,8 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 				.WithDistance(4)
 				.WithConditionalAbilityCheck(async state =>
 				{
+					await GDTask.CompletedTask;
+					
 					return state.ActionState.GetAbilityState<MoveAbility.State>(0).GetCustomValue<bool>(this, "UsedVoidEnergy");
 				})
 				.Build()),

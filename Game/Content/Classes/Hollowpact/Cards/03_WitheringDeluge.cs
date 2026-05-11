@@ -42,9 +42,7 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 				.WithDistance(3)
 				.Build()),
 			
-			new AbilityCardAbility(CreateObstacleAbility.Builder()
-				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-				.WithCustomName("Void pit")
+			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(2)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),

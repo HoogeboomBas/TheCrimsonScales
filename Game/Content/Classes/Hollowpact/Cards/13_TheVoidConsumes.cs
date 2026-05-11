@@ -26,9 +26,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 				})
 				.Build()),
 			
-			new AbilityCardAbility(CreateObstacleAbility.Builder()
-				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-				.WithCustomName("Void pit")
+			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
 				.Build())
 		];
 	}

@@ -16,7 +16,7 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 	public int Range { get; private set; } = 1;
 	public int ObstacleCount { get; private set; } = 1;
 	public string AssetPath = "res://Content/OverlayTiles/Obstacles/Boulder1H.tscn";
-	public string ObstacleName = "obstacle";
+	public string ObstacleName = "Obstacle";
 	
 	public Action<State, List<Hex>> CustomSelectHexes { get; private set; } = null;
 	public bool Mandatory = false;

@@ -42,6 +42,11 @@ public partial class Hollowpact : Character
 		GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) => _voidEnergyIndicator.QueueFree();
 	}
 
+	public static CreateObstacleAbility.CreateObstacleBuilder CreateVoidPitObstacleAbilityBuilder()
+	{
+		return CreateObstacleAbility.Builder().WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn").WithCustomName("Void pit");
+	}
+
 	public void GainVoidEnergy(int count = 1)
 	{
 		for(int i = 0; i < count; i++)

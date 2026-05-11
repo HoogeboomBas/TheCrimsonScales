@@ -52,11 +52,9 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(CreateObstacleAbility.Builder()
+			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(3)
 				.WithObstacleCount(2)
-				.WithCustomName("Void pit")
-				.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
 			
