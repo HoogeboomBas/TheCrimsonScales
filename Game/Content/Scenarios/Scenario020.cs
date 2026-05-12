@@ -96,7 +96,7 @@ public class Scenario020 : ScenarioModel
 
 		AddScenarioRule(textParameters =>
 			$"""
-			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)} in that order.
+			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)}.
 			 """);
 
 		AddScenarioRule(textParameters =>
@@ -170,7 +170,7 @@ public class Scenario020 : ScenarioModel
 											
 											if(range == closestEnemyRange)
 											{
-												hexes.Add(altarHex);
+												hexes.AddIfNew(altarHex);
 											}
 											else if(range < closestEnemyRange)
 											{

@@ -152,6 +152,11 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 				// Find all void pits
 				List<Objective> objectives = GameController.Instance.Map.GetChildrenOfType<Objective>().Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed).ToList();
 
+				if(objectives.Count() == 0)
+				{
+					return;
+				}
+
 				Dictionary<Objective, int> objectiveDistanceToClosestCharacter = [];
 
 				// Find the distance to the closest character for each
