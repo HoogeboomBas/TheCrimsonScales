@@ -92,7 +92,7 @@ public class Scenario027 : ScenarioModel
 			parameters => parameters.Figure == orbOfEmbersCharacter,
 			parameters => parameters.Add(
 							new InfoTextExtraEffect.Parameters(textParameters =>
-								$"This character holds the Orb of Embers and adds +1{Icons.Inline(Icons.Attack)} to all its attacks against the Icebound")));
+								$"This character holds the Orb of Embers and adds +1{Icons.Inline(Icons.Attack)} to all its attacks against the Icebound.")));
 	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()

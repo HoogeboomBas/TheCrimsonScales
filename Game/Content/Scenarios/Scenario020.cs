@@ -95,13 +95,10 @@ public class Scenario020 : ScenarioModel
 			 The Cult Leader is a special Cultist. It does not suffer damage when summoning. Instead of summoning Living Bones, the Cult leader summons Living Spirits. {summonInfo}
 			 """);
 
-		AddScenarioRule(textParameters =>
-			$"""
-			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)}.
-			 """);
-
 		_scenarioTeleportRule = AddScenarioRule(textParameters =>
 			$"""
+			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)}.
+
 			 If an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
 			 """);
 
