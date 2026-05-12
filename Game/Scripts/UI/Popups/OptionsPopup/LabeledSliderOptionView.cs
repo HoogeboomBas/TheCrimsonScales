@@ -8,8 +8,8 @@ public partial class LabeledSliderOptionView : OptionView<LabeledSliderOptionVie
 
 		public override string ScenePath => "res://Scenes/UI/Popups/OptionsPopup/LabeledSliderOptionView.tscn";
 
-		public Parameters(SavedOption<int> savedOption, string label, LabeledOptions labeledOptions)
-			: base(savedOption, label)
+		public Parameters(SavedOption<int> savedOption, string label, LabeledOptions labeledOptions, bool enabled)
+			: base(savedOption, label, enabled)
 		{
 			LabeledOptions = labeledOptions;
 		}

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cg3ldy13lw110"]
+
+[ext_resource type="Texture2D" uid="uid://chx8f6kho8s18" path="res://Content/Classes/SpiritCaller/Summons/leeching_phantasm.png" id="1_bw0nw"]
+
+[resource]
+atlas = ExtResource("1_bw0nw")
+region = Rect2(120, 110, 500, 500)

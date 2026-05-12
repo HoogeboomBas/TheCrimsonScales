@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class TargetSelectionPrompt(
-	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool mandatory, EffectCollection effectCollection, Func<string> getHintText)
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool autoSkipIfNone, bool mandatory, EffectCollection effectCollection,
+	Func<string> getHintText)
 	: Prompt<TargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -33,6 +34,11 @@ public class TargetSelectionPrompt(
 			{
 				Complete(true);
 			}
+		}
+
+		if(autoSkipIfNone && _validTargets.Count == 0)
+		{
+			Skip();
 		}
 	}
 

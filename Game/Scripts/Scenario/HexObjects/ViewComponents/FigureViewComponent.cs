@@ -44,13 +44,14 @@ public partial class FigureViewComponent : HexObjectViewComponent
 	[Export]
 	public Node2D ActivePS { get; set; }
 
+	private bool _canAdjustViewPosition = true;
+
 	public override void OnHexesChanged(HexObject hexObject)
 	{
 		base.OnHexesChanged(hexObject);
 
-		if(HexObject.GetParent().GetParentOfType<Figure>() != null)
+		if(!_canAdjustViewPosition)
 		{
-			// This figure is following another figure, it does not need to adjust the view position
 			return;
 		}
 
@@ -75,5 +76,10 @@ public partial class FigureViewComponent : HexObjectViewComponent
 
 		SetGlobalPosition(bestHexGlobalPosition);
 		SetGlobalRotation(0f);
+	}
+
+	public void SetCanAdjustViewPosition(bool canAdjustViewPosition)
+	{
+		_canAdjustViewPosition = canAdjustViewPosition;
 	}
 }

@@ -19,7 +19,9 @@ public abstract class AbilityState
 	public List<Figure> DamagedFigures { get; } = new List<Figure>();
 
 	public Figure Performer => ActionState.Performer;
-	public Figure Authority => ActionState.Authority;
+
+	public Figure Authority =>
+		ScenarioCheckEvents.ChangeAuthorityCheckEvent.Fire(new ScenarioCheckEvents.ChangeAuthorityCheck.Parameters(this)).Authority;
 
 	public bool Blocked => _blocked || Performer.IsDead;
 

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://j1j73rpe32ds"]
+
+[ext_resource type="Texture2D" uid="uid://boat4agrblk2q" path="res://Content/Classes/SpiritCaller/Summons/deatheater.png" id="1_s1bsq"]
+
+[resource]
+atlas = ExtResource("1_s1bsq")
+region = Rect2(110, 110, 500, 500)

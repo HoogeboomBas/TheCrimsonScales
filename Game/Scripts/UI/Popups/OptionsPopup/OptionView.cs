@@ -33,6 +33,14 @@ public abstract partial class OptionView<TParameters, TValue> : OptionViewBase
 		OnValueChanged(SavedOption.Value);
 	}
 
+	public override void OnOpen()
+	{
+		base.OnOpen();
+
+		SetMouseBehaviorRecursive(_parameters.Enabled ? MouseBehaviorRecursiveEnum.Inherited : MouseBehaviorRecursiveEnum.Disabled);
+		SetModulate(_parameters.Enabled ? Colors.White : Colors.Gray);
+	}
+
 	public override void _ExitTree()
 	{
 		base._ExitTree();

@@ -14,7 +14,7 @@
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.RemoveOneNegativeCondition(user);
+					await AbilityCmd.RemoveOneNegativeCondition(null, user);
 
 					object subscriber = new object();
 					ScenarioEvents.FigureTurnEndingEvent.Subscribe(user, subscriber,

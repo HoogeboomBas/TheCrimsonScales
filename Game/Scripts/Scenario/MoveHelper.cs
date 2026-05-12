@@ -449,14 +449,18 @@ public static class MoveHelper
 			}
 		}
 
-		Figure otherFigure = hex.GetHexObjectOfType<Figure>();
-		if(otherFigure != null && otherFigure != performer)
+		foreach(Figure otherFigure in hex.GetHexObjectsOfType<Figure>())
 		{
-			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheck.Parameters canEnterHexWithFigureCheckParameters =
+			if(performer == otherFigure)
+			{
+				continue;
+			}
+
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheck.Parameters canStopMoveAtHexWithFigureCheckParameters =
 				ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Fire(
 					new ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheck.Parameters(potentialAbilityState, performer, hex, otherFigure));
 
-			if(!canEnterHexWithFigureCheckParameters.CanStopAt)
+			if(!canStopMoveAtHexWithFigureCheckParameters.CanStopAt)
 			{
 				return false;
 			}

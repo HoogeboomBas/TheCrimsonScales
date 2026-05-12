@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://p3o4rfitdyik"]
+
+[ext_resource type="Texture2D" uid="uid://drxaehtuhccgi" path="res://Content/Classes/SpiritCaller/Summons/ghost_carriage.png" id="1_0gsqi"]
+
+[resource]
+atlas = ExtResource("1_0gsqi")
+region = Rect2(110, 110, 500, 500)

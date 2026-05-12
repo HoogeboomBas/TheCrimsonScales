@@ -114,7 +114,7 @@ public partial class Map : Node2D
 	}
 
 	public async GDTask<Monster> CreateMonster(MonsterModel monsterModel, MonsterType monsterType, Vector2I coords, bool summon,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters)
 	{
 		MonsterGroup monsterGroup = MonsterGroups.Find(group => group.MonsterModel == monsterModel);
 		if(monsterGroup == null)
@@ -130,7 +130,7 @@ public partial class Map : Node2D
 			AddChild(monsterHexObject, true);
 			monsterHexObject.SetMonsterModel(monsterModel);
 			await monsterHexObject.Init(hex);
-			await monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon, monsterLevel, alignment, enemies);
+			await monsterHexObject.Spawn(monsterGroup, monsterType, standeeNumber, summon, monsterLevel, alignment);
 			return monsterHexObject;
 		}
 

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dugy16sh7e3ta"]
+
+[ext_resource type="Texture2D" uid="uid://dls1qf7eymwwc" path="res://Content/Classes/SpiritCaller/Summons/wailing_banshee.png" id="1_7l3dr"]
+
+[resource]
+atlas = ExtResource("1_7l3dr")
+region = Rect2(120, 110, 500, 500)

@@ -56,9 +56,7 @@ public partial class MonsterSpawner : Node2D
 	[Export]
 	public int AdjustMonsterLevel = 0;
 	[Export]
-	public Alignment Alignment = Alignment.Enemies;
-	[Export]
-	public Alignment Enemies = Alignment.Characters;
+	public Alignment Alignment = Alignment.Monsters;
 
 	public bool Revealed { get; private set; }
 
@@ -71,7 +69,7 @@ public partial class MonsterSpawner : Node2D
 		MonsterModel monsterModel = ModelDB.GetById<MonsterModel>(new ModelId(_monsterModelId));
 
 		await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, Map.GlobalPositionToCoords(GlobalPosition), false,
-			GameController.Instance.SavedScenario.ScenarioLevel + AdjustMonsterLevel, Alignment, Enemies);
+			GameController.Instance.SavedScenario.ScenarioLevel + AdjustMonsterLevel, Alignment);
 
 		Revealed = true;
 	}

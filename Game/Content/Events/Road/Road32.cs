@@ -41,12 +41,15 @@ public class Road32 : RoadEventModel<Road32.ChoiceA, Road32.ChoiceB>
 
 			if(hex != null)
 			{
-				Monster monster = await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Elite, hex);
-				if(monster != null)
-				{
-					monster.SetAlignment(Alignment.Other);
-					monster.SetEnemies(Alignment.Characters | Alignment.Enemies | Alignment.Other);
-				}
+				Monster monster =
+					await AbilityCmd.SpawnMonster(ModelDB.Monster<VermlingScout>(), MonsterType.Elite, hex, alignment: Alignment.Custom);
+				ScenarioCheckEvents.FigureRelationshipCheckEvent.Subscribe(monster, this,
+					parameters => parameters.Figure == monster || parameters.OtherFigure == monster,
+					parameters =>
+					{
+						parameters.SetEnemiesWith();
+					}
+				);
 			}
 		}
 	}

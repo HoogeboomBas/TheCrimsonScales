@@ -47,7 +47,7 @@ public class SuperiorUpgrade : BombardCardModel<SuperiorUpgrade.CardTop, Superio
 				})
 				.WithOnDeactivate(async state =>
 				{
-					AbilityCmd.UnsubscribeDuringTurn(ScenarioEvents.GetSubscriberPair(state, this));
+					AbilityCmd.UnsubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(state, this));
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;

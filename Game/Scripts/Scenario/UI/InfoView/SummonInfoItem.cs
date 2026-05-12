@@ -28,7 +28,7 @@ public partial class SummonInfoItem : FigureInfoItem<SummonInfoItem.Parameters>
 		_portraitBorder.SetSelfModulate(_summon.OutlineColor);
 
 		_moveLabel.SetText(_summon.Stats.Move?.ToString() ?? "-");
-		_attackLabel.SetText(_summon.Stats.Attack.ToString());
+		_attackLabel.SetText(_summon.Stats.Attack?.ToString() ?? "-");
 		_rangeLabel.SetText(_summon.Stats.Range?.ToString() ?? "-");
 	}
 }

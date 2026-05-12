@@ -20,6 +20,11 @@ public partial class ScenarioCheckEvents
 				AIMoveParameters.Targets = amount;
 			}
 
+			public void SetTargetAll()
+			{
+				AIMoveParameters.TargetAll = true;
+			}
+
 			public void AdjustRange(int amount)
 			{
 				AIMoveParameters.Range += amount;
@@ -678,4 +683,56 @@ public partial class ScenarioCheckEvents
 
 	private readonly ApplyScenarioEffectsCheck _applyScenarioEffectsCheck = new ApplyScenarioEffectsCheck();
 	public static ApplyScenarioEffectsCheck ApplyScenarioEffectsCheckEvent => GameController.Instance.ScenarioCheckEvents._applyScenarioEffectsCheck;
+
+	public class ChangeAuthorityCheck : ScenarioCheckEvent<ChangeAuthorityCheck.Parameters>
+	{
+		public class Parameters(AbilityState abilityState)
+			: ParametersBase
+		{
+			public Figure Authority { get; private set; } = abilityState.ActionState.Authority;
+
+			public void SetAuthority(Figure authority)
+			{
+				Authority = authority;
+			}
+		}
+	}
+
+	private readonly ChangeAuthorityCheck _changeAuthorityCheck = new ChangeAuthorityCheck();
+	public static ChangeAuthorityCheck ChangeAuthorityCheckEvent => GameController.Instance.ScenarioCheckEvents._changeAuthorityCheck;
+
+	public class FigureRelationshipCheck : ScenarioCheckEvent<FigureRelationshipCheck.Parameters>
+	{
+		public class Parameters(Figure figure, Figure otherFigure)
+			: ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public Figure OtherFigure { get; } = otherFigure;
+
+			public FigureRelationship FigureRelationship { get; private set; } =
+				figure == otherFigure
+					? FigureRelationship.Self
+					: figure.Alignment == otherFigure.Alignment
+						? FigureRelationship.AlliedWith
+						: FigureRelationship.EnemiesWith;
+
+			public void SetEnemiesWith()
+			{
+				SetFigureRelationship(FigureRelationship.EnemiesWith);
+			}
+
+			public void SetAlliedWith()
+			{
+				SetFigureRelationship(FigureRelationship.AlliedWith);
+			}
+
+			public void SetFigureRelationship(FigureRelationship figureRelationship)
+			{
+				FigureRelationship = figureRelationship;
+			}
+		}
+	}
+
+	private readonly FigureRelationshipCheck _figureRelationshipCheck = new FigureRelationshipCheck();
+	public static FigureRelationshipCheck FigureRelationshipCheckEvent => GameController.Instance.ScenarioCheckEvents._figureRelationshipCheck;
 }

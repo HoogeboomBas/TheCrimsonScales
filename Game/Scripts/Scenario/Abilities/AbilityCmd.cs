@@ -147,6 +147,8 @@ public static class AbilityCmd
 
 	public static async GDTask KillOrExhaust(AbilityState potentialAbilityState, Figure target, Figure potentialKiller)
 	{
+		potentialAbilityState?.SetPerformed();
+
 		ScenarioEvents.BeforeFigureKilled.Parameters beforeFigureKilledParameters =
 			await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
 				new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
@@ -246,7 +248,7 @@ public static class AbilityCmd
 		return false;
 	}
 
-	public static async GDTask RemoveOneNegativeCondition(Figure target)
+	public static async GDTask RemoveOneNegativeCondition(AbilityState potentialAbilityState, Figure target)
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
 			new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
@@ -257,6 +259,7 @@ public static class AbilityCmd
 				subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
+						potentialAbilityState?.SetPerformed();
 						await RemoveCondition(target, condition.ConditionModel);
 					},
 					effectType: EffectType.SelectableMandatory,
@@ -304,7 +307,7 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, Func<RichTextParameters, string> getEffectText)
+	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, TextHelper.LabelTextDelegate getEffectText)
 	{
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(abilityState, target,
 			parameters => parameters.Figure == target,
@@ -319,7 +322,7 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask AddCharacterToken(Character character, Figure target, Func<RichTextParameters, string> getEffectText)
+	public static async GDTask AddCharacterToken(Character character, Figure target, TextHelper.LabelTextDelegate getEffectText)
 	{
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(character, target,
 			parameters => parameters.Figure == target,
@@ -435,15 +438,15 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<Monster> SummonMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex, int? monsterLevel = null,
-		Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
+		Alignment alignment = Alignment.Monsters)
 	{
-		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, true, monsterLevel, alignment, enemies);
+		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, true, monsterLevel, alignment);
 	}
 
 	public static async GDTask<Monster> SpawnMonster(MonsterModel monsterModel, MonsterType monsterType, Hex hex, int? monsterLevel = null,
-		Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
+		Alignment alignment = Alignment.Monsters)
 	{
-		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel, alignment, enemies);
+		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel, alignment);
 	}
 
 	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene, Action<OverlayTile> onInstantiate = null)
@@ -582,16 +585,17 @@ public static class AbilityCmd
 	}
 
 	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
-		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, effectCollection, hintText);
+		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, effectCollection, hintText);
 	}
 
 	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, mandatory, effectCollection, hintText ?? (() => "Select a target")),
+			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, mandatory, effectCollection,
+				hintText ?? (() => "Select a target")),
 			authority);
 
 		if(targetAnswer.Skipped)
@@ -698,6 +702,31 @@ public static class AbilityCmd
 		}
 	}
 
+	public static async GDTask Teleport(AbilityState abilityState, Figure figure, Hex destination)
+	{
+		abilityState.SetPerformed();
+
+		await ExitHex(abilityState, figure, abilityState.Authority);
+
+		const float animationSpeed = 1.4f;
+
+		if(!GameController.FastForward)
+		{
+			// Disappear
+			await GameController.Instance.ScreenDistortion.Disappear(figure, animationSpeed, true).PlayFastForwardableAsync();
+		}
+
+		figure.SetOriginHexAndRotation(destination);
+
+		if(!GameController.FastForward)
+		{
+			// Appear
+			await GameController.Instance.ScreenDistortion.Appear(figure, animationSpeed, true).PlayFastForwardableAsync();
+		}
+
+		await EnterHex(abilityState, figure, abilityState.Authority, destination, true, true);
+	}
+
 	public static GDTask<bool> TrySwap(Figure authority, Figure figureA, Figure figureB)
 	{
 		return TrySwap(null, authority, figureA, figureB);
@@ -710,25 +739,75 @@ public static class AbilityCmd
 
 	public static bool CanSwap(Figure figureA, Figure figureB)
 	{
-		if(figureA.Hex.TryGetHexObjectOfType(out Obstacle obstacle) &&
-		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureB)).HasFlying)
+		if(figureA == figureB)
 		{
-			ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureB, figureA.Hex, obstacle, true));
-
-			if(!canEnterObstacleParameters.CanEnter)
-			{
-				return false;
-			}
+			return false;
 		}
 
-		if(figureB.Hex.TryGetHexObjectOfType(out Obstacle obstacle2) &&
-		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureA)).HasFlying)
+		return CanForceMoveTo(figureA, figureB.Hex) && CanForceMoveTo(figureB, figureA.Hex);
+
+		// if(figureA.Hex.TryGetHexObjectOfType(out Obstacle obstacle) &&
+		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureB)).HasFlying)
+		// {
+		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
+		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
+		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureB, figureA.Hex, obstacle, true));
+		//
+		// 	if(!canEnterObstacleParameters.CanEnter)
+		// 	{
+		// 		return false;
+		// 	}
+		// }
+		//
+		// if(figureB.Hex.TryGetHexObjectOfType(out Obstacle obstacle2) &&
+		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureA)).HasFlying)
+		// {
+		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
+		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
+		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureA, figureB.Hex, obstacle2, true));
+		//
+		// 	if(!canEnterObstacleParameters.CanEnter)
+		// 	{
+		// 		return false;
+		// 	}
+		// }
+		//
+		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
+		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureA)).ImmuneToForcedMovement)
+		// {
+		// 	return false;
+		// }
+		//
+		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
+		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureB)).ImmuneToForcedMovement)
+		// {
+		// 	return false;
+		// }
+		//
+		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
+		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
+		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
+		//
+		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
+		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
+		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
+		//
+		// if(!canEnterA.CanEnter || !canEnterB.CanEnter)
+		// {
+		// 	return false;
+		// }
+		//
+		// return true;
+	}
+
+	public static bool CanForceMoveTo(Figure figure, Hex destination)
+	{
+		if(destination.TryGetHexObjectOfType(out Obstacle obstacle) &&
+		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figure)).HasFlying)
 		{
 			ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
 				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureA, figureB.Hex, obstacle2, true));
+					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figure, destination, obstacle, true));
 
 			if(!canEnterObstacleParameters.CanEnter)
 			{
@@ -737,26 +816,15 @@ public static class AbilityCmd
 		}
 
 		if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-			   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureA)).ImmuneToForcedMovement)
+			   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figure)).ImmuneToForcedMovement)
 		{
 			return false;
 		}
 
-		if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-			   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureB)).ImmuneToForcedMovement)
-		{
-			return false;
-		}
-
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
+		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter =
 			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
-
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
-			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-				new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
-
-		if(!canEnterA.CanEnter || !canEnterB.CanEnter)
+				new ScenarioCheckEvents.CanEnterCheck.Parameters(figure, destination));
+		if(!canEnter.CanEnter)
 		{
 			return false;
 		}
@@ -773,8 +841,16 @@ public static class AbilityCmd
 		return otherAbilityState.Performed;
 	}
 
-	public static async GDTask GenericChoice(Figure authority, IEnumerable<ScenarioEvents.GenericChoice.Subscription> subscriptions,
+	public static async GDTask GenericChoice(Figure authority, List<ScenarioEvents.GenericChoice.Subscription> subscriptions,
 		bool canSelectMultiple = false, string hintText = "Make a selection")
+	{
+		EffectCollection effectCollection = GenericChoiceCollection(authority, subscriptions, canSelectMultiple: canSelectMultiple);
+		await ScenarioEvents.GenericChoiceEvent.CreatePrompt(effectCollection, authority, hintText);
+		ScenarioEvents.GenericChoiceEvent.Unsubscribe(subscriptions);
+	}
+
+	public static EffectCollection GenericChoiceCollection(Figure authority, List<ScenarioEvents.GenericChoice.Subscription> subscriptions,
+		bool canSelectMultiple = false)
 	{
 		object subscriber = new object();
 		foreach(ScenarioEvents.GenericChoice.Subscription subscription in subscriptions)
@@ -808,8 +884,12 @@ public static class AbilityCmd
 			ScenarioEvents.GenericChoiceEvent.Subscribe(authority, subscriber, newSubscription, false);
 		}
 
-		await ScenarioEvents.GenericChoiceEvent.CreatePrompt(new ScenarioEvents.GenericChoice.Parameters(subscriber), authority, hintText);
-		ScenarioEvents.GenericChoiceEvent.ClearAllSubscriptions();
+		return ScenarioEvents.GenericChoiceEvent.CreateEffectCollection(new ScenarioEvents.GenericChoice.Parameters(subscriber));
+	}
+
+	public static void ClearGenericChoiceCollection(List<ScenarioEvents.GenericChoice.Subscription> subscriptions)
+	{
+		ScenarioEvents.GenericChoiceEvent.Unsubscribe(subscriptions);
 	}
 
 	public static GDTask InfuseWildElement(AbilityState potentialAbilityState, Figure potentialInfuser = null)
@@ -1331,7 +1411,7 @@ public static class AbilityCmd
 			effectInfoViewParameters: effectInfoViewParameters);
 	}
 
-	public static void UnsubscribeDuringTurn(IEventSubscriber eventSubscriber)
+	public static void UnsubscribeDuringCharacterTurn(IEventSubscriber eventSubscriber)
 	{
 		ScenarioEvents.CardSideSelectionEvent.Unsubscribe(eventSubscriber);
 		ScenarioEvents.AfterCardsPlayedEvent.Unsubscribe(eventSubscriber);

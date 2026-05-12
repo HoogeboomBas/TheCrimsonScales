@@ -9,7 +9,6 @@ using GTweensGodot.Extensions;
 public abstract partial class Figure : HexObject, IActionSource
 {
 	protected Sprite2D _outline;
-	protected FigureViewComponent _figureViewComponent;
 
 	private int _shield;
 	private bool _shieldExtraValue;
@@ -23,6 +22,8 @@ public abstract partial class Figure : HexObject, IActionSource
 
 	private readonly List<ActionState> _otherRoundActionStates = new List<ActionState>();
 
+	public FigureViewComponent FigureViewComponent { get; private set; }
+
 	public int Health { get; private set; }
 	public int MaxHealth { get; private set; }
 
@@ -31,7 +32,6 @@ public abstract partial class Figure : HexObject, IActionSource
 	public List<FigureTrait> Traits { get; } = new List<FigureTrait>();
 
 	public Alignment Alignment { get; private set; }
-	public Alignment Enemies { get; private set; }
 
 	public bool TakingTurn { get; private set; }
 
@@ -53,6 +53,8 @@ public abstract partial class Figure : HexObject, IActionSource
 
 	public bool IsDead => IsDestroyed;
 
+	public virtual bool IsFigure => true;
+
 	public event Action<Figure> HealthChangedEvent;
 	public event Action<Figure> MaxHealthChangedEvent;
 	public event Action<Figure> InitiativeChangedEvent;
@@ -64,21 +66,21 @@ public abstract partial class Figure : HexObject, IActionSource
 		base._Ready();
 
 		_outline = GetNode<Sprite2D>("Outline");
-		_figureViewComponent = GetViewComponent<FigureViewComponent>();
+		FigureViewComponent = GetViewComponent<FigureViewComponent>();
 	}
 
 	public override async GDTask Init(Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
 	{
 		await base.Init(originHex, rotationIndex, hexCanBeNull);
 
-		_figureViewComponent.Shield.Scale = Vector2.Zero;
+		FigureViewComponent.Shield.Scale = Vector2.Zero;
 
-		_figureViewComponent.Retaliate.Scale = Vector2.Zero;
+		FigureViewComponent.Retaliate.Scale = Vector2.Zero;
 
 		_flying = false;
-		_figureViewComponent.Flying.Scale = Vector2.Zero;
+		FigureViewComponent.Flying.Scale = Vector2.Zero;
 
-		_figureViewComponent.ActivePS.Hide();
+		FigureViewComponent.ActivePS.Hide();
 
 		CanTakeTurn = true;
 
@@ -99,16 +101,13 @@ public abstract partial class Figure : HexObject, IActionSource
 		ScenarioCheckEvents.RetaliateCheckEvent.SubscribersChangedEvent += OnRetaliateSubscriptionsChanged;
 		ScenarioCheckEvents.FlyingCheckEvent.SubscribersChangedEvent += OnFlyingSubscriptionsChanged;
 		ScenarioCheckEvents.InitiativeCheckEvent.SubscribersChangedEvent += OnInitiativeSubscriptionsChanged;
-		//ScenarioCheckEvents.IsMountedCheckEvent.SubscribersChangedEvent += OnIsMountedSubscriptionsChanged;
 
 		OnShieldSubscriptionsChanged();
 		OnRetaliateSubscriptionsChanged();
 		OnFlyingSubscriptionsChanged();
-		//OnIsMountedSubscriptionsChanged();
 
-		//await GameController.Instance.Map.RegisterFigure(this);
-
-		//await ScenarioEvents.FigureInitializedEvent.CreatePrompt(new ScenarioEvents.FigureInitialized.Parameters(this));
+		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(null, this), this);
+		//await AbilityCmd.EnterHex(null, this, this, Hex, false, false);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -142,7 +141,7 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		MaxHealth = maxHealth;
 
-		_figureViewComponent.Health.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
+		FigureViewComponent.Health.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
 
 		UpdateHealthProgressBar();
 
@@ -158,8 +157,8 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		Health = health;
 
-		_figureViewComponent.Health.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
-		_figureViewComponent.HealthLabel.Text = health.ToString();
+		FigureViewComponent.Health.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
+		FigureViewComponent.HealthLabel.Text = health.ToString();
 
 		UpdateHealthProgressBar();
 
@@ -215,7 +214,7 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		if(!GameController.FastForward)
 		{
-			_figureViewComponent.TurnStartPS.SetEmitting(true);
+			FigureViewComponent.TurnStartPS.SetEmitting(true);
 
 			await GDTask.DelayFastForwardable(0.5f);
 		}
@@ -224,9 +223,9 @@ public abstract partial class Figure : HexObject, IActionSource
 		TurnMovedHexes.Clear();
 		TurnPerformedActionStates.Clear();
 
-		_figureViewComponent.ActivePS.Show();
-		_figureViewComponent.ActivePS.TweenModulateAlpha(0f, 0f).Play(true);
-		_figureViewComponent.ActivePS.TweenModulateAlpha(1f, 0.2f).PlayFastForwardable();
+		FigureViewComponent.ActivePS.Show();
+		FigureViewComponent.ActivePS.TweenModulateAlpha(0f, 0f).Play(true);
+		FigureViewComponent.ActivePS.TweenModulateAlpha(1f, 0.2f).PlayFastForwardable();
 
 		await ScenarioEvents.FigureTurnStartedEvent.CreatePrompt(
 			new ScenarioEvents.FigureTurnStarted.Parameters(this), this);
@@ -259,7 +258,7 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		await GameController.Instance.ElementManager.FinishInfusing();
 
-		_figureViewComponent.ActivePS.TweenModulateAlpha(0f, 0.2f).OnComplete(_figureViewComponent.ActivePS.Hide).PlayFastForwardable();
+		FigureViewComponent.ActivePS.TweenModulateAlpha(0f, 0.2f).OnComplete(FigureViewComponent.ActivePS.Hide).PlayFastForwardable();
 	}
 
 	protected virtual async GDTask EndOfTurnLooting()
@@ -330,8 +329,6 @@ public abstract partial class Figure : HexObject, IActionSource
 		Conditions.Add(condition);
 		await condition.OnAdded();
 
-		ReorderEffects();
-
 		return condition;
 	}
 
@@ -356,11 +353,9 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		await condition.OnRemoved();
 		Conditions.Remove(condition);
-
-		ReorderEffects();
 	}
 
-	protected async GDTask AddTrait(FigureTrait trait)
+	public async GDTask AddTrait(FigureTrait trait)
 	{
 		FigureTrait mutableTrait = trait.ToMutable();
 		Traits.Add(mutableTrait);
@@ -371,9 +366,11 @@ public abstract partial class Figure : HexObject, IActionSource
 		where T : HexObjectEffectViewBase
 	{
 		HexObjectEffectViewBase effectView = ResourceLoader.Load<PackedScene>(parameters.ScenePath).Instantiate<HexObjectEffectViewBase>();
-		_figureViewComponent.EffectParent.AddChild(effectView);
+		FigureViewComponent.EffectParent.AddChild(effectView);
 		effectView.Init(parameters);
 		Effects.Add(effectView);
+
+		ReorderEffects();
 
 		return (T)effectView;
 	}
@@ -382,41 +379,43 @@ public abstract partial class Figure : HexObject, IActionSource
 	{
 		Effects.Remove(effectView);
 		effectView.Destroy();
+
+		ReorderEffects();
 	}
 
-	public void SetAlignment(Alignment alignment)
+	protected void SetAlignment(Alignment alignment)
 	{
 		Alignment = alignment;
 	}
 
-	public void SetEnemies(Alignment alignment)
-	{
-		Enemies = alignment;
-	}
-
 	public bool AlliedWith(Figure figure, bool canBeSelf = false)
 	{
-		if(figure == null)
-		{
-			return false;
-		}
-
-		if(!canBeSelf && figure == this)
-		{
-			return false;
-		}
-
-		return Alignment.HasFlag(figure.Alignment);
+		FigureRelationship relationship = GetRelationship(figure);
+		return relationship == FigureRelationship.AlliedWith || (relationship == FigureRelationship.Self && canBeSelf);
 	}
 
 	public bool EnemiesWith(Figure figure)
 	{
+		return GetRelationship(figure) == FigureRelationship.EnemiesWith;
+	}
+
+	public FigureRelationship GetRelationship(Figure figure)
+	{
 		if(figure == null)
 		{
-			return false;
+			return FigureRelationship.Undefined;
 		}
 
-		return Enemies.HasFlag(figure.Alignment);
+		if(figure == this)
+		{
+			return FigureRelationship.Self;
+		}
+
+		ScenarioCheckEvents.FigureRelationshipCheck.Parameters relationshipCheckParameters =
+			ScenarioCheckEvents.FigureRelationshipCheckEvent.Fire(
+				new ScenarioCheckEvents.FigureRelationshipCheck.Parameters(this, figure));
+
+		return relationshipCheckParameters.FigureRelationship;
 	}
 
 	public virtual void AddCoin()
@@ -439,15 +438,15 @@ public abstract partial class Figure : HexObject, IActionSource
 
 	public void SetCrackedShield(bool crackedShield)
 	{
-		_figureViewComponent.ShieldIcon.SetVisible(!crackedShield);
-		_figureViewComponent.CrackedShieldIcon.SetVisible(crackedShield);
+		FigureViewComponent.ShieldIcon.SetVisible(!crackedShield);
+		FigureViewComponent.CrackedShieldIcon.SetVisible(crackedShield);
 	}
 
 	private void UpdateHealthProgressBar()
 	{
 		float t = (float)Health / MaxHealth;
-		float fill = _figureViewComponent.HealthProgressBarCurve.Sample(t);
-		_figureViewComponent.HealthProgressBar.SetValue(fill);
+		float fill = FigureViewComponent.HealthProgressBarCurve.Sample(t);
+		FigureViewComponent.HealthProgressBar.SetValue(fill);
 	}
 
 	private void OnShieldSubscriptionsChanged()
@@ -493,7 +492,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		}
 
 		string plus = extraValue ? "+" : string.Empty;
-		_figureViewComponent.ShieldLabel.Text = $"{shield}{plus}";
+		FigureViewComponent.ShieldLabel.Text = $"{shield}{plus}";
 
 		bool wasVisible = _shield != 0 || _shieldExtraValue;
 		bool shouldBeVisible = shield != 0 || extraValue;
@@ -501,23 +500,23 @@ public abstract partial class Figure : HexObject, IActionSource
 		_shieldTween?.Complete();
 		if(!wasVisible && shouldBeVisible)
 		{
-			_figureViewComponent.Shield.Show();
-			_shieldTween = _figureViewComponent.Shield
+			FigureViewComponent.Shield.Show();
+			_shieldTween = FigureViewComponent.Shield
 				.TweenScale(1f, 0.2f)
 				.SetEasing(Easing.OutBack)
 				.PlayFastForwardable();
 		}
 		else if(wasVisible && !shouldBeVisible)
 		{
-			_shieldTween = _figureViewComponent.Shield
+			_shieldTween = FigureViewComponent.Shield
 				.TweenScale(0f, 0.2f)
-				.OnComplete(_figureViewComponent.Shield.Hide)
+				.OnComplete(FigureViewComponent.Shield.Hide)
 				.SetEasing(Easing.InBack)
 				.PlayFastForwardable();
 		}
 		else
 		{
-			_shieldTween = _figureViewComponent.Shield.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
+			_shieldTween = FigureViewComponent.Shield.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
 		}
 
 		_shield = shield;
@@ -531,7 +530,7 @@ public abstract partial class Figure : HexObject, IActionSource
 			return;
 		}
 
-		_figureViewComponent.RetaliateLabel.Text = $"{retaliate}";
+		FigureViewComponent.RetaliateLabel.Text = $"{retaliate}";
 
 		bool wasVisible = _retaliate != 0;
 		bool shouldBeVisible = retaliate != 0;
@@ -539,17 +538,17 @@ public abstract partial class Figure : HexObject, IActionSource
 		_retaliateTween?.Complete();
 		if(!wasVisible && shouldBeVisible)
 		{
-			_figureViewComponent.Retaliate.Show();
-			_retaliateTween = _figureViewComponent.Retaliate.TweenScale(1f, 0.2f).SetEasing(Easing.OutBack).PlayFastForwardable();
+			FigureViewComponent.Retaliate.Show();
+			_retaliateTween = FigureViewComponent.Retaliate.TweenScale(1f, 0.2f).SetEasing(Easing.OutBack).PlayFastForwardable();
 		}
 		else if(wasVisible && !shouldBeVisible)
 		{
-			_retaliateTween = _figureViewComponent.Retaliate.TweenScale(0f, 0.2f).OnComplete(_figureViewComponent.Retaliate.Hide)
+			_retaliateTween = FigureViewComponent.Retaliate.TweenScale(0f, 0.2f).OnComplete(FigureViewComponent.Retaliate.Hide)
 				.SetEasing(Easing.InBack).PlayFastForwardable();
 		}
 		else
 		{
-			_retaliateTween = _figureViewComponent.Retaliate.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
+			_retaliateTween = FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
 		}
 
 		_retaliate = retaliate;
@@ -567,15 +566,15 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		if(!wasVisible && shouldBeVisible)
 		{
-			_figureViewComponent.Flying.TweenScale(1f, 0.2f).SetEasing(Easing.OutBack).PlayFastForwardable();
+			FigureViewComponent.Flying.TweenScale(1f, 0.2f).SetEasing(Easing.OutBack).PlayFastForwardable();
 		}
 		else if(wasVisible && !shouldBeVisible)
 		{
-			_figureViewComponent.Flying.TweenScale(0f, 0.2f).SetEasing(Easing.InBack).PlayFastForwardable();
+			FigureViewComponent.Flying.TweenScale(0f, 0.2f).SetEasing(Easing.InBack).PlayFastForwardable();
 		}
 		else
 		{
-			_figureViewComponent.Flying.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
+			FigureViewComponent.Flying.TweenPulse(1.4f, 0.2f).PlayFastForwardable();
 		}
 
 		_flying = flying;
@@ -583,8 +582,6 @@ public abstract partial class Figure : HexObject, IActionSource
 
 	private void ReorderEffects()
 	{
-		//List<HexObjectEffectViewBase> effects = Effects.Where(effect => effect.Node != null).Select(condition => condition.Node).ToList();
-
 		int effectCount = Effects.Count;
 		int index = 0;
 		const float maxOffset = 50f;
@@ -593,7 +590,7 @@ public abstract partial class Figure : HexObject, IActionSource
 			float progress = (index + 1f) / (effectCount + 1);
 			float posY = Mathf.Lerp(-maxOffset, maxOffset, progress);
 			effect.Move(new Vector2(0f, posY));
-			_figureViewComponent.EffectParent.MoveChild(effect, index);
+			FigureViewComponent.EffectParent.MoveChild(effect, index);
 
 			index++;
 		}

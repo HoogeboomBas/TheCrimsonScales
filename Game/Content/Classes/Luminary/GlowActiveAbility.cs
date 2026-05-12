@@ -77,6 +77,6 @@ public class GlowActiveAbility : ActiveAbility<GlowActiveAbility.State>
 	{
 		await base.Deactivate(abilityState);
 
-		AbilityCmd.UnsubscribeDuringTurn(ScenarioEvents.GetSubscriberPair(abilityState, this));
+		AbilityCmd.UnsubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(abilityState, this));
 	}
 }

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://brfgdrj0oe87w"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_q7cyt"]
+[ext_resource type="Script" uid="uid://bdptembfi3oox" path="res://Content/Classes/Hollowpact/Hollowpact.cs" id="2_g3iuo"]
+[ext_resource type="Texture2D" uid="uid://cn2jf1srljx82" path="res://Content/Classes/Hollowpact/MapIcon.tres" id="3_ab4r7"]
+[ext_resource type="Texture2D" uid="uid://dhekqxcjlwjj5" path="res://Content/Classes/Hollowpact/Animation.jpg" id="4_g3iuo"]
+[ext_resource type="PackedScene" uid="uid://djkbotukpnxk2" path="res://Content/Classes/Hollowpact/VoidEnergyIndicator.tscn" id="5_ab4r7"]
+
+[node name="Hollowpact" unique_id=391697815 node_paths=PackedStringArray("_voidEnergyIndicator") instance=ExtResource("1_q7cyt")]
+script = ExtResource("2_g3iuo")
+_voidEnergyIndicator = NodePath("VoidEnergyIndicator")
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = ExtResource("3_ab4r7")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+texture = ExtResource("4_g3iuo")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.654902, 0.39607844, 0.6627451, 1)
+
+[node name="VoidEnergyIndicator" parent="." index="3" unique_id=1204759387 instance=ExtResource("5_ab4r7")]
+position = Vector2(59, -34)

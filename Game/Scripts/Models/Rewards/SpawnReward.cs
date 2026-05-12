@@ -50,11 +50,9 @@ public class SpawnReward : SavedReward
 
 		if(hex != null)
 		{
-			Monster monster = await AbilityCmd.SpawnMonster(MonsterModel, MonsterType.Normal, hex);
+			Monster monster = await AbilityCmd.SpawnMonster(MonsterModel, MonsterType.Normal, hex, alignment: Alignment.Characters);
 			if(monster != null)
 			{
-				monster.SetAlignment(Alignment.Characters);
-				monster.SetEnemies(Alignment.Enemies);
 				monster.SetMaxHealth(_maxHp);
 				monster.SetHealth(_maxHp);
 			}

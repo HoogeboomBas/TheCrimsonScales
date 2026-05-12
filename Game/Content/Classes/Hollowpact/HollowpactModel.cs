@@ -28,9 +28,47 @@ public class HollowpactModel : ClassModel
 
 	public override List<AbilityCardModel> AbilityCards { get; } =
 	[
+		ModelDB.AbilityCard<VoidStep>(),
+		ModelDB.AbilityCard<NetherBlades>(),
+		ModelDB.AbilityCard<ChannelTheVoid>(),
+		ModelDB.AbilityCard<WitheringDeluge>(),
+		ModelDB.AbilityCard<EnervatingStrike>(),
+		ModelDB.AbilityCard<BorrowedVitality>(),
+		ModelDB.AbilityCard<UntetheredAdvance>(),
+		ModelDB.AbilityCard<TouchOfTheVoid>(),
+		ModelDB.AbilityCard<FindAnOpening>(),
+		ModelDB.AbilityCard<ReachingDarkness>(),
+		ModelDB.AbilityCard<GreedBeforeNeed>(),
+
+		ModelDB.AbilityCard<VoidEruption>(),
+		ModelDB.AbilityCard<HollowEmbrace>(),
+		ModelDB.AbilityCard<TheVoidConsumes>(),
 	];
 
 	public override List<PerkModel> Perks { get; } =
 	[
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusOneWithOnePlusZeroHealTwoSelf>(),
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusOneWithOnePlusZeroHealTwoSelf>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceTwoPlusZeroWithOnePlusZeroVoidsight>(),
+		ModelDB.Perk<HollowpactPerks.ReplaceTwoPlusZeroWithOnePlusZeroVoidsight>(),
+
+		ModelDB.Perk<HollowpactPerks.AddOneMinusTwoEarthAndTwoPlusTwoDark>(),
+		ModelDB.Perk<HollowpactPerks.AddOneMinusTwoEarthAndTwoPlusTwoDark>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusOneWithOneMinusTwoStunAndOnePlusZeroVoidsight>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusTwoWithOnePlusZeroDisarmAndOneMinusOneWildElement>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusOneWithOnePlusOneVoidEnergyRollingAndOneMinusOneCurseRolling>(),
+		ModelDB.Perk<HollowpactPerks.ReplaceOneMinusOneWithOnePlusOneVoidEnergyRollingAndOneMinusOneCurseRolling>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceTwoPlusOneWithOnePlusThreeRegenerateSelf>(),
+		ModelDB.Perk<HollowpactPerks.ReplaceTwoPlusOneWithOnePlusThreeRegenerateSelf>(),
+
+		ModelDB.Perk<HollowpactPerks.ReplaceOnePlusZeroWithOnePlusOneVoidPitRangeTwo>(),
+		ModelDB.Perk<HollowpactPerks.ReplaceOnePlusZeroWithOnePlusOneVoidPitRangeTwo>(),
+
+		ModelDB.Perk<HollowpactPerks.IgnoreScenarioEffectsAddOnePlusZeroWardSelf>(),
 	];
 }

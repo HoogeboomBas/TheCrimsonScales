@@ -27,11 +27,16 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 					)
 				)
 				.Build()),
+
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
 					Figure healTarget = state.ActionState.GetAbilityState<HealAbility.State>(0).Target;
-					//TODO: Add character token visual
+
+					await AbilityCmd.AddCharacterToken(state, healTarget,
+						textParameters =>
+							$"The next time this figure performs an attack this round, they treat any {Icons.Inline(Icons.GetAMDValue("null"), textParameters, true)} drawn as {Icons.Inline(Icons.GetAMDValue("2x"), textParameters, true)} instead, and perform {Icons.Inline(Icons.Heal, textParameters)}X, self, where X is the amount of {Icons.Inline(Icons.Damage, textParameters)} dealt.");
+
 					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.AbilityState.Performer == healTarget && canApplyParameters.Type == AMDCardType.Null,
 						async applyParameters =>
@@ -63,6 +68,10 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 				})
 				.WithOnDeactivate(async state =>
 				{
+					Figure healTarget = state.ActionState.GetAbilityState<HealAbility.State>(0).Target;
+
+					await AbilityCmd.RemoveCharacterToken(state, healTarget);
+
 					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(state, this);
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
@@ -90,7 +99,6 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 					}
 
 					await AbilityCmd.AddCondition(state, state.Performer, Conditions.Bless);
-					//TODO: Make the bless card not removed on draw
 
 					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
 						parameters =>
@@ -124,14 +132,23 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 						}
 					);
 
-					ScenarioEvents.RoundEndedEvent.Subscribe(state, this,
-						parameters => state.Performer.AMDCardDeck.DiscardPile.Any(card => card.Model is BlessAMDCard),
+					bool blessDrawn = false;
+
+					ScenarioEvents.AMDCardDrawnEvent.Subscribe(state, this,
+						parameters => parameters.AMDCard.Model == ModelDB.AMDCard<BlessAMDCard>(),
 						async parameters =>
 						{
-							AMDCard bless = state.Performer.AMDCardDeck.DiscardPile.First(card => card.Model is BlessAMDCard);
-							state.Performer.AMDCardDeck.DrawPile.Add(bless);
-							state.Performer.AMDCardDeck.DiscardPile.Remove(bless);
-							state.Performer.AMDCardDeck.ShuffleDrawPile();
+							blessDrawn = true;
+
+							await GDTask.CompletedTask;
+						}
+					);
+
+					ScenarioEvents.RoundEndedEvent.Subscribe(state, this,
+						parameters => blessDrawn, // state.Performer.AMDCardDeck.DiscardPile.Any(card => card.Model is BlessAMDCard),
+						async parameters =>
+						{
+							GameController.Instance.AMDManager.Bless(state.Performer);
 
 							await GDTask.CompletedTask;
 						}
@@ -140,9 +157,11 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
-					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
-					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(state, this);
+					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
+
 					await GDTask.CompletedTask;
 				})
 				.Build())
@@ -151,5 +170,6 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Light)];
 		public override int XP => 2;
 		public override bool Persistent => true;
+		public override bool Loss => true;
 	}
 }

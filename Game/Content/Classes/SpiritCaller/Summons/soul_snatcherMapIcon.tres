@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c748yndxsdfk4"]
+
+[ext_resource type="Texture2D" uid="uid://dwij1j5gwieau" path="res://Content/Classes/SpiritCaller/Summons/soul_snatcher.png" id="1_4phfx"]
+
+[resource]
+atlas = ExtResource("1_4phfx")
+region = Rect2(120, 110, 500, 500)

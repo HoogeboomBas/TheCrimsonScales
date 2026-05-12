@@ -124,14 +124,14 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 	}
 
 	protected async GDTask<Monster> SpawnMonster(Figure potentialAuthority, MonsterModel monsterModel, MonsterType monsterType, Hex spawnHex,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
 	{
 		return await SpawnMonster(potentialAuthority, monsterModel, monsterType, [spawnHex], monsterLevel, alignment, enemies, canHaveFeatures);
 	}
 
 	protected async GDTask<Monster> SpawnMonster(Figure potentialAuthority, MonsterModel monsterModel, MonsterType monsterType,
 		IEnumerable<Hex> spawnHexes,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
 	{
 		return await SpawnOrSummonMonster(potentialAuthority, monsterModel, monsterType, spawnHexes, true, monsterLevel, alignment, enemies,
 			canHaveFeatures);
@@ -139,14 +139,14 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	protected async GDTask<Monster> SummonMonster(Figure potentialAuthority, MonsterModel monsterModel, MonsterType monsterType,
 		IEnumerable<Hex> spawnHexes,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
 	{
 		return await SpawnOrSummonMonster(potentialAuthority, monsterModel, monsterType, spawnHexes, false, monsterLevel, alignment, enemies,
 			canHaveFeatures);
 	}
 
 	protected async GDTask SummonMonster(Figure authority, MonsterModel monsterModel, MonsterType monsterType, Hex summonHex,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters)
 	{
 		authority ??= GameController.Instance.CharacterManager.FirstAlive();
 
@@ -164,7 +164,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 			return;
 		}
 
-		await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment, enemies);
+		await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment);
 	}
 
 	protected async GDTask ShowText(string text)
@@ -196,7 +196,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	private async GDTask<Monster> SpawnOrSummonMonster(Figure potentialAuthority, MonsterModel monsterModel, MonsterType monsterType,
 		IEnumerable<Hex> spawnHexes, bool spawn,
-		int? monsterLevel = null, Alignment alignment = Alignment.Enemies, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
+		int? monsterLevel = null, Alignment alignment = Alignment.Monsters, Alignment enemies = Alignment.Characters, bool canHaveFeatures = false)
 	{
 		spawnHexes = spawnHexes.ToList();
 		potentialAuthority ??= GameController.Instance.CharacterManager.FirstAlive();
@@ -247,11 +247,11 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 		if(spawn)
 		{
-			return await AbilityCmd.SpawnMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment, enemies);
+			return await AbilityCmd.SpawnMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment);
 		}
 		else
 		{
-			return await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment, enemies);
+			return await AbilityCmd.SummonMonster(monsterModel, monsterType, chosenHex, monsterLevel, alignment);
 		}
 	}
 

@@ -74,7 +74,7 @@ public class ReveredProtector : HierophantLevelUpCardModel<ReveredProtector.Card
 					foreach(Figure figure in state.Hexes
 						        .SelectMany(hex => hex.GetHexObjectsOfType<Figure>().Where(figure => figure.AlliedWith(state.Performer))).Distinct())
 					{
-						await AbilityCmd.RemoveOneNegativeCondition(figure);
+						await AbilityCmd.RemoveOneNegativeCondition(null, figure);
 					}
 				})
 				.Build()),

@@ -16,7 +16,8 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 	public int Range { get; private set; } = 1;
 	public int ObstacleCount { get; private set; } = 1;
 	public string AssetPath = "res://Content/OverlayTiles/Obstacles/Boulder1H.tscn";
-	
+	public string ObstacleName = "Obstacle";
+
 	public Action<State, List<Hex>> CustomSelectHexes { get; private set; } = null;
 	public bool Mandatory = false;
 
@@ -54,6 +55,12 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithCustomName(string obstacleName)
+		{
+			Obj.ObstacleName = obstacleName;
+			return (TBuilder)this;
+		}
+
 		public TBuilder WithMandatory(bool mandatory)
 		{
 			Obj.Mandatory = mandatory;
@@ -67,9 +74,9 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 	/// </summary>
 	public class CreateObstacleBuilder : AbstractBuilder<CreateObstacleBuilder, CreateObstacleAbility>
 	{
-		internal CreateObstacleBuilder() {}
+		internal CreateObstacleBuilder() { }
 	}
-	
+
 	/// <summary>
 	/// A convenience method that returns an instance of CreateTrapBuilder.
 	/// </summary>
@@ -81,28 +88,38 @@ public class CreateObstacleAbility : Ability<CreateObstacleAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		List<Hex> targetHexes = await AbilityCmd.SelectHexes(abilityState, list =>
+		for(int i = 0; i < ObstacleCount; i++)
 		{
-			if(CustomSelectHexes != null) 
-			{
-				CustomSelectHexes(abilityState, list);
-			}
-			else
-			{
-				list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range).Where(hex => hex.IsEmpty()));
-			}
-		}, 
-		minSelectionCount: Mandatory ? ObstacleCount : 0,
-		maxSelectionCount: ObstacleCount, 
-		autoSelectIfMaxCountIsValidCount: false, 
-		hintText: (ObstacleCount == 1) ? $"Select a hex to place the Obstacle" : $"Select up to {ObstacleCount} hexes to place the Obstacles");
+			Hex hex = await AbilityCmd.SelectHex(abilityState, list =>
+				{
+					if(CustomSelectHexes != null)
+					{
+						CustomSelectHexes(abilityState, list);
+					}
+					else
+					{
+						list.AddRange(RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range).Where(hex => hex.IsEmpty()));
+					}
 
-		if(targetHexes.Count > 0)
-		{
-			foreach(Hex hex in targetHexes)
+					for(int j = list.Count - 1; j >= 0; j--)
+					{
+						Hex hex = list[j];
+
+						if(!RangeHelper.CheckCanPlaceObstacle(hex))
+						{
+							list.RemoveAt(j);
+						}
+					}
+				},
+				mandatory: Mandatory,
+				hintText: $"Select a hex to place the {ObstacleName}");
+
+			if(hex == null)
 			{
-				abilityState.CreatedObstacles.Add(await AbilityCmd.CreateObstacle(hex, AssetPath));
+				return;
 			}
+
+			abilityState.CreatedObstacles.Add(await AbilityCmd.CreateObstacle(hex, AssetPath));
 
 			abilityState.SetPerformed();
 		}

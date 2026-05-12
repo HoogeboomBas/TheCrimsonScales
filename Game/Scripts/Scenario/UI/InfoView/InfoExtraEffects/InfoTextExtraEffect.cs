@@ -7,9 +7,9 @@ public partial class InfoTextExtraEffect : InfoExtraEffect<InfoTextExtraEffect.P
 	{
 		public override string ScenePath => "res://Scenes/Scenario/UI/InfoView/InfoExtraEffects/InfoTextExtraEffect.tscn";
 
-		public Func<RichTextParameters, string> GetText { get; }
+		public TextHelper.LabelTextDelegate GetText { get; }
 
-		public Parameters(Func<RichTextParameters, string> getText)
+		public Parameters(TextHelper.LabelTextDelegate getText)
 		{
 			GetText = getText;
 		}

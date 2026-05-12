@@ -25,6 +25,8 @@ public partial class HexObject : Node2D, IReferenced
 
 	public int ReferenceId { get; set; }
 
+	public Dictionary<string, object> CustomValues { get; private set; } = new Dictionary<string, object>();
+
 	public virtual SFX.StepType? OverrideStepType => null;
 
 	private readonly Dictionary<Type, HexObjectViewComponent> _hexObjectComponentCache = new Dictionary<Type, HexObjectViewComponent>();
@@ -106,7 +108,7 @@ public partial class HexObject : Node2D, IReferenced
 
 		ScenarioEvents.HexObjectDestroyed.Parameters parameters =
 			await ScenarioEvents.HexObjectDestroyedEvent.CreatePrompt(
-				new ScenarioEvents.HexObjectDestroyed.Parameters(this));
+				new ScenarioEvents.HexObjectDestroyed.Parameters(this, immediately, forceDestroy));
 
 		await GDTask.CompletedTask;
 	}
@@ -202,6 +204,48 @@ public partial class HexObject : Node2D, IReferenced
 
 	public virtual void AddInfoItemParameters(List<InfoItemParameters> parametersList)
 	{
+	}
+
+	public void SetCustomValue(string key, object value)
+	{
+		CustomValues[key] = value;
+	}
+
+	public T GetCustomValue<T>(string key)
+	{
+		if(!CustomValues.TryGetValue(key, out object value))
+		{
+			//Log.Error($"Could not find custom value for key: {key}");
+			return default;
+		}
+
+		if(value is not T castValue)
+		{
+			Log.Error($"Could not cast custom value for key: {key}");
+			return default;
+		}
+
+		return castValue;
+	}
+
+	public bool TryGetCustomValue<T>(string key, out T value)
+	{
+		if(!CustomValues.TryGetValue(key, out object retrievedValue))
+		{
+			//Log.Error($"Could not find custom value for: {source} with key: {key}");
+			value = default;
+			return false;
+		}
+
+		if(retrievedValue is not T castValue)
+		{
+			Log.Error($"Could not cast custom value for key: {key}");
+			value = default;
+			return false;
+		}
+
+		value = castValue;
+		return true;
 	}
 
 	protected virtual void DestroyAnimation()

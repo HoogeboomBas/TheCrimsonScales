@@ -4,11 +4,14 @@ public abstract class FigureTrait
 {
 	protected Figure _figure;
 
+	public FigureTrait AbstractModel { get; private set; }
+
 	public FigureTrait ToMutable()
 	{
-		FigureTrait abstractModel = (FigureTrait)MemberwiseClone();
-		abstractModel.DeepCloneFields();
-		return abstractModel;
+		FigureTrait mutableClone = (FigureTrait)MemberwiseClone();
+		mutableClone.DeepCloneFields();
+		mutableClone.AbstractModel = this;
+		return mutableClone;
 	}
 
 	public virtual async GDTask Activate(Figure figure)

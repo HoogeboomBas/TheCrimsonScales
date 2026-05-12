@@ -41,6 +41,8 @@ public static class Icons
 	public const string JumpEnhancement = "res://Art/Icons/Other/JumpEnhancement.svg";
 	public const string Rolling = "res://Art/Icons/Other/Rolling.svg";
 	public const string MinusOneCard = "res://Art/Icons/Other/-1Card.svg";
+	public const string EffectInfoViewTriangle = "res://Art/Icons/Other/EffectInfoViewTriangle.svg";
+	public const string Triangle = "res://Art/Icons/Other/Triangle.svg";
 
 	public static string GetElement(Element element)
 	{

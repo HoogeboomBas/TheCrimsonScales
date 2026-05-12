@@ -30,7 +30,7 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 				})
 				.WithOnDeactivate(async state =>
 				{
-					AbilityCmd.UnsubscribeDuringTurn(ScenarioEvents.GetSubscriberPair(state, this));
+					AbilityCmd.UnsubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(state, this));
 					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
@@ -45,7 +45,7 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 		{
 			int damageToSuffer = 0;
 
-			IEnumerable<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription> choices = Enumerable.Range(1, 5)
+			List<ScenarioEvents.GenericChoice.Subscription> choices = Enumerable.Range(1, 5)
 				.Select(i =>
 					ScenarioEvents.GenericChoice.Subscription.New(
 						canApplyParameters => true,
@@ -58,7 +58,7 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"Suffer {Icons.Inline(Icons.Damage)}{i}"),
 						effectType: EffectType.SelectableMandatory
 					)
-				);
+				).ToList();
 
 			await AbilityCmd.GenericChoice(
 				figure,

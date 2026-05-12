@@ -8,7 +8,11 @@ public class ShieldTrait(int shield) : FigureTrait
 
 		ScenarioCheckEvents.ShieldCheckEvent.Subscribe(figure, this,
 			canApplyParameters => canApplyParameters.Figure == figure,
-			applyParameters => { applyParameters.AdjustShield(shield); });
+			applyParameters =>
+			{
+				applyParameters.AdjustShield(shield);
+			}
+		);
 
 		ScenarioEvents.SufferDamageEvent.Subscribe(figure, this,
 			canApplyParameters => canApplyParameters.Figure == figure && canApplyParameters.FromAttack,
@@ -16,9 +20,8 @@ public class ShieldTrait(int shield) : FigureTrait
 			{
 				applyParameters.AdjustShield(shield);
 				await GDTask.CompletedTask;
-			});
-
-		//figure.UpdateShield();
+			}
+		);
 	}
 
 	public override async GDTask Deactivate(Figure figure)

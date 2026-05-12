@@ -53,7 +53,7 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 
 		if(campaignOptions != null)
 		{
-			AddLabeledSliderOption(campaignOptions.Difficulty, "Difficulty", SavedCampaignOptions.DifficultyOptions);
+			AddLabeledSliderOption(campaignOptions.Difficulty, "Difficulty", SavedCampaignOptions.DifficultyOptions, GameController.Instance == null);
 		}
 
 		foreach(OptionViewBase option in _options)
@@ -81,19 +81,19 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 		_options.Clear();
 	}
 
-	private void AddCheckmarkOption(SavedOption<bool> option, string label)
+	private void AddCheckmarkOption(SavedOption<bool> option, string label, bool enabled = true)
 	{
-		AddOption(new CheckmarkOptionView.Parameters(option, label));
+		AddOption(new CheckmarkOptionView.Parameters(option, label, enabled));
 	}
 
-	private void AddSliderOption(SavedOption<int> option, string label)
+	private void AddSliderOption(SavedOption<int> option, string label, bool enabled = true)
 	{
-		AddOption(new SliderOptionView.Parameters(option, label));
+		AddOption(new SliderOptionView.Parameters(option, label, enabled));
 	}
 
-	private void AddLabeledSliderOption(SavedOption<int> option, string label, LabeledOptions options)
+	private void AddLabeledSliderOption(SavedOption<int> option, string label, LabeledOptions options, bool enabled = true)
 	{
-		AddOption(new LabeledSliderOptionView.Parameters(option, label, options));
+		AddOption(new LabeledSliderOptionView.Parameters(option, label, options, enabled));
 	}
 
 	private void AddOption(OptionViewParameters parameters)

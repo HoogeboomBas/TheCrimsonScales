@@ -23,6 +23,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 
 	public int Distance { get; private set; }
 	public Action<State, List<Hex>> CustomGetHexes { get; set; }
+	public Func<State, Hex, bool> FilterHexes { get; set; }
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -38,6 +39,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		public interface IDistanceStep
 		{
 			TBuilder WithDistance(int distance);
+			TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes);
 		}
 
 		public TBuilder WithDistance(int distance)
@@ -49,6 +51,12 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		public TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes)
 		{
 			Obj.CustomGetHexes = getHexes;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithFilterHexes(Func<State, Hex, bool> filterHexes)
+		{
+			Obj.FilterHexes = filterHexes;
 			return (TBuilder)this;
 		}
 	}
@@ -128,26 +136,28 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			return;
 		}
 
-		abilityState.SetPerformed();
+		await AbilityCmd.Teleport(abilityState, performer, destination);
 
-		await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
-
-		const float animationSpeed = 1.4f;
-
-		if(!GameController.FastForward)
-		{
-			// Disappear
-			await GameController.Instance.ScreenDistortion.Disappear(performer, animationSpeed, true).PlayFastForwardableAsync();
-		}
-
-		performer.SetOriginHexAndRotation(destination);
-
-		if(!GameController.FastForward)
-		{
-			// Appear
-			await GameController.Instance.ScreenDistortion.Appear(performer, animationSpeed, true).PlayFastForwardableAsync();
-		}
-
-		await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, destination, true, true);
+		// abilityState.SetPerformed();
+		//
+		// await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
+		//
+		// const float animationSpeed = 1.4f;
+		//
+		// if(!GameController.FastForward)
+		// {
+		// 	// Disappear
+		// 	await GameController.Instance.ScreenDistortion.Disappear(performer, animationSpeed, true).PlayFastForwardableAsync();
+		// }
+		//
+		// performer.SetOriginHexAndRotation(destination);
+		//
+		// if(!GameController.FastForward)
+		// {
+		// 	// Appear
+		// 	await GameController.Instance.ScreenDistortion.Appear(performer, animationSpeed, true).PlayFastForwardableAsync();
+		// }
+		//
+		// await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, destination, true, true);
 	}
 }

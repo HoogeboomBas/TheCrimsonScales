@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dmrj5pbsep72v"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_swbl6"]
+[ext_resource type="Texture2D" uid="uid://bhaxrh3ngwmmn" path="res://Content/Classes/SpiritCaller/MapIcon.tres" id="3_5afc1"]
+[ext_resource type="Texture2D" uid="uid://dol2ckq4p4icm" path="res://Content/Classes/SpiritCaller/Animation.jpg" id="3_w6sux"]
+
+[node name="SpiritCaller" unique_id=1851614937 instance=ExtResource("1_swbl6")]
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = ExtResource("3_5afc1")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+texture = ExtResource("3_w6sux")
+hframes = 12
+vframes = 13
+_frameCount = 149
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.3882353, 0.7411765, 0.34117648, 1)

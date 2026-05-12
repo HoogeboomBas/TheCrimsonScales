@@ -22,7 +22,7 @@ public class KillAllEnemiesScenarioGoal : ScenarioGoal
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
-				parameters.Figure.Alignment == Alignment.Enemies && (parameters.Figure is not Objective || _countObjectives),
+				parameters.Figure.Alignment == Alignment.Monsters && (parameters.Figure is not Objective || _countObjectives),
 			async parameters =>
 			{
 				await AdjustProgress(1);
@@ -82,7 +82,7 @@ public class KillAllEnemiesScenarioGoal : ScenarioGoal
 		int count = 0;
 		foreach(Figure figure in GameController.Instance.Map.Figures)
 		{
-			if(figure.Alignment == Alignment.Enemies && (figure is not Objective || _countObjectives))
+			if(figure.Alignment == Alignment.Monsters && (figure is not Objective || _countObjectives) && figure.IsFigure)
 			{
 				count++;
 			}

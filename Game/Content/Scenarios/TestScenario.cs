@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
 
@@ -45,6 +46,11 @@ public class TestScenario : ScenarioModel
 		foreach(Objective objective in objectives)
 		{
 			objective.Init(objectiveHealth, "Look at this test objective");
+		}
+
+		foreach(Element element in Enum.GetValues<Element>())
+		{
+			await AbilityCmd.InfuseElement(null, element, immediately: true);
 		}
 	}
 }

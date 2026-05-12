@@ -3,19 +3,21 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bx8wa06hy80nn"
-path="res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.ctex"
+path.s3tc="res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.s3tc.ctex"
+path.etc2="res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://Content/Classes/Mirefoot/AMDCards.jpg"
-dest_files=["res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.ctex"]
+dest_files=["res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.s3tc.ctex", "res://.godot/imported/AMDCards.jpg-ad70b3209b6231261e0182430d9d3424.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

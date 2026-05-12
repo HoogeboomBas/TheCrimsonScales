@@ -1,9 +1,7 @@
-﻿using System;
-
-[Flags]
-public enum Alignment
+﻿public enum Alignment
 {
 	Characters = 1,
-	Enemies = 2,
+	Monsters = 2,
 	Other = 4,
+	Custom = 8,
 }

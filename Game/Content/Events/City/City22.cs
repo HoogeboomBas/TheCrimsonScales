@@ -35,7 +35,7 @@ public class City22 : CityEventModel<City22.ChoiceA, City22.ChoiceB>
 					);
 					await actionState.Perform();
 
-					AbilityCmd.UnsubscribeDuringTurn(this);
+					AbilityCmd.UnsubscribeDuringCharacterTurn(this);
 				}, new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Invisible)),
 				new TextEffectInfoView.Parameters(
 					$"Perform “{Icons.Inline(Icons.GetCondition(Conditions.Invisible))}, self” as a reward from the last Road Event.")

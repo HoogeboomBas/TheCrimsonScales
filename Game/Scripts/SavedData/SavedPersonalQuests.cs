@@ -25,8 +25,8 @@ public class SavedPersonalQuests
 		ModelDB.PersonalQuest<PredatorAndPrey>(),
 		ModelDB.PersonalQuest<AnAdderDivides>(),
 		ModelDB.PersonalQuest<FieldResearch>(),
-		// ModelDB.PersonalQuest<ConjurersHand>(), // Requires Spirit Caller
-		// ModelDB.PersonalQuest<NoRestForTheWicked>(), // Requires Spirit Caller
+		ModelDB.PersonalQuest<ConjurersHand>(),
+		ModelDB.PersonalQuest<NoRestForTheWicked>(),
 		ModelDB.PersonalQuest<HealthFirst>(),
 		ModelDB.PersonalQuest<LimitlessSearching>(),
 	];

@@ -98,7 +98,8 @@ public class RegalBeast : ChieftainCardModel<RegalBeast.CardTop, RegalBeast.Card
 						await abilitySide.Perform(state.Performer);
 						if(!abilitySide.AbilityCard.CardState.IsPersistent())
 						{
-							await abilitySide.AbilityCard.SetCardState(CardState.Lost);
+							await AbilityCmd.LoseCard(abilitySide.AbilityCard);
+							//await abilitySide.AbilityCard.SetCardState(CardState.Lost);
 						}
 
 						state.SetPerformed();

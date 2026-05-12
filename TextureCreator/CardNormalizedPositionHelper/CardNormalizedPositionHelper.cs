@@ -1,3 +1,4 @@
+using System.Globalization;
 using Godot;
 
 public partial class CardNormalizedPositionHelper : Control
@@ -46,7 +47,7 @@ public partial class CardNormalizedPositionHelper : Control
 
 			if(inputEventKey.Keycode == Key.P)
 			{
-				string normalizedPositionText = $"new Vector2({_normalizedPosition.X}f, {_normalizedPosition.Y}f)";
+				string normalizedPositionText = $"new Vector2({_normalizedPosition.X.ToString(CultureInfo.InvariantCulture)}f, {_normalizedPosition.Y.ToString(CultureInfo.InvariantCulture)}f)";
 				GD.Print(normalizedPositionText);
 				DisplayServer.ClipboardSet(normalizedPositionText);
 			}

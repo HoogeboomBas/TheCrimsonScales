@@ -92,13 +92,35 @@ public partial class Hex : Node2D
 		}
 	}
 
+	public IEnumerable<Figure> GetFigures(bool includeNonFigures = false)
+	{
+		for(int i = HexObjects.Count - 1; i >= 0; i--)
+		{
+			HexObject hexObject = HexObjects[i];
+			if(hexObject is Figure figure)
+			{
+				if(includeNonFigures || figure.IsFigure)
+				{
+					yield return figure;
+				}
+			}
+		}
+	}
+
 	public bool IsEmpty()
 	{
 		foreach(HexObject hexObject in HexObjects)
 		{
+			if(hexObject is Figure figure)
+			{
+				if(figure.IsFigure)
+				{
+					return false;
+				}
+			}
+
 			switch(hexObject)
 			{
-				case Figure:
 				case Obstacle:
 				case DifficultTerrain:
 				case HazardousTerrain:

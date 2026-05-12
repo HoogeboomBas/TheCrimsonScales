@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using System.Collections.Generic;
+using Fractural.Tasks;
+
+/// <summary>
 /// A forced movement <see cref="TargetedAbility{T, TSingleTargetState}"/> that moves the enemy away from the acting figure,
 /// ignoring most movement rules.
 /// </summary>
@@ -7,6 +10,8 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 	public class State : TargetedAbilityState<SingleTargetState>
 	{
 	}
+
+	public List<ScenarioEvents.DuringPush.Subscription> DuringPushSubscriptions { get; protected set; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -22,6 +27,12 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 		public interface IPushStep
 		{
 			TBuilder WithPush(int push, params PushEnhancementMark[] enhancementMarks);
+		}
+
+		public TBuilder WithDuringPushSubscriptions(params ScenarioEvents.DuringPush.Subscription[] duringPushSubscriptions)
+		{
+			Obj.DuringPushSubscriptions.AddRange(duringPushSubscriptions);
+			return (TBuilder)this;
 		}
 	}
 
@@ -44,4 +55,23 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 	}
 
 	public PushAbility() { }
+
+	protected override async GDTask StartPerform(State abilityState)
+	{
+		await base.StartPerform(abilityState);
+
+		ScenarioEvents.DuringPushEvent.Subscribe(abilityState, this, DuringPushSubscriptions);
+	}
+
+	protected override async GDTask EndPerform(State abilityState)
+	{
+		await base.EndPerform(abilityState);
+
+		ScenarioEvents.DuringPushEvent.Unsubscribe(DuringPushSubscriptions);
+	}
+
+	protected override EffectCollection CreateDuringTargetedAbilityEffectCollection(State abilityState)
+	{
+		return ScenarioEvents.DuringPushEvent.CreateEffectCollection(new ScenarioEvents.DuringPush.Parameters(abilityState));
+	}
 }

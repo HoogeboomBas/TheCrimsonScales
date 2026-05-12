@@ -42,7 +42,14 @@ public partial class Door : OverlayTile, IEventSubscriber
 			parameters => parameters.Hex == Hex,
 			async parameters =>
 			{
-				await Open(parameters.Figure);
+				if(parameters.Figure is Summon summon && Chieftain.GetMount(summon.CharacterOwner) == parameters.Figure)
+				{
+					await Open(summon.CharacterOwner);
+				}
+				else
+				{
+					await Open(parameters.Figure);
+				}
 			},
 			effectType: EffectType.MandatoryBeforeOptionals
 		);

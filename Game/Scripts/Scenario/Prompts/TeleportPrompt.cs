@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
-	List<Hex> customHexes = null)
+public class TeleportPrompt(
+	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
+	List<Hex> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
 	: Prompt<TeleportPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -37,6 +38,18 @@ public class TeleportPrompt(TeleportAbility.State teleportAbilityState, Figure p
 				if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
 				{
 					_possibleHexes.Add(hex);
+				}
+			}
+		}
+
+		if(filterHexes != null)
+		{
+			for(int i = _possibleHexes.Count - 1; i >= 0; i--)
+			{
+				Hex possibleHex = _possibleHexes[i];
+				if(!filterHexes(teleportAbilityState, possibleHex))
+				{
+					_possibleHexes.RemoveAt(i);
 				}
 			}
 		}

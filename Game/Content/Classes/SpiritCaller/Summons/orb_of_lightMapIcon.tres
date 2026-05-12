@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bgnk5oxicgnf2"]
+
+[ext_resource type="Texture2D" uid="uid://3ypphek0yjxv" path="res://Content/Classes/SpiritCaller/Summons/orb_of_light.png" id="1_upl4y"]
+
+[resource]
+atlas = ExtResource("1_upl4y")
+region = Rect2(120, 110, 500, 500)

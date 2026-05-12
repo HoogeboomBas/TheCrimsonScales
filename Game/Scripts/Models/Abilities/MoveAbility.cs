@@ -36,6 +36,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 		}
 	}
 
+	private static readonly List<Node2D> PreviousParents = new List<Node2D>();
+
 	public DynamicInt<State> Distance { get; private set; }
 	public MoveType MoveType { get; private set; }
 	public List<ScenarioEvents.DuringMovement.Subscription> DuringMovementSubscriptions { get; private set; } = [];
@@ -153,6 +155,12 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 				await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
 
+				abilityState.Hexes.Add(hex);
+
+				ScenarioEvents.MoveTogether.Parameters moveTogetherCheckParameters =
+					await ScenarioEvents.MoveTogetherEvent.CreatePrompt(
+						new ScenarioEvents.MoveTogether.Parameters(abilityState, performer, hex));
+
 				if(abilityState.MoveType == MoveType.Regular)
 				{
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetStep(hex), delay: 0.1f);
@@ -160,28 +168,35 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 				if(abilityState.MoveType == MoveType.Flying)
 				{
-					AppController.Instance.AudioController.PlayFastForwardable(SFX.MoveFlying, minPitch: 2.5f,
-						maxPitch: 3.4f, delay: 0.1f);
+					AppController.Instance.AudioController.PlayFastForwardable(SFX.MoveFlying, minPitch: 2.5f, maxPitch: 3.4f, delay: 0.1f);
 				}
 
 				if(abilityState.MoveType == MoveType.Jump && i == path.Count - 1)
 				{
 					playedLandSound = true;
-					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetLand(hex),
-						delay: 0.25f);
+					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetLand(hex), delay: 0.25f);
 				}
 
-				abilityState.Hexes.Add(hex);
+				PreviousParents.Clear();
+				Node2D moveParent = GameController.Instance.MoveParent;
+				moveParent.SetGlobalPosition(performer.Hex.GlobalPosition);
+				PreviousParents.Add(performer.GetParent<Node2D>());
+				performer.Reparent(moveParent);
+				foreach(Figure otherFigure in moveTogetherCheckParameters.OtherFigures)
+				{
+					PreviousParents.Add(otherFigure.GetParent<Node2D>());
+					otherFigure.Reparent(moveParent);
+				}
 
-				ScenarioEvents.MoveTogetherCheck.Parameters moveTogetherCheckParameters =
-					await ScenarioEvents.MoveTogetherCheckEvent.CreatePrompt(new ScenarioEvents.MoveTogetherCheck.Parameters(performer));
+				await moveParent.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardableAsync();
 
-				// if(moveTogetherCheckParameters.OtherFigure != null)
-				// {
-				// 	moveTogetherCheckParameters.OtherFigure.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardable();
-				// }
-
-				await performer.TweenGlobalPosition(hex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardableAsync();
+				performer.Reparent(PreviousParents[0]);
+				PreviousParents.RemoveAt(0);
+				foreach(Figure otherFigure in moveTogetherCheckParameters.OtherFigures)
+				{
+					otherFigure.Reparent(PreviousParents[0]);
+					PreviousParents.RemoveAt(0);
+				}
 
 				await GDTask.DelayFastForwardable(0.03f);
 				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
@@ -201,10 +216,10 @@ public class MoveAbility : Ability<MoveAbility.State>
 					}
 				}
 
-				if(moveTogetherCheckParameters.OtherFigure != null)
+				foreach(Figure otherFigure in moveTogetherCheckParameters.OtherFigures)
 				{
-					await AbilityCmd.ExitHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority);
-					await AbilityCmd.EnterHex(abilityState, moveTogetherCheckParameters.OtherFigure, abilityState.Authority, hex,
+					await AbilityCmd.ExitHex(abilityState, otherFigure, abilityState.Authority);
+					await AbilityCmd.EnterHex(abilityState, otherFigure, abilityState.Authority, hex,
 						moveTogetherCheckParameters.TriggerHexEffects, false);
 				}
 			}

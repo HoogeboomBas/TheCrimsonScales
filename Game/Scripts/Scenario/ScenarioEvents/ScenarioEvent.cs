@@ -161,10 +161,14 @@ public abstract class ScenarioEvent<T> : ScenarioEvent
 	{
 		EffectCollection collection = CreateEffectCollection(parameters);
 
-		// Then, show a prompt with any potential remaining effect choices
-		await PromptManager.Prompt(new ScenarioEventPrompt(collection, () => hintText), authority);
+		await CreatePrompt(collection, authority, hintText);
 
 		return parameters;
+	}
+
+	public async GDTask CreatePrompt(EffectCollection collection, Figure authority, string hintText = "Select effects to use")
+	{
+		await PromptManager.Prompt(new ScenarioEventPrompt(collection, () => hintText), authority);
 	}
 
 	public void Subscribe(Figure subscriberA, object subscriberB,

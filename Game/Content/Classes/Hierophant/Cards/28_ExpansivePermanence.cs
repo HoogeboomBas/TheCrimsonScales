@@ -56,9 +56,10 @@ public class ExpansivePermanence : HierophantLevelUpCardModel<ExpansivePermanenc
 							.WithOnActivate(async state =>
 							{
 								ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
-									parameters => parameters.Performer == state.Performer &&
-									              parameters.AbilityState is AttackAbility.State attackAbilityState &&
-									              attackAbilityState.IsSingleTarget,
+									parameters =>
+										parameters.Performer == state.Performer &&
+										parameters.AbilityState is AttackAbility.State attackAbilityState &&
+										attackAbilityState.IsSingleTarget,
 									async parameters =>
 									{
 										((AttackAbility.State)parameters.AbilityState).AbilityAdjustRange(100);

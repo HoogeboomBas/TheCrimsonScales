@@ -81,7 +81,7 @@ public class ShadowClaws : LuminaryCardModel<ShadowClaws.CardTop, ShadowClaws.Ca
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					await AbilityCmd.RemoveOneNegativeCondition(state.Performer);
+					await AbilityCmd.RemoveOneNegativeCondition(state, state.Performer);
 				})
 				.Build()),
 

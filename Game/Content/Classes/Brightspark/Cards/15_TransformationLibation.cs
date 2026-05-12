@@ -19,39 +19,59 @@ public class TransformationLibation : BrightsparkCardModel<TransformationLibatio
 				{
 					Monster monster = state.GetCustomValue<Monster>(this, "Monster");
 
-					state.SetCustomValue(this, "OriginalAlignment", monster.Alignment);
-					state.SetCustomValue(this, "OriginalEnemies", monster.Enemies);
-					monster.SetEnemies(state.Performer.Enemies);
-					monster.SetAlignment(state.Performer.Alignment);
 					await AbilityCmd.AddCharacterToken(state, monster, textParameters =>
 						$"This monster is an ally to you, suffers {Icons.Inline(Icons.Damage)}1 at the start of each of its turns, and cannot be healed");
+
+					ScenarioCheckEvents.FigureRelationshipCheckEvent.Subscribe(state, this,
+						parameters => parameters.Figure == monster || parameters.OtherFigure == monster,
+						parameters =>
+						{
+							if(parameters.Figure == state.Performer || parameters.OtherFigure == state.Performer)
+							{
+								parameters.SetAlliedWith();
+								return;
+							}
+
+							if(parameters.Figure == monster)
+							{
+								parameters.SetFigureRelationship(state.Performer.GetRelationship(parameters.OtherFigure));
+							}
+							else
+							{
+								parameters.SetFigureRelationship(parameters.Figure.GetRelationship(state.Performer));
+							}
+						}
+					);
+
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						parameters => parameters.Figure == monster,
 						async parameters =>
 						{
 							await AbilityCmd.SufferDamage(monster, 1, monster);
-						});
+						}
+					);
 					ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(state, this,
 						parameters => parameters.PotentialTarget == monster && parameters.PotentialAbilityState is HealAbility.State,
 						parameters =>
 						{
 							parameters.SetCannotBeTargeted();
-						});
+						}
+					);
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
 						parameters => parameters.Figure == monster,
 						async parameters =>
 						{
 							await state.ActionState.RequestDiscardOrLose();
-						});
+						}
+					);
 				})
 				.WithOnDeactivate(async state =>
 				{
 					Monster monster = state.GetCustomValue<Monster>(this, "Monster");
 
 					await AbilityCmd.RemoveCharacterToken(state, monster);
-					monster.SetAlignment(state.GetCustomValue<Alignment>(this, "OriginalAlignment"));
-					monster.SetEnemies(state.GetCustomValue<Alignment>(this, "OriginalEnemies"));
 
+					ScenarioCheckEvents.FigureRelationshipCheckEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 					ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);

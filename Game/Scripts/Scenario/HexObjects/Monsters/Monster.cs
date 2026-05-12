@@ -13,6 +13,7 @@ public partial class Monster : Figure
 	private Sprite2D _staticSprite;
 	private MonsterViewComponent _monsterViewComponent;
 	private AMDCardDeck _amdCardDeckOverride;
+	private object _bossSpecialSubscriber;
 
 	public MonsterModel MonsterModel { get; private set; }
 	public MonsterGroup MonsterGroup { get; private set; }
@@ -50,7 +51,7 @@ public partial class Monster : Figure
 	}
 
 	public async GDTask Spawn(MonsterGroup monsterGroup, MonsterType monsterType, int standeeNumber, bool summon,
-		int? monsterLevel, Alignment alignment, Alignment enemies)
+		int? monsterLevel, Alignment alignment)
 	{
 		MonsterGroup = monsterGroup;
 		MonsterType = monsterType;
@@ -82,8 +83,8 @@ public partial class Monster : Figure
 		}
 
 		_outline.SelfModulate = TypeColor;
-		_figureViewComponent.TurnStartPS.SelfModulate = TypeColor;
-		_figureViewComponent.ActivePS.Modulate = OutlineColor;
+		FigureViewComponent.TurnStartPS.SelfModulate = TypeColor;
+		FigureViewComponent.ActivePS.Modulate = OutlineColor;
 		_monsterViewComponent.StandeeNumberCircle.SelfModulate = TypeColor;
 		_monsterViewComponent.StandeeNumberCircle.Visible = MonsterType != MonsterType.Boss;
 
@@ -103,7 +104,6 @@ public partial class Monster : Figure
 		SetHealth(Stats.Health);
 
 		SetAlignment(alignment);
-		SetEnemies(enemies);
 
 		if(Stats.Traits != null)
 		{
@@ -118,6 +118,21 @@ public partial class Monster : Figure
 		if(IsSummon)
 		{
 			CanTakeTurn = false;
+		}
+
+		if(MonsterModel is IBossMonsterModel bossMonsterModel)
+		{
+			_bossSpecialSubscriber = new object();
+			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(this, _bossSpecialSubscriber,
+				parameters => parameters.Figure == this,
+				parameters =>
+				{
+					parameters.Add(
+						new InfoTextExtraEffect.Parameters(textParameters => $"Special 1: {bossMonsterModel.GetSpecial1Description(this)}"));
+					parameters.Add(
+						new InfoTextExtraEffect.Parameters(textParameters => $"Special 2: {bossMonsterModel.GetSpecial2Description(this)}"));
+				}
+			);
 		}
 
 		MonsterGroup.RegisterMonster(this);
@@ -146,6 +161,11 @@ public partial class Monster : Figure
 		}
 
 		MonsterGroup.DeregisterMonster(this);
+
+		if(MonsterModel is IBossMonsterModel)
+		{
+			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(this, _bossSpecialSubscriber);
+		}
 
 		await base.Destroy(immediately, forceDestroy);
 

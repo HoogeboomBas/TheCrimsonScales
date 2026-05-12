@@ -62,7 +62,7 @@ public abstract class TotemReward : SavedReward, IEventSubscriber
 					);
 				}
 
-				AbilityCmd.UnsubscribeDuringTurn(this);
+				AbilityCmd.UnsubscribeDuringCharacterTurn(this);
 			}, new IconEffectButton.Parameters(Icons.Obstacle),
 			new TextEffectInfoView.Parameters(
 				$"Place a {Name} Totem obstacle in an adjacent empty hex as a reward from the last Road Event.")

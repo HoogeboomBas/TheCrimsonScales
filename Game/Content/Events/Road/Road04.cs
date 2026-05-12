@@ -33,7 +33,7 @@ public class Road04 : RoadEventModel<Road04.ChoiceA, Road04.ChoiceB>
 					);
 					await actionState.Perform();
 
-					AbilityCmd.UnsubscribeDuringTurn(this);
+					AbilityCmd.UnsubscribeDuringCharacterTurn(this);
 				}, new IconEffectButton.Parameters(Icons.Heal),
 				new TextEffectInfoView.Parameters(
 					$"Perform “{Icons.Inline(Icons.Heal)}3, self” as a reward from the last Road Event.")

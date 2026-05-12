@@ -175,7 +175,7 @@ public class ChieftainPerks
 						await actionState.Perform();
 					}
 
-					AbilityCmd.UnsubscribeDuringTurn(this);
+					AbilityCmd.UnsubscribeDuringCharacterTurn(this);
 				}, new IconEffectButton.Parameters(Icons.Move),
 				new TextEffectInfoView.Parameters($"All of your summon perform {Icons.Inline(Icons.Move)}+0"));
 		}

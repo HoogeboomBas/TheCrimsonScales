@@ -76,9 +76,6 @@ public partial class GameController : SceneController<GameController>
 	public HintTextView HintTextView { get; private set; }
 
 	[Export]
-	public SpecialRulesView SpecialRulesView { get; private set; }
-
-	[Export]
 	public ElementsView ElementsView { get; private set; }
 
 	[Export]
@@ -98,6 +95,9 @@ public partial class GameController : SceneController<GameController>
 
 	[Export]
 	public ScreenDistortion ScreenDistortion { get; private set; }
+
+	[Export]
+	public Node2D MoveParent { get; private set; }
 
 	private readonly Stopwatch _fastForwardStopwatch = new Stopwatch();
 
@@ -185,7 +185,7 @@ public partial class GameController : SceneController<GameController>
 				{
 					Id = Guid.NewGuid(),
 					AppVersion = AppController.Instance.DeviceSaveData.AppVersion,
-					ScenarioModelId = ModelDB.Scenario<Scenario007>().Id.ToString(),
+					ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
 					//Seed = GD.RandRange(0, int.MaxValue),
 					Seed = 0,
 					ScenarioLevel =

@@ -63,8 +63,6 @@ public class HuntersMark : ChieftainCardModel<HuntersMark.CardTop, HuntersMark.C
 					ScenarioCheckEvents.PotentialTargetCheckEvent.Unsubscribe(state, this);
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
-
-					await GDTask.CompletedTask;
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{

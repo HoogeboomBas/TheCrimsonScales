@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c5nnqo4ybwmm5"]
+
+[ext_resource type="Texture2D" uid="uid://c5kt6fckogd7l" path="res://Content/Classes/SpiritCaller/Summons/mantle_of_darkness.png" id="1_hjufj"]
+
+[resource]
+atlas = ExtResource("1_hjufj")
+region = Rect2(120, 110, 500, 500)

@@ -103,7 +103,7 @@ public class AMDCardValue(
 
 		if(ExtraEffects != null)
 		{
-			await ExtraEffects.Invoke(attackAbilityState, PotentialDeckOwner);
+			await ExtraEffects(attackAbilityState, PotentialDeckOwner);
 		}
 	}
 

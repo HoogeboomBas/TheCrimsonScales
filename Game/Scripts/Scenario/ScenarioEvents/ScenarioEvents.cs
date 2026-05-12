@@ -48,14 +48,36 @@ public partial class ScenarioEvents
 
 	public class HexObjectDestroyed : ScenarioEvent<HexObjectDestroyed.Parameters>
 	{
-		public class Parameters(HexObject hexObject) : ParametersBase
+		public class Parameters(HexObject hexObject, bool immediately, bool forceDestroy) : ParametersBase
 		{
 			public HexObject HexObject { get; } = hexObject;
+			public bool Immediately { get; } = immediately;
+			public bool ForceDestroy { get; } = forceDestroy;
 		}
 	}
 
 	private readonly HexObjectDestroyed _hexObjectDestroyed = new HexObjectDestroyed();
 	public static HexObjectDestroyed HexObjectDestroyedEvent => GameController.Instance.ScenarioEvents._hexObjectDestroyed;
+
+	public class DuringPush : ScenarioEvent<DuringPush.Parameters>
+	{
+		public class Parameters(PushAbility.State abilityState) : ParametersBase<PushAbility.State>(abilityState)
+		{
+		}
+	}
+
+	private readonly DuringPush _duringPush = new DuringPush();
+	public static DuringPush DuringPushEvent => GameController.Instance.ScenarioEvents._duringPush;
+
+	public class DuringPull : ScenarioEvent<DuringPull.Parameters>
+	{
+		public class Parameters(PullAbility.State abilityState) : ParametersBase<PullAbility.State>(abilityState)
+		{
+		}
+	}
+
+	private readonly DuringPull _duringPull = new DuringPull();
+	public static DuringPull DuringPullEvent => GameController.Instance.ScenarioEvents._duringPull;
 
 	public class DuringAttack : ScenarioEvent<DuringAttack.Parameters>
 	{
@@ -116,6 +138,32 @@ public partial class ScenarioEvents
 
 	private readonly AMDCardDrawn _amdCardDrawn = new AMDCardDrawn();
 	public static AMDCardDrawn AMDCardDrawnEvent => GameController.Instance.ScenarioEvents._amdCardDrawn;
+
+	public class AMDCardPeeked : ScenarioEvent<AMDCardPeeked.Parameters>
+	{
+		public class Parameters(DivinationAbility.State abilityState, AMDCard amdCard)
+			: ParametersBase<DivinationAbility.State>(abilityState)
+		{
+			public AMDCard AMDCard = amdCard;
+			public bool PlaceAtDeckTop { get; private set; } = false;
+			public bool PlaceAtDeckBottom { get; private set; } = false;
+
+			public void SetPlaceAtDeckTop()
+			{
+				PlaceAtDeckTop = true;
+				PlaceAtDeckBottom = false;
+			}
+
+			public void SetPlaceAtDeckBottom()
+			{
+				PlaceAtDeckTop = false;
+				PlaceAtDeckBottom = true;
+			}
+		}
+	}
+
+	private readonly AMDCardPeeked _amdCardPeeked = new AMDCardPeeked();
+	public static AMDCardPeeked AMDCardPeekedEvent => GameController.Instance.ScenarioEvents._amdCardPeeked;
 
 	public class AMDCardValueApplied : ScenarioEvent<AMDCardValueApplied.Parameters>
 	{
@@ -418,6 +466,13 @@ public partial class ScenarioEvents
 				CalculateCurrentDamage();
 			}
 
+			public void AdjustPierce(int amount)
+			{
+				((AttackAbility.State)PotentialAbilityState).SingleTargetAdjustPierce(amount);
+
+				CalculateCurrentDamage();
+			}
+
 			private void CalculateCurrentDamage()
 			{
 				if(DamagePrevented)
@@ -645,20 +700,22 @@ public partial class ScenarioEvents
 	private readonly FigureEnteredHex _figureEnteredHex = new FigureEnteredHex();
 	public static FigureEnteredHex FigureEnteredHexEvent => GameController.Instance.ScenarioEvents._figureEnteredHex;
 
-	public class MoveTogetherCheck : ScenarioEvent<MoveTogetherCheck.Parameters>
+	public class MoveTogether : ScenarioEvent<MoveTogether.Parameters>
 	{
-		public class Parameters(Figure performer)
+		public class Parameters(AbilityState abilityState, Figure performer, Hex destinationHex)
 			: ParametersBase
 		{
+			public AbilityState AbilityState { get; } = abilityState;
 			public Figure Performer { get; } = performer;
+			public Hex DestinationHex { get; } = destinationHex;
 
-			public Figure OtherFigure { get; private set; } = null;
+			public List<Figure> OtherFigures { get; } = new List<Figure>();
 
 			public bool TriggerHexEffects { get; private set; } = true;
 
-			public void SetOtherFigure(Figure otherFigure)
+			public void AddOtherFigure(Figure otherFigure)
 			{
-				OtherFigure = otherFigure;
+				OtherFigures.Add(otherFigure);
 			}
 
 			public void SetTriggerHexEffects(bool triggerHexEffects)
@@ -668,8 +725,8 @@ public partial class ScenarioEvents
 		}
 	}
 
-	private readonly MoveTogetherCheck _moveTogetherCheck = new MoveTogetherCheck();
-	public static MoveTogetherCheck MoveTogetherCheckEvent => GameController.Instance.ScenarioEvents._moveTogetherCheck;
+	private readonly MoveTogether _moveTogether = new MoveTogether();
+	public static MoveTogether MoveTogetherEvent => GameController.Instance.ScenarioEvents._moveTogether;
 
 	public class HazardousTerrainTriggered : ScenarioEvent<HazardousTerrainTriggered.Parameters>
 	{

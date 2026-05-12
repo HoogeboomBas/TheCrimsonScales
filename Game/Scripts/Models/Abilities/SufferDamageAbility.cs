@@ -267,9 +267,10 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 					Mandatory ||
 					abilityState.AbilityTarget == Target.Self ||
 					(TargetHex != null && abilityState.AbilityAOEPattern == null);
-				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, Mandatory, autoSelectIfOne,
-					null,
-					() => _getTargetingHintText(abilityState));
+				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, mandatory: Mandatory,
+					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: true,
+					effectCollection: null,
+					hintText: () => _getTargetingHintText(abilityState));
 			}
 			else
 			{

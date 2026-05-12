@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://c43xtapr5tfm4"]
+
+[ext_resource type="Texture2D" uid="uid://bs45t5wtsvf0n" path="res://Content/Classes/SpiritCaller/Summons/leprous_wraith.png" id="1_y8cwu"]
+
+[resource]
+atlas = ExtResource("1_y8cwu")
+region = Rect2(120, 110, 500, 500)

@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System.Collections.Generic;
+using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
 using GTweensGodot.Extensions;
@@ -28,6 +29,58 @@ public partial class AMDDrawView : Control
 		Hide();
 	}
 
+	public async GDTask PeekCards(DivinationAbility.State divinationAbilityState, int cardsToPeek)
+	{
+		AMDCardDeck deck = divinationAbilityState.Target.AMDCardDeck;
+
+		Show();
+
+		UpdateDrawPileSize(deck);
+
+		await this.TweenPositionY(0f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardableAsync();
+		await GDTask.DelayFastForwardable(0.2f);
+
+		int index = 0;
+		int cardsPeeked = 0;
+
+		while(cardsPeeked < cardsToPeek)
+		{
+			AMDCard newCard = deck.PeekCard(index);
+
+			UpdateDrawPileSize(deck);
+
+			AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
+			AddChild(drawCard);
+			await drawCard.DrawCard(newCard, _deckAnchor, _discardAnchor);
+
+			_discardContainer.Visible = true;
+			_discardTopCardTextureRect.Texture = newCard.GetTexture();
+
+			ScenarioEvents.AMDCardPeeked.Parameters amdCardDrawnParameters =
+				await ScenarioEvents.AMDCardPeekedEvent.CreatePrompt(
+					new ScenarioEvents.AMDCardPeeked.Parameters(divinationAbilityState, newCard));
+
+			if(amdCardDrawnParameters.PlaceAtDeckTop)
+			{
+				deck.MoveCardToTop(newCard);
+				index++;
+			} 
+			else if(amdCardDrawnParameters.PlaceAtDeckBottom)
+			{
+				deck.MoveCardToBottom(newCard);
+			}
+			else
+			{
+				index++;
+			}
+
+			cardsPeeked++;
+		}
+
+		// Move visuals away
+		await this.TweenPositionY(OpenDistance, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardableAsync();
+	}
+
 	public async GDTask DrawCards(AttackAbility.State attackAbilityState)
 	{
 		AMDCardDeck deck = attackAbilityState.Performer.AMDCardDeck;
@@ -43,7 +96,7 @@ public partial class AMDDrawView : Control
 		await GDTask.DelayFastForwardable(0.2f);
 
 		AMDCardValue terminalCardValue = null;
-		//List<AMDCard> rollingCards = new List<AMDCard>();
+		List<AMDCardValue> rollingCards = new List<AMDCardValue>();
 
 		while(true)
 		{
@@ -69,12 +122,11 @@ public partial class AMDDrawView : Control
 			{
 				if(newCard.Model.GetRolling(attackAbilityState))
 				{
-					//rollingCards.Add(newCard);
-
 					if(!attackAbilityState.SingleTargetHasDisadvantage ||
 					   attackAbilityState.SingleTargetHasAdvantage == attackAbilityState.SingleTargetHasDisadvantage)
 					{
-						await newCardValue.Apply(attackAbilityState);
+						rollingCards.Add(newCardValue);
+						//await newCardValue.Apply(attackAbilityState);
 					}
 				}
 				else
@@ -170,18 +222,15 @@ public partial class AMDDrawView : Control
 			}
 		}
 
-		// if(!parameters.HasDisadvantage)
-		// {
-		// 	foreach(AMDCard rollingCard in rollingCards)
-		// 	{
-		// 		await rollingCard.Apply(parameters);
-		// 	}
-		// }
-
-		await terminalCardValue.Apply(attackAbilityState);
-
 		// Move visuals away
 		await this.TweenPositionY(OpenDistance, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardableAsync();
+
+		foreach(AMDCardValue rollingCard in rollingCards)
+		{
+			await rollingCard.Apply(attackAbilityState);
+		}
+
+		await terminalCardValue.Apply(attackAbilityState);
 	}
 
 	private void UpdateDrawPileSize(AMDCardDeck deck)

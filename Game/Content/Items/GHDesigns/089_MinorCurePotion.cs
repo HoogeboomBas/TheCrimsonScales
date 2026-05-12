@@ -20,7 +20,7 @@ public class MinorCurePotion : GHDesignsItem
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.RemoveOneNegativeCondition(user);
+					await AbilityCmd.RemoveOneNegativeCondition(null, user);
 				});
 			}
 		);

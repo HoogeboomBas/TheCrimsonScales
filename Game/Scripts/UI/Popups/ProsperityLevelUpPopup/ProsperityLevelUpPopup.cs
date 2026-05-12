@@ -51,11 +51,6 @@ public partial class ProsperityLevelUpPopup : Popup<ProsperityLevelUpPopup.Reque
 			bool shouldScroll = targetSize < _itemParent.Size.X;
 			_scrollContainer.CustomMinimumSize = new Vector2(targetSize, shouldScroll ? 440f : 420f);
 			_scrollContainer.HorizontalScrollMode = shouldScroll ? ScrollContainer.ScrollMode.Auto : ScrollContainer.ScrollMode.Disabled;
-
-			this.DelayedCall(() =>
-			{
-				_panelContainer.PivotOffset = _panelContainer.Size * 0.5f;
-			});
 		});
 	}
 

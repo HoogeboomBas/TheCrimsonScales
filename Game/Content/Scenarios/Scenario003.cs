@@ -134,7 +134,7 @@ public class Scenario003 : ScenarioModel
 					// The scenario is lost, the water is all the way to the left
 					await AbilityCmd.Lose();
 				}
-			}
+			}, order: 1000001
 		);
 	}
 }

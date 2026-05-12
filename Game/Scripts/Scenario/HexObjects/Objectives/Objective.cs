@@ -33,8 +33,7 @@ public partial class Objective : Figure
 	{
 		await base.Init(originHex, rotationIndex, hexCanBeNull);
 
-		SetAlignment(Alignment.Enemies);
-		SetEnemies(Alignment.Characters);
+		SetAlignment(Alignment.Monsters);
 
 		await GameController.Instance.Map.RegisterFigure(this);
 
