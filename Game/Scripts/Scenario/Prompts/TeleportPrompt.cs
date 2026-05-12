@@ -5,7 +5,7 @@ using Godot;
 
 public class TeleportPrompt(
 	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
-	List<Hex> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
+	Action<TeleportAbility.State, List<Hex>> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
 	: Prompt<TeleportPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -28,7 +28,7 @@ public class TeleportPrompt(
 
 		if(customHexes != null)
 		{
-			_possibleHexes.AddRange(customHexes);
+			customHexes(teleportAbilityState, _possibleHexes);
 		}
 		else
 		{

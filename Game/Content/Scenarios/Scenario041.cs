@@ -40,8 +40,6 @@ public class Scenario041 : ScenarioModel
 		new GainCollectiveGoldReward(50),
 	];
 
-	private ScenarioRule _scenarioRule;
-
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
 		await base.InitializeAfterFirstRoomRevealed();
@@ -84,12 +82,9 @@ public class Scenario041 : ScenarioModel
 			On seeing you, however, it seems to regain some control of its actions and turns to focus its attention, and power on you.
 			""");
 
-		_scenarioRule = 
-			AddScenarioRule(
-				$"""
-				 The Dark Pit obstacles represent Void Pit objectives and have C+L hitpoints.
-
-				 The Rogue Hollowpact will not leave the N1B tile. The Rogue Hollowpact cannot be targeted by any figures that are not occupying the N1b tile.
-				""");
+		AddScenarioRule(
+			$"""
+			 The Rogue Hollowpact will not leave the N1B tile. The Rogue Hollowpact cannot be targeted by any figures that are not occupying the N1b tile.
+			 """);
 	}
 }

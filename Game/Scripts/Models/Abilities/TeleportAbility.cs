@@ -97,15 +97,12 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 
 		Hex destination = null;
 
-		List<Hex> customHexes = CustomGetHexes == null ? null : [];
-		CustomGetHexes?.Invoke(abilityState, customHexes);
-
 		if(abilityState.Authority is Character)
 		{
 			// Character teleporting
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
-					new TeleportPrompt(abilityState, performer, null, customHexes: customHexes,
+					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
 						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
@@ -116,12 +113,10 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		}
 		else
 		{
-			Figure focus = await abilityState.ActionState.GetFocus(abilityState);
-
 			// TODO: Not a real monster movement, focus and movement AI not included, works with custom hexes
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
-					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: customHexes,
+					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
 						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
@@ -137,27 +132,5 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		}
 
 		await AbilityCmd.Teleport(abilityState, performer, destination);
-
-		// abilityState.SetPerformed();
-		//
-		// await AbilityCmd.ExitHex(abilityState, performer, abilityState.Authority);
-		//
-		// const float animationSpeed = 1.4f;
-		//
-		// if(!GameController.FastForward)
-		// {
-		// 	// Disappear
-		// 	await GameController.Instance.ScreenDistortion.Disappear(performer, animationSpeed, true).PlayFastForwardableAsync();
-		// }
-		//
-		// performer.SetOriginHexAndRotation(destination);
-		//
-		// if(!GameController.FastForward)
-		// {
-		// 	// Appear
-		// 	await GameController.Instance.ScreenDistortion.Appear(performer, animationSpeed, true).PlayFastForwardableAsync();
-		// }
-		//
-		// await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, destination, true, true);
 	}
 }

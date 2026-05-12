@@ -11,7 +11,7 @@ public class Scenario027 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario028>()];
 
-		public override string IntroductionText =>
+	public override string IntroductionText =>
 		"""
 		Flushed with your success with the Lavalite, you return jubilantly to The Crimson Scale and find Selandre waiting for you.
 
@@ -58,7 +58,7 @@ public class Scenario027 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario028>()),
 	];
 
-	private ScenarioRule _scenarioRule;
+	private ScenarioRule _scenarioDoorRule;
 
 	public override async GDTask StartOfScenarioEffects(Character character)
 	{
@@ -70,14 +70,6 @@ public class Scenario027 : ScenarioModel
 	public override async GDTask OnSetupCompleted()
 	{
 		await base.OnSetupCompleted();
-
-		_scenarioRule =
-			AddScenarioRule(textParameters =>
-				$"""
-				 At the beginning of the scenario, nominate one character to hold the Orb of Embers. The Orb of Embers cannot be transferred to another character, and it becomes inactive if the nominated character becomes exhausted.
-
-				 Door {Icons.InlineMarker(Marker.Type._2, textParameters)} is locked and cannot be opened until instructed.
-				 """);
 
 		Figure orbOfEmbersCharacter = await AbilityCmd.SelectFigure(GameController.Instance.CharacterManager.FirstAlive(), figures =>
 		{
@@ -101,6 +93,16 @@ public class Scenario027 : ScenarioModel
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<Icebound>(), specificCount: 1));
 
 		_door2 = GameController.Instance.Map.GetMarker(Marker.Type._2).GetHexObject<Door>();
+
+		AddScenarioRule(textParameters =>
+			$"""
+			 At the beginning of the scenario, nominate one character to hold the Orb of Embers. The Orb of Embers cannot be transferred to another character, and it becomes inactive if the nominated character becomes exhausted.
+			 """);
+
+		_scenarioDoorRule = AddScenarioRule(textParameters =>
+			$"""
+			 Door {Icons.InlineMarker(Marker.Type._2, textParameters)} is currently locked.
+			 """);
 	}
 
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters parameters)
@@ -121,14 +123,12 @@ public class Scenario027 : ScenarioModel
 			await _door2.Unlock();
 			await _door2.Open(parameters.PotentialOpener);
 
-			_scenarioRule.Remove();
-			_scenarioRule =
-				AddScenarioRule(textParameters =>
-					$"""
-					 Door {Icons.InlineMarker(Marker.Type._2, textParameters)} becomes immediately open.
+			_scenarioDoorRule.Remove();
 
-					 The character holding the Orb of Embers adds +1{Icons.Inline(Icons.Attack)} to all attacks targeting the Icebound.
-					 """);
+			AddScenarioRule(textParameters =>
+				$"""
+				 The character holding the Orb of Embers adds +1{Icons.Inline(Icons.Attack)} to all attacks targeting the Icebound.
+				 """);
 		}	
 	}
 }

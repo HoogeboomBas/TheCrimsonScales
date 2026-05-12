@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
-	List<Hex> customHexes = null)
+public class MonsterTeleportPrompt(
+	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
+	Action<TeleportAbility.State, List<Hex>> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
 	: Prompt<MonsterTeleportPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -17,7 +18,7 @@ public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, F
 
 	protected override bool CanConfirm => _selectedHex != null;
 
-	protected override bool CanSkip => customHexes != null && customHexes.Count == 0;
+	protected override bool CanSkip => _possibleHexes.Count == 0;
 
 	protected override void Enable()
 	{
@@ -27,7 +28,7 @@ public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, F
 
 		if(customHexes != null)
 		{
-			_possibleHexes.AddRange(customHexes);
+			customHexes(teleportAbilityState, _possibleHexes);
 		}
 		else
 		{
@@ -39,6 +40,30 @@ public class MonsterTeleportPrompt(TeleportAbility.State teleportAbilityState, F
 					_possibleHexes.Add(hex);
 				}
 			}
+		}
+
+		if(filterHexes != null)
+		{
+			for(int i = _possibleHexes.Count - 1; i >= 0; i--)
+			{
+				Hex possibleHex = _possibleHexes[i];
+				if(!filterHexes(teleportAbilityState, possibleHex))
+				{
+					_possibleHexes.RemoveAt(i);
+				}
+			}
+		}
+
+		if(_possibleHexes.Count == 0)
+		{
+			Skip();
+			return;
+		}
+
+		if(_possibleHexes.Count == 1)
+		{
+			_selectedHex = _possibleHexes.First();
+			Complete(true);
 		}
 	}
 

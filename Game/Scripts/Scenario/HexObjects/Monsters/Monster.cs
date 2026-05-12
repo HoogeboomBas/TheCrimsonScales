@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
@@ -128,9 +128,9 @@ public partial class Monster : Figure
 				parameters =>
 				{
 					parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters => $"Special 1: {bossMonsterModel.GetSpecial1Description(this)}"));
+						new InfoTextExtraEffect.Parameters(textParameters => $"Special 1: {bossMonsterModel.GetSpecial1Description(this, textParameters)}"));
 					parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters => $"Special 2: {bossMonsterModel.GetSpecial2Description(this)}"));
+						new InfoTextExtraEffect.Parameters(textParameters => $"Special 2: {bossMonsterModel.GetSpecial2Description(this, textParameters)}"));
 				}
 			);
 		}

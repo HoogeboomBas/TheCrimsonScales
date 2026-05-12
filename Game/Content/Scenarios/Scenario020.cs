@@ -86,13 +86,22 @@ public class Scenario020 : ScenarioModel
 
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<CultLeader>(), specificCount: 1));
 
+		int characterCount = GameController.Instance.SavedCampaign.Characters.Count;
+		string summonInfo = characterCount == 3 ? """Every other Living Spirit summoned is elite.""" : characterCount == 4 ? """The Living Spirits summoned are elite.""" : "";
+
 		AddScenarioRule(textParameters =>
 			$"""
-			 The Cultist is the Cult Leader. It does not suffer damage when summoning. Instead of summoning Living Bones, the Cultist summons Living Spirits. The cultist is immune to {Icons.Inline(Icons.GetCondition(Conditions.Stun))}, {Icons.Inline(Icons.GetCondition(Conditions.Disarm))}, and {Icons.Inline(Icons.GetCondition(Conditions.Immobilize))}. For three characters, every other Living Spirit summoned is elite. For four characters, every Living Spirit summoned is elite.
+			 The Cult Leader is a special Cultist. It does not suffer damage when summoning. Instead of summoning Living Bones, the Cult leader summons Living Spirits. {summonInfo}
+			 """);
 
+		AddScenarioRule(textParameters =>
+			$"""
 			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)} in that order.
+			 """);
 
-			 The altars have (C+L)x3 hit points, and if an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
+		AddScenarioRule(textParameters =>
+			$"""
+			 If an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
 			 """);
 
 		_altars.Add(GameController.Instance.Map.GetMarker(Marker.Type.a).GetHexObject<Objective>());
