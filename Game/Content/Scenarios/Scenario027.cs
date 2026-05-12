@@ -59,6 +59,7 @@ public class Scenario027 : ScenarioModel
 	];
 
 	private ScenarioRule _scenarioDoorRule;
+	private ScenarioRule _scenarioOrbRule;
 
 	public override async GDTask StartOfScenarioEffects(Character character)
 	{
@@ -84,6 +85,14 @@ public class Scenario027 : ScenarioModel
 				parameters.AbilityState.SingleTargetAdjustAttackValue(1);
 				await GDTask.CompletedTask;
 			});
+
+		_scenarioOrbRule.Remove();
+
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(this,
+			parameters => parameters.Figure == orbOfEmbersCharacter,
+			parameters => parameters.Add(
+							new InfoTextExtraEffect.Parameters(textParameters =>
+								$"This character holds the Orb of Embers and adds +1{Icons.Inline(Icons.Attack)} to all its attacks against the Icebound")));
 	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
@@ -94,7 +103,7 @@ public class Scenario027 : ScenarioModel
 
 		_door2 = GameController.Instance.Map.GetMarker(Marker.Type._2).GetHexObject<Door>();
 
-		AddScenarioRule(textParameters =>
+		_scenarioOrbRule = AddScenarioRule(textParameters =>
 			$"""
 			 At the beginning of the scenario, nominate one character to hold the Orb of Embers. The Orb of Embers cannot be transferred to another character, and it becomes inactive if the nominated character becomes exhausted.
 			 """);

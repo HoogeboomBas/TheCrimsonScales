@@ -79,6 +79,7 @@ public class Scenario020 : ScenarioModel
 	private bool _summonElite;
 	private List<Objective> _altars = [];
 	private int _currentAltarIndex = 0;
+	private ScenarioRule _scenarioTeleportRule;
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
@@ -96,10 +97,10 @@ public class Scenario020 : ScenarioModel
 
 		AddScenarioRule(textParameters =>
 			$"""
-			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar marked hex which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)}.
+			 If there is a Move ability listed on the Cultist ability card, it first starts its turn by {Icons.Inline(Icons.Teleport)} to the closest hex adjacent to an altar which is also closest to an enemy. The order in which it teleports is first the hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)}, {Icons.InlineMarker(Marker.Type.b, textParameters)}, then {Icons.InlineMarker(Marker.Type.c, textParameters)}.
 			 """);
 
-		AddScenarioRule(textParameters =>
+		_scenarioTeleportRule = AddScenarioRule(textParameters =>
 			$"""
 			 If an altar is destroyed the Cultist can no longer teleport near it and skips the teleport ability if it would otherwise teleport to the marked hex. When there is only one altar remaining, the Cultist no longer teleports.
 			 """);
@@ -113,13 +114,24 @@ public class Scenario020 : ScenarioModel
 			altar.Init((GameController.Instance.SavedCampaign.Characters.Count + GameController.Instance.SavedScenario.ScenarioLevel) * 3,
 				"Altar");
 		}
-	
+
+		ScenarioEvents.FigureKilledEvent.Subscribe(this, 
+			parameters =>
+				parameters.Figure is Objective && _altars.Count(altar => altar.IsDestroyed) == 2,
+			async parameters =>
+			{
+				ScenarioEvents.FigureKilledEvent.Unsubscribe(this);
+				ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(this);
+
+				_scenarioTeleportRule.Remove();
+			}
+		);
+
 		ScenarioEvents.FigureTurnStartedEvent.Subscribe(this, 
 			parameters => 
 				parameters.Figure is Monster monster && 
 				monster.MonsterModel is CultLeader && 
-				monster.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(monster).Any(monsterAbility => monsterAbility.Ability is MoveAbility) &&
-				_altars.Count(altar => altar.IsDestroyed) < 2,
+				monster.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(monster).Any(monsterAbility => monsterAbility.Ability is MoveAbility),
 			async parameters =>
 			{
 				if(!_altars[_currentAltarIndex].IsDestroyed)
