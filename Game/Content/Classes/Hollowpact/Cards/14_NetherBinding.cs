@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Godot;
 
 public class NetherBinding : HollowpactCardModel<NetherBinding.CardTop, NetherBinding.CardBottom>
 {
@@ -11,7 +13,24 @@ public class NetherBinding : HollowpactCardModel<NetherBinding.CardTop, NetherBi
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
+			new AbilityCardAbility(PushAbility.Builder()
+				.WithPush(3, new PushCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithRange(1)
+				.WithConditions(Conditions.Immobilize)
+				.Build()),
 
+			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
+				.WithCustomSelectHexes((state, hexes) =>
+				{
+					hexes.AddRange(state.ActionState.GetAbilityState<PushAbility.State>(0).Target.Hex.Neighbours.Where(hex => hex.IsEmpty()));
+				})
+				.WithOnAbilityEndedPerformed(async state => 
+				{
+					await GainVoidEnergy(state); 
+					await GainXP(state);
+				})
+				.Build()),
 		];
 	}
 
@@ -19,7 +38,25 @@ public class NetherBinding : HollowpactCardModel<NetherBinding.CardTop, NetherBi
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
+			new AbilityCardAbility(TeleportAbility.Builder()
+				.WithDistance(5)
+				.WithFilterHexes((state, hex) => hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.AlliedWith(state.Performer))))
+				.WithConditionalAbilityCheck(async state =>
+				{
+					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}5, end adjacent to an ally."));
+				})
+				.Build()),
 
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(4, new HealDiamondPlus(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithTarget(Target.Allies)
+				.WithRange(1)
+				.WithConditions(Conditions.Wound1)
+				.Build())
 		];
+
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Earth), CardElementInfusion.Infuse(Element.Dark)];
 	}
 }

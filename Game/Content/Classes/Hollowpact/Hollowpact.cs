@@ -44,7 +44,7 @@ public partial class Hollowpact : Character
 
 	public static CreateObstacleAbility.CreateObstacleBuilder CreateVoidPitObstacleAbilityBuilder()
 	{
-		return CreateObstacleAbility.Builder().WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn").WithCustomName("Void pit");
+		return CreateObstacleAbility.Builder().WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn").WithCustomName("Void Pit");
 	}
 
 	public void GainVoidEnergy(int count = 1)
