@@ -34,7 +34,11 @@ public class EmpoweredAssault : HollowpactCardModel<EmpoweredAssault.CardTop, Em
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(SufferDamageAbility.Builder().WithDamage(2).WithTarget(Target.Self).WithMandatory(true).Build()),
+			new AbilityCardAbility(SufferDamageAbility.Builder()
+				.WithDamage(2)
+				.WithTarget(Target.Self)
+				.WithMandatory(true)
+				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>

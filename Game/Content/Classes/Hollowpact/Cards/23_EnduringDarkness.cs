@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Godot;
 
 public class EnduringDarkness : HollowpactCardModel<EnduringDarkness.CardTop, EnduringDarkness.CardBottom>
 {
@@ -11,15 +12,60 @@ public class EnduringDarkness : HollowpactCardModel<EnduringDarkness.CardTop, En
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Ward)
+				.WithTarget(Target.Self)
+				.Build()),
 
+			new AbilityCardAbility(OtherActiveAbility.Builder()
+				.WithOnActivate(async state =>
+				{
+					ScenarioEvents.AfterRemoveConditionEvent.Subscribe(state, this,
+						parameters => parameters.Figure == state.Performer && parameters.Condition == Conditions.Ward,
+						async parameters =>
+            			{
+            			    await AbilityCmd.AddCondition(state, parameters.Figure, Conditions.Ward);
+							await AbilityCmd.GainXP(parameters.Figure, 1);
+
+							ScenarioEvents.AfterRemoveConditionEvent.Unsubscribe(state, this);
+            			});
+				})
+				.WithOnDeactivate(async state =>
+				{
+					ScenarioEvents.AfterRemoveConditionEvent.Unsubscribe(state, this);
+				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark,
+					effectInfoText: $"Whenever you do not have {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))} this round, gain {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))}"))
+				.Build()),
+
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					await GainVoidEnergy(state, 2);
+					state.SetPerformed();
+				})
+				.Build()),
 		];
+
+		public override bool Round => true;
 	}
 
 	public class CardBottom : HollowpactCardSide
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.Build()),
 
+			new AbilityCardAbility(HealAbility.Builder()
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithRange(1)
+				.WithConditions(Conditions.Regenerate)
+				.Build())
 		];
+
+		public override IEnumerable<CardElementInfusion> Elements =>
+			[CardElementInfusion.Infuse(Element.Earth), CardElementInfusion.Infuse(Element.Dark)];
 	}
 }

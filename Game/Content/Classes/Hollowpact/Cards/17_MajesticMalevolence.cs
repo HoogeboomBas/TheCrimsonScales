@@ -73,7 +73,7 @@ public class MajesticMalevolence : HollowpactCardModel<MajesticMalevolence.CardT
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await AbilityCmd.HasPerformedAbility(state, 0) && await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 2, 
-						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}3{Icons.Inline(Icons.GetCondition(Conditions.Muddle))}"));
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}3{Icons.Inline(Icons.GetCondition(Conditions.Muddle))}, {Icons.Inline(Icons.Targets)}1 enemy adjacent to the created Void Pit."));
 				})
 				.WithCustomGetTargets((state, hexes) =>
 				{
