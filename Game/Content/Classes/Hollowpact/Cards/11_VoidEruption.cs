@@ -51,7 +51,8 @@ public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidErupti
 				.WithDistance(3)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}3, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}, self"));
+					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}3, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}, self"));
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 				{

@@ -13,13 +13,15 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
 				.WithConditions(Conditions.Wound1)
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red)
-				]))
+				]),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.SouthEast), this,
+						new Vector2(0.6511111f, 0.2245968f)))
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(2,
 					async parameters =>
 					{
@@ -39,10 +41,10 @@ public class WitheringDeluge : HollowpactCardModel<WitheringDeluge.CardTop, With
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6511111f, 0.2245968f)))
 				.Build()),
 			
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(2)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),

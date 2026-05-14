@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, BorrowedVitality.CardBottom>
 {
@@ -13,7 +14,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(3)
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.6511111f, 0.2245968f)))
 				.WithTarget(Target.Self)
 				.WithDuringHealSubscription(ScenarioEvents.DuringHeal.Subscription.New(
 					parameters => true,
@@ -47,7 +48,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6511111f, 0.2245968f)))
 				.Build()),
 			
 			new AbilityCardAbility(HealAbility.Builder()
@@ -55,7 +56,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 				.WithTarget(Target.Self)
 				.WithConditions(Conditions.Regenerate)
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
-				.WithOnAbilityEndedPerformed(state => AbilityCmd.GainXP(state.Performer, 1))
+				.WithOnAbilityEndedPerformed(GainXP)
 				.Build())
 		];
 	}

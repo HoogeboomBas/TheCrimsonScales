@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheVoidConsumes.CardBottom>
 {
@@ -22,11 +23,12 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 3, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}6, advantage, {Icons.Inline(Icons.Push)}1"));
+					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 3, 
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}6, advantage, {Icons.Inline(Icons.Push)}1"));
 				})
 				.Build()),
 			
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.Build())
 		];
 	}
@@ -56,7 +58,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 				.Build()),
 			
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
 				.WithConditions(Conditions.Immobilize)
 				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomGetTargets((state, list) =>

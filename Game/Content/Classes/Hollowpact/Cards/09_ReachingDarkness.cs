@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, ReachingDarkness.CardBottom>
 {
@@ -13,16 +14,11 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
 				.WithRange(5)
 				.Build()),
 			
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state);
-					state.SetPerformed();
-				})
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
 				.Build()),
 		];
 		

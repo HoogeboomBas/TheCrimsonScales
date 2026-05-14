@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOpening.CardBottom>
 {
@@ -13,7 +14,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
+			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
@@ -21,9 +22,10 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 					{
 						parameters.AbilityState.AbilityAdjustAttackValue(1);
 						parameters.AbilityState.AbilityAdjustPierce(1);
+
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					},
-					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.Pierce)} 1")))
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.Pierce)}1")))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
@@ -52,14 +54,14 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(3)
 				.WithObstacleCount(2)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
 			
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
 				.WithTargets(4)
 				.WithCustomGetTargets((state, list) =>
 				{

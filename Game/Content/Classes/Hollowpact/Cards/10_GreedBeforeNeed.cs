@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Godot;
 
 public class GreedBeforeNeed : HollowpactCardModel<GreedBeforeNeed.CardTop, GreedBeforeNeed.CardBottom>
 {
@@ -28,7 +29,7 @@ public class GreedBeforeNeed : HollowpactCardModel<GreedBeforeNeed.CardTop, Gree
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3)
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6505704f, 0.34698993f)))
 				.WithDuringMovementSubscription(ScenarioEvents.DuringMovement.Subscription.ConsumeElement([CardElementConsumption.ConsumeWild()],
 					applyFunction: async parameters =>
 					{

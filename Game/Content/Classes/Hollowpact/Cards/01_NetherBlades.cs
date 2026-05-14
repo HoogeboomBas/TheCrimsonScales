@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -13,14 +15,19 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
+			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
+
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-				]))
+				]),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), this,
+						new Vector2(0.6511111f, 0.2245968f)),
+					new AOEHexMark(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), this,
+						new Vector2(0.6505704f, 0.34698993f)))
 				.Build()),
 			
 			new AbilityCardAbility(OtherAbility.Builder()
@@ -29,7 +36,10 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 					await GainVoidEnergy(state, state.ActionState.GetAbilityState<AttackAbility.State>(1).UniqueTargetedFigures.Count);
 					state.SetPerformed();
 				})
-				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
+				.WithConditionalAbilityCheck(async state =>
+				{
+					return await AbilityCmd.HasPerformedAbility(state, 1);
+				})
 				.Build()),
 		];
 	}
@@ -39,10 +49,11 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2)
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.6505704f, 0.34698993f)))
 				.WithConditionalAbilityCheck(async state =>
 				{
-					bool usedVoidEnergy = await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}4 instead"));
+					bool usedVoidEnergy = await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
+						new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Teleport)}4 instead"));
 
 					state.SetCustomValue(this, "UsedVoidEnergy", usedVoidEnergy);
 					return !usedVoidEnergy;
