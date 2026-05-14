@@ -21,7 +21,7 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 						parameters.AbilityState.AbilityAddCondition(Conditions.Muddle);
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					}, 
-					new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Disarm))}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")))
+					new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Poison1))}, {Icons.Inline(Icons.GetCondition(Conditions.Muddle))}")))
 				.Build()),
 			
 			new AbilityCardAbility(HealAbility.Builder()

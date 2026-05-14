@@ -26,12 +26,15 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 				])
 				.WithOnAbilityEndedPerformed(async grantState =>
 				{
-					int targetedEnemies = grantState.GrantAbilityActionStates.First().AbilityStates.Count(attackState => attackState.Performed);
-
-					if(targetedEnemies > 0)
+					if(grantState.GrantAbilityActionStates.First().AbilityStates.First() is AttackAbility.State attackState && attackState.Performed)
 					{
-						await AbilityCmd.SufferDamage(grantState, grantState.Target, targetedEnemies);
-						await GainVoidEnergy(grantState);
+						int targetedEnemies = attackState.UniqueTargetedFigures.Count;
+
+						if(targetedEnemies > 0)
+						{
+							await AbilityCmd.SufferDamage(grantState, grantState.Target, targetedEnemies);
+							await GainVoidEnergy(grantState);
+						}
 					}
 				})
 				.Build()),
@@ -49,8 +52,8 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 					applyFunction: async applyParameters =>
 					{
 						applyParameters.AbilityState.AbilityAdjustHealValue(1);
+						
 						await AbilityCmd.AddCondition(applyParameters.AbilityState, applyParameters.AbilityState.Target, Conditions.Regenerate);
-
 						await AbilityCmd.GainXP(applyParameters.Performer, 1);
 					},
 					effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Heal)}, " +

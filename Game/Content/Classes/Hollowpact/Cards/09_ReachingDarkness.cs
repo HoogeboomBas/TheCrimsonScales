@@ -59,10 +59,6 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				{
 					return await AbilityCmd.HasPerformedAbility(state, 1);
 				})
-				.WithCustomGetTargets((state, list) =>
-				{
-					list.AddRange(state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).TargetedFigures);
-				})
 				.Build()),
 		];
 		
