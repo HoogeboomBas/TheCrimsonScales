@@ -31,7 +31,7 @@ public class EntropyUnleashed : HollowpactCardModel<EntropyUnleashed.CardTop, En
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
 							parameters.AbilityState.AbilityAddCondition(Conditions.Poison1);
 						},
-						new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")),
+						new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.GetCondition(Conditions.Poison1))}")),
 
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement([CardElementConsumption.ConsumeWild()],
 						applyFunction: async parameters =>
@@ -40,8 +40,8 @@ public class EntropyUnleashed : HollowpactCardModel<EntropyUnleashed.CardTop, En
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Immobilize))}")
-					)])
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}"))
+					])
 				.Build()),
 		];
 	}

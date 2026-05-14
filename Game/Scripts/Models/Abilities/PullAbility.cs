@@ -29,7 +29,7 @@ public class PullAbility : TargetedAbility<PullAbility.State, SingleTargetState>
 			TBuilder WithPull(int pull, params PullEnhancementMark[] enhancementMarks);
 		}
 
-		public TBuilder WithDuringPullSubscriptions(ScenarioEvents.DuringPull.Subscription[] duringPullSubscriptions)
+		public TBuilder WithDuringPullSubscriptions(params ScenarioEvents.DuringPull.Subscription[] duringPullSubscriptions)
 		{
 			Obj.DuringPullSubscriptions.AddRange(duringPullSubscriptions);
 			return (TBuilder)this;

@@ -92,6 +92,9 @@ public class Obliterate : HollowpactCardModel<Obliterate.CardTop, Obliterate.Car
 					{
 						await GainVoidEnergy(state);
 					}
+
+					ScenarioCheckEvents.CanEnterObstacleCheckEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 				})
 				.Build())
 		];

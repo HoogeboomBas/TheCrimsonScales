@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class StalkingQuarry : HollowpactCardModel<StalkingQuarry.CardTop, StalkingQuarry.CardBottom>
@@ -14,9 +15,12 @@ public class StalkingQuarry : HollowpactCardModel<StalkingQuarry.CardTop, Stalki
 		[
 			new AbilityCardAbility(TeleportAbility.Builder()
 				.WithDistance(3)
-				.WithFilterHexes((state, hex) =>
+				.WithFilterHexes((state, teleportTargetHex) =>
 				{
-					hex.Neighbours.
+					return teleportTargetHex.Neighbours
+						.Any(potentialEnemyHex => 
+							potentialEnemyHex.GetFigures().Any(figure => figure.EnemiesWith(state.Performer))
+					 	&& !potentialEnemyHex.Neighbours.Any(otherFigureHex => otherFigureHex.HasHexObjectOfType<Figure>()));
 				})
 				.Build()),
 
