@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 using Godot;
 
 public class VoidEnhancedArmory : HollowpactCardModel<VoidEnhancedArmory.CardTop, VoidEnhancedArmory.CardBottom>
@@ -6,7 +7,7 @@ public class VoidEnhancedArmory : HollowpactCardModel<VoidEnhancedArmory.CardTop
 	public override string Name => "Void-Enhanced Armory";
 	public override int Level => 4;
 	public override int Initiative => 17;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 4;
 
 	public class CardTop : HollowpactCardSide
 	{
@@ -51,9 +52,13 @@ public class VoidEnhancedArmory : HollowpactCardModel<VoidEnhancedArmory.CardTop
 											async parameters =>
 											{
 												parameters.AbilityState.AbilityAdjustAttackValue(1);
+
+												await GDTask.CompletedTask;
 											});
 
 										ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+
+										await GDTask.CompletedTask;
 									}, new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)} to all your attacks for the round.")));
 						});
 

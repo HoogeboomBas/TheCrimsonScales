@@ -8,7 +8,7 @@ public class Obliterate : HollowpactCardModel<Obliterate.CardTop, Obliterate.Car
 	public override string Name => "Obliterate";
 	public override int Level => 4;
 	public override int Initiative => 13;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 5;
 
 	public class CardTop : HollowpactCardSide
 	{

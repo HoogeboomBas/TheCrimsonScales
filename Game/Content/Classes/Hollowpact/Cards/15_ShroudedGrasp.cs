@@ -6,7 +6,7 @@ public class ShroudedGrasp : HollowpactCardModel<ShroudedGrasp.CardTop, Shrouded
 	public override string Name => "Shrouded Grasp";
 	public override int Level => 2;
 	public override int Initiative => 23;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 1;
 
 	public class CardTop : HollowpactCardSide
 	{

@@ -14,24 +14,21 @@ public abstract class HollowpactCardModel<TTop, TBottom> : AbilityCardModel<TTop
 	where TTop : HollowpactCardSide
 	where TBottom : HollowpactCardSide
 {
-	protected override string TexturePath => "res://Content/Classes/Hollowpact/Cards.png";
+	protected override string TexturePath => "res://Content/Classes/Hollowpact/Cards.jpg";
 	protected override int ColumnCount => 8;
 	protected override int RowCount => 2;
 }
 
 public abstract class HollowpactCardSide : AbilityCardSideModel
 {
-	// Hollowpact abilities
 	public static DivinationAbility.DivinationBuilder VoidsightAbilityBuilder()
 	{
-		return DivinationAbility.Builder().WithCardsToPeek(1).WithMaxCardsToPlaceAtBottom(1).WithTarget(Target.Self);
+		return Hollowpact.VoidsightAbilityBuilder();
 	}
 
 	public static CreateObstacleAbility.CreateObstacleBuilder CreateVoidPitObstacleAbilityBuilder()
 	{
-		return CreateObstacleAbility.Builder()
-			.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
-			.WithCustomName("Void Pit");
+		return Hollowpact.CreateVoidPitObstacleAbilityBuilder();
 	}
 
 	public static OtherAbility.OtherBuilder GainVoidEnergyAbilityBuilder(int count = 1)

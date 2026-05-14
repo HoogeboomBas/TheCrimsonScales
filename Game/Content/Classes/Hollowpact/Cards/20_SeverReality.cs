@@ -7,7 +7,7 @@ public class SeverReality : HollowpactCardModel<SeverReality.CardTop, SeverReali
 	public override string Name => "Sever Reality";
 	public override int Level => 5;
 	public override int Initiative => 78;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 6;
 
 	public class CardTop : HollowpactCardSide
 	{

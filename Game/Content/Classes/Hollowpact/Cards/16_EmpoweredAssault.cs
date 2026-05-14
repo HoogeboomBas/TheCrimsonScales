@@ -6,7 +6,7 @@ public class EmpoweredAssault : HollowpactCardModel<EmpoweredAssault.CardTop, Em
 	public override string Name => "Empowered Assault";
 	public override int Level => 3;
 	public override int Initiative => 19;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 2;
 
 	public class CardTop : HollowpactCardSide
 	{

@@ -6,7 +6,7 @@ public class RuinousBarrage : HollowpactCardModel<RuinousBarrage.CardTop, Ruinou
 	public override string Name => "Ruinous Barrage";
 	public override int Level => 7;
 	public override int Initiative => 38;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 10;
 
 	public class CardTop : HollowpactCardSide
 	{

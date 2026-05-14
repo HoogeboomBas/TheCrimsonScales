@@ -7,7 +7,7 @@ public class NoEscape : HollowpactCardModel<NoEscape.CardTop, NoEscape.CardBotto
 	public override string Name => "No Escape";
 	public override int Level => 9;
 	public override int Initiative => 57;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 14;
 
 	public class CardTop : HollowpactCardSide
 	{

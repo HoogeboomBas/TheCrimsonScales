@@ -7,7 +7,7 @@ public class StalkingQuarry : HollowpactCardModel<StalkingQuarry.CardTop, Stalki
 	public override string Name => "Stalking Quarry";
 	public override int Level => 5;
 	public override int Initiative => 14;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 7;
 
 	public class CardTop : HollowpactCardSide
 	{

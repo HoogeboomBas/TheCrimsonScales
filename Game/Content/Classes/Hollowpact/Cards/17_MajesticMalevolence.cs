@@ -8,7 +8,7 @@ public class MajesticMalevolence : HollowpactCardModel<MajesticMalevolence.CardT
 	public override string Name => "Majestic Malevolence";
 	public override int Level => 3;
 	public override int Initiative => 89;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 3;
 
 	public class CardTop : HollowpactCardSide
 	{

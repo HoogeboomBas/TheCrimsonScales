@@ -30,7 +30,7 @@ public class HollowpactAMDCards
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +0;
 		public override List<Ability> GetAbilities(AttackAbility.State attackAbilityState) =>
 		[
-			VoidsightAbility.Builder().Build()
+			Hollowpact.VoidsightAbilityBuilder().Build()
 		];
 	}
 

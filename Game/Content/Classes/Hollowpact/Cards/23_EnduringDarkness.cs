@@ -6,7 +6,7 @@ public class EnduringDarkness : HollowpactCardModel<EnduringDarkness.CardTop, En
 	public override string Name => "Enduring Darkness";
 	public override int Level => 6;
 	public override int Initiative => 26;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 9;
 
 	public class CardTop : HollowpactCardSide
 	{

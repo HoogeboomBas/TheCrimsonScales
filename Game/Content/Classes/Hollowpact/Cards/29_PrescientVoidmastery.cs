@@ -7,7 +7,7 @@ public class PrescientVoidmastery : HollowpactCardModel<PrescientVoidmastery.Car
 	public override string Name => "Prescient Voidmastery";
 	public override int Level => 9;
 	public override int Initiative => 11;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 15;
 
 	public class CardTop : HollowpactCardSide
 	{

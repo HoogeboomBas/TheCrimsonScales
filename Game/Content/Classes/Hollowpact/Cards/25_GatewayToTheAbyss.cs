@@ -8,7 +8,7 @@ public class GatewayToTheAbyss : HollowpactCardModel<GatewayToTheAbyss.CardTop, 
 	public override string Name => "Gateway to the Abyss";
 	public override int Level => 7;
 	public override int Initiative => 66;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 11;
 
 	public class CardTop : HollowpactCardSide
 	{

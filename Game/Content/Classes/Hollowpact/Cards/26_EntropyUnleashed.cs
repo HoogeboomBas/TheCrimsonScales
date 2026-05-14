@@ -7,7 +7,7 @@ public class EntropyUnleashed : HollowpactCardModel<EntropyUnleashed.CardTop, En
 	public override string Name => "Entropy Unleashed";
 	public override int Level => 8;
 	public override int Initiative => 28;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 12;
 
 	public class CardTop : HollowpactCardSide
 	{

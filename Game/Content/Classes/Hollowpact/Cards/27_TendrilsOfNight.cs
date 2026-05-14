@@ -7,7 +7,7 @@ public class TendrilsOfNight : HollowpactCardModel<TendrilsOfNight.CardTop, Tend
 	public override string Name => "Tendrils of Night";
 	public override int Level => 8;
 	public override int Initiative => 44;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 13;
 
 	public class CardTop : HollowpactCardSide
 	{

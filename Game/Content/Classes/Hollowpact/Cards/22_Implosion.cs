@@ -7,7 +7,7 @@ public class Implosion : HollowpactCardModel<Implosion.CardTop, Implosion.CardBo
 	public override string Name => "Implosion";
 	public override int Level => 6;
 	public override int Initiative => 49;
-	protected override int AtlasIndex => 0;
+	protected override int AtlasIndex => 8;
 
 	public class CardTop : HollowpactCardSide
 	{
