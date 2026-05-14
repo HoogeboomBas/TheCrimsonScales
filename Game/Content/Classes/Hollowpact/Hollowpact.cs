@@ -3,8 +3,7 @@ using Godot;
 
 public partial class Hollowpact : Character
 {
-	public const string VoidEnergy = "res://Content/Classes/Hollowpact/Icon.svg";
-	public const string VoidEnergyAlt = "res://Content/Classes/Hollowpact/cs-void-energy.png";
+	public const string VoidEnergy = "res://Content/Classes/Hollowpact/cs-void-energy.png";
 
 	[Export]
 	private VoidEnergyIndicator _voidEnergyIndicator;
@@ -40,11 +39,6 @@ public partial class Hollowpact : Character
 		);
 
 		GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) => _voidEnergyIndicator.QueueFree();
-	}
-
-	public static CreateObstacleAbility.CreateObstacleBuilder CreateVoidPitObstacleAbilityBuilder()
-	{
-		return CreateObstacleAbility.Builder().WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn").WithCustomName("Void Pit");
 	}
 
 	public void GainVoidEnergy(int count = 1)

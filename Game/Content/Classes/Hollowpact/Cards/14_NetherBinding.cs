@@ -19,7 +19,7 @@ public class NetherBinding : HollowpactCardModel<NetherBinding.CardTop, NetherBi
 				.WithConditions(Conditions.Immobilize)
 				.Build()),
 
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomSelectHexes((state, hexes) =>
 				{

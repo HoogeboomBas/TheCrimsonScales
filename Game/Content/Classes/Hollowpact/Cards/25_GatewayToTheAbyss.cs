@@ -14,7 +14,7 @@ public class GatewayToTheAbyss : HollowpactCardModel<GatewayToTheAbyss.CardTop, 
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(2)
 				.Build()),
 

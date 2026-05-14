@@ -63,7 +63,7 @@ public class MajesticMalevolence : HollowpactCardModel<MajesticMalevolence.CardT
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(3)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),

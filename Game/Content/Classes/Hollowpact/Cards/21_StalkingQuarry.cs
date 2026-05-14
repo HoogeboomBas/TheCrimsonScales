@@ -31,11 +31,11 @@ public class StalkingQuarry : HollowpactCardModel<StalkingQuarry.CardTop, Stalki
 						new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")),
 
 					ScenarioEvents.DuringAttack.Subscription.ConsumeElement(Element.Dark,
-						applyFunction: async applyParameters =>
+						applyFunction: async parameters =>
 						{
-							applyParameters.AbilityState.AbilityAddCondition(Conditions.Immobilize);
+							parameters.AbilityState.AbilityAddCondition(Conditions.Immobilize);
 
-							await AbilityCmd.GainXP(applyParameters.Performer, 1);
+							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Immobilize))}")
 					)])

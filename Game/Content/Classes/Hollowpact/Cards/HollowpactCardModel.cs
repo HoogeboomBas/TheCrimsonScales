@@ -21,6 +21,30 @@ public abstract class HollowpactCardModel<TTop, TBottom> : AbilityCardModel<TTop
 
 public abstract class HollowpactCardSide : AbilityCardSideModel
 {
+	// Hollowpact abilities
+	public static DivinationAbility.DivinationBuilder VoidsightAbilityBuilder()
+	{
+		return DivinationAbility.Builder().WithCardsToPeek(1).WithMaxCardsToPlaceAtBottom(1).WithTarget(Target.Self);
+	}
+
+	public static CreateObstacleAbility.CreateObstacleBuilder CreateVoidPitObstacleAbilityBuilder()
+	{
+		return CreateObstacleAbility.Builder()
+			.WithCustomAsset("res://Content/Classes/Hollowpact/VoidPit.tscn")
+			.WithCustomName("Void Pit");
+	}
+
+	public static OtherAbility.OtherBuilder GainVoidEnergyAbilityBuilder(int count = 1)
+	{
+		return OtherAbility.Builder()
+			.WithPerformAbility(async state =>
+			{
+				await GainVoidEnergy(state, count);
+				state.SetPerformed();
+			});
+	}
+
+	// Void energy produce/consume helpers
 	public static async GDTask GainVoidEnergy(AbilityState state, int count)
 	{
 		if(state.Performer is Hollowpact hollowpact)

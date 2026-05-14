@@ -40,12 +40,7 @@ public class EmpoweredAssault : HollowpactCardModel<EmpoweredAssault.CardTop, Em
 				.WithMandatory(true)
 				.Build()),
 
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state);
-					state.SetPerformed();
-				})
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()

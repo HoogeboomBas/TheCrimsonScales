@@ -55,12 +55,7 @@ public class RuinousBarrage : HollowpactCardModel<RuinousBarrage.CardTop, Ruinou
 				.WithMandatory(true)
 				.Build()),
 
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state, 1);
-					state.SetPerformed();
-				})
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()

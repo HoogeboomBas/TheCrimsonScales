@@ -19,7 +19,7 @@ public class SeverReality : HollowpactCardModel<SeverReality.CardTop, SeverReali
 					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
 						list.AddRange(state.Performer.Hex.Neighbours.Where(hex => hex.HasHexObjectOfType<Obstacle>()));
-					}, hintText: "Designate an adjacent hex containing an obstacle to destroy.");
+					}, hintText: "Designate an adjacent hex containing an obstacle.");
 
 					if(hex != null)
 					{
@@ -56,7 +56,7 @@ public class SeverReality : HollowpactCardModel<SeverReality.CardTop, SeverReali
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
+			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()
 				.WithDistance(3, new TeleportCircle(this, new Vector2(0.41209206f, 0.1612586f)))

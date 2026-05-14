@@ -38,12 +38,7 @@ public class EnduringDarkness : HollowpactCardModel<EnduringDarkness.CardTop, En
 					effectInfoText: $"Whenever you do not have {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))} this round, gain {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))}"))
 				.Build()),
 
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state, 2);
-					state.SetPerformed();
-				})
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder(2)
 				.Build()),
 		];
 

@@ -13,7 +13,7 @@ public class Implosion : HollowpactCardModel<Implosion.CardTop, Implosion.CardBo
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(3)
 				.WithConditionalAbilityCheck(async state =>
 				{
@@ -33,7 +33,7 @@ public class Implosion : HollowpactCardModel<Implosion.CardTop, Implosion.CardBo
 						hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<Obstacle>()
 											.Where(obstacle => obstacle is VoidPit)
 											.Select(obstacle => obstacle.Hex));
-					}, hintText: $"Select a hex with a Void Pit to perform the attacks from.");
+					}, hintText: $"Select a hex with a Void Pit.");
 
 					if(hex == null)
 					{
@@ -66,12 +66,7 @@ public class Implosion : HollowpactCardModel<Implosion.CardTop, Implosion.CardBo
 				.WithRange(2)
 				.Build()),
 
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state);
-					state.SetPerformed();
-				})
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
 				.Build()),
 		];
 	}
