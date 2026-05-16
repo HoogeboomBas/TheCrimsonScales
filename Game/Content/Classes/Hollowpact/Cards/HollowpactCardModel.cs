@@ -87,9 +87,11 @@ public abstract class HollowpactCardSide : AbilityCardSideModel
 					LoseVoidEnergy(figure, count);
 					lostVoidEnergy = true;
 					await GDTask.CompletedTask;
-				}, EffectType.Selectable,
+				}, 
+				EffectType.Selectable,
 				effectButtonParameters: new TextEffectButton.Parameters($"{count}{Icons.HintText(Hollowpact.VoidEnergy)}"),
-				effectInfoViewParameters: effectInfoViewParameters)
+				effectInfoViewParameters: effectInfoViewParameters,
+				canApplyMultipleTimesDuringSubscription: false)
 		]);
 		return lostVoidEnergy;
 	}
@@ -104,7 +106,9 @@ public abstract class HollowpactCardSide : AbilityCardSideModel
 			{
 				LoseVoidEnergy(parameters.BaseAbilityState.Performer, count);
 				await applyFunction(parameters);
-			}, EffectType.Selectable,
+			}, 
+			EffectType.Selectable, 
+			canApplyMultipleTimesDuringSubscription: false,
 			effectButtonParameters: new TextEffectButton.Parameters($"{count}{Icons.HintText(Hollowpact.VoidEnergy)}"),
 			effectInfoViewParameters: effectInfoViewParameters);
 	}
