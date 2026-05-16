@@ -40,7 +40,7 @@ public class EmpoweredAssault : HollowpactLevelUpCardModel<EmpoweredAssault.Card
 				.WithMandatory(true)
 				.Build()),
 
-			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder(2)
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()

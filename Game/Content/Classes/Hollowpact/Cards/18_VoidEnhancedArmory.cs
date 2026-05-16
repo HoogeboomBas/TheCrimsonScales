@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -23,7 +24,7 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 						parameters.AbilityState.AbilityAdjustAttackValue(2);
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					},
-					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}")))
+					new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")))
 				.Build()),
 		];
 
@@ -39,47 +40,53 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
+					// Effect to start immediately
+					await _attackSubscription(state, this);
+		
+					// Effect to start each following turn
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this, 
 						parameters => parameters.Figure == state.Performer,
 						async parameters =>
 						{
-							ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this, 
-								LoseVoidEnergySubscription<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>(1,
-									async parameters =>
-									{
-										ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
-											parameters => parameters.Performer == state.Performer,
-											async parameters =>
-											{
-												parameters.AbilityState.AbilityAdjustAttackValue(1);
-
-												await GDTask.CompletedTask;
-											});
-
-										ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
-
-										await GDTask.CompletedTask;
-									}, new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)} to all your attacks for the round.")));
+							await _attackSubscription(state, this);
 						});
 
 					ScenarioEvents.RoundEndedEvent.Subscribe(state, this, 
 						parameters => true,
 						async parameters =>
 						{
+							ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 							ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
-							ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 						});
-
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
 				})
 				.Build())
 		];
+
+		Func<OtherActiveAbility.State, HollowpactCardSide, GDTask> _attackSubscription = 
+			async (state, cardSide) => ScenarioEvents.AbilityStartedEvent.Subscribe(state, cardSide,
+				LoseVoidEnergySubscription<ScenarioEvents.AbilityStarted.Parameters>(1,
+					async parameters =>
+					{
+						ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, cardSide);
+
+						ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
+							parameters => parameters.Performer == state.Performer,
+							async parameters =>
+							{
+								parameters.AbilityState.SingleTargetAdjustAttackValue(1);
+
+								await GDTask.CompletedTask;
+							});
+
+						await GDTask.CompletedTask;
+					}, new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)} to all your attacks for the round.")));
 
 		public override int XP => 2;
 		public override bool Persistent => true;

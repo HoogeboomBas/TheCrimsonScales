@@ -19,6 +19,7 @@ public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, S
 
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions([Conditions.Curse, Conditions.Invisible])
+				.WithTarget(Target.Self)
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, new TextEffectInfoView.Parameters(

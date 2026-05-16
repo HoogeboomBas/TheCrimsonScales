@@ -46,10 +46,11 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 
 					foreach(Figure figure in alliedFigures)
 					{
-						await AbilityCmd.SufferDamage(state, figure, 2);
+						await AbilityCmd.SufferDamage(state, figure, 3);
 					}
 				})
 				.Build()),
+				
 		];
 
 		public override bool Loss => true;
@@ -79,7 +80,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 
 								await GDTask.CompletedTask;
 							},
-							effectButtonParameters: new IconEffectButton.Parameters(Hollowpact.VoidEnergy),
+							effectButtonParameters: new TextEffectButton.Parameters($"1{Icons.HintText(Hollowpact.VoidEnergy)}"),
 							effectInfoViewParameters: new TextEffectInfoView.Parameters($"Grant one adjacent ally: {Icons.Inline(Icons.Teleport)} to a hex within {Icons.Inline(Icons.Range)}5 of the Hollowpact."),
 							effectType: EffectType.Selectable
 						),
@@ -94,7 +95,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 
 								await GDTask.CompletedTask;
 							},
-							effectButtonParameters: new IconEffectButton.Parameters(Hollowpact.VoidEnergy),
+							effectButtonParameters: new TextEffectButton.Parameters($"1{Icons.HintText(Hollowpact.VoidEnergy)}"),
 							effectInfoViewParameters: new TextEffectInfoView.Parameters($"Control one adjacent enemy: {Icons.Inline(Icons.Teleport)} to a hex within {Icons.Inline(Icons.Range)}5 of the Hollowpact."),
 							effectType: EffectType.Selectable
 						),
@@ -106,27 +107,27 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.WithAbilities(
 				[
 					TeleportAbility.Builder()
-					.WithCustomGetHexes((state, hexes) =>
-					{
-						hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5, 
-							includeOrigin: false, 
-							requiresLineOfSight: false, 
-							requiresHexesRevealed: true, 
-							allowDoors: true)
-						.Where(hex => hex.IsEmpty()));
-					})
-					.Build()
+						.WithCustomGetHexes((state, hexes) =>
+						{
+							hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5, 
+								includeOrigin: false, 
+								requiresLineOfSight: false, 
+								requiresHexesRevealed: true, 
+								allowDoors: true)
+							.Where(hex => hex.IsEmpty()));
+						})
+						.Build()
 				])
 				.WithRange(1)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(0);
+					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(1);
 
 					return abilityState.Performed && abilityState.GetCustomValue<bool>(this, "ChoseGrant");
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 				{
-					await AbilityCmd.SufferDamage(state, state.Performer, 2);
+					await AbilityCmd.SufferDamage(state, state.Target, 2);
 				})
 				.Build()),
 
@@ -134,27 +135,27 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.WithAbilities(
 				[
 					TeleportAbility.Builder()
-					.WithCustomGetHexes((state, hexes) =>
-					{
-						hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5, 
-							includeOrigin: false, 
-							requiresLineOfSight: false, 
-							requiresHexesRevealed: true, 
-							allowDoors: false)
-						.Where(hex => hex.IsEmpty()));
-					})
-					.Build()
+						.WithCustomGetHexes((state, hexes) =>
+						{
+							hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5, 
+								includeOrigin: false, 
+								requiresLineOfSight: false, 
+								requiresHexesRevealed: true, 
+								allowDoors: false)
+							.Where(hex => hex.IsEmpty()));
+						})
+						.Build()
 				])
 				.WithRange(1)
 				.WithConditionalAbilityCheck(async state =>
 				{
-					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(0);
+					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(1);
 
 					return abilityState.Performed && abilityState.GetCustomValue<bool>(this, "ChoseControl");
 				})
 				.WithOnAbilityEndedPerformed(async state =>
 				{
-					await AbilityCmd.SufferDamage(state, state.Performer, 2);
+					await AbilityCmd.SufferDamage(state, state.Target, 2);
 				})
 				.Build()),
 		];

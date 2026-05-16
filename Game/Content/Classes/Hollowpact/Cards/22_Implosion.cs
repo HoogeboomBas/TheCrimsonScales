@@ -62,7 +62,7 @@ public class Implosion : HollowpactLevelUpCardModel<Implosion.CardTop, Implosion
 
 			new AbilityCardAbility(PullAbility.Builder()
 				.WithPull(1)
-				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithTarget(Target.Enemies | Target.Allies | Target.TargetAll)
 				.WithRange(2)
 				.Build()),
 

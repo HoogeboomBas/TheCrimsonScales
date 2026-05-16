@@ -57,6 +57,8 @@ public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolenc
 				.WithOnAbilityEndedPerformed(GainXP)
 				.Build()),
 		];
+
+		public override bool Round => true;
 	}
 
 	public class CardBottom : HollowpactCardSide
@@ -70,6 +72,7 @@ public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolenc
 
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3)
+				.WithConditions(Conditions.Muddle)
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await AbilityCmd.HasPerformedAbility(state, 0) && await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 2, 

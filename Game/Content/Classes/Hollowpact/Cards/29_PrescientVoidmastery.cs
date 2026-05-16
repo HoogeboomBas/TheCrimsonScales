@@ -83,7 +83,8 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 					IEnumerable<Figure> figures = state.Hexes
 						.SelectMany(hex => hex.Neighbours)
 						.Distinct()
-						.SelectMany(hex => hex.GetFigures());
+						.SelectMany(hex => hex.GetFigures())
+						.Except([state.Performer]);
 					
 					foreach(Figure figure in figures)
 					{
