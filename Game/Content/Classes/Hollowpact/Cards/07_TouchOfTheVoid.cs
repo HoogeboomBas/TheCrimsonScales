@@ -49,8 +49,8 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 
 							await GDTask.CompletedTask;
 						});
-					
-					await GDTask.CompletedTask;
+
+					await AbilityCmd.RemoveCondition(state.Performer, Conditions.Muddle);
 				})
 				.WithOnDeactivate(async state =>
 				{

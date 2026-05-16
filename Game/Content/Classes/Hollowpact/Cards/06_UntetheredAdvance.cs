@@ -48,11 +48,12 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 				.WithPerformAbility(async state =>
 				{
 					Hex hex = await AbilityCmd.SelectHex(state, list =>
-					{
-						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, range: 1)
-							.Where(hex => hex.GetHexObjectsOfType<Trap>().Any(hexObject => !hexObject.CannotBeDestroyed) ||
-							               hex.GetHexObjectsOfType<Obstacle>().Any(hexObject => !hexObject.CannotBeDestroyed)));
-					});
+						{
+							list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, range: 1)
+								.Where(hex => hex.GetHexObjectsOfType<Trap>().Any(hexObject => !hexObject.CannotBeDestroyed) ||
+								               hex.GetHexObjectsOfType<Obstacle>().Any(hexObject => !hexObject.CannotBeDestroyed)));
+						}, 
+						hintText: "Select an adjacent hex containing an obstacle or a trap.");
 
 					if(hex != null)
 					{

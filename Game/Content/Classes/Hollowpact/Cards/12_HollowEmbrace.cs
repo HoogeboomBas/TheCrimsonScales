@@ -52,8 +52,8 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 					applyFunction: async applyParameters =>
 					{
 						applyParameters.AbilityState.AbilityAdjustHealValue(1);
+						applyParameters.AbilityState.AbilityAddCondition(Conditions.Regenerate);
 						
-						await AbilityCmd.AddCondition(applyParameters.AbilityState, applyParameters.AbilityState.Target, Conditions.Regenerate);
 						await AbilityCmd.GainXP(applyParameters.Performer, 1);
 					},
 					effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Heal)}, " +
