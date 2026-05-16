@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class NoEscape : HollowpactCardModel<NoEscape.CardTop, NoEscape.CardBottom>
+public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.CardBottom>
 {
 	public override string Name => "No Escape";
 	public override int Level => 9;

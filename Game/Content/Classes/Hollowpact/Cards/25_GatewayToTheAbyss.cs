@@ -3,7 +3,7 @@ using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
-public class GatewayToTheAbyss : HollowpactCardModel<GatewayToTheAbyss.CardTop, GatewayToTheAbyss.CardBottom>
+public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.CardTop, GatewayToTheAbyss.CardBottom>
 {
 	public override string Name => "Gateway to the Abyss";
 	public override int Level => 7;

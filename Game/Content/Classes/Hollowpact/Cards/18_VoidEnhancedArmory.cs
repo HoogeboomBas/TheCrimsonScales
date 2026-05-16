@@ -2,7 +2,7 @@
 using Fractural.Tasks;
 using Godot;
 
-public class VoidEnhancedArmory : HollowpactCardModel<VoidEnhancedArmory.CardTop, VoidEnhancedArmory.CardBottom>
+public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.CardTop, VoidEnhancedArmory.CardBottom>
 {
 	public override string Name => "Void-Enhanced Armory";
 	public override int Level => 4;

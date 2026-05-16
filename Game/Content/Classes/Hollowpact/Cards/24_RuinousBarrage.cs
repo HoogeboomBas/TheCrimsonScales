@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-public class RuinousBarrage : HollowpactCardModel<RuinousBarrage.CardTop, RuinousBarrage.CardBottom>
+public class RuinousBarrage : HollowpactLevelUpCardModel<RuinousBarrage.CardTop, RuinousBarrage.CardBottom>
 {
 	public override string Name => "Ruinous Barrage";
 	public override int Level => 7;

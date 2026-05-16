@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class Implosion : HollowpactCardModel<Implosion.CardTop, Implosion.CardBottom>
+public class Implosion : HollowpactLevelUpCardModel<Implosion.CardTop, Implosion.CardBottom>
 {
 	public override string Name => "Implosion";
 	public override int Level => 6;

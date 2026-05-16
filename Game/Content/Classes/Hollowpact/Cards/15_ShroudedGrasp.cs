@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-public class ShroudedGrasp : HollowpactCardModel<ShroudedGrasp.CardTop, ShroudedGrasp.CardBottom>
+public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, ShroudedGrasp.CardBottom>
 {
 	public override string Name => "Shrouded Grasp";
 	public override int Level => 2;

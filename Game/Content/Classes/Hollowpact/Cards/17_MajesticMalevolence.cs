@@ -3,7 +3,7 @@ using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
-public class MajesticMalevolence : HollowpactCardModel<MajesticMalevolence.CardTop, MajesticMalevolence.CardBottom>
+public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolence.CardTop, MajesticMalevolence.CardBottom>
 {
 	public override string Name => "Majestic Malevolence";
 	public override int Level => 3;

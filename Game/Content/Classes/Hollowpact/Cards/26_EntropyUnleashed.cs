@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class EntropyUnleashed : HollowpactCardModel<EntropyUnleashed.CardTop, EntropyUnleashed.CardBottom>
+public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.CardTop, EntropyUnleashed.CardBottom>
 {
 	public override string Name => "Entropy Unleashed";
 	public override int Level => 8;

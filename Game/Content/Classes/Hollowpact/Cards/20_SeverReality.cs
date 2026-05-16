@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class SeverReality : HollowpactCardModel<SeverReality.CardTop, SeverReality.CardBottom>
+public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, SeverReality.CardBottom>
 {
 	public override string Name => "Sever Reality";
 	public override int Level => 5;

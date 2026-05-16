@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class StalkingQuarry : HollowpactCardModel<StalkingQuarry.CardTop, StalkingQuarry.CardBottom>
+public class StalkingQuarry : HollowpactLevelUpCardModel<StalkingQuarry.CardTop, StalkingQuarry.CardBottom>
 {
 	public override string Name => "Stalking Quarry";
 	public override int Level => 5;

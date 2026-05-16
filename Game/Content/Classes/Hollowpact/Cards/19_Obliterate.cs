@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using Godot;
 
-public class Obliterate : HollowpactCardModel<Obliterate.CardTop, Obliterate.CardBottom>
+public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliterate.CardBottom>
 {
 	public override string Name => "Obliterate";
 	public override int Level => 4;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-public class EmpoweredAssault : HollowpactCardModel<EmpoweredAssault.CardTop, EmpoweredAssault.CardBottom>
+public class EmpoweredAssault : HollowpactLevelUpCardModel<EmpoweredAssault.CardTop, EmpoweredAssault.CardBottom>
 {
 	public override string Name => "Empowered Assault";
 	public override int Level => 3;

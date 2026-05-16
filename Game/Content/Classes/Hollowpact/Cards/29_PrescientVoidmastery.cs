@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class PrescientVoidmastery : HollowpactCardModel<PrescientVoidmastery.CardTop, PrescientVoidmastery.CardBottom>
+public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmastery.CardTop, PrescientVoidmastery.CardBottom>
 {
 	public override string Name => "Prescient Voidmastery";
 	public override int Level => 9;

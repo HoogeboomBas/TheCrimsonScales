@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class TendrilsOfNight : HollowpactCardModel<TendrilsOfNight.CardTop, TendrilsOfNight.CardBottom>
+public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTop, TendrilsOfNight.CardBottom>
 {
 	public override string Name => "Tendrils of Night";
 	public override int Level => 8;

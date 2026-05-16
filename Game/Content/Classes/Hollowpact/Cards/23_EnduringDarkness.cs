@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-public class EnduringDarkness : HollowpactCardModel<EnduringDarkness.CardTop, EnduringDarkness.CardBottom>
+public class EnduringDarkness : HollowpactLevelUpCardModel<EnduringDarkness.CardTop, EnduringDarkness.CardBottom>
 {
 	public override string Name => "Enduring Darkness";
 	public override int Level => 6;

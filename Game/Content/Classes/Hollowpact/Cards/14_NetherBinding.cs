@@ -2,7 +2,7 @@
 using System.Linq;
 using Godot;
 
-public class NetherBinding : HollowpactCardModel<NetherBinding.CardTop, NetherBinding.CardBottom>
+public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, NetherBinding.CardBottom>
 {
 	public override string Name => "Nether Binding";
 	public override int Level => 2;
