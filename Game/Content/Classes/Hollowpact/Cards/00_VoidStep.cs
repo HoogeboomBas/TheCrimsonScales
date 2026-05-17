@@ -43,7 +43,7 @@ public class VoidStep : HollowpactCardModel<VoidStep.CardTop, VoidStep.CardBotto
 				.Build()),
 				
 			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(4)
+				.WithDistance(4, new TeleportCircle(this, new Vector2(0.44718847f, 0.19982125f)))
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 

@@ -16,7 +16,7 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 		[
 			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
 					async parameters =>
 					{
