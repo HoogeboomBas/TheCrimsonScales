@@ -123,6 +123,8 @@ public class PromptManager
 				{
 					await prompt.EffectCollection.Effects[answer.SelectedEffectIndex].Apply();
 
+					await prompt.EffectCollection.PerformBeforePrompt();
+
 					continue;
 				}
 

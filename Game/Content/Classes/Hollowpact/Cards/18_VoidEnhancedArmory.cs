@@ -55,7 +55,6 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 						parameters => true,
 						async parameters =>
 						{
-							ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 							ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 						});
 				})
@@ -63,18 +62,17 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 				{
 					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
-					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 				})
 				.Build())
 		];
 
 		Func<OtherActiveAbility.State, HollowpactCardSide, GDTask> _attackSubscription = 
-			async (state, cardSide) => ScenarioEvents.AbilityStartedEvent.Subscribe(state, cardSide,
-				LoseVoidEnergySubscription<ScenarioEvents.AbilityStarted.Parameters>(1,
+			async (state, cardSide) => ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
+				LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
 					async parameters =>
 					{
-						ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, cardSide);
+						ScenarioEvents.DuringAttackEvent.Unsubscribe(state, cardSide);
 
 						ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
 							parameters => parameters.Performer == state.Performer,
