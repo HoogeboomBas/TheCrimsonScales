@@ -135,7 +135,6 @@ public class Scenario020 : ScenarioModel
 				{
 					ActionState actionState = new ActionState(parameters.Figure, [
 						TeleportAbility.Builder()
-							.WithDistance(999)
 							.WithCustomGetHexes((state, hexes) =>
 							{
 								// First find hexes around the altar that are closest to the Cultist
