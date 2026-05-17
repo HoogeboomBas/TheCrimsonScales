@@ -13,7 +13,7 @@ public class RuinousBarrage : HollowpactLevelUpCardModel<RuinousBarrage.CardTop,
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.51138884f, 0.14999999f)))
 				.WithConditions(Conditions.Poison1)
 				.Build()),
 
@@ -45,7 +45,7 @@ public class RuinousBarrage : HollowpactLevelUpCardModel<RuinousBarrage.CardTop,
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5093885f, 0.62706625f)))
 				.WithConditions(Conditions.Immobilize)
 				.Build()),
 

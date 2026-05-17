@@ -16,7 +16,7 @@ public class TouchOfTheVoid : HollowpactCardModel<TouchOfTheVoid.CardTop, TouchO
 			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 	
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDamage(1, new AttackDiamond(this, new Vector2(0.51138884f, 0.28502214f)))
 				.WithConditions(Conditions.Stun)
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
 					async parameters =>

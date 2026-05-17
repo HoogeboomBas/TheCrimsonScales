@@ -14,7 +14,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.49373356f, 0.23976661f)))
 				.WithTarget(Target.Self)
 				.WithDuringHealSubscription(ScenarioEvents.DuringHeal.Subscription.New(
 					parameters => true,
@@ -48,7 +48,7 @@ public class BorrowedVitality : HollowpactCardModel<BorrowedVitality.CardTop, Bo
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3, new MoveCircle(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.6222222f, 0.7069444f)))
 				.Build()),
 			
 			new AbilityCardAbility(HealAbility.Builder()

@@ -53,11 +53,11 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4, new MoveCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.61817735f, 0.6291779f)))
 				.Build()),
 
 			new AbilityCardAbility(PushAbility.Builder()
-				.WithPush(2, new PushCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithPush(2, new PushCircle(this, new Vector2(0.51148885f, 0.7124999f)))
 				.WithRange(1)
 				.WithDuringPushSubscriptions(ScenarioEvents.DuringPush.Subscription.New(
 					pushParameters => true,

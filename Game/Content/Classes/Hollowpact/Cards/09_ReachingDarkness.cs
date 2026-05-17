@@ -14,7 +14,7 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.5016666f, 0.2015666f)))
 				.WithRange(5)
 				.Build()),
 			

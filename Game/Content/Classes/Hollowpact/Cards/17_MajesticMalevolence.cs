@@ -45,12 +45,12 @@ public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolenc
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5016666f, 0.29583332f)))
 				.WithRange(3)
 				.Build()),
 
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.5231997f, 0.40416664f)))
 				.WithRange(1)
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark,
 					effectInfoText: $"{Icons.Inline(Icons.Heal)}3{Icons.Inline(Icons.Range)}1"))

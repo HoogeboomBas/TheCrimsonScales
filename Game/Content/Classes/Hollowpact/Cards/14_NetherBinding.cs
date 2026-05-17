@@ -14,7 +14,7 @@ public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, N
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PushAbility.Builder()
-				.WithPush(3, new PushCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithPush(3, new PushCircle(this, new Vector2(0.46492216f, 0.20446666f)))
 				.WithRange(1)
 				.WithConditions(Conditions.Immobilize)
 				.Build()),
@@ -49,7 +49,7 @@ public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, N
 				.Build()),
 
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(4, new HealDiamondPlus(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithHealValue(4, new HealDiamondPlus(this, new Vector2(0.4088779f, 0.7680555f)))
 				.WithTarget(Target.Allies)
 				.WithRange(1)
 				.WithConditions(Conditions.Wound1)

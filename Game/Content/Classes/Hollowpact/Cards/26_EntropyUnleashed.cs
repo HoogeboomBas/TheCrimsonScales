@@ -16,7 +16,7 @@ public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.Card
 			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.43555552f, 0.24999997f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
@@ -52,9 +52,9 @@ public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.Card
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(5)
-				.WithTargets(3, new TargetsSquare(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithTargets(3, new TargetsSquare(this, new Vector2(0.52105516f, 0.6083333f)))
 				.WithTarget(Target.Allies | Target.Enemies)
-				.WithRange(3, new RangeSquare(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.6999999f, 0.6397003f)))
 				.WithConditions([Conditions.Regenerate, Conditions.Curse])
 				.WithCustomGetTargets((state, figures) =>
 				{

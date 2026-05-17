@@ -17,7 +17,7 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 		{
 			base.InitExtraEnhancements();
 
-			_enhancementMark = new AttackDiamond(this, new Vector2(0.50100255f, 0.8037263f));
+			_enhancementMark = new AttackDiamond(this, new Vector2(0.41027772f, 0.26666665f));
 		}
 
 		protected override List<AbilityCardAbility> GetAbilities() =>
@@ -77,7 +77,7 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4, new MoveCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.6183333f, 0.6226336f)))
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					IEnumerable<Figure> figures = state.Hexes

@@ -25,7 +25,7 @@ public class StalkingQuarry : HollowpactLevelUpCardModel<StalkingQuarry.CardTop,
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.6165889f, 0.33968875f)))
 				.WithDuringAttackSubscriptions([
 					LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(2,
 						async parameters =>
@@ -54,7 +54,7 @@ public class StalkingQuarry : HollowpactLevelUpCardModel<StalkingQuarry.CardTop,
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(4).Build()),
 
 			new AbilityCardAbility(ShieldAbility.Builder()
-				.WithShieldValue(1, new ShieldCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithShieldValue(1, new ShieldCircle(this, new Vector2(0.6202777f, 0.77042186f)))
 				.Build())
 		];
 

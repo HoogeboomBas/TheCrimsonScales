@@ -15,7 +15,7 @@ public class EmpoweredAssault : HollowpactLevelUpCardModel<EmpoweredAssault.Card
 			new AbilityCardAbility(MoveAbility.Builder().WithDistance(1).Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.6176773f, 0.21431115f)))
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()
@@ -44,7 +44,7 @@ public class EmpoweredAssault : HollowpactLevelUpCardModel<EmpoweredAssault.Card
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(4, new TeleportCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDistance(4, new TeleportCircle(this, new Vector2(0.6358215f, 0.79117787f)))
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 

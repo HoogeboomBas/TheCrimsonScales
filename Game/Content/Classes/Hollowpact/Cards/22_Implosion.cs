@@ -57,7 +57,7 @@ public class Implosion : HollowpactLevelUpCardModel<Implosion.CardTop, Implosion
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4, new MoveCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.6179773f, 0.6833333f)))
 				.Build()),
 
 			new AbilityCardAbility(PullAbility.Builder()

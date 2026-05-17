@@ -58,7 +58,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 				.Build()),
 			
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.2767557f, 0.8411552f)))
 				.WithConditions(Conditions.Immobilize)
 				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
 				.WithCustomGetTargets((state, list) =>

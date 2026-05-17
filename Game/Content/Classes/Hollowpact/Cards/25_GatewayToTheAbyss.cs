@@ -61,7 +61,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4, new MoveCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.6191334f, 0.62449986f)))
 				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()

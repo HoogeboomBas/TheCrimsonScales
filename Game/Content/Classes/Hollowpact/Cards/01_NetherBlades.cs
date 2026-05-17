@@ -18,16 +18,16 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.50749993f, 0.2722222f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
 				]),
 					new AOEHexMark(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), this,
-						new Vector2(0.6511111f, 0.2245968f)),
+						new Vector2(0.77593327f, 0.16805553f)),
 					new AOEHexMark(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), this,
-						new Vector2(0.6505704f, 0.34698993f)))
+						new Vector2(0.77583325f, 0.41338894f)))
 				.Build()),
 			
 			new AbilityCardAbility(OtherAbility.Builder()
@@ -49,7 +49,7 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2, new MoveCircle(this, new Vector2(0.6505704f, 0.34698993f)))
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.62152207f, 0.6665666f)))
 				.WithConditionalAbilityCheck(async state =>
 				{
 					bool usedVoidEnergy = await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 

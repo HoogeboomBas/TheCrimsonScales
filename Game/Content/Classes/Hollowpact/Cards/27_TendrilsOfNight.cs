@@ -77,7 +77,7 @@ public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTo
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.48551115f, 0.8070444f)))
 				.WithConditions(Conditions.Poison1)
 				.WithConditionalAbilityCheck(async state =>
 				{

@@ -34,7 +34,7 @@ public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, Sev
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(4, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(4, new AttackDiamond(this, new Vector2(0.2767557f, 0.3177337f)))
 				.WithConditions(Conditions.Wound1)
 				.WithConditionalAbilityCheck(async state =>
 				{
@@ -59,7 +59,7 @@ public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, Sev
 			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(3, new TeleportCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDistance(3, new TeleportCircle(this, new Vector2(0.63518906f, 0.76963305f)))
 				.WithConditionalAbilityCheck(async state =>
 				{
 					return await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1, 
@@ -68,7 +68,7 @@ public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, Sev
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.5088884f, 0.8777777f)))
 				.WithConditions(Conditions.Curse)
 				.Build())
 		];

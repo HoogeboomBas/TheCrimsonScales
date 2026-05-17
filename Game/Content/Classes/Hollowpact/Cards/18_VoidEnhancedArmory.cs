@@ -17,7 +17,7 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 			new AbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.61842155f, 0.24335553f)))
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(2,
 					async parameters =>
 					{

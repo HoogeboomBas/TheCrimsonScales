@@ -14,8 +14,8 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(PullAbility.Builder()
-				.WithPull(3, new PullCircle(this, new Vector2(0.41209206f, 0.1612586f)))
-				.WithRange(4, new RangeSquare(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithPull(3, new PullCircle(this, new Vector2(0.45863357f, 0.17181106f)))
+				.WithRange(4, new RangeSquare(this, new Vector2(0.6688888f, 0.17083332f)))
 				.WithDuringPullSubscriptions(ScenarioEvents.DuringPull.Subscription.New(
 					pullParameters => true,
 					async pullParameters =>
@@ -63,7 +63,7 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 				.Build()),
 
 			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(9, new TeleportCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDistance(9, new TeleportCircle(this, new Vector2(0.6183333f, 0.7458333f)))
 				.WithFilterHexes((state, hex) =>
 				{
 					return hex.Neighbours.Any(hex => hex.GetHexObjectsOfType<Obstacle>().Any(obstacle => obstacle is VoidPit));

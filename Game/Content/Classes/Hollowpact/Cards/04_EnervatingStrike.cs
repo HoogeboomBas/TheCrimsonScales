@@ -13,7 +13,7 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.6202777f, 0.18888888f)))
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
 					async parameters =>
 					{
@@ -25,7 +25,7 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 				.Build()),
 			
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(2, new HealDiamondPlus(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithHealValue(2, new HealDiamondPlus(this, new Vector2(0.49443346f, 0.39236656f)))
 				.WithTarget(Target.Self)
 				.Build()),
 		];
@@ -36,7 +36,7 @@ public class EnervatingStrike : HollowpactCardModel<EnervatingStrike.CardTop, En
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(4, new MoveCircle(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDistance(4, new MoveCircle(this, new Vector2(0.5236556f, 0.656267f)))
 				.WithMoveType(MoveType.Jump)
 				.Build()),
 			

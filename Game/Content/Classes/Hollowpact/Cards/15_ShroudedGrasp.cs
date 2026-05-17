@@ -13,7 +13,7 @@ public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, S
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.50908846f, 0.22658888f)))
 				.WithConditions(Conditions.Immobilize)
 				.Build()),
 
@@ -35,11 +35,11 @@ public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, S
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(2, new MoveCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithDistance(2, new MoveCircle(this, new Vector2(0.62142205f, 0.65705574f)))
 				.Build()),
 
 			new AbilityCardAbility(PullAbility.Builder()
-				.WithPull(2, new PullCircle(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithPull(2, new PullCircle(this, new Vector2(0.511633f, 0.75804454f)))
 				.WithRange(3)
 				.WithOnAbilityEndedPerformed(async state =>
 				{

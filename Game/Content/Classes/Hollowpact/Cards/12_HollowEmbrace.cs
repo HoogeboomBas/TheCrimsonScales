@@ -47,7 +47,7 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)
-				.WithRange(3, new RangeSquare(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithRange(3, new RangeSquare(this, new Vector2(0.60472214f, 0.71606654f)))
 				.WithDuringHealSubscription(ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Dark,
 					applyFunction: async applyParameters =>
 					{

@@ -48,11 +48,11 @@ public class EnduringDarkness : HollowpactLevelUpCardModel<EnduringDarkness.Card
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3, new MoveCircle(this, new Vector2(0.41209206f, 0.1612586f)))
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62152207f, 0.67439985f)))
 				.Build()),
 
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.44718847f, 0.19982125f)))
+				.WithHealValue(3, new HealDiamondPlus(this, new Vector2(0.44836673f, 0.7703559f)))
 				.WithRange(1)
 				.WithConditions(Conditions.Regenerate)
 				.Build())

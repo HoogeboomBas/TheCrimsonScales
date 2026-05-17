@@ -14,7 +14,7 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.48416662f, 0.17638887f)))
 				.WithAOEPattern(new AOEPattern([
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
@@ -41,7 +41,7 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(MoveAbility.Builder()
-				.WithDistance(3, new MoveCircle(this, new Vector2(0.6511111f, 0.2245968f)))
+				.WithDistance(3, new MoveCircle(this, new Vector2(0.62167794f, 0.70833325f)))
 				.Build()),
 			
 			new AbilityCardAbility(OtherAbility.Builder()
