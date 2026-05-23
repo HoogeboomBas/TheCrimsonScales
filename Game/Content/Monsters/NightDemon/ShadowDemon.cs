@@ -2,7 +2,7 @@ using System.Linq;
 
 public class ShadowDemon : NightDemon
 {
-	public override MonsterStats[] EliteLevelStats =>
+	public override MonsterStats[] NamedLevelStats =>
 		base.EliteLevelStats
 			.Select(stats => stats with
 			{

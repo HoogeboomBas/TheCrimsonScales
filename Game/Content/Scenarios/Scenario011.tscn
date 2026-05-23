@@ -13,80 +13,71 @@
 
 [node name="Scenario" unique_id=2073772042 instance=ExtResource("1_fwwrk")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=554760219]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=554760219]
 script = ExtResource("2_0fttf")
 StartsRevealed = true
 
 [node name="B1a" parent="Map/Rooms/Room" index="0" unique_id=1727972910 instance=ExtResource("8_tbcxq")]
 
 [node name="CharacterStartHex" parent="Map/Rooms/Room" index="1" unique_id=1393669314 instance=ExtResource("9_llbor")]
-position = Vector2(-218.238, -378)
+position = Vector2(-218.2384, -378)
 
 [node name="Barrel1H4" parent="Map/Rooms/Room" index="2" unique_id=532279067 instance=ExtResource("5_h6w5p")]
 position = Vector2(218.2384, 0)
+CannotBeDestroyed = true
 
 [node name="Marker" parent="Map/Rooms/Room/Barrel1H4" index="6" unique_id=1790043281 instance=ExtResource("6_jtiwx")]
 _hideDuringPlay = true
 
 [node name="DarkPit2H" parent="Map/Rooms/Room" index="3" unique_id=1977939900 instance=ExtResource("6_hwybe")]
-position = Vector2(545.596, -189)
+position = Vector2(545.59595, -189)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=2036468639]
-script = ExtResource("2_0fttf")
-StartsRevealed = true
-
-[node name="B2a" parent="Map/Rooms/Room2" index="0" unique_id=174833049 instance=ExtResource("7_jtiwx")]
+[node name="B2a" parent="Map/Rooms/Room" index="4" unique_id=174833049 instance=ExtResource("7_jtiwx")]
 position = Vector2(1091.1919, 0)
 
-[node name="CharacterStartHex2" parent="Map/Rooms/Room2" index="1" unique_id=500988336 instance=ExtResource("9_llbor")]
-position = Vector2(1527.67, -378)
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="5" unique_id=500988336 instance=ExtResource("9_llbor")]
+position = Vector2(1527.6688, -378)
 
-[node name="Barrel1H3" parent="Map/Rooms/Room2" index="2" unique_id=1943133710 instance=ExtResource("5_h6w5p")]
-position = Vector2(1091.19, 0)
+[node name="Barrel1H3" parent="Map/Rooms/Room" index="6" unique_id=1943133710 instance=ExtResource("5_h6w5p")]
+position = Vector2(1091.1919, 0)
+CannotBeDestroyed = true
 
-[node name="Marker" parent="Map/Rooms/Room2/Barrel1H3" index="6" unique_id=262158086 instance=ExtResource("6_jtiwx")]
+[node name="Marker" parent="Map/Rooms/Room/Barrel1H3" index="6" unique_id=262158086 instance=ExtResource("6_jtiwx")]
 _hideDuringPlay = true
 
-[node name="DarkPit2H" parent="Map/Rooms/Room2" index="3" unique_id=232390639 instance=ExtResource("6_hwybe")]
-position = Vector2(1309.43, 378)
-rotation = 2.0944
+[node name="DarkPit2H2" parent="Map/Rooms/Room" index="7" unique_id=232390639 instance=ExtResource("6_hwybe")]
+position = Vector2(1309.4303, 378)
+rotation = 2.0943952
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=968303871]
-script = ExtResource("2_0fttf")
-StartsRevealed = true
-
-[node name="B3a" parent="Map/Rooms/Room3" index="0" unique_id=2127703404 instance=ExtResource("8_5tlut")]
+[node name="B3a" parent="Map/Rooms/Room" index="8" unique_id=2127703404 instance=ExtResource("8_5tlut")]
 position = Vector2(0, 1134)
 
-[node name="CharacterStartHex3" parent="Map/Rooms/Room3" index="1" unique_id=314959924 instance=ExtResource("9_llbor")]
-position = Vector2(-109.119, 1323)
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="9" unique_id=314959924 instance=ExtResource("9_llbor")]
+position = Vector2(-109.11921, 1323)
 
-[node name="Barrel1H2" parent="Map/Rooms/Room3" index="2" unique_id=235302445 instance=ExtResource("5_h6w5p")]
-position = Vector2(109.119, 945)
+[node name="Barrel1H2" parent="Map/Rooms/Room" index="10" unique_id=235302445 instance=ExtResource("5_h6w5p")]
+position = Vector2(109.11918, 945)
+CannotBeDestroyed = true
 
-[node name="Marker" parent="Map/Rooms/Room3/Barrel1H2" index="6" unique_id=651015941 instance=ExtResource("6_jtiwx")]
+[node name="Marker" parent="Map/Rooms/Room/Barrel1H2" index="6" unique_id=651015941 instance=ExtResource("6_jtiwx")]
 _hideDuringPlay = true
 
-[node name="DarkPit2H3" parent="Map/Rooms/Room3" index="3" unique_id=99891417 instance=ExtResource("6_hwybe")]
+[node name="DarkPit2H3" parent="Map/Rooms/Room" index="11" unique_id=99891417 instance=ExtResource("6_hwybe")]
 position = Vector2(0, 378)
-rotation = 1.0472
+rotation = 1.0471976
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=820918141]
-script = ExtResource("2_0fttf")
-StartsRevealed = true
+[node name="B4a" parent="Map/Rooms/Room" index="12" unique_id=1959967987 instance=ExtResource("9_2lgbt")]
+position = Vector2(1091.1919, 1134)
 
-[node name="B4a" parent="Map/Rooms/Room4" index="0" unique_id=1959967987 instance=ExtResource("9_2lgbt")]
-position = Vector2(1091.19, 1134)
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="13" unique_id=458454571 instance=ExtResource("9_llbor")]
+position = Vector2(1418.5496, 1323)
 
-[node name="CharacterStartHex4" parent="Map/Rooms/Room4" index="1" unique_id=458454571 instance=ExtResource("9_llbor")]
-position = Vector2(1418.55, 1323)
+[node name="Barrel1H" parent="Map/Rooms/Room" index="14" unique_id=1848544105 instance=ExtResource("5_h6w5p")]
+position = Vector2(1200.3112, 945)
+CannotBeDestroyed = true
 
-[node name="Barrel1H" parent="Map/Rooms/Room4" index="2" unique_id=1848544105 instance=ExtResource("5_h6w5p")]
-position = Vector2(1200.31, 945)
-
-[node name="Marker" parent="Map/Rooms/Room4/Barrel1H" index="6" unique_id=151041051 instance=ExtResource("6_jtiwx")]
+[node name="Marker" parent="Map/Rooms/Room/Barrel1H" index="6" unique_id=151041051 instance=ExtResource("6_jtiwx")]
 _hideDuringPlay = true
 
-[node name="DarkPit2H2" parent="Map/Rooms/Room4" index="3" unique_id=1128881103 instance=ExtResource("6_hwybe")]
-position = Vector2(763.834, 945)
-rotation = -3.14159
+[node name="DarkPit2H4" parent="Map/Rooms/Room" index="15" unique_id=1128881103 instance=ExtResource("6_hwybe")]
+position = Vector2(545.59595, 945)

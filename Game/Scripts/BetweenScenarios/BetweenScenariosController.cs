@@ -266,6 +266,58 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			SavedCampaign.SetCustomValue(introductionSeenKey, true);
 		}
 
+		if(SavedCampaign.SavedScenarioProgresses.GetScenarioProgress(ModelDB.Scenario<Scenario030>()).Completed &&
+		   !SavedCampaign.HasPartyAchievement(PartyAchievement.APotionLost) &&
+		   !SavedCampaign.HasPartyAchievement(PartyAchievement.TakeTheMoney))
+		{
+			// Make a decision! Custom reward for scenario 30
+			bool? givePotion = null;
+			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Make a Decision!", "What will you do with the Potion?",
+				[
+					new TextButton.Parameters("Give the potion to Selandre", () => givePotion = true, width: 460f),
+					new TextButton.Parameters("Tell Selandre the potion was destroyed", () => givePotion = false, width: 640f),
+				]
+			));
+
+			await GDTask.WaitUntil(() => givePotion.HasValue, cancellationToken: cancellationToken);
+
+			List<SavedReward> rewards;
+			if(givePotion!.Value)
+			{
+				await AppController.Instance.StoryView.OpenAsync("Take the Money", "Given the potion to Selandre",
+					"""
+					Selandre’s eyes widen greedily as you hand over the instructions. “This is… not just a limited source, these are relatively simple ingredients that can be reproduced over and over,” she mutters, half to herself as she flicks through the documents. “The power contained here is incredible; with these instructions somebody could raise an entire army!” She is now ecstatic, and smiles widely.
+
+					“Warriors, you have outstripped my wildest expectations! Here is the gold I promised you, well deserved, well deserved!” She reaches into her cloak and produces a large  velvet bag of gold coins. As she dips into it, you realize that she is is paying you personally; all this money did not come from the rough settlement you entered.
+
+					Thanking her, and taking the gold, you can’t help hearing Dominic’s words echoing in your head as you walk away—“Destroy the potion! Don’t let it fall into the wrong hands.” Have you just done exactly that?
+					""",
+					fadeInDuration: 0f, cancellationToken: cancellationToken);
+
+				rewards =
+				[
+					new GainGoldEachReward(70),
+					new GainPartyAchievementReward(PartyAchievement.TakeTheMoney)
+				];
+			}
+			else
+			{
+				await AppController.Instance.StoryView.OpenAsync("A Potion Lost", "Told Selandre the potion was destroyed",
+					"""
+					You tell Selandre the bad news, and she studies you for a long time. Finally she says “Well, there was always a chance that the thing that created this power would take the secrets with it to the grave. That was a tough mission, and thank you for taking it on.” She walks away and is not seen for several days. You are unsure whether you made the right decision, but you feel that you have disappointed Selandre.
+					""",
+					fadeInDuration: 0f, cancellationToken: cancellationToken);
+
+				rewards =
+				[
+					new GainXPReward(10),
+					new GainPartyAchievementReward(PartyAchievement.APotionLost)
+				];
+			}
+
+			await AppController.Instance.GiveRewards(SavedCampaign, rewards, cancellationToken: cancellationToken);
+		}
+
 		await GDTask.Yield(cancellationToken);
 		await GDTask.Delay(0.2f, cancellationToken: cancellationToken);
 
@@ -334,7 +386,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		{
 			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Welcome!",
 				"""
-				Welcome to the very early access version of The Crimson Scales!
+				Welcome to the early access version of The Crimson Scales!
 
 				Please create a couple of characters to get started on this campaign.
 				You can do so using the button in the bottom-left corner.

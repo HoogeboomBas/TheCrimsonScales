@@ -137,17 +137,20 @@ public partial class EventOverlay : Control
 		_continueButton.SetActive(false);
 
 		List<SavedReward> rewards = _chosenModel.GetRewards(savedEventState);
-		foreach(SavedReward reward in rewards)
-		{
-			if(reward.Type == RewardType.Immediate)
-			{
-				await reward.ImmediateResolve(BetweenScenariosController.Instance.SavedCampaign, cancellationToken);
-			}
-			else
-			{
-				BetweenScenariosController.Instance.SavedCampaign.SavedRewards.AddReward(reward);
-			}
-		}
+		await AppController.Instance.GiveRewards(BetweenScenariosController.Instance.SavedCampaign, rewards, showPopup: false,
+			cancellationToken: cancellationToken);
+
+		// foreach(SavedReward reward in rewards)
+		// {
+		// 	if(reward.Type == RewardType.Immediate)
+		// 	{
+		// 		await reward.ImmediateResolve(BetweenScenariosController.Instance.SavedCampaign, cancellationToken);
+		// 	}
+		// 	else
+		// 	{
+		// 		BetweenScenariosController.Instance.SavedCampaign.SavedRewards.AddReward(reward);
+		// 	}
+		// }
 
 		EventResolveType eventResolveType = _chosenModel.GetEventResolveType(savedEventState);
 		if(eventResolveType == EventResolveType.ReturnCardToBottom)

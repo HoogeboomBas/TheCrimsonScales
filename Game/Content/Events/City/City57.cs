@@ -31,7 +31,7 @@ public class City57 : CityEventModel<City57.ChoiceA, City57.ChoiceB>
 
 			foreach(SavedCharacter savedCharacter in savedCampaign.AllCharacters)
 			{
-				if(savedCharacter.SavedPersonalQuest.Model == personalQuest)
+				if(savedCharacter.SavedPersonalQuest?.Model == personalQuest)
 				{
 					AppController.Instance.RetireCharacter(savedCharacter, savedCampaign, false);
 				}

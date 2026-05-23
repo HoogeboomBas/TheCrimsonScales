@@ -1301,17 +1301,17 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask GainXP(Character character, int amount)
-	{
-		void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
-		{
-			character.SavedCharacter.AddXP(amount);
-		}
-
-		GameController.Instance.EndEvent += OnScenarioEnd;
-
-		await GDTask.CompletedTask;
-	}
+	// public static async GDTask GainXP(Character character, int amount)
+	// {
+	// 	void OnScenarioEnd(ScenarioResult scenarioResult, SavedScenarioProgress savedScenarioProgress)
+	// 	{
+	// 		character.SavedCharacter.AddXP(amount);
+	// 	}
+	//
+	// 	GameController.Instance.EndEvent += OnScenarioEnd;
+	//
+	// 	await GDTask.CompletedTask;
+	// }
 
 	public static async GDTask GainCheckmark(Character character)
 	{

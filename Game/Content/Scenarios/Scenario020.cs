@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
-using Godot;
 
 public class Scenario020 : ScenarioModel
 {
@@ -88,7 +87,8 @@ public class Scenario020 : ScenarioModel
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<CultLeader>(), specificCount: 1));
 
 		int characterCount = GameController.Instance.SavedCampaign.Characters.Count;
-		string summonInfo = characterCount == 3 ? """Every other Living Spirit summoned is elite.""" : characterCount == 4 ? """The Living Spirits summoned are elite.""" : "";
+		string summonInfo = characterCount == 3 ? """Every other Living Spirit summoned is elite.""" :
+			characterCount == 4 ? """The Living Spirits summoned are elite.""" : "";
 
 		AddScenarioRule(textParameters =>
 			$"""
@@ -112,7 +112,7 @@ public class Scenario020 : ScenarioModel
 				"Altar");
 		}
 
-		ScenarioEvents.FigureKilledEvent.Subscribe(this, 
+		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
 				parameters.Figure is Objective && _altars.Count(altar => altar.IsDestroyed) == 2,
 			async parameters =>
@@ -121,14 +121,17 @@ public class Scenario020 : ScenarioModel
 				ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(this);
 
 				_scenarioTeleportRule.Remove();
+
+				await GDTask.CompletedTask;
 			}
 		);
 
-		ScenarioEvents.FigureTurnStartedEvent.Subscribe(this, 
-			parameters => 
-				parameters.Figure is Monster monster && 
-				monster.MonsterModel is CultLeader && 
-				monster.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(monster).Any(monsterAbility => monsterAbility.Ability is MoveAbility),
+		ScenarioEvents.FigureTurnStartedEvent.Subscribe(this,
+			parameters =>
+				parameters.Figure is Monster monster &&
+				monster.MonsterModel is CultLeader &&
+				monster.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(monster)
+					.Any(monsterAbility => monsterAbility.Ability is MoveAbility),
 			async parameters =>
 			{
 				if(!_altars[_currentAltarIndex].IsDestroyed)
@@ -175,7 +178,7 @@ public class Scenario020 : ScenarioModel
 										{
 											// Moving to the enemy after the teleport
 											int range = RangeHelper.Distance(altarHex, figure.Hex);
-											
+
 											if(range == closestEnemyRange)
 											{
 												hexes.AddIfNew(altarHex);
@@ -194,17 +197,17 @@ public class Scenario020 : ScenarioModel
 					]);
 					await actionState.Perform();
 				}
+
 				_currentAltarIndex++;
 				_currentAltarIndex %= _altars.Count;
 			}, order: 100
-
 		);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this,
 			parameters => parameters.Performer is Monster monster && monster.MonsterModel is CultLeader,
 			async parameters =>
 			{
-				switch (parameters.AbilityState)
+				switch(parameters.AbilityState)
 				{
 					case MonsterSummonAbility.State abilityState:
 						abilityState.SetMonsterModel(ModelDB.Monster<LivingSpirit>());
@@ -216,9 +219,10 @@ public class Scenario020 : ScenarioModel
 						{
 							abilityState.SetBlocked();
 						}
+
 						break;
 				}
-				
+
 				await GDTask.CompletedTask;
 			});
 	}

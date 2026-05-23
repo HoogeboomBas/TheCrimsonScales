@@ -25,12 +25,14 @@ public class DrakePorter : VermlingShaman, IBossMonsterModel
 	// IBossMonsterModel
 	public string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 {Icons.Inline(Icons.Heal, richTextParameters)}1, Self.
+		 Summon {(CharacterCount > 2 ? MonsterType.Elite : MonsterType.Normal).ToString()} Rending Drake.
 		 """;
 
 	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 {Icons.Inline(Icons.Shield, richTextParameters)}1.
+		 Summon {(CharacterCount > 3 ? MonsterType.Elite : MonsterType.Normal).ToString()} Spitting Drake.
 		 """;
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>

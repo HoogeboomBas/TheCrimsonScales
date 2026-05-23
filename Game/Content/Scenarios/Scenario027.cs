@@ -23,9 +23,7 @@ public class Scenario027 : ScenarioModel
 
 		Even getting to his lair is treacherous, back up into the mountains, but into a particularly treacherous and windswept area. The cold is biting, and you are glad when you find the Icebound’s cavern, as much to get out of the weather as to confront this monster.
 
-		As you enter the cavern, you see an array of demons and golems in front of you.
-
-		“We seek the Icebound!” you call out confidently.
+		As you enter the cavern, you see an array of demons and golems in front of you. “We seek the Icebound!” you call out confidently.
 
 		The stone golem replies in a rumbling tone: “Our master does not meet with just any part-time mountain climbers. You must prove your worth.” You reach for your weapons, and notice the Orb of Embers starting to glow. He is close.
 		""";
@@ -65,7 +63,7 @@ public class Scenario027 : ScenarioModel
 	{
 		await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
 	}
-	
+
 	private Door _door2;
 
 	public override async GDTask OnSetupCompleted()
@@ -91,8 +89,8 @@ public class Scenario027 : ScenarioModel
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(this,
 			parameters => parameters.Figure == orbOfEmbersCharacter,
 			parameters => parameters.Add(
-							new InfoTextExtraEffect.Parameters(textParameters =>
-								$"This character holds the Orb of Embers and adds +1{Icons.Inline(Icons.Attack)} to all its attacks against the Icebound.")));
+				new InfoTextExtraEffect.Parameters(textParameters =>
+					$"This character holds the Orb of Embers and adds +1{Icons.Inline(Icons.Attack)} to all its attacks against the Icebound.")));
 	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
@@ -138,6 +136,6 @@ public class Scenario027 : ScenarioModel
 				$"""
 				 The character holding the Orb of Embers adds +1{Icons.Inline(Icons.Attack)} to all attacks targeting the Icebound.
 				 """);
-		}	
+		}
 	}
 }

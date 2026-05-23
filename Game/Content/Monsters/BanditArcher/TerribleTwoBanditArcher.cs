@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 public class TerribleTwoBanditArcher : BanditArcher
 {
@@ -20,6 +18,6 @@ public class TerribleTwoBanditArcher : BanditArcher
 			})
 			.ToArray();
 
-	public override string Name => "Terrible Two (Bandit Archer)";
+	public override string Name => "Terrible Two (Archer)";
 	public override MonsterModel ParentMonsterModel => ModelDB.Monster<BanditArcher>();
 }

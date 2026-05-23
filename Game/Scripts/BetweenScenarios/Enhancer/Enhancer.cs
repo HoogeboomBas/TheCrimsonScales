@@ -206,7 +206,7 @@ public partial class Enhancer : BetweenScenariosAction
 		_confirmButton.SetEnabled(CanConfirm, true);
 	}
 
-	private static int GetCost(SavedCharacter savedCharacter, SavedAbilityCard savedAbilityCard, EnhancementMark mark, EnhancementModel model)
+	private static int GetBaseCost(SavedCharacter savedCharacter, SavedAbilityCard savedAbilityCard, EnhancementMark mark, EnhancementModel model)
 	{
 		Dictionary<int, SavedEnhancement> savedEnhancements =
 			savedAbilityCard.GetEnhancements(mark.AbilityCardSideModel.AbilityCardSideType == AbilityCardSideType.Top);
@@ -267,6 +267,13 @@ public partial class Enhancer : BetweenScenariosAction
 
 		// Previous enhancements
 		cost += savedEnhancements.Count * 75;
+
+		return cost;
+	}
+
+	private static int GetCost(SavedCharacter savedCharacter, SavedAbilityCard savedAbilityCard, EnhancementMark mark, EnhancementModel model)
+	{
+		int cost = GetBaseCost(savedCharacter, savedAbilityCard, mark, model);
 
 		BetweenScenariosEvents.CalculateEnhancementCost.Parameters parameters =
 			BetweenScenariosEvents.CalculateEnhancementCostEvent.Fire(
@@ -345,6 +352,7 @@ public partial class Enhancer : BetweenScenariosAction
 		}
 
 		int cost = GetCost(_selectedCharacter, _selectedAbilityCard, _selectedMark.EnhancementMark, _selectedOption.EnhancementModel);
+		int baseCost = GetBaseCost(_selectedCharacter, _selectedAbilityCard, _selectedMark.EnhancementMark, _selectedOption.EnhancementModel);
 
 		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request("Buy Enhancement",
 			$"Would you like to spend {Icons.Inline(Icons.Coins)}{cost} to buy this {Icons.Inline(_selectedOption.EnhancementModel.TexturePath)} enhancement?",
@@ -364,7 +372,7 @@ public partial class Enhancer : BetweenScenariosAction
 
 					BetweenScenariosEvents.EnhancementBoughtEvent.Fire(
 						new BetweenScenariosEvents.EnhancementBought.Parameters(_selectedCharacter, _selectedAbilityCard,
-							_selectedMark.EnhancementMark, _selectedOption.EnhancementModel, cost));
+							_selectedMark.EnhancementMark, _selectedOption.EnhancementModel, baseCost, cost));
 
 					UpdateSelectedCard(_selectedAbilityCard);
 					UpdateConfirmButton();

@@ -79,16 +79,7 @@ public class KillAllEnemiesScenarioGoal : ScenarioGoal
 
 	private int GetVisibleEnemyCount()
 	{
-		int count = 0;
-		foreach(Figure figure in GameController.Instance.Map.Figures)
-		{
-			if(figure.Alignment == Alignment.Monsters && (figure is not Objective || _countObjectives) && figure.IsFigure)
-			{
-				count++;
-			}
-		}
-
-		return count;
+		return GetVisibleEnemyCount(_countObjectives);
 	}
 
 	private int GetInvisibleEnemyCount()
@@ -111,6 +102,20 @@ public class KillAllEnemiesScenarioGoal : ScenarioGoal
 				{
 					count++;
 				}
+			}
+		}
+
+		return count;
+	}
+
+	public static int GetVisibleEnemyCount(bool countObjectives)
+	{
+		int count = 0;
+		foreach(Figure figure in GameController.Instance.Map.Figures)
+		{
+			if(figure.Alignment == Alignment.Monsters && (figure is not Objective || countObjectives) && figure.IsFigure)
+			{
+				count++;
 			}
 		}
 

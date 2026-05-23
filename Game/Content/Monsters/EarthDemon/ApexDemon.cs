@@ -7,6 +7,7 @@ public class ApexDemon : EarthDemon
 			.Select(stats => stats with
 			{
 				Health = stats.Health * (CharacterCount - 1),
+				Move = stats.Move + 2,
 				Traits = (stats.Traits ?? [])
 				.Append(new ConditionImmunityTrait(Conditions.Stun))
 				.Append(new ConditionImmunityTrait(Conditions.Disarm))

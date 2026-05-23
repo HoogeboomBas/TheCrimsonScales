@@ -603,7 +603,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 					abilityState.AbilityTarget == Target.Self ||
 					(TargetHex != null && abilityState.AbilityAOEPattern == null);
 				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, mandatory: Mandatory,
-					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: true,
+					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: false,
 					duringTargetedAbilityEffectCollection,
 					() => _getTargetingHintText(abilityState));
 			}

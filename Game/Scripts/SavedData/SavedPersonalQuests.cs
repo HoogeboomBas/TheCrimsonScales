@@ -12,7 +12,7 @@ public class SavedPersonalQuests
 		ModelDB.PersonalQuest<Experimentation>(),
 		ModelDB.PersonalQuest<ThrillSeeker>(),
 		ModelDB.PersonalQuest<TrapSetter>(),
-		// ModelDB.PersonalQuest<BanditBanisher>(), // Requires scenario 35
+		ModelDB.PersonalQuest<BanditBanisher>(),
 		ModelDB.PersonalQuest<CreaturesInTheNight>(),
 		ModelDB.PersonalQuest<ExperiencedLeader>(),
 		ModelDB.PersonalQuest<AdrenalineSpike>(),

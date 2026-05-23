@@ -91,13 +91,15 @@
 	public class EnhancementBought : BetweenScenariosEvent<EnhancementBought.Parameters>
 	{
 		public class Parameters(
-			SavedCharacter buyer, SavedAbilityCard savedAbilityCard, EnhancementMark enhancementMark, EnhancementModel enhancementModel, int cost)
+			SavedCharacter buyer, SavedAbilityCard savedAbilityCard, EnhancementMark enhancementMark, EnhancementModel enhancementModel, int baseCost,
+			int cost)
 			: ParametersBase
 		{
 			public SavedCharacter Buyer { get; } = buyer;
 			public SavedAbilityCard SavedAbilityCard { get; } = savedAbilityCard;
 			public EnhancementMark EnhancementMark { get; } = enhancementMark;
 			public EnhancementModel EnhancementModel { get; } = enhancementModel;
+			public int BaseCost { get; } = baseCost;
 			public int Cost { get; } = cost;
 		}
 	}
