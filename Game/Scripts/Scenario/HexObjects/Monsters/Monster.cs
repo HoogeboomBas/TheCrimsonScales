@@ -128,9 +128,11 @@ public partial class Monster : Figure
 				parameters =>
 				{
 					parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters => $"Special 1: {bossMonsterModel.GetSpecial1Description(this, textParameters)}"));
+						new InfoTextExtraEffect.Parameters(textParameters =>
+							$"Special 1:\n{bossMonsterModel.GetSpecial1Description(this, textParameters)}"));
 					parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters => $"Special 2: {bossMonsterModel.GetSpecial2Description(this, textParameters)}"));
+						new InfoTextExtraEffect.Parameters(textParameters =>
+							$"Special 2:\n{bossMonsterModel.GetSpecial2Description(this, textParameters)}"));
 				}
 			);
 		}

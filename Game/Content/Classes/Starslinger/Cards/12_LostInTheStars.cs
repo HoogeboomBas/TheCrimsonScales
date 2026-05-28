@@ -52,9 +52,12 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 						}
 					}
 
+					int currentRound = GameController.Instance.ScenarioPhaseManager.RoundIndex;
 					//TODO: Display proper initiative
 					ScenarioCheckEvents.InitiativeCheckEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer,
+						parameters => parameters.Figure == state.Performer &&
+						              GameController.Instance.ScenarioPhaseManager.RoundIndex == currentRound + 1 &&
+						              GameController.Instance.ScenarioPhaseManager.ActivePhase is RoundPhase,
 						parameters =>
 						{
 							parameters.SetInitiative(100);

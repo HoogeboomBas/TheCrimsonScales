@@ -122,7 +122,9 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 
 	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 Jump to an empty hex adjacent to a Void Pit obstacle furthest away from a character within {Icons.Inline(Icons.Range)}4. {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Range)}4. All enemies adjacent to a Void Pit obstacle suffer {Icons.Inline(Icons.Damage)}2.
+		 Jump to an empty hex adjacent to a Void Pit obstacle furthest away from a character within {Icons.Inline(Icons.Range)}4. 
+		 {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Range)}4. 
+		 All enemies adjacent to a Void Pit obstacle suffer {Icons.Inline(Icons.Damage)}2.
 		 """;
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
@@ -149,7 +151,8 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 			.WithCustomGetHexes((state, hexes) =>
 			{
 				// Find all void pits
-				List<Objective> objectives = GameController.Instance.Map.GetChildrenOfType<Objective>().Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed).ToList();
+				List<Objective> objectives = GameController.Instance.Map.GetChildrenOfType<Objective>()
+					.Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed).ToList();
 
 				if(objectives.Count() == 0)
 				{
@@ -182,10 +185,12 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 				}
 
 				// Sort the objectives by distance to the closest character in descending order
-				objectives.Sort((objectiveA, objectiveB) => objectiveDistanceToClosestCharacter[objectiveB].CompareTo(objectiveDistanceToClosestCharacter[objectiveA]));
+				objectives.Sort((objectiveA, objectiveB) =>
+					objectiveDistanceToClosestCharacter[objectiveB].CompareTo(objectiveDistanceToClosestCharacter[objectiveA]));
 
 				// Take the closest one that has an empty hex within range 4
-				Objective targetObjective = objectives.First(objective => objective.Hex.Neighbours.Any(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
+				Objective targetObjective = objectives.First(objective =>
+					objective.Hex.Neighbours.Any(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
 
 				hexes.AddRange(targetObjective.Hex.Neighbours.Where(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
 			})
@@ -197,10 +202,10 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 			.WithCustomGetTargets((state, figures) =>
 			{
 				figures.AddRange(GameController.Instance.Map
-						.GetChildrenOfType<Objective>()
-						.Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed)
-						.SelectMany(objective => RangeHelper.GetFiguresInRange(objective, 1))
-						.Distinct());
+					.GetChildrenOfType<Objective>()
+					.Where(objective => objective.DisplayName == "Void Pit" && !objective.IsDestroyed)
+					.SelectMany(objective => RangeHelper.GetFiguresInRange(objective, 1))
+					.Distinct());
 			})
 			.Build())
 	];

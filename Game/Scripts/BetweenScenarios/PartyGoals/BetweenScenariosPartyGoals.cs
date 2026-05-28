@@ -6,9 +6,29 @@ using Godot;
 using GTweens.Builders;
 using GTweens.Easings;
 using GTweensGodot.Extensions;
+using Newtonsoft.Json;
 
 public partial class BetweenScenariosPartyGoals : BetweenScenariosAction
 {
+	[Serializable, JsonObject(MemberSerialization.OptIn)]
+	public class UnlockEnhancerReward : SavedReward
+	{
+		public override RewardType Type => RewardType.Immediate;
+
+		public UnlockEnhancerReward()
+		{
+		}
+
+		public override string GetLabelText(RichTextParameters textParameters) => $"Card Enhancements unlocked.";
+
+		public override async GDTask ImmediateResolve(SavedCampaign savedCampaign, CancellationToken cancellationToken)
+		{
+			await base.ImmediateResolve(savedCampaign, cancellationToken);
+
+			BetweenScenariosController.Instance.SavedCampaign.UnlockEnhancements();
+		}
+	}
+
 	[Export]
 	private Control _container;
 	[Export]
@@ -143,14 +163,11 @@ public partial class BetweenScenariosPartyGoals : BetweenScenariosAction
 			"The Merchant’s Guild has noticed your efforts and have decided to grant some of the Guild’s services to you—including a special gift constructed by the finest Tinkerers in Gloomhaven, with some guidance from a mysterious, mustachioed fellow, tailored to fit your party’s needs."));
 		await GDTask.WaitWhile(() => AppController.Instance.PopupManager.IsPopupOpen(), cancellationToken: cancellationToken);
 
-		BetweenScenariosController.Instance.SavedCampaign.AddPartyAchievement(PartyAchievement.AccomplishedMercenaries);
-		BetweenScenariosController.Instance.SavedCampaign.UnlockEnhancements();
-
 		Button.SetVisible(false);
 
-		AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Enhancements Unlocked",
-			"The Enhancer has now opened up their services to you!"));
-		await GDTask.WaitWhile(() => AppController.Instance.PopupManager.IsPopupOpen(), cancellationToken: cancellationToken);
+		// AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Enhancements Unlocked",
+		// 	"The Enhancer has now opened up their services to you!"));
+		// await GDTask.WaitWhile(() => AppController.Instance.PopupManager.IsPopupOpen(), cancellationToken: cancellationToken);
 
 		ItemModel itemModel = BetweenScenariosController.Instance.SavedCampaign.StartingGroup switch
 		{
@@ -162,13 +179,16 @@ public partial class BetweenScenariosPartyGoals : BetweenScenariosAction
 			_ => throw new ArgumentOutOfRangeException()
 		};
 
-		SavedItem savedItem = BetweenScenariosController.Instance.SavedCampaign.GetSavedItem(itemModel);
-		savedItem.AddUnlocked(1);
-		savedItem.AddStock(1);
-		//TODO: Open rewards popup
-		//TODO: Free enhancement
-		//TODO: Give custom item as a reward rather than adding it to the shop
-		//TODO: New party goal to use custom item 10 times
+		List<SavedReward> rewards =
+		[
+			new GainPartyAchievementReward(PartyAchievement.AccomplishedMercenaries),
+			new UnlockEnhancerReward(),
+			new GainCollectiveItemReward(itemModel),
+			//TODO: Free enhancement
+			//TODO: New party goal to use custom item 10 times
+		];
+
+		await AppController.Instance.GiveRewards(BetweenScenariosController.Instance.SavedCampaign, rewards, cancellationToken: cancellationToken);
 
 		AppController.Instance.SaveGame();
 	}

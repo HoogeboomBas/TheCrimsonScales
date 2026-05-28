@@ -11,6 +11,8 @@ public partial class MapTile : Node2D
 	[Export]
 	public SFX.StepType StepType;
 
+	public Sprite2D Sprite => _sprite;
+
 	public void Init()
 	{
 		_sprite.Reparent(GameController.Instance.Map);

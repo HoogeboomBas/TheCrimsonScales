@@ -18,6 +18,7 @@ public class CreaturesInTheNight : TheCrimsonScalesPersonalQuest<PersonalQuestDa
 				(monster.MonsterModel == ModelDB.Monster<Ooze>() ||
 				 monster.MonsterModel == ModelDB.Monster<BloodOoze>() ||
 				 monster.MonsterModel == ModelDB.Monster<ForestImp>() ||
+				 monster.MonsterModel == ModelDB.Monster<ToxicImp>() ||
 				 monster.MonsterModel == ModelDB.Monster<BlackImp>()),
 			async parameters =>
 			{

@@ -113,7 +113,7 @@ public partial class MonsterSpawner : Node2D
 		if(texture != null)
 		{
 			float textureWidth = texture.GetWidth();
-			sprite.Scale = (250f / textureWidth) * Vector2.One;
+			sprite.Scale = 250f / textureWidth * Vector2.One;
 		}
 
 		GetNode<MonsterSpawnerIndicator>("Indicators/2Characters").UpdateVisuals(MonsterType2Characters);

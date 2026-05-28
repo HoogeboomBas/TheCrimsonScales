@@ -1291,10 +1291,17 @@ public partial class ScenarioEvents
 			: ParametersBase<AbilityState>(abilityState)
 		{
 			public Figure Focus { get; private set; } = focus;
+			public Hex FocusHex { get; private set; } = focus?.Hex;
 
 			public void SetNewFocus(Figure newFocus)
 			{
 				Focus = newFocus;
+				FocusHex = newFocus?.Hex;
+			}
+
+			public void SetFocusHex(Hex hex)
+			{
+				FocusHex = hex;
 			}
 		}
 	}

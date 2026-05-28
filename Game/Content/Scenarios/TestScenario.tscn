@@ -5,99 +5,87 @@
 [ext_resource type="PackedScene" uid="uid://bkxk03rpnkekd" path="res://Content/MapTiles/I2a.tscn" id="3_r0pd5"]
 [ext_resource type="PackedScene" uid="uid://nc1epxsho0mr" path="res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn" id="6_qwyqe"]
 [ext_resource type="PackedScene" uid="uid://ds36axqifweqr" path="res://Content/OverlayTiles/HazardousTerrain/Thorns1H.tscn" id="7_t6ibw"]
-[ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="8_5bvco"]
 [ext_resource type="PackedScene" uid="uid://c55i4i3yqfdx6" path="res://Scenes/Scenario/OverlayTiles/Treasure1H.tscn" id="8_libyu"]
 [ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="9_6v84j"]
 [ext_resource type="PackedScene" uid="uid://dgovtiuaxinv" path="res://Content/OverlayTiles/Obstacles/Bush1H.tscn" id="9_hqk2m"]
 [ext_resource type="PackedScene" uid="uid://c7pr2ras6mvmt" path="res://Content/OverlayTiles/Traps/BearTrap1H.tscn" id="10_5r4do"]
 [ext_resource type="PackedScene" uid="uid://co1tcon7xucp" path="res://Content/OverlayTiles/Obstacles/Boulder3H.tscn" id="11_rv36e"]
-[ext_resource type="PackedScene" uid="uid://8b2r2gdyvbxc" path="res://Content/OverlayTiles/Objectives/BarrelObjective1H.tscn" id="12_x5m5f"]
-[ext_resource type="PackedScene" uid="uid://bgvdkj4pbdasj" path="res://Content/OverlayTiles/Objectives/TreeObjective3H.tscn" id="13_x5m5f"]
 [ext_resource type="PackedScene" uid="uid://drwupkt4x7cbj" path="res://Scenes/Scenario/Coin.tscn" id="14_5d2e6"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="15_vqxvv"]
 
 [node name="Scenario" unique_id=744800020 instance=ExtResource("1_ewhex")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1474965870]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1474965870]
 script = ExtResource("2_5kdg0")
 StartsRevealed = true
 
 [node name="I2a" parent="Map/Rooms/Room" index="0" unique_id=1270926576 instance=ExtResource("3_r0pd5")]
 
 [node name="Water1H" parent="Map/Rooms/Room" index="1" unique_id=952604646 instance=ExtResource("6_qwyqe")]
-position = Vector2(545.596, 189)
+position = Vector2(545.59595, 189)
 
 [node name="Water1H2" parent="Map/Rooms/Room" index="2" unique_id=761216032 instance=ExtResource("6_qwyqe")]
-position = Vector2(436.477, 0)
+position = Vector2(436.4768, 0)
 
 [node name="Water1H3" parent="Map/Rooms/Room" index="3" unique_id=1861644265 instance=ExtResource("6_qwyqe")]
-position = Vector2(218.238, 0)
+position = Vector2(218.2384, 0)
 
 [node name="Thorns1H" parent="Map/Rooms/Room" index="4" unique_id=1161384044 instance=ExtResource("7_t6ibw")]
-position = Vector2(-436.477, -378)
+position = Vector2(-436.4768, -378)
 
-[node name="MonsterSpawner" parent="Map/Rooms/Room" index="5" unique_id=1765610166 instance=ExtResource("8_5bvco")]
-position = Vector2(109.119, -189)
-MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
-MonsterType2Characters = 0
-MonsterType3Characters = 1
-MonsterType4Characters = 1
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="5" unique_id=11984160 instance=ExtResource("9_6v84j")]
+position = Vector2(-109.1192, 189)
 
-[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="6" unique_id=421790360 instance=ExtResource("8_5bvco")]
-position = Vector2(-109.119, -189)
-MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
-MonsterType2Characters = 0
-MonsterType3Characters = 0
-MonsterType4Characters = 1
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="6" unique_id=1579319562 instance=ExtResource("9_6v84j")]
+position = Vector2(109.1192, 189)
 
-[node name="CharacterStartHex" parent="Map/Rooms/Room" index="7" unique_id=11984160 instance=ExtResource("9_6v84j")]
-position = Vector2(-109.119, 189)
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="7" unique_id=1491958491 instance=ExtResource("9_6v84j")]
+position = Vector2(-218.2384, 378)
 
-[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="8" unique_id=1579319562 instance=ExtResource("9_6v84j")]
-position = Vector2(109.119, 189)
-
-[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="9" unique_id=1491958491 instance=ExtResource("9_6v84j")]
-position = Vector2(-218.238, 378)
-
-[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="10" unique_id=1620363787 instance=ExtResource("9_6v84j")]
+[node name="CharacterStartHex4" parent="Map/Rooms/Room" index="8" unique_id=1620363787 instance=ExtResource("9_6v84j")]
 position = Vector2(0, 378)
 
-[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="11" unique_id=1095164320 instance=ExtResource("9_6v84j")]
-position = Vector2(218.238, 378)
+[node name="CharacterStartHex5" parent="Map/Rooms/Room" index="9" unique_id=1095164320 instance=ExtResource("9_6v84j")]
+position = Vector2(218.2384, 378)
 
-[node name="Treasure1H" parent="Map/Rooms/Room" index="12" unique_id=1646259755 instance=ExtResource("8_libyu")]
-position = Vector2(218.238, -378)
+[node name="Treasure1H" parent="Map/Rooms/Room" index="10" unique_id=1646259755 instance=ExtResource("8_libyu")]
+position = Vector2(218.2384, -378)
 TreasureNumber = 11
 
-[node name="Bush1H" parent="Map/Rooms/Room" index="13" unique_id=1687210433 instance=ExtResource("9_hqk2m")]
-position = Vector2(-327.358, 189)
+[node name="Bush1H" parent="Map/Rooms/Room" index="11" unique_id=1687210433 instance=ExtResource("9_hqk2m")]
+position = Vector2(-327.35757, 189)
 
-[node name="BearTrap1H" parent="Map/Rooms/Room" index="14" unique_id=180155131 instance=ExtResource("10_5r4do")]
+[node name="Bush1H2" parent="Map/Rooms/Room" index="12" unique_id=1800346984 instance=ExtResource("9_hqk2m")]
+position = Vector2(-218.2384, 0)
 
-[node name="Boulder3H" parent="Map/Rooms/Room" index="15" unique_id=1039946196 instance=ExtResource("11_rv36e")]
-position = Vector2(436.477, -378)
-rotation = 1.0472
+[node name="BearTrap1H" parent="Map/Rooms/Room" index="13" unique_id=180155131 instance=ExtResource("10_5r4do")]
 
-[node name="BarrelObjective1H" parent="Map/Rooms/Room" index="16" unique_id=597689058 instance=ExtResource("12_x5m5f")]
-position = Vector2(-218.238, -378)
+[node name="Boulder3H" parent="Map/Rooms/Room" index="14" unique_id=1039946196 instance=ExtResource("11_rv36e")]
+position = Vector2(436.47678, -378)
+rotation = 1.0471976
 
-[node name="TreeObjective3H" parent="Map/Rooms/Room" index="17" unique_id=1042226996 instance=ExtResource("13_x5m5f")]
-position = Vector2(-327.358, -189)
-rotation = 2.0944
+[node name="Coin" parent="Map/Rooms/Room" index="15" unique_id=1696320253 instance=ExtResource("14_5d2e6")]
+position = Vector2(-109.1192, -189)
 
-[node name="Coin" parent="Map/Rooms/Room" index="18" unique_id=1696320253 instance=ExtResource("14_5d2e6")]
-position = Vector2(-109.119, -189)
+[node name="Coin2" parent="Map/Rooms/Room" index="16" unique_id=1924857532 instance=ExtResource("14_5d2e6")]
+position = Vector2(327.35757, 189)
 
-[node name="Coin2" parent="Map/Rooms/Room" index="19" unique_id=1924857532 instance=ExtResource("14_5d2e6")]
-position = Vector2(327.358, 189)
+[node name="Coin3" parent="Map/Rooms/Room" index="17" unique_id=2080081347 instance=ExtResource("14_5d2e6")]
+position = Vector2(327.35757, 189)
 
-[node name="Coin3" parent="Map/Rooms/Room" index="20" unique_id=2080081347 instance=ExtResource("14_5d2e6")]
-position = Vector2(327.358, 189)
+[node name="Coin4" parent="Map/Rooms/Room" index="18" unique_id=1927180300 instance=ExtResource("14_5d2e6")]
+position = Vector2(327.35757, 189)
 
-[node name="Coin4" parent="Map/Rooms/Room" index="21" unique_id=1927180300 instance=ExtResource("14_5d2e6")]
-position = Vector2(327.358, 189)
+[node name="Coin5" parent="Map/Rooms/Room" index="19" unique_id=258990925 instance=ExtResource("14_5d2e6")]
+position = Vector2(327.35757, 189)
 
-[node name="Coin5" parent="Map/Rooms/Room" index="22" unique_id=258990925 instance=ExtResource("14_5d2e6")]
-position = Vector2(327.358, 189)
+[node name="Coin6" parent="Map/Rooms/Room" index="20" unique_id=633328045 instance=ExtResource("14_5d2e6")]
+position = Vector2(327.35757, 189)
 
-[node name="Coin6" parent="Map/Rooms/Room" index="23" unique_id=633328045 instance=ExtResource("14_5d2e6")]
-position = Vector2(327.358, 189)
+[node name="Marker" parent="Map/Rooms/Room" index="21" unique_id=472443651 instance=ExtResource("15_vqxvv")]
+position = Vector2(654.71515, 378)
+MarkerType = 1
+_hideDuringPlay = true
+
+[node name="Marker2" parent="Map/Rooms/Room" index="22" unique_id=12467389 instance=ExtResource("15_vqxvv")]
+position = Vector2(218.2384, 0)

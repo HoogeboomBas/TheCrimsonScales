@@ -97,7 +97,7 @@ public class Scenario027 : ScenarioModel
 	{
 		await base.InitializeAfterFirstRoomRevealed();
 
-		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<Icebound>(), specificCount: 1));
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<Icebound>()));
 
 		_door2 = GameController.Instance.Map.GetMarker(Marker.Type._2).GetHexObject<Door>();
 

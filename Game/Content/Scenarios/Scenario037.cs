@@ -8,6 +8,7 @@ public class Scenario037 : ScenarioModel
 	public override int ScenarioNumber => 37;
 	public override string Name => "Burning Stones";
 
+	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<NaturalSelection>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario038>(true)];
 

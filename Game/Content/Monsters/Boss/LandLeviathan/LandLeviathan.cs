@@ -4,7 +4,7 @@ using Fractural.Tasks;
 
 public class LandLeviathan : DeepTerror, IBossMonsterModel
 {
-	public override MonsterStats[] NamedLevelStats =>
+	public override MonsterStats[] BossLevelStats =>
 		base.EliteLevelStats
 			.Select(stats => stats with
 			{
@@ -28,12 +28,19 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 	// IBossMonsterModel
 	public string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 {Icons.Inline(Icons.Attack, richTextParameters)}-1, {Icons.Inline(Icons.Range, richTextParameters)}5, {Icons.Inline(Icons.Targets, richTextParameters)}2.
+		 Increase the Land Leviathan's maximum hit point value by 2. {Icons.Inline(Icons.Heal, richTextParameters)}2, Self.
 		 """;
 
 	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 Summon one Imp in the closest empty hex within {Icons.Inline(Icons.Range, richTextParameters)}2. {(CharacterCount switch
+		 {
+			 2 => "The type of Imp that is summoned cycles in the order of Normal Black Imp, then Normal Forest Imp.",
+			 3 => "The type of Imp that is summoned cycles in the order of Elite Black Imp, then Normal Forest Imp.",
+			 _ => "The type of Imp that is summoned cycles in the order of Elite Black Imp, then Elite Forest Imp."
+		 })}
+		 Grant all Imps within {Icons.Inline(Icons.Range, richTextParameters)}5 “{Icons.Inline(Icons.Heal, richTextParameters)}1, Self.”
 		 """;
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>

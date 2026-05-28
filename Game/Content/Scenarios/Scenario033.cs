@@ -9,6 +9,7 @@ public class Scenario033 : ScenarioModel
 	public override int ScenarioNumber => 33;
 	public override string Name => "Siege Tower";
 
+	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<ProtectAndServe>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
 	public override string IntroductionText =>
@@ -22,7 +23,7 @@ public class Scenario033 : ScenarioModel
 
 	public override string ConclusionText =>
 		"""
-		The carnage of the raid lays before you as you make your way off the battlefield towards the gate. The wounded Inox lays bleeding on the pavestones. “We’re not... done... here... city-dweller” He cough up blood and continues “Orgrum Bonebreaker will... not... stop until... we’ve gotten our... vengeance!” He lets out his final breath. Ahead you see the city guard cheering the recent victory. You should probably let them know the celebration is a bit premature.
+		The carnage of the raid lays before you as you make your way off the battlefield towards the gate. The wounded Inox lays bleeding on the pavestone. “We’re not... done... here... city-dweller” He cough up blood and continues “Orgrum Bonebreaker will... not... stop until... we’ve gotten our... vengeance!” He lets out his final breath. Ahead you see the city guard cheering the recent victory. You should probably let them know the celebration is a bit premature.
 		""";
 
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario034>(true)];

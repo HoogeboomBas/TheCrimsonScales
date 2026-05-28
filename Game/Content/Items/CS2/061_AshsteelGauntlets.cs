@@ -12,7 +12,7 @@ public class AshsteelGauntlets : CS2Item
 	public override bool Round => true;
 	public override int MinusOneCount => 2;
 
-	protected override int AtlasIndex => 34;
+	protected override int AtlasIndex => 38;
 
 	private object _subscriber;
 

@@ -52,5 +52,55 @@ public class TestScenario : ScenarioModel
 		{
 			await AbilityCmd.InfuseElement(null, element, immediately: true);
 		}
+
+		NPC brightspark = await SpawnNPC(GameController.Instance.Map.GetMarker(Marker.Type.b).Hex, CharacterCount + ScenarioLevel * 3, "Brightspark",
+			"res://Content/Scenarios/NPCs/Brightspark", 50, [
+				MoveAbility.Builder().WithDistance(2).Build(),
+				AttackAbility.Builder().WithDamage(1).Build()
+			],
+			textParameters => $"{Icons.Inline(Icons.Move, textParameters)}2\n{Icons.Inline(Icons.Attack, textParameters)}1");
+
+		ScenarioEvents.FigureFoundFocusEvent.Subscribe(this,
+			parameters =>
+				parameters.Performer == brightspark &&
+				parameters.AbilityState is MoveAbility.State &&
+				parameters.Focus == null,
+			async parameters =>
+			{
+				parameters.SetFocusHex(GameController.Instance.Map.GetMarker(Marker.Type.a).Hex);
+
+				ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this,
+					moveParameters => moveParameters.Performer == brightspark,
+					moveParameters =>
+					{
+						moveParameters.SetRange(0);
+						moveParameters.SetRangeType(RangeType.Melee);
+						moveParameters.SetTargets(1);
+						moveParameters.SetAOEPattern(null);
+					}
+				);
+
+				ScenarioEvents.AbilityEndedEvent.Subscribe(this,
+					abilityEndedParameters => abilityEndedParameters.Performer == brightspark,
+					async _ =>
+					{
+						ScenarioEvents.AbilityEndedEvent.Unsubscribe(this);
+						ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this);
+
+						await GDTask.CompletedTask;
+					}
+				);
+
+				await GDTask.CompletedTask;
+			});
+
+		ScenarioEvents.FigureTurnEndingEvent.Subscribe(this,
+			ScenarioEvents.FigureTurnEnding.Subscription.ConsumeElement([CardElementConsumption.ConsumeWild()],
+				canApplyFunction: applyParameters => applyParameters.Figure == brightspark,
+				applyFunction: async applyParameters =>
+				{
+					await new ActionState(brightspark, [HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()]).Perform();
+				}, EffectType.Selectable,
+				effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Heal)}2, self")));
 	}
 }

@@ -10,6 +10,7 @@ public class Scenario006 : ScenarioModel
 	public override int ScenarioNumber => 6;
 	public override string Name => "Poisoned Water";
 
+	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.OozeDestroyed, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 
 	public override string IntroductionText =>

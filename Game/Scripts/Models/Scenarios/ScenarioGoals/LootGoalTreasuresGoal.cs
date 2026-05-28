@@ -5,6 +5,7 @@ using Fractural.Tasks;
 public class LootGoalTreasuresGoal : ScenarioGoal
 {
 	private readonly List<Treasure> _treasures;
+	private readonly int? _requiredTreasureCount;
 
 	public LootGoalTreasuresGoal(int order = 0)
 		: base(order)
@@ -18,8 +19,21 @@ public class LootGoalTreasuresGoal : ScenarioGoal
 		_treasures = treasures.ToList();
 	}
 
+	public LootGoalTreasuresGoal(int? requiredTreasureCount, int order = 0)
+		: base(order)
+	{
+		_treasures = GameController.Instance.Map.Treasures.Where(treasure => treasure.IsGoal).ToList();
+		_requiredTreasureCount = requiredTreasureCount;
+	}
+
 	public override string GetLabelText(RichTextParameters textParameters) =>
-		_treasures.Count == 1 ? "Loot the Goal treasure tile." : "Loot all Goal treasure tiles.";
+		_requiredTreasureCount.HasValue
+			? _requiredTreasureCount == 1
+				? $"Loot a treasure tile."
+				: $"Loot at least {_requiredTreasureCount.Value} treasure tiles."
+			: _treasures.Count == 1
+				? "Loot the Goal treasure tile."
+				: "Loot all Goal treasure tiles.";
 
 	public override async GDTask Start()
 	{
@@ -33,6 +47,6 @@ public class LootGoalTreasuresGoal : ScenarioGoal
 			}
 		);
 
-		await SetMaxProgress(_treasures.Count);
+		await SetMaxProgress(_requiredTreasureCount ?? _treasures.Count);
 	}
 }

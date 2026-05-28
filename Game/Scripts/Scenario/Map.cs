@@ -137,6 +137,17 @@ public partial class Map : Node2D
 		return null;
 	}
 
+	public async GDTask<NPC> CreateNPC(Vector2I coords, int health, string name, string assetPath, int initiative, List<Ability> abilities,
+		TextHelper.LabelTextDelegate actionText, Alignment alignment)
+	{
+		Hex hex = GetHex(coords);
+		NPC npcHexObject = ResourceLoader.Load<PackedScene>("res://Scenes/Scenario/NPC.tscn").Instantiate<NPC>();
+		AddChild(npcHexObject, true);
+		await npcHexObject.Init(hex);
+		await npcHexObject.Spawn(health, name, assetPath, initiative, abilities, actionText, alignment);
+		return npcHexObject;
+	}
+
 	public void UpdateContainerRect()
 	{
 		float minX = float.MaxValue;

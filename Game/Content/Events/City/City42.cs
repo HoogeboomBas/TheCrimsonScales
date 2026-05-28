@@ -24,7 +24,8 @@ public class City42 : CityEventModel<City42.ChoiceA, City42.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario049>())
+			new UnlockScenarioReward(ModelDB.Scenario<Scenario049>()),
+			new GainPartyAchievementReward(PartyAchievement.OaksAlliance)
 		];
 	}
 
@@ -41,7 +42,8 @@ public class City42 : CityEventModel<City42.ChoiceA, City42.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO:new UnlockScenarioEventReward(ModelDB.Scenario<Scenario050>())
+			new UnlockScenarioReward(ModelDB.Scenario<Scenario050>()),
+			new GainPartyAchievementReward(PartyAchievement.InoxAlliance)
 		];
 	}
 }

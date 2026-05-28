@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bhprvbhbixjhk"]
+
+[ext_resource type="Script" uid="uid://bal7tjx6xjon6" path="res://Scripts/Scenario/NPCs/NPC.cs" id="1_qqtfu"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_3fptq"]
+[ext_resource type="Texture2D" uid="uid://cuqpi0vkwqe6k" path="res://Art/Other/Hexagon.svg" id="3_furga"]
+[ext_resource type="Material" uid="uid://1x8yfhwue0ki" path="res://Materials/Tint.tres" id="4_wj86u"]
+[ext_resource type="Texture2D" uid="uid://yv642m4xqhuk" path="res://Content/Monsters/WaterSpirit/MapIcon.tres" id="5_ky81j"]
+[ext_resource type="Texture2D" uid="uid://gkm342ht1q3j" path="res://Art/Other/Outline1H.svg" id="6_xpo7b"]
+[ext_resource type="PackedScene" uid="uid://2cvn7adxaika" path="res://Scenes/Scenario/FigureViewComponent.tscn" id="7_5j3be"]
+[ext_resource type="Script" uid="uid://ikphm2dnfssq" path="res://Scripts/Scenario/NPCs/NPCViewComponent.cs" id="8_i2kxv"]
+
+[node name="NPC" type="Node2D" unique_id=1353092289]
+z_index = 10
+script = ExtResource("1_qqtfu")
+
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=1582476640]
+script = ExtResource("2_3fptq")
+
+[node name="Mask" type="Sprite2D" parent="." unique_id=1176354458]
+clip_children = 1
+scale = Vector2(0.81, 0.81)
+texture = ExtResource("3_furga")
+
+[node name="Sprite2D" type="Sprite2D" parent="Mask" unique_id=95827114]
+material = ExtResource("4_wj86u")
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("5_ky81j")
+
+[node name="Outline" type="Sprite2D" parent="." unique_id=854994866]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("6_xpo7b")
+
+[node name="FigureViewComponent" parent="." unique_id=1347457643 instance=ExtResource("7_5j3be")]
+
+[node name="NPCViewComponent" type="Node2D" parent="." unique_id=1932905802 node_paths=PackedStringArray("Sprite")]
+script = ExtResource("8_i2kxv")
+Sprite = NodePath("../Mask/Sprite2D")

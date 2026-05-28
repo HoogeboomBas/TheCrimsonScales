@@ -59,7 +59,7 @@ public class Scenario005 : ScenarioModel
 	{
 		await base.InitializeAfterFirstRoomRevealed();
 
-		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<GelatinousGiantSecondStage>(), specificCount: 1));
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<GelatinousGiantSecondStage>()));
 
 		GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) =>
 		{
@@ -132,7 +132,8 @@ public class Scenario005 : ScenarioModel
 		);
 
 		_infectedWaterGoal =
-			await AddGoal(new CustomScenarioGoal(textParameters => $"Drain {characterCount} infected water tiles to make the Gelatinous Giant vulnerable.",
+			await AddGoal(new CustomScenarioGoal(
+				textParameters => $"Drain {characterCount} infected water tiles to make the Gelatinous Giant vulnerable.",
 				hasProgress: true, maxProgress: characterCount, order: -1));
 
 		_gelatinousGiantInvulnerableRule =

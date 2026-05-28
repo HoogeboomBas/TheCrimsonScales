@@ -11,9 +11,10 @@ public class PermanentConditionTrait(ConditionModel condition) : FigureTrait
 		ScenarioEvents.AfterRemoveConditionEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure && parameters.Condition == condition,
 			async parameters =>
-            {
-                await AbilityCmd.AddCondition(null, figure, condition);
-            });
+			{
+				await AbilityCmd.AddCondition(null, figure, condition);
+			}
+		);
 	}
 
 	public override async GDTask Deactivate(Figure figure)

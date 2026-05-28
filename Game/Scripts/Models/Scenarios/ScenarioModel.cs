@@ -29,10 +29,32 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	public virtual string BGMPath => "res://Audio/BGM/Floral-Woods.ogg";
 	public virtual string BGSPath => null;
+	protected int ScenarioLevel => GameController.Instance.SavedScenario.ScenarioLevel;
+	protected int CharacterCount => GameController.Instance.SavedCampaign.Characters.Count;
 
 	public event Action<ScenarioGoal> GoalAddedEvent;
 	public event Action<ScenarioRule> RuleAddedEvent;
 	public event Action<ScenarioRule> RuleRemovedEvent;
+
+	public bool GetRequirementsMet(SavedCampaign savedCampaign, out string notMetMessage)
+	{
+		notMetMessage = null;
+		if(Requirements.Count == 0)
+		{
+			return true;
+		}
+
+		foreach(ScenarioRequirement requirement in Requirements)
+		{
+			if(!requirement.GetMet(savedCampaign))
+			{
+				notMetMessage = requirement.NotMetMessage();
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	public virtual async GDTask InitializeBeforeFirstRoomRevealed()
 	{
@@ -261,5 +283,11 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 		_rules.Remove(scenarioRule);
 		RuleRemovedEvent?.Invoke(scenarioRule);
+	}
+
+	public static async GDTask<NPC> SpawnNPC(Hex hex, int health, string name, string assetPath, int initiative, List<Ability> abilities,
+		TextHelper.LabelTextDelegate actionText, Alignment alignment = Alignment.Characters)
+	{
+		return await GameController.Instance.Map.CreateNPC(hex.Coords, health, name, assetPath, initiative, abilities, actionText, alignment);
 	}
 }

@@ -50,5 +50,6 @@ public partial class Selector : Node2D
 
 		GlobalPosition = hex?.GlobalPosition ?? Vector2.Zero;
 		CoordsChangedEvent?.Invoke(_currentCoords, Visible);
+		//GD.Print(hex?.Coords);
 	}
 }

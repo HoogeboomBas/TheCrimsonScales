@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_2or2l"]
 [ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_5r85s"]
 [ext_resource type="PackedScene" uid="uid://c7rpsenxfohuf" path="res://Content/OverlayTiles/Obstacles/Stump1H.tscn" id="4_n5rfm"]
-[ext_resource type="PackedScene" uid="uid://c4ag6yx4yj7wl" path="res://Content/OverlayTiles/DifficultTerrain/HotCoalsDifficultTerrain1H.tscn" id="5_mfr1u"]
+[ext_resource type="PackedScene" uid="uid://cv4gvlna7tp3e" path="res://Content/OverlayTiles/HazardousTerrain/HotCoals1H.tscn" id="5_mc8md"]
 [ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="6_mc8md"]
 [ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="7_vfe2g"]
 [ext_resource type="PackedScene" uid="uid://b3brvq4kon6jd" path="res://Content/MapTiles/L1b.tscn" id="9_0m6si"]
@@ -16,166 +16,166 @@
 
 [node name="Scenario" unique_id=1436915031 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=834666219]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=834666219]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
 [node name="D1b" parent="Map/Rooms/Room" index="0" unique_id=1667282920 instance=ExtResource("12_eock8")]
-rotation = 1.0472
+rotation = 1.0471976
 
 [node name="Stump1H" parent="Map/Rooms/Room" index="1" unique_id=1669232766 instance=ExtResource("4_n5rfm")]
-position = Vector2(327.358, 189)
+position = Vector2(327.35757, 189)
 
-[node name="HotCoalsDifficultTerrain1H" parent="Map/Rooms/Room" index="2" unique_id=1615738488 instance=ExtResource("5_mfr1u")]
-position = Vector2(0, -378)
+[node name="HotCoals1H" parent="Map/Rooms/Room" index="2" unique_id=1012738731 instance=ExtResource("5_mc8md")]
+position = Vector2(-218.2384, 0)
 
-[node name="HotCoalsDifficultTerrain1H2" parent="Map/Rooms/Room" index="3" unique_id=1690271372 instance=ExtResource("5_mfr1u")]
-position = Vector2(109.119, -189)
-
-[node name="HotCoalsDifficultTerrain1H5" parent="Map/Rooms/Room" index="4" unique_id=1293693341 instance=ExtResource("5_mfr1u")]
-position = Vector2(436.477, 0)
-
-[node name="HotCoalsDifficultTerrain1H3" parent="Map/Rooms/Room" index="5" unique_id=434122605 instance=ExtResource("5_mfr1u")]
-position = Vector2(-109.119, -189)
-
-[node name="HotCoalsDifficultTerrain1H4" parent="Map/Rooms/Room" index="6" unique_id=546848570 instance=ExtResource("5_mfr1u")]
-position = Vector2(-218.238, 0)
-
-[node name="Marker" parent="Map/Rooms/Room/HotCoalsDifficultTerrain1H4" index="5" unique_id=1248426719 instance=ExtResource("6_mc8md")]
+[node name="Marker" parent="Map/Rooms/Room/HotCoals1H" index="6" unique_id=472443651 instance=ExtResource("6_mc8md")]
 _hideDuringPlay = true
 
+[node name="HotCoals1H2" parent="Map/Rooms/Room" index="3" unique_id=1359951988 instance=ExtResource("5_mc8md")]
+position = Vector2(-109.1192, -189)
+
+[node name="HotCoals1H3" parent="Map/Rooms/Room" index="4" unique_id=74792628 instance=ExtResource("5_mc8md")]
+position = Vector2(109.1192, -189)
+
+[node name="HotCoals1H4" parent="Map/Rooms/Room" index="5" unique_id=438046844 instance=ExtResource("5_mc8md")]
+position = Vector2(0, -378)
+
+[node name="HotCoals1H5" parent="Map/Rooms/Room" index="6" unique_id=1350648525 instance=ExtResource("5_mc8md")]
+position = Vector2(436.4768, 0)
+
 [node name="CharacterStartHex" parent="Map/Rooms/Room" index="7" unique_id=1934260990 instance=ExtResource("9_vak8c")]
-position = Vector2(-109.119, 189)
+position = Vector2(-109.1192, 189)
 
 [node name="CharacterStartHex2" parent="Map/Rooms/Room" index="8" unique_id=1126860061 instance=ExtResource("9_vak8c")]
-position = Vector2(109.119, 189)
+position = Vector2(109.1192, 189)
 
 [node name="CharacterStartHex3" parent="Map/Rooms/Room" index="9" unique_id=289699525 instance=ExtResource("9_vak8c")]
-position = Vector2(218.238, 378)
+position = Vector2(218.2384, 378)
 
 [node name="CharacterStartHex4" parent="Map/Rooms/Room" index="10" unique_id=536509102 instance=ExtResource("9_vak8c")]
 position = Vector2(0, 378)
 
 [node name="CharacterStartHex5" parent="Map/Rooms/Room" index="11" unique_id=276670388 instance=ExtResource("9_vak8c")]
-position = Vector2(-218.238, 378)
+position = Vector2(-218.2384, 378)
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room" index="12" unique_id=598915102 instance=ExtResource("7_vfe2g")]
-position = Vector2(218.238, -378)
+position = Vector2(218.2384, -378)
 MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner2" parent="Map/Rooms/Room" index="13" unique_id=663650686 instance=ExtResource("7_vfe2g")]
-position = Vector2(-218.238, -378)
+position = Vector2(-218.2384, -378)
 MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
 MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner3" parent="Map/Rooms/Room" index="14" unique_id=790250559 instance=ExtResource("7_vfe2g")]
-position = Vector2(-327.358, -189)
+position = Vector2(-327.35757, -189)
 MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
 MonsterType2Characters = 1
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner4" parent="Map/Rooms/Room" index="15" unique_id=328841248 instance=ExtResource("7_vfe2g")]
-position = Vector2(-436.477, 0)
+position = Vector2(-436.4768, 0)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 1
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner5" parent="Map/Rooms/Room" index="16" unique_id=139539152 instance=ExtResource("7_vfe2g")]
-position = Vector2(327.358, -189)
+position = Vector2(327.35757, -189)
 MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=707843126]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=707843126]
 script = ExtResource("2_5r85s")
 
 [node name="L1b" parent="Map/Rooms/Room2" index="0" unique_id=1952712301 instance=ExtResource("9_0m6si")]
-position = Vector2(-327.358, -1323)
+position = Vector2(-327.35757, -1323)
 
-[node name="HotCoalsDifficultTerrain1H" parent="Map/Rooms/Room2" index="1" unique_id=1589505117 instance=ExtResource("5_mfr1u")]
+[node name="HotCoals1H5" parent="Map/Rooms/Room2" index="1" unique_id=418260168 instance=ExtResource("5_mc8md")]
+position = Vector2(218.23842, -1890)
+
+[node name="Marker" parent="Map/Rooms/Room2/HotCoals1H5" index="6" unique_id=1352471981 instance=ExtResource("6_mc8md")]
+_hideDuringPlay = true
+
+[node name="HotCoals1H6" parent="Map/Rooms/Room2" index="2" unique_id=303187320 instance=ExtResource("5_mc8md")]
+position = Vector2(218.23842, -1134)
+
+[node name="Marker" parent="Map/Rooms/Room2/HotCoals1H6" index="6" unique_id=694539049 instance=ExtResource("6_mc8md")]
+_hideDuringPlay = true
+
+[node name="HotCoals1H7" parent="Map/Rooms/Room2" index="3" unique_id=1804132618 instance=ExtResource("5_mc8md")]
+position = Vector2(-654.71515, -1134)
+
+[node name="Marker" parent="Map/Rooms/Room2/HotCoals1H7" index="6" unique_id=436424850 instance=ExtResource("6_mc8md")]
+_hideDuringPlay = true
+
+[node name="HotCoals1H8" parent="Map/Rooms/Room2" index="4" unique_id=952532017 instance=ExtResource("5_mc8md")]
+position = Vector2(-545.59595, -945)
+
+[node name="HotCoals1H9" parent="Map/Rooms/Room2" index="5" unique_id=146651503 instance=ExtResource("5_mc8md")]
 position = Vector2(0, -1134)
 
-[node name="HotCoalsDifficultTerrain1H9" parent="Map/Rooms/Room2" index="2" unique_id=1572299381 instance=ExtResource("5_mfr1u")]
-position = Vector2(-545.596, -945)
+[node name="HotCoals1H10" parent="Map/Rooms/Room2" index="6" unique_id=2124119706 instance=ExtResource("5_mc8md")]
+position = Vector2(-109.11921, -1323)
 
-[node name="HotCoalsDifficultTerrain1H2" parent="Map/Rooms/Room2" index="3" unique_id=1896585670 instance=ExtResource("5_mfr1u")]
-position = Vector2(-109.119, -1323)
+[node name="HotCoals1H11" parent="Map/Rooms/Room2" index="7" unique_id=815792042 instance=ExtResource("5_mc8md")]
+position = Vector2(-218.23842, -1512)
 
-[node name="HotCoalsDifficultTerrain1H3" parent="Map/Rooms/Room2" index="4" unique_id=1565621820 instance=ExtResource("5_mfr1u")]
-position = Vector2(-218.238, -1512)
+[node name="HotCoals1H12" parent="Map/Rooms/Room2" index="8" unique_id=973273534 instance=ExtResource("5_mc8md")]
+position = Vector2(-327.3576, -1701)
 
-[node name="HotCoalsDifficultTerrain1H4" parent="Map/Rooms/Room2" index="5" unique_id=370221700 instance=ExtResource("5_mfr1u")]
-position = Vector2(-109.119, -1701)
-
-[node name="HotCoalsDifficultTerrain1H5" parent="Map/Rooms/Room2" index="6" unique_id=319046805 instance=ExtResource("5_mfr1u")]
-position = Vector2(-327.358, -1701)
-
-[node name="HotCoalsDifficultTerrain1H6" parent="Map/Rooms/Room2" index="7" unique_id=1019669197 instance=ExtResource("5_mfr1u")]
-position = Vector2(218.238, -1890)
-
-[node name="Marker" parent="Map/Rooms/Room2/HotCoalsDifficultTerrain1H6" index="5" unique_id=1352471981 instance=ExtResource("6_mc8md")]
-_hideDuringPlay = true
-
-[node name="HotCoalsDifficultTerrain1H7" parent="Map/Rooms/Room2" index="8" unique_id=1130922546 instance=ExtResource("5_mfr1u")]
-position = Vector2(218.238, -1134)
-
-[node name="Marker" parent="Map/Rooms/Room2/HotCoalsDifficultTerrain1H7" index="5" unique_id=1782673885 instance=ExtResource("6_mc8md")]
-_hideDuringPlay = true
-
-[node name="HotCoalsDifficultTerrain1H8" parent="Map/Rooms/Room2" index="9" unique_id=559225558 instance=ExtResource("5_mfr1u")]
-position = Vector2(-654.715, -1134)
-
-[node name="Marker" parent="Map/Rooms/Room2/HotCoalsDifficultTerrain1H8" index="5" unique_id=658101034 instance=ExtResource("6_mc8md")]
-_hideDuringPlay = true
+[node name="HotCoals1H13" parent="Map/Rooms/Room2" index="9" unique_id=1486070389 instance=ExtResource("5_mc8md")]
+position = Vector2(-109.11921, -1701)
 
 [node name="Stump1H" parent="Map/Rooms/Room2" index="10" unique_id=1251507468 instance=ExtResource("4_n5rfm")]
-position = Vector2(-654.715, -756)
+position = Vector2(-654.71515, -756)
 
 [node name="Stump1H2" parent="Map/Rooms/Room2" index="11" unique_id=385193906 instance=ExtResource("4_n5rfm")]
 position = Vector2(0, -1890)
 
 [node name="BearTrap1H" parent="Map/Rooms/Room2" index="12" unique_id=1084810860 instance=ExtResource("9_o4tb2")]
-position = Vector2(218.238, -756)
+position = Vector2(218.23839, -756)
 
 [node name="BearTrap1H2" parent="Map/Rooms/Room2" index="13" unique_id=654792758 instance=ExtResource("9_o4tb2")]
-position = Vector2(-327.358, -1323)
+position = Vector2(-327.35757, -1323)
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room2" index="14" unique_id=1235421814 instance=ExtResource("7_vfe2g")]
-position = Vector2(-218.238, -1134)
+position = Vector2(-218.23839, -1134)
 MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
 MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner2" parent="Map/Rooms/Room2" index="15" unique_id=89868851 instance=ExtResource("7_vfe2g")]
-position = Vector2(-327.358, -945)
+position = Vector2(-327.35754, -945)
 MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
 [node name="MonsterSpawner4" parent="Map/Rooms/Room2" index="16" unique_id=782441064 instance=ExtResource("7_vfe2g")]
-position = Vector2(-654.715, -1512)
+position = Vector2(-654.71515, -1512)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
 [node name="MonsterSpawner7" parent="Map/Rooms/Room2" index="17" unique_id=424244076 instance=ExtResource("7_vfe2g")]
-position = Vector2(218.238, -1512)
+position = Vector2(218.23836, -1512)
 MonsterModelId = "MONSTER_MODEL.INOX_ARCHER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
 [node name="MonsterSpawner9" parent="Map/Rooms/Room2" index="18" unique_id=2140231406 instance=ExtResource("7_vfe2g")]
-position = Vector2(109.119, -1323)
+position = Vector2(109.11921, -1323)
 MonsterModelId = "MONSTER_MODEL.INOX_SHAMAN"
 MonsterType2Characters = 0
 MonsterType4Characters = 1
@@ -188,102 +188,102 @@ MonsterType3Characters = 1
 MonsterType4Characters = 0
 
 [node name="MonsterSpawner5" parent="Map/Rooms/Room2" index="20" unique_id=1881745938 instance=ExtResource("7_vfe2g")]
-position = Vector2(-545.596, -1323)
+position = Vector2(-545.59595, -1323)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner6" parent="Map/Rooms/Room2" index="21" unique_id=833276672 instance=ExtResource("7_vfe2g")]
-position = Vector2(-436.477, -1512)
+position = Vector2(-436.4768, -1512)
 MonsterModelId = "MONSTER_MODEL.GIANT_VIPER"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
 [node name="MonsterSpawner3" parent="Map/Rooms/Room2" index="22" unique_id=1282703991 instance=ExtResource("7_vfe2g")]
-position = Vector2(-109.119, -945)
+position = Vector2(-109.11918, -945)
 MonsterModelId = "MONSTER_MODEL.INOX_GUARD"
 MonsterType4Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1614622282]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1614622282]
 script = ExtResource("2_5r85s")
 
 [node name="L3a" parent="Map/Rooms/Room3" index="0" unique_id=2010000917 instance=ExtResource("10_34jmw")]
-position = Vector2(763.834, -1323)
+position = Vector2(763.8344, -1323)
 
 [node name="Tree3H" parent="Map/Rooms/Room3" index="1" unique_id=2081584402 instance=ExtResource("15_smy5p")]
-position = Vector2(436.477, -756)
+position = Vector2(436.4768, -756)
 
 [node name="BearTrap1H" parent="Map/Rooms/Room3" index="2" unique_id=133364749 instance=ExtResource("9_o4tb2")]
-position = Vector2(763.834, -945)
+position = Vector2(763.8344, -945)
 
 [node name="BearTrap1H2" parent="Map/Rooms/Room3" index="3" unique_id=1815442019 instance=ExtResource("9_o4tb2")]
-position = Vector2(763.834, -1701)
+position = Vector2(763.8344, -1701)
 
 [node name="Stump1H" parent="Map/Rooms/Room3" index="4" unique_id=835672082 instance=ExtResource("4_n5rfm")]
-position = Vector2(1200.31, -1323)
+position = Vector2(1200.3112, -1323)
 
-[node name="HotCoalsDifficultTerrain1H" parent="Map/Rooms/Room3" index="5" unique_id=1295286197 instance=ExtResource("5_mfr1u")]
-position = Vector2(1091.19, -1134)
+[node name="HotCoals1H9" parent="Map/Rooms/Room3" index="5" unique_id=111903510 instance=ExtResource("5_mc8md")]
+position = Vector2(654.7152, -1890)
 
-[node name="HotCoalsDifficultTerrain1H2" parent="Map/Rooms/Room3" index="6" unique_id=513960460 instance=ExtResource("5_mfr1u")]
-position = Vector2(1200.31, -945)
+[node name="HotCoals1H10" parent="Map/Rooms/Room3" index="6" unique_id=1207346413 instance=ExtResource("5_mc8md")]
+position = Vector2(872.9537, -1890)
 
-[node name="HotCoalsDifficultTerrain1H3" parent="Map/Rooms/Room3" index="7" unique_id=899526911 instance=ExtResource("5_mfr1u")]
-position = Vector2(982.073, -945)
+[node name="HotCoals1H11" parent="Map/Rooms/Room3" index="7" unique_id=1354840841 instance=ExtResource("5_mc8md")]
+position = Vector2(1091.1919, -1512)
 
-[node name="HotCoalsDifficultTerrain1H4" parent="Map/Rooms/Room3" index="8" unique_id=1521400384 instance=ExtResource("5_mfr1u")]
-position = Vector2(1091.19, -1512)
+[node name="HotCoals1H12" parent="Map/Rooms/Room3" index="8" unique_id=1090938635 instance=ExtResource("5_mc8md")]
+position = Vector2(1309.4302, -1512)
 
-[node name="HotCoalsDifficultTerrain1H5" parent="Map/Rooms/Room3" index="9" unique_id=605363631 instance=ExtResource("5_mfr1u")]
-position = Vector2(1309.43, -1512)
+[node name="HotCoals1H13" parent="Map/Rooms/Room3" index="9" unique_id=1188093271 instance=ExtResource("5_mc8md")]
+position = Vector2(1091.1919, -1134)
 
-[node name="HotCoalsDifficultTerrain1H6" parent="Map/Rooms/Room3" index="10" unique_id=1100194460 instance=ExtResource("5_mfr1u")]
-position = Vector2(872.954, -1890)
+[node name="HotCoals1H14" parent="Map/Rooms/Room3" index="10" unique_id=1307067794 instance=ExtResource("5_mc8md")]
+position = Vector2(982.0728, -945)
 
-[node name="HotCoalsDifficultTerrain1H7" parent="Map/Rooms/Room3" index="11" unique_id=1099362780 instance=ExtResource("5_mfr1u")]
-position = Vector2(654.715, -1890)
+[node name="HotCoals1H15" parent="Map/Rooms/Room3" index="11" unique_id=1220249191 instance=ExtResource("5_mc8md")]
+position = Vector2(1200.3112, -945)
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room3" index="12" unique_id=55466058 instance=ExtResource("7_vfe2g")]
-position = Vector2(872.954, -1134)
+position = Vector2(872.9536, -1134)
 MonsterModelId = "MONSTER_MODEL.INOX_SHAMAN"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner2" parent="Map/Rooms/Room3" index="13" unique_id=1377387196 instance=ExtResource("7_vfe2g")]
-position = Vector2(654.715, -1512)
+position = Vector2(654.71515, -1512)
 MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner3" parent="Map/Rooms/Room3" index="14" unique_id=1211175432 instance=ExtResource("7_vfe2g")]
-position = Vector2(982.073, -1701)
+position = Vector2(982.0728, -1701)
 MonsterModelId = "MONSTER_MODEL.INOX_ARCHER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner4" parent="Map/Rooms/Room3" index="15" unique_id=1693788796 instance=ExtResource("7_vfe2g")]
-position = Vector2(1200.31, -1701)
+position = Vector2(1200.311, -1701)
 MonsterModelId = "MONSTER_MODEL.INOX_ARCHER"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
 [node name="MonsterSpawner5" parent="Map/Rooms/Room3" index="16" unique_id=2022767143 instance=ExtResource("7_vfe2g")]
-position = Vector2(1091.19, -1890)
+position = Vector2(1091.1919, -1890)
 MonsterModelId = "MONSTER_MODEL.INOX_ARCHER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=882994206 instance=ExtResource("13_mf5fa")]
-position = Vector2(-109.119, -567)
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=882994206 instance=ExtResource("13_mf5fa")]
+position = Vector2(-109.119194, -567)
 
 [node name="Marker" parent="Map/Doors/LightFog1H" index="6" unique_id=27397921 instance=ExtResource("6_mc8md")]
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=1846711965 instance=ExtResource("13_mf5fa")]
-position = Vector2(327.358, -1323)
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1846711965 instance=ExtResource("13_mf5fa")]
+position = Vector2(327.35754, -1323)
 
 [node name="Marker" parent="Map/Doors/LightFog1H2" index="6" unique_id=290297012 instance=ExtResource("6_mc8md")]
 MarkerType = 26

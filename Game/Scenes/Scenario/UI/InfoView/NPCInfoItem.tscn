@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://igybi7rojsu4"]
+
+[ext_resource type="PackedScene" uid="uid://cj61uqdsa6bkt" path="res://Scenes/Scenario/UI/InfoView/FigureInfoItem.tscn" id="1_p6pi1"]
+[ext_resource type="Script" uid="uid://cg62wtxbakh3o" path="res://Scripts/Scenario/UI/InfoView/NPCInfoItem.cs" id="2_p81u8"]
+
+[node name="NPCInfoItem" unique_id=1415681024 instance=ExtResource("1_p6pi1")]
+script = ExtResource("2_p81u8")
+
+[editable path="MarginContainer/Content/Container/Stats/Health"]
+[editable path="MarginContainer/Content/Effects/Conditions"]
+[editable path="MarginContainer/Content/Effects/Applies"]

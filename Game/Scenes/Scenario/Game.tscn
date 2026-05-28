@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="34_dfaft"]
 [ext_resource type="Script" uid="uid://be6tgcsu3kssh" path="res://Scripts/Scenario/UI/ElementsView/ElementsView.cs" id="36_6nwhb"]
 [ext_resource type="PackedScene" uid="uid://mp8cee00fmg5" path="res://Scenes/Scenario/UI/Element.tscn" id="36_juek3"]
+[ext_resource type="PackedScene" uid="uid://cpf0h58xnn8mo" path="res://Scenes/Scenario/UI/PortraitView/NPCPortrait.tscn" id="37_dpg3j"]
 [ext_resource type="Texture2D" uid="uid://cpv5w6250wmii" path="res://Art/Icons/Elements/FireEmpty.svg" id="38_bytl6"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="38_grpwx"]
 [ext_resource type="Texture2D" uid="uid://7j5gn7adtbco" path="res://Art/Icons/Elements/Fire.svg" id="39_gpo0a"]
@@ -499,6 +500,7 @@ mouse_filter = 2
 script = ExtResource("30_05yo2")
 _characterPortraitScene = ExtResource("18_us76b")
 _monsterGroupPortraitScene = ExtResource("19_mtt54")
+_npcPortraitScene = ExtResource("37_dpg3j")
 _portraitParent = NodePath("Container")
 
 [node name="Container" type="Control" parent="CanvasLayer/UI/PortraitView" unique_id=16633134]

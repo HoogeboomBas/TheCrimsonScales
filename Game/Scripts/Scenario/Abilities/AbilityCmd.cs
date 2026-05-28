@@ -225,19 +225,21 @@ public static class AbilityCmd
 
 	public static async GDTask RemoveCondition(Condition condition)
 	{
+		Figure target = condition.Owner;
+
 		ScenarioEvents.RemoveCondition.Parameters removeConditionParameters =
 			await ScenarioEvents.RemoveConditionEvent.CreatePrompt(
-				new ScenarioEvents.RemoveCondition.Parameters(condition), condition.Owner);
+				new ScenarioEvents.RemoveCondition.Parameters(condition), target);
 
 
 		if(!removeConditionParameters.Prevented)
 		{
-			await condition.Owner.RemoveCondition(condition);
+			await target.RemoveCondition(condition);
 		}
 
 		ScenarioEvents.AfterRemoveCondition.Parameters afterRemoveConditionParameters =
 			await ScenarioEvents.AfterRemoveConditionEvent.CreatePrompt(
-				new ScenarioEvents.AfterRemoveCondition.Parameters(condition.Owner, condition.ConditionModel), condition.Owner);
+				new ScenarioEvents.AfterRemoveCondition.Parameters(target, condition.ConditionModel), target);
 	}
 
 	public static async GDTask<bool> RemoveCondition(Figure target, ConditionModel conditionModel)
@@ -497,8 +499,7 @@ public static class AbilityCmd
 		Action<List<Hex>> hexes = list => moveToHexes(overlayTile, list);
 
 		Hex movedToHex = await SelectHex(state.Performer, hexes, mandatory: true,
-			hintText: $"Select a hex to move {overlayTile.GetType().ToString().ToLower()} to");
-
+			hintText: $"Select a hex to move the overlay tile to");
 
 		if(movedToHex == null)
 		{

@@ -60,7 +60,7 @@ public partial class HexObject : Node2D, IReferenced
 
 		Hexes = new Hex[(int)HexObjectShape + 1];
 
-		if(originHex == null && hexCanBeNull)
+		if((originHex == null && hexCanBeNull) || IsDestroyed)
 		{
 			RemoveFromMap();
 		}

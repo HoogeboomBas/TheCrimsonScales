@@ -227,7 +227,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 			}
 			else
 			{
-				Figure focus = await abilityState.ActionState.GetFocus(abilityState);
+				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
 				MonsterAOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
@@ -274,7 +274,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 			}
 			else
 			{
-				Figure focus = await abilityState.ActionState.GetFocus(abilityState);
+				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
 					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, null,

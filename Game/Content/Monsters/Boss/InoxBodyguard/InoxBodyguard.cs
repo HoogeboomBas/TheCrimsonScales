@@ -103,38 +103,49 @@ public class InoxBodyguard : MonsterModel, IBossMonsterModel
 
 	public override IEnumerable<MonsterAbilityCardModel> Deck => BossAbilityCard.Deck;
 
+	private static readonly AOEPattern AOEPattern = new AOEPattern(
+		[
+			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+			new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
+			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
+			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
+		]
+	);
+
 	// IBossMonsterModel
 	public string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 {Icons.Inline(Icons.Move, richTextParameters)}{monster.Stats.Move - 1}.
+		 {Icons.Inline(Icons.Attack, richTextParameters)}{monster.Stats.Attack - 1}, {Icons.InlineAOEPattern(AOEPattern, richTextParameters)}.
 		 """;
 
 	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 TODO
+		 {Icons.Inline(Icons.Move, richTextParameters)}{monster.Stats.Move}.
+		 {Icons.Inline(Icons.Attack, richTextParameters)}{monster.Stats.Attack}.
+		 {Icons.Inline(Icons.Retaliate, richTextParameters)}{GetRetaliateValue()}.
 		 """;
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1, aoePattern: new AOEPattern(
-			[
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
-				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
-			]
-		)))
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1, aoePattern: AOEPattern))
 	];
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue((GameController.Instance.SavedScenario.ScenarioLevel < 3)
-			? 3
-			: ((GameController.Instance.SavedScenario.ScenarioLevel < 5) ? 4 : 5)).Build())
+		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(GetRetaliateValue()).Build())
 	];
+
+	private static int GetRetaliateValue()
+	{
+		return
+			GameController.Instance.SavedScenario.ScenarioLevel < 3
+				? 3
+				: ((GameController.Instance.SavedScenario.ScenarioLevel < 5) ? 4 : 5);
+	}
 }

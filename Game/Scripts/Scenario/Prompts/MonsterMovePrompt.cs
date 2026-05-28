@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 
 public class MonsterMovePrompt(
-	MoveAbility.State moveAbilityState, Figure performer, AIMoveParameters aiMoveParameters, Figure focus, // List<FocusNode> bestFocusNodes,
+	MoveAbility.State moveAbilityState, Figure performer, AIMoveParameters aiMoveParameters, Figure focus, Hex focusHex,
 	EffectCollection effectCollection, Func<string> getHintText)
 	: Prompt<MonsterMovePrompt.Answer>(effectCollection, getHintText)
 {
@@ -35,7 +35,7 @@ public class MonsterMovePrompt(
 	{
 		base.Enable();
 
-		if(focus == null)
+		if(focus == null && focusHex == null)
 		{
 			Skip();
 			return;
@@ -302,7 +302,7 @@ public class MonsterMovePrompt(
 
 			void HandlePotentialTargetHex(Hex potentialTargetHex)
 			{
-				if(potentialTargetHex != focus.Hex)
+				if(potentialTargetHex != focusHex)
 				{
 					return;
 				}
@@ -312,28 +312,12 @@ public class MonsterMovePrompt(
 					return;
 				}
 
-				foreach(Figure potentialTarget in potentialTargetHex.GetHexObjectsOfType<Figure>())
+				if(focus == null)
 				{
-					if(potentialTarget != focus)
-					{
-						continue;
-					}
-
-					// if(!performer.EnemiesWith(potentialTarget))
-					// {
-					// 	continue;
-					// }
-
-					ScenarioCheckEvents.PotentialTargetCheck.Parameters potentialTargetCheckParameters =
-						ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
-							new ScenarioCheckEvents.PotentialTargetCheck.Parameters(performer, potentialTarget));
-
-					int adjustedSortingInitiative =
-						potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
 					int distanceFromCurrentHex = RangeHelper.Distance(performer.Hex, potentialTargetHex);
 
-					FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
-						distanceFromCurrentHex, adjustedSortingInitiative, node);
+					FocusNode newNode = new FocusNode(null, node.NegativeHexEncounteredCount, node.MoveSpent,
+						distanceFromCurrentHex, 0, node);
 					if(bestFocusNodes.Count == 0)
 					{
 						bestFocusNodes.Add(newNode);
@@ -353,6 +337,48 @@ public class MonsterMovePrompt(
 								break;
 							case CompareResult.Worse:
 								break;
+						}
+					}
+				}
+				else
+				{
+					foreach(Figure potentialTarget in potentialTargetHex.GetHexObjectsOfType<Figure>())
+					{
+						if(potentialTarget != focus)
+						{
+							continue;
+						}
+
+						ScenarioCheckEvents.PotentialTargetCheck.Parameters potentialTargetCheckParameters =
+							ScenarioCheckEvents.PotentialTargetCheckEvent.Fire(
+								new ScenarioCheckEvents.PotentialTargetCheck.Parameters(performer, potentialTarget));
+
+						int adjustedSortingInitiative =
+							potentialTarget.Initiative.SortingInitiative + potentialTargetCheckParameters.SortingInitiativeAdjustment;
+						int distanceFromCurrentHex = RangeHelper.Distance(performer.Hex, potentialTargetHex);
+
+						FocusNode newNode = new FocusNode(potentialTarget, node.NegativeHexEncounteredCount, node.MoveSpent,
+							distanceFromCurrentHex, adjustedSortingInitiative, node);
+						if(bestFocusNodes.Count == 0)
+						{
+							bestFocusNodes.Add(newNode);
+						}
+						else
+						{
+							FocusNode previousBestNode = bestFocusNodes[0];
+							CompareResult compareResult = newNode.CompareTo(previousBestNode);
+							switch(compareResult)
+							{
+								case CompareResult.Better:
+									bestFocusNodes.Clear();
+									bestFocusNodes.Add(newNode);
+									break;
+								case CompareResult.Equal:
+									bestFocusNodes.Add(newNode);
+									break;
+								case CompareResult.Worse:
+									break;
+							}
 						}
 					}
 				}

@@ -9,6 +9,7 @@ public class Scenario020 : ScenarioModel
 	public override int ScenarioNumber => 20;
 	public override string Name => "Midnight Ritual";
 
+	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.FallenLava, false)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario022>()];
 
@@ -84,7 +85,7 @@ public class Scenario020 : ScenarioModel
 	{
 		await base.InitializeAfterFirstRoomRevealed();
 
-		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<CultLeader>(), specificCount: 1));
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<CultLeader>()));
 
 		int characterCount = GameController.Instance.SavedCampaign.Characters.Count;
 		string summonInfo = characterCount == 3 ? """Every other Living Spirit summoned is elite.""" :

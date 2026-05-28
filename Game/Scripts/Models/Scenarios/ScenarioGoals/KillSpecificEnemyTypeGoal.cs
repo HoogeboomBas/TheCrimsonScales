@@ -15,7 +15,11 @@ public class KillSpecificEnemyTypeGoal : ScenarioGoal
 	}
 
 	public override string GetLabelText(RichTextParameters textParameters) =>
-		_multiple ? $"Kill all {_monsterModel.Name} enemies." : $"Kill the {_monsterModel.Name}.";
+		_specificCount.HasValue && _specificCount.Value > 1
+			? $"Kill {_specificCount} {_monsterModel.Name} enemies."
+			: _multiple
+				? $"Kill all {_monsterModel.Name} enemies."
+				: $"Kill the {_monsterModel.Name}.";
 
 	public override async GDTask Start()
 	{

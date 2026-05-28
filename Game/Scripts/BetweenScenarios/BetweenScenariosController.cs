@@ -207,6 +207,14 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			return;
 		}
 
+		if(!scenarioModel.GetRequirementsMet(SavedCampaign, out string notMetMessage))
+		{
+			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("Cannot start scenario",
+				notMetMessage));
+
+			return;
+		}
+
 		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber}",
 			$"Start scenario {scenarioModel.ScenarioNumber}?",
 			new TextButton.Parameters("Cancel",

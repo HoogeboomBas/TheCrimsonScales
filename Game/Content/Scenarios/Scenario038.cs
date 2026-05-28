@@ -9,6 +9,7 @@ public class Scenario038 : ScenarioModel
 	public override int ScenarioNumber => 38;
 	public override string Name => "Altars of Confusion";
 
+	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<NaturalSelection>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
 	public override string IntroductionText =>

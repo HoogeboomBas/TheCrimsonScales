@@ -9,6 +9,7 @@ public class Scenario039 : ScenarioModel
 	public override int ScenarioNumber => 39;
 	public override string Name => "Festering Mire";
 
+	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<AnAdderDivides>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
 	public override string IntroductionText =>

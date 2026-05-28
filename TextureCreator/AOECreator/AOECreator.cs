@@ -41,6 +41,16 @@ public partial class AOECreator : Node2D
 				new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
 			]
 		),
+		new AOEPattern(
+			[
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
+			]
+		)
 	];
 
 	[Export]

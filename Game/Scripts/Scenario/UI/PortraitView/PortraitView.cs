@@ -9,11 +9,14 @@ public partial class PortraitView : Control
 	[Export]
 	private PackedScene _monsterGroupPortraitScene;
 	[Export]
+	private PackedScene _npcPortraitScene;
+	[Export]
 	private Control _portraitParent;
 
 	public List<PortraitViewPortrait> Portraits { get; } = new List<PortraitViewPortrait>();
 	public List<PortraitViewCharacterPortrait> CharacterPortraits { get; } = new List<PortraitViewCharacterPortrait>();
 	public List<PortraitViewMonsterGroupPortrait> MonsterGroupPortraits { get; } = new List<PortraitViewMonsterGroupPortrait>();
+	public List<PortraitViewNPCPortrait> NPCPortraits { get; } = new List<PortraitViewNPCPortrait>();
 
 	public void Open()
 	{
@@ -79,6 +82,13 @@ public partial class PortraitView : Control
 
 			return portrait;
 		}
+		else if(figure is NPC npc)
+		{
+			PortraitViewNPCPortrait portrait = _npcPortraitScene.Instantiate<PortraitViewNPCPortrait>();
+			portrait.Init(npc);
+
+			return portrait;
+		}
 
 		return null;
 	}
@@ -105,6 +115,15 @@ public partial class PortraitView : Control
 			_portraitParent.AddChild(portrait);
 			Portraits.Add(portrait);
 			CharacterPortraits.Add(portrait);
+
+			Reorder();
+		}
+		else if(figure is NPC npc)
+		{
+			PortraitViewNPCPortrait portrait = (PortraitViewNPCPortrait)CreatePortrait(figure);
+			_portraitParent.AddChild(portrait);
+			Portraits.Add(portrait);
+			NPCPortraits.Add(portrait);
 
 			Reorder();
 		}
@@ -136,6 +155,19 @@ public partial class PortraitView : Control
 			{
 				Portraits.Remove(portrait);
 				CharacterPortraits.Remove(portrait);
+				portrait.Destroy();
+
+				Reorder();
+			}
+		}
+		else if(figure is NPC npc)
+		{
+			PortraitViewNPCPortrait portrait = NPCPortraits.FirstOrDefault(portrait => portrait.NPC == npc);
+
+			if(portrait != null)
+			{
+				Portraits.Remove(portrait);
+				NPCPortraits.Remove(portrait);
 				portrait.Destroy();
 
 				Reorder();

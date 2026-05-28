@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class RoundPhase : ScenarioPhase
@@ -13,6 +14,11 @@ public class RoundPhase : ScenarioPhase
 		foreach(MonsterGroup monsterGroup in GameController.Instance.Map.MonsterGroups)
 		{
 			monsterGroup.TryDrawCard();
+		}
+
+		foreach(Figure figure in GameController.Instance.Map.Figures)
+		{
+			figure.UpdateInitiative();
 		}
 
 		// Start of round
