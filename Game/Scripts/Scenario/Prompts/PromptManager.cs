@@ -123,6 +123,7 @@ public class PromptManager
 				{
 					await prompt.EffectCollection.Effects[answer.SelectedEffectIndex].Apply();
 
+					//TODO: Check if this PerformBeforePrompt call is best placed here.
 					await prompt.EffectCollection.PerformBeforePrompt();
 
 					continue;

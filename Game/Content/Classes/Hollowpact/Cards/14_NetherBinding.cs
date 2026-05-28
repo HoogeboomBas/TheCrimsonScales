@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Godot;
+using Fractural.Tasks;
 
 public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, NetherBinding.CardBottom>
 {
@@ -20,7 +21,14 @@ public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, N
 				.Build()),
 
 			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
-				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 0))
+				.WithConditionalAbilityCheck(async state =>
+				{
+					PushAbility.State pushState = state.ActionState.GetAbilityState<PushAbility.State>(0);
+
+					await GDTask.CompletedTask;
+
+					return pushState.Performed && !pushState.Target.IsDead;
+				})
 				.WithCustomSelectHexes((state, hexes) =>
 				{
 					hexes.AddRange(state.ActionState.GetAbilityState<PushAbility.State>(0).Target.Hex.Neighbours.Where(hex => hex.IsEmpty()));
@@ -52,7 +60,14 @@ public class NetherBinding : HollowpactLevelUpCardModel<NetherBinding.CardTop, N
 				.WithHealValue(4, new HealDiamondPlus(this, new Vector2(0.4088779f, 0.7680555f)))
 				.WithTarget(Target.Allies)
 				.WithRange(1)
+				.Build()),
+
+			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Wound1)
+				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 1))
+				.WithTarget(Target.Allies)
+				.WithCustomGetTargets((state, figures) => figures.Add(state.ActionState.GetAbilityState<HealAbility.State>(1).Target))
+				.WithMandatory(true)
 				.Build())
 		];
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTop, TendrilsOfNight.CardBottom>
@@ -51,7 +52,9 @@ public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTo
 				{
 					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
-						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 6).Where(hex => hex.HasHexObjectOfType<Obstacle>()));
+						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 6)
+												 .Where(hex => hex.GetHexObjectsOfType<Obstacle>()
+												 .Any(obstacle => !obstacle.CannotBeDestroyed)));
 					}, hintText: "Designate a hex within range 6 containing an obstacle.");
 
 					if(hex != null)
@@ -61,6 +64,8 @@ public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTo
 						state.SetCustomValue(this, "DesignatedHex", hex);
 						state.SetPerformed();
 					}
+
+					await GDTask.CompletedTask;
 				})
 				.Build()),
 

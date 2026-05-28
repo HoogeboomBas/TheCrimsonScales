@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmastery.CardTop, PrescientVoidmastery.CardBottom>
@@ -40,6 +41,8 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 											async parameters =>
 											{
 												parameters.AbilityState.AbilityAdjustAttackValue(2);
+
+												await GDTask.CompletedTask;
 											},
 											new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)}")),
 
@@ -47,6 +50,8 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 											applyFunction: async parameters =>
 											{
 												parameters.AbilityState.AbilityAddCondition(Conditions.Disarm);
+
+												await GDTask.CompletedTask;
 											},
 											effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.GetCondition(Conditions.Disarm))}")
 										)
@@ -60,10 +65,14 @@ public class PrescientVoidmastery : HollowpactLevelUpCardModel<PrescientVoidmast
 
 							await actionState.Perform();
 						});
+
+					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.AbilityEndedEvent.Unsubscribe(state, this);
+
+					await GDTask.CompletedTask;
 				})
 				.Build()),
 		];

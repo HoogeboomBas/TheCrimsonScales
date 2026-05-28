@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, ShroudedGrasp.CardBottom>
@@ -41,14 +43,18 @@ public class ShroudedGrasp : HollowpactLevelUpCardModel<ShroudedGrasp.CardTop, S
 			new AbilityCardAbility(PullAbility.Builder()
 				.WithPull(2, new PullCircle(this, new Vector2(0.511633f, 0.75804454f)))
 				.WithRange(3)
-				.WithOnAbilityEndedPerformed(async state =>
+				.Build()),
+
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder()
+				.WithConditionalAbilityCheck(async state =>
 				{
-					if(RangeHelper.Distance(state.Target.Hex, state.Performer.Hex) == 1)
-					{
-						await GainVoidEnergy(state);
-					}
+					PullAbility.State pullState = state.ActionState.GetAbilityState<PullAbility.State>(1);
+
+					await GDTask.CompletedTask;
+
+					return pullState.Performed && pullState.UniqueTargetedFigures.Any(figure => RangeHelper.Distance(figure.Hex, state.Performer.Hex) == 1);
 				})
-				.Build())
+				.Build()),
 		];
 	}
 }

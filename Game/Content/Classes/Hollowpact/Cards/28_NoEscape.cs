@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.CardBottom>
@@ -43,11 +44,15 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 								}
 
 							});
+
+						await GDTask.CompletedTask;
 					}))
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					ScenarioCheckEvents.CanEnterObstacleCheckEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+
+					await GDTask.CompletedTask;
 				})
 				.Build())
 		];

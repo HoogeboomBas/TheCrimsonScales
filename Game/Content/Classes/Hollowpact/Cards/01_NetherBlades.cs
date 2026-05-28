@@ -36,10 +36,7 @@ public class NetherBlades : HollowpactCardModel<NetherBlades.CardTop, NetherBlad
 					await GainVoidEnergy(state, state.ActionState.GetAbilityState<AttackAbility.State>(1).UniqueTargetedFigures.Count);
 					state.SetPerformed();
 				})
-				.WithConditionalAbilityCheck(async state =>
-				{
-					return await AbilityCmd.HasPerformedAbility(state, 1);
-				})
+				.WithConditionalAbilityCheck(async state => await AbilityCmd.HasPerformedAbility(state, 1))
 				.Build()),
 		];
 	}

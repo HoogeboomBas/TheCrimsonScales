@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 using Godot;
 
 public class EnduringDarkness : HollowpactLevelUpCardModel<EnduringDarkness.CardTop, EnduringDarkness.CardBottom>
@@ -27,13 +28,17 @@ public class EnduringDarkness : HollowpactLevelUpCardModel<EnduringDarkness.Card
             			    parameters.SetPrevented();
 							await AbilityCmd.GainXP(parameters.Figure, 1);
             			});
+
+					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.RemoveConditionEvent.Unsubscribe(state, this);
+
+					await GDTask.CompletedTask;
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark,
-					effectInfoText: $"Whenever you do not have {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))} this round, gain {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))}"))
+					effectInfoText: $"Whenever you do not have {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))} this round, gain {Icons.Inline(Icons.GetCondition(Conditions.Regenerate))}."))
 				.Build()),
 
 			new AbilityCardAbility(GainVoidEnergyAbilityBuilder(2)

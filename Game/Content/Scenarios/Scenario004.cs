@@ -42,7 +42,6 @@ public class Scenario004 : ScenarioModel
 		//new UnlockScenarioReward(ModelDB.Scenario<Scenario006>()), // Unlock is stated in the section book, but doesn't really make sense...
 	];
 
-	private int _revealedWarriors = 0;
 	private readonly List<InfectedWarrior> _infectedWarriors = [];
 	private bool _roomRevealed = false;
 
@@ -173,8 +172,6 @@ public class Scenario004 : ScenarioModel
 
 		InfectedWarrior infectedWarrior = new InfectedWarrior();
 		await infectedWarrior.Init(monster, _infectedWarriors, _cureGoal);
-
-		_revealedWarriors++;
 	}
 
 	public class InfectedWarrior

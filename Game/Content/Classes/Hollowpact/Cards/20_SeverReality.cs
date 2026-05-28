@@ -19,7 +19,7 @@ public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, Sev
 					Hex hex = await AbilityCmd.SelectHex(state, list =>
 					{
 						list.AddRange(state.Performer.Hex.Neighbours.Where(hex => hex.HasHexObjectOfType<Obstacle>()));
-					}, hintText: "Designate an adjacent hex containing an obstacle.");
+					}, hintText: "Designate an adjacent hex containing an obstacle");
 
 					if(hex != null)
 					{

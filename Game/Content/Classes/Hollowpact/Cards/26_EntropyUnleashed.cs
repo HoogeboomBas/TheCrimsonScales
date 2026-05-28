@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.CardTop, EntropyUnleashed.CardBottom>
@@ -30,6 +31,8 @@ public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.Card
 						{
 							parameters.AbilityState.AbilityAdjustAttackValue(1);
 							parameters.AbilityState.AbilityAddCondition(Conditions.Poison1);
+
+							await GDTask.CompletedTask;
 						},
 						new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.GetCondition(Conditions.Poison1))}")),
 
@@ -61,9 +64,9 @@ public class EntropyUnleashed : HollowpactLevelUpCardModel<EntropyUnleashed.Card
 					// Always add all the enemies in range
 					figures.AddRange(RangeHelper.GetFiguresInRange(state.Performer, state.AbilityRange).Where(figure => figure.EnemiesWith(state.Performer)));
 
-					if(state.UniqueTargetedFigures.Count(figure => figure.AlliedWith(state.Performer)) < 2)
+					if(state.UniqueTargetedFigures.Any(figure => figure.EnemiesWith(state.Performer)))
 					{
-						// Add allies in range if less than 2 targeted
+						// Add allies in range if an enemy was already targeted
 						figures.AddRange(RangeHelper.GetFiguresInRange(state.Performer, state.AbilityRange).Where(figure => figure.AlliedWith(state.Performer)));
 					}
 				})

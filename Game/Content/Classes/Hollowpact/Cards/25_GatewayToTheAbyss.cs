@@ -28,9 +28,8 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				})
 				.WithCustomGetTargets((state, figures) =>
 				{
-					figures.AddRange(GameController.Instance.Map.GetChildrenOfType<Obstacle>()
-											.Where(obstacle => obstacle is VoidPit)
-											.SelectMany(obstacle => obstacle.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
+					figures.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+											.SelectMany(voidPit => voidPit.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
 											.Where(figure => figure.EnemiesWith(state.Performer))
 											.Distinct());
 				})
@@ -38,9 +37,8 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				{
 					await GainXP(state);
 
-					IEnumerable<Figure> alliedFigures = GameController.Instance.Map.GetChildrenOfType<Obstacle>()
-												.Where(obstacle => obstacle is VoidPit)
-												.SelectMany(obstacle => obstacle.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
+					IEnumerable<Figure> alliedFigures = GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+												.SelectMany(voidPit => voidPit.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
 												.Where(figure => figure.AlliedWith(state.Performer))
 												.Distinct();
 
@@ -123,6 +121,8 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				{
 					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(1);
 
+					await GDTask.CompletedTask;
+
 					return abilityState.Performed && abilityState.GetCustomValue<bool>(this, "ChoseGrant");
 				})
 				.WithOnAbilityEndedPerformed(async state =>
@@ -150,6 +150,8 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.WithConditionalAbilityCheck(async state =>
 				{
 					OtherAbility.State abilityState = state.ActionState.GetAbilityState<OtherAbility.State>(1);
+
+					await GDTask.CompletedTask;
 
 					return abilityState.Performed && abilityState.GetCustomValue<bool>(this, "ChoseControl");
 				})

@@ -56,6 +56,8 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 						async parameters =>
 						{
 							ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+
+							await GDTask.CompletedTask;
 						});
 				})
 				.WithOnDeactivate(async state =>
@@ -63,28 +65,35 @@ public class VoidEnhancedArmory : HollowpactLevelUpCardModel<VoidEnhancedArmory.
 					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
+
+					await GDTask.CompletedTask;
 				})
 				.Build())
 		];
 
 		Func<OtherActiveAbility.State, HollowpactCardSide, GDTask> _attackSubscription = 
-			async (state, cardSide) => ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
-				LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
-					async parameters =>
-					{
-						ScenarioEvents.DuringAttackEvent.Unsubscribe(state, cardSide);
+			async (state, cardSide) => 
+			{
+				ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
+					LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
+						async parameters =>
+						{
+							ScenarioEvents.DuringAttackEvent.Unsubscribe(state, cardSide);
 
-						ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
-							parameters => parameters.Performer == state.Performer,
-							async parameters =>
-							{
-								parameters.AbilityState.SingleTargetAdjustAttackValue(1);
+							ScenarioEvents.DuringAttackEvent.Subscribe(state, cardSide,
+								parameters => parameters.Performer == state.Performer,
+								async parameters =>
+								{
+									parameters.AbilityState.SingleTargetAdjustAttackValue(1);
 
-								await GDTask.CompletedTask;
-							});
+									await GDTask.CompletedTask;
+								});
 
-						await GDTask.CompletedTask;
-					}, new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)} to all your attacks for the round.")));
+							await GDTask.CompletedTask;
+						}, new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)} to all your attacks for the round.")));
+
+				await GDTask.CompletedTask;
+			};
 
 		public override int XP => 2;
 		public override bool Persistent => true;

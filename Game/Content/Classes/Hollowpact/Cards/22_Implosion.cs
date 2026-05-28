@@ -30,9 +30,8 @@ public class Implosion : HollowpactLevelUpCardModel<Implosion.CardTop, Implosion
 				{
 					Hex hex = await AbilityCmd.SelectHex(state, hexes =>
 					{
-						hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<Obstacle>()
-											.Where(obstacle => obstacle is VoidPit)
-											.Select(obstacle => obstacle.Hex));
+						hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+											.Select(voidPit => voidPit.Hex));
 					}, hintText: $"Select a hex with a Void Pit.");
 
 					if(hex == null)
@@ -44,10 +43,6 @@ public class Implosion : HollowpactLevelUpCardModel<Implosion.CardTop, Implosion
 					return true;
 				})
 				.WithCustomGetPerformHex(state => state.GetCustomValue<Hex>(this, "Hex"))
-				.WithCustomGetTargets((state, figures) =>
-				{
-					figures.AddRange(state.GetCustomValue<Hex>(this, "Hex").Neighbours.SelectMany(hex => hex.GetFigures()));
-				})
 				.Build()),
 		];
 	}

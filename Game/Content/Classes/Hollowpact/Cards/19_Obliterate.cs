@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliterate.CardBottom>
@@ -28,6 +29,8 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 					{
 						parameters.AbilityState.AbilityAdjustAttackValue(2);
 						parameters.AbilityState.AbilityAddCondition(Conditions.Disarm);
+
+						await GDTask.CompletedTask;
 					},
 					new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Damage)},{Icons.Inline(Icons.GetCondition(Conditions.Disarm))}")))
 				.WithOnAbilityEndedPerformed(async state =>
@@ -85,6 +88,8 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 
 								pushParameters.AbilityState.SetCustomValue(this, "AtLeastOneObstaclesDestroyed", true);
 							});
+
+						await GDTask.CompletedTask;
 					}))
 				.WithOnAbilityEndedPerformed(async state =>
 				{
