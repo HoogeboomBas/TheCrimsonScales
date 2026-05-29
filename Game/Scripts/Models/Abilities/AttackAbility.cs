@@ -315,7 +315,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 		}
 
-		int finalDamage = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue, fromAttack: true);
+		int damageDealt = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue, fromAttack: true);
 
 		if(!GameController.FastForward)
 		{
@@ -332,7 +332,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 			if(abilityState.SingleTargetRangeType == RangeType.Melee)
 			{
-				if(finalDamage > 0)
+				if(damageDealt > 0)
 				{
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetSwordHit(), delay: 0.2f);
 				}
@@ -345,7 +345,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			{
 				AppController.Instance.AudioController.PlayFastForwardable(SFX.GetBowAttack(), delay: 0f);
 
-				if(finalDamage > 0)
+				if(damageDealt > 0)
 				{
 					AppController.Instance.AudioController.PlayFastForwardable(SFX.GetBowHit(), delay: 0.2f);
 				}
@@ -355,7 +355,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 				}
 			}
 
-			if(finalDamage > 0)
+			if(damageDealt > 0)
 			{
 				GTweenSequenceBuilder.New()
 					.AppendTime(0.25f)
@@ -367,9 +367,9 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GDTask.DelayFastForwardable(0.6f);
 		}
 
-		if(finalDamage > 0)
+		if(damageDealt > 0)
 		{
-			abilityState.DamageDealt += finalDamage;
+			abilityState.DamageDealt += damageDealt;
 			abilityState.DamagedTargets.AddIfNew(target);
 		}
 

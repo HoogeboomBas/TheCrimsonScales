@@ -1,8 +1,8 @@
 ﻿using Fractural.Tasks;
 
-public class Acrobatic : TheCrimsonScalesBattleGoal
+public class Acrobat : TheCrimsonScalesBattleGoal
 {
-	public override string Title => "Acrobatic";
+	public override string Title => "Acrobat";
 	public override string Description => "Lose a card to negate suffering 5 or more damage.";
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)

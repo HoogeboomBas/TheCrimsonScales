@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -25,7 +25,7 @@ public class UnstoppableForce : HierophantLevelUpCardModel<UnstoppableForce.Card
 						async applyParameters =>
 						{
 							await AbilityCmd.SufferDamage(state, applyParameters.PotentialAbilityState.Performer,
-								applyParameters.Damage);
+								applyParameters.DamageSuffered);
 
 							await state.AdvanceUseSlot();
 						}

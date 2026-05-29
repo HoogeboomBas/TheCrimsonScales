@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
@@ -102,11 +103,11 @@ public static class AbilityCmd
 			return 0;
 		}
 
-		int finalDamage = sufferDamageParameters.CalculatedCurrentDamage;
+		int damageDealt = sufferDamageParameters.CalculatedCurrentDamage;
 
 		ScenarioEvents.JustBeforeSufferDamage.Parameters justBeforeSufferDamageParameters =
 			await ScenarioEvents.JustBeforeSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, finalDamage, potentialAbilityState, sufferDamageParameters), target);
+				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, damageDealt, potentialAbilityState, sufferDamageParameters), target);
 
 		if(justBeforeSufferDamageParameters.Prevented)
 		{
@@ -115,7 +116,9 @@ public static class AbilityCmd
 
 		potentialAbilityState?.DamagedFigures.Add(target);
 
-		int newHealth = Mathf.Max(target.Health - finalDamage, 0);
+		int newHealth = Mathf.Max(target.Health - damageDealt, 0);
+
+		int damageSuffered = newHealth - target.Health;
 
 		target.SetHealth(newHealth);
 
@@ -131,13 +134,13 @@ public static class AbilityCmd
 			}
 		}
 
-		if(finalDamage > 0)
+		if(damageDealt > 0)
 		{
 			await ScenarioEvents.AfterSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.AfterSufferDamage.Parameters(target, finalDamage, potentialAbilityState, sufferDamageParameters), target);
+				new ScenarioEvents.AfterSufferDamage.Parameters(target, damageDealt, damageSuffered, potentialAbilityState, sufferDamageParameters), target);
 		}
 
-		return finalDamage;
+		return damageDealt;
 	}
 
 	public static async GDTask<int> SufferDamage(Figure target, int damage, Figure potentialDamageDealer, bool fromAttack = false)
@@ -364,6 +367,9 @@ public static class AbilityCmd
 	{
 		if(figure is Character character)
 		{
+			await ScenarioEvents.GainedExperienceEvent.CreatePrompt(
+				new ScenarioEvents.GainedExperience.Parameters(figure, xp));
+
 			character.GainXP(xp);
 		}
 

@@ -542,10 +542,11 @@ public partial class ScenarioEvents
 
 	public class AfterSufferDamage : ScenarioEvent<AfterSufferDamage.Parameters>
 	{
-		public class Parameters(Figure figure, int damage, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
+		public class Parameters(Figure figure, int damageDealt, int damageSuffered, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
 		{
 			public Figure Figure { get; } = figure;
-			public int Damage { get; } = damage;
+			public int DamageDealt { get; } = damageDealt;
+			public int DamageSuffered { get; } = damageSuffered;
 			public AbilityState PotentialAbilityState { get; } = abilityState;
 			public SufferDamage.Parameters SufferDamageParameters { get; } = sufferDamageParameters;
 		}
@@ -1381,6 +1382,19 @@ public partial class ScenarioEvents
 
 	private readonly LootableObjectLooted _lootableObjectLooted = new LootableObjectLooted();
 	public static LootableObjectLooted LootableObjectLootedEvent => GameController.Instance.ScenarioEvents._lootableObjectLooted;
+
+	public class GainedExperience : ScenarioEvent<GainedExperience.Parameters>
+	{
+		public class Parameters(Figure experienceReceiver, int experienceAmount)
+			: ParametersBase
+		{
+			public Figure ExperienceReceiver { get; } = experienceReceiver;
+			public int ExperienceAmount { get; } = experienceAmount;
+		}
+	}
+
+	private readonly GainedExperience _gainedExperience = new GainedExperience();
+	public static GainedExperience GainedExperienceEvent => GameController.Instance.ScenarioEvents._gainedExperience;
 
 	public class InflictConditionEventReward : ScenarioEvent<InflictConditionEventReward.Parameters>
 	{

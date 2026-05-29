@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -56,7 +56,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 								canApplyParameters.SufferDamageParameters.FromAttack &&
 								state.Performer.EnemiesWith(canApplyParameters.SufferDamageParameters.PotentialAbilityState.Performer) &&
 								state.Performer.AlliedWith(canApplyParameters.SufferDamageParameters.Figure) &&
-								canApplyParameters.Damage >= 3;
+								canApplyParameters.DamageSuffered >= 3;
 						},
 						apply: async applyParameters =>
 						{

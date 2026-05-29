@@ -7,7 +7,18 @@ public class Wastrel : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.LosingCardToNegateDamageEvent.Subscribe(this,
+			parameters =>
+				parameters.Character == character &&
+				parameters.SufferDamageParameters.FromAttack &&
+				parameters.SufferDamageParameters.CalculatedCurrentDamage <= 2,
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				await GDTask.CompletedTask;
+			}
+		);
 
 		await GDTask.CompletedTask;
 	}

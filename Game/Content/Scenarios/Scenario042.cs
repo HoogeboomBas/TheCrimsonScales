@@ -335,7 +335,7 @@ public class Scenario042 : ScenarioModel
 					!kingCobra.IsDead,
 				async applyParameters =>
 				{
-					await AbilityCmd.SufferDamage(kingCobra, applyParameters.Damage, kingCobra);
+					await AbilityCmd.SufferDamage(kingCobra, applyParameters.DamageSuffered, kingCobra);
 				}
 			);
 

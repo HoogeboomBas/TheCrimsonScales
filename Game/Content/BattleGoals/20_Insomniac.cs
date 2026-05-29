@@ -7,7 +7,20 @@ public class Insomniac : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.AfterSufferDamageEvent.Subscribe(this,
+			parameters =>
+				parameters.Figure == character &&
+				parameters.PotentialAbilityState is AttackAbility.State &&
+				character.LongResting,
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(this);
+
+				await GDTask.CompletedTask;
+			}
+		);
 
 		await GDTask.CompletedTask;
 	}

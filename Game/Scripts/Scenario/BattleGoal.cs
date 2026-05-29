@@ -40,6 +40,11 @@ public class BattleGoal
 		ProgressChangedEvent?.Invoke(this);
 	}
 
+	public void ResetProgress()
+	{
+		AdjustProgress(-Progress);
+	}
+
 	public async GDTask OnScenarioSetupPhaseCompleted()
 	{
 		await Model.OnScenarioSetupPhaseCompleted(_character, this);

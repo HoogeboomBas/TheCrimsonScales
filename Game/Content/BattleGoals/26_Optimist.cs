@@ -11,7 +11,7 @@ public class Optimist : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.AfterRemoveConditionEvent.Subscribe(this,
 			parameters => (parameters.Figure == character || parameters.Figure.AlliedWith(character)) &&
-							parameters.PotentialAbilityState?.Performer == character &&
+							parameters.PotentialAbilityState?.Authority == character &&
 							parameters.Condition.IsNegative,
 			async parameters =>
 			{

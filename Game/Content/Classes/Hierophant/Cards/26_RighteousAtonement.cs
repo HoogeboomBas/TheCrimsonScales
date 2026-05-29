@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -75,7 +75,7 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 						                            attackAbilityState.IsSingleTarget,
 						async abilityStartedParameters =>
 						{
-							((AttackAbility.State)abilityStartedParameters.AbilityState).AbilityAdjustAttackValue(afterSufferParameters.Damage);
+							((AttackAbility.State)abilityStartedParameters.AbilityState).AbilityAdjustAttackValue(afterSufferParameters.DamageSuffered);
 							await state.ActionState.RequestDiscardOrLose();
 						});
 					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,

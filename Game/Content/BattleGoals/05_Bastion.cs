@@ -6,8 +6,6 @@ public class Bastion : TheCrimsonScalesBattleGoal
 	public override string Title => "Bastion";
 	public override string Description => "Occupy a door hex adjacent to two or more enemies at the end of a round.";
 
-	//public override BattleGoalCheckmarkCount CheckmarkCount => BattleGoalCheckmarkCount.Two;
-
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,

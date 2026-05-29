@@ -7,7 +7,14 @@ public class Perfectionist : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.ScenarioEndedEvent.Subscribe(this,
+			parameters => character.Health == character.MaxHealth,
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				await GDTask.CompletedTask;
+			});
 
 		await GDTask.CompletedTask;
 	}
