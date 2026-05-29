@@ -148,7 +148,6 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(TeleportAbility.Builder()
-			.WithDistance(999)
 			.WithCustomGetHexes((state, hexes) =>
 			{
 				// Find all void pits

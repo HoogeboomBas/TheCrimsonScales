@@ -58,7 +58,7 @@ public class Scenario030 : ScenarioModel
 		await base.InitializeAfterFirstRoomRevealed();
 
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<ShadowDemon>()));
-		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<TwinCorpse>(), true));
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<TwinCorpse>(), specificCount: 2));
 
 		_doorRule = AddScenarioRule(textParameters =>
 			$"Door {Icons.InlineMarker(Marker.Type._2, textParameters)} is locked until door {Icons.InlineMarker(Marker.Type._1, textParameters)} has been opened.");

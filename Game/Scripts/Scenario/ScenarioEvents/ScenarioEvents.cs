@@ -359,6 +359,13 @@ public partial class ScenarioEvents
 			public Figure Figure { get; } = condition.Owner;
 			public ConditionModel ConditionModel { get; } = condition.ConditionModel;
 			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
+
+			public bool Prevented { get; private set; } = false;
+
+			public void SetPrevented()
+			{
+				Prevented = true;
+			}
 		}
 	}
 

@@ -43,6 +43,23 @@ public class HollowpactModel : ClassModel
 		ModelDB.AbilityCard<VoidEruption>(),
 		ModelDB.AbilityCard<HollowEmbrace>(),
 		ModelDB.AbilityCard<TheVoidConsumes>(),
+
+		ModelDB.AbilityCard<NetherBinding>(),
+		ModelDB.AbilityCard<ShroudedGrasp>(),
+		ModelDB.AbilityCard<EmpoweredAssault>(),
+		ModelDB.AbilityCard<MajesticMalevolence>(),
+		ModelDB.AbilityCard<VoidEnhancedArmory>(),
+		ModelDB.AbilityCard<Obliterate>(),
+		ModelDB.AbilityCard<SeverReality>(),
+		ModelDB.AbilityCard<StalkingQuarry>(),
+		ModelDB.AbilityCard<Implosion>(),
+		ModelDB.AbilityCard<EnduringDarkness>(),
+		ModelDB.AbilityCard<RuinousBarrage>(),
+		ModelDB.AbilityCard<GatewayToTheAbyss>(),
+		ModelDB.AbilityCard<EntropyUnleashed>(),
+		ModelDB.AbilityCard<TendrilsOfNight>(),
+		ModelDB.AbilityCard<NoEscape>(),
+		ModelDB.AbilityCard<PrescientVoidmastery>(),
 	];
 
 	public override List<PerkModel> Perks { get; } =

@@ -89,7 +89,6 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0, range: 3, target: Target.TargetAll | Target.Enemies)),
 		new MonsterAbilityCardAbility(TeleportAbility.Builder()
-			.WithDistance(999)
 			.WithCustomGetHexes((state, hexes) =>
 			{
 				Hex targetHex = CalculateJumpTarget(monster);

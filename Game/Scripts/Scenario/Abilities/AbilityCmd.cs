@@ -231,7 +231,11 @@ public static class AbilityCmd
 			await ScenarioEvents.RemoveConditionEvent.CreatePrompt(
 				new ScenarioEvents.RemoveCondition.Parameters(condition, potentialAbilityState), condition.Owner);
 
-		await condition.Owner.RemoveCondition(condition);
+
+		if(!removeConditionParameters.Prevented)
+		{
+			await target.RemoveCondition(condition);
+		}
 
 		ScenarioEvents.AfterRemoveCondition.Parameters afterRemoveConditionParameters =
 			await ScenarioEvents.AfterRemoveConditionEvent.CreatePrompt(

@@ -42,7 +42,6 @@ public class Scenario004 : ScenarioModel
 		//new UnlockScenarioReward(ModelDB.Scenario<Scenario006>()), // Unlock is stated in the section book, but doesn't really make sense...
 	];
 
-	private int _revealedWarriors = 0;
 	private readonly List<InfectedWarrior> _infectedWarriors = [];
 	private bool _roomRevealed = false;
 
@@ -85,39 +84,28 @@ public class Scenario004 : ScenarioModel
 		// This implements
 		// One character gains the “Pox Antidote” item. 
 		// During this scenario, this item may be equipped without it occupying an item slot.
-		Map map = GameController.Instance.Map;
-
-		ItemModel itemModel = ModelDB.Item<PoxAntidote>();
-		Character character =
-			(Character)map.Figures.FirstOrDefault(figure => figure is Character character && character.SavedCharacter.HasItem(itemModel), null);
+		// Map map = GameController.Instance.Map;
+		//
+		// ItemModel itemModel = ModelDB.Item<PoxAntidote>();
+		// Character character =
+		// 	(Character)map.Figures.FirstOrDefault(figure => figure is Character character && character.SavedCharacter.HasItem(itemModel), null);
 
 		bool poxAntidoteGiven = GameController.Instance.SavedScenarioProgress.CustomValues.ContainsKey("PoxAntidoteGiven");
 
-		// Antidote given previously and a character still has it (not sold)
-		// take it away and give back as "temporary" item
-		if(poxAntidoteGiven && character != null)
-		{
-			// Take it and give it back at the end of the scenario
-			SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
-			savedItem.RemovedUnlocked(1);
-			character.SavedCharacter.RemoveItem(itemModel);
-		}
-		// Item not given previously - give if scenario 7 is not completed yet
-		else if(!poxAntidoteGiven && !GameController.Instance.SavedCampaign.CollectedPartyAchievements.Contains(PartyAchievement.FollowTheMoney))
+		if(!poxAntidoteGiven && !GameController.Instance.SavedCampaign.CollectedPartyAchievements.Contains(PartyAchievement.FollowTheMoney))
 		{
 			await ShowText(
 				"As you approach the stricken guards, you are spotted by Shiela, a regular from the Sleeping Lion, famed for her potion making. “Thank you for coming so quickly. Take this—it will help cure the stricken.”");
 
-			// character = (Character)await AbilityCmd.SelectFigure(authority: null,
-			// 	figures => figures.AddRange(map.Figures.Where(figure => figure is Character)),
-			// 	mandatory: true, autoSelectIfOne: true, hintText: () =>
-			// 		$"Select a character to receive Pox Antidote." + System.Environment.NewLine + System.Environment.NewLine +
-			// 		"During this scenario, this item is equipped" + System.Environment.NewLine +
-			// 		$"without it occupying an {Icons.Inline(Icons.GetItem(ItemType.Small))} item slot.");
-			character = (Character)await AbilityCmd.SelectFigure(authority: null,
-				figures => figures.AddRange(map.Figures.Where(figure => figure is Character)),
+			Character character = (Character)await AbilityCmd.SelectFigure(authority: null,
+				figures => figures.AddRange(GameController.Instance.CharacterManager.Characters),
 				mandatory: true, autoSelectIfOne: true, hintText: () =>
 					$"Select a character to receive a Pox Antidote.");
+
+			if(character != null)
+			{
+				await AbilityCmd.PermanentlyGiveItem(character, ModelDB.Item<PoxAntidote>());
+			}
 
 			GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) =>
 			{
@@ -125,10 +113,36 @@ public class Scenario004 : ScenarioModel
 			};
 		}
 
-		if(character != null)
-		{
-			await AbilityCmd.PermanentlyGiveItem(character, itemModel);
-		}
+		// Antidote given previously and a character still has it (not sold)
+		// take it away and give back as "temporary" item
+		// if(poxAntidoteGiven && character != null)
+		// {
+		// 	// Take it and give it back at the end of the scenario
+		// 	SavedItem savedItem = GameController.Instance.SavedCampaign.GetSavedItem(itemModel);
+		// 	savedItem.RemovedUnlocked(1);
+		// 	character.SavedCharacter.RemoveItem(itemModel);
+		// }
+		// // Item not given previously - give if scenario 7 is not completed yet
+		// else if(!poxAntidoteGiven && !GameController.Instance.SavedCampaign.CollectedPartyAchievements.Contains(PartyAchievement.FollowTheMoney))
+		// {
+		// 	await ShowText(
+		// 		"As you approach the stricken guards, you are spotted by Shiela, a regular from the Sleeping Lion, famed for her potion making. “Thank you for coming so quickly. Take this—it will help cure the stricken.”");
+		//
+		// 	character = (Character)await AbilityCmd.SelectFigure(authority: null,
+		// 		figures => figures.AddRange(GameController.Instance.CharacterManager.Characters),
+		// 		mandatory: true, autoSelectIfOne: true, hintText: () =>
+		// 			$"Select a character to receive a Pox Antidote.");
+		//
+		// 	if(character != null)
+		// 	{
+		// 		await AbilityCmd.PermanentlyGiveItem(character, itemModel);
+		// 	}
+		//
+		// 	GameController.Instance.EndEvent += (scenarioResult, savedScenarioProgress) =>
+		// 	{
+		// 		GameController.Instance.SavedScenarioProgress.CustomValues.Add("PoxAntidoteGiven", true);
+		// 	};
+		// }
 	}
 
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters parameters)
@@ -173,8 +187,6 @@ public class Scenario004 : ScenarioModel
 
 		InfectedWarrior infectedWarrior = new InfectedWarrior();
 		await infectedWarrior.Init(monster, _infectedWarriors, _cureGoal);
-
-		_revealedWarriors++;
 	}
 
 	public class InfectedWarrior

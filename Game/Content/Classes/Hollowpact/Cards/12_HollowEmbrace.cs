@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEmbrace.CardBottom>
 {
@@ -25,12 +26,15 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 				])
 				.WithOnAbilityEndedPerformed(async grantState =>
 				{
-					int targetedEnemies = grantState.GrantAbilityActionStates.First().AbilityStates.Count(attackState => attackState.Performed);
-
-					if(targetedEnemies > 0)
+					if(grantState.GrantAbilityActionStates.First().AbilityStates.First() is AttackAbility.State attackState && attackState.Performed)
 					{
-						await AbilityCmd.SufferDamage(grantState, grantState.Target, targetedEnemies);
-						await GainVoidEnergy(grantState);
+						int targetedEnemies = attackState.UniqueTargetedFigures.Count;
+
+						if(targetedEnemies > 0)
+						{
+							await AbilityCmd.SufferDamage(grantState, grantState.Target, targetedEnemies);
+							await GainVoidEnergy(grantState);
+						}
 					}
 				})
 				.Build()),
@@ -43,12 +47,12 @@ public class HollowEmbrace : HollowpactCardModel<HollowEmbrace.CardTop, HollowEm
 		[
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(2)
-				.WithRange(3)
+				.WithRange(3, new RangeSquare(this, new Vector2(0.60472214f, 0.71606654f)))
 				.WithDuringHealSubscription(ScenarioEvents.DuringHeal.Subscription.ConsumeElement(Element.Dark,
 					applyFunction: async applyParameters =>
 					{
 						applyParameters.AbilityState.AbilityAdjustHealValue(1);
-						await AbilityCmd.AddCondition(applyParameters.AbilityState, applyParameters.AbilityState.Target, Conditions.Regenerate);
+						applyParameters.AbilityState.AbilityAddCondition(Conditions.Regenerate);
 
 						await AbilityCmd.GainXP(applyParameters.Performer, 1);
 					},

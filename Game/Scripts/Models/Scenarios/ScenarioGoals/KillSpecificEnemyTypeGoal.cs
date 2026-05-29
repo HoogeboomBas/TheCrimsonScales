@@ -3,23 +3,21 @@
 public class KillSpecificEnemyTypeGoal : ScenarioGoal
 {
 	private readonly MonsterModel _monsterModel;
-	private readonly bool _multiple;
 	private readonly int? _specificCount;
 
-	public KillSpecificEnemyTypeGoal(MonsterModel monsterModel, bool multiple = false, int? specificCount = null, int order = 1)
+	public KillSpecificEnemyTypeGoal(MonsterModel monsterModel, int? specificCount = 1, int order = 1)
 		: base(order)
 	{
 		_monsterModel = monsterModel;
-		_multiple = multiple;
 		_specificCount = specificCount;
 	}
 
 	public override string GetLabelText(RichTextParameters textParameters) =>
-		_specificCount.HasValue && _specificCount.Value > 1
-			? $"Kill {_specificCount} {_monsterModel.Name} enemies."
-			: _multiple
-				? $"Kill all {_monsterModel.Name} enemies."
-				: $"Kill the {_monsterModel.Name}.";
+		_specificCount.HasValue
+			? _specificCount == 1
+				? $"Kill the {_monsterModel.Name}."
+				: $"Kill {_specificCount} {_monsterModel.Name} enemies."
+			: $"Kill all {_monsterModel.Name} enemies.";
 
 	public override async GDTask Start()
 	{

@@ -13,7 +13,7 @@ public class AdrenalineSpike : TheCrimsonScalesPersonalQuest<PersonalQuestData>
 		await base.OnScenarioSetupPhaseCompleted(character, personalQuestData);
 
 		List<Figure> roundKilledFigures = new List<Figure>();
-		List<Coin> roundCoins = new List<Coin>();
+		Dictionary<Coin, Figure> roundCoinsToCoinDroppersMap = [];
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(character, this,
 			parameters =>
@@ -27,11 +27,10 @@ public class AdrenalineSpike : TheCrimsonScalesPersonalQuest<PersonalQuestData>
 		);
 
 		ScenarioEvents.CoinSpawnedEvent.Subscribe(character, this,
-			parameters =>
-				roundKilledFigures.Contains(parameters.PotentialDropper),
+			parameters => parameters.PotentialDropper != null,
 			async parameters =>
 			{
-				roundCoins.Add(parameters.Coin);
+				roundCoinsToCoinDroppersMap.Add(parameters.Coin, parameters.PotentialDropper);
 
 				await GDTask.CompletedTask;
 			}
@@ -39,7 +38,8 @@ public class AdrenalineSpike : TheCrimsonScalesPersonalQuest<PersonalQuestData>
 
 		ScenarioEvents.CoinLootedEvent.Subscribe(character, this,
 			parameters =>
-				roundCoins.Contains(parameters.Coin),
+				roundCoinsToCoinDroppersMap.ContainsKey(parameters.Coin) && 
+				roundKilledFigures.Contains(roundCoinsToCoinDroppersMap[parameters.Coin]),
 			async parameters =>
 			{
 				personalQuestData.AdjustProgress(1, character);
@@ -53,7 +53,7 @@ public class AdrenalineSpike : TheCrimsonScalesPersonalQuest<PersonalQuestData>
 			async parameters =>
 			{
 				roundKilledFigures.Clear();
-				roundCoins.Clear();
+				roundCoinsToCoinDroppersMap.Clear();
 
 				await GDTask.CompletedTask;
 			}

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOpening.CardBottom>
 {
@@ -13,17 +14,18 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(VoidsightAbility.Builder().Build()),
+			new AbilityCardAbility(VoidsightAbilityBuilder().Build()),
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(3)
+				.WithDamage(3, new AttackDiamond(this, new Vector2(0.6176773f, 0.24603331f)))
 				.WithDuringAttackSubscription(LoseVoidEnergySubscription<ScenarioEvents.DuringAttack.Parameters>(1,
 					async parameters =>
 					{
 						parameters.AbilityState.AbilityAdjustAttackValue(1);
 						parameters.AbilityState.AbilityAdjustPierce(1);
+
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					},
-					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.Pierce)} 1")))
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}, {Icons.Inline(Icons.Pierce)}1")))
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
@@ -31,17 +33,17 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 						async parameters =>
 						{
 							parameters.SetRetaliateBlocked();
-							
+
 							await GDTask.CompletedTask;
 						}
 					);
-					
+
 					await GDTask.CompletedTask;
 				})
 				.WithOnAbilityEnded(async state =>
 				{
 					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
-					
+
 					await GDTask.CompletedTask;
 				})
 				.Build())
@@ -52,24 +54,24 @@ public class FindAnOpening : HollowpactCardModel<FindAnOpening.CardTop, FindAnOp
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder()
 				.WithRange(3)
 				.WithObstacleCount(2)
 				.WithOnAbilityEndedPerformed(GainVoidEnergy)
 				.Build()),
-			
+
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2)
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.2897222f, 0.802389f)))
 				.WithTargets(4)
 				.WithCustomGetTargets((state, list) =>
 				{
 					list.AddRange(GameController.Instance.Map.Figures
-							.Where(figure => RangeHelper.GetHexesInRange(figure.Hex, 1, includeOrigin: true, requiresLineOfSight: false)
-								.Any(hex => hex.GetHexObjectsOfType<Obstacle>().Any())));
+						.Where(figure => RangeHelper.GetHexesInRange(figure.Hex, 1, includeOrigin: true, requiresLineOfSight: false)
+							.Any(hex => hex.GetHexObjectsOfType<Obstacle>().Any())));
 				})
 				.Build()),
 		];
-		
+
 		public override int XP => 1;
 		public override bool Loss => true;
 	}

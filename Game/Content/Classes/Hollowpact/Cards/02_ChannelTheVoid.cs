@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, ChannelTheVoid.CardBottom>
@@ -12,8 +13,7 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(Hollowpact.CreateVoidPitObstacleAbilityBuilder()
-				.Build()),
+			new AbilityCardAbility(CreateVoidPitObstacleAbilityBuilder().Build()),
 
 			new AbilityCardAbility(ShieldAbility.Builder()
 				.WithShieldValue(1)
@@ -27,16 +27,10 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 							await AbilityCmd.GainXP(applyParameters.AbilityState.Performer, 1);
 						}, effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Shield)}")))
 				.Build()),
-			
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await GainVoidEnergy(state);
-					state.SetPerformed();
-				})
-				.Build()),
+
+			new AbilityCardAbility(GainVoidEnergyAbilityBuilder().Build())
 		];
-		
+
 		public override bool Round => true;
 	}
 

@@ -48,7 +48,7 @@ public class Scenario029 : ScenarioModel
 	{
 		await base.InitializeAfterFirstRoomRevealed();
 
-		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<BoneArcher>(), true));
+		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<BoneArcher>(), specificCount: null));
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<ChainMace>());
 	}

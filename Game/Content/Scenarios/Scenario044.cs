@@ -51,7 +51,7 @@ public class Scenario044 : ScenarioModel
 		await base.InitializeAfterFirstRoomRevealed();
 
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<LivingSpirit>(),
-			multiple: true, specificCount: GameController.Instance.SavedCampaign.Characters.Count * 2));
+			specificCount: GameController.Instance.SavedCampaign.Characters.Count * 2));
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<ConcussionMine>());
 		GameController.Instance.Map.Treasures[1].SetItemLoot(AbilityCmd.GetRandomAvailableStone());

@@ -1,5 +1,4 @@
-﻿using System;
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using Godot;
 using GTweensGodot.Extensions;
 

@@ -20,7 +20,7 @@ public class PillarsOfSmoke : BombardCardModel<PillarsOfSmoke.CardTop, PillarsOf
 							state.Performer.AlliedWith(parameters.Figure) &&
 							(!state.TryGetCustomValue(this, "LastUseRoundIndex", out int lastUseRoundIndex) ||
 							 lastUseRoundIndex != GameController.Instance.ScenarioPhaseManager.RoundIndex) &&
-							RangeHelper.Distance(parameters.Figure.Hex, state.Performer.Hex) <= 1,
+							RangeHelper.Distance(parameters.Figure.Hex, state.Performer.Hex) == 1,
 						async parameters =>
 						{
 							state.SetCustomValue(this, "LastUseRoundIndex", GameController.Instance.ScenarioPhaseManager.RoundIndex);

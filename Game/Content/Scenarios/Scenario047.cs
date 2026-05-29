@@ -45,7 +45,7 @@ public class Scenario047 : ScenarioModel
 		await base.InitializeAfterFirstRoomRevealed();
 
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<GhostViperScenario047>(),
-			multiple: true, specificCount: GameController.Instance.SavedCampaign.Characters.Count + 4));
+			specificCount: GameController.Instance.SavedCampaign.Characters.Count + 4));
 
 		GameController.Instance.Map.Treasures[0].SetObtainLootFunction(async lootingCharacter =>
 		{

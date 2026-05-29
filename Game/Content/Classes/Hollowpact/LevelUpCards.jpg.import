@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj2jvowxxuwq0"
-path="res://.godot/imported/Cards.png-323b1cf0944554102c4fe371210e05da.ctex"
+uid="uid://pewtg05y8tj5"
+path="res://.godot/imported/LevelUpCards.jpg-b97d5f4910d8dae60cae37ca6968cf5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Hollowpact/Cards.png"
-dest_files=["res://.godot/imported/Cards.png-323b1cf0944554102c4fe371210e05da.ctex"]
+source_file="res://Content/Classes/Hollowpact/LevelUpCards.jpg"
+dest_files=["res://.godot/imported/LevelUpCards.jpg-b97d5f4910d8dae60cae37ca6968cf5a.ctex"]
 
 [params]
 

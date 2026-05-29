@@ -38,13 +38,15 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 	{
 		public interface IDistanceStep
 		{
-			TBuilder WithDistance(int distance);
+			TBuilder WithDistance(int distance, params TeleportEnhancementMark[] enhancementMarks);
 			TBuilder WithCustomGetHexes(Action<State, List<Hex>> getHexes);
 		}
 
-		public TBuilder WithDistance(int distance)
+		public TBuilder WithDistance(int distance, params TeleportEnhancementMark[] enhancementMarks)
 		{
 			Obj.Distance = distance;
+			AddEnhancements(enhancementMarks);
+
 			return (TBuilder)this;
 		}
 
