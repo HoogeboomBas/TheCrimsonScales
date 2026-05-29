@@ -35,7 +35,7 @@ public class Regenerate : ConditionModel
 			canApply: parameters => parameters.Figure == condition.Owner,
 			apply: async parameters =>
 			{
-				await AbilityCmd.RemoveCondition(condition);
+				await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
 			}
 		);
 	}

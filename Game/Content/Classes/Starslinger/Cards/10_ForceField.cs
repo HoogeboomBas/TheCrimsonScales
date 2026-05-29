@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Godot;
 using Fractural.Tasks;
 
@@ -102,7 +102,7 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 						parameters => true,
 						async parameters =>
 						{
-							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
+							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 						}
 					);
 

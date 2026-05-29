@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -40,7 +40,7 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 							state.GetCustomValue<bool>(this, "InvisibleGiven"),
 						async parameters =>
 						{
-							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
+							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 							state.SetCustomValue(this, "InvisibleGiven", false);
 						}
 					);
@@ -54,7 +54,7 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 
 					if(state.GetCustomValue<bool>(this, "InvisibleGiven"))
 					{
-						await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
+						await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 					}
 
 					await GDTask.CompletedTask;

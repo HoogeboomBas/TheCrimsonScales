@@ -17,7 +17,7 @@ public class Ward : ConditionModel
 				condition.Flash();
 				parameters.SetWard(true);
 
-				await AbilityCmd.RemoveCondition(condition);
+				await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
 			},
 			EffectType.MandatoryBeforeOptionals, 100);
 	}

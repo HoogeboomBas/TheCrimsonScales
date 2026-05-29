@@ -352,12 +352,13 @@ public partial class ScenarioEvents
 
 	public class RemoveCondition : ScenarioEvent<RemoveCondition.Parameters>
 	{
-		public class Parameters(Condition condition) : ParametersBase
+		public class Parameters(Condition condition, AbilityState potentialAbilityState) : ParametersBase
 		{
 			public Condition Condition { get; } = condition;
 
-			public Figure Figure => Condition.Owner;
-			public ConditionModel ConditionModel => Condition.ConditionModel;
+			public Figure Figure { get; } = condition.Owner;
+			public ConditionModel ConditionModel { get; } = condition.ConditionModel;
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 		}
 	}
 
@@ -366,10 +367,11 @@ public partial class ScenarioEvents
 
 	public class AfterRemoveCondition : ScenarioEvent<AfterRemoveCondition.Parameters>
 	{
-		public class Parameters(Figure figure, ConditionModel condition) : ParametersBase
+		public class Parameters(Figure figure, ConditionModel condition, AbilityState potentialAbilityState) : ParametersBase
 		{
 			public Figure Figure { get; } = figure;
 			public ConditionModel Condition { get; } = condition;
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 		}
 	}
 

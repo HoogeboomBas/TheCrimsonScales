@@ -223,27 +223,27 @@ public static class AbilityCmd
 		potentialAbilityState?.SetPerformed();
 	}
 
-	public static async GDTask RemoveCondition(Condition condition)
+	public static async GDTask RemoveCondition(Condition condition, AbilityState potentialAbilityState = null)
 	{
 		Figure target = condition.Owner;
 
 		ScenarioEvents.RemoveCondition.Parameters removeConditionParameters =
 			await ScenarioEvents.RemoveConditionEvent.CreatePrompt(
-				new ScenarioEvents.RemoveCondition.Parameters(condition), condition.Owner);
+				new ScenarioEvents.RemoveCondition.Parameters(condition, potentialAbilityState), condition.Owner);
 
 		await condition.Owner.RemoveCondition(condition);
 
 		ScenarioEvents.AfterRemoveCondition.Parameters afterRemoveConditionParameters =
 			await ScenarioEvents.AfterRemoveConditionEvent.CreatePrompt(
-				new ScenarioEvents.AfterRemoveCondition.Parameters(target, condition.ConditionModel), target);
+				new ScenarioEvents.AfterRemoveCondition.Parameters(target, condition.ConditionModel, potentialAbilityState), target);
 	}
 
-	public static async GDTask<bool> RemoveCondition(Figure target, ConditionModel conditionModel)
+	public static async GDTask<bool> RemoveCondition(Figure target, ConditionModel conditionModel, AbilityState potentialAbilityState = null)
 	{
 		Condition condition = target.GetCondition(conditionModel);
 		if(condition != null)
 		{
-			await RemoveCondition(condition);
+			await RemoveCondition(condition, potentialAbilityState);
 
 			return true;
 		}
@@ -263,7 +263,7 @@ public static class AbilityCmd
 					applyFunction: async applyParameters =>
 					{
 						potentialAbilityState?.SetPerformed();
-						await RemoveCondition(target, condition.ConditionModel);
+						await RemoveCondition(target, condition.ConditionModel, potentialAbilityState);
 					},
 					effectType: EffectType.SelectableMandatory,
 					effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(condition.ConditionModel)),

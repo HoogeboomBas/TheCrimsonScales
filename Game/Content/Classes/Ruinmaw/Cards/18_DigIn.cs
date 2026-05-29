@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -68,7 +68,7 @@ public class DigIn : RuinmawCardModel<DigIn.CardTop, DigIn.CardBottom>
 						                      RangeHelper.Distance(state.Performer.Hex, canApplyParameters.Figure.Hex) <= 1,
 						async parameters =>
 						{
-							if(await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible))
+							if(await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state))
 							{
 								ActionState actionState = new ActionState(state.Performer,
 								[

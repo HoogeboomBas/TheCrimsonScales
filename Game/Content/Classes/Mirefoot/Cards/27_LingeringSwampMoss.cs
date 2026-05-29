@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -68,7 +68,7 @@ public class LingeringSwampMoss : MirefootCardModel<LingeringSwampMoss.CardTop, 
 						parameters => parameters.Figure.EnemiesWith(state.Performer) && parameters.Figure.Hex.HasHexObjectOfType<DifficultTerrain>(),
 						async parameters =>
 						{
-							await AbilityCmd.RemoveCondition(parameters.Figure, Conditions.Immobilize);
+							await AbilityCmd.RemoveCondition(parameters.Figure, Conditions.Immobilize, state);
 						});
 					await GDTask.CompletedTask;
 				})

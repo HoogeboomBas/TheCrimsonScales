@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -130,7 +130,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 							if(applyParameters.Figure.HasCondition(Chainguard.Shackle))
 							{
 								await AbilityCmd.SufferDamage(state, applyParameters.Figure, 1);
-								await AbilityCmd.RemoveCondition(applyParameters.Figure, Chainguard.Shackle);
+								await AbilityCmd.RemoveCondition(applyParameters.Figure, Chainguard.Shackle, state);
 							}
 
 							await state.ActionState.RequestDiscardOrLose();

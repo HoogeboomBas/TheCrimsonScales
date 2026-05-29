@@ -36,7 +36,7 @@ public class Safeguard : ConditionModel
 
 				await AbilityCmd.GenericChoice(condition.Owner, subscriptions, hintText: "Select a condition to prevent");
 
-				await AbilityCmd.RemoveCondition(condition);
+				await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
 			},
 			order: 100
 		);

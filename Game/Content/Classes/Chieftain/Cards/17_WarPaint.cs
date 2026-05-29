@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
 public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom>
@@ -28,12 +28,12 @@ public class WarPaint : ChieftainCardModel<WarPaint.CardTop, WarPaint.CardBottom
 				})
 				.WithOnDeactivate(async state =>
 				{
-					await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
+					await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 
 					if(state.GetCustomValue<bool>(this, "IsMounted"))
 					{
 						// The figure might not be mounted at this moment, still remove the invisibility
-						await AbilityCmd.RemoveCondition(state.GetCustomValue<Figure>(this, "Mount"), Conditions.Invisible);
+						await AbilityCmd.RemoveCondition(state.GetCustomValue<Figure>(this, "Mount"), Conditions.Invisible, state);
 					}
 				})
 				.Build())

@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System.Linq;
+using Fractural.Tasks;
 
 public class Egoist : TheCrimsonScalesBattleGoal
 {
@@ -7,7 +8,27 @@ public class Egoist : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.ScenarioEndedEvent.Subscribe(this,
+			parameters =>
+			{
+				bool success = true;
+				foreach(Character otherCharacter in GameController.Instance.CharacterManager.Characters.Except([character]))
+				{
+					if(otherCharacter.ObtainedCoins >= character.ObtainedCoins)
+					{
+						success = false;
+						break;
+					}
+				}
+
+				return success;
+			},
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				await GDTask.CompletedTask;
+			});
 
 		await GDTask.CompletedTask;
 	}

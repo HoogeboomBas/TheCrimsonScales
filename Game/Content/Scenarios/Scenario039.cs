@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -198,19 +198,19 @@ public class Scenario039 : ScenarioModel
 
 									if(figure.TryGetCondition(Conditions.Poison1, out Condition poison1))
 									{
-										await AbilityCmd.RemoveCondition(poison1);
+										await AbilityCmd.RemoveCondition(poison1, state);
 									}
 									else if(figure.TryGetCondition(Conditions.Poison2, out Condition poison2))
 									{
-										await AbilityCmd.RemoveCondition(poison2);
+										await AbilityCmd.RemoveCondition(poison2, state);
 									}
 									else if(figure.TryGetCondition(Conditions.Poison3, out Condition poison3))
 									{
-										await AbilityCmd.RemoveCondition(poison3);
+										await AbilityCmd.RemoveCondition(poison3, state);
 									}
 									else if(figure.TryGetCondition(Conditions.Poison4, out Condition poison4))
 									{
-										await AbilityCmd.RemoveCondition(poison4);
+										await AbilityCmd.RemoveCondition(poison4, state);
 									}
 								})
 								.Build()

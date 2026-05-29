@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -115,7 +115,7 @@ public class HookAndLadder : FireKnightLevelUpCardModel<HookAndLadder.CardTop, H
 						canApplyParameters => CanApply(canApplyParameters.Figure, state, true),
 						async parameters =>
 						{
-							await StrengthenRemove(parameters.Figure);
+							await StrengthenRemove(parameters.Figure, state);
 
 							await GDTask.CompletedTask;
 						},
@@ -129,7 +129,7 @@ public class HookAndLadder : FireKnightLevelUpCardModel<HookAndLadder.CardTop, H
 						canApplyParameters => CanApply(canApplyParameters.Performer, state, true),
 						async parameters =>
 						{
-							await StrengthenRemove(parameters.Performer);
+							await StrengthenRemove(parameters.Performer, state);
 
 							await GDTask.CompletedTask;
 						},
@@ -164,9 +164,9 @@ public class HookAndLadder : FireKnightLevelUpCardModel<HookAndLadder.CardTop, H
 				(!requireStrengthen || performer.HasCondition(Conditions.Strengthen));
 		}
 
-		private async GDTask StrengthenRemove(Figure performer)
+		private async GDTask StrengthenRemove(Figure performer, AbilityState state)
 		{
-			await AbilityCmd.RemoveCondition(performer, Conditions.Strengthen);
+			await AbilityCmd.RemoveCondition(performer, Conditions.Strengthen, state);
 			bool attackPerformedYet = performer.RoundPerformedActionStates
 				.SelectMany(a => a.AbilityStates)
 				.OfType<AttackAbility.State>()

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
 public class DarkenedOvercast : LuminaryCardModel<DarkenedOvercast.CardTop, DarkenedOvercast.CardBottom>
@@ -45,7 +45,7 @@ public class DarkenedOvercast : LuminaryCardModel<DarkenedOvercast.CardTop, Dark
 						parameters => true,
 						async parameters =>
 						{
-							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible);
+							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 						}
 					);
 					await GDTask.CompletedTask;

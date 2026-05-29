@@ -228,7 +228,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 			Condition condition = target.Conditions[i];
 			if(condition.ConditionModel.RemovedByHeal)
 			{
-				await AbilityCmd.RemoveCondition(condition);
+				await AbilityCmd.RemoveCondition(condition, abilityState);
 				abilityState.SingleTargetState.AddRemovedCondition(condition.ConditionModel);
 			}
 		}
