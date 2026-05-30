@@ -1387,11 +1387,12 @@ public partial class ScenarioEvents
 
 	public class GainedExperience : ScenarioEvent<GainedExperience.Parameters>
 	{
-		public class Parameters(Figure experienceReceiver, int experienceAmount)
+		public class Parameters(Figure experienceReceiver, int experienceAmount, bool fromScenario)
 			: ParametersBase
 		{
 			public Figure ExperienceReceiver { get; } = experienceReceiver;
 			public int ExperienceAmount { get; } = experienceAmount;
+			public bool FromScenario { get; } = fromScenario;
 		}
 	}
 

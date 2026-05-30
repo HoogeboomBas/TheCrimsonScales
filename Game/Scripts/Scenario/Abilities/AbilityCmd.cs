@@ -366,12 +366,12 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask GainXP(Figure figure, int xp)
+	public static async GDTask GainXP(Figure figure, int xp, bool fromScenario = false)
 	{
 		if(figure is Character character)
 		{
 			await ScenarioEvents.GainedExperienceEvent.CreatePrompt(
-				new ScenarioEvents.GainedExperience.Parameters(figure, xp));
+				new ScenarioEvents.GainedExperience.Parameters(figure, xp, fromScenario));
 
 			character.GainXP(xp);
 		}

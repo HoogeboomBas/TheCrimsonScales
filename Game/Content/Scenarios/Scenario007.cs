@@ -144,7 +144,7 @@ public class Scenario007 : ScenarioModel
 
 						await AbilityCmd.RemoveAllNegativeConditions(character);
 
-						await AbilityCmd.GainXP(character, 5);
+						await AbilityCmd.GainXP(character, 5, true);
 					}
 					else
 					{

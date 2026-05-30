@@ -72,7 +72,7 @@ public class Scenario021 : ScenarioModel
 
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 36).SetObtainLootFunction(async character =>
 		{
-			await AbilityCmd.GainXP(character, 10);
+			await AbilityCmd.GainXP(character, 10, true);
 			await AbilityCmd.AddCondition(null, character, Conditions.Invisible);
 		});
 

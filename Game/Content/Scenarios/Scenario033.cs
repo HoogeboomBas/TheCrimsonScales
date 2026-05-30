@@ -200,7 +200,7 @@ public class Scenario033 : ScenarioModel
 
 		if(figures.Any(figure => figure.EnemiesWith(character)))
 		{
-			await AbilityCmd.GainXP(character, 1);
+			await AbilityCmd.GainXP(character, 1, true);
 		}
 
 		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Unsubscribe(this);

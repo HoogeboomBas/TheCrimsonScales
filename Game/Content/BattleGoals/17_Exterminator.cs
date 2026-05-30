@@ -9,15 +9,19 @@ public class Exterminator : TheCrimsonScalesBattleGoal
 
 	public override BattleGoalCheckmarkCount CheckmarkCount => BattleGoalCheckmarkCount.Two;
 
-	public override int MaxProgress => _monsterTypesCount;
-
-	private int _monsterTypesCount = 0;
+	public override int MaxProgress => GameController.Instance.ScenarioModel.MonsterModels.Count;
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		_monsterTypesCount = 0;
 		List<MonsterModel> monsterTypesToKill = [];
 		List<MonsterModel> killedMonsterTypes = [];
+
+		List<Figure> revealedMonsters = GameController.Instance.Map.Figures.Where(figure =>
+			figure is Monster monster && 
+			monster.EnemiesWith(character) && 
+			!monster.Traits.Any(trait => trait is AllDamageImmunityTrait)).ToList();
+
+		monsterTypesToKill.AddRange(revealedMonsters.Select(figure => figure as Monster).Select(monster => monster.MonsterModel).Distinct());
 		
 		ScenarioEvents.FigureRegisteredEvent.Subscribe(this,
 			parameters =>
@@ -52,10 +56,12 @@ public class Exterminator : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.ScenarioEndedEvent.Subscribe(this,
-			parameters => killedMonsterTypes.Count == monsterTypesToKill.Count,
+			parameters => 
+				killedMonsterTypes.Count == monsterTypesToKill.Count &&
+				!battleGoal.ProgressFull,
 			async parameters =>
 			{
-				battleGoal.AdjustProgress(1);
+				battleGoal.AdjustProgress(MaxProgress - killedMonsterTypes.Count);
 
 				await GDTask.CompletedTask;
 			}

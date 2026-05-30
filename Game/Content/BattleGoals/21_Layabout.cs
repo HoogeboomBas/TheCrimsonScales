@@ -14,7 +14,9 @@ public class Layabout : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.GainedExperienceEvent.Subscribe(this,
-			parameters => parameters.ExperienceReceiver == character,
+			parameters => 
+				parameters.ExperienceReceiver == character &&
+				!parameters.FromScenario,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(parameters.ExperienceAmount);

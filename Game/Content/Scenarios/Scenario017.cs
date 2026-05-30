@@ -114,7 +114,7 @@ public class Scenario017 : ScenarioModel
 
 		GameController.Instance.Map.Treasures.First(treasure => treasure.TreasureNumber == 43).SetObtainLootFunction(async character =>
 		{
-			await AbilityCmd.GainXP(character, 10);
+			await AbilityCmd.GainXP(character, 10, true);
 			foreach(ItemModel item in character.Items.Where(item => item.ItemState == ItemState.Spent))
 			{
 				await AbilityCmd.RefreshItem(item);
