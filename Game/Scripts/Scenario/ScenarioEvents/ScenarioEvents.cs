@@ -698,10 +698,11 @@ public partial class ScenarioEvents
 
 	public class FigureEnteredHex : ScenarioEvent<FigureEnteredHex.Parameters>
 	{
-		public class Parameters(AbilityState potentialAbilityState, Figure figure) : ParametersBase
+		public class Parameters(AbilityState potentialAbilityState, Figure figure, bool forcedMovement) : ParametersBase
 		{
 			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Figure Figure { get; } = figure;
+			public bool ForcedMovement { get; } = forcedMovement;
 
 			public Hex Hex => Figure.Hex;
 		}
@@ -1091,11 +1092,12 @@ public partial class ScenarioEvents
 
 	public class AbilityCardSideEnded : ScenarioEvent<AbilityCardSideEnded.Parameters>
 	{
-		public class Parameters(AbilityCardSide abilityCardSide, Figure performer, CardState resultingState) : ParametersBase
+		public class Parameters(AbilityCardSide abilityCardSide, Figure performer, CardState resultingState, bool performed) : ParametersBase
 		{
 			public AbilityCardSide AbilityCardSide { get; } = abilityCardSide;
 			public Figure Performer { get; } = performer;
 			public CardState ResultingState { get; } = resultingState;
+			public bool Performed { get; } = performed;
 		}
 	}
 
@@ -1395,6 +1397,19 @@ public partial class ScenarioEvents
 
 	private readonly GainedExperience _gainedExperience = new GainedExperience();
 	public static GainedExperience GainedExperienceEvent => GameController.Instance.ScenarioEvents._gainedExperience;
+
+	public class LostCard : ScenarioEvent<LostCard.Parameters>
+	{
+		public class Parameters(Character character, AbilityCard card)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+			public AbilityCard Card { get; } = card;
+		}
+	}
+
+	private readonly LostCard _lostCard = new LostCard();
+	public static LostCard LostCardEvent => GameController.Instance.ScenarioEvents._lostCard;
 
 	public class InflictConditionEventReward : ScenarioEvent<InflictConditionEventReward.Parameters>
 	{

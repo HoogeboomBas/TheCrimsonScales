@@ -12,8 +12,7 @@ public class Mugger : TheCrimsonScalesBattleGoal
 		Dictionary<Coin, Figure> roundCoinsToCoinDroppersMap = [];
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(character, this,
-			parameters =>
-				parameters.PotentialKiller == character,
+			parameters => parameters.PotentialKiller == character,
 			async parameters =>
 			{
 				roundKilledFigures.Add(parameters.Figure);

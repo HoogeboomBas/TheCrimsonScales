@@ -129,6 +129,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 	protected override async GDTask Perform(State abilityState)
 	{
 		Figure performer = abilityState.Performer;
+		bool forcedMovement = abilityState.Performer.EnemiesWith(abilityState.Authority);
 
 		async GDTask MovePath(List<Vector2I> path)
 		{
@@ -200,7 +201,8 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 				await GDTask.DelayFastForwardable(0.03f);
 				bool triggerHexEffects = abilityState.MoveType == MoveType.Regular || (abilityState.MoveType == MoveType.Jump && i == path.Count - 1);
-				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex, triggerHexEffects, true);
+				await AbilityCmd.EnterHex(abilityState, performer, abilityState.Authority, hex,
+					triggerHexEffects: triggerHexEffects, setPosition: true, forcedMovement: forcedMovement);
 
 				DifficultTerrain difficultTerrain = hex.GetHexObjectOfType<DifficultTerrain>();
 				if(difficultTerrain != null && triggerHexEffects)
@@ -220,7 +222,7 @@ public class MoveAbility : Ability<MoveAbility.State>
 				{
 					await AbilityCmd.ExitHex(abilityState, otherFigure, abilityState.Authority);
 					await AbilityCmd.EnterHex(abilityState, otherFigure, abilityState.Authority, hex,
-						moveTogetherCheckParameters.TriggerHexEffects, false);
+						triggerHexEffects: moveTogetherCheckParameters.TriggerHexEffects, setPosition: false, forcedMovement: forcedMovement);
 				}
 			}
 

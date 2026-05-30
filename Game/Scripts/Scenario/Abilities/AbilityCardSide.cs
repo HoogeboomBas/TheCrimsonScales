@@ -21,6 +21,7 @@ public class AbilityCardSide : IActionSource
 				new ScenarioEvents.AbilityCardSideStarted.Parameters(this, performer));
 
 		CardState resultingState = CardState.Discarded;
+		bool performed = false;
 
 		if(!startedParameters.ForgoneAction)
 		{
@@ -30,6 +31,8 @@ public class AbilityCardSide : IActionSource
 
 			if(actionState.GetHasPerformed())
 			{
+				performed = true;
+
 				await Model.OnActionPerformed(actionState.Performer);
 
 				await AbilityCmd.GainXP(performer, Model.XP);
@@ -95,7 +98,7 @@ public class AbilityCardSide : IActionSource
 		}
 
 		await ScenarioEvents.AbilityCardSideEndedEvent.CreatePrompt(
-			new ScenarioEvents.AbilityCardSideEnded.Parameters(this, performer, resultingState));
+			new ScenarioEvents.AbilityCardSideEnded.Parameters(this, performer, resultingState, performed));
 	}
 
 	private async GDTask OnFirstActivateAbilityActivated(ActionState actionState)

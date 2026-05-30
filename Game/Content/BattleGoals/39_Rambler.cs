@@ -24,7 +24,10 @@ public class Rambler : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-			parameters => parameters.Figure == character && character.Hex == startingHex && !character.LongResting,
+			parameters => 
+				parameters.Figure == character && 
+				character.Hex == startingHex && 
+				!character.LongResting,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

@@ -802,13 +802,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 					PreviousParents.RemoveAt(0);
 				}
 
-				await AbilityCmd.EnterHex(abilityState, target, abilityState.Authority, hex, true, true);
+				await AbilityCmd.EnterHex(abilityState, target, abilityState.Authority, hex,
+					triggerHexEffects: true, setPosition: true, forcedMovement: true);
 
 				foreach(Figure otherFigure in moveTogetherCheckParameters.OtherFigures)
 				{
 					await AbilityCmd.ExitHex(abilityState, otherFigure, abilityState.Authority);
 					await AbilityCmd.EnterHex(abilityState, otherFigure, abilityState.Authority, hex,
-						moveTogetherCheckParameters.TriggerHexEffects, false);
+						triggerHexEffects: moveTogetherCheckParameters.TriggerHexEffects, setPosition: false, forcedMovement: true);
 				}
 			}
 

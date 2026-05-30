@@ -11,8 +11,7 @@ public class Assistant : TheCrimsonScalesBattleGoal
 		List<Figure> attackedFigures = new List<Figure>();
 
 		ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this,
-			parameters =>
-				character.AlliedWith(parameters.Performer),
+			parameters => character.AlliedWith(parameters.Performer),
 			async parameters =>
 			{
 				attackedFigures.AddIfNew(parameters.AbilityState.Target);

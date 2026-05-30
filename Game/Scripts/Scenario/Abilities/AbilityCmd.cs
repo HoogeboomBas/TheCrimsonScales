@@ -18,6 +18,9 @@ public static class AbilityCmd
 
 	public static async GDTask LoseCard(AbilityCard card)
 	{
+		await ScenarioEvents.LostCardEvent.CreatePrompt(
+			new ScenarioEvents.LostCard.Parameters(card.Owner, card));
+
 		await card.RemoveFromActive();
 
 		if(card.Unrecoverable)
@@ -668,11 +671,11 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask EnterHex(AbilityState potentialAbilityState, Figure figure, Figure authority, Hex hex, bool triggerHexEffects,
-		bool setPosition)
+		bool setPosition, bool forcedMovement = false)
 	{
 		figure.SetOriginHexAndRotation(hex, setPosition: setPosition);
 
-		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(potentialAbilityState, figure),
+		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(potentialAbilityState, figure, forcedMovement),
 			authority);
 
 		HazardousTerrain hazardousTerrain = hex.GetHexObjectOfType<HazardousTerrain>();
@@ -714,7 +717,7 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask Teleport(AbilityState abilityState, Figure figure, Hex destination)
+	public static async GDTask Teleport(AbilityState abilityState, Figure figure, Hex destination, bool forcedMovement = false)
 	{
 		abilityState.SetPerformed();
 
@@ -736,7 +739,8 @@ public static class AbilityCmd
 			await GameController.Instance.ScreenDistortion.Appear(figure, animationSpeed, true).PlayFastForwardableAsync();
 		}
 
-		await EnterHex(abilityState, figure, abilityState.Authority, destination, true, true);
+		await EnterHex(abilityState, figure, abilityState.Authority, destination,
+			triggerHexEffects: true, setPosition: true, forcedMovement: forcedMovement);
 	}
 
 	public static GDTask<bool> TrySwap(Figure authority, Figure figureA, Figure figureB)
@@ -1609,8 +1613,13 @@ public static class AbilityCmd
 
 		Hex hexA = figureA.Hex;
 		Hex hexB = figureB.Hex;
-		await EnterHex(potentialAbilityState, figureB, authority, hexA, true, true);
-		await EnterHex(potentialAbilityState, figureA, authority, hexB, true, true);
+
+		await ExitHex(potentialAbilityState, figureA, authority);
+		await ExitHex(potentialAbilityState, figureB, authority);
+		await EnterHex(potentialAbilityState, figureB, authority, hexA,
+			triggerHexEffects: true, setPosition: true, forcedMovement: figureB.EnemiesWith(authority));
+		await EnterHex(potentialAbilityState, figureA, authority, hexB,
+			triggerHexEffects: true, setPosition: true, forcedMovement: figureA.EnemiesWith(authority));
 		potentialAbilityState?.SetPerformed();
 
 		return true;

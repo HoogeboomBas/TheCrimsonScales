@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
@@ -38,6 +38,7 @@ public abstract partial class Figure : HexObject, IActionSource
 	public Initiative Initiative { get; private set; }
 
 	public bool CanTakeTurn { get; protected set; }
+	public bool DidTakeTurn { get; protected set; }
 
 	public List<Hex> TurnMovedHexes { get; private set; } = new List<Hex>();
 	public List<ActionState> TurnPerformedActionStates { get; } = new List<ActionState>();
@@ -83,6 +84,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		FigureViewComponent.ActivePS.Hide();
 
 		CanTakeTurn = true;
+		DidTakeTurn = false;
 
 		SetCrackedShield(false);
 
@@ -106,7 +108,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		OnRetaliateSubscriptionsChanged();
 		OnFlyingSubscriptionsChanged();
 
-		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(null, this), this);
+		await ScenarioEvents.FigureEnteredHexEvent.CreatePrompt(new ScenarioEvents.FigureEnteredHex.Parameters(null, this, false), this);
 		//await AbilityCmd.EnterHex(null, this, this, Hex, false, false);
 	}
 
@@ -255,6 +257,7 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		TakingTurn = false;
 		CanTakeTurn = false;
+		DidTakeTurn = true;
 
 		await GameController.Instance.ElementManager.FinishInfusing();
 
@@ -431,6 +434,7 @@ public abstract partial class Figure : HexObject, IActionSource
 	public virtual async GDTask RoundEnd()
 	{
 		CanTakeTurn = true;
+		DidTakeTurn = false;
 		RoundPerformedActionStates.Clear();
 
 		await DeactivateOtherRoundActionStates();

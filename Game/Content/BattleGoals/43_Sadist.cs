@@ -10,8 +10,9 @@ public class Sadist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => parameters.Figure.EnemiesWith(character) &&
-							parameters.PotentialKiller == character,
+			parameters => 
+				parameters.Figure.EnemiesWith(character) &&
+				parameters.PotentialKiller == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

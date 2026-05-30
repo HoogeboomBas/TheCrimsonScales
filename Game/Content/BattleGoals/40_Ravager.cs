@@ -10,9 +10,10 @@ public class Ravager : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AbilityCardSideEndedEvent.Subscribe(this,
-			parameters => parameters.Performer == character && 
-							parameters.AbilityCardSide.Model.Loss &&
-							!battleGoal.ProgressFull,
+			parameters => 
+				parameters.Performer == character && 
+				parameters.AbilityCardSide.Model.Loss &&
+				!battleGoal.ProgressFull,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
@@ -22,7 +23,9 @@ public class Ravager : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-			parameters => parameters.Figure == character && !battleGoal.ProgressFull,
+			parameters => 
+				parameters.Figure == character && 
+				!battleGoal.ProgressFull,
 			async parameters =>
 			{
 				battleGoal.ResetProgress();

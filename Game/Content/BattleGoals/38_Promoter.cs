@@ -26,8 +26,7 @@ public class Promoter : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
-			parameters => 
-				parameters.Character == character,
+			parameters => parameters.Character == character,
 			async parameters =>
 			{
 				if (targetedAlly)
@@ -44,8 +43,7 @@ public class Promoter : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
-			parameters => 
-				parameters.Character == character,
+			parameters => parameters.Character == character,
 			async parameters =>
 			{
 				if (targetedAlly)

@@ -10,10 +10,11 @@ public class Hunter : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => parameters.Figure.EnemiesWith(character) &&
-							parameters.PotentialKiller == character &&
-							parameters.Figure is Monster monster &&
-							monster.MonsterType == MonsterType.Elite,
+			parameters => 
+				parameters.Figure.EnemiesWith(character) &&
+				parameters.PotentialKiller == character &&
+				parameters.Figure is Monster monster &&
+				monster.MonsterType == MonsterType.Elite,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

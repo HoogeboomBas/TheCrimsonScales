@@ -10,8 +10,7 @@ public class Straggler : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
-			parameters =>
-				parameters.Character == character,
+			parameters => parameters.Character == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

@@ -10,8 +10,9 @@ public class Conservator : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AbilityCardSideEndedEvent.Subscribe(this,
-			parameters => parameters.Performer == character && 
-							parameters.AbilityCardSide.Model.Loss,
+			parameters => 
+				parameters.Performer == character && 
+				parameters.AbilityCardSide.Model.Loss,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

@@ -10,9 +10,10 @@ public class Optimist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AfterRemoveConditionEvent.Subscribe(this,
-			parameters => (parameters.Figure == character || parameters.Figure.AlliedWith(character)) &&
-							parameters.PotentialAbilityState?.Authority == character &&
-							parameters.Condition.IsNegative,
+			parameters => 
+				(parameters.Figure == character || parameters.Figure.AlliedWith(character)) &&
+				parameters.PotentialAbilityState?.Authority == character &&
+				parameters.Condition.IsNegative,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

@@ -133,6 +133,8 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			return;
 		}
 
-		await AbilityCmd.Teleport(abilityState, performer, destination);
+		bool forcedMovement = abilityState.Performer.EnemiesWith(abilityState.Authority);
+
+		await AbilityCmd.Teleport(abilityState, performer, destination, forcedMovement);
 	}
 }

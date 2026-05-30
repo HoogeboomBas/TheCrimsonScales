@@ -10,9 +10,9 @@ public class Pickpocket : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.AbilityPerformedEvent.Subscribe(character, this,
 			parameters => 
-					parameters.Performer == character &&
-					parameters.AbilityState is LootAbility.State state &&
-					character.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.EnemiesWith(character))),
+				parameters.Performer == character &&
+				parameters.AbilityState is LootAbility.State state &&
+				character.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.EnemiesWith(character))),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

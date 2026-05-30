@@ -14,8 +14,8 @@ public class Pedestrian : TheCrimsonScalesBattleGoal
 			parameters =>
 				parameters.Figure == character &&
 					(parameters.Hex.GetFigures().Any(figure => figure.AlliedWith(character) || figure.EnemiesWith(character)) ||
-					 parameters.Hex.HasHexObjectOfType<Objective>() ||
-					 parameters.Hex.HasHexObjectOfType<Obstacle>()),
+					parameters.Hex.HasHexObjectOfType<Objective>() ||
+					parameters.Hex.HasHexObjectOfType<Obstacle>()),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

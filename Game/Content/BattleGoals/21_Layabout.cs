@@ -7,9 +7,21 @@ public class Layabout : TheCrimsonScalesBattleGoal
 
 	public override BattleGoalCheckmarkCount CheckmarkCount => BattleGoalCheckmarkCount.Two;
 
+	public override int MaxProgress => 8;
+
+	public override bool FailIfProgressFull => true;
+
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.GainedExperienceEvent.Subscribe(this,
+			parameters => parameters.ExperienceReceiver == character,
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(parameters.ExperienceAmount);
+
+				await GDTask.CompletedTask;
+			}
+		);
 
 		await GDTask.CompletedTask;
 	}

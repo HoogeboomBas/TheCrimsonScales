@@ -1,4 +1,6 @@
-﻿using Fractural.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Fractural.Tasks;
 
 public class Dawdler : TheCrimsonScalesBattleGoal
 {
@@ -7,9 +9,21 @@ public class Dawdler : TheCrimsonScalesBattleGoal
 
 	public override BattleGoalCheckmarkCount CheckmarkCount => BattleGoalCheckmarkCount.Two;
 
+	public override bool FailIfProgressFull => true;
+
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		//TODO
+		ScenarioEvents.RoundStartedBeforeInitiativesSortedEvent.Subscribe(this,
+			parameters => 
+				!character.IsDead &&
+				character.RoundCards[0].Model.Initiative < character.RoundCards[1].Model.Initiative,
+			async parameters =>
+			{
+				battleGoal.AdjustProgress(1);
+
+				await GDTask.CompletedTask;
+			}
+		);
 
 		await GDTask.CompletedTask;
 	}
