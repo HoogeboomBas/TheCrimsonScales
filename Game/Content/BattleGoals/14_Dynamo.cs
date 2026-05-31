@@ -13,7 +13,7 @@ public class Dynamo : TheCrimsonScalesBattleGoal
 				parameters.Figure.EnemiesWith(character) &&
 				parameters.PotentialAbilityState is AttackAbility.State &&
 				parameters.PotentialAbilityState.Performer == character &&
-				parameters.DamageDealt + 4 >= parameters.DamageSuffered,
+				parameters.DamageDealt >= parameters.DamageSuffered + 4,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

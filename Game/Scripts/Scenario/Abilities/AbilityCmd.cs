@@ -121,7 +121,7 @@ public static class AbilityCmd
 
 		int newHealth = Mathf.Max(target.Health - damageDealt, 0);
 
-		int damageSuffered = newHealth - target.Health;
+		int damageSuffered = target.Health - newHealth;
 
 		target.SetHealth(newHealth);
 
