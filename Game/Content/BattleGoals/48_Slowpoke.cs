@@ -14,8 +14,7 @@ public class Slowpoke : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-			parameters =>
-				!battleGoal.ProgressFull,
+			parameters => !battleGoal.ProgressFull,
 			async parameters =>
 			{
 				battleGoal.ResetProgress();
@@ -25,7 +24,8 @@ public class Slowpoke : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 					(parameters.PotentialAbilityState is MoveAbility.State ||
 					(parameters.PotentialAbilityState is TargetedAbilityState && parameters.ForcedMovement)),

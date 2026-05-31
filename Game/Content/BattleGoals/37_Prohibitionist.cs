@@ -10,7 +10,8 @@ public class Prohibitionist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.ItemUseStartedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Performer == character &&
 					(parameters.Item == ModelDB.Item<MinorHealingPotion>() ||
 					 parameters.Item == ModelDB.Item<MinorManaPotion>() ||

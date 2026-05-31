@@ -13,7 +13,9 @@ public class Diehard : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AfterSufferDamageEvent.Subscribe(this,
-			parameters => parameters.Figure == character,
+			parameters => 
+				!battleGoal.ProgressFull &&
+				parameters.Figure == character,
 			async parameters =>
 			{
 				if(character.Health < Mathf.CeilToInt(character.MaxHealth * 0.5f))

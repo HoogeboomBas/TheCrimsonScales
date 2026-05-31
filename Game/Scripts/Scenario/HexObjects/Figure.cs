@@ -249,11 +249,11 @@ public abstract partial class Figure : HexObject, IActionSource
 			await EndOfTurnLooting();
 		}
 
-		await ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.CreatePrompt(
-			new ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters(this), this);
-
 		await ScenarioEvents.FigureTurnEndedEvent.CreatePrompt(
 			new ScenarioEvents.FigureTurnEnded.Parameters(this), this);
+
+		await ScenarioEvents.FigureTurnEndedConditionsFallOffEvent.CreatePrompt(
+			new ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters(this), this);
 
 		TakingTurn = false;
 		CanTakeTurn = false;

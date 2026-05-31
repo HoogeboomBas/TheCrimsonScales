@@ -10,7 +10,9 @@ public class Scrambler : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
-			parameters => parameters.Character == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Character == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

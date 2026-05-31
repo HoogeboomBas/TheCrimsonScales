@@ -18,9 +18,9 @@ public class Daredevil : TheCrimsonScalesBattleGoal
 		_failed = false;
 
 		ScenarioEvents.LostCardEvent.Subscribe(this,
-			parameters => 
-				parameters.Character == character &&
-				!battleGoal.ProgressFull,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Character == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
@@ -31,9 +31,8 @@ public class Daredevil : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
 			parameters =>
-				character == 
-					parameters.Character &&
-					!battleGoal.ProgressFull,
+				!battleGoal.ProgressFull &&
+				character == parameters.Character,
 			async parameters =>
 			{
 				_failed = true;
@@ -45,9 +44,8 @@ public class Daredevil : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
 			parameters =>
-				character == 
-					parameters.Character &&
-					!battleGoal.ProgressFull,
+				!battleGoal.ProgressFull &&
+				character == parameters.Character,
 			async parameters =>
 			{
 				_failed = true;

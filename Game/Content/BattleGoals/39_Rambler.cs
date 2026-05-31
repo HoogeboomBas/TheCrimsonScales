@@ -14,7 +14,9 @@ public class Rambler : TheCrimsonScalesBattleGoal
 		Hex startingHex = null;
 
 		ScenarioEvents.FigureTurnStartedEvent.Subscribe(this,
-			parameters => parameters.Figure == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Figure == character,
 			async parameters =>
 			{
 				startingHex = character.Hex;
@@ -24,7 +26,8 @@ public class Rambler : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character && 
 				character.Hex == startingHex && 
 				!character.LongResting,

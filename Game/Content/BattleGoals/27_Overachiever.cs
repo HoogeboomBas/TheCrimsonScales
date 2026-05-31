@@ -15,9 +15,9 @@ public class Overachiever : TheCrimsonScalesBattleGoal
 		bool enemyKilled = false;
 
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
-			parameters => 
-				parameters.Figure == character &&
-				!battleGoal.ProgressFull,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Figure == character,
 			async parameters =>
 			{
 				battleGoal.ResetProgress();
@@ -30,7 +30,8 @@ public class Overachiever : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.DoorOpenedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialOpener == character &&
 				!doorOpened,
 			async parameters =>
@@ -44,7 +45,8 @@ public class Overachiever : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				parameters.Figure.EnemiesWith(character) &&
 				!enemyKilled,

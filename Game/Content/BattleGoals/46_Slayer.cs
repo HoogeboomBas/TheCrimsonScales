@@ -13,9 +13,9 @@ public class Slayer : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure.EnemiesWith(character) &&
-				parameters.PotentialKiller == character &&
-				!battleGoal.ProgressFull,
+				parameters.PotentialKiller == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

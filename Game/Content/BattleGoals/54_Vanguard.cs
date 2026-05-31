@@ -12,7 +12,8 @@ public class Vanguard : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(character, this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Performer == character &&
 				parameters.AbilityState.Target.DidTakeTurn,
 			async parameters =>

@@ -12,7 +12,8 @@ public class Pacifist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure.EnemiesWith(character) &&
 				parameters.PotentialKiller == character,
 			async parameters =>

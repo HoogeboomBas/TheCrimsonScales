@@ -10,10 +10,10 @@ public class Assassin : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		List<Figure> actionPerformers = new List<Figure>();
+		List<Figure> actionPerformers = [];
 
 		ScenarioEvents.ActionStartedEvent.Subscribe(this,
-			parameters => true,
+			parameters => !battleGoal.ProgressFull,
 			async parameters =>
 			{
 				actionPerformers.AddIfNew(parameters.ActionState.Performer);
@@ -24,6 +24,7 @@ public class Assassin : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				character.EnemiesWith(parameters.Figure) &&
 				!actionPerformers.Contains(parameters.Figure),

@@ -11,6 +11,7 @@ public class Plebeian : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				character.EnemiesWith(parameters.Figure) &&
 				parameters.Figure is Monster monster &&

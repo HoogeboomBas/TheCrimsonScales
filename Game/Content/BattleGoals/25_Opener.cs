@@ -14,7 +14,9 @@ public class Opener : TheCrimsonScalesBattleGoal
 		_failed = false;
 	
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
-			parameters => !battleGoal.ProgressFull && parameters.Figure.EnemiesWith(character),
+			parameters => 
+				!battleGoal.ProgressFull && 
+				parameters.Figure.EnemiesWith(character),
 			async parameters =>
 			{
 				if(parameters.PotentialKiller != character)

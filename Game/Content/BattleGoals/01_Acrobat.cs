@@ -9,6 +9,7 @@ public class Acrobat : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.LosingCardToNegateDamageEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Character == character &&
 				parameters.SufferDamageParameters.CalculatedCurrentDamage >= 5,
 			async parameters =>

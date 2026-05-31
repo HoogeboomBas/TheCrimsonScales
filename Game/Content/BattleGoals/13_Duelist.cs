@@ -13,7 +13,8 @@ public class Duelist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.FigureExitingHexEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character && 
 				parameters.PotentialAbilityState is MoveAbility.State or TeleportAbility.State &&
 				parameters.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.EnemiesWith(character))),

@@ -8,7 +8,8 @@ public class Dynamo : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AfterSufferDamageEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure.EnemiesWith(character) &&
 				parameters.PotentialAbilityState is AttackAbility.State &&
 				parameters.PotentialAbilityState.Performer == character &&

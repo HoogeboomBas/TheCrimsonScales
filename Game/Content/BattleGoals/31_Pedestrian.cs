@@ -12,6 +12,7 @@ public class Pedestrian : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 					(parameters.Hex.GetFigures().Any(figure => figure.AlliedWith(character) || figure.EnemiesWith(character)) ||
 					parameters.Hex.HasHexObjectOfType<Objective>() ||

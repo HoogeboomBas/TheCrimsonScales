@@ -9,6 +9,7 @@ public class Wastrel : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.LosingCardToNegateDamageEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Character == character &&
 				parameters.SufferDamageParameters.FromAttack &&
 				parameters.SufferDamageParameters.CalculatedCurrentDamage <= 2,

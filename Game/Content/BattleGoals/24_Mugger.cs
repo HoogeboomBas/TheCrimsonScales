@@ -12,7 +12,9 @@ public class Mugger : TheCrimsonScalesBattleGoal
 		Dictionary<Coin, Figure> roundCoinsToCoinDroppersMap = [];
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(character, this,
-			parameters => parameters.PotentialKiller == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.PotentialKiller == character,
 			async parameters =>
 			{
 				roundKilledFigures.Add(parameters.Figure);
@@ -22,7 +24,9 @@ public class Mugger : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.CoinSpawnedEvent.Subscribe(character, this,
-			parameters => parameters.PotentialDropper != null,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.PotentialDropper != null,
 			async parameters =>
 			{
 				roundCoinsToCoinDroppersMap.Add(parameters.Coin, parameters.PotentialDropper);
@@ -33,6 +37,7 @@ public class Mugger : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.CoinLootedEvent.Subscribe(character, this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				roundCoinsToCoinDroppersMap.ContainsKey(parameters.Coin) && 
 				roundKilledFigures.Contains(roundCoinsToCoinDroppersMap[parameters.Coin]),
 			async parameters =>
@@ -44,7 +49,7 @@ public class Mugger : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.RoundEndedEvent.Subscribe(character, this,
-			parameters => true,
+			parameters => !battleGoal.ProgressFull,
 			async parameters =>
 			{
 				roundKilledFigures.Clear();

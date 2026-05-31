@@ -28,6 +28,11 @@ public class BattleGoal
 
 	public void AdjustProgress(int value)
 	{
+		if(value == 0)
+		{
+			return;
+		}
+
 		bool previouslyFullProgress = ProgressFull;
 
 		Progress += value;

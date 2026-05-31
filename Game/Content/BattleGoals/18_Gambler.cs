@@ -9,6 +9,7 @@ public class Gambler : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure.EnemiesWith(character) &&
 				parameters.PotentialKiller == character &&
 				parameters.PotentialAbilityState is AttackAbility.State state &&

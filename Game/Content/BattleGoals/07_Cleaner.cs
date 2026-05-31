@@ -11,8 +11,8 @@ public class Cleaner : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.CoinLootedEvent.Subscribe(character, this,
 			parameters => 
-				parameters.LootObtainer == character &&
-				!battleGoal.ProgressFull,
+				!battleGoal.ProgressFull &&
+				parameters.LootObtainer == character,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
@@ -23,8 +23,8 @@ public class Cleaner : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(character, this,
 			parameters => 
-				parameters.Figure == character &&
-				!battleGoal.ProgressFull,
+				!battleGoal.ProgressFull &&
+				parameters.Figure == character,
 			async parameters =>
 			{
 				battleGoal.ResetProgress();

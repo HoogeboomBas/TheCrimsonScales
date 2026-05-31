@@ -10,6 +10,7 @@ public class Tormentor : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.ConditionAddedEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Target.EnemiesWith(character) &&
 				parameters.PotentialConditionGiver == character &&
 				parameters.Target.Conditions.Select(condition => condition.ConditionModel)

@@ -10,6 +10,7 @@ public class Bastion : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				GameController.Instance.Map.Doors.Any(door => door.Hex == character.Hex) &&
 				RangeHelper.GetFiguresInRange(character.Hex, 1, false, false).Count(figure => character.EnemiesWith(figure)) >= 2,
 			async parameters =>

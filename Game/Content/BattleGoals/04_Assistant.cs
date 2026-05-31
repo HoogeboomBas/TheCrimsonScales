@@ -8,10 +8,12 @@ public class Assistant : TheCrimsonScalesBattleGoal
 
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
-		List<Figure> attackedFigures = new List<Figure>();
+		List<Figure> attackedFigures = [];
 
 		ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this,
-			parameters => character.AlliedWith(parameters.Performer),
+			parameters =>
+				!battleGoal.ProgressFull &&
+				character.AlliedWith(parameters.Performer),
 			async parameters =>
 			{
 				attackedFigures.AddIfNew(parameters.AbilityState.Target);
@@ -21,7 +23,7 @@ public class Assistant : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.RoundEndedEvent.Subscribe(this,
-			parameters => true,
+			parameters => !battleGoal.ProgressFull,
 			async parameters =>
 			{
 				attackedFigures.Clear();
@@ -32,6 +34,7 @@ public class Assistant : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				character.EnemiesWith(parameters.Figure) &&
 				attackedFigures.Contains(parameters.Figure),

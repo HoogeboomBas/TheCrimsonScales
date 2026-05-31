@@ -12,6 +12,7 @@ public class Bully : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				parameters.Figure.Conditions.Count(condition => condition.ConditionModel.IsNegative) >= 2,
 			async parameters =>

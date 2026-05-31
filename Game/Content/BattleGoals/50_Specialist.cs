@@ -12,7 +12,8 @@ public class Specialist : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AbilityCardSideEndedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Performer == character && 
 				parameters.AbilityCardSide.AbilityCardSideType is AbilityCardSideType.BasicTop or AbilityCardSideType.BasicBottom &&
 				parameters.Performed,

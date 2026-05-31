@@ -10,7 +10,9 @@ public class Sluggard : TheCrimsonScalesBattleGoal
 		bool sufferedDamage = false;
 
 		ScenarioEvents.AfterSufferDamageEvent.Subscribe(this,
-			parameters => parameters.Figure == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Figure == character,
 			async parameters =>
 			{
 				sufferedDamage = true;
@@ -20,7 +22,8 @@ public class Sluggard : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Character == character && 
 				character.Health == character.MaxHealth &&
 				sufferedDamage == true,

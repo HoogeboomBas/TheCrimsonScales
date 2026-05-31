@@ -11,7 +11,8 @@ public class Zealot : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.ScenarioEndedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				!character.IsDead &&
 				character.Cards.Count(card => card.CardState == CardState.Hand || card.CardState == CardState.Discarded) <= 3,
 			async parameters =>

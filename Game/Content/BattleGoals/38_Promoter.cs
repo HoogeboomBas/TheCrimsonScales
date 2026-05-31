@@ -13,7 +13,8 @@ public class Promoter : TheCrimsonScalesBattleGoal
 		bool targetedAlly = false;
 
 		ScenarioEvents.AbilityPerformedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Performer == character &&
 				parameters.AbilityState is TargetedAbilityState targetedState &&
 				targetedState.UniqueTargetedFigures.Any(figure => figure.AlliedWith(character)),
@@ -26,7 +27,9 @@ public class Promoter : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
-			parameters => parameters.Character == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Character == character,
 			async parameters =>
 			{
 				if (targetedAlly)
@@ -43,7 +46,9 @@ public class Promoter : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
-			parameters => parameters.Character == character,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Character == character,
 			async parameters =>
 			{
 				if (targetedAlly)

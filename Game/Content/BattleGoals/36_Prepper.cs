@@ -28,9 +28,9 @@ public class Prepper : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this,
-			parameters => 
-				parameters.Performer == character && 
-				!battleGoal.ProgressFull,
+			parameters =>
+				!battleGoal.ProgressFull &&
+				parameters.Performer == character,
 			async parameters =>
 			{
 				_failed = true;

@@ -14,6 +14,7 @@ public class Recluse : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 				parameters.Figure.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure is Character)),
 			async parameters =>

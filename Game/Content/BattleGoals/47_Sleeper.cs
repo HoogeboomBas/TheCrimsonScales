@@ -12,6 +12,7 @@ public class Sleeper : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Character == character &&
 				!parameters.Character.Cards.Any(card => card.CardState == CardState.Hand),
 			async parameters =>
@@ -24,6 +25,7 @@ public class Sleeper : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.LongRestStartedEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Character == character &&
 				!parameters.Character.Cards.Any(card => card.CardState == CardState.Hand),
 			async parameters =>

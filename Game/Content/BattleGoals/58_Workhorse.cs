@@ -11,6 +11,7 @@ public class Workhorse : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.GainedExperienceEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.ExperienceReceiver == character &&
 				!parameters.FromScenario,
 			async parameters =>

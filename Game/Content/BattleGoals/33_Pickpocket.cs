@@ -9,7 +9,8 @@ public class Pickpocket : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.AbilityPerformedEvent.Subscribe(character, this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Performer == character &&
 				parameters.AbilityState is LootAbility.State state &&
 				character.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.EnemiesWith(character))),

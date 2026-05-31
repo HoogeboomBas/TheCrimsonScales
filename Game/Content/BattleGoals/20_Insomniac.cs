@@ -9,6 +9,7 @@ public class Insomniac : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.AfterSufferDamageEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 				parameters.PotentialAbilityState is AttackAbility.State &&
 				character.LongResting,

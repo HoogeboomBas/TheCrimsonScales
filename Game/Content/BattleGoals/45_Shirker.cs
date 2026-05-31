@@ -10,6 +10,7 @@ public class Shirker : TheCrimsonScalesBattleGoal
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				character.EnemiesWith(parameters.Figure) &&
 				RangeHelper.Distance(character.Hex, parameters.Figure.Hex) > 1 &&

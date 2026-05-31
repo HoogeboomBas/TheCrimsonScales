@@ -16,6 +16,7 @@ public class Miser : TheCrimsonScalesBattleGoal
 
 		ScenarioEvents.FigureExitingHexEvent.Subscribe(this,
 			parameters => 
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character && 
 				parameters.Hex.Room != null,
 			async parameters =>
@@ -27,7 +28,8 @@ public class Miser : TheCrimsonScalesBattleGoal
 		);
 
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 				parameters.Hex.Room != leavingHex.Room &&
 				leavingHex.Room.Hexes.Any(hex => hex.HasHexObjectOfType<Coin>()),

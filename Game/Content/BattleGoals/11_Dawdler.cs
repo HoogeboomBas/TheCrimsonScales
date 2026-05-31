@@ -14,7 +14,8 @@ public class Dawdler : TheCrimsonScalesBattleGoal
 	public override async GDTask OnScenarioSetupPhaseCompleted(Character character, BattleGoal battleGoal)
 	{
 		ScenarioEvents.RoundStartedBeforeInitiativesSortedEvent.Subscribe(this,
-			parameters => 
+			parameters =>
+				!battleGoal.ProgressFull &&
 				!character.IsDead &&
 				character.RoundCards[0].Model.Initiative < character.RoundCards[1].Model.Initiative,
 			async parameters =>
