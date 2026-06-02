@@ -296,7 +296,8 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
-		if(CheckRangeDisadvantage(abilityState.Performer.Hexes, target.Hexes, abilityState.SingleTargetRangeType))
+		Hex[] performHexes = abilityState.AbilityPerformHex != null ? [abilityState.AbilityPerformHex] : abilityState.Performer.Hexes;
+		if(CheckRangeDisadvantage(performHexes, target.Hexes, abilityState.SingleTargetRangeType))
 		{
 			abilityState.SingleTargetSetHasDisadvantage();
 		}
