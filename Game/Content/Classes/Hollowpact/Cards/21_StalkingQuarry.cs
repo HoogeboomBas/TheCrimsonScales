@@ -21,7 +21,7 @@ public class StalkingQuarry : HollowpactLevelUpCardModel<StalkingQuarry.CardTop,
 					return teleportTargetHex.Neighbours
 						.Any(potentialEnemyHex =>
 							potentialEnemyHex.GetFigures().Any(figure => figure.EnemiesWith(state.Performer))
-							&& !potentialEnemyHex.Neighbours.Any(otherFigureHex => otherFigureHex.HasHexObjectOfType<Figure>()));
+							&& !potentialEnemyHex.Neighbours.Any(otherFigureHex => otherFigureHex.GetHexObjectsOfType<Figure>().Any(figure => figure != state.Performer)));
 				})
 				.Build()),
 
