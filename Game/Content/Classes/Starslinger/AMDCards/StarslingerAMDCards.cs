@@ -72,7 +72,7 @@ public class StarslingerAMDCards
 		];
 	}
 
-	public class PlusOneIfYouAreUndamagedPlusThreeInstead : BombardAMDCardModel
+	public class PlusOneIfYouAreUndamagedPlusThreeInstead : StarslingerAMDCardModel
 	{
 		public override string ToString(RichTextParameters richTextParameters) =>
 			GetBasicString(richTextParameters, +1,
