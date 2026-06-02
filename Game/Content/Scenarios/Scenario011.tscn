@@ -31,6 +31,7 @@ _hideDuringPlay = true
 
 [node name="DarkPit2H" parent="Map/Rooms/Room" index="3" unique_id=1977939900 instance=ExtResource("6_hwybe")]
 position = Vector2(545.59595, -189)
+CannotBeDestroyed = true
 
 [node name="B2a" parent="Map/Rooms/Room" index="4" unique_id=174833049 instance=ExtResource("7_jtiwx")]
 position = Vector2(1091.1919, 0)
@@ -48,6 +49,7 @@ _hideDuringPlay = true
 [node name="DarkPit2H2" parent="Map/Rooms/Room" index="7" unique_id=232390639 instance=ExtResource("6_hwybe")]
 position = Vector2(1309.4303, 378)
 rotation = 2.0943952
+CannotBeDestroyed = true
 
 [node name="B3a" parent="Map/Rooms/Room" index="8" unique_id=2127703404 instance=ExtResource("8_5tlut")]
 position = Vector2(0, 1134)
@@ -65,6 +67,7 @@ _hideDuringPlay = true
 [node name="DarkPit2H3" parent="Map/Rooms/Room" index="11" unique_id=99891417 instance=ExtResource("6_hwybe")]
 position = Vector2(0, 378)
 rotation = 1.0471976
+CannotBeDestroyed = true
 
 [node name="B4a" parent="Map/Rooms/Room" index="12" unique_id=1959967987 instance=ExtResource("9_2lgbt")]
 position = Vector2(1091.1919, 1134)
@@ -81,3 +84,4 @@ _hideDuringPlay = true
 
 [node name="DarkPit2H4" parent="Map/Rooms/Room" index="15" unique_id=1128881103 instance=ExtResource("6_hwybe")]
 position = Vector2(545.59595, 945)
+CannotBeDestroyed = true
