@@ -761,7 +761,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		{
 			target.ZIndex = 100;
 
-			for(int i = 0; i < path.Count; i++)
+			for(int i = 0; i < path.Count && !target.IsDestroyed; i++)
 			{
 				Vector2I coords = path[i];
 				Hex hex = GameController.Instance.Map.GetHex(coords);
