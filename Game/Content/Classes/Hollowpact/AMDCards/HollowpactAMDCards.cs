@@ -27,7 +27,7 @@ public class HollowpactAMDCards
 
 		protected override int AtlasIndex => 3;
 
-		public override int? GetValue(AttackAbility.State attackAbilityState) => +0;
+		public override int? GetValue(AttackAbility.State attackAbilityState) => +3;
 		public override List<Ability> GetAbilities(AttackAbility.State attackAbilityState) =>
 		[
 			ConditionAbility.Builder().WithConditions(Conditions.Regenerate).WithTarget(Target.Self).Build()
@@ -47,7 +47,7 @@ public class HollowpactAMDCards
 		public override string ToString(RichTextParameters richTextParameters) =>
 			GetBasicString(richTextParameters, +1,
 				extraText: $"Create a void pit in an empty hex within {Icons.Inline(Icons.Range, richTextParameters)}2");
-	
+
 		protected override int AtlasIndex => 9;
 
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +1;
@@ -142,7 +142,7 @@ public class HollowpactAMDCards
 		public override int? GetValue(AttackAbility.State attackAbilityState) => -2;
 		public override List<CardElementInfusion> ElementInfusions => [CardElementInfusion.Infuse(Element.Earth)];
 	}
-	
+
 	public class MinusTwoStun : HollowpactAMDCardModel
 	{
 		protected override int AtlasIndex => 22;
