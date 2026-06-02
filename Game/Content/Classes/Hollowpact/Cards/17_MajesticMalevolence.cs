@@ -26,6 +26,7 @@ public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolenc
 								await targetedAbilityState.SetPerformHex(hexes =>
 								{
 									hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+										.Where(voidpit => !voidpit.IsDestroyed)
 										.Select(voidPit => voidPit.Hex));
 								});
 							}

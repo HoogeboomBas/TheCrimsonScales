@@ -305,6 +305,7 @@ public class Scenario039 : ScenarioModel
 						{
 							Hex hex = await AbilityCmd.SelectHex(GameController.Instance.CharacterManager.FirstAlive(), list =>
 									list.AddRange(GameController.Instance.Map.GetChildrenOfType<Boulder1HObstacle>()
+										.Where(boulder => !boulder.IsDestroyed)
 										.Select(obstacle => obstacle.Hex)), true,
 								"Select a boulder to destroy");
 							if(hex != null)

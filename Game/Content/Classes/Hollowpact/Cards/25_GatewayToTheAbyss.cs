@@ -30,6 +30,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.WithCustomGetTargets((state, figures) =>
 				{
 					figures.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+						.Where(voidpit => !voidpit.IsDestroyed)
 						.SelectMany(voidPit => voidPit.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
 						.Where(figure => figure.EnemiesWith(state.Performer))
 						.Distinct());
@@ -39,6 +40,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 					await GainXP(state);
 
 					IEnumerable<Figure> alliedFigures = GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+						.Where(voidpit => !voidpit.IsDestroyed)
 						.SelectMany(voidPit => voidPit.Hex.Neighbours.SelectMany(hex => hex.GetFigures()))
 						.Where(figure => figure.AlliedWith(state.Performer))
 						.Distinct();
