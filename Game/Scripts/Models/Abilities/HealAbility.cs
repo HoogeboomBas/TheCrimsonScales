@@ -187,7 +187,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 			await ScenarioEvents.HealBlockTimeEvent.CreatePrompt(
 				new ScenarioEvents.HealBlockTime.Parameters(abilityState), abilityState);
 
-		if(!blockedAbilityStateParameters.IsBlocked)
+		if(!blockedAbilityStateParameters.IsBlocked && target.Health < target.MaxHealth)
 		{
 			int newHealth = Mathf.Min(target.Health + abilityState.SingleTargetHealValue, target.MaxHealth);
 
@@ -243,7 +243,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 		if(abilityState.Authority is not Character && figures.Count != 0)
 		{
-			int mostHealthLost = figures.Select(figure => figure.MaxHealth - figure.Health).Max();
+			int mostHealthLost = figures.Max(figure => figure.MaxHealth - figure.Health);
 			figures.RemoveAll(figure => figure.MaxHealth - figure.Health < mostHealthLost);
 		}
 	}
