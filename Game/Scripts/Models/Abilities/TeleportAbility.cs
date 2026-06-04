@@ -97,6 +97,8 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 	{
 		Figure performer = abilityState.Performer;
 
+		bool forcedMovement = abilityState.Performer.EnemiesWith(abilityState.Authority);
+
 		Hex destination = null;
 
 		if(abilityState.Authority is Character)
@@ -104,7 +106,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// Character teleporting
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
-					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
 						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
@@ -118,7 +120,7 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// TODO: Not a real monster movement, focus and movement AI not included, works with custom hexes
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
-					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
 						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
@@ -132,8 +134,6 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		{
 			return;
 		}
-
-		bool forcedMovement = abilityState.Performer.EnemiesWith(abilityState.Authority);
 
 		await AbilityCmd.Teleport(abilityState, performer, destination, forcedMovement);
 	}

@@ -106,17 +106,16 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.Build()),
 
 			new AbilityCardAbility(GrantAbility.Builder()
-				.WithAbilities(
+				.WithGetAbilities(grantState =>
 				[
 					TeleportAbility.Builder()
 						.WithCustomGetHexes((state, hexes) =>
 						{
-							hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5,
-									includeOrigin: false,
-									requiresLineOfSight: false,
-									requiresHexesRevealed: true,
-									allowDoors: true)
-								.Where(hex => hex.IsEmpty()));
+							hexes.AddRange(RangeHelper.GetHexesInRange(grantState.Performer.Hex, 5,
+								includeOrigin: false,
+								requiresLineOfSight: false,
+								requiresHexesRevealed: true,
+								allowDoors: true));
 						})
 						.Build()
 				])
@@ -136,17 +135,16 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 				.Build()),
 
 			new AbilityCardAbility(ControlAbility.Builder()
-				.WithAbilities(
+				.WithGetAbilities(grantState =>
 				[
 					TeleportAbility.Builder()
 						.WithCustomGetHexes((state, hexes) =>
 						{
-							hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 5,
-									includeOrigin: false,
-									requiresLineOfSight: false,
-									requiresHexesRevealed: true,
-									allowDoors: false)
-								.Where(hex => hex.IsEmpty()));
+							hexes.AddRange(RangeHelper.GetHexesInRange(grantState.Performer.Hex, 5,
+								includeOrigin: false,
+								requiresLineOfSight: false,
+								requiresHexesRevealed: true,
+								allowDoors: false));
 						})
 						.Build()
 				])

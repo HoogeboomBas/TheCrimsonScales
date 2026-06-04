@@ -39,7 +39,7 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				{
 					foreach(Hex targetedHex in state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).TargetedHexes)
 					{
-						hexes.AddRange(RangeHelper.GetHexesInRange(origin: targetedHex, range: 1, includeOrigin: false).Where(hex => hex.IsEmpty()));
+						hexes.AddRange(RangeHelper.GetHexesInRange(origin: targetedHex, range: 1, includeOrigin: false));
 					}
 				})
 				.WithConditionalAbilityCheck(async state =>

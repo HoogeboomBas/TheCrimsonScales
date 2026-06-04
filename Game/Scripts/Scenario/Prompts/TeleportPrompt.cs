@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 
 public class TeleportPrompt(
-	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
+	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText, bool forcedMovement = false,
 	Action<TeleportAbility.State, List<Hex>> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
 	: Prompt<TeleportPrompt.Answer>(effectCollection, getHintText)
 {
@@ -26,19 +26,25 @@ public class TeleportPrompt(
 
 		_possibleHexes.Clear();
 
-		if(customHexes != null)
+		List<Hex> allHexesInRange = [];
+
+		if(customHexes == null)
 		{
-			customHexes(teleportAbilityState, _possibleHexes);
+			allHexesInRange.AddRange(GameController.Instance.Map.Hexes.Values
+				.Where(hex => hex.Revealed &&
+					Map.SimpleDistance(hex.Coords, performer.Hex.Coords) < teleportAbilityState.Distance));
 		}
 		else
 		{
-			foreach(Hex hex in GameController.Instance.Map.Hexes.Values.Where(hex => hex.Revealed))
+			customHexes(teleportAbilityState, allHexesInRange);
+		}
+
+		foreach(Hex hex in allHexesInRange)
+		{
+			if(MoveHelper.CanPass(teleportAbilityState, performer, hex, forcedMovement) &&
+				MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
 			{
-				int distance = Map.SimpleDistance(hex.Coords, performer.Hex.Coords);
-				if(distance <= teleportAbilityState.Distance && MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
-				{
-					_possibleHexes.Add(hex);
-				}
+				_possibleHexes.Add(hex);
 			}
 		}
 
