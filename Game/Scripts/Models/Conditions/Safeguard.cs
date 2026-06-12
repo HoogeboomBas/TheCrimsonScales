@@ -21,17 +21,20 @@ public class Safeguard : ConditionModel
 					new List<ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription>();
 				foreach(ConditionModel conditionModel in parameters.ConditionModels)
 				{
-					subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.New(
-						applyFunction: async applyParameters =>
-						{
-							parameters.PreventCondition(conditionModel);
+					if(conditionModel.IsNegative)
+					{
+						subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.New(
+							applyFunction: async applyParameters =>
+							{
+								parameters.PreventCondition(conditionModel);
 
-							await GDTask.CompletedTask;
-						},
-						effectType: EffectType.SelectableMandatory,
-						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(conditionModel)),
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"Prevent {Icons.Inline(Icons.GetCondition(conditionModel))}")
-					));
+								await GDTask.CompletedTask;
+							},
+							effectType: EffectType.SelectableMandatory,
+							effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(conditionModel)),
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"Prevent {Icons.Inline(Icons.GetCondition(conditionModel))}")
+						));
+					}
 				}
 
 				await AbilityCmd.GenericChoice(condition.Owner, subscriptions, hintText: "Select a condition to prevent");
