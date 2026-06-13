@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
@@ -17,6 +17,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		public int? Move { get; set; }
 		public int? Attack { get; set; }
 		public int? Range { get; set; }
+		public List<Ability> ExtraAbilities { get; set; }
 		public List<FigureTrait> Traits { get; set; }
 
 		public Summon Summon { get; private set; }
@@ -57,6 +58,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 	public int? Move { get; private set; }
 	public int? Attack { get; private set; }
 	public int? Range { get; private set; }
+	public List<Ability> ExtraAbilities { get; private set; }
 	public FigureTrait[] Traits { get; private set; }
 
 	/// <summary>
@@ -129,6 +131,13 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithExtraAbilities(List<Ability> extraAbilities, params EnhancementMark[] enhancementMarks)
+		{
+			Obj.ExtraAbilities = extraAbilities;
+			AddEnhancements(enhancementMarks);
+			return (TBuilder)this;
+		}
+
 		public TBuilder WithTraits(params FigureTrait[] traits)
 		{
 			Obj.Traits = traits;
@@ -172,6 +181,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 		abilityState.Move = Move;
 		abilityState.Attack = Attack;
 		abilityState.Range = Range;
+		abilityState.ExtraAbilities = ExtraAbilities;
 		abilityState.Traits = Traits?.ToList() ?? [];
 	}
 
@@ -209,6 +219,7 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 				Move = abilityState.Move,
 				Attack = abilityState.Attack,
 				Range = abilityState.Range,
+				ExtraAbilities = abilityState.ExtraAbilities,
 				Traits = abilityState.Traits.ToArray()
 			};
 

@@ -50,17 +50,16 @@ public class AstronomicalStrike : BrightsparkCardModel<AstronomicalStrike.CardTo
 				.WithName("Black Hole")
 				.WithTexturePath("res://Content/Classes/Brightspark/BlackHole.png")
 				.WithHealth(6)
-				//TODO: Add Pull ability
-				.WithRange(4)
+				.WithExtraAbilities([PullAbility.Builder().WithPull(2).WithRange(4).Build()])
 				.WithTraits(new AtEndOfTurnTrait(async summon =>
+					{
+						foreach(Figure adjacentFigure in RangeHelper.GetFiguresInRange(summon.Hex, 1, includeOrigin: false).Where(summon.EnemiesWith))
 						{
-							foreach(Figure adjacentFigure in RangeHelper.GetFiguresInRange(summon.Hex, 1).Where(summon.EnemiesWith))
-							{
-								await AbilityCmd.SufferDamage(adjacentFigure, 1, summon);
-							}
-						}, $"All adjacent enemies suffer {Icons.Inline(Icons.Damage)}1"),
-					new PermanentConditionTrait(Conditions.Invisible)
-					//TODO: Cannot be moved
+							await AbilityCmd.SufferDamage(adjacentFigure, 1, summon);
+						}
+					}, $"All adjacent enemies suffer {Icons.Inline(Icons.Damage)}1"),
+					new PermanentConditionTrait(Conditions.Invisible),
+					new ForcedMovementImmunityTrait()
 				)
 				.Build())
 		];

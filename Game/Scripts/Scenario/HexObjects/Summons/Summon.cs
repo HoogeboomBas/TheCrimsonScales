@@ -83,6 +83,11 @@ public partial class Summon : Figure
 			_abilities.Add(attackAbility);
 		}
 
+		if(Stats.ExtraAbilities != null)
+		{
+			_abilities.AddRange(Stats.ExtraAbilities);
+		}
+
 		ScenarioEvents.FigureFoundFocusEvent.Subscribe(this, characterOwner,
 			parameters =>
 				parameters.Performer == this &&
