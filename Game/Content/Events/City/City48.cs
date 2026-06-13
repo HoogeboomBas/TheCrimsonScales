@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 {
@@ -10,6 +11,55 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 
 		"My dear friends!" the Spirit Caller extends her staff toward you. "I have been harnessing the energy of the spirits throughout the night. They are all-knowing and tell me of your sleepless night. I shall send them to your aid. Tell me, would you care for them to strengthen your knowledge or exploit the vision of your enemies?"
 		""";
+
+	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"At start of scenario, each character may reveal the top two cards of their attack modifier decks.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			foreach(Character character in GameController.Instance.CharacterManager.Characters)
+			{
+				ScenarioEvents.AMDCardPeekedEvent.Subscribe(this,
+					canApplyParameters => true,
+					async applyParameters => {},
+					effectType: EffectType.SelectableMandatory,
+					effectButtonParameters: new IconEffectButton.Parameters($"res://Content/Classes/{character.Name}/Icon.svg"),
+					effectInfoViewParameters: new TextEffectInfoView.Parameters($"{character.DisplayName} AMD cards, starting from the top.")
+				);
+
+				await GameController.Instance.AMDDrawView.PeekCards(null, character.AMDCardDeck, 2);
+
+				ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(this);
+			}
+		}
+	}
+
+	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"At start of scenario, reveal the top four cards of the monster attack modifier deck.";
+
+		public override async GDTask OnScenarioSetupPhaseCompleted()
+		{
+			await base.OnScenarioSetupPhaseCompleted();
+
+			ScenarioEvents.AMDCardPeekedEvent.Subscribe(this,
+				canApplyParameters => true,
+				async applyParameters => {},
+				effectButtonParameters: new IconEffectButton.Parameters(Icons.Cards),
+				effectInfoViewParameters: new TextEffectInfoView.Parameters($"Monster AMD cards, starting from the top."),
+				effectType: EffectType.SelectableMandatory
+			);
+
+			await GameController.Instance.AMDDrawView.PeekCards(null, GameController.Instance.MonsterAMDCardDeck, 4);
+
+			ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(this);
+		}
+	}
 
 	public class ChoiceA : EventChoiceModel
 	{
@@ -24,7 +74,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO: At start of scenario, each character may reveal the top two cards of their attack modifier decks
+			new ChoiceAOnScenarioStartedReward()
 		];
 	}
 
@@ -41,7 +91,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO: At start of scenario, reveal the top four cards of the monster attack modifier deck
+			new ChoiceBOnScenarioStartedReward()
 		];
 	}
 }

@@ -141,9 +141,9 @@ public partial class ScenarioEvents
 
 	public class AMDCardPeeked : ScenarioEvent<AMDCardPeeked.Parameters>
 	{
-		public class Parameters(DivinationAbility.State abilityState, AMDCard amdCard)
-			: ParametersBase<DivinationAbility.State>(abilityState)
+		public class Parameters(AbilityState potentialAbilityState, AMDCard amdCard)	: ParametersBase
 		{
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public AMDCard AMDCard = amdCard;
 			public bool PlaceAtDeckTop { get; private set; } = false;
 			public bool PlaceAtDeckBottom { get; private set; } = false;

@@ -29,9 +29,9 @@ public partial class AMDDrawView : Control
 		Hide();
 	}
 
-	public async GDTask PeekCards(DivinationAbility.State divinationAbilityState, int cardsToPeek)
+	public async GDTask PeekCards(AbilityState potentialAbilityState, AMDCardDeck targetDeck, int cardsToPeek)
 	{
-		AMDCardDeck deck = divinationAbilityState.Target.AMDCardDeck;
+		AMDCardDeck deck = targetDeck;
 
 		Show();
 
@@ -58,7 +58,7 @@ public partial class AMDDrawView : Control
 
 			ScenarioEvents.AMDCardPeeked.Parameters amdCardDrawnParameters =
 				await ScenarioEvents.AMDCardPeekedEvent.CreatePrompt(
-					new ScenarioEvents.AMDCardPeeked.Parameters(divinationAbilityState, newCard));
+					new ScenarioEvents.AMDCardPeeked.Parameters(potentialAbilityState, newCard));
 
 			if(amdCardDrawnParameters.PlaceAtDeckTop)
 			{

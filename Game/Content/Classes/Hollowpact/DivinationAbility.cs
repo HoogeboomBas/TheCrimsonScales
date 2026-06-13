@@ -85,7 +85,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		}
 
 		ScenarioEvents.AMDCardPeekedEvent.Subscribe(abilityState, this,
-			canApplyParameters => canApplyParameters.AbilityState == abilityState,
+			canApplyParameters => canApplyParameters.PotentialAbilityState == abilityState,
 			async applyParameters =>
 			{
 				ScenarioEvent<ScenarioEvents.GenericChoice.Parameters>.Subscription placeAtDeckTopSubscription =
@@ -123,7 +123,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 			effectType: EffectType.MandatoryBeforeOptionals
 		);
 
-		await GameController.Instance.AMDDrawView.PeekCards(abilityState, _cardsToPeek);
+		await GameController.Instance.AMDDrawView.PeekCards(abilityState, abilityState.Target.AMDCardDeck, _cardsToPeek);
 
 		ScenarioEvents.AMDCardPeekedEvent.Unsubscribe(abilityState, this);
 
