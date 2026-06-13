@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 public class Road12 : RoadEventModel<Road12.ChoiceA, Road12.ChoiceB>
 {
@@ -10,6 +11,42 @@ public class Road12 : RoadEventModel<Road12.ChoiceA, Road12.ChoiceB>
 
 		You enter the tent and find an Aesther wrapped in gold robes sitting on a red velvet chair with a glass orb in her hands. She looks up to you with narrow eyes and asks in a soft voice, "Have you come to hear your fortune?"
 		""";
+
+	public class ChoiceAOnScenarioInitializedReward : OnScenarioInitializedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"All players ignore negative scenario effects.";
+
+		public override async GDTask InitializeBeforeFirstRoomRevealed()
+		{
+			await base.InitializeBeforeFirstRoomRevealed();
+
+			ScenarioCheckEvents.ApplyScenarioEffectsCheckEvent.Subscribe(this,
+				parameters => true,
+				parameters =>
+				{
+					parameters.SetIgnoreScenarioEffects();
+				});
+		}
+	}
+
+	public class ChoiceBOnScenarioInitializedReward : OnScenarioInitializedReward, IEventSubscriber
+	{
+		public override string GetLabelText(RichTextParameters textParameters) =>
+			"All players may select 4 battle goals to choose from instead of 3.";
+
+		public override async GDTask InitializeBeforeFirstRoomRevealed()
+		{
+			await base.InitializeBeforeFirstRoomRevealed();
+
+			ScenarioCheckEvents.DrawBattleGoalsCheckEvent.Subscribe(this,
+				parameters => true,
+				parameters =>
+				{
+					parameters.SetBattleGoalsToDraw(4);
+				});
+		}
+	}
 
 	public class ChoiceA : EventChoiceModel
 	{
@@ -24,7 +61,7 @@ public class Road12 : RoadEventModel<Road12.ChoiceA, Road12.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			//TODO: All players ignore negative scenario effects
+			new ChoiceAOnScenarioInitializedReward()
 		];
 	}
 
@@ -43,7 +80,7 @@ public class Road12 : RoadEventModel<Road12.ChoiceA, Road12.ChoiceB>
 		[
 			new LoseCollectiveGoldReward(5),
 			new GainXPReward(3),
-			//TODO: All players may select 3 battle goals to choose from instead of 2
+			new ChoiceBOnScenarioInitializedReward()
 		];
 	}
 }

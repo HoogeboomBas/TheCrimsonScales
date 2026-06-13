@@ -51,6 +51,16 @@ public abstract class SavedReward
 		await GDTask.CompletedTask;
 	}
 
+	public virtual async GDTask InitializeBeforeFirstRoomRevealed()
+	{
+		if(Type == RewardType.ScenarioInitialization)
+		{
+			MarkedForRemoval = true;
+		}
+
+		await GDTask.CompletedTask;
+	}
+
 	protected void Complete()
 	{
 		Completed = true;

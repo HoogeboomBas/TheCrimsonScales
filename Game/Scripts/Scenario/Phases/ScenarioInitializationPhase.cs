@@ -21,12 +21,22 @@ public class ScenarioInitializationPhase : ScenarioPhase
 		// Set initial positions of all characters
 		await GameController.Instance.CharacterManager.PlaceCharacters();
 
+		foreach(SavedReward reward in GameController.Instance.SavedCampaign.SavedRewards.Rewards)
+		{
+			if(reward.Type == RewardType.ScenarioInitialization)
+			{
+				await reward.InitializeBeforeFirstRoomRevealed();
+			}
+		}
+
 		// Give all characters battle goals to pick from
 		List<BattleGoalModel> battleGoals = BattleGoals.Goals.ToList();
 		battleGoals.Shuffle(GameController.Instance.StateRNG);
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
-			for(int i = 0; i < 3; i++)
+			int battleGoalsToDraw = ScenarioCheckEvents.DrawBattleGoalsCheckEvent.Fire(new ScenarioCheckEvents.DrawBattleGoalsCheck.Parameters(character)).BattleGoalsToDraw;
+
+			for(int i = 0; i < battleGoalsToDraw; i++)
 			{
 				character.AddAvailableBattleGoal(battleGoals[0]);
 				battleGoals.RemoveAt(0);

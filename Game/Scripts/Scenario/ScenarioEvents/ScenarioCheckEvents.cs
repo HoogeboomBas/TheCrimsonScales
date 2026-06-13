@@ -736,4 +736,22 @@ public partial class ScenarioCheckEvents
 
 	private readonly FigureRelationshipCheck _figureRelationshipCheck = new FigureRelationshipCheck();
 	public static FigureRelationshipCheck FigureRelationshipCheckEvent => GameController.Instance.ScenarioCheckEvents._figureRelationshipCheck;
+
+	public class DrawBattleGoalsCheck : ScenarioCheckEvent<DrawBattleGoalsCheck.Parameters>
+	{
+		public class Parameters(Character character)
+			: ParametersBase
+		{
+			public Character Character { get; } = character;
+			public int BattleGoalsToDraw = 3;
+
+			public void SetBattleGoalsToDraw(int battleGoalsToDraw)
+			{
+				BattleGoalsToDraw = battleGoalsToDraw;
+			}
+		}
+	}
+
+	private readonly DrawBattleGoalsCheck _drawBattleGoalsCheck = new DrawBattleGoalsCheck();
+	public static DrawBattleGoalsCheck DrawBattleGoalsCheckEvent => GameController.Instance.ScenarioCheckEvents._drawBattleGoalsCheck;
 }
