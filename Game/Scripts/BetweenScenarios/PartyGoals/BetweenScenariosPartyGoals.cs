@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Fractural.Tasks;
 using Godot;
@@ -184,7 +185,8 @@ public partial class BetweenScenariosPartyGoals : BetweenScenariosAction
 			new GainPartyAchievementReward(PartyAchievement.AccomplishedMercenaries),
 			new UnlockEnhancerReward(),
 			new GainCollectiveItemReward(itemModel),
-			//TODO: Free enhancement
+			new AddCityReward(ModelDB.Event<City09>()),
+			new FirstFreeEnhancementReward(),
 			//TODO: New party goal to use custom item 10 times
 		];
 
