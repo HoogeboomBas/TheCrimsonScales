@@ -27,7 +27,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 					canApplyParameters => true,
 					async applyParameters => {},
 					effectType: EffectType.SelectableMandatory,
-					effectButtonParameters: new IconEffectButton.Parameters($"res://Content/Classes/{character.Name}/Icon.svg"),
+					effectButtonParameters: new IconEffectButton.Parameters(character.ClassModel.IconPath),
 					effectInfoViewParameters: new TextEffectInfoView.Parameters($"{character.DisplayName} AMD cards, starting from the top.")
 				);
 
@@ -51,7 +51,7 @@ public class City48 : CityEventModel<City48.ChoiceA, City48.ChoiceB>
 				canApplyParameters => true,
 				async applyParameters => {},
 				effectButtonParameters: new IconEffectButton.Parameters(Icons.Cards),
-				effectInfoViewParameters: new TextEffectInfoView.Parameters($"Monster AMD cards, starting from the top."),
+				effectInfoViewParameters: new TextEffectInfoView.Parameters("Monster AMD cards, starting from the top."),
 				effectType: EffectType.SelectableMandatory
 			);
 
