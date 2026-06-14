@@ -17,7 +17,7 @@ public class SavedEvents
 		ModelDB.Event<City06>(),
 		ModelDB.Event<City07>(),
 		ModelDB.Event<City08>(),
-		// ModelDB.Event<City09>(), // TODO: Unlock later after unlocking Enhancer
+		// ModelDB.Event<City09>(), // Is unlocked later after unlocking Enhancer
 		ModelDB.Event<City10>(),
 		ModelDB.Event<City11>(),
 		ModelDB.Event<City12>(),
@@ -54,7 +54,7 @@ public class SavedEvents
 		ModelDB.Event<Road09>(),
 		ModelDB.Event<Road10>(),
 		ModelDB.Event<Road11>(),
-		// ModelDB.Event<Road12>(),
+		ModelDB.Event<Road12>(),
 		ModelDB.Event<Road13>(),
 		ModelDB.Event<Road14>(),
 		ModelDB.Event<Road15>(),
@@ -67,7 +67,7 @@ public class SavedEvents
 		ModelDB.Event<Road22>(),
 		ModelDB.Event<Road23>(),
 		ModelDB.Event<Road24>(),
-		// ModelDB.Event<Road25>(),
+		ModelDB.Event<Road25>(),
 		ModelDB.Event<Road26>(),
 		ModelDB.Event<Road27>(),
 		ModelDB.Event<Road28>(),
