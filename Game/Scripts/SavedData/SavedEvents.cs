@@ -25,7 +25,7 @@ public class SavedEvents
 		ModelDB.Event<City14>(),
 		ModelDB.Event<City15>(),
 		ModelDB.Event<City16>(),
-		// ModelDB.Event<City17>()
+		ModelDB.Event<City17>()
 		ModelDB.Event<City18>(),
 		ModelDB.Event<City19>(),
 		ModelDB.Event<City20>(),
