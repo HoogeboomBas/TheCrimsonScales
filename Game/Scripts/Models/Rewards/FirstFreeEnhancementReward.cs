@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
 
+[Serializable, JsonObject(MemberSerialization.OptIn)]
 public class FirstFreeEnhancementReward : DowntimeEnhancementCostReward
 {
 	public override string GetLabelText(RichTextParameters textParameters) => BetweenScenariosController.Instance.SavedCampaign.StartingGroup switch
