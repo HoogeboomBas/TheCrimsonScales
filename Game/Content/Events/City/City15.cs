@@ -6,7 +6,7 @@ public class City15 : CityEventModel<City15.ChoiceA, City15.ChoiceB>
 
 	public override string Text =>
 		"""
-		Everyone has heard about the recent excape of a rare bird from the mansion of the famous Sir Kenhaven. You double-take when you see a colorful bird land on your open windowsill, and instantly recognize it as the missing bird.
+		Everyone has heard about the recent escape of a rare bird from the mansion of the famous Sir Kenhaven. You double-take when you see a colorful bird land on your open windowsill, and instantly recognize it as the missing bird.
 
 		You grab a large pot from a nearby shelf and hope to catch it so you can turn it in for a handsome reward.
 		""";
