@@ -84,51 +84,15 @@ public partial class FireKnight : Character
 	{
 		object subscriber = new object();
 
-		ScenarioEvents.CardSideSelectionEvent.Subscribe(this, subscriber,
-			canApplyParameters => canApply(canApplyParameters.Character),
-			async applyParameters =>
+		AbilityCmd.SubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(subscriber, this),
+			EffectType.Selectable,
+			character => canApply(character),
+			async character =>
 			{
 				await apply();
 			},
-			EffectType.Selectable,
 			order: 0,
-			canApplyMultipleTimesInEffectCollection: true,
-			effectButtonParameters: effectButtonParameters,
-			effectInfoViewParameters: effectInfoViewParameters);
-
-		ScenarioEvents.AfterCardsPlayedEvent.Subscribe(this, subscriber,
-			canApplyParameters => canApply(canApplyParameters.Character),
-			async applyParameters =>
-			{
-				await apply();
-			},
-			EffectType.Selectable,
-			order: 0,
-			canApplyMultipleTimesInEffectCollection: true,
-			effectButtonParameters: effectButtonParameters,
-			effectInfoViewParameters: effectInfoViewParameters);
-
-		ScenarioEvents.LongRestStartedEvent.Subscribe(this, subscriber,
-			canApplyParameters => canApply(canApplyParameters.Character),
-			async applyParameters =>
-			{
-				await apply();
-			},
-			EffectType.Selectable,
-			order: 0,
-			canApplyMultipleTimesInEffectCollection: true,
-			effectButtonParameters: effectButtonParameters,
-			effectInfoViewParameters: effectInfoViewParameters);
-
-		ScenarioEvents.DuringMovementEvent.Subscribe(this, subscriber,
-			canApplyParameters => canApplyParameters.Performer is Character character && canApply(character),
-			async applyParameters =>
-			{
-				await apply();
-			},
-			EffectType.Selectable,
-			order: 0,
-			canApplyMultipleTimesInEffectCollection: true,
+			canApplyMultipleTimesDuringAbility: true,
 			effectButtonParameters: effectButtonParameters,
 			effectInfoViewParameters: effectInfoViewParameters);
 	}
