@@ -14,7 +14,7 @@ public class Road25 : RoadEventModel<Road25.ChoiceA, Road25.ChoiceB>
 	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward
 	{
 		public override string GetLabelText(RichTextParameters textParameters) =>
-			$"Start the next scenario spending or consuming one collective {Icons.Inline(Icons.GetItem(ItemType.Feet), textParameters)} item.";
+			$"Start the next scenario consuming one collective {Icons.Inline(Icons.GetItem(ItemType.Feet), textParameters)} item.";
 
 		public override async GDTask OnScenarioSetupPhaseCompleted()
 		{
@@ -28,7 +28,7 @@ public class Road25 : RoadEventModel<Road25.ChoiceA, Road25.ChoiceB>
 			}
 
 			ItemModel item = await AbilityCmd.SelectItem(GameController.Instance.CharacterManager.Characters[0], items, mandatory: true,
-				hintText: "Select an item to spend or consume");
+				hintText: "Select an item to consume");
 			if(item != null)
 			{
 				await AbilityCmd.ConsumeItem(item);
