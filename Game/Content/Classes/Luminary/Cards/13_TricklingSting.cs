@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
@@ -51,7 +51,7 @@ public class TricklingSting : LuminaryCardModel<TricklingSting.CardTop, Tricklin
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					CreateTrapAbility.State createTrapState = state.ActionState.GetAbilityState<CreateTrapAbility.State>(0);
+					CreateTrapAbility.State createTrapState = state.ActionState.GetAbilityState<CreateTrapAbility.State>(1);
 
 					ScenarioEvents.TrapTriggeredEvent.Subscribe(state, this,
 						canApply: canApplyParameters => createTrapState.CreatedTraps.Contains(canApplyParameters.Trap),

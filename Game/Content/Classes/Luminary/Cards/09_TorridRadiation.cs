@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -33,8 +33,9 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					return state.ActionState.GetAbilityState<AttackAbility.State>(0).Target != null &&
-					       await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
+					return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed &&
+							state.ActionState.GetAbilityState<AttackAbility.State>(0).Target != null &&
+							await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
 				})
 				.Build()),
 			Scuttle(1, [Element.Dark]),
@@ -52,7 +53,7 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 				.WithPerformAbility(async state =>
 				{
 					foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false)
-						        .Where(figure => figure.EnemiesWith(state.Performer)))
+						.Where(figure => figure.EnemiesWith(state.Performer)))
 					{
 						await AbilityCmd.SufferDamage(state, figure, 1);
 						state.SetPerformed();
