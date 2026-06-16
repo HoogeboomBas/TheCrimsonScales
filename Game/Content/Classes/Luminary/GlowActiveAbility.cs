@@ -46,14 +46,6 @@ public class GlowActiveAbility : ActiveAbility<GlowActiveAbility.State>
 	protected override async GDTask Activate(State abilityState)
 	{
 		await base.Activate(abilityState);
-		ActionState actionState = ((Character)abilityState.Performer).Cards
-			.SelectMany(card => card.ActiveActionStates)
-			.FirstOrDefault(actionState => actionState.AbilityStates.Any(state => state is State));
-
-		if(actionState != null)
-		{
-			await actionState.RequestDiscardOrLose();
-		}
 
 		AbilityCmd.SubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(abilityState, this), EffectType.Selectable,
 			character => character == abilityState.Performer &&
