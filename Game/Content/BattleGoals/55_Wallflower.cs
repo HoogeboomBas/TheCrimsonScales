@@ -17,6 +17,7 @@ public class Wallflower : TheCrimsonScalesBattleGoal
 				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
 				character.Hex.Neighbours.Count == 6 && // This should check for wall lines
+				!character.Hex.HasHexObjectOfType<Corridor>() &&
 				RangeHelper.GetHexesInRange(character.Hex, 1, false)
 					.All(hex => !hex.HasHexObjectOfType<Obstacle>() && !hex.HasHexObjectOfType<Objective>()),
 			async parameters =>
