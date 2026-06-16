@@ -1426,6 +1426,18 @@ public static class AbilityCmd
 			canApplyMultipleTimesInEffectCollection: canApplyMultipleTimesDuringAbility,
 			effectButtonParameters: effectButtonParameters,
 			effectInfoViewParameters: effectInfoViewParameters);
+
+		ScenarioEvents.DuringMovementEvent.Subscribe(eventSubscriber,
+			canApplyParameters => canApplyParameters.Performer is Character character && canApply(character),
+			async applyParameters =>
+			{
+				await apply(applyParameters.Performer as Character);
+			},
+			EffectType.Selectable,
+			order: 0,
+			canApplyMultipleTimesInEffectCollection: true,
+			effectButtonParameters: effectButtonParameters,
+			effectInfoViewParameters: effectInfoViewParameters);
 	}
 
 	public static void UnsubscribeDuringCharacterTurn(IEventSubscriber eventSubscriber)
@@ -1433,6 +1445,7 @@ public static class AbilityCmd
 		ScenarioEvents.CardSideSelectionEvent.Unsubscribe(eventSubscriber);
 		ScenarioEvents.AfterCardsPlayedEvent.Unsubscribe(eventSubscriber);
 		ScenarioEvents.LongRestCardSelectionEvent.Unsubscribe(eventSubscriber);
+		ScenarioEvents.DuringMovementEvent.Unsubscribe(eventSubscriber);
 	}
 
 	public static async GDTask AddShield(Figure figure, object subscriber, int shieldValue, bool conditionalValue = false, bool pierceable = true,
