@@ -24,19 +24,15 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 					]
 				))
 				.Build()),
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
-				{
-					await AbilityCmd.SufferDamage(state, state.ActionState.GetAbilityState<AttackAbility.State>(0).Target, 1);
-					state.SetPerformed();
-					await AbilityCmd.GainXP(state.Performer, 1);
-				})
+			new AbilityCardAbility(SufferDamageAbility.Builder()
+				.WithDamage(1)
+				.WithCustomGetTargets((state, figures) => figures.Add(state.ActionState.GetAbilityState<AttackAbility.State>(0).Target))
 				.WithConditionalAbilityCheck(async state =>
 				{
-					return state.ActionState.GetAbilityState<AttackAbility.State>(0).Performed &&
-							state.ActionState.GetAbilityState<AttackAbility.State>(0).Target != null &&
-							await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
+					return await AbilityCmd.HasPerformedAbility(state, 0) &&
+					       await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
 				})
+				.WithOnAbilityEndedPerformed(async state => await AbilityCmd.GainXP(state.Performer, 1))
 				.Build()),
 			Scuttle(1, [Element.Dark]),
 		];
@@ -49,16 +45,20 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 			new AbilityCardAbility(MoveAbility.Builder()
 				.WithDistance(3, new MoveCircle(this, new Vector2(0.6213844f, 0.6537314f)))
 				.Build()),
-			new AbilityCardAbility(OtherAbility.Builder()
-				.WithPerformAbility(async state =>
+			new AbilityCardAbility(SufferDamageAbility.Builder()
+				.WithDamage(1)
+				.WithCustomGetTargets((state, figures) =>
 				{
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false)
-						.Where(figure => figure.EnemiesWith(state.Performer)))
-					{
-						await AbilityCmd.SufferDamage(state, figure, 1);
-						state.SetPerformed();
-					}
-
+					figures.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false)
+						        .Where(figure => figure.EnemiesWith(state.Performer)));
+				})
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithConditionalAbilityCheck(async state =>
+				{
+					return await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
+				})
+				.WithOnAbilityEndedPerformed(async state =>
+				{
 					for(int i = 0; i < state.DamagedFigures.Count; i++)
 					{
 						await AbilityCmd.InfuseWildElement(state);
