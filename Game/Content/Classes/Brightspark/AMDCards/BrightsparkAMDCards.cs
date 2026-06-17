@@ -86,7 +86,7 @@ public class BrightsparkAMDCards
 				extraText:
 				$"Grant one ally within {Icons.Inline(Icons.Range, richTextParameters)}2 {Icons.Inline(Icons.Shield, richTextParameters)}1");
 
-		protected override int AtlasIndex => 4;
+		protected override int AtlasIndex => 6;
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +1;
 
 		public override List<Ability> GetAbilities(AttackAbility.State attackAbilityState) =>
