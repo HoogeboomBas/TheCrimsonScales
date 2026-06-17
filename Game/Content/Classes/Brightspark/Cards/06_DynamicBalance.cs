@@ -36,7 +36,7 @@ public class DynamicBalance : BrightsparkCardModel<DynamicBalance.CardTop, Dynam
 								await GDTask.CompletedTask;
 							},
 							effectButtonParameters: new IconEffectButton.Parameters(Icons.Move),
-							effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Move)}3"),
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Move)}2"),
 							effectType: EffectType.SelectableMandatory
 						),
 						ScenarioEvents.GenericChoice.Subscription.New(
