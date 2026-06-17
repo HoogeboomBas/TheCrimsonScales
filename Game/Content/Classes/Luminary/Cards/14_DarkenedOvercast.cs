@@ -29,7 +29,7 @@ public class DarkenedOvercast : LuminaryCardModel<DarkenedOvercast.CardTop, Dark
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
