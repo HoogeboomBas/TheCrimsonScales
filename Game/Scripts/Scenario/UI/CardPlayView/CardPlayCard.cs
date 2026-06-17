@@ -54,6 +54,8 @@ public partial class CardPlayCard : Control
 
 			_basicTopButton.SetVisible(cardData.CanPlayBasicTop);
 			_basicBottomButton.SetVisible(cardData.CanPlayBasicBottom);
+
+			SetVisible(true);
 		}
 	}
 
