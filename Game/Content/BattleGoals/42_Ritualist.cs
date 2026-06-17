@@ -13,7 +13,7 @@ public class Ritualist : TheCrimsonScalesBattleGoal
 				!battleGoal.ProgressFull &&
 				parameters.PotentialKiller == character &&
 				parameters.Figure.EnemiesWith(character) &&
-				Elements.All.Count(element => GameController.Instance.ElementManager.GetState(element) is ElementState.Waning or ElementState.Strong) > 3,
+				Elements.All.Count(element => GameController.Instance.ElementManager.GetState(element) is ElementState.Waning or ElementState.Strong) >= 3,
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
