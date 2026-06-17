@@ -47,6 +47,15 @@ public class GlowActiveAbility : ActiveAbility<GlowActiveAbility.State>
 	{
 		await base.Activate(abilityState);
 
+		ActionState actionState = ((Character)abilityState.Performer).Cards
+			.SelectMany(card => card.ActiveActionStates)
+			.FirstOrDefault(actionState => actionState.AbilityStates.Any(state => state is State && state != abilityState));
+
+		if(actionState != null)
+		{
+			await actionState.RequestDiscardOrLose();
+		}
+
 		AbilityCmd.SubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(abilityState, this), EffectType.Selectable,
 			character => character == abilityState.Performer &&
 			             GlowAbilities.Any(glowAbility =>
