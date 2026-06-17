@@ -1398,19 +1398,6 @@ public partial class ScenarioEvents
 	private readonly GainedExperience _gainedExperience = new GainedExperience();
 	public static GainedExperience GainedExperienceEvent => GameController.Instance.ScenarioEvents._gainedExperience;
 
-	public class LostCard : ScenarioEvent<LostCard.Parameters>
-	{
-		public class Parameters(Character character, AbilityCard card)
-			: ParametersBase
-		{
-			public Character Character { get; } = character;
-			public AbilityCard Card { get; } = card;
-		}
-	}
-
-	private readonly LostCard _lostCard = new LostCard();
-	public static LostCard LostCardEvent => GameController.Instance.ScenarioEvents._lostCard;
-
 	public class InflictConditionEventReward : ScenarioEvent<InflictConditionEventReward.Parameters>
 	{
 		public class Parameters(Character character, ConditionModel conditionModel)

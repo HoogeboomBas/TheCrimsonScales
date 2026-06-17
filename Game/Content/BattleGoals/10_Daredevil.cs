@@ -17,10 +17,11 @@ public class Daredevil : TheCrimsonScalesBattleGoal
 	{
 		_failed = false;
 
-		ScenarioEvents.LostCardEvent.Subscribe(this,
+		ScenarioEvents.AbilityCardStateChangedEvent.Subscribe(this,
 			parameters =>
 				!battleGoal.ProgressFull &&
-				parameters.Character == character,
+				parameters.AbilityCard.Owner == character &&
+				(parameters.AbilityCard.CardState == CardState.Lost || parameters.AbilityCard.CardState == CardState.UnrecoverablyLost),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);

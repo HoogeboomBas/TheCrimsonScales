@@ -18,9 +18,6 @@ public static class AbilityCmd
 
 	public static async GDTask LoseCard(AbilityCard card)
 	{
-		await ScenarioEvents.LostCardEvent.CreatePrompt(
-			new ScenarioEvents.LostCard.Parameters(card.Owner, card));
-
 		await card.RemoveFromActive();
 
 		if(card.Unrecoverable)
