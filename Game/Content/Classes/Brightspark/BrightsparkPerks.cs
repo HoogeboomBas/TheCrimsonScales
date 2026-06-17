@@ -151,7 +151,9 @@ public class BrightsparkPerks
 				async parameters =>
 				{
 					AbilityCard selectedAbilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Hand,
+						canSelectFunc: card => card.Top.Model.Persistent || card.Bottom.Model.Persistent,
 						hintText: "Select a card to perform all persistent abilities on either the top or bottom action");
+
 					if(selectedAbilityCard == null)
 					{
 						return;
@@ -186,8 +188,8 @@ public class BrightsparkPerks
 					}
 
 					ScenarioEvents.AbilityStartedEvent.Subscribe(this,
-						abilityStartedParameters => abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Top ||
-						                            abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Bottom &&
+						abilityStartedParameters => (abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Top ||
+						                            abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Bottom) &&
 						                            abilityStartedParameters.AbilityState is not ActiveAbilityState,
 						async abilityStartedParameters =>
 						{
