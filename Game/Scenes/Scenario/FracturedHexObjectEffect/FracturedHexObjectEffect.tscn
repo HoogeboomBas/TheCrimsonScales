@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bwb80mdvqcjrh"]
+
+[ext_resource type="Script" uid="uid://o8wnekaot55w" path="res://Scripts/FracturedHexObjectEffect/FracturedHexObjectEffect.cs" id="1_lm826"]
+[ext_resource type="PackedScene" uid="uid://45us38tghlch" path="res://Scenes/Scenario/FracturedHexObjectEffect/FracturedHexObjectEffectShard.tscn" id="2_1wyj0"]
+[ext_resource type="PackedScene" uid="uid://fskhryy2qybs" path="res://Content/Classes/Mirefoot/Mirefoot.tscn" id="3_3bu1e"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qlu22"]
+viewport_path = NodePath("SubViewport")
+
+[node name="FracturedHexObjectEffect" type="Node2D" unique_id=1374246172 node_paths=PackedStringArray("_shardsParent")]
+script = ExtResource("1_lm826")
+_shardCount = 15
+_texture = SubResource("ViewportTexture_qlu22")
+_shardsParent = NodePath("Shards")
+_shardScene = ExtResource("2_1wyj0")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1316088069]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="SubViewportCenter" type="Node2D" parent="SubViewport" unique_id=1772863248]
+position = Vector2(128, 128)
+
+[node name="Mirefoot" parent="SubViewport/SubViewportCenter" unique_id=43725059 instance=ExtResource("3_3bu1e")]
+
+[node name="Shards" type="Node2D" parent="." unique_id=969033481]

@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://45us38tghlch"]
+
+[ext_resource type="Script" uid="uid://dayjpgmgscfrh" path="res://Scripts/FracturedHexObjectEffect/FracturedHexObjectEffectShard.cs" id="1_x6vrb"]
+[ext_resource type="Shader" uid="uid://bdmfi11rnffvx" path="res://Shaders/DissolveEffect.gdshader" id="2_3b5o5"]
+[ext_resource type="Texture2D" uid="uid://dtjs3qdgw8p8t" path="res://Content/Items/Prosperity4/JadeFalconMapIcon.tres" id="3_3b3ys"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wbrsu"]
+frequency = 0.02
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bwd2a"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_wbrsu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3b3ys"]
+shader = ExtResource("2_3b5o5")
+shader_parameter/dissolve_map = SubResource("NoiseTexture2D_bwd2a")
+shader_parameter/burn_color = Color(0.8647601, 0.36966982, 0.037561044, 1)
+shader_parameter/burn_width = 0.08
+
+[node name="FracturedHexObjectEffectShard" type="Node2D" unique_id=213328694 node_paths=PackedStringArray("_offset", "_polygon")]
+script = ExtResource("1_x6vrb")
+_offset = NodePath("Offset")
+_polygon = NodePath("Offset/Polygon2D")
+
+[node name="Offset" type="Node2D" parent="." unique_id=1703397910]
+
+[node name="Polygon2D" type="Polygon2D" parent="Offset" unique_id=1405340261]
+material = SubResource("ShaderMaterial_3b3ys")
+instance_shader_parameters/progress = 0.0
+texture = ExtResource("3_3b3ys")
+polygon = PackedVector2Array(71.61743, 103.22879, 628.9507, 249.38263, 206.07898, 467.63907)
+uv = PackedVector2Array(71.61743, 103.22879, 628.9507, 249.38263, 206.07898, 467.63907)
