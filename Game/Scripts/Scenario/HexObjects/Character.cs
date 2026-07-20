@@ -371,6 +371,10 @@ public partial class Character : Figure
 				if(IsDead || !TakingTurn || RoundCardData.All(data =>
 					   !data.CanPlayBasicBottom && !data.CanPlayBottom && !data.CanPlayBasicTop && !data.CanPlayTop))
 				{
+					foreach(AbilityCard roundCard in RoundCards.Where(card => card.CardState == CardState.Playing))
+					{
+						await AbilityCmd.DiscardCard(roundCard);
+					}
 					break;
 				}
 
