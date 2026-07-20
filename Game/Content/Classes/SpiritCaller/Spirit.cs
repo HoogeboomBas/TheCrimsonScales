@@ -96,7 +96,7 @@ public partial class Spirit : Figure
 					}
 					else
 					{
-						parameters.SetAlliedWith();
+						parameters.SetEnemiesWith();
 						return;
 					}
 				}
