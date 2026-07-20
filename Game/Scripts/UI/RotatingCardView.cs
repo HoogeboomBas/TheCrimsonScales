@@ -12,6 +12,10 @@ public partial class RotatingCardView : Control
 	{
 		return GTweenSequenceBuilder.New()
 			.AppendTime(initialDelay)
+			.AppendCallback(() =>
+			{
+				AppController.Instance.AudioController.Play(SFX.GetCardDraw(), volumeDb: -8, delay: 0.25f);
+			})
 			.Append(this.TweenInstanceShaderPropertyFloat(RotationName, 90f, 0.2f).SetEasing(Easing.Linear))
 			.AppendCallback(() =>
 			{

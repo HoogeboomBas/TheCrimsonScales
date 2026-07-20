@@ -20,6 +20,8 @@ public partial class AMDDrawCard : Control
 		_textureRect.Hide();
 		_textureRect.Texture = card.GetTexture();
 
+		AppController.Instance.AudioController.PlayFastForwardable(SFX.GetCardDraw(), volumeDb: -8);
+
 		this.TweenGlobalPosition(discardAnchor.GlobalPosition, 0.3f).SetEasing(Easing.InOutQuad).PlayFastForwardable();
 		await GTweenSequenceBuilder.New()
 			.Append(_container.TweenScale(new Vector2(0f, 1.3f), 0.15f).SetEasing(Easing.Linear))

@@ -4,7 +4,8 @@ using System.Linq;
 using Godot;
 
 public class TeleportPrompt(
-	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText, bool forcedMovement = false,
+	TeleportAbility.State teleportAbilityState, Figure performer, EffectCollection effectCollection, Func<string> getHintText,
+	bool forcedMovement = false,
 	Action<TeleportAbility.State, List<Hex>> customHexes = null, Func<TeleportAbility.State, Hex, bool> filterHexes = null)
 	: Prompt<TeleportPrompt.Answer>(effectCollection, getHintText)
 {
@@ -31,8 +32,9 @@ public class TeleportPrompt(
 		if(customHexes == null)
 		{
 			allHexesInRange.AddRange(GameController.Instance.Map.Hexes.Values
-				.Where(hex => hex.Revealed &&
-					Map.SimpleDistance(hex.Coords, performer.Hex.Coords) < teleportAbilityState.Distance));
+				.Where(hex =>
+					hex.Revealed &&
+					Map.SimpleDistance(hex.Coords, performer.Hex.Coords) <= teleportAbilityState.Distance));
 		}
 		else
 		{
@@ -42,7 +44,7 @@ public class TeleportPrompt(
 		foreach(Hex hex in allHexesInRange)
 		{
 			if(MoveHelper.CanPass(teleportAbilityState, performer, hex, forcedMovement) &&
-				MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
+			   MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
 			{
 				_possibleHexes.Add(hex);
 			}

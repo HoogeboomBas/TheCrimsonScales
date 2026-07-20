@@ -33,33 +33,36 @@ public partial class AudioController : Node
 		OnBGSVolumeChanged(AppController.Instance.DeviceOptions.BGSVolume.Value);
 	}
 
-	public void Play(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f)
+	public AudioStreamPlayer Play(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f,
+		bool freeAutomatically = true)
 	{
-		AudioStream audioStream = LoadAudioStream(path);
+		AudioStreamPlayer audioStreamPlayer = CreateAudioStreamPlayer(path);
 
-		if(audioStream == null)
+		if(audioStreamPlayer == null)
 		{
-			return;
+			return null;
 		}
 
-		AudioStreamPlayer audioStreamPlayer = _audioStreamPlayerScene.Instantiate<AudioStreamPlayer>();
-		AddChild(audioStreamPlayer);
-		audioStreamPlayer.SetStream(audioStream);
 		audioStreamPlayer.SetPitchScale((float)GD.RandRange(minPitch, maxPitch));
 		audioStreamPlayer.SetVolumeDb(volumeDb);
 		audioStreamPlayer.DelayedCall(() => audioStreamPlayer.Play(), delay);
-		//audioStreamPlayer.Play();
-		audioStreamPlayer.QueueFree((float)audioStream.GetLength() + 2f + delay);
+		if(freeAutomatically)
+		{
+			audioStreamPlayer.QueueFree((float)audioStreamPlayer.Stream.GetLength() + 2f + delay);
+		}
+
+		return audioStreamPlayer;
 	}
 
-	public void PlayFastForwardable(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f)
+	public AudioStreamPlayer PlayFastForwardable(string path, float minPitch = 0.9f, float maxPitch = 1.1f, float volumeDb = 0f, float delay = 0f,
+		bool freeAutomatically = true)
 	{
 		if(GameController.FastForward)
 		{
-			return;
+			return null;
 		}
 
-		Play(path, minPitch, maxPitch, volumeDb, delay);
+		return Play(path, minPitch, maxPitch, volumeDb, delay, freeAutomatically);
 	}
 
 	public void SetBGM(string path, float volumeDb = -4f)
@@ -138,5 +141,20 @@ public partial class AudioController : Node
 	{
 		float volumeDb = Mathf.LinearToDb(volume * 0.01f);
 		AudioServer.SetBusVolumeDb(_bgsBusIndex, volumeDb);
+	}
+
+	private AudioStreamPlayer CreateAudioStreamPlayer(string path)
+	{
+		AudioStream audioStream = LoadAudioStream(path);
+
+		if(audioStream == null)
+		{
+			return null;
+		}
+
+		AudioStreamPlayer audioStreamPlayer = _audioStreamPlayerScene.Instantiate<AudioStreamPlayer>();
+		AddChild(audioStreamPlayer);
+		audioStreamPlayer.SetStream(audioStream);
+		return audioStreamPlayer;
 	}
 }

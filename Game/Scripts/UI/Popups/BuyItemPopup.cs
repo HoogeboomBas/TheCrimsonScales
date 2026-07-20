@@ -56,7 +56,7 @@ public partial class BuyItemPopup : Popup<BuyItemPopup.Request>
 		PopupRequest.Buyer.AddItem(PopupRequest.ItemModel);
 		PopupRequest.SavedItem.RemoveStock(1);
 
-		AppController.Instance.AudioController.Play("res://Audio/SFX/ItemShop/COINS_Rattle_01_mono.wav", delay: 0.0f);
+		AppController.Instance.AudioController.Play(SFX.Buy, delay: 0.0f);
 
 		if(BetweenScenariosController.Instance != null)
 		{

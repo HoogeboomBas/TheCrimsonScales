@@ -31,6 +31,8 @@ public partial class CameraController : Node
 	private static Vector2 _moveTarget;
 	private static Vector2 _zoomTarget;
 
+	private float _shakeIntensity;
+
 	public override void _Ready()
 	{
 		if(GameController.Instance.SceneRequest.FromUndo)
@@ -94,6 +96,10 @@ public partial class CameraController : Node
 		{
 			AppController.Instance.InputController.UpdateDrag();
 		}
+
+		_shakeIntensity *= 0.9f;
+		Vector2 randomPoint = new Vector2(GD.Randf(), GD.Randf()).Normalized();
+		Camera.SetPosition(randomPoint * _shakeIntensity);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -123,6 +129,21 @@ public partial class CameraController : Node
 				_moveTarget += 50f * panGesture.Delta / _zoomTarget;
 			}
 		}
+	}
+
+	public void Shake(float intensity, float delay = 0f)
+	{
+		if(GameController.FastForward)
+		{
+			return;
+		}
+
+		this.DelayedCall(() =>
+		{
+			const float maxIntensity = 30;
+			_shakeIntensity += intensity;
+			Mathf.Min(_shakeIntensity, maxIntensity);
+		}, delay);
 	}
 
 	private void OnDrag(Vector2 previousPosition, Vector2 currentPosition)

@@ -1,4 +1,6 @@
-﻿public static class SFX
+﻿using Godot;
+
+public static class SFX
 {
 	public enum StepType
 	{
@@ -13,40 +15,41 @@
 	public const string MoveFlying = "res://Audio/SFX/Elemental/ElementalWoosh1.wav";
 	public const string CoinPickup = "res://Audio/SFX/CoinPickup.wav";
 	public const string Shield = "res://Audio/SFX/IMPACT_Metal_Cling_Deep_Damped_mono.wav";
+	public const string Buy = "res://Audio/SFX/ItemShop/COINS_Rattle_01_mono.wav";
 
 	public static string GetSwordHit()
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 3);
+		int randomIndex = GD.RandRange(1, 3);
 		return $"res://Audio/SFX/Attacks/Sword Impact Hit {randomIndex}.wav";
 	}
 
 	public static string GetSwordBlocked()
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 3);
+		int randomIndex = GD.RandRange(1, 3);
 		return $"res://Audio/SFX/Attacks/Sword Blocked {randomIndex}.wav";
 	}
 
 	public static string GetBowAttack()
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 2);
+		int randomIndex = GD.RandRange(1, 2);
 		return $"res://Audio/SFX/Attacks/Bow Attack {randomIndex}.wav";
 	}
 
 	public static string GetBowHit()
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 3);
+		int randomIndex = GD.RandRange(1, 3);
 		return $"res://Audio/SFX/Attacks/Bow Impact Hit {randomIndex}.wav";
 	}
 
 	public static string GetBowBlocked()
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 3);
+		int randomIndex = GD.RandRange(1, 3);
 		return $"res://Audio/SFX/Attacks/Bow Blocked {randomIndex}.wav";
 	}
 
 	public static string GetStep(StepType stepType)
 	{
-		int randomIndex = GameController.Instance.VisualRNG.RandiRange(1, 5);
+		int randomIndex = GD.RandRange(1, 5);
 		return $"res://Audio/SFX/Footsteps/{stepType.ToString()} Walk {randomIndex}.wav";
 	}
 
@@ -58,6 +61,12 @@
 	public static string GetLand(StepType stepType)
 	{
 		return $"res://Audio/SFX/Footsteps/{stepType.ToString()} Land.wav";
+	}
+
+	public static string GetCardDraw()
+	{
+		int randomIndex = GD.RandRange(1, 2);
+		return $"res://Audio/SFX/Cards/CardSlide{randomIndex}.wav";
 	}
 
 	public static string GetStep(Hex hex)

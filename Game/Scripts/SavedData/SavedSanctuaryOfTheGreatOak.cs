@@ -82,6 +82,8 @@ public class SavedSanctuaryOfTheGreatOak
 
 		savedCharacter.RemoveGold(10);
 
+		AppController.Instance.AudioController.Play(SFX.Buy, delay: 0.15f);
+
 		TotalDonationCount++;
 		if(DonationYellowNumbers.Contains(TotalDonationCount))
 		{

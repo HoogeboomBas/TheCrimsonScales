@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class Dawdler : TheCrimsonScalesBattleGoal
 {
@@ -17,7 +15,8 @@ public class Dawdler : TheCrimsonScalesBattleGoal
 			parameters =>
 				!battleGoal.ProgressFull &&
 				!character.IsDead &&
-				!character.LongResting &&
+				character.RoundCards != null &&
+				character.RoundCards.Count > 1 &&
 				character.RoundCards[0].Model.Initiative < character.RoundCards[1].Model.Initiative,
 			async parameters =>
 			{

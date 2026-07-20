@@ -1,4 +1,5 @@
 ﻿using Fractural.Tasks;
+using Godot;
 
 public partial class Ladder : DifficultTerrain, IEventSubscriber
 {
@@ -45,6 +46,8 @@ public partial class Ladder : DifficultTerrain, IEventSubscriber
 				parameters.SetCanEnter();
 			}
 		);
+
+		SetScale(Vector2.Zero);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)

@@ -120,6 +120,8 @@ public static class AbilityCmd
 
 		int damageSuffered = target.Health - newHealth;
 
+		GameController.Instance.CameraController.Shake(damageSuffered * 4f, fromAttack ? 0.15f / AppController.Instance.GameplayTimeScale : 0f);
+
 		target.SetHealth(newHealth);
 
 		if(newHealth == 0)

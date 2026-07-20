@@ -368,6 +368,8 @@ public partial class Enhancer : BetweenScenariosAction
 					_selectedAbilityCard.AddSavedEnhancement(_selectedMark.Top, _selectedMark.Index,
 						new SavedEnhancement(_selectedOption.EnhancementModel));
 
+					AppController.Instance.AudioController.Play(SFX.Buy, delay: 0.0f);
+
 					AppController.Instance.SaveGame();
 
 					BetweenScenariosEvents.EnhancementBoughtEvent.Fire(

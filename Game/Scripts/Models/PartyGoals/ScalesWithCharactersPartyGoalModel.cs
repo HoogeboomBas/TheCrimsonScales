@@ -7,7 +7,7 @@
 		int progressCount = 0;
 		foreach((string guid, int progress) in partyGoalData.CharacterProgresses)
 		{
-			if(progress > MaxProgress)
+			if(progress >= MaxProgress)
 			{
 				progressCount++;
 			}

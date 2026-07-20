@@ -39,7 +39,7 @@ public partial class FireKnight : Character
 		GameController.Instance.Map.AddChild(Ladder);
 		await Ladder.Init(null, hexCanBeNull: true);
 
-		Ladder.SetScale(Vector2.Zero);
+		// Ladder.SetScale(Vector2.Zero);
 
 		IconEffectButton.Parameters placeEffectButtonParameters = new IconEffectButton.Parameters("res://Content/Classes/FireKnight/cs-ladder.png");
 		TextEffectInfoView.Parameters placeEffectInfoViewParameters = new TextEffectInfoView.Parameters(
@@ -106,6 +106,7 @@ public partial class FireKnight : Character
 		}, mandatory: true, hintText: "Select a hex to place the Ladder in");
 
 		Ladder.SetOriginHexAndRotation(hex);
+		Ladder.SetScale(Vector2.Zero);
 		Ladder.TweenScale(1f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardable();
 	}
 

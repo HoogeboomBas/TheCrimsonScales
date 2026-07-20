@@ -41,6 +41,8 @@ public partial class AppController : SingletonNode<AppController>
 	public SavedDeviceOptions DeviceOptions => DeviceSaveData.Options;
 	public SavedCampaignOptions CampaignOptions => CampaignSaveData?.Options;
 
+	public float GameplayTimeScale => DeviceOptions.GetTimeScale(TimeScale.Gameplay);
+
 	public override void _EnterTree()
 	{
 		SaveManager = new SaveManager();

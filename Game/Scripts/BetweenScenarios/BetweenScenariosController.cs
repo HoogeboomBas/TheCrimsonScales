@@ -53,7 +53,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 
 		if(SceneRequest == null)
 		{
-			SceneRequest = new BetweenScenariosSceneRequest(SavedCampaign.Test());
+			SceneRequest = new BetweenScenariosSceneRequest(SavedCampaign.Test(true));
 		}
 
 		RNG = new RandomNumberGenerator();
@@ -86,7 +86,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		{
 			foreach(SavedCharacter savedCharacter in SavedCampaign.Characters)
 			{
-				savedCharacter.SavedPersonalQuest.Model?.OnBetweenScenariosEnded(savedCharacter);
+				savedCharacter.SavedPersonalQuest?.Model.OnBetweenScenariosEnded(savedCharacter);
 			}
 
 			foreach(SavedPartyGoal savedPartyGoal in SavedCampaign.SavedPartyGoals.PartyGoals)
