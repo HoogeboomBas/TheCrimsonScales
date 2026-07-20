@@ -17,6 +17,7 @@ public class Dawdler : TheCrimsonScalesBattleGoal
 			parameters =>
 				!battleGoal.ProgressFull &&
 				!character.IsDead &&
+				!character.LongResting &&
 				character.RoundCards[0].Model.Initiative < character.RoundCards[1].Model.Initiative,
 			async parameters =>
 			{
