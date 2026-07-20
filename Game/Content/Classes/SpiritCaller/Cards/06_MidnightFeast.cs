@@ -67,7 +67,7 @@ public class MidnightFeast : SpiritCallerCardModel<MidnightFeast.CardTop, Midnig
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.HexObjectDestroyedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
