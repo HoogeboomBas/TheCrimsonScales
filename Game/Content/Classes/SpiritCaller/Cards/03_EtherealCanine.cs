@@ -78,7 +78,7 @@ public class EtherealCanine : SpiritCallerCardModel<EtherealCanine.CardTop, Ethe
 							parameters.AbilityState.Performer == spirit,
 						async parameters =>
 						{
-							parameters.AbilityState.AbilityAdjustAttackValue(attackBonus);
+							parameters.AbilityState.SingleTargetAdjustAttackValue(attackBonus);
 
 							await state.ActionState.RequestDiscardOrLose();
 						}
