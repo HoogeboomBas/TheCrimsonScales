@@ -7,7 +7,7 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 	public override string Name => "Smoky Shroud";
 	public override int Level => 2;
 	public override int Initiative => 81;
-	protected override int AtlasIndex => 28 - 13;
+	protected override int AtlasIndex => 28 - 14;
 
 	public class CardTop : SpiritCallerCardSide
 	{
