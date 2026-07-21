@@ -175,6 +175,14 @@ public partial class Spirit : Figure
 			}
 		);
 
+		ScenarioEvents.RetaliateEvent.Subscribe(this, CharacterOwner,
+			parameters => parameters.AbilityState.Performer == this,
+			async parameters =>
+			{
+				parameters.SetRetaliateBlocked();
+				await GDTask.CompletedTask;
+			});
+
 		ScenarioCheckEvents.FlyingCheckEvent.Subscribe(this, CharacterOwner,
 			parameters => parameters.Figure == this,
 			parameters => parameters.SetFlying(true)
@@ -264,6 +272,7 @@ public partial class Spirit : Figure
 		ScenarioEvents.HexObjectDestroyedEvent.Unsubscribe(this, CharacterOwner);
 		ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this, CharacterOwner);
 		ScenarioEvents.FigureExitingHexEvent.Unsubscribe(this, CharacterOwner);
+		ScenarioEvents.RetaliateEvent.Unsubscribe(this, CharacterOwner);
 		ScenarioCheckEvents.FlyingCheckEvent.Unsubscribe(this, CharacterOwner);
 		ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(this, CharacterOwner);
 		//ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(this, CharacterOwner);
