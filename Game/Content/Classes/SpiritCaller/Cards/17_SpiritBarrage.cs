@@ -22,7 +22,8 @@ public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, Spirit
 							parameters.AbilityState.AdjustTargets(1);
 
 							await GainXP(parameters.AbilityState);
-						}))
+						},
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Targets)}")))
 				.WithOnAbilityStarted(async state =>
 				{
 					Figure spirit = await Spirit.SelectSpirit(state);
