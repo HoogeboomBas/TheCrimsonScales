@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class HordeOfBones : SpiritCallerCardModel<HordeOfBones.CardTop, HordeOfBones.CardBottom>
 {
@@ -32,9 +33,25 @@ public class HordeOfBones : SpiritCallerCardModel<HordeOfBones.CardTop, HordeOfB
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(TeleportAbility.Builder()
-				.WithDistance(3)
-				.WithFilterHexes((state, hex) => hex.HasHexObjectOfType<Coin>())
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					Hex swapped = await AbilityCmd.SelectHex(state, list =>
+					{
+						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 3, requiresLineOfSight: false)
+							.Where(hex => hex.HasHexObjectOfType<Coin>() && AbilityCmd.CanSwap(state.Performer, hex.GetHexObjectOfType<Coin>())));
+					}, mandatory: false, "Select a coin token to swap hexes with.");
+
+					if(swapped == null)
+					{
+						return;
+					}
+
+					if(await AbilityCmd.TrySwap(state, state.Performer, swapped.GetHexObjectOfType<Coin>()))
+					{
+						state.SetPerformed();
+					}
+				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
 				.Build()),
 
