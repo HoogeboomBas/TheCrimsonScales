@@ -13,21 +13,38 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+				{
+					Figure figure = await AbilityCmd.SelectFigure(state,
+						list =>
+						{
+							list.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false)
+								.Where(figure => figure.EnemiesWith(state.Performer) && figure.HasCondition(Chainguard.Shackle)));
+						}, hintText: () => $"Designate an adjacent enemy with {Icons.Inline(Icons.GetCondition(Chainguard.Shackle))}");
+
+					if(figure != null)
+					{
+						state.SetCustomValue(this, "DesignatedEnemy", figure);
+						state.SetPerformed();
+					}
+				})
+				.Build()),
+
 			new AbilityCardAbility(SwingAbility.Builder()
 				.WithSwing(6)
 				.WithCustomGetTargets((state, figures) =>
 				{
-					IEnumerable<Figure> adjacentFigures = RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false);
-					figures.AddRange(adjacentFigures.Where(figure => figure.EnemiesWith(state.Performer) && figure.HasCondition(Chainguard.Shackle)));
+					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
+				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 
 			new AbilityCardAbility(PushAbility.Builder()
 				.WithPush(3)
 				.WithCustomGetTargets((state, figures) =>
 				{
-					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
-					figures.AddRange(swingAbilityState.UniqueTargetedFigures);
+					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
@@ -36,12 +53,16 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 				.WithSwing(0)
 				.WithCustomGetTargets((state, figures) =>
 				{
-					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
-					figures.AddRange(swingAbilityState.UniqueTargetedFigures);
+					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithOnAbilityStarted(async state =>
 				{
-					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
+					if(!await AbilityCmd.HasPerformedAbility(state, 0))
+					{
+						return;
+					}
+
+					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(1);
 					int remainingSwing = swingAbilityState.AbilitySwing - swingAbilityState.SingleTargetState.ForcedMovementHexes.Count;
 					state.AbilityAdjustSwing(remainingSwing);
 
@@ -66,12 +87,15 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{
-					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
+					if(!await AbilityCmd.HasPerformedAbility(state, 0))
+					{
+						return false;
+					}
+
+					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(1);
 					int remainingSwing = swingAbilityState.AbilitySwing - swingAbilityState.SingleTargetState.ForcedMovementHexes.Count;
 
-					await GDTask.CompletedTask;
-
-					return swingAbilityState.Performed && remainingSwing > 0;
+					return remainingSwing > 0;
 				})
 				.WithOnAbilityEnded(async state =>
 				{
@@ -85,20 +109,20 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 				.WithDamage(0)
 				.WithCustomGetTargets((state, figures) =>
 				{
-					SwingAbility.State swingAbilityState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
-					figures.AddRange(swingAbilityState.UniqueTargetedFigures);
+					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
-				.WithOnAbilityStarted(async state =>
-				{
-					SwingAbility.State firstState = state.ActionState.GetAbilityState<SwingAbility.State>(0);
-					PushAbility.State secondState = state.ActionState.GetAbilityState<PushAbility.State>(1);
-					SwingAbility.State thirdState = state.ActionState.GetAbilityState<SwingAbility.State>(2);
-					state.AbilityAdjustAttackValue(firstState.SingleTargetState.ForcedMovementHexes.Count +
-					                               secondState.SingleTargetState.ForcedMovementHexes.Count +
-					                               thirdState.SingleTargetState.ForcedMovementHexes.Count);
+				.WithDuringAttackSubscription(ScenarioEvents.DuringAttack.Subscription.New(
+					applyFunction: async parameters =>
+					{
+						SwingAbility.State firstState = parameters.AbilityState.ActionState.GetAbilityState<SwingAbility.State>(1);
+						PushAbility.State secondState = parameters.AbilityState.ActionState.GetAbilityState<PushAbility.State>(2);
+						SwingAbility.State thirdState = parameters.AbilityState.ActionState.GetAbilityState<SwingAbility.State>(3);
+						parameters.AbilityState.AbilityAdjustAttackValue(firstState.SingleTargetState.ForcedMovementHexes.Count +
+						                                                  secondState.SingleTargetState.ForcedMovementHexes.Count +
+						                                                  thirdState.SingleTargetState.ForcedMovementHexes.Count);
 
-					await GDTask.CompletedTask;
-				})
+						await GDTask.CompletedTask;
+					}))
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build()),
 		];
