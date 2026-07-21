@@ -36,6 +36,7 @@ public class AbsoluteMagnitude : StarslingerCardModel<AbsoluteMagnitude.CardTop,
 					if(await AbilityCmd.TrySwap(state, state.Performer, swapped))
 					{
 						await AbilityCmd.GainXP(state.Performer, 1);
+						state.SetPerformed();
 					}
 				})
 				.Build())

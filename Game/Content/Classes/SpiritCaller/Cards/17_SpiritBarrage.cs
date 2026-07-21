@@ -82,7 +82,10 @@ public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, Spirit
 						return;
 					}
 
-					await AbilityCmd.TrySwap(state, spirit, swapped);
+					if(await AbilityCmd.TrySwap(state, spirit, swapped))
+					{
+						state.SetPerformed();
+					}
 				})
 				.Build())
 		];

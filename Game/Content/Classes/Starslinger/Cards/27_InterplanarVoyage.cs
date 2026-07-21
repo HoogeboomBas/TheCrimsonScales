@@ -63,7 +63,10 @@ public class InterplanarVoyage : StarslingerCardModel<InterplanarVoyage.CardTop,
 						return;
 					}
 
-					await AbilityCmd.TrySwap(state, state.Performer, swapped);
+					if(await AbilityCmd.TrySwap(state, state.Performer, swapped))
+					{
+						state.SetPerformed();
+					}
 				})
 				.Build())
 		];
@@ -94,7 +97,10 @@ public class InterplanarVoyage : StarslingerCardModel<InterplanarVoyage.CardTop,
 						return;
 					}
 
-					await AbilityCmd.TrySwap(state, state.Performer, swapped);
+					if(await AbilityCmd.TrySwap(state, state.Performer, swapped))
+					{
+						state.SetPerformed();
+					}
 				})
 				.Build())
 		];
