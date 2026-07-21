@@ -73,7 +73,7 @@ public class EtherealCanine : SpiritCallerCardModel<EtherealCanine.CardTop, Ethe
 						textParameters =>
 							$"This Spirit adds +{attackBonus}{Icons.Inline(Icons.Attack, textParameters)} to its next attack this round.");
 
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
+					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						parameters =>
 							parameters.AbilityState.Performer == spirit,
 						async parameters =>
@@ -90,7 +90,7 @@ public class EtherealCanine : SpiritCallerCardModel<EtherealCanine.CardTop, Ethe
 
 					await AbilityCmd.RemoveCharacterToken(state, spirit);
 
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 				})
 				.WithSkipConfirmation()
 				.WithConditionalAbilityCheck(async state =>
