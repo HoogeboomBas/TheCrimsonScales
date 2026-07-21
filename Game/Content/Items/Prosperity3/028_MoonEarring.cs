@@ -1,4 +1,4 @@
-public class MoonEarring : Prosperity1Item
+public class MoonEarring : Prosperity3Item
 {
 	public override string Name => "Moon Earring";
 	public override int ItemNumber => 28;
@@ -7,7 +7,7 @@ public class MoonEarring : Prosperity1Item
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
-	protected override int AtlasIndex => 10;
+	protected override int AtlasIndex => 14;
 
 	protected override void Subscribe()
 	{
