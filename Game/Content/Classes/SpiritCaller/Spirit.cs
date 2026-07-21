@@ -94,7 +94,7 @@ public partial class Spirit : Figure
 						parameters.SetAlliedWith();
 						return;
 					}
-					else
+					else if(parameters.OtherFigure.Alignment is Alignment.Monsters or Alignment.Other)
 					{
 						parameters.SetEnemiesWith();
 						return;
