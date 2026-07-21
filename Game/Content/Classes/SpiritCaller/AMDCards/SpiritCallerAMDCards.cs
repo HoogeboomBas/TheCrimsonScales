@@ -74,7 +74,7 @@ public class SpiritCallerAMDCards
 
 	public class PlusOneCurse : SpiritCallerAMDCardModel
 	{
-		protected override int AtlasIndex => 15;
+		protected override int AtlasIndex => 14;
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +1;
 		public override List<ConditionModel> GetConditionModels(AttackAbility.State attackAbilityState) => [Conditions.Curse];
 	}
