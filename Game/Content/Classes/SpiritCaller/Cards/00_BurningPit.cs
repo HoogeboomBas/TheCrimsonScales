@@ -36,7 +36,7 @@ public class BurningPit : SpiritCallerCardModel<BurningPit.CardTop, BurningPit.C
 								GameController.Instance.ElementManager.GetState(Element.Fire) > ElementState.Inert ? 4 : 3);
 
 							await state.ActionState.RequestDiscardOrLose();
-						}
+						}, order: 1
 					);
 
 					await GDTask.CompletedTask;
