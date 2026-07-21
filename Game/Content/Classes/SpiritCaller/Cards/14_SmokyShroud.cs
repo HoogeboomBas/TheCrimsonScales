@@ -89,7 +89,31 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 
 							await GDTask.CompletedTask;
 						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Push)}")))
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+2{Icons.Inline(Icons.Push)}")),
+					ScenarioEvents.DuringPush.Subscription.New(
+						applyFunction: async applyParameters =>
+						{
+							ScenarioEvents.FigureEnteredHexEvent.Subscribe(applyParameters.AbilityState, this,
+								parameters =>
+									parameters.Figure == applyParameters.AbilityState.Target &&
+									parameters.PotentialAbilityState == applyParameters.AbilityState &&
+									parameters.Hex.HasHexObjectOfType<Spirit>(),
+								async parameters =>
+								{
+									parameters.PotentialAbilityState.SetCustomValue(this, "PushedIntoSpirit", true);
+
+									await GDTask.CompletedTask;
+								}
+							);
+
+							await GDTask.CompletedTask;
+						}))
+				.WithOnAbilityEndedPerformed(async state =>
+				{
+					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
+
+					await GDTask.CompletedTask;
+				})
 				.Build()),
 
 			new AbilityCardAbility(SufferDamageAbility.Builder()
@@ -97,16 +121,9 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 				.WithCustomGetTargets((state, list) =>
 				{
 					PushAbility.State pushAbilityState = state.ActionState.GetAbilityState<PushAbility.State>(1);
-					foreach(SingleTargetState singleTargetState in pushAbilityState.SingleTargetStates)
+					if(pushAbilityState.GetCustomValue<bool>(this, "PushedIntoSpirit"))
 					{
-						foreach(Hex pushHex in singleTargetState.PushHexes)
-						{
-							if(Spirit.HasSpirit(pushHex))
-							{
-								list.Add(singleTargetState.Target);
-								break;
-							}
-						}
+						list.Add(pushAbilityState.Target);
 					}
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 1))
