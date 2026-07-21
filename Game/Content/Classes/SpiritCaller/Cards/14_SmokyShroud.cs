@@ -108,7 +108,7 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 
 							await GDTask.CompletedTask;
 						}))
-				.WithOnAbilityEndedPerformed(async state =>
+				.WithOnAbilityEnded(async state =>
 				{
 					ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(state, this);
 
