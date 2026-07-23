@@ -44,7 +44,6 @@ public class SpiritCallerPerks
 
 		public override List<AMDCardModel> CardsToAdd { get; } =
 		[
-			ModelDB.AMDCard<PlusZeroAMDCard>(),
 			ModelDB.AMDCard<SpiritCallerAMDCards.PlusZeroPoisonRolling>()
 		];
 	}
