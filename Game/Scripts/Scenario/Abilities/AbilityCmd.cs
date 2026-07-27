@@ -743,6 +743,47 @@ public static class AbilityCmd
 		}
 	}
 
+	public static async GDTask FigureLostFlying(AbilityState potentialAbilityState, Figure figure, Figure authority, Hex hex)
+	{
+		Hex landingHex = hex;
+
+		if(hex.HasHexObjectOfType<Obstacle>())
+		{
+			List<Hex> possibleHexes = [];
+
+			// Find unoccupied hexes around the obstacle that are closest to it
+			int closestHexRange = int.MaxValue;
+
+			foreach(Hex neighbourHex in hex.Neighbours)
+			{
+				if(!neighbourHex.IsUnoccupied() || neighbourHex.HasHexObjectOfType<Obstacle>() || neighbourHex.HasHexObjectOfType<Door>())
+				{
+					continue;
+				}
+
+				int range = RangeHelper.Distance(neighbourHex, hex);
+
+				if(range == closestHexRange)
+				{
+					possibleHexes.Add(neighbourHex);
+				}
+				else if(range < closestHexRange)
+				{
+					closestHexRange = range;
+					possibleHexes.Clear();
+					possibleHexes.Add(neighbourHex);
+				}
+			}
+
+			landingHex = await SelectHex(potentialAbilityState, list =>
+			{
+				list.AddRange(possibleHexes);
+			}, hintText: "Select an hex to force land into.");
+		}
+
+		await EnterHex(potentialAbilityState, figure, authority, landingHex, true, true, true);
+	}
+
 	public static async GDTask Teleport(AbilityState potentialAbilityState, Figure figure, Hex destination, bool forcedMovement = false)
 	{
 		potentialAbilityState?.SetPerformed();

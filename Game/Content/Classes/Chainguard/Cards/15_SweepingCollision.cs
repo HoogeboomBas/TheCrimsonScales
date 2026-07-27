@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
@@ -80,6 +81,12 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
+					List<Figure> shackledFlyers = GameController.Instance.Map.Figures.Where(figure =>
+						figure.HasCondition(Chainguard.Shackle) &&
+						figure.EnemiesWith(state.Performer) &&
+						ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figure)).HasFlying).ToList();
+
+					// Prevent future attempts at flying
 					ScenarioCheckEvents.FlyingCheckEvent.Subscribe(state, this,
 						parameters => state.Performer.EnemiesWith(parameters.Figure) &&
 						              parameters.Figure.HasCondition(Chainguard.Shackle),
@@ -87,11 +94,42 @@ public class SweepingCollision : ChainguardLevelUpCardModel<SweepingCollision.Ca
 						order: 1
 					);
 
+					// Trigger hex effects on enemies that were already shackled
+					foreach(Figure figure in shackledFlyers)
+					{
+						await AbilityCmd.FigureLostFlying(state, figure, state.Authority, figure.Hex);
+					}
+
+					// Trigger hex effects on enemies that are going to be shackled, check for flying just before condition was added
+					ScenarioEvents.InflictConditionDuplicatesCheckEvent.Subscribe(state, this,
+						inflictParameters => state.Performer.EnemiesWith(inflictParameters.Target) &&
+						                     inflictParameters.ConditionModel == Chainguard.Shackle,
+						async inflictParameters =>
+						{
+							if(!inflictParameters.Prevented &&
+							   ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(inflictParameters.Target)).HasFlying)
+							{
+								// Now check for flying after the condition was added
+								ScenarioEvents.ConditionAddedEvent.Subscribe(state, this,
+									parameters => parameters.PotentialAbilityState == inflictParameters.PotentialAbilityState,
+									async parameters =>
+									{
+										await AbilityCmd.FigureLostFlying(state, parameters.Target, parameters.PotentialConditionGiver, parameters.Target.Hex);
+										ScenarioEvents.ConditionAddedEvent.Unsubscribe(state, this);
+									});
+							}
+
+							await GDTask.CompletedTask;
+						},
+						order: int.MaxValue
+					);
+
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioCheckEvents.FlyingCheckEvent.Unsubscribe(state, this);
+					ScenarioEvents.InflictConditionDuplicatesCheckEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
