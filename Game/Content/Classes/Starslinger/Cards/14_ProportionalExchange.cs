@@ -31,6 +31,9 @@ public class ProportionalExchange : StarslingerCardModel<ProportionalExchange.Ca
 				})
 				.Build()),
 		];
+
+		public override int XP => 2;
+		public override bool Loss => true;
 	}
 
 	public class CardBottom : StarslingerCardSide
