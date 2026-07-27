@@ -91,6 +91,11 @@ public class MonsterForcedMovementPrompt(
 			_bestNodes.Clear();
 			foreach((Hex hex, ForcedMovementNode node) in _closedList)
 			{
+				if(!AbilityCmd.CanForceMoveTo(abilityState, target, hex))
+				{
+					continue;
+				}
+
 				if(node.MoveSpent > _bestSwing)
 				{
 					_bestSwing = node.MoveSpent;
