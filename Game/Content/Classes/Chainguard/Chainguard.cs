@@ -18,15 +18,16 @@ public partial class Chainguard : Character
 
 		object subscriber = new object();
 
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, subscriber,
-			canApply: parameters => parameters.ConditionModel is Shackle,
+		ScenarioEvents.InflictConditionDuplicatesCheckEvent.Subscribe(this, subscriber,
+			canApply: parameters => parameters.ConditionModel is Shackle && !parameters.Prevented,
 			apply: async parameters =>
 			{
 				Figure shackler = parameters.PotentialAbilityState?.Performer;
 				int shacklesToKeep = GetMaxShackleCount(shackler) - 1;
 
 				await RemoveAllExtraShackles(parameters.PotentialAbilityState?.Performer, shacklesToKeep);
-			}
+			},
+			order: int.MaxValue
 		);
 	}
 
