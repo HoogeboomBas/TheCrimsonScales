@@ -52,6 +52,7 @@ public class City50 : CityEventModel<City50.ChoiceA, City50.ChoiceB>
 			{
 				return
 				[
+					new LoseCollectiveGoldReward(30),
 					new GainCollectiveItemReward(ModelDB.Item<BottledMoonlight>())
 				];
 			}
