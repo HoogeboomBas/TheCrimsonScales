@@ -74,8 +74,11 @@ public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, Spirit
 
 					Figure swapped = await AbilityCmd.SelectFigure(state, list =>
 					{
-						list.AddRange(RangeHelper.GetFiguresInRange(spirit, 6, requiresLineOfSight: false)
-							.Where(figure => AbilityCmd.CanSwap(figure, spirit)));
+						list.AddRange(GameController.Instance.Map.Hexes
+							.Select(hexPair => hexPair.Value)
+							.Where(hex => Map.SimpleDistance(spirit.Hex.Coords, hex.Coords) <= 6)
+							.SelectMany(hex => hex.GetHexObjectsOfType<Figure>())
+							.Except([spirit]));
 					}, mandatory: false, hintText: () => "Choose a figure for the spirit to swap hexes with");
 
 					if(swapped == null)

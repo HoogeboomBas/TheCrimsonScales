@@ -38,8 +38,11 @@ public class HordeOfBones : SpiritCallerCardModel<HordeOfBones.CardTop, HordeOfB
 				{
 					Hex swapped = await AbilityCmd.SelectHex(state, list =>
 					{
-						list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 3, requiresLineOfSight: false)
-							.Where(hex => hex.HasHexObjectOfType<Coin>() && AbilityCmd.CanSwap(state.Performer, hex.GetHexObjectOfType<Coin>())));
+						list.AddRange(GameController.Instance.Map.Hexes
+							.Select(hexPair => hexPair.Value)
+							.Where(hex => Map.SimpleDistance(state.Performer.Hex.Coords, hex.Coords) <= 3 &&
+							              hex.HasHexObjectOfType<Coin>() &&
+							              AbilityCmd.CanSwap(state.Performer, hex.GetHexObjectOfType<Coin>())));
 					}, mandatory: false, "Select a coin token to swap hexes with.");
 
 					if(swapped == null)
