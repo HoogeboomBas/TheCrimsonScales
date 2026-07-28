@@ -443,7 +443,11 @@ public static class MoveHelper
 				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
 					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(performer, hex, obstacle, true));
 
-			if(!canEnterObstacleParameters.CanEnter)
+			ScenarioCheckEvents.FlyingCheck.Parameters flyingCheckParameters =
+				ScenarioCheckEvents.FlyingCheckEvent.Fire(
+					new ScenarioCheckEvents.FlyingCheck.Parameters(performer));
+
+			if(!canEnterObstacleParameters.CanEnter && !flyingCheckParameters.HasFlying)
 			{
 				return false;
 			}

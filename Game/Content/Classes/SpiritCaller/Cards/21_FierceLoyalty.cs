@@ -153,7 +153,7 @@ public class FierceLoyalty : SpiritCallerCardModel<FierceLoyalty.CardTop, Fierce
 						return false;
 					}
 
-					if(!AbilityCmd.CanForceMoveTo(spirit, state.Performer.Hex))
+					if(!AbilityCmd.CanForceMoveTo(state, spirit, state.Performer.Hex))
 					{
 						return false;
 					}

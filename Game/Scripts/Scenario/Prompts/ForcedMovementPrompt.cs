@@ -21,7 +21,7 @@ public class ForcedMovementPrompt(
 
 	private readonly List<ForcedMovementNode> _nodes = new List<ForcedMovementNode>();
 
-	protected override bool CanConfirm => PathExists && MoveHelper.CanStopAt(abilityState, target, _currentNode.Hex);
+	protected override bool CanConfirm => PathExists && AbilityCmd.CanForceMoveTo(abilityState, target, _currentNode.Hex);
 	protected override bool CanSkip => true;
 
 	private bool PathExists => _currentNode != null && _currentNode.Parents.Count > 0;
@@ -43,7 +43,7 @@ public class ForcedMovementPrompt(
 
 		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(abilityState, target, hex))
+			if(!AbilityCmd.CanForceMoveTo(abilityState, target, hex))
 			{
 				continue;
 			}

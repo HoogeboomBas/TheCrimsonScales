@@ -42,7 +42,7 @@ public class MonsterForcedMovementPrompt(
 
 		foreach((Hex hex, ForcedMovementNode node) in _closedList)
 		{
-			if(!MoveHelper.CanStopAt(abilityState, target, hex))
+			if(!AbilityCmd.CanForceMoveTo(abilityState, target, hex))
 			{
 				continue;
 			}

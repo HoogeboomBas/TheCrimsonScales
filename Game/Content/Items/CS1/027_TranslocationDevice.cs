@@ -25,7 +25,7 @@ public class TranslocationDevice : CS1Item
 					Figure swapped = await AbilityCmd.SelectFigure(character, list =>
 						list.AddRange(RangeHelper.GetFiguresInRange(character.Hex, 5, false)
 							.Where(figure => character.EnemiesWith(figure) &&
-							AbilityCmd.CanSwap(Owner, figure))),
+							AbilityCmd.CanSwap(null, Owner, figure))),
 						mandatory: false, hintText: () => "Choose an enemy to swap hexes with");
 					if(swapped == null)
 					{

@@ -756,7 +756,7 @@ public static class AbilityCmd
 
 			foreach(Hex neighbourHex in hex.Neighbours)
 			{
-				if(!neighbourHex.IsUnoccupied() || neighbourHex.HasHexObjectOfType<Obstacle>() || neighbourHex.HasHexObjectOfType<Door>())
+				if(!CanForceMoveTo(potentialAbilityState, figure, hex))
 				{
 					continue;
 				}
@@ -778,10 +778,18 @@ public static class AbilityCmd
 			landingHex = await SelectHex(potentialAbilityState, list =>
 			{
 				list.AddRange(possibleHexes);
-			}, hintText: "Select an hex to force land into.");
+			}, hintText: "Select a hex to force land into.");
 		}
 
+		if(hex != landingHex)
+		{
+			await figure.TweenGlobalPosition(landingHex.GlobalPosition, 0.3f).SetEasing(Easing.OutSine).PlayFastForwardableAsync();
+		}
+
+		await ExitHex(potentialAbilityState, figure, authority);
 		await EnterHex(potentialAbilityState, figure, authority, landingHex, true, true, true);
+
+		AppController.Instance.AudioController.PlayFastForwardable(SFX.GetLand(figure.Hex), delay: 0f);
 	}
 
 	public static async GDTask Teleport(AbilityState potentialAbilityState, Figure figure, Hex destination, bool forcedMovement = false)
@@ -822,19 +830,19 @@ public static class AbilityCmd
 		return TrySwap(abilityState, abilityState.Authority, hexObjectA, hexObjectB);
 	}
 
-	public static bool CanSwap(HexObject hexObjectA, HexObject hexObjectB)
+	public static bool CanSwap(AbilityState potentialAbilityState, HexObject hexObjectA, HexObject hexObjectB)
 	{
 		if(hexObjectA == hexObjectB)
 		{
 			return false;
 		}
 
-		if(hexObjectA is Figure figureA && !CanForceMoveTo(figureA, hexObjectB.Hex))
+		if(hexObjectA is Figure figureA && !CanForceMoveTo(potentialAbilityState, figureA, hexObjectB.Hex))
 		{
 			return false;
 		}
 
-		if(hexObjectB is Figure figureB && !CanForceMoveTo(figureB, hexObjectA.Hex))
+		if(hexObjectB is Figure figureB && !CanForceMoveTo(potentialAbilityState, figureB, hexObjectA.Hex))
 		{
 			return false;
 		}
@@ -895,36 +903,15 @@ public static class AbilityCmd
 		// return true;
 	}
 
-	public static bool CanForceMoveTo(Figure figure, Hex destination)
+	public static bool CanForceMoveTo(AbilityState potentialAbilityState, Figure figure, Hex destination)
 	{
-		if(destination.TryGetHexObjectOfType(out Obstacle obstacle) &&
-		   !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figure)).HasFlying)
-		{
-			ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-				ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-					new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figure, destination, obstacle, true));
-
-			if(!canEnterObstacleParameters.CanEnter)
-			{
-				return false;
-			}
-		}
-
 		if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
 			   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figure)).ImmuneToForcedMovement)
 		{
 			return false;
 		}
 
-		ScenarioCheckEvents.CanEnterCheck.Parameters canEnter =
-			ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-				new ScenarioCheckEvents.CanEnterCheck.Parameters(null, figure, destination));
-		if(!canEnter.CanEnter)
-		{
-			return false;
-		}
-
-		return true;
+		return MoveHelper.CanStopAt(potentialAbilityState, figure, destination);
 	}
 
 	public static async GDTask<bool> HasPerformedAbility(AbilityState abilityState, int abilityIndex)
@@ -1696,10 +1683,30 @@ public static class AbilityCmd
 
 	private static async GDTask<bool> TrySwap(AbilityState potentialAbilityState, Figure authority, HexObject hexObjectA, HexObject hexObjectB)
 	{
-		if(!CanSwap(hexObjectA, hexObjectB))
+		Figure figureA = hexObjectA as Figure;
+		Figure figureB = hexObjectB as Figure;
+
+		if(figureA != null && figureB != null)
+		{
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(authority, hexObjectA,
+				parameters =>
+					(parameters.Figure == figureA &&
+					 parameters.OtherFigure == figureB) ||
+					(parameters.OtherFigure == figureA &&
+					 parameters.Figure == figureB),
+				parameters =>
+				{
+					parameters.SetCanStopAt();
+				}
+			);
+		}
+
+		if(!CanSwap(potentialAbilityState, hexObjectA, hexObjectB))
 		{
 			return false;
 		}
+
+		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(authority, hexObjectA);
 
 		if(!GameController.FastForward)
 		{
@@ -1708,9 +1715,6 @@ public static class AbilityCmd
 
 		Hex hexA = hexObjectA.Hex;
 		Hex hexB = hexObjectB.Hex;
-
-		Figure figureA = hexObjectA as Figure;
-		Figure figureB = hexObjectB as Figure;
 
 		if(figureA != null)
 		{

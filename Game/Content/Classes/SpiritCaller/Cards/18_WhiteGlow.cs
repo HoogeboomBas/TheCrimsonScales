@@ -111,7 +111,7 @@ public class WhiteGlow : SpiritCallerCardModel<WhiteGlow.CardTop, WhiteGlow.Card
 					AbilityCmd.SubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(state, this), EffectType.Selectable,
 						character =>
 							canUse &&
-							AbilityCmd.CanSwap(spawnAbilityState.Spirit, character),
+							AbilityCmd.CanSwap(state, spawnAbilityState.Spirit, character),
 						async character =>
 						{
 							canUse = false;
