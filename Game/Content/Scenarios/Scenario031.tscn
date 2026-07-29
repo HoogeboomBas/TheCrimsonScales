@@ -91,17 +91,21 @@ MonsterType4Characters = 0
 
 [node name="DarkPit2H" parent="Map/Rooms/Room" index="16" unique_id=1158754903 instance=ExtResource("9_0y5w8")]
 position = Vector2(545.59595, -189)
+CannotBeDestroyed = true
 
 [node name="DarkPit2H2" parent="Map/Rooms/Room" index="17" unique_id=1142622226 instance=ExtResource("9_0y5w8")]
 position = Vector2(327.35754, 945)
+CannotBeDestroyed = true
 
 [node name="DarkPit2H3" parent="Map/Rooms/Room" index="18" unique_id=938925651 instance=ExtResource("9_0y5w8")]
 position = Vector2(-109.11921, 567)
 rotation = -1.0471976
+CannotBeDestroyed = true
 
 [node name="DarkPit2H4" parent="Map/Rooms/Room" index="19" unique_id=278583899 instance=ExtResource("9_0y5w8")]
 position = Vector2(982.0728, 567)
 rotation = -1.0471976
+CannotBeDestroyed = true
 
 [node name="Marker" parent="Map/Rooms/Room" index="20" unique_id=472443651 instance=ExtResource("13_6j1yq")]
 position = Vector2(218.2384, 0)

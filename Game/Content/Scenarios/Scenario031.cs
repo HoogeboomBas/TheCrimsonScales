@@ -123,8 +123,15 @@ public class Scenario031 : ScenarioModel
 			 Figures can only interact with other figures if they are on the same map tile. Character and character summons cannot {Icons.Inline(Icons.Teleport, textParameters)} from one tile to another.
 			 """);
 
+		// Monsters that are not eternal demon cannot ever go to other tiles
+		// Eternal demon can only go to other tiles using his Special 2 teleport
+		// Characters can only go to other tiles using move
 		ScenarioCheckEvents.CanEnterCheckEvent.Subscribe(this, teleportRule,
-			parameters => parameters.PotentialAbilityState is TeleportAbility.State,
+			parameters =>
+				parameters.Hex.MapTile != parameters.Figure.Hex.MapTile &&
+				((parameters.Figure is Monster monster && monster.MonsterModel is not EternalDemon) ||
+				 (parameters.Figure is Monster demon && demon.MonsterModel is EternalDemon && parameters.PotentialAbilityState is not TeleportAbility.State) ||
+				 (parameters.Figure is Character && parameters.PotentialAbilityState is TeleportAbility.State)),
 			parameters =>
 			{
 				parameters.SetCanEnter(false);
