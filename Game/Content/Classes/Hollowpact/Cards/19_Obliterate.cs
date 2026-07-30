@@ -91,7 +91,7 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 
 						await GDTask.CompletedTask;
 					}))
-				.WithOnAbilityEndedPerformed(async state =>
+				.WithOnAbilityEnded(async state =>
 				{
 					if(state.GetCustomValue<bool>(this, "AtLeastOneObstaclesDestroyed"))
 					{
