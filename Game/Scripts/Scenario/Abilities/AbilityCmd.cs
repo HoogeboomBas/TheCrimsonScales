@@ -1688,6 +1688,7 @@ public static class AbilityCmd
 
 		if(figureA != null && figureB != null)
 		{
+			// Ignore figure to swap with
 			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(authority, hexObjectA,
 				parameters =>
 					(parameters.Figure == figureA &&
