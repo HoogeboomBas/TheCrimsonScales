@@ -47,16 +47,8 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 				.Build()),
 			new AbilityCardAbility(SufferDamageAbility.Builder()
 				.WithDamage(1)
-				.WithCustomGetTargets((state, figures) =>
-				{
-					figures.AddRange(RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, false)
-						        .Where(figure => figure.EnemiesWith(state.Performer)));
-				})
+				.WithRange(1)
 				.WithTarget(Target.Enemies | Target.TargetAll)
-				.WithConditionalAbilityCheck(async state =>
-				{
-					return await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
-				})
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					for(int i = 0; i < state.DamagedFigures.Count; i++)
