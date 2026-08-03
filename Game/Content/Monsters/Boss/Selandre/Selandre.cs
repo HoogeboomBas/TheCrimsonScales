@@ -123,29 +123,30 @@ public class Selandre : MonsterModel, IBossMonsterModel
 						parameters.AbilityState is MoveAbility.State,
 					async parameters =>
 					{
+						parameters.SetNewFocus(null);
 						parameters.SetFocusHex(GetMarkerBHex());
 
-						// ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this,
-						// 	moveParameters => moveParameters.Performer == brightspark,
-						// 	moveParameters =>
-						// 	{
-						// 		moveParameters.SetRange(0);
-						// 		moveParameters.SetRangeType(RangeType.Melee);
-						// 		moveParameters.SetTargets(1);
-						// 		moveParameters.SetAOEPattern(null);
-						// 	}
-						// );
-						//
-						// ScenarioEvents.AbilityEndedEvent.Subscribe(this,
-						// 	abilityEndedParameters => abilityEndedParameters.Performer == brightspark,
-						// 	async _ =>
-						// 	{
-						// 		ScenarioEvents.AbilityEndedEvent.Unsubscribe(this);
-						// 		ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(this);
-						//
-						// 		await GDTask.CompletedTask;
-						// 	}
-						// );
+						ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(monster, this,
+							moveParameters => moveParameters.Performer == monster,
+							moveParameters =>
+							{
+								moveParameters.SetRange(0);
+								moveParameters.SetRangeType(RangeType.Melee);
+								moveParameters.SetTargets(1);
+								moveParameters.SetAOEPattern(null);
+							}
+						);
+
+						ScenarioEvents.AbilityEndedEvent.Subscribe(monster, this,
+							abilityEndedParameters => abilityEndedParameters.Performer == monster,
+							async _ =>
+							{
+								ScenarioEvents.AbilityEndedEvent.Unsubscribe(monster, this);
+								ScenarioCheckEvents.AIMoveParametersCheckEvent.Unsubscribe(monster, this);
+
+								await GDTask.CompletedTask;
+							}
+						);
 
 						await GDTask.CompletedTask;
 					}
@@ -172,7 +173,7 @@ public class Selandre : MonsterModel, IBossMonsterModel
 						.WithRange(2)
 						.WithTarget(Target.Enemies | Target.TargetAll)
 						.Build(),
-					MonsterAbilityCardModel.AttackAbility(state.Performer as Monster, +0, target: Target.Enemies | Target.TargetAll)
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0, target: Target.Enemies | Target.TargetAll)
 				]
 			)
 			.WithCustomGetTargets((state, list) =>
@@ -193,12 +194,12 @@ public class Selandre : MonsterModel, IBossMonsterModel
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
 			.WithGetAbilities(state =>
 				[
-					MonsterAbilityCardModel.AttackAbility(state.Performer as Monster, +0,
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0,
 						range: 1,
 						rangeType: RangeType.Melee,
 						target: Target.Enemies | Target.TargetAll),
 
-					MonsterAbilityCardModel.AttackAbility(state.Performer as Monster, +0,
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0,
 						target: Target.Enemies | Target.TargetAll,
 						minRange: 2,
 						afterTargetConfirmedSubscriptions:
@@ -234,6 +235,6 @@ public class Selandre : MonsterModel, IBossMonsterModel
 	private Hex GetMarkerBHex()
 	{
 		Scenario032 scenario = (Scenario032)GameController.Instance.ScenarioModel;
-		return scenario.MarkerBHex;
+		return scenario.MarkerB.Hex;
 	}
 }

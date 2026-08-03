@@ -90,7 +90,7 @@ public class Scenario032 : ScenarioModel
 	];
 
 	public Monster AncientArtillery { get; private set; }
-	public Hex MarkerBHex { get; private set; }
+	public Marker MarkerB { get; private set; }
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
@@ -98,7 +98,7 @@ public class Scenario032 : ScenarioModel
 
 		await AddGoal(new KillSpecificEnemyTypeGoal(ModelDB.Monster<Selandre>()));
 
-		MarkerBHex = GameController.Instance.Map.GetMarker(Marker.Type.b).Hex;
+		MarkerB = GameController.Instance.Map.GetMarker(Marker.Type.b);
 	}
 
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters roomRevealedParameters)
