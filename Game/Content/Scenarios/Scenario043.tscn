@@ -243,6 +243,7 @@ position = Vector2(1418.55, -567)
 [node name="Boulder1H2" parent="Map/Rooms/Room4" index="2" unique_id=1246125998 instance=ExtResource("4_658ni")]
 z_index = 1
 position = Vector2(1418.55, -945)
+CannotBeDestroyed = true
 
 [node name="ManMadeStone2H" parent="Map/Rooms/Room4" index="3" unique_id=2054064933 instance=ExtResource("14_jvco6")]
 position = Vector2(982.0728, -945)
