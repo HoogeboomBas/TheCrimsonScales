@@ -22,6 +22,7 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 		ScenarioEvents.InflictConditionEvent.Subscribe(character, this,
 			parameters =>
 				parameters.PotentialConditionGiver == character &&
+				!parameters.Prevented &&
 				parameters.ConditionModel is Poison &&
 				parameters.Target is Monster monster &&
 				!personalQuestData.Monsters.Contains(monster.MonsterModel.Id.ToString()),
@@ -32,7 +33,8 @@ public class FieldResearch : TheCrimsonScalesPersonalQuest<FieldResearch.Data>
 				personalQuestData.AdjustProgress(1, character);
 
 				await GDTask.CompletedTask;
-			}
+			},
+			order: int.MaxValue
 		);
 	}
 }
