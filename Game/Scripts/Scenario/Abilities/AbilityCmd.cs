@@ -99,7 +99,7 @@ public static class AbilityCmd
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
 
-		if(sufferDamageParameters.DamagePrevented)
+		if(sufferDamageParameters.DamagePrevented || sufferDamageParameters.CalculatedCurrentDamage == 0)
 		{
 			return 0;
 		}
