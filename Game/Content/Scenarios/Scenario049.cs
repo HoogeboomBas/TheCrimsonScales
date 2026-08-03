@@ -32,7 +32,7 @@ public class Scenario049 : ScenarioModel
 		ModelDB.Monster<InoxArcher>(),
 		ModelDB.Monster<InoxBodyguard>(),
 		ModelDB.Monster<InoxGuard>(),
-		ModelDB.Monster<InoxBodyguard>(),
+		ModelDB.Monster<InoxShaman>(),
 	];
 
 	public override List<SavedReward> Rewards =>

@@ -38,7 +38,7 @@ public class Scenario036 : ScenarioModel
 		ModelDB.Monster<BanditGuard>(),
 		ModelDB.Monster<Hound>(),
 		ModelDB.Monster<TerribleTwoBanditArcher>(),
-		ModelDB.Monster<TerribleTwoBanditArcher>(),
+		ModelDB.Monster<TerribleTwoBanditGuard>(),
 	];
 
 	public override List<SavedReward> Rewards =>
