@@ -89,13 +89,13 @@ public partial class Summon : Figure
 		}
 
 		ScenarioEvents.FigureFoundFocusEvent.Subscribe(this, characterOwner,
-			parameters =>
-				parameters.Performer == this &&
-				parameters.AbilityState is MoveAbility.State &&
-				parameters.Focus == null,
-			async parameters =>
+			focusParameters =>
+				focusParameters.Performer == this &&
+				focusParameters.AbilityState is MoveAbility.State &&
+				focusParameters.Focus == null,
+			async focusParameters =>
 			{
-				parameters.SetNewFocus(CharacterOwner);
+				focusParameters.SetNewFocus(CharacterOwner);
 
 				ScenarioCheckEvents.AIMoveParametersCheckEvent.Subscribe(this, characterOwner,
 					parameters => parameters.Performer == this,
