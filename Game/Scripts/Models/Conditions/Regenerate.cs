@@ -32,7 +32,7 @@ public class Regenerate : ConditionModel
 		);
 
 		ScenarioEvents.AfterSufferDamageEvent.Subscribe(condition,
-			canApply: parameters => parameters.Figure == condition.Owner,
+			canApply: parameters => parameters.Figure == condition.Owner && parameters.DamageSuffered > 0,
 			apply: async parameters =>
 			{
 				await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
