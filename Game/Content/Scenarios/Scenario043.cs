@@ -127,7 +127,10 @@ public class Scenario043 : ScenarioModel
 
 				if(movedToHex != null)
 				{
-					movedToHex.GetHexObjectOfType<Trap>()?.Destroy();
+					foreach(Trap trap in movedToHex.GetHexObjectsOfType<Trap>())
+					{
+						await trap.Destroy();
+					}
 					foreach(Coin coin in movedToHex.GetHexObjectsOfType<Coin>())
 					{
 						await coin.Destroy();
