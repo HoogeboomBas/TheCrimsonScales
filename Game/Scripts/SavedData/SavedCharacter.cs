@@ -257,12 +257,12 @@ public class SavedCharacter
 
 	public string GetNameAndIcon(int iconSize = 30)
 	{
-		return $"{Name}[img={{{iconSize}}}, color=#{ClassModel.PrimaryColor.ToHtml()}]{ClassModel.IconPath}[/img]";
+		return $"{Name}[img height={iconSize}, color=#{ClassModel.PrimaryColor.ToHtml()}]{ClassModel.IconPath}[/img]";
 	}
 
 	public string GetNameAndIcon(RichTextParameters richTextParameters)
 	{
-		return $"{Name}[img={{{richTextParameters.FontSize}}}, color=#{ClassModel.PrimaryColor.ToHtml()}]{ClassModel.IconPath}[/img]";
+		return $"{Name}[img height={richTextParameters.FontSize}, color=#{ClassModel.PrimaryColor.ToHtml()}]{ClassModel.IconPath}[/img]";
 	}
 
 	public int GetSmallItemSlotCount()

@@ -62,7 +62,7 @@ public partial class Enhancer : BetweenScenariosAction
 
 		_confirmButton.Pressed += OnConfirmPressed;
 
-		Button.SetVisible(BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlocked);
+		//Button.SetVisible(BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlocked);
 
 		BetweenScenariosController.Instance.CharacterPortraitManager.SelectedPortraitChangedEvent += OnSelectedPortraitChanged;
 		BetweenScenariosController.Instance.SavedCampaign.EnhancementsUnlockedChangedEvent += OnEnhancementsUnlocked;

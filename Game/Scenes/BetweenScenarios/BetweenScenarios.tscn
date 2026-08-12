@@ -1427,6 +1427,20 @@ offset_right = -620.0
 offset_bottom = -18.5
 grow_vertical = 2
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipLeftButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1509611123, 1664087955) index="0" unique_id=1161890966]
 visible = false
 text = "->"
@@ -1459,6 +1473,20 @@ offset_top = -98.5
 offset_right = 700.0
 offset_bottom = -18.5
 grow_vertical = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/FlipRightButton/BetterButton/Panel" parent_id_path=PackedInt32Array(836931997, 1664087955) index="0" unique_id=1161890966]
 visible = false
@@ -1513,6 +1541,20 @@ anchor_bottom = 0.5
 offset_top = 250.0
 offset_bottom = 350.0
 grow_vertical = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/BetweenScenariosActionManager/SanctuaryOfTheGreatOak/DonationButton/BetterButton/Panel" parent_id_path=PackedInt32Array(2040170442, 1664087955) index="0" unique_id=1161890966]
 text = "Donate"
@@ -1651,6 +1693,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -1660,9 +1703,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1682,7 +1726,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -1766,6 +1820,20 @@ theme_override_constants/separation = 10
 visible = false
 layout_mode = 2
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/PartyGoals/Anchor/Container/MarginContainer/VBoxContainer/PanelButton" index="0" unique_id=1214556516]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="MerchantsGuildHall" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=136246191 node_paths=PackedStringArray("_container", "_progressBar", "_leftParent", "_rightParent", "_exclamationMark", "Button")]
 visible = false
 layout_mode = 1
@@ -1840,6 +1908,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -1849,9 +1918,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1871,7 +1941,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -2361,6 +2441,20 @@ theme_override_constants/separation = 5
 [node name="PanelButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer" unique_id=520732460 instance=ExtResource("27_hkul8")]
 layout_mode = 2
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/Enhancer/EnhancementOptionsAnchor/EnhancementOptionsContainer/MarginContainer/VBoxContainer/PanelButton" index="0" unique_id=1214556516]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="ActionButtons" type="Control" parent="CanvasLayer/UI/BetweenScenariosActionManager" unique_id=1904352722]
 layout_mode = 1
 anchors_preset = 12
@@ -2388,6 +2482,20 @@ layout_mode = 2
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton" index="0" unique_id=1764714963]
 modulate = Color(0.33333334, 0.99607843, 1, 1)
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ScenarioFlowchartButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(512763406, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("18_nmjfa")
 
@@ -2397,11 +2505,39 @@ layout_mode = 2
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ItemShopButton" index="0" unique_id=1764714963]
 modulate = Color(0.4745098, 1, 0.7254902, 1)
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/ItemShopButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="SanctuaryOfTheGreatOakButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer" unique_id=2111888560 instance=ExtResource("17_3hv00")]
 layout_mode = 2
 
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton" index="0" unique_id=1764714963]
 modulate = Color(1, 1, 0.64705884, 1)
+
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/SanctuaryOfTheGreatOakButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(2111888560, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("19_ywvcx")
@@ -2411,6 +2547,20 @@ layout_mode = 2
 
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton" index="0" unique_id=1764714963]
 modulate = Color(1, 0.67058825, 0.53333336, 1)
+
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/PartyGoalsButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(498428912, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("46_n4mfb")
@@ -2432,6 +2582,20 @@ layout_mode = 2
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton" index="0" unique_id=1764714963]
 modulate = Color(0.9519314, 0.43623045, 0.50443244, 1)
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/MerchantsGuildHallButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(131465697, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("52_30ktq")
 
@@ -2452,6 +2616,20 @@ layout_mode = 2
 [node name="Container" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton" index="0" unique_id=1764714963]
 modulate = Color(0.99607843, 0.5882353, 1, 1)
 
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container" index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EnhancerButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(1579014179, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("20_1ehwm")
 
@@ -2470,6 +2648,20 @@ grow_horizontal = 0
 visible = false
 modulate = Color(1, 0.671158, 0.532482, 1)
 layout_mode = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton/Container" parent_id_path=PackedInt32Array(45367861, 1764714963) index="0" unique_id=38648918]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="TextureRect" parent="CanvasLayer/UI/BetweenScenariosActionManager/ActionButtons/VBoxContainer/EventButton/Container/BetterButton/Panel" parent_id_path=PackedInt32Array(45367861, 436553962) index="0" unique_id=950733184]
 texture = ExtResource("22_ywvcx")
@@ -2614,6 +2806,20 @@ _portraitScene = ExtResource("24_cdfbw")
 
 [node name="NewCharacterButton" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer" unique_id=653129271 instance=ExtResource("27_hkul8")]
 layout_mode = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton" index="0" unique_id=1214556516]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/SidePanel/MarginContainer/VBoxContainer/NewCharacterButton/BetterButton/Panel" parent_id_path=PackedInt32Array(653129271, 62362509) index="0" unique_id=188245078]
 text = "New Character"
@@ -3024,6 +3230,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -3033,9 +3240,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.0
@@ -3055,7 +3263,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -3100,6 +3318,20 @@ anchor_bottom = 0.5
 offset_top = 250.0
 offset_bottom = 350.0
 grow_vertical = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/EventOverlay/ContinueButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/EventOverlay/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1107262915, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
@@ -3395,6 +3627,20 @@ script = ExtResource("67_0un3t")
 BetterButton = NodePath("BetterButton")
 _startActive = true
 
+[node name="BetterButton" parent="CanvasLayer/UI/CharacterCreationOverlay/BackButton" index="0" unique_id=1214556516]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="Label" parent="CanvasLayer/UI/CharacterCreationOverlay/BackButton/BetterButton/Panel" parent_id_path=PackedInt32Array(112072908, 62362509) index="0" unique_id=188245078]
 text = "Back"
 
@@ -3415,6 +3661,20 @@ grow_vertical = 0
 script = ExtResource("67_0un3t")
 BetterButton = NodePath("BetterButton")
 _startActive = false
+
+[node name="BetterButton" parent="CanvasLayer/UI/CharacterCreationOverlay/ConfirmButton" index="0" unique_id=1214556516]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="ClassUnlockOverlay" type="Control" parent="CanvasLayer/UI" unique_id=1374115008 node_paths=PackedStringArray("_unlockCharacterView")]
 visible = false

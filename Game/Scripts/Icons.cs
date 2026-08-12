@@ -129,7 +129,7 @@ public static class Icons
 
 	public static string HintText(string iconPath)
 	{
-		return $"[img={{{50}}}]{iconPath}[/img]";
+		return $"[img height=50]{iconPath}[/img]";
 	}
 
 	private static string PatternToString(AOEPattern aoePattern)
