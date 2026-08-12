@@ -276,10 +276,8 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 			{
 				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
-				bool focusWasTargeted = abilityState.UniqueTargetedFigures.Contains(focus);
-
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, focusWasTargeted, null,
+					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, false, null,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				target = targetAnswer.Skipped ? null : GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);
