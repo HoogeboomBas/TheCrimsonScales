@@ -172,6 +172,8 @@ public class MonsterSummonAbility : Ability<MonsterSummonAbility.State>
 			{
 				monster.SetHealth(abilityState.ForcedHitPoints.Value);
 			}
+
+			abilityState.SetPerformed();
 		}
 	}
 }
