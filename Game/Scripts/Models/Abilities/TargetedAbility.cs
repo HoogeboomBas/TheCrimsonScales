@@ -611,8 +611,10 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			{
 				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
+				bool focusWasTargeted = abilityState.UniqueTargetedFigures.Contains(focus);
+
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, duringTargetedAbilityEffectCollection,
+					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, focusWasTargeted, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				target = targetAnswer.Skipped ? null : GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);
