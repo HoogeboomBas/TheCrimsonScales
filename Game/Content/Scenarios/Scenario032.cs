@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Fractural.Tasks;
+using Godot;
 using Newtonsoft.Json;
 
 public class Scenario032 : ScenarioModel
@@ -140,7 +142,26 @@ public class Scenario032 : ScenarioModel
 				}
 			);
 
-			//TODO: Make artillery perform an attack after Selandre performs an attack
+			ScenarioEvents.AbilityPerformedEvent.Subscribe(this, AncientArtillery,
+				parameters =>
+					parameters.Performer is Monster monster && monster.MonsterModel is Selandre &&
+					parameters.AbilityState.Performed &&
+					parameters.AbilityState.Authority == parameters.Performer &&
+					parameters.AbilityState is AttackAbility.State,
+				async parameters =>
+				{
+					if(parameters.Performer is Monster selandre)
+					{
+						// Take Selandre's drawn card and give it to the Ancient Artillery to perform
+						ActionState actionState = new ActionState(parameters.AbilityState.ActionState, AncientArtillery, [
+							selandre.MonsterGroup.ActiveMonsterAbilityCard.Model.GetAbilities(AncientArtillery)
+								.Select(ability => ability.Ability).First(ability => ability is AttackAbility)
+						]);
+
+						await actionState.Perform();
+					}
+				}
+			);
 		}
 	}
 }
