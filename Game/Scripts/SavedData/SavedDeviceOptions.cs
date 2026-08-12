@@ -20,6 +20,9 @@ public class SavedDeviceOptions
 	public SavedOption<bool> VibrationsEnabled { get; private set; } = new SavedOption<bool>(true);
 
 	[JsonProperty]
+	public SavedOption<bool> ScreenShakeEnabled { get; private set; } = new SavedOption<bool>(true);
+
+	[JsonProperty]
 	public SavedOption<bool> AnimatedCharacters { get; private set; } = new SavedOption<bool>(true);
 
 	[JsonProperty]

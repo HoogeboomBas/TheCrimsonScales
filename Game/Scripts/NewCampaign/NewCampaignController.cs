@@ -69,6 +69,11 @@ public partial class NewCampaignController : SceneController<NewCampaignControll
 	public void SetStartingGroup(StartingGroup? startingGroup)
 	{
 		StartingGroup = startingGroup;
+
+		if(StartingGroup != null)
+		{
+			SetPartyName(StartingGroup.ToString());
+		}
 	}
 
 	private void SetStep(int newStepIndex)

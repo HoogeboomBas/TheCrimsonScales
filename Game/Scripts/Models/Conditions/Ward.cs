@@ -14,12 +14,15 @@ public class Ward : ConditionModel
 			parameters => parameters.Figure == condition.Owner && parameters.WouldSufferDamage,
 			async parameters =>
 			{
-				condition.Flash();
-				parameters.SetWard(true);
+				if(parameters.CalculatedCurrentDamage > 0)
+				{
+					parameters.SetWard(true);
+					condition.Flash();
 
-				await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
+					await AbilityCmd.RemoveCondition(condition, parameters.PotentialAbilityState);
+				}
 			},
-			EffectType.MandatoryBeforeOptionals, 100);
+			EffectType.MandatoryAfterOptionals, 100);
 	}
 
 	public override async GDTask OnRemoved(Condition condition)

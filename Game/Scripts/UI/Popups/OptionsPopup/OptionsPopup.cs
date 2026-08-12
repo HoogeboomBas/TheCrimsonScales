@@ -47,6 +47,8 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 			AddCheckmarkOption(deviceOptions.VibrationsEnabled, "Vibrations");
 		}
 
+		AddCheckmarkOption(deviceOptions.ScreenShakeEnabled, "Screen Shake");
+
 		AddLabeledSliderOption(deviceOptions.GameplaySpeed, "Gameplay Speed", SavedDeviceOptions.SpeedOptions);
 
 		AddCheckmarkOption(deviceOptions.AnimatedCharacters, "Animated Characters");

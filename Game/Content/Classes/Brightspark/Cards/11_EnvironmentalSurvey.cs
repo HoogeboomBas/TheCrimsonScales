@@ -16,9 +16,13 @@ public class EnvironmentalSurvey : BrightsparkCardModel<EnvironmentalSurvey.Card
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					await AbilityCmd.RelocateOverlayTile(state, hexes => hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 2)),
+					await AbilityCmd.RelocateOverlayTile(state, overlayTiles =>
+						{
+							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Obstacle>(state.Performer, 2)
+								.Where(obstacle => obstacle.HexObjectShape is HexObjectShape.Single));
+							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Trap>(state.Performer, 2));
+						},
 						(_, hexes) => hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 2).Where(moveToHex => moveToHex.IsEmpty())),
-						[typeof(Obstacle), typeof(Trap)],
 						"Select a trap or obstacle to relocate");
 				})
 				.Build())

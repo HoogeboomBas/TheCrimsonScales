@@ -80,8 +80,8 @@ public class HalfElementsShieldRetaliateTrait : FigureTrait
 		ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(figure, this);
 		ScenarioEvents.RetaliateEvent.Unsubscribe(figure, this);
 
-		ScenarioEvents.ConsumeElementEvent.Unsubscribe(figure, this);
-		ScenarioEvents.ElementInfusedEvent.Unsubscribe(figure, this);
+		ScenarioEvents.FinishElementConsumedEvent.Unsubscribe(figure, this);
+		ScenarioEvents.FinishElementInfusedEvent.Unsubscribe(figure, this);
 	}
 
 	private int CalculateElements()

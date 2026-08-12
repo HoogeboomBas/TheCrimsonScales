@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dkr6gy6287imk"]
+
+[ext_resource type="PackedScene" uid="uid://ba70utx6b3kjs" path="res://Scenes/Scenario/UI/InfoView/_InfoItem.tscn" id="1_v1lww"]
+[ext_resource type="Script" uid="uid://c2w32jsld13hj" path="res://Scripts/Scenario/UI/InfoView/MarkerInfoItem.cs" id="2_6vmme"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="3_v1lww"]
+
+[node name="MarkerInfoItem" unique_id=529993554 node_paths=PackedStringArray("_marker") instance=ExtResource("1_v1lww")]
+script = ExtResource("2_6vmme")
+_marker = NodePath("MarginContainer/Content/Container/MarkerAnchor/Marker")
+
+[node name="Label" parent="MarginContainer/Content/LabelContainer" parent_id_path=PackedInt32Array(520630334) index="0" unique_id=1652435008]
+text = "Marker"
+
+[node name="Container" type="Control" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=882375455]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarkerAnchor" type="Control" parent="MarginContainer/Content/Container" index="0" unique_id=618269844]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Marker" parent="MarginContainer/Content/Container/MarkerAnchor" index="0" unique_id=472443651 instance=ExtResource("3_v1lww")]
+
+[editable path="MarginContainer/Content/Container/MarkerAnchor/Marker"]

@@ -52,18 +52,17 @@ public class SludgeBomb : MirefootCardModel<SludgeBomb.CardTop, SludgeBomb.CardB
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					//TODO: Change to selecting the actual overlay tiles as opposed to the hexes
-					List<Hex> selectedHexes = await AbilityCmd.SelectHexes(state,
-						list => list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 1)
-							.Where(hex => hex.HasHexObjectOfType<DifficultTerrain>())), 0, 4, false,
+					List<OverlayTile> selectedDifficultTerrain = await AbilityCmd.SelectOverlayTiles(state,
+						list => list.AddRange(RangeHelper.GetOverlayTilesInRange<DifficultTerrain>(state.Performer, 1)
+							.Where(difficultTerrain => !difficultTerrain.CannotBeDestroyed)), 0, 4, false,
 						"Destroy up to 4 adjacent difficult terrain tiles");
-					foreach(Hex hex in selectedHexes)
+					foreach(OverlayTile difficultTerrain in selectedDifficultTerrain)
 					{
-						await AbilityCmd.DestroyDifficultTerrain(hex.GetHexObjectOfType<DifficultTerrain>());
+						await AbilityCmd.DestroyDifficultTerrain((DifficultTerrain)difficultTerrain);
 						state.SetPerformed();
 					}
 
-					state.SetCustomValue(this, "DestroyedDifficultTerrain", selectedHexes.Count);
+					state.SetCustomValue(this, "DestroyedDifficultTerrain", selectedDifficultTerrain.Count);
 				})
 				.Build()),
 			new AbilityCardAbility(UseSlotAbility.Builder()
@@ -74,6 +73,7 @@ public class SludgeBomb : MirefootCardModel<SludgeBomb.CardTop, SludgeBomb.CardB
 							parameters.Performer == state.Performer,
 						async parameters =>
 						{
+							//TODO: Show some visual indicator of how many difficult terrain were destroyed
 							ConditionModel conditionModel = state.ActionState.GetAbilityState<OtherAbility.State>(0)
 									.GetCustomValue<int>(this, "DestroyedDifficultTerrain") switch
 								{

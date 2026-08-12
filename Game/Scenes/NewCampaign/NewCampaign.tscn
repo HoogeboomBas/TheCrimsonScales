@@ -403,6 +403,7 @@ theme_override_fonts/font = ExtResource("14_lqwu3")
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_2s3v0")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xjx63")
+text = "Party"
 placeholder_text = "..."
 alignment = 1
 max_length = 20

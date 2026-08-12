@@ -99,7 +99,7 @@ public static class AbilityCmd
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
 
-		if(sufferDamageParameters.DamagePrevented)
+		if(sufferDamageParameters.DamagePrevented || sufferDamageParameters.CalculatedCurrentDamage == 0)
 		{
 			return 0;
 		}
@@ -520,27 +520,18 @@ public static class AbilityCmd
 		return (T)overlayTile;
 	}
 
-	public static async GDTask<Hex> RelocateOverlayTile(AbilityState state, Action<List<Hex>> selectOverlayHexes,
-		Action<OverlayTile, List<Hex>> moveToHexes, Type[] possibleTypes, string selectionHintText = "Select an overlay tile to relocate")
+	public static async GDTask<Hex> RelocateOverlayTile(AbilityState state, Action<List<OverlayTile>> selectOverlayTiles,
+		Action<OverlayTile, List<Hex>> moveToHexes, string selectionHintText = "Select an overlay tile to relocate")
 	{
-		//TODO: Change to select overlay tile
-		Action<List<Hex>> selection = list =>
-		{
-			selectOverlayHexes(list);
-			list.RemoveAll(hex => !hex.HexObjects.Any(hexObject => possibleTypes.Contains(hexObject.GetType())));
-		};
-		Hex hex = await SelectHex(state.Performer, selection, hintText: selectionHintText);
+		OverlayTile overlayTile = await SelectOverlayTile(state, selectOverlayTiles, hintText: selectionHintText);
 
-		OverlayTile overlayTile = hex?.HexObjects.First(hexObject => possibleTypes.Contains(hexObject.GetType())) as OverlayTile;
 		if(overlayTile == null)
 		{
 			return null;
 		}
 
-		Action<List<Hex>> hexes = list => moveToHexes(overlayTile, list);
-
-		Hex movedToHex = await SelectHex(state.Performer, hexes, mandatory: true,
-			hintText: $"Select a hex to move the overlay tile to");
+		Hex movedToHex = await SelectHex(state.Performer, list => moveToHexes(overlayTile, list), mandatory: true,
+			hintText: "Select a hex to move the overlay tile to");
 
 		if(movedToHex == null)
 		{
@@ -651,6 +642,47 @@ public static class AbilityCmd
 		}
 
 		return GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);
+	}
+
+	public static GDTask<OverlayTile> SelectOverlayTile(AbilityState state, Action<List<OverlayTile>> getValidOverlayTiles, bool mandatory = false,
+		string hintText = "Select a hex")
+	{
+		return SelectOverlayTile(state.Authority, getValidOverlayTiles, mandatory, hintText);
+	}
+
+	public static async GDTask<OverlayTile> SelectOverlayTile(Figure authority, Action<List<OverlayTile>> getValidOverlayTiles,
+		bool mandatory = false,
+		string hintText = "Select a hex")
+	{
+		OverlayTileSelectionPrompt.Answer answer = await PromptManager.Prompt(
+			new OverlayTileSelectionPrompt(getValidOverlayTiles, false, null, () => hintText, mandatory ? 1 : 0, 1), authority);
+
+		return answer.Skipped
+			? null
+			: answer.OverlayTileReferenceIds.Select(referenceId => GameController.Instance.ReferenceManager.Get<OverlayTile>(referenceId))
+				.FirstOrDefault();
+	}
+
+	public static GDTask<List<OverlayTile>> SelectOverlayTiles(AbilityState state, Action<List<OverlayTile>> getValidOverlayTiles,
+		int minSelectionCount, int maxSelectionCount,
+		bool autoSelectIfMaxCountIsValidCount, string hintText)
+	{
+		return SelectOverlayTiles(state.Authority, getValidOverlayTiles, minSelectionCount, maxSelectionCount, autoSelectIfMaxCountIsValidCount,
+			hintText);
+	}
+
+	public static async GDTask<List<OverlayTile>> SelectOverlayTiles(Figure authority, Action<List<OverlayTile>> getValidOverlayTiles,
+		int minSelectionCount, int maxSelectionCount,
+		bool autoSelectIfMaxCountIsValidCount, string hintText)
+	{
+		OverlayTileSelectionPrompt.Answer answer = await PromptManager.Prompt(
+			new OverlayTileSelectionPrompt(getValidOverlayTiles, autoSelectIfMaxCountIsValidCount, null, () => hintText, minSelectionCount,
+				maxSelectionCount),
+			authority);
+
+		return answer.Skipped
+			? []
+			: answer.OverlayTileReferenceIds.Select(referenceId => GameController.Instance.ReferenceManager.Get<OverlayTile>(referenceId)).ToList();
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false,

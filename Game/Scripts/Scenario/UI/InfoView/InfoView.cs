@@ -78,6 +78,14 @@ public partial class InfoView : Control
 		{
 			List<InfoItemParameters> parametersList = new List<InfoItemParameters>();
 
+			foreach(Marker marker in GameController.Instance.Map.Markers)
+			{
+				if(marker.Visible && marker.Hex == _visibleHex)
+				{
+					parametersList.Add(new MarkerInfoItem.Parameters(marker));
+				}
+			}
+
 			foreach(HexObject hexObject in _visibleHex.HexObjects)
 			{
 				if(hexObject.Visible)

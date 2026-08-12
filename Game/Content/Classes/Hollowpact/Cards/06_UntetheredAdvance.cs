@@ -47,17 +47,19 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					Hex hex = await AbilityCmd.SelectHex(state, list =>
+					OverlayTile overlayTile = await AbilityCmd.SelectOverlayTile(state,
+						overlayTiles =>
 						{
-							list.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, range: 1)
-								.Where(hex => hex.GetHexObjectsOfType<Trap>().Any(hexObject => !hexObject.CannotBeDestroyed) ||
-								              hex.GetHexObjectsOfType<Obstacle>().Any(hexObject => !hexObject.CannotBeDestroyed)));
+							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Obstacle>(state.Performer, 1)
+								.Where(obstacle => !obstacle.CannotBeDestroyed));
+							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Trap>(state.Performer, 1)
+								.Where(trap => !trap.CannotBeDestroyed));
 						},
-						hintText: "Select an adjacent hex containing an obstacle or a trap.");
+						hintText: "Select an obstacle or trap to destroy");
 
-					if(hex != null)
+					if(overlayTile != null)
 					{
-						await hex.HexObjects.First(hexObject => hexObject is Trap or Obstacle).Destroy();
+						await overlayTile.Destroy();
 						await GainVoidEnergy(state);
 
 						state.SetPerformed();

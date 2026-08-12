@@ -11,16 +11,18 @@ public partial class PartyNameNewCampaignStep : NewCampaignStep
 	{
 		base._Ready();
 
-		_nameLineEdit.TextChanged += OnNameChanged;
+		_nameLineEdit.SetText(NewCampaignController.Instance.PartyName);
+		OnNameChanged(NewCampaignController.Instance.PartyName);
 
-		OnNameChanged(_nameLineEdit.Text);
+		_nameLineEdit.TextChanged += OnNameChanged;
 	}
 
 	public override void Activate()
 	{
 		base.Activate();
 
-		OnNameChanged(_nameLineEdit.Text);
+		_nameLineEdit.SetText(NewCampaignController.Instance.PartyName);
+		OnNameChanged(NewCampaignController.Instance.PartyName);
 	}
 
 	private void OnNameChanged(string newText)

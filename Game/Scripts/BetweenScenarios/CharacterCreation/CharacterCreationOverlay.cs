@@ -83,6 +83,11 @@ public partial class CharacterCreationOverlay : Control
 	public void SetClassModel(ClassModel classModel)
 	{
 		ClassModel = classModel;
+
+		if(ClassModel != null)
+		{
+			SetCharacterName(ClassModel.Name);
+		}
 	}
 
 	public void SetPersonalQuestModel(PersonalQuestModel personalQuestModel)

@@ -298,8 +298,6 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 				targetsOutOfAOE++;
 			}
 
-			abilityState.SetPerformed();
-
 			await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetDamage);
 
 			if(performer.IsDestroyed)
@@ -320,6 +318,8 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 				break;
 			}
 		}
+
+		abilityState.SetPerformed();
 	}
 
 	private void InitAbilityStateForSingleTarget(State abilityState)

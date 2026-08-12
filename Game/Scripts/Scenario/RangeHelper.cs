@@ -183,6 +183,33 @@ public static class RangeHelper
 		return figures;
 	}
 
+	public static IEnumerable<T> GetOverlayTilesInRange<T>(Hex origin, int range, bool includeOrigin = true, bool requiresLineOfSight = true)
+	{
+		foreach(Hex hex in GetHexesInRange(origin, range, includeOrigin, requiresLineOfSight))
+		{
+			foreach(T overlayTile in hex.GetHexObjectsOfType<T>())
+			{
+				yield return overlayTile;
+			}
+		}
+	}
+
+	public static IEnumerable<T> GetOverlayTilesInRange<T>(HexObject hexObject, int range, bool includeOrigin = true, bool requiresLineOfSight = true)
+		where T : OverlayTile
+	{
+		List<T> overlayTiles = new List<T>();
+
+		foreach(Hex objectHex in hexObject.Hexes)
+		{
+			foreach(T overlayTile in GetOverlayTilesInRange<T>(objectHex, range, includeOrigin, requiresLineOfSight))
+			{
+				overlayTiles.AddIfNew(overlayTile);
+			}
+		}
+
+		return overlayTiles;
+	}
+
 	public static bool CheckCanPlaceObstacle(Hex targetHex)
 	{
 		// Find all neighbours of the targetHex, and check if one of its neighbours is still connected to the other neighbors
