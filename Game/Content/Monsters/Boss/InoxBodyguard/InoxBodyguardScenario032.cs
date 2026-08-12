@@ -68,6 +68,8 @@ public class InoxBodyguardScenario032 : InoxBodyguard
 					await actionState.Perform();
 				}
 
+				state.SetPerformed();
+
 				ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(monster, this);
 				ScenarioEvents.FigureFoundFocusEvent.Unsubscribe(monster, this);
 			})
@@ -78,17 +80,20 @@ public class InoxBodyguardScenario032 : InoxBodyguard
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(GrantAbility.Builder().WithGetAbilities(grantAbilityState =>
+
+		new MonsterAbilityCardAbility(GrantAbility.Builder()
+			.WithAbilities(
 			[
 				RetaliateAbility.Builder().WithRetaliateValue(2).Build(),
 				ShieldAbility.Builder().WithShieldValue(2).Build(),
 			])
 			.WithTarget(Target.SelfOrAllies | Target.TargetAll)
-			.WithCustomGetTargets((state, list) =>
+			.WithCustomGetTargets((state, figures) =>
 			{
-				list.AddRange(GetAllInox());
+				figures.AddRange(GetAllInox());
 			})
 			.Build()),
+
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<InoxArcher>())
 			.WithMonsterType(GetMonsterType(ModelDB.Monster<InoxArcher>()))
@@ -98,6 +103,7 @@ public class InoxBodyguardScenario032 : InoxBodyguard
 				return GetAllInox().Count == 1;
 			})
 			.Build()),
+
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<InoxGuard>())
 			.WithMonsterType(GetMonsterType(ModelDB.Monster<InoxGuard>()))

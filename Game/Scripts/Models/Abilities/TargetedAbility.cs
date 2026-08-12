@@ -611,10 +611,11 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			{
 				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
-				bool focusWasTargeted = abilityState.UniqueTargetedFigures.Contains(focus);
+				// This also works if focus is null, i.e. not targeting enemies if they exist but not focusable for an attack
+				bool mustTargetFocus = this is AttackAbility && (!abilityState.UniqueTargetedFigures.Contains(focus) || focus == null);
 
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, focusWasTargeted, duringTargetedAbilityEffectCollection,
+					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, mustTargetFocus, duringTargetedAbilityEffectCollection,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				target = targetAnswer.Skipped ? null : GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);

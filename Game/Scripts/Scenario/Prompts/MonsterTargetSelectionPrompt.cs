@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class MonsterTargetSelectionPrompt(
-	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, bool focusWasTargeted, EffectCollection effectCollection, Func<string> getHintText)
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, bool mustTargetFocus, EffectCollection effectCollection, Func<string> getHintText)
 	: Prompt<MonsterTargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -31,7 +31,7 @@ public class MonsterTargetSelectionPrompt(
 		{
 			_validTargets.Add(focus);
 		}
-		else if(focusWasTargeted)
+		else if(!mustTargetFocus)
 		{
 			//TODO: Filter to give priority to attacks without disadvantage
 			_validTargets.AddRange(_allTargets);
