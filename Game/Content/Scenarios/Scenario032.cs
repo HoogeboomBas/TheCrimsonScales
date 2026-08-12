@@ -144,7 +144,9 @@ public class Scenario032 : ScenarioModel
 
 			ScenarioEvents.AbilityPerformedEvent.Subscribe(this, AncientArtillery,
 				parameters =>
-					parameters.Performer is Monster monster && monster.MonsterModel is Selandre &&
+					parameters.Performer is Monster monster &&
+					monster.MonsterModel is Selandre &&
+					monster.TakingTurn &&
 					parameters.AbilityState.Performed &&
 					parameters.AbilityState.Authority == parameters.Performer &&
 					parameters.AbilityState is AttackAbility.State,
