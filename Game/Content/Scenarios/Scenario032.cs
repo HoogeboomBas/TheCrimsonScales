@@ -94,6 +94,44 @@ public class Scenario032 : ScenarioModel
 	public Monster AncientArtillery { get; private set; }
 	public Marker MarkerB { get; private set; }
 
+	public override async GDTask InitializeBeforeFirstRoomRevealed()
+	{
+		await base.InitializeBeforeFirstRoomRevealed();
+
+		Room firstRoom = GameController.Instance.Map.Rooms[0];
+
+		List<CharacterStartHex> characterStartHexes = GameController.Instance.Map.GetChildrenOfType<CharacterStartHex>().ToList();
+
+		if(GameController.Instance.SavedCampaign.HasPartyAchievement(PartyAchievement.TakeTheMoney))
+		{
+			await RemoveStartHex(characterStartHexes, 0);
+			await RemoveStartHex(characterStartHexes, 1);
+			await RemoveStartHex(characterStartHexes, 2);
+			await RemoveStartHex(characterStartHexes, 3);
+			await RemoveStartHex(characterStartHexes, 4);
+
+			List<MonsterSpawner> monsterSpawners = firstRoom.GetChildrenOfType<MonsterSpawner>();
+			foreach(MonsterSpawner monsterSpawner in monsterSpawners)
+			{
+				firstRoom.RemoveChild(monsterSpawner);
+				monsterSpawner.QueueFree();
+			}
+
+			Door door = GameController.Instance.Map.Doors[0];
+
+			await door.Unlock();
+			await door.Open(potentialOpener: null, initializationPhase: true);
+		}
+		else
+		{
+			await RemoveStartHex(characterStartHexes, 5);
+			await RemoveStartHex(characterStartHexes, 6);
+			await RemoveStartHex(characterStartHexes, 7);
+			await RemoveStartHex(characterStartHexes, 8);
+			await RemoveStartHex(characterStartHexes, 9);
+		}
+	}
+
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
 		await base.InitializeAfterFirstRoomRevealed();
@@ -106,6 +144,24 @@ public class Scenario032 : ScenarioModel
 	protected override async GDTask OnRoomRevealed(ScenarioEvents.RoomRevealed.Parameters roomRevealedParameters)
 	{
 		await base.OnRoomRevealed(roomRevealedParameters);
+
+		if(roomRevealedParameters.Room == GameController.Instance.Map.Rooms[1])
+		{
+			if(!GameController.Instance.SavedCampaign.HasPartyAchievement(PartyAchievement.TakeTheMoney))
+			{
+				foreach(Character character in GameController.Instance.CharacterManager.Characters)
+				{
+					AbilityCard selectedAbilityCard =
+						await AbilityCmd.SelectAbilityCard(character, CardState.Lost, mandatory: true,
+							hintText: $"Select a lost card to recover");
+
+					if(selectedAbilityCard != null)
+					{
+						await AbilityCmd.ReturnToHand(selectedAbilityCard);
+					}
+				}
+			}
+		}
 
 		if(roomRevealedParameters.Room == GameController.Instance.Map.Rooms[2])
 		{
@@ -165,5 +221,12 @@ public class Scenario032 : ScenarioModel
 				}
 			);
 		}
+	}
+
+	private static async GDTask RemoveStartHex(List<CharacterStartHex> hexes, int index)
+	{
+		CharacterStartHex hex = hexes[index];
+		await hex.Destroy(true);
+		hex.QueueFree();
 	}
 }
