@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbqpclp2yqbqp"
-path.s3tc="res://.godot/imported/circle_05_transparent.png-796c4666fdf0bec444f8f1e3bfc3b6d5.s3tc.ctex"
-path.etc2="res://.godot/imported/circle_05_transparent.png-796c4666fdf0bec444f8f1e3bfc3b6d5.etc2.ctex"
+path.s3tc="res://.godot/imported/circle_05_transparent.png-75060d7c9e1d4c9aa034c3594ee7eb9e.s3tc.ctex"
+path.etc2="res://.godot/imported/circle_05_transparent.png-75060d7c9e1d4c9aa034c3594ee7eb9e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://Scenes/Trailer/circle_05_transparent.png"
-dest_files=["res://.godot/imported/circle_05_transparent.png-796c4666fdf0bec444f8f1e3bfc3b6d5.s3tc.ctex", "res://.godot/imported/circle_05_transparent.png-796c4666fdf0bec444f8f1e3bfc3b6d5.etc2.ctex"]
+source_file="res://Scenes/Steam/Trailer/circle_05_transparent.png"
+dest_files=["res://.godot/imported/circle_05_transparent.png-75060d7c9e1d4c9aa034c3594ee7eb9e.s3tc.ctex", "res://.godot/imported/circle_05_transparent.png-75060d7c9e1d4c9aa034c3594ee7eb9e.etc2.ctex"]
 
 [params]
 

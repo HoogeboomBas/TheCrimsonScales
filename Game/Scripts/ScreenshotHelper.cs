@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
 public partial class ScreenshotHelper : Node
 {
-	private static readonly Dictionary<string, Vector2I> Resolutions = new Dictionary<string, Vector2I>()
-	{
-		["Android"] = new Vector2I(1920, 1080),
-		// ["iPhone6.5inch"] = new Vector2I(2778, 1284),
-		// ["iPhone6.9inch"] = new Vector2I(2796, 1290),
-		// ["iPad13inch"] = new Vector2I(2732, 2048),
-	};
+	// private static readonly Dictionary<string, Vector2I> Resolutions = new Dictionary<string, Vector2I>()
+	// {
+	// 	["Android"] = new Vector2I(1920, 1080),
+	// 	// ["iPhone6.5inch"] = new Vector2I(2778, 1284),
+	// 	// ["iPhone6.9inch"] = new Vector2I(2796, 1290),
+	// 	// ["iPad13inch"] = new Vector2I(2732, 2048),
+	// };
+
+	[Export]
+	public Godot.Collections.Dictionary<string, Vector2I> Resolutions { get; set; }
 
 	public override void _Input(InputEvent @event)
 	{
@@ -41,7 +45,7 @@ public partial class ScreenshotHelper : Node
 			foreach((string resolutionName, Vector2I dimensions) in Resolutions)
 			{
 				GetWindow().SetSize(dimensions);
-				await GDTask.Delay(0.5f);
+				await GDTask.Delay(500);
 
 				Viewport viewport = GetViewport();
 				ViewportTexture viewportTexture = viewport.GetTexture();

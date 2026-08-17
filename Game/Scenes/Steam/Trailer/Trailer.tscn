@@ -1,0 +1,383 @@
+[gd_scene format=3 uid="uid://rw84828u7xpb"]
+
+[ext_resource type="Texture2D" uid="uid://d4f8uba4xbe6u" path="res://Art/Backgrounds/BoxArt.jpg" id="1_g8up6"]
+[ext_resource type="Script" uid="uid://c3d6o2ii507wy" path="res://Scripts/Trailer/Trailer.cs" id="1_luijk"]
+[ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="2_luijk"]
+[ext_resource type="Texture2D" uid="uid://dm3tywhgbh24d" path="res://Art/Backgrounds/TCSBanner.webp" id="3_8b261"]
+[ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="4_vdbpi"]
+[ext_resource type="Texture2D" uid="uid://cbqpclp2yqbqp" path="res://Scenes/Steam/Trailer/circle_05_transparent.png" id="5_27s14"]
+[ext_resource type="Script" uid="uid://bgob383cre1d1" path="res://Scripts/ScreenshotHelper.cs" id="7_8b261"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vapy7"]
+shader = ExtResource("2_luijk")
+shader_parameter/inner_radius = 0.3
+shader_parameter/outer_radius = 1.0
+shader_parameter/vignette_strength = 0.8
+shader_parameter/dither_strength = 0.03
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r1mka"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_m067k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.09310986, 1), 0.0, 0.0, 0, 0, Vector2(0.8938547, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_wlpmd"]
+curve = SubResource("Curve_m067k")
+
+[sub_resource type="Gradient" id="Gradient_g8up6"]
+offsets = PackedFloat32Array(0, 0.23446894, 0.26252505, 1)
+colors = PackedColorArray(0.5803922, 0.5803922, 0.5803922, 0.101960786, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l2pmu"]
+gradient = SubResource("Gradient_g8up6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r7ajf"]
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2000, 1000, 1)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
+scale_min = 0.01
+scale_max = 0.06
+color = Color(0.7764706, 0.7764706, 0.7764706, 0.39215687)
+color_initial_ramp = SubResource("GradientTexture1D_l2pmu")
+alpha_curve = SubResource("CurveTexture_wlpmd")
+
+[sub_resource type="Animation" id="Animation_ejr72"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TitleContainer2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(484, 490)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TitleContainer2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Overlay:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wslk1"]
+resource_name = "title_sequence"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TitleContainer2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1.4666667),
+"transitions": PackedFloat32Array(1.8660666, 4.4382753),
+"update": 0,
+"values": [Vector2(484, 490), Vector2(484, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TitleContainer2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.5, 1.6333332),
+"transitions": PackedFloat32Array(1, 1.6245048, 0.5946035),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(0.95, 0.95), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Overlay:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_openn"]
+_data = {
+&"RESET": SubResource("Animation_ejr72"),
+&"title_sequence": SubResource("Animation_wslk1")
+}
+
+[node name="Trailer" type="Node" unique_id=775081676 node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_luijk")
+_animationPlayer = NodePath("CanvasLayer/UI/AnimationPlayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=715585943]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1329421968]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/UI" unique_id=316687786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_g8up6")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="CanvasLayer/UI" unique_id=1335331580]
+material = SubResource("ShaderMaterial_vapy7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasLayer/UI" unique_id=1823875640]
+material = SubResource("CanvasItemMaterial_r1mka")
+position = Vector2(960, 540)
+amount = 400
+texture = ExtResource("5_27s14")
+lifetime = 10.0
+preprocess = 5.0
+visibility_rect = Rect2(-960, -540, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_r7ajf")
+
+[node name="Overlay" type="ColorRect" parent="CanvasLayer/UI" unique_id=110143975]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TitleContainer" type="Control" parent="CanvasLayer/UI" unique_id=2010363276]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 483.5
+offset_top = 20.0
+offset_right = -483.5
+offset_bottom = -958.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleShadow" type="TextureRect" parent="CanvasLayer/UI/TitleContainer" unique_id=74110290]
+self_modulate = Color(0, 0, 0, 0.588235)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 4.0
+offset_right = 477.0
+offset_bottom = 106.0
+grow_horizontal = 2
+texture = ExtResource("3_8b261")
+
+[node name="Title" type="TextureRect" parent="CanvasLayer/UI/TitleContainer" unique_id=1482477935]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.5
+offset_right = 476.5
+offset_bottom = 102.0
+grow_horizontal = 2
+texture = ExtResource("3_8b261")
+
+[node name="TitleContainer2" type="Control" parent="CanvasLayer/UI" unique_id=1080692581]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 484.0
+offset_top = 490.0
+offset_right = -483.0
+offset_bottom = -487.99695
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="TitleShadow" type="TextureRect" parent="CanvasLayer/UI/TitleContainer2" unique_id=1375401481]
+self_modulate = Color(0, 0, 0, 0.588235)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.0
+offset_top = 4.0
+offset_right = 477.0
+offset_bottom = 106.0
+grow_horizontal = 2
+texture = ExtResource("3_8b261")
+
+[node name="Title" type="TextureRect" parent="CanvasLayer/UI/TitleContainer2" unique_id=754534625]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -476.5
+offset_right = 476.5
+offset_bottom = 102.0
+grow_horizontal = 2
+texture = ExtResource("3_8b261")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI" unique_id=1189326839]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -430.0
+offset_right = 150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="ContinueButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=810399806 instance=ExtResource("4_vdbpi")]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/ContinueButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(810399806, 1664087955) index="0" unique_id=1161890966]
+text = "Continue"
+
+[node name="PlayButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1011399412 instance=ExtResource("4_vdbpi")]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/PlayButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/PlayButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1011399412, 1664087955) index="0" unique_id=1161890966]
+text = "Play"
+
+[node name="OptionsButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1013233185 instance=ExtResource("4_vdbpi")]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/OptionsButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/OptionsButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1013233185, 1664087955) index="0" unique_id=1161890966]
+text = "Options"
+
+[node name="ExitButton" parent="CanvasLayer/UI/VBoxContainer" unique_id=1790228055 instance=ExtResource("4_vdbpi")]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/ExitButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
+[node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1790228055, 1664087955) index="0" unique_id=1161890966]
+text = "Exit"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/UI" unique_id=557302218]
+libraries/ = SubResource("AnimationLibrary_openn")
+
+[node name="ScreenshotHelper" type="Node" parent="." unique_id=1957069923]
+script = ExtResource("7_8b261")
+
+[editable path="CanvasLayer/UI/VBoxContainer/ContinueButton"]
+[editable path="CanvasLayer/UI/VBoxContainer/PlayButton"]
+[editable path="CanvasLayer/UI/VBoxContainer/OptionsButton"]
+[editable path="CanvasLayer/UI/VBoxContainer/ExitButton"]
