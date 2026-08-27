@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://dm4ul66rg7ey3"]
 
-[ext_resource type="Script" uid="uid://caeda38dty5g3" path="res://Scripts/Scenario/UI/AMDViewer/AMDViewerButton.cs" id="1_jnfi5"]
-[ext_resource type="PackedScene" uid="uid://bq00tvvckr168" path="res://Scenes/Scenario/UI/AMDViewer/AMDViewerBox.tscn" id="2_qeqac"]
+[ext_resource type="Script" uid="uid://caeda38dty5g3" path="res://Scripts/Scenario/UI/DeckViewer/AMDViewer/AMDViewerButton.cs" id="1_jnfi5"]
+[ext_resource type="PackedScene" uid="uid://bq00tvvckr168" path="res://Scenes/Scenario/UI/DeckViewer/AMDViewer/AMDViewerBox.tscn" id="2_qeqac"]
 [ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="3_jnfi5"]
 [ext_resource type="Texture2D" uid="uid://mqfp1jeh80g1" path="res://Art/AMDs/CardBack.tres" id="4_pmyqq"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="5_pc0m6"]
 [ext_resource type="StyleBox" uid="uid://dd1rndhea8oq5" path="res://Resources/BlurButton.tres" id="6_tk7bd"]
 [ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="7_a61he"]
 
-[node name="Control" type="Control" unique_id=1792582373 node_paths=PackedStringArray("_amdButton", "_amdView", "_grid", "ExtraDetailView", "ExtraDetailLabel")]
+[node name="Control" type="Control" unique_id=1792582373 node_paths=PackedStringArray("ExtraDetailLabel", "_button", "_view", "Grid", "ExtraDetailView")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,12 +19,12 @@ offset_bottom = -1008.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jnfi5")
-_amdButton = NodePath("Button")
-_amdView = NodePath("Control")
-_grid = NodePath("Control/GridContainer")
-_amdViewerBox = ExtResource("2_qeqac")
-ExtraDetailView = NodePath("Control/Control")
 ExtraDetailLabel = NodePath("Control/Control/Panel/RichTextLabel")
+_button = NodePath("Button")
+_view = NodePath("Control")
+Grid = NodePath("Control/GridContainer")
+DeckViewerBox = ExtResource("2_qeqac")
+ExtraDetailView = NodePath("Control/Control")
 
 [node name="Control" type="Control" parent="." unique_id=627476190]
 anchors_preset = 0

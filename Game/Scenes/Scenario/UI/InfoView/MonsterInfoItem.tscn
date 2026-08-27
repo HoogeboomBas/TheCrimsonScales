@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dbuph6sax0stv" path="res://Scenes/Scenario/UI/InfoView/InfoStat.tscn" id="2_viafp"]
 [ext_resource type="Texture2D" uid="uid://b7grlpoqyc284" path="res://Art/Icons/Abilities/Move.svg" id="4_jt644"]
 [ext_resource type="Texture2D" uid="uid://b5insf5u61cwx" path="res://Art/Icons/Abilities/Range.svg" id="5_533ib"]
+[ext_resource type="PackedScene" uid="uid://b5cxxx5kd3gav" path="res://Scenes/Scenario/UI/DeckViewer/MonsterDeckViewer/MonsterDeckViewerButton.tscn" id="7_ef57b"]
 [ext_resource type="Texture2D" uid="uid://c74ffpk075em8" path="res://Content/Monsters/Guard/Cards.jpg" id="7_uxyec"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shcie"]
@@ -67,6 +68,10 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("AtlasTexture_uxyec")
 expand_mode = 1
+
+[node name="MonsterDeckViewer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="4" unique_id=1792582373 instance=ExtResource("7_ef57b")]
+custom_minimum_size = Vector2(0, 71)
+layout_mode = 2
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]
 [editable path="MarginContainer/Content/Container/Stats/Move"]
