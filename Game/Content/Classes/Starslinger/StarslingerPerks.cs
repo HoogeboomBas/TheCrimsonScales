@@ -104,7 +104,7 @@ public class StarslingerPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class ReflectiveJourney : StarslingerPerk, IEventSubscriber
+	public class ReflectiveJourney : StarslingerPerk
 	{
 		public override int PerkBoxCount => 2;
 		protected override string Title => "Reflective Journey";
@@ -118,7 +118,7 @@ public class StarslingerPerks
 
 			ScenarioEvents.LongRestEndedEvent.Subscribe(this,
 				parameters => parameters.Character == character,
-				async parameters =>
+				async _ =>
 				{
 					await AbilityCmd.InfuseElement(null, [Element.Light, Element.Dark], character);
 					if(!character.IsDamaged())

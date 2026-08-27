@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmx0pt8pmx30m"]
 
 [ext_resource type="Script" uid="uid://xj83t2ln2l5m" path="res://CardNormalizedPositionHelper/CardNormalizedPositionHelper.cs" id="1_ybs26"]
-[ext_resource type="Texture2D" uid="uid://n6biwiuwup70" path="res://CardNormalizedPositionHelper/Cards/Starslinger/Cards.jpg" id="2_u76aj"]
+[ext_resource type="Texture2D" uid="uid://du4fumgjgeipu" path="res://CardNormalizedPositionHelper/Cards/Hierophant/LevelUpCards.jpg" id="2_u76aj"]
 [ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Circle.svg" id="3_hw28d"]
 [ext_resource type="Texture2D" uid="uid://c00nq6ibei8jq" path="res://CircleOutline.svg" id="3_u76aj"]
 
@@ -14,8 +14,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ybs26")
 _cards = ExtResource("2_u76aj")
-_columnCount = 6
-_rowCount = 5
+_columnCount = 5
+_rowCount = 4
 _cardContainer = NodePath("CardContainer")
 _cardTextureRect = NodePath("CardContainer/TextureRect")
 _markerContainer = NodePath("Marker")

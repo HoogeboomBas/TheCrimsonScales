@@ -23,12 +23,12 @@
 						{
 							ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(user, subscriber);
 
-							await AbilityCmd.AddCondition(null, user, Conditions.Strengthen);
+							await AbilityCmd.AddCondition(null, user, Conditions.Strengthen, user);
 
 							if(await AbilityCmd.AskConsumeElement(user, Element.Fire,
 								   effectInfoText: $"{Icons.Inline(Icons.GetCondition(Conditions.Bless))}"))
 							{
-								await AbilityCmd.AddCondition(null, user, Conditions.Bless);
+								await AbilityCmd.AddCondition(null, user, Conditions.Bless, user);
 							}
 						}
 					);

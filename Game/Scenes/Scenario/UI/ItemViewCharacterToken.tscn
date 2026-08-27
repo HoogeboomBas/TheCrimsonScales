@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ccpjqijfvbhvn"]
 
 [ext_resource type="Script" uid="uid://dj5121onm1yn8" path="res://Scripts/UI/ItemViewCharacterToken.cs" id="1_bhsgb"]
-[ext_resource type="Texture2D" uid="uid://cnmsdm6dse3cx" path="res://Content/Classes/Mirefoot/CharacterToken.png" id="2_4oohn"]
+[ext_resource type="Texture2D" uid="uid://7atjbkhh5m6m" path="res://Content/Classes/FireKnight/CharacterToken.png" id="2_bhsgb"]
 
 [node name="ItemViewCharacterToken" type="Control" unique_id=1357422089 node_paths=PackedStringArray("_textureRect")]
 custom_minimum_size = Vector2(40, 40)
@@ -17,7 +17,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.8
+offset_top = 2.8
+offset_right = -2.7999992
+offset_bottom = -2.7999992
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_4oohn")
+texture = ExtResource("2_bhsgb")
 expand_mode = 1

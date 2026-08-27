@@ -1,22 +1,41 @@
 [gd_scene format=3 uid="uid://drs874b0lo5o6"]
 
-[ext_resource type="Texture2D" uid="uid://cnmsdm6dse3cx" path="res://Content/Classes/Mirefoot/CharacterToken.png" id="1_8wqrs"]
 [ext_resource type="Script" uid="uid://ci4fn0x7asop5" path="res://Scripts/UI/AbilityCardView/AbilityCardViewCharacterToken.cs" id="1_pfmdx"]
+[ext_resource type="Texture2D" uid="uid://bhnakevboqf66" path="res://Content/Classes/FireKnight/CharacterToken.png" id="2_1ua8t"]
+[ext_resource type="FontFile" uid="uid://b8midaa8ilaan" path="res://Fonts/Markazi Text SemiBold.ttf" id="3_1ua8t"]
 
-[node name="CardViewCharacterToken" type="Control" unique_id=1365675874 node_paths=PackedStringArray("_textureRect")]
+[node name="CardViewCharacterToken" type="Control" unique_id=1365675874 node_paths=PackedStringArray("_textureRect", "_countLabel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 62.0
 offset_bottom = 62.0
 script = ExtResource("1_pfmdx")
 _textureRect = NodePath("TextureRect")
+_countLabel = NodePath("TextureRect/RichTextLabel")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1383320374]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.3
+offset_top = 4.3
+offset_right = -4.299999
+offset_bottom = -4.299999
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_8wqrs")
+texture = ExtResource("2_1ua8t")
 expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect" unique_id=1545347123]
+layout_mode = 0
+offset_right = 53.4
+offset_bottom = 53.4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_1ua8t")
+theme_override_font_sizes/normal_font_size = 40
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

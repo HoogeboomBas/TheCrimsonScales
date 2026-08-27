@@ -37,6 +37,8 @@ public partial class AMDViewerButton : Control
 	{
 		base._Ready();
 
+		_amdButton.MouseFilter = MouseFilterEnum.Stop;
+
 		_amdButton.MouseEntered += OnMouseEntered;
 		_amdButton.MouseExited += OnMouseExited;
 		_amdButton.Pressed += OnButtonPressed;
@@ -46,6 +48,16 @@ public partial class AMDViewerButton : Control
 
 		_amdView.TopLevel = true;
 		ExtraDetailView.TopLevel = true;
+	}
+
+	public override void _Process(double delta)
+	{
+		MouseFilter = GameController.Instance.HexPin.Active
+			? MouseFilterEnum.Stop
+			: MouseFilterEnum.Ignore;
+		_amdButton.MouseFilter = GameController.Instance.HexPin.Active
+			? MouseFilterEnum.Stop
+			: MouseFilterEnum.Ignore;
 	}
 
 	private void OnMouseEntered()

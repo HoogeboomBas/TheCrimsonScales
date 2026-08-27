@@ -17,24 +17,22 @@ public class SpiritualGains : HierophantLevelUpCardModel<SpiritualGains.CardTop,
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					int characterTokens = 0;
-					//TODO: Add visual for character tokens
 					ScenarioEvents.AbilityCardSideEndedEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer &&
 						              parameters.AbilityCardSide.AbilityCard.CardState.IsLoss() &&
 						              parameters.AbilityCardSide.Model != this,
 						async parameters =>
 						{
-							characterTokens++;
+							state.AdjustCharacterTokens(1);
 							await GDTask.CompletedTask;
 						});
 
 					ScenarioEvents.LongRestStartedEvent.Subscribe(state, this,
-						parameters => parameters.Character == state.Performer && characterTokens > 0,
+						parameters => parameters.Character == state.Performer && state.CharacterTokens > 0,
 						async parameters =>
 						{
 							parameters.SetLoseCard(false);
-							characterTokens--;
+							state.AdjustCharacterTokens(-1);
 							await GDTask.CompletedTask;
 						}, EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters(Icons.LoseCard),
@@ -49,6 +47,7 @@ public class SpiritualGains : HierophantLevelUpCardModel<SpiritualGains.CardTop,
 
 					await GDTask.CompletedTask;
 				})
+				.WithCharacterTokenPosition(new Vector2(0.5063514f, 0.4360111f))
 				.Build())
 		];
 

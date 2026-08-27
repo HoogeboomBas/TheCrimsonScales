@@ -35,7 +35,7 @@ public class HorrificNightmare : SpiritCallerCardModel<HorrificNightmare.CardTop
 							parameters.PotentialKiller == spirit,
 						async parameters =>
 						{
-							await AbilityCmd.AddCondition(null, state.Performer, Conditions.Bless);
+							await AbilityCmd.AddCondition(null, state.Performer, Conditions.Bless, state.Performer);
 						}
 					);
 

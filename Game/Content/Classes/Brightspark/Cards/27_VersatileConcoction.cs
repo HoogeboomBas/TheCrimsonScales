@@ -50,7 +50,7 @@ public class VersatileConcoction : BrightsparkCardModel<VersatileConcoction.Card
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
+					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
 						async parameters =>
 						{
@@ -61,7 +61,7 @@ public class VersatileConcoction : BrightsparkCardModel<VersatileConcoction.Card
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})
 				.WithUseSlots(

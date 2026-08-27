@@ -1,9 +1,13 @@
 ﻿using System;
 using Fractural.Tasks;
+using Godot;
 
 public abstract class ActiveAbilityState : AbilityState
 {
 	private Func<ActiveAbilityState, GDTask> _onDeactivate;
+
+	public int CharacterTokens { get; set; }
+	public Vector2 CharacterTokenPosition { get; set; }
 
 	public void SetOnDeactivate(Func<ActiveAbilityState, GDTask> onDeactivate)
 	{
@@ -19,6 +23,11 @@ public abstract class ActiveAbilityState : AbilityState
 			await _onDeactivate(this);
 		}
 	}
+
+	public void AdjustCharacterTokens(int amount)
+	{
+		CharacterTokens += amount;
+	}
 }
 
 /// <summary>
@@ -28,6 +37,7 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 {
 	private Func<T, string> _getHintText;
 	public bool Mandatory { get; private set; }
+	public Vector2 CharacterTokenPosition { get; private set; }
 
 	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<T>.AbstractBuilder<TBuilder, TAbility>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
@@ -56,6 +66,19 @@ public abstract class ActiveAbility<T> : Ability<T> where T : ActiveAbilityState
 			Obj.Mandatory = mandatory;
 			return (TBuilder)this;
 		}
+
+		public TBuilder WithCharacterTokenPosition(Vector2 position)
+		{
+			Obj.CharacterTokenPosition = position;
+			return (TBuilder)this;
+		}
+	}
+
+	protected override void InitializeState(T abilityState)
+	{
+		base.InitializeState(abilityState);
+
+		abilityState.CharacterTokenPosition = CharacterTokenPosition;
 	}
 
 	protected async GDTask AskConfirmAndActivate(T abilityState)

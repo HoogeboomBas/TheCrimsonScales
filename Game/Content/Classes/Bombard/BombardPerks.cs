@@ -148,7 +148,7 @@ public class BombardPerks
 		public override bool IgnoreItemMinusOneEffects => true;
 	}
 
-	public class EmergencyEmplacement : BombardPerk, IEventSubscriber
+	public class EmergencyEmplacement : BombardPerk
 	{
 		protected override string Title => "Emergency Emplacement";
 
@@ -161,10 +161,11 @@ public class BombardPerks
 
 			ScenarioEvents.ShortRestStartedEvent.Subscribe(this,
 				parameters => parameters.Character == character,
-				async parameters =>
+				async _ =>
 				{
-					await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
-					foreach(AbilityState abilityState in character.Cards.SelectMany(card => card.ActiveActionStates).SelectMany(actionState => actionState.AbilityStates.Where(abilityState => abilityState is ProjectileAbility.State)))
+					await AbilityCmd.AddCondition(null, character, Conditions.Immobilize, character);
+					foreach(AbilityState abilityState in character.Cards.SelectMany(card => card.ActiveActionStates).SelectMany(actionState =>
+						        actionState.AbilityStates.Where(abilityState => abilityState is ProjectileAbility.State)))
 					{
 						ProjectileAbility.State projectileState = (ProjectileAbility.State)abilityState;
 						await projectileState.PerformAbilities();

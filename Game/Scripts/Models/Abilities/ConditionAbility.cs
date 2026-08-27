@@ -10,8 +10,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 	{
 	}
 
-	public List<ScenarioEvents.ConditionAfterTargetConfirmed.Subscription>
-		AfterTargetConfirmedSubscriptions { get; private set; } = [];
+	public List<ScenarioEvents.ConditionAfterTargetConfirmed.Subscription> AfterTargetConfirmedSubscriptions { get; } = [];
 
 	/// <summary>
 	/// A builder extending <see cref="TargetedAbility{T, TSingleTargetState}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -98,7 +97,7 @@ public class ConditionAbility : TargetedAbility<ConditionAbility.State, SingleTa
 	protected override string DefaultTargetingHintText(State abilityState)
 	{
 		string conditonIconsText = string.Empty;
-		foreach(ConditionModel conditionModel in Conditions)
+		foreach(ConditionModel conditionModel in abilityState.AbilityConditionModels)
 		{
 			conditonIconsText += Icons.HintText(Icons.GetCondition(conditionModel));
 		}

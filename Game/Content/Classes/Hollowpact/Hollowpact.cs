@@ -28,12 +28,12 @@ public partial class Hollowpact : Character
 			{
 				if(_voidEnergyCount >= 2)
 				{
-					await AbilityCmd.AddCondition(null, this, ModelDB.Condition<Muddle>());
+					await AbilityCmd.AddCondition(null, this, ModelDB.Condition<Muddle>(), this);
 				}
 
 				if(_voidEnergyCount == 3)
 				{
-					await AbilityCmd.AddCondition(null, this, ModelDB.Condition<Wound>());
+					await AbilityCmd.AddCondition(null, this, ModelDB.Condition<Wound>(), this);
 				}
 
 				await GDTask.CompletedTask;

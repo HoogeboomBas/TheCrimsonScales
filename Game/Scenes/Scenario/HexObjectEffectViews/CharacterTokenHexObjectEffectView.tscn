@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cx5mkt1ahuklt" path="res://Scenes/Scenario/HexObjectEffectViews/HexObjectEffectView.tscn" id="1_x6nta"]
 [ext_resource type="Script" uid="uid://cpy2vwuodgdds" path="res://Scripts/Scenario/HexObjects/HexObjectEffectViews/CharacterTokenHexObjectEffectView.cs" id="2_x6nta"]
-[ext_resource type="Texture2D" uid="uid://cnmsdm6dse3cx" path="res://Content/Classes/Mirefoot/CharacterToken.png" id="3_80inl"]
+[ext_resource type="Texture2D" uid="uid://7atjbkhh5m6m" path="res://Content/Classes/FireKnight/CharacterToken.png" id="3_x6nta"]
 
 [node name="CharacterTokenHexObjectEffectView" unique_id=1626549902 node_paths=PackedStringArray("_sprite") instance=ExtResource("1_x6nta")]
 script = ExtResource("2_x6nta")
 _sprite = NodePath("Container/Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="Container" index="0" unique_id=761975841]
-scale = Vector2(0.187, 0.187)
-texture = ExtResource("3_80inl")
+[node name="Sprite2D" type="Sprite2D" parent="Container" parent_id_path=PackedInt32Array(1883261526) index="0" unique_id=761975841]
+scale = Vector2(0.116, 0.116)
+texture = ExtResource("3_x6nta")

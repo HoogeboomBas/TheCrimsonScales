@@ -23,7 +23,7 @@ public class LuckyEye : Prosperity1Item
 				{
 					foreach(Figure figure in RangeHelper.GetFiguresInRange(user.Hex, 1).Where(figure => user.AlliedWith(figure, true)))
 					{
-						await AbilityCmd.AddCondition(null, figure, Conditions.Strengthen);
+						await AbilityCmd.AddCondition(null, figure, Conditions.Strengthen, user);
 					}
 				});
 			}

@@ -31,9 +31,6 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 				.WithOnDeactivate(async state =>
 				{
 					AbilityCmd.UnsubscribeDuringCharacterTurn(ScenarioEvents.GetSubscriberPair(state, this));
-					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})
 				.Build()),
@@ -75,7 +72,8 @@ public class RighteousAtonement : HierophantLevelUpCardModel<RighteousAtonement.
 						                            attackAbilityState.IsSingleTarget,
 						async abilityStartedParameters =>
 						{
-							((AttackAbility.State)abilityStartedParameters.AbilityState).AbilityAdjustAttackValue(afterSufferParameters.DamageSuffered);
+							((AttackAbility.State)abilityStartedParameters.AbilityState).AbilityAdjustAttackValue(
+								afterSufferParameters.DamageSuffered);
 							await state.ActionState.RequestDiscardOrLose();
 						});
 					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,

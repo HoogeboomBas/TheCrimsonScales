@@ -7,7 +7,7 @@ public class AtEndOfTurnTrait(Func<Figure, GDTask> endOfTurn, string endOfTurnDe
 	{
 		await base.Activate(figure);
 
-		ScenarioEvents.FigureTurnEndedEvent.Subscribe(figure, this,
+		ScenarioEvents.FigureTurnEndingEvent.Subscribe(figure, this,
 			parameters => parameters.Figure == figure,
 			async parameters =>
 			{
@@ -28,7 +28,7 @@ public class AtEndOfTurnTrait(Func<Figure, GDTask> endOfTurn, string endOfTurnDe
 	{
 		await base.Deactivate(figure);
 
-		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(figure, this);
+		ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(figure, this);
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);
 	}
 }
