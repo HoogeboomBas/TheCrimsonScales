@@ -37,7 +37,7 @@ public class SavvasIceStormAbilityCard0 : SavvasIceStormAbilityCard
 				}
 			))
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1).Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -85,8 +85,8 @@ public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1).Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
 			.WithOnActivate(async state =>
 			{
@@ -102,13 +102,13 @@ public class SavvasIceStormAbilityCard3 : SavvasIceStormAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+						parameters.Add(new InfoTextExtraEffect.Parameters(_ =>
 							$"Self and all allies within {Icons.Inline(Icons.Range)}2 gain {Icons.Inline(Icons.Shield)}1"));
 					}
 				);
 				await GDTask.CompletedTask;
 			})
-			.WithOnDeactivate(async state =>
+			.WithOnDeactivate(async _ =>
 			{
 				ScenarioEvents.SufferDamageEvent.Unsubscribe(monster, this);
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
@@ -130,17 +130,16 @@ public class SavvasIceStormAbilityCard4 : SavvasIceStormAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustAttackValue(+2);
-					parameters.AbilityState.AbilityAddCondition(Conditions.Immobilize);
-					await GDTask.CompletedTask;
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithDuringAttackSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(+2);
+						parameters.AbilityState.AbilityAddCondition(Conditions.Immobilize);
+						await GDTask.CompletedTask;
+					}))
+			.Build()),
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build())
 	];
 
@@ -170,8 +169,9 @@ public class SavvasIceStormAbilityCard5 : SavvasIceStormAbilityCard
 				}
 			))
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			conditionalAbilityCheck: ConsumeElementAbilityCheck<AttackAbility.State>([Element.Air])))
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<AttackAbility.State>([Element.Air]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -191,8 +191,8 @@ public class SavvasIceStormAbilityCard6 : SavvasIceStormAbilityCard
 			.WithRange(1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1))
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -207,15 +207,17 @@ public class SavvasIceStormAbilityCard7 : SavvasIceStormAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
-		])))
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
+			]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =

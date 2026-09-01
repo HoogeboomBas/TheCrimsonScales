@@ -28,10 +28,9 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: -1,
-			range: 5
-		)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(1)
+			.Build()),
 
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<BloodOoze>())
@@ -41,8 +40,6 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 				int level = state.Performer is Monster performingMonster
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
-
-				int health = Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2);
 
 				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2));
 
@@ -103,26 +100,17 @@ public class BloodOozeAbilityCard2 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				List<Figure> sufferDamageTargets = RangeHelper.GetFiguresInRange(monster.Hex, 1)
-					.Where(figure => state.Authority.EnemiesWith(figure)).ToList();
-
-				foreach(Figure target in sufferDamageTargets)
-				{
-					await AbilityCmd.SufferDamage(state, target, 1);
-				}
-
-				state.SetPerformed();
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
 			.Build()),
 
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(1)
 			.WithTarget(Target.Allies | Target.TargetAll)
-			.WithCustomGetTargets((state, figures) =>
+			.WithCustomGetTargets((_, figures) =>
 			{
 				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 1, false)
 					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze));
@@ -138,13 +126,10 @@ public class BloodOozeAbilityCard3 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: +0,
-			range: 1,
-			rangeType: RangeType.Melee,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(1)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					parameters => RangeHelper.GetFiguresInRange(parameters.AbilityState.Target.Hex, 1, false)
 						.Count(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze) >= 2,
@@ -153,9 +138,8 @@ public class BloodOozeAbilityCard3 : BloodOozeAbilityCard
 						parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 
 						await GDTask.CompletedTask;
-					}
-				)
-			])),
+					}))
+			.Build()),
 	];
 }
 
@@ -166,18 +150,18 @@ public class BloodOozeAbilityCard4 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 1, rangeType: RangeType.Melee,
-			conditions: [Conditions.Poison1])),
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-				extraDamage: +0,
-				customGetTargets: (state, figures) =>
-				{
-					figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 2, false)
-						.Except(RangeHelper.GetFiguresInRange(monster.Hex, 1, false))
-						.Where(figure => monster.EnemiesWith(figure)));
-				}
-			)
-		),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(1)
+			.WithConditions(Conditions.Poison1)
+			.Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithCustomGetTargets((_, figures) =>
+			{
+				figures.AddRange(RangeHelper.GetFiguresInRange(monster.Hex, 2, false)
+					.Except(RangeHelper.GetFiguresInRange(monster.Hex, 1, false))
+					.Where(figure => monster.EnemiesWith(figure)));
+			})
+			.Build()),
 	];
 }
 
@@ -188,17 +172,16 @@ public class BloodOozeAbilityCard5 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: +1,
-			conditionalAbilityCheck: async state =>
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithConditionalAbilityCheck(async state =>
 			{
 				await GDTask.CompletedTask;
 
 				return state.ActionState.GetAbilityState<LootAbility.State>(1).LootedCoinCount > 0;
-			}
-		)),
+			})
+			.Build()),
 	];
 }
 
@@ -210,7 +193,7 @@ public class BloodOozeAbilityCard6 : BloodOozeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(1).WithRange(3).Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Wound1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
@@ -226,13 +209,9 @@ public class BloodOozeAbilityCard7 : BloodOozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, monster, 2);
-
-				state.SetPerformed();
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Self)
 			.Build()),
 
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()

@@ -154,7 +154,7 @@ public class Selandre : MonsterModel, IBossMonsterModel
 
 				await GDTask.CompletedTask;
 			})
-			.WithOnAbilityEnded(async state =>
+			.WithOnAbilityEnded(async _ =>
 			{
 				ScenarioEvents.FigureFoundFocusEvent.Unsubscribe(monster, this);
 
@@ -173,10 +173,12 @@ public class Selandre : MonsterModel, IBossMonsterModel
 						.WithRange(2)
 						.WithTarget(Target.Enemies | Target.TargetAll)
 						.Build(),
-					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0, target: Target.Enemies | Target.TargetAll)
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0)
+						.WithTarget(Target.Enemies | Target.TargetAll)
+						.Build()
 				]
 			)
-			.WithCustomGetTargets((state, list) =>
+			.WithCustomGetTargets((_, list) =>
 			{
 				list.Add(GetAncientArtillery());
 			})
@@ -187,38 +189,35 @@ public class Selandre : MonsterModel, IBossMonsterModel
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(HealAbility.Builder()
-			.WithHealValue(new DynamicInt<HealAbility.State>(state => CharacterCount + 1))
+			.WithHealValue(CharacterCount + 1)
 			.WithTarget(Target.Self)
 			.Build()),
 
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
 			.WithGetAbilities(state =>
 				[
-					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0,
-						range: 1,
-						rangeType: RangeType.Melee,
-						target: Target.Enemies | Target.TargetAll),
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0)
+						.WithRange(1)
+						.WithTarget(Target.Enemies | Target.TargetAll)
+						.Build(),
 
-					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0,
-						target: Target.Enemies | Target.TargetAll,
-						minRange: 2,
-						afterTargetConfirmedSubscriptions:
-						[
+					MonsterAbilityCardModel.AttackAbility(state.Target as Monster, +0)
+						.WithTarget(Target.Enemies | Target.TargetAll)
+						.WithMinRange(2)
+						.WithInfiniteRange()
+						.WithAfterTargetConfirmedSubscription(
 							ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-								parameters => true,
-								async parameters =>
+								applyFunction: async parameters =>
 								{
 									parameters.AbilityState.SingleTargetAdjustAttackValue(
 										RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex));
 
 									await GDTask.CompletedTask;
-								}
-							)
-						]
-					),
+								}))
+						.Build()
 				]
 			)
-			.WithCustomGetTargets((state, list) =>
+			.WithCustomGetTargets((_, list) =>
 			{
 				list.Add(GetAncientArtillery());
 			})

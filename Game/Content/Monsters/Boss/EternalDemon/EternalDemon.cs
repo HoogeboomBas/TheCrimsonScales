@@ -34,7 +34,7 @@ public class EternalDemon : EarthDemon, IBossMonsterModel
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(TeleportAbility.Builder()
-			.WithCustomGetHexes((state, list) =>
+			.WithCustomGetHexes((_, list) =>
 				{
 					list.AddRange(Scenario031.GetLeastOccupiedHexes());
 				}
@@ -43,16 +43,8 @@ public class EternalDemon : EarthDemon, IBossMonsterModel
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(new DynamicInt<HealAbility.State>(state =>
 				{
-					int value = 0;
-					foreach(Character character in GameController.Instance.CharacterManager.Characters)
-					{
-						if(character.Hex.MapTile != state.Performer.Hex.MapTile)
-						{
-							value++;
-						}
-					}
-
-					return value;
+					return GameController.Instance.CharacterManager.Characters.Count(character =>
+						character.Hex.MapTile != state.Performer.Hex.MapTile);
 				}
 			))
 			.WithTarget(Target.Self)
@@ -61,18 +53,12 @@ public class EternalDemon : EarthDemon, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: +1,
-			customGetTargets: (state, list) =>
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +1)
+			.WithCustomGetTargets((state, list) =>
 			{
-				foreach(Figure figure in GameController.Instance.Map.Figures)
-				{
-					if(figure.Hex.MapTile == state.Performer.Hex.MapTile)
-					{
-						list.Add(figure);
-					}
-				}
-			},
-			target: Target.Enemies | Target.TargetAll)
-		)
+				list.AddRange(GameController.Instance.Map.Figures.Where(figure => figure.Hex.MapTile == state.Performer.Hex.MapTile));
+			})
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build())
 	];
 }

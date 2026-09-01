@@ -144,6 +144,6 @@ public class CaptainOfTheGuard : MonsterModel, IBossMonsterModel
 				await GDTask.CompletedTask;
 			})
 			.Build()),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +1).Build()),
 	];
 }

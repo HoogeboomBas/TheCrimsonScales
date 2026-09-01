@@ -26,8 +26,10 @@ public class ToxicImpAbilityCard0 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Infect])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditions(Conditions.Infect)
+			.Build())
 	];
 }
 
@@ -39,8 +41,10 @@ public class ToxicImpAbilityCard1 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Infect])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditions(Conditions.Infect)
+			.Build())
 	];
 }
 
@@ -63,7 +67,9 @@ public class ToxicImpAbilityCard3 : ToxicImpAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 1, rangeType: RangeType.Melee)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(1)
+			.Build())
 	];
 }
 
@@ -74,10 +80,12 @@ public class ToxicImpAbilityCard4 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithConditions(Conditions.Poison1)
+			.Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
-			.WithOnActivate(async state =>
+			.WithOnActivate(async _ =>
 			{
 				ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(monster, this,
 					parameters => parameters.AbilityState.SingleTargetState.Target == monster,
@@ -93,14 +101,14 @@ public class ToxicImpAbilityCard4 : ToxicImpAbilityCard
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+						parameters.Add(new InfoTextExtraEffect.Parameters(_ =>
 							"Attackers gain disadvantage on all their attacks targeting this figure."));
 					}
 				);
 
 				await GDTask.CompletedTask;
 			})
-			.WithOnDeactivate(async state =>
+			.WithOnDeactivate(async _ =>
 			{
 				ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(monster, this);
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
@@ -119,11 +127,8 @@ public class ToxicImpAbilityCard5 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: +1,
-			extraRange: +1,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, +1)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					parameters => parameters.AbilityState.SingleTargetState.Target.HasCondition(Conditions.Infect),
 					async parameters =>
@@ -132,9 +137,8 @@ public class ToxicImpAbilityCard5 : ToxicImpAbilityCard
 
 						await GDTask.CompletedTask;
 					}
-				)
-			]
-		)),
+				))
+			.Build())
 	];
 }
 
@@ -145,20 +149,17 @@ public class ToxicImpAbilityCard6 : ToxicImpAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: -1,
-			afterAttackPerformedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1)
+			.WithAfterAttackPerformedSubscription(
 				ScenarioEvents.AfterAttackPerformed.Subscription.New(
 					parameters => parameters.AbilityState.SingleTargetState.Target == monster,
 					async parameters =>
 					{
 						await AbilityCmd.AddCondition(null, parameters.Performer, Conditions.Infect);
 					}
-				)
-			]
-		)),
+				))
+			.Build())
 	];
 }
 

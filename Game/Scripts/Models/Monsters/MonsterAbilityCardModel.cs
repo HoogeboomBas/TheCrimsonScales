@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -22,7 +21,7 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 
 	public abstract IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster);
 
-	public static MoveAbility MoveAbility(Monster monster, int extraDistance, MoveType moveType = MoveType.Regular)
+	public static MoveAbility.MoveBuilder MoveAbility(Monster monster, int extraDistance)
 	{
 		if(!monster.Stats.Move.HasValue)
 		{
@@ -30,68 +29,21 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 			return null;
 		}
 
-		return global::MoveAbility.Builder()
-			.WithDistance(monster.Stats.Move.Value + extraDistance)
-			.WithMoveType(moveType)
-			.Build();
+		return global::MoveAbility.Builder().WithDistance(monster.Stats.Move.Value + extraDistance);
 	}
 
-	public static AttackAbility AttackAbility(Monster monster,
-		DynamicInt<AttackAbility.State> extraDamage,
-		DynamicInt targets = null,
-		DynamicInt range = null,
-		DynamicInt extraRange = null,
-		DynamicRangeType rangeType = null,
-		DynamicTarget target = null,
-		Hex targetHex = null,
-		bool requiresLineOfSight = true,
-		DynamicAOEPattern aoePattern = null,
-		int push = 0, int pull = 0, int swing = 0,
-		int minRange = 0,
-		DynamicInt<AttackAbility.State> pierce = null,
-		ConditionModel[] conditions = null,
-		Action<AttackAbility.State, List<Figure>> customGetTargets = null,
-		Ability<AttackAbility.State>.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
-		List<ScenarioEvents.AbilityStarted.Subscription> abilityStartedSubscriptions = null,
-		List<ScenarioEvents.DuringAttack.Subscription> duringAttackSubscriptions = null,
-		List<ScenarioEvents.AttackAfterTargetConfirmed.Subscription> afterTargetConfirmedSubscriptions = null,
-		List<ScenarioEvents.AfterAttackPerformed.Subscription> afterAttackPerformedSubscriptions = null)
+	public static AttackAbility.AttackBuilder AttackAbility(Monster monster, DynamicInt<AttackAbility.State> extraDamage,
+		DynamicInt extraRange = null)
 	{
 		DynamicInt<AttackAbility.State> dynamicAttackValue =
 			new DynamicInt<AttackAbility.State>(state => monster.Stats.Attack + extraDamage.GetValue(state));
-		DynamicInt dynamicTargets = targets ?? 1;
-		DynamicTarget dynamicTarget = target ?? Target.Enemies;
 
 		int defaultRange = monster.Stats.Range ?? 1;
-		DynamicInt dynamicRange = range ?? new DynamicInt(() => defaultRange + (extraRange?.GetValue() ?? 0));
-		DynamicRangeType dynamicRangeType =
-			rangeType ?? new(() =>
-				aoePattern != null && aoePattern.GetValue() != null && aoePattern.GetValue().LocalHexes.Any(hex => hex.Type == AOEHexType.Gray)
-					? RangeType.Melee
-					: (dynamicRange.GetValue() > 1 ? RangeType.Range : monster.Stats.RangeType));
+		DynamicInt dynamicRange = new DynamicInt(() => defaultRange + (extraRange?.GetValue() ?? 0));
 
 		return global::AttackAbility.Builder()
 			.WithDamage(dynamicAttackValue)
-			.WithTargets(dynamicTargets)
-			.WithRange(dynamicRange)
-			.WithRangeType(dynamicRangeType)
-			.WithMinRange(minRange)
-			.WithTarget(dynamicTarget)
-			.WithTargetHex(targetHex)
-			.WithRequiresLineOfSight(requiresLineOfSight)
-			.WithAOEPattern(aoePattern)
-			.WithPush(push)
-			.WithPull(pull)
-			.WithSwing(swing)
-			.WithPierce(pierce ?? 0)
-			.WithConditions(conditions ?? [])
-			.WithCustomGetTargets(customGetTargets)
-			.WithConditionalAbilityCheck(conditionalAbilityCheck)
-			.WithAbilityStartedSubscriptions(abilityStartedSubscriptions ?? [])
-			.WithDuringAttackSubscriptions(duringAttackSubscriptions ?? [])
-			.WithAfterTargetConfirmedSubscriptions(afterTargetConfirmedSubscriptions ?? [])
-			.WithAfterAttackPerformedSubscriptions(afterAttackPerformedSubscriptions ?? [])
-			.Build();
+			.WithRange(dynamicRange);
 	}
 
 	protected DynamicInt<TState> ConsumeElementDynamicValue<TState>(IReadOnlyCollection<Element> possibleElements, int normalValue, int consumedValue)

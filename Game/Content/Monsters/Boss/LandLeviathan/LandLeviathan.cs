@@ -43,10 +43,13 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1, targets: 2, range: 5)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1)
+			.WithTargets(2)
+			.WithRange(5)
+			.Build()),
 
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
+			.WithPerformAbility(async _ =>
 			{
 				monster.SetMaxHealth(monster.MaxHealth + 2);
 				await GDTask.CompletedTask;
@@ -68,13 +71,13 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 				: ((CharacterCount >= 4) ? MonsterType.Elite : MonsterType.Normal))
 			.WithGetValidHexes((state, hexes) =>
 			{
-				hexes = RangeHelper.GetHexesInRange(state.Performer.Hex, 1, true).Where(hex => hex.IsEmpty()).ToList();
+				hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 1).Where(hex => hex.IsEmpty()).ToList());
 				if(hexes.Count == 0)
 				{
-					hexes = RangeHelper.GetHexesInRange(state.Performer.Hex, 2, true).Where(hex => hex.IsEmpty()).ToList();
+					hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 2).Where(hex => hex.IsEmpty()).ToList());
 				}
 			})
-			.WithOnAbilityEndedPerformed(async state =>
+			.WithOnAbilityEndedPerformed(async _ =>
 			{
 				monster.SetCustomValue("SummonBlackImp", !monster.GetCustomValue<bool>("SummonBlackImp"));
 				await GDTask.CompletedTask;
@@ -82,7 +85,7 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 			.Build()),
 
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
-			.WithGetAbilities(state =>
+			.WithGetAbilities(_ =>
 			[
 				HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()
 			])
@@ -91,7 +94,7 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 			.WithCustomGetTargets((state, targets) =>
 			{
 				targets.AddRange(RangeHelper.GetFiguresInRange(state.Performer, 100)
-					.Where(figure => figure is Monster monster && monster.MonsterModel is Imp));
+					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is Imp));
 			})
 			.Build())
 	];

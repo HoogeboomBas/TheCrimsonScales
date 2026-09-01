@@ -26,8 +26,8 @@ public class LivingBonesScenario55 : LivingBones
 
 		public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 		[
-			new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-			new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+			new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+			new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 		];
 	}
 }

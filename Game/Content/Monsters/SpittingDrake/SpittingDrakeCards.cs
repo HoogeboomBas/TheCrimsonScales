@@ -25,8 +25,8 @@ public class SpittingDrakeAbilityCard0 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 	];
 }
 
@@ -37,8 +37,8 @@ public class SpittingDrakeAbilityCard1 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -50,15 +50,15 @@ public class SpittingDrakeAbilityCard2 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
-			aoePattern: new AOEPattern(
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, -1)
+			.WithAOEPattern(new AOEPattern(
 			[
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-			])
-		)),
+			]))
+			.Build()),
 	];
 }
 
@@ -69,7 +69,10 @@ public class SpittingDrakeAbilityCard3 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, targets: 2, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithTargets(2)
+			.WithConditions(Conditions.Poison1)
+			.Build())
 	];
 }
 
@@ -80,8 +83,8 @@ public class SpittingDrakeAbilityCard4 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 }
 
@@ -92,7 +95,9 @@ public class SpittingDrakeAbilityCard5 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Stun])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2)
+			.WithConditions(Conditions.Stun)
+			.Build())
 	];
 }
 
@@ -120,9 +125,9 @@ public class SpittingDrakeAbilityCard7 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -2,
-			aoePattern: new AOEPattern([
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2, -2)
+			.WithAOEPattern(new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -130,7 +135,8 @@ public class SpittingDrakeAbilityCard7 : SpittingDrakeAbilityCard
 				new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.West), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
-			]), conditions: [Conditions.Poison1]
-		)),
+			]))
+			.WithConditions(Conditions.Poison1)
+			.Build()),
 	];
 }
