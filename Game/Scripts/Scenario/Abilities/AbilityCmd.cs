@@ -530,6 +530,12 @@ public static class AbilityCmd
 			return null;
 		}
 
+		if(overlayTile.CannotBeMoved)
+		{
+			Log.Error($"Trying to move {overlayTile.Name}, but it can not be moved!");
+			return null;
+		}
+
 		Hex movedToHex = await SelectHex(state.Performer, list => moveToHexes(overlayTile, list), mandatory: true,
 			hintText: "Select a hex to move the overlay tile to");
 

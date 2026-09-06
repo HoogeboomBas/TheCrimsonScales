@@ -53,28 +53,34 @@ position = Vector2(-654.71515, 0)
 [node name="DarkPit2H" parent="Map/Rooms/Room" index="10" unique_id=1873960635 instance=ExtResource("8_ndtf0")]
 position = Vector2(-763.8344, -189)
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="DarkPit2H3" parent="Map/Rooms/Room" index="11" unique_id=1577495156 instance=ExtResource("8_ndtf0")]
 position = Vector2(-654.71515, 0)
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="DarkPit2H4" parent="Map/Rooms/Room" index="12" unique_id=119969922 instance=ExtResource("8_ndtf0")]
 position = Vector2(-1091.1919, 0)
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="DarkPit2H5" parent="Map/Rooms/Room" index="13" unique_id=1148658673 instance=ExtResource("8_ndtf0")]
 position = Vector2(-763.8344, 189)
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="DarkPit2H2" parent="Map/Rooms/Room" index="14" unique_id=940105987 instance=ExtResource("8_ndtf0")]
 position = Vector2(-982.0728, -189)
 rotation = -1.0471976
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="DarkPit2H6" parent="Map/Rooms/Room" index="15" unique_id=33492037 instance=ExtResource("8_ndtf0")]
 position = Vector2(-982.07275, 189)
 rotation = 1.0471976
 CannotBeDestroyed = true
+CannotBeMoved = true
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room" index="16" unique_id=42853875 instance=ExtResource("7_vfe2g")]
 position = Vector2(-109.119194, -567)

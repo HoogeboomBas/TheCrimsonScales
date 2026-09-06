@@ -1,4 +1,5 @@
 ﻿using System;
+using Fractural.Tasks;
 using Godot;
 using GTweens.Builders;
 using GTweens.Easings;
@@ -113,8 +114,7 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		_equipmentButton.Pressed += OnEquipmentPressed;
 		_cardsButton.Pressed += OnCardsPressed;
 		_perksButton.Pressed += OnPerksPressed;
-		_levelUpButton.Pressed += OnLevelUpPressed;
-
+		_levelUpButton.Pressed += () => OnLevelUpPressed().Forget();
 		GetViewport().SizeChanged += OnViewportSizeChanged;
 	}
 
@@ -289,16 +289,17 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		});
 	}
 
-	private void OnLevelUpPressed()
+	private async GDTask OnLevelUpPressed()
 	{
 		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
 		{
-			SavedCharacter.TryLevelUp();
-
-			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
+			if(await SavedCharacter.TryLevelUp(_savedCampaign))
 			{
-				SavedCharacter = SavedCharacter
-			});
+				AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
+				{
+					SavedCharacter = SavedCharacter
+				});
+			}
 		}
 	}
 

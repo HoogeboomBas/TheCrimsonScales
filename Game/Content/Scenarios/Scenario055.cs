@@ -62,8 +62,6 @@ public class Scenario055 : ScenarioModel
 		await AddGoal(new KillAllEnemiesScenarioGoal(countObjectives: true));
 		_coffinGoal = await AddGoal(new CustomScenarioGoal(textParameters => "Open 4 coffins.", hasProgress: true, maxProgress: 4));
 
-		//TODO: Sarcophagi can't be moved
-
 		GameController.Instance.Map.Treasures[0].SetItemDesignLoot(ModelDB.Item<DrakesBlood>());
 		GameController.Instance.Map.Treasures[1].SetItemDesignLoot(ModelDB.Item<ManaMedicine>());
 

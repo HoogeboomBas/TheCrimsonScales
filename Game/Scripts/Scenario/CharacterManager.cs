@@ -17,18 +17,30 @@ public class CharacterManager
 		CharacterStartHexes = GameController.Instance.Map.GetChildrenOfType<CharacterStartHex>().Where(hex => hex.Visible).ToList();
 
 		// Place all characters
-		for(int i = 0; i < GameController.Instance.SavedCampaign.Characters.Count; i++)
-		{
-			SavedCharacter savedCharacter = GameController.Instance.SavedCampaign.Characters[i];
 
-			CharacterStartHex characterStartHex = CharacterStartHexes[i];
+		List<SavedCharacter> savedCharacters = [];
+		if(GameController.Instance.ScenarioModel is SoloScenarioModel soloScenarioModel)
+		{
+			savedCharacters.Add(
+				GameController.Instance.SavedCampaign.Characters.First(character => character.ClassModel == soloScenarioModel.ClassModel));
+		}
+		else
+		{
+			savedCharacters.AddRange(GameController.Instance.SavedCampaign.Characters);
+		}
+
+		int index = 0;
+		foreach(SavedCharacter savedCharacter in savedCharacters)
+		{
+			CharacterStartHex characterStartHex = CharacterStartHexes[index];
 			Character characterHexObject = savedCharacter.ClassModel.Scene.Instantiate<Character>();
 			GameController.Instance.Map.AddChild(characterHexObject, true);
 			Hex hex = characterStartHex.Hex;
 			await characterHexObject.Init(hex);
-			await characterHexObject.Spawn(savedCharacter, i);
+			await characterHexObject.Spawn(savedCharacter, index);
 
 			Characters.Add(characterHexObject);
+			index++;
 		}
 
 		await GDTask.CompletedTask;

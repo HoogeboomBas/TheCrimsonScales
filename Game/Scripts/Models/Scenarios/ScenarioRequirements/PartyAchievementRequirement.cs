@@ -14,7 +14,7 @@
 		return savedCampaign.HasPartyAchievement(_achievement) == _complete;
 	}
 
-	public override string NotMetMessage()
+	public override string NotMetMessage(SavedCampaign savedCampaign)
 	{
 		return $"You require the {_achievement.ToPrettyString()} achievement {(_complete ? "COMPLETE" : "INCOMPLETE")}.";
 	}

@@ -20,6 +20,8 @@ public class SpiritCallerModel : ClassModel
 		ModelDB.Event<Road48>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 65;
+
 	public override string AssetPath => "res://Content/Classes/SpiritCaller";
 	public override Color PrimaryColor => Color.FromHtml("63bd57");
 	public override Color SecondaryColor => Color.FromHtml("a6ce39");

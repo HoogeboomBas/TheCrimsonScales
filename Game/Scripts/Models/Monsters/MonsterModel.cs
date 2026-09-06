@@ -2,7 +2,7 @@
 
 public abstract class MonsterModel : AbstractModel
 {
-	protected static int CharacterCount => GameController.Instance.SavedCampaign.Characters.Count;
+	protected static int CharacterCount => GameController.Instance.CharacterManager.Characters.Count;
 
 	public virtual MonsterStats[] NormalLevelStats => null;
 	public virtual MonsterStats[] EliteLevelStats => null;

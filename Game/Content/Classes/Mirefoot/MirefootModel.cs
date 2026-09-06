@@ -20,6 +20,8 @@ public class MirefootModel : ClassModel
 		// ModelDB.Event<Road54>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 63;
+
 	public override string AssetPath => "res://Content/Classes/Mirefoot";
 	public override Color PrimaryColor => Color.FromHtml("ef6b26");
 	public override Color SecondaryColor => Color.FromHtml("4b732e");

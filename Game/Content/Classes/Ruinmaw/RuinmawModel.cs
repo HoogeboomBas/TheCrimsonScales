@@ -16,6 +16,8 @@ public class RuinmawModel : ClassModel
 	[
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 0;
+
 	public override string AssetPath => "res://Content/Classes/Ruinmaw";
 	public override Color PrimaryColor => Color.FromHtml("c9252c");
 	public override Color SecondaryColor => Color.FromHtml("833332");

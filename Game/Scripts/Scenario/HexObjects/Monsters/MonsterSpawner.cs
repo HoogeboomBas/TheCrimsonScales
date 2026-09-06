@@ -77,7 +77,7 @@ public partial class MonsterSpawner : Node2D
 	public MonsterType GetMonsterType()
 	{
 		MonsterType monsterType;
-		int characterCount = Mathf.Max(GameController.Instance.SavedCampaign.Characters.Count, 2);
+		int characterCount = Mathf.Max(GameController.Instance.CharacterManager.Characters.Count, 2);
 		switch(characterCount)
 		{
 			case 2:

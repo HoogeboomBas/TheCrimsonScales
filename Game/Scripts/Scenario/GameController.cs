@@ -189,11 +189,14 @@ public partial class GameController : SceneController<GameController>
 				{
 					Id = Guid.NewGuid(),
 					AppVersion = AppController.Instance.DeviceSaveData.AppVersion,
-					ScenarioModelId = ModelDB.Scenario<Scenario011>().Id.ToString(),
+					ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
 					//Seed = GD.RandRange(0, int.MaxValue),
 					Seed = 0,
 					ScenarioLevel =
-						Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f) +
+						(ScenarioModel is SoloScenarioModel soloScenarioModel
+							? Mathf.CeilToInt(
+								savedCampaign.Characters.First(character => character.ClassModel == soloScenarioModel.ClassModel).Level / 2f)
+							: Mathf.CeilToInt((characterLevelSum / savedCampaign.Characters.Count) / 2f)) +
 						(AppController.Instance.CampaignOptions == null
 							? 0
 							: SavedCampaignOptions.DifficultyOptions.GetValue(AppController.Instance.CampaignOptions.Difficulty)),

@@ -29,8 +29,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	public virtual string BGMPath => "res://Audio/BGM/Floral-Woods.ogg";
 	public virtual string BGSPath => null;
-	protected int ScenarioLevel => GameController.Instance.SavedScenario.ScenarioLevel;
-	protected int CharacterCount => GameController.Instance.SavedCampaign.Characters.Count;
+	protected static int ScenarioLevel => GameController.Instance.SavedScenario.ScenarioLevel;
+	protected static int CharacterCount => GameController.Instance.CharacterManager.Characters.Count;
 
 	public event Action<ScenarioGoal> GoalAddedEvent;
 	public event Action<ScenarioRule> RuleAddedEvent;
@@ -48,7 +48,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 		{
 			if(!requirement.GetMet(savedCampaign))
 			{
-				notMetMessage = requirement.NotMetMessage();
+				notMetMessage = requirement.NotMetMessage(savedCampaign);
 				return false;
 			}
 		}

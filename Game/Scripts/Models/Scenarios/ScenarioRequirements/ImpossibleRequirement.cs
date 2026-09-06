@@ -9,7 +9,7 @@
 		return false;
 	}
 
-	public override string NotMetMessage()
+	public override string NotMetMessage(SavedCampaign savedCampaign)
 	{
 		return $"This scenario has not been implemented yet. Sorry for the inconvenience!";
 	}

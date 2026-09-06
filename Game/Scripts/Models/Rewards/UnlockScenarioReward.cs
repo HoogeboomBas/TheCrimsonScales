@@ -25,5 +25,9 @@ public class UnlockScenarioReward : SavedReward
 		await base.ImmediateResolve(savedCampaign, cancellationToken);
 
 		savedCampaign.SavedScenarioProgresses.GetScenarioProgress(ScenarioModel).Discover();
+		if(BetweenScenariosController.Instance?.ScenarioFlowchart.Showing == true)
+		{
+			BetweenScenariosController.Instance.ScenarioFlowchart.AnimationSequence().Forget();
+		}
 	}
 }
