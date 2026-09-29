@@ -18,4 +18,23 @@
 
 	private readonly CountsAsSpiritCheck _countsAsSpiritCheck = new CountsAsSpiritCheck();
 	public static CountsAsSpiritCheck CountsAsSpiritCheckEvent => GameController.Instance.ScenarioCheckEvents._countsAsSpiritCheck;
+
+	public class SpiritAddDamageEndOfTurn : ScenarioCheckEvent<SpiritAddDamageEndOfTurn.Parameters>
+	{
+		public class Parameters(Spirit spirit)
+			: ParametersBase
+		{
+			public Spirit Spirit { get; } = spirit;
+
+			public bool AddDamage { get; private set; } = true;
+
+			public void SetAddDamage(bool addDamage)
+			{
+				AddDamage = addDamage;
+			}
+		}
+	}
+
+	private readonly SpiritAddDamageEndOfTurn _spiritAddDamageEndOfTurn = new SpiritAddDamageEndOfTurn();
+	public static SpiritAddDamageEndOfTurn SpiritAddDamageEndOfTurnEvent => GameController.Instance.ScenarioCheckEvents._spiritAddDamageEndOfTurn;
 }

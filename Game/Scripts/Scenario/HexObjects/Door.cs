@@ -103,4 +103,13 @@ public partial class Door : OverlayTile, IEventSubscriber
 				? "This door is locked. It will open once specific conditions are met."
 				: "A character can move on top of a door to open it."));
 	}
+
+	public async GDTask Lock()
+	{
+		Locked = true;
+		_lock.SetVisible(true);
+		_lock.SetGlobalRotation(0f);
+
+		await GDTask.CompletedTask;
+	}
 }

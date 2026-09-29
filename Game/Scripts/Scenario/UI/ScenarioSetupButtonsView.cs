@@ -135,7 +135,8 @@ public partial class ScenarioSetupButtonsView : Control
 
 		AppController.Instance.PopupManager.RequestPopup(new CardSelectionPopup.Request
 		{
-			SavedCharacter = _selectedCharacter.SavedCharacter
+			SavedCharacter = _selectedCharacter.SavedCharacter,
+			ScenarioModel = GameController.Instance.ScenarioModel
 		});
 	}
 

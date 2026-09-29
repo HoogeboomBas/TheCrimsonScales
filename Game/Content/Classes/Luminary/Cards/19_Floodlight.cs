@@ -85,7 +85,7 @@ public class Floodlight : LuminaryCardModel<Floodlight.CardTop, Floodlight.CardB
 				{
 					ScenarioEvents.InfuseElementEvent.Subscribe(state, this,
 						parameters => parameters.Authority == state.Performer && parameters.Element == Element.Dark
-						                                                      && parameters.AbilityState != state,
+						                                                      && parameters.PotentialAbilityState != state,
 						async parameters =>
 						{
 							parameters.SetCanInfuse(false);

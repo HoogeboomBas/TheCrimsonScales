@@ -20,6 +20,8 @@ public class BrightsparkModel : ClassModel
 		ModelDB.Event<Road36>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 57;
+
 	public override string AssetPath => "res://Content/Classes/Brightspark";
 	public override Color PrimaryColor => Color.FromHtml("e6dc8d");
 	public override Color SecondaryColor => Color.FromHtml("bcae52");

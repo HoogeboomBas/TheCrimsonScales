@@ -160,14 +160,14 @@ public class SavedCampaign
 		SavedCampaign savedCampaign = New("Party Time", StartingGroup.Militants);
 
 		//savedCampaign.AddCharacter(ModelDB.Class<MirefootModel>(), null, "Moerasvoet");
-		//savedCampaign.AddCharacter(ModelDB.Class<BombardModel>(), ModelDB.PersonalQuest<ExperiencedLeader>(), "Beschieter");
+		savedCampaign.AddCharacter(ModelDB.Class<BombardModel>(), ModelDB.PersonalQuest<ExperiencedLeader>(), "Beschieter");
 		//savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), ModelDB.PersonalQuest<SpiritualGainsPersonalQuest>(), "Opperpriester");
 		savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), null, "Vuur Knecht");
 		// savedCampaign.AddCharacter(ModelDB.Class<ChainguardModel>(), null, "Ketting Garde");
 		//savedCampaign.AddCharacter(ModelDB.Class<ChieftainModel>(), null, "Dierenzitter");
 		// savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), ModelDB.PersonalQuest<AnAdderDivides>(), "Opperpriester");
 		//savedCampaign.AddCharacter(ModelDB.Class<SpiritCallerModel>(), null, "Geestroeper");
-		savedCampaign.AddCharacter(ModelDB.Class<HollowpactModel>(), null, "Holle Pakt");
+		//savedCampaign.AddCharacter(ModelDB.Class<HollowpactModel>(), null, "Holle Pakt");
 		//savedCampaign.AddCharacter(ModelDB.Class<StarslingerModel>(), ModelDB.PersonalQuest<ExperiencedLeader>(), "Sterrenwerper");
 		//savedCampaign.AddCharacter(ModelDB.Class<RuinmawModel>(), null, "Ruineerkaak");
 
@@ -530,8 +530,11 @@ public class SavedCampaign
 		foreach(string itemId in savedCharacter.ItemIds)
 		{
 			ItemModel itemModel = ModelDB.GetById<ItemModel>(itemId);
-			SavedItem savedItem = GetSavedItem(itemModel);
-			savedItem.AddStock(1);
+			if(!itemModel.IsSolo)
+			{
+				SavedItem savedItem = GetSavedItem(itemModel);
+				savedItem.AddStock(1);
+			}
 		}
 
 		// Return temporary AMD cards

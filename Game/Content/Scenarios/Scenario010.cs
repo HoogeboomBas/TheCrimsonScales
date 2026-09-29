@@ -195,12 +195,12 @@ public class Scenario010 : ScenarioModel
 				Monster monster = (Monster)parameters.Figure;
 				if(monster.MonsterModel == ModelDB.Monster<BlackImp>())
 				{
-					if(_crateKillCount < 1 && await AbilityCmd.TryConsumeElement(Element.Fire))
+					if(_crateKillCount < 1 && await AbilityCmd.TryConsumeElement(Element.Fire, monster))
 					{
 						_fireConsumed = true;
 					}
 
-					if(_crateKillCount < 3 && await AbilityCmd.TryConsumeElement(Element.Air))
+					if(_crateKillCount < 3 && await AbilityCmd.TryConsumeElement(Element.Air, monster))
 					{
 						_airConsumed = true;
 					}
@@ -208,12 +208,12 @@ public class Scenario010 : ScenarioModel
 
 				if(monster.MonsterModel == ModelDB.Monster<Lurker>())
 				{
-					if(_crateKillCount < 2 && await AbilityCmd.TryConsumeElement(Element.Ice))
+					if(_crateKillCount < 2 && await AbilityCmd.TryConsumeElement(Element.Ice, monster))
 					{
 						_iceConsumed = true;
 					}
 
-					if(_crateKillCount < 4 && await AbilityCmd.TryConsumeElement(Element.Earth))
+					if(_crateKillCount < 4 && await AbilityCmd.TryConsumeElement(Element.Earth, monster))
 					{
 						_earthConsumed = true;
 					}

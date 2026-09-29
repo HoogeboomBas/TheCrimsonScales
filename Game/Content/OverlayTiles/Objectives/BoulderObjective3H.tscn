@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c2lhtymcsnwxy"]
+
+[ext_resource type="PackedScene" uid="uid://pkypm1g6jmy1" path="res://Scenes/Scenario/OverlayTiles/Objective3H.tscn" id="1_c07q7"]
+[ext_resource type="Texture2D" uid="uid://d0j4e8nfogpfg" path="res://Art/OverlayTiles/Boulder 3h.png" id="2_xqj3o"]
+
+[node name="BoulderObjective3H" unique_id=916377363 instance=ExtResource("1_c07q7")]
+
+[node name="Shadow2" type="Sprite2D" parent="." index="1" unique_id=2134607078]
+self_modulate = Color(0, 0, 0, 0.439216)
+z_index = 1
+position = Vector2(111.5, -105)
+scale = Vector2(0.61999995, 0.61999995)
+texture = ExtResource("2_xqj3o")
+
+[node name="Sprite" parent="." index="2" unique_id=786075991]
+z_index = 1
+position = Vector2(111.5, -105)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("2_xqj3o")
+
+[editable path="FigureViewComponent"]

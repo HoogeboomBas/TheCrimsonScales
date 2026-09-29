@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://d4h3al5v0y64j"]
+
+[ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_ynmwm"]
+[ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_8a0oe"]
+[ext_resource type="PackedScene" uid="uid://cuslb377o2wh5" path="res://Content/MapTiles/D1b.tscn" id="3_uo5gv"]
+[ext_resource type="PackedScene" uid="uid://db0m5wq2g1vo" path="res://Content/MapTiles/C2a.tscn" id="4_3e2qg"]
+[ext_resource type="PackedScene" uid="uid://d3cy7d6xfphsa" path="res://Content/MapTiles/B1b.tscn" id="5_3qhnj"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="5_obcov"]
+[ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="6_fakie"]
+[ext_resource type="PackedScene" uid="uid://ysmgoyx1yw1d" path="res://Content/OverlayTiles/Corridors/Earth2H.tscn" id="6_ynmwm"]
+[ext_resource type="PackedScene" uid="uid://nm1hasddlxs" path="res://Content/OverlayTiles/Corridors/Earth1H.tscn" id="7_8a0oe"]
+[ext_resource type="PackedScene" uid="uid://ds36axqifweqr" path="res://Content/OverlayTiles/HazardousTerrain/Thorns1H.tscn" id="8_3bh1o"]
+[ext_resource type="PackedScene" uid="uid://b5hfgmgusycc8" path="res://Content/OverlayTiles/DifficultTerrain/Log2H.tscn" id="9_d8nr7"]
+[ext_resource type="PackedScene" uid="uid://66brdtbbrdoj" path="res://Content/OverlayTiles/Obstacles/Tree3H.tscn" id="10_obcov"]
+[ext_resource type="PackedScene" uid="uid://dgovtiuaxinv" path="res://Content/OverlayTiles/Obstacles/Bush1H.tscn" id="11_fakie"]
+
+[node name="Scenario" unique_id=2058782496 instance=ExtResource("1_ynmwm")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=2087861039]
+script = ExtResource("2_8a0oe")
+StartsRevealed = true
+
+[node name="D1b" parent="Map/Rooms/Room" index="0" unique_id=348688636 instance=ExtResource("3_uo5gv")]
+
+[node name="C2a" parent="Map/Rooms/Room" index="1" unique_id=1039917832 instance=ExtResource("4_3e2qg")]
+position = Vector2(654.71515, 756)
+
+[node name="B1b" parent="Map/Rooms/Room" index="2" unique_id=1304535743 instance=ExtResource("5_3qhnj")]
+position = Vector2(1418.5496, 189)
+rotation = 1.0471976
+
+[node name="Earth2H" parent="Map/Rooms/Room" index="3" unique_id=1044871933 instance=ExtResource("6_ynmwm")]
+position = Vector2(1091.1919, 378)
+rotation = 1.0471976
+
+[node name="Earth1H" parent="Map/Rooms/Room" index="4" unique_id=320221788 instance=ExtResource("7_8a0oe")]
+position = Vector2(436.4768, 378)
+
+[node name="Thorns1H" parent="Map/Rooms/Room" index="5" unique_id=1475540514 instance=ExtResource("8_3bh1o")]
+position = Vector2(982.0728, 945)
+
+[node name="Thorns1H2" parent="Map/Rooms/Room" index="6" unique_id=2051036029 instance=ExtResource("8_3bh1o")]
+position = Vector2(1200.311, 189)
+
+[node name="Thorns1H3" parent="Map/Rooms/Room" index="7" unique_id=1299537641 instance=ExtResource("8_3bh1o")]
+position = Vector2(1964.1456, 378)
+
+[node name="Log2H" parent="Map/Rooms/Room" index="8" unique_id=2034391795 instance=ExtResource("9_d8nr7")]
+position = Vector2(1636.788, 567)
+rotation = -1.0471976
+
+[node name="Log2H2" parent="Map/Rooms/Room" index="9" unique_id=493294368 instance=ExtResource("9_d8nr7")]
+position = Vector2(327.35757, -189)
+rotation = 1.0471976
+
+[node name="Tree3H" parent="Map/Rooms/Room" index="10" unique_id=1144518075 instance=ExtResource("10_obcov")]
+position = Vector2(545.59595, 945)
+
+[node name="Bush1H" parent="Map/Rooms/Room" index="11" unique_id=1800346984 instance=ExtResource("11_fakie")]
+position = Vector2(1636.7881, -189)
+
+[node name="Bush1H2" parent="Map/Rooms/Room" index="12" unique_id=1500467718 instance=ExtResource("11_fakie")]
+position = Vector2(0, 378)
+
+[node name="Marker" parent="Map/Rooms/Room" index="13" unique_id=472443651 instance=ExtResource("5_obcov")]
+position = Vector2(218.2384, 378)
+
+[node name="Marker2" parent="Map/Rooms/Room" index="14" unique_id=1889766629 instance=ExtResource("5_obcov")]
+position = Vector2(872.9536, 756)
+MarkerType = 1
+
+[node name="Marker3" parent="Map/Rooms/Room" index="15" unique_id=1098924698 instance=ExtResource("5_obcov")]
+position = Vector2(1636.788, 189)
+MarkerType = 2
+
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="16" unique_id=1635315779 instance=ExtResource("6_fakie")]
+position = Vector2(-218.2384, -378)
+
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="17" unique_id=1537939475 instance=ExtResource("6_fakie")]
+position = Vector2(-327.35757, -189)
+
+[node name="CharacterStartHex3" parent="Map/Rooms/Room" index="18" unique_id=1101096245 instance=ExtResource("6_fakie")]
+position = Vector2(-436.4768, 0)

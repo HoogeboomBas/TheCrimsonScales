@@ -117,14 +117,20 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 			abilityCard = await AbilityCmd.SelectAbilityCard(abilityState.Authority, list => getAbilityCards(abilityState, list), CardState.Hand);
 		}
 
-		if(abilityCard != null && target is Character character)
+		if(abilityCard != null)
 		{
 			if(onCardGiven != null)
 			{
 				await onCardGiven(abilityState, abilityCard);
 			}
 
-			character.AddCard(abilityCard);
+			await ScenarioEvents.AbilityCardGivenEvent.CreatePrompt(
+				new ScenarioEvents.AbilityCardGiven.Parameters(abilityCard, abilityState.Performer, target));
+
+			if(target is Character characterTarget)
+			{
+				characterTarget.AddCard(abilityCard);
+			}
 
 			object subscriber = new object();
 			ScenarioEvents.AbilityCardStateChangedEvent.Subscribe(abilityState, subscriber,
@@ -152,5 +158,14 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 				}
 			);
 		}
+	}
+
+	protected override void GetValidTargets(State abilityState, List<Figure> figures, int targetsOutOfAOE)
+	{
+		base.GetValidTargets(abilityState, figures, targetsOutOfAOE);
+
+		figures.RemoveAll(figure => !ScenarioCheckEvents.CanBeGivenCardCheckEvent
+			.Fire(new ScenarioCheckEvents.CanBeGivenCardCheck.Parameters(figure, cards => _getAbilityCards(abilityState, cards)))
+			.CanBeGivenCard);
 	}
 }

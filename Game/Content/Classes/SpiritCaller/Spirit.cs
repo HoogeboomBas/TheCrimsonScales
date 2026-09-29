@@ -248,12 +248,17 @@ public partial class Spirit : Figure
 		await _turnActionState.Perform();
 	}
 
-	protected override async GDTask EndTurn()
+	protected override async GDTask EndTurn(bool extraTurn)
 	{
-		await base.EndTurn();
+		await base.EndTurn(extraTurn);
 
 		// Spirits suffer 1 damage at the end of their turns
-		await AddDamageCounters(this, 1);
+
+		if(ScenarioCheckEvents.SpiritAddDamageEndOfTurnEvent.Fire(
+			   new ScenarioCheckEvents.SpiritAddDamageEndOfTurn.Parameters(this)).AddDamage)
+		{
+			await AddDamageCounters(this, 1);
+		}
 	}
 
 	public async GDTask RemoveTurnActionFromActive()
@@ -419,6 +424,16 @@ public partial class Spirit : Figure
 	public static async GDTask<Figure> SelectSpirit(AbilityState state, EffectCollection effectCollection = null)
 	{
 		Figure figure = await AbilityCmd.SelectFigure(state, list =>
+		{
+			list.AddRange(GetAllSpirits());
+		}, effectCollection: effectCollection, hintText: () => $"Select a Spirit");
+
+		return figure;
+	}
+
+	public static async GDTask<Figure> SelectSpirit(Figure authority, EffectCollection effectCollection = null)
+	{
+		Figure figure = await AbilityCmd.SelectFigure(authority, list =>
 		{
 			list.AddRange(GetAllSpirits());
 		}, effectCollection: effectCollection, hintText: () => $"Select a Spirit");

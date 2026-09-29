@@ -17,7 +17,7 @@
 		MoveNode = moveNode;
 	}
 
-	public CompareResult CompareTo(FocusNode other)
+	public CompareResult CompareTo(FocusNode other, ScenarioCheckEvents.FigureFocusCheck.Parameters figureFocusCheckParameters = null)
 	{
 		if(NegativeHexEncounteredCount > other.NegativeHexEncounteredCount)
 		{

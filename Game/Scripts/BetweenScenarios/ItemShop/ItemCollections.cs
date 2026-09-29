@@ -141,7 +141,7 @@
 
 		// ModelDB.Item<EnduranceFootwraps>(),
 		// ModelDB.Item<DrakescaleBoots>(),
-		// ModelDB.Item<MagmaWaders>(),
+		ModelDB.Item<MagmaWaders>(),
 		ModelDB.Item<JetBoots>(),
 
 		// ModelDB.Item<SkullbaneAxe>(),

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://pv7vwtfb8ggo"]
+
+[ext_resource type="Texture2D" uid="uid://rnp5ib23hlve" path="res://Content/Scenarios/NPCs/Spirits/HauntedGhoulSpirit/Artwork.jpg" id="1_p7ojn"]
+
+[resource]
+atlas = ExtResource("1_p7ojn")
+region = Rect2(125, 0, 600, 600)

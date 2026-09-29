@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bnjbgabllcxfy"]
+
+[ext_resource type="Texture2D" uid="uid://cxx74gvpijs3i" path="res://Content/Monsters/Boss/Drakefiend/elder-drake.jpg" id="1_wy8sa"]
+
+[resource]
+atlas = ExtResource("1_wy8sa")
+region = Rect2(250, 325, 350, 350)

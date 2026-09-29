@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
-using GTweens.Builders;
-using GTweens.Easings;
 
 /// <summary>
 /// An <see cref="Ability{T}"/> that allows figures to teleport to a target hex.
@@ -106,8 +104,11 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// Character teleporting
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
-					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
-						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
+					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+						forcedMovement: forcedMovement,
+						getHintText: () =>
+							$"Select a destination for {Icons.HintText(Icons.Teleport)}" +
+							(CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
 			if(!teleportAnswer.Skipped)
@@ -120,8 +121,11 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// TODO: Not a real monster movement, focus and movement AI not included, works with custom hexes
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
-					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
-						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
+					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+						forcedMovement: forcedMovement,
+						getHintText: () =>
+							$"Select a destination for {Icons.HintText(Icons.Teleport)}" +
+							(CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
 			if(!monsterTeleportAnswer.Skipped)
@@ -136,5 +140,6 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		}
 
 		await AbilityCmd.Teleport(abilityState, performer, destination, forcedMovement);
+		abilityState.SetPerformed();
 	}
 }

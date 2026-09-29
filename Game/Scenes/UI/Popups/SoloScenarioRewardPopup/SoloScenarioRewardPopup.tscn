@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://cj1b3k1fvxyg"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_hl2og"]
+[ext_resource type="Script" uid="uid://3lqy81sve318" path="res://Scripts/UI/Popups/SoloScenarioRewardPopup.cs" id="2_iq315"]
+[ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="4_4cijc"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="5_jkgwt"]
+[ext_resource type="PackedScene" uid="uid://d1e27svta2n7m" path="res://Scenes/UI/Popups/PerksPopup/PerksPopupPerkBox.tscn" id="5_ttrmv"]
+[ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="6_8vr4y"]
+
+[node name="SoloScenarioRewardPopup" unique_id=925714940 node_paths=PackedStringArray("_itemView", "_itemLabel", "_itemButton", "_perkButton") instance=ExtResource("1_hl2og")]
+script = ExtResource("2_iq315")
+_itemView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/CenterContainer2/ItemView")
+_itemLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer2/CenterContainer/ItemLabel")
+_itemButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer2/ItemButtonContainer/ItemButton")
+_perkButton = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer/PerkButtonContainer/PerkButton")
+
+[node name="Button" parent="Background" parent_id_path=PackedInt32Array(976323768) index="0" unique_id=1721606754]
+visible = false
+
+[node name="Panel" parent="." index="1" unique_id=2112547392]
+offset_left = -350.0
+offset_top = -362.5
+offset_right = 350.0
+offset_bottom = 362.5
+
+[node name="CloseButton" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="0" unique_id=1584988073]
+visible = false
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Solo Scenario Reward"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="0" unique_id=1712449809]
+custom_minimum_size = Vector2(640, 0)
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" unique_id=1493813286]
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0" unique_id=1488097165]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/CenterContainer2" index="0" unique_id=853779186 instance=ExtResource("4_4cijc")]
+custom_minimum_size = Vector2(270, 413.1)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1" unique_id=604600601]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="PerksPopupPerkBox" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/CenterContainer" index="0" unique_id=1921719728 instance=ExtResource("5_ttrmv")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1" unique_id=1366552694]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer2" index="0" unique_id=435518946]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="ItemLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer2/CenterContainer" index="0" unique_id=693015381]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_jkgwt")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Gain the Boots of Striding.
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer2" index="1" unique_id=311615221]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="Label2" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer2/CenterContainer2" index="0" unique_id=1311266496]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_jkgwt")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Gain one perk mark."
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="1" unique_id=1394157472]
+theme_override_constants/separation = 0
+
+[node name="CenterContainer2" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" unique_id=373575741]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="ItemButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer2" index="0" unique_id=612854121]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+
+[node name="ItemButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer2/ItemButtonContainer" index="0" unique_id=2109610035 instance=ExtResource("6_8vr4y")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+_startActive = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="1" unique_id=1725549804]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="PerkButtonContainer" type="Control" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer" index="0" unique_id=1055425113]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+
+[node name="PerkButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/CenterContainer/PerkButtonContainer" index="0" unique_id=82874565 instance=ExtResource("6_8vr4y")]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+_startActive = true

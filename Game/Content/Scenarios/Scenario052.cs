@@ -70,8 +70,6 @@ public class Scenario052 : ScenarioModel
 		AddScenarioRule(textParameters =>
 			$"At the end of every even round, spawn a Spitting Drake at {Icons.InlineMarker(Marker.Type.c, textParameters)}. {(GameController.Instance.SavedCampaign.Characters.Count == 2 ? "All spawns are normal" : GameController.Instance.SavedCampaign.Characters.Count == 3 ? "Every other spawn is elite" : "All spawns are elite")}.");
 
-		//TODO: Dark Pits cannot be moved
-
 		_pressurePlatesA = GameController.Instance.Map.GetMarkers(Marker.Type.a).Select(marker => marker.GetHexObject<PressurePlate>()).ToList();
 		_pressurePlatesB = GameController.Instance.Map.GetMarkers(Marker.Type.b).Select(marker => marker.GetHexObject<PressurePlate>()).ToList();
 		_markerCHex = GameController.Instance.Map.GetMarker(Marker.Type.c).Hex;

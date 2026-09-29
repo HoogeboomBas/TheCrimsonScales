@@ -18,6 +18,8 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 	public abstract ItemType ItemType { get; }
 	public abstract ItemUseType ItemUseType { get; }
 
+	public virtual bool IsSolo => false;
+
 	public virtual bool Round => false;
 	public virtual bool Persistent => false;
 	public virtual bool Unrecoverable => false;
@@ -520,7 +522,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 	protected ActionState GetActionState(Figure performer, Ability[] abilities)
 	{
-		ActionState actionState = new ActionState(this, performer, abilities, //null, 
+		ActionState actionState = new ActionState(this, performer, abilities, //null,
 			onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);
 
 		return actionState;

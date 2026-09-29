@@ -3,9 +3,10 @@ public class ChainCannon : CS2Item
 	public override string Name => "Chain Cannon";
 	public override int ItemNumber => 45;
 	public override int ShopCount => 1;
-	public override int Cost => 50;
+	public override int Cost => 0;
 	public override ItemType ItemType => ItemType.OneHand;
 	public override ItemUseType ItemUseType => ItemUseType.Spend;
+	public override bool IsSolo => true;
 
 	protected override int AtlasIndex => 18;
 

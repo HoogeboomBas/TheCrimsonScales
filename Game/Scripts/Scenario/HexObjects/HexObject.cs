@@ -12,6 +12,9 @@ public partial class HexObject : Node2D, IReferenced
 	[Export]
 	public bool CannotBeDestroyed { get; private set; }
 
+	[Export]
+	public bool CannotBeMoved { get; private set; }
+
 	public Hex Hex { get; private set; }
 	public int RotationIndex { get; private set; }
 
@@ -251,10 +254,5 @@ public partial class HexObject : Node2D, IReferenced
 	protected virtual void DestroyAnimation()
 	{
 		this.TweenScale(0f, 0.3f).SetEasing(Easing.InBack).OnComplete(Hide).PlayFastForwardable();
-	}
-
-	public void SetCannotBeDestroyed(bool cannotBeDestroyed)
-	{
-		CannotBeDestroyed = cannotBeDestroyed;
 	}
 }

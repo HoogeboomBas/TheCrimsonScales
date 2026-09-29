@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://ce2mh3j7axpfd"]
+
+[ext_resource type="PackedScene" uid="uid://cifjwk1lx2x1h" path="res://Scenes/Scenario/Scenario.tscn" id="1_py1ux"]
+[ext_resource type="Script" uid="uid://bbtc25ohouat7" path="res://Scripts/Scenario/Room.cs" id="2_30blh"]
+[ext_resource type="PackedScene" uid="uid://dajwj3fiernrv" path="res://Content/MapTiles/I1a.tscn" id="3_1e0vl"]
+[ext_resource type="PackedScene" uid="uid://j172kayux4qu" path="res://Content/OverlayTiles/Obstacles/Bookcase2H.tscn" id="4_45bjh"]
+[ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="4_ws3uq"]
+[ext_resource type="PackedScene" uid="uid://dlqet8t2xgyh" path="res://Scenes/Scenario/CharacterStartHex.tscn" id="5_45bjh"]
+[ext_resource type="PackedScene" uid="uid://cqnhitxrp7egg" path="res://Content/OverlayTiles/Obstacles/Cabinet1H.tscn" id="5_236f3"]
+[ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="6_236f3"]
+
+[node name="Scenario" unique_id=2058782496 instance=ExtResource("1_py1ux")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=2087861039]
+script = ExtResource("2_30blh")
+StartsRevealed = true
+
+[node name="I1a" parent="Map/Rooms/Room" index="0" unique_id=341787710 instance=ExtResource("3_1e0vl")]
+
+[node name="Bookcase2H" parent="Map/Rooms/Room" index="1" unique_id=2066320295 instance=ExtResource("4_45bjh")]
+position = Vector2(-436.4768, -378)
+
+[node name="Bookcase2H2" parent="Map/Rooms/Room" index="2" unique_id=1039405551 instance=ExtResource("4_45bjh")]
+position = Vector2(436.47678, -378)
+
+[node name="Cabinet1H" parent="Map/Rooms/Room" index="3" unique_id=710285690 instance=ExtResource("5_236f3")]
+position = Vector2(654.71515, 378)
+
+[node name="Cabinet1H2" parent="Map/Rooms/Room" index="4" unique_id=1905875437 instance=ExtResource("5_236f3")]
+position = Vector2(-436.47678, 378)
+
+[node name="CharacterStartHex" parent="Map/Rooms/Room" index="5" unique_id=1635315779 instance=ExtResource("5_45bjh")]
+position = Vector2(218.2384, -378)
+
+[node name="CharacterStartHex2" parent="Map/Rooms/Room" index="6" unique_id=45989515 instance=ExtResource("5_45bjh")]
+position = Vector2(0, -378)
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="7" unique_id=286336762 instance=ExtResource("6_236f3")]
+position = Vector2(109.1192, -189)
+MonsterModelId = "STONE_GOLEM.ARCHAIC_GOLEM"
+MonsterType2Characters = 1
+MonsterType3Characters = 1
+MonsterType4Characters = 1
+Alignment = 1
+
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="8" unique_id=146900213 instance=ExtResource("6_236f3")]
+position = Vector2(-109.1192, 189)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="9" unique_id=1610166858 instance=ExtResource("6_236f3")]
+position = Vector2(327.35757, 189)
+MonsterModelId = "MONSTER_MODEL.RENDING_DRAKE"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="10" unique_id=1147023044 instance=ExtResource("6_236f3")]
+position = Vector2(218.2384, 378)
+MonsterModelId = "MONSTER_MODEL.ANCIENT_ARTILLERY"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="MonsterSpawner5" parent="Map/Rooms/Room" index="11" unique_id=82887588 instance=ExtResource("6_236f3")]
+position = Vector2(0, 378)
+MonsterModelId = "MONSTER_MODEL.ANCIENT_ARTILLERY"
+MonsterType2Characters = 0
+MonsterType3Characters = 0
+MonsterType4Characters = 0
+
+[node name="Marker" parent="Map/Rooms/Room" index="12" unique_id=472443651 instance=ExtResource("4_ws3uq")]
+position = Vector2(654.71515, 0)
+
+[node name="Marker2" parent="Map/Rooms/Room" index="13" unique_id=573402077 instance=ExtResource("4_ws3uq")]
+position = Vector2(-436.4768, 0)
+
+[node name="Marker3" parent="Map/Rooms/Room" index="14" unique_id=1708626079 instance=ExtResource("4_ws3uq")]
+position = Vector2(-218.2384, 378)
+MarkerType = 1
+
+[node name="Marker4" parent="Map/Rooms/Room" index="15" unique_id=1608834453 instance=ExtResource("4_ws3uq")]
+position = Vector2(436.4768, 378)
+MarkerType = 1

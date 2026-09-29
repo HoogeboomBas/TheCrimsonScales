@@ -94,14 +94,9 @@ public class Scenario024 : ScenarioModel
 
 		_hotCoals = GameController.Instance.Map.GetChildrenOfType<HazardousTerrain>();
 
-		foreach(HazardousTerrain hotCoal in _hotCoals)
-		{
-			hotCoal.SetCannotBeDestroyed(true);
-		}
 
 		List<Obstacle> obstacles = GameController.Instance.Map.GetChildrenOfType<Obstacle>();
 		_dome = obstacles[^1];
-		_dome.SetCannotBeDestroyed(true);
 
 		//Scenario Win Condition
 		// ScenarioEvents.RoundEndedEvent.Subscribe(this,

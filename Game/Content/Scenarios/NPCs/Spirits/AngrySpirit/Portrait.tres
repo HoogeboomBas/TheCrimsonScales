@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bvecmkw75hr21"]
+
+[ext_resource type="Texture2D" uid="uid://bfc4tf71kow6p" path="res://Content/Scenarios/NPCs/Spirits/AngrySpirit/Artwork.jpg" id="1_wm1n5"]
+
+[resource]
+atlas = ExtResource("1_wm1n5")
+region = Rect2(250, 0, 400, 600)

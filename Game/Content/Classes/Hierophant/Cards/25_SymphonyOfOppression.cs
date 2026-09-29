@@ -50,7 +50,9 @@ public class SymphonyOfOppression : HierophantLevelUpCardModel<SymphonyOfOppress
 				)
 				.WithOnAbilityEndedPerformed(async grantAbilityState =>
 				{
-					if(grantAbilityState.GetCustomValue<bool>(this, "TargetOneAlly"))
+					if(grantAbilityState.GetCustomValue<bool>(this, "TargetOneAlly") && ScenarioCheckEvents.CanBeGivenCardCheckEvent
+						   .Fire(new ScenarioCheckEvents.CanBeGivenCardCheck.Parameters(grantAbilityState.Target,
+							   cards => cards.AddRange(GetOriginalOwner(grantAbilityState).PrayerCards))).CanBeGivenCard)
 					{
 						await GivePrayerCard(grantAbilityState, grantAbilityState.Target);
 					}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mw8poi0s1xee"
-path="res://.godot/imported/Colorless.jpeg-7eaeaf84cf300ae8447c74072aad1e9b.ctex"
+uid="uid://cxx74gvpijs3i"
+path="res://.godot/imported/elder-drake.jpg-bd9cac43ebae83536f257d9076f0cc8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Monsters/Boss/RogueHollowpact/Colorless.jpeg"
-dest_files=["res://.godot/imported/Colorless.jpeg-7eaeaf84cf300ae8447c74072aad1e9b.ctex"]
+source_file="res://Content/Monsters/Boss/Drakefiend/elder-drake.jpg"
+dest_files=["res://.godot/imported/elder-drake.jpg-bd9cac43ebae83536f257d9076f0cc8d.ctex"]
 
 [params]
 

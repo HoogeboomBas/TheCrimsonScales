@@ -164,7 +164,7 @@ public class Scenario026 : ScenarioModel
 						.Build();
 					ActionState actionState = new ActionState(applyParameters.PotentialAbilityState.Performer, [heal]);
 					await actionState.Perform();
-					await AbilityCmd.CreateOverlayTile<HazardousTerrain>(objective.Hex,
+					await AbilityCmd.CreateOverlayTile<HotCoals>(objective.Hex,
 						SceneLoader.LoadPackedScene("res://Content/OverlayTiles/HazardousTerrain/HotCoals1H.tscn"));
 					ScenarioEvents.AfterAttackPerformedEvent.Unsubscribe(this, objective);
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(this, objective);

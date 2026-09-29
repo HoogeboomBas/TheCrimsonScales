@@ -457,9 +457,9 @@ public partial class Character : Figure
 		}
 	}
 
-	protected override async GDTask EndTurn()
+	protected override async GDTask EndTurn(bool extraTurn)
 	{
-		await base.EndTurn();
+		await base.EndTurn(extraTurn);
 
 		TurnItemsUsed.Clear();
 	}
@@ -583,7 +583,7 @@ public partial class Character : Figure
 		}
 	}
 
-	private async GDTask LoseCardToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
+	public async GDTask LoseCardToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
 	{
 		AbilityCard card = await AbilityCmd.SelectAbilityCard(this, CardState.Hand, true, card => card.OriginalOwner == this,
 			hintText: "Select a card to lose");
@@ -596,7 +596,7 @@ public partial class Character : Figure
 		parameters.SetDamagePrevented();
 	}
 
-	private async GDTask LoseDiscardedCardsToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
+	public async GDTask LoseDiscardedCardsToCancelDamage(ScenarioEvents.SufferDamage.Parameters parameters)
 	{
 		foreach(AbilityCard card in await AbilityCmd.SelectAbilityCards(this, CardState.Discarded, 2, 2,
 			        card => card.OriginalOwner == this, hintText: "Select two discarded cards to lose"))

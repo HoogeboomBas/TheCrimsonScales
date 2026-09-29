@@ -43,8 +43,7 @@ public partial class ActionState
 				{
 					Target target = attackAbility.TargetType.GetValue();
 
-					aiMoveParameters.Targets = target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : 
-						attackAbility.Targets.GetValue();
+					aiMoveParameters.Targets = target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : attackAbility.Targets.GetValue();
 					aiMoveParameters.TargetAll = target.HasFlag(Target.TargetAll);
 					aiMoveParameters.Range = attackAbility.Range.GetValue();
 					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue();
@@ -63,10 +62,13 @@ public partial class ActionState
 
 	public async GDTask<(Figure, Hex)> GetFocus(AbilityState abilityState)
 	{
+		ScenarioCheckEvents.FigureFocusCheck.Parameters figureFocusCheckParameters =
+			ScenarioCheckEvents.FigureFocusCheckEvent.Fire(
+				new ScenarioCheckEvents.FigureFocusCheck.Parameters(abilityState));
 		if(!_focusDetermined || (_cachedFocus != null && _cachedFocus.IsDead))
 		{
 			_focusDetermined = true;
-			_cachedFocus = await DetermineFocus();
+			_cachedFocus = await DetermineFocus(figureFocusCheckParameters);
 		}
 
 		ScenarioEvents.FigureFoundFocus.Parameters figureFoundFocusEventParameters =
@@ -76,9 +78,21 @@ public partial class ActionState
 		return (figureFoundFocusEventParameters.Focus, figureFoundFocusEventParameters.FocusHex);
 	}
 
-	// TODO: Change this to a prompt of sorts, to ensure this is saved
-	private async GDTask<Figure> DetermineFocus()
+	public Figure GetCurrentFocus()
 	{
+		return _cachedFocus;
+	}
+
+	// TODO: Change this to a prompt of sorts, to ensure this is saved
+	private async GDTask<Figure> DetermineFocus(ScenarioCheckEvents.FigureFocusCheck.Parameters figureFocusCheckParameters)
+	{
+		if(figureFocusCheckParameters.FocusFigure != null && !figureFocusCheckParameters.FocusFigure.IsDead && ScenarioCheckEvents
+			   .CanBeFocusedCheckEvent.Fire(new ScenarioCheckEvents.CanBeFocusedCheck.Parameters(Performer, figureFocusCheckParameters.FocusFigure))
+			   .CanBeFocused)
+		{
+			return figureFocusCheckParameters.FocusFigure;
+		}
+
 		AIMoveParameters aiMoveParameters = GetAIMoveParameters();
 
 		int range = aiMoveParameters.Range; // focusParameters.Range ?? ((Stats.Range ?? 1) + focusParameters.ExtraRange);
@@ -125,7 +139,7 @@ public partial class ActionState
 
 				foreach(Figure potentialTarget in potentialTargetHex.GetHexObjectsOfType<Figure>())
 				{
-					if(!Performer.EnemiesWith(potentialTarget))
+					if(!Authority.EnemiesWith(potentialTarget) || Performer == potentialTarget)
 					{
 						continue;
 					}
@@ -155,7 +169,7 @@ public partial class ActionState
 					else
 					{
 						FocusNode previousBestNode = bestFocusNodes[0];
-						CompareResult compareResult = newNode.CompareTo(previousBestNode);
+						CompareResult compareResult = newNode.CompareTo(previousBestNode, figureFocusCheckParameters);
 						switch(compareResult)
 						{
 							case CompareResult.Better:

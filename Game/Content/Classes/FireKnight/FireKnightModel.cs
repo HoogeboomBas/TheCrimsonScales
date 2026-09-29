@@ -20,6 +20,8 @@ public class FireKnightModel : ClassModel
 		// ModelDB.Event<Road52>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 60;
+
 	public override string AssetPath => "res://Content/Classes/FireKnight";
 	public override Color PrimaryColor => Color.FromHtml("df391f");
 	public override Color SecondaryColor => Color.FromHtml("531724");

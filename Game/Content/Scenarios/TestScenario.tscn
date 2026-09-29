@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dgovtiuaxinv" path="res://Content/OverlayTiles/Obstacles/Bush1H.tscn" id="9_hqk2m"]
 [ext_resource type="PackedScene" uid="uid://c7pr2ras6mvmt" path="res://Content/OverlayTiles/Traps/BearTrap1H.tscn" id="10_5r4do"]
 [ext_resource type="PackedScene" uid="uid://co1tcon7xucp" path="res://Content/OverlayTiles/Obstacles/Boulder3H.tscn" id="11_rv36e"]
+[ext_resource type="PackedScene" uid="uid://dlwnu4odsbcov" path="res://Scenes/Scenario/MonsterSpawner.tscn" id="13_x5m5f"]
 [ext_resource type="PackedScene" uid="uid://drwupkt4x7cbj" path="res://Scenes/Scenario/Coin.tscn" id="14_5d2e6"]
 [ext_resource type="PackedScene" uid="uid://gi5tvly6t0i1" path="res://Scenes/Scenario/Marker.tscn" id="15_vqxvv"]
 
@@ -89,3 +90,7 @@ _hideDuringPlay = true
 
 [node name="Marker2" parent="Map/Rooms/Room" index="22" unique_id=12467389 instance=ExtResource("15_vqxvv")]
 position = Vector2(218.2384, 0)
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="23" unique_id=286336762 instance=ExtResource("13_x5m5f")]
+position = Vector2(109.1192, -189)
+MonsterModelId = "MONSTER_MODEL.AESTHER_ASHBLADE"

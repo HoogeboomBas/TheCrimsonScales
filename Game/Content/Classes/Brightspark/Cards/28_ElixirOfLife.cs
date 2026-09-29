@@ -75,7 +75,7 @@ public class ElixirOfLife : BrightsparkCardModel<ElixirOfLife.CardTop, ElixirOfL
 
 		private async GDTask OnCardDiscarded(AbilityCard abilityCard)
 		{
-			abilityCard.Owner.RemoveCard(abilityCard);
+			abilityCard.Owner?.RemoveCard(abilityCard);
 
 			Character originalOwner = abilityCard.OriginalOwner;
 			originalOwner.AddCard(abilityCard);
@@ -85,7 +85,7 @@ public class ElixirOfLife : BrightsparkCardModel<ElixirOfLife.CardTop, ElixirOfL
 
 		private async GDTask OnCardLost(AbilityCard abilityCard)
 		{
-			abilityCard.Owner.RemoveCard(abilityCard);
+			abilityCard.Owner?.RemoveCard(abilityCard);
 
 			Character originalOwner = abilityCard.OriginalOwner;
 			originalOwner.AddCard(abilityCard);

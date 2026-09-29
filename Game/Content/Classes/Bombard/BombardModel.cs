@@ -20,6 +20,8 @@ public class BombardModel : ClassModel
 		ModelDB.Event<Road40>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 56;
+
 	public override string AssetPath => "res://Content/Classes/Bombard";
 	public override Color PrimaryColor => Color.FromHtml("8c683b");
 	public override Color SecondaryColor => Color.FromHtml("948572");

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cuputnx6myxmm"]
+
+[ext_resource type="Texture2D" uid="uid://cjaic5gs2xaiq" path="res://Content/Monsters/AestherAshblade/aesther-ashblade.jpg" id="1_abp5g"]
+
+[resource]
+atlas = ExtResource("1_abp5g")
+region = Rect2(100, 70, 200, 300)

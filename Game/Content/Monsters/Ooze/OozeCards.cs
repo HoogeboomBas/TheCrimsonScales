@@ -89,7 +89,7 @@ public class OozeAbilityCard4 : OozeAbilityCard
 				int level = state.Performer is Monster performingMonster
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
-				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
+				state.SetForcedHitPoints(() => Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
 
 				await GDTask.CompletedTask;
 			})
@@ -120,7 +120,7 @@ public class OozeAbilityCard5 : OozeAbilityCard
 				int level = state.Performer is Monster performingMonster
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
-				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
+				state.SetForcedHitPoints(() => Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
 
 				await GDTask.CompletedTask;
 			})

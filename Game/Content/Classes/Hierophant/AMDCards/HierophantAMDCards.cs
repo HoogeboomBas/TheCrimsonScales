@@ -25,7 +25,10 @@ public class HierophantAMDCards
 					Figure chosenFigure = await AbilityCmd.SelectFigure(hierophant,
 						figures => figures.AddRange(
 							GameController.Instance.Map.Figures.Where(possibleFigure =>
-								possibleFigure.AlliedWith(hierophant) && possibleFigure is Character)),
+								possibleFigure.AlliedWith(hierophant) && ScenarioCheckEvents.CanBeGivenCardCheckEvent
+									.Fire(new ScenarioCheckEvents.CanBeGivenCardCheck.Parameters(possibleFigure,
+										cards => cards.AddRange(hierophant.PrayerCards)))
+									.CanBeGivenCard)),
 						hintText: () => "Select an ally to give a PRAYER card");
 					if(chosenFigure == null)
 					{

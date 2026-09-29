@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public partial class ScenarioCheckEvents
 {
@@ -450,6 +451,23 @@ public partial class ScenarioCheckEvents
 	private readonly CanBeTargetedCheck _canBeTargetedCheck = new CanBeTargetedCheck();
 	public static CanBeTargetedCheck CanBeTargetedCheckEvent => GameController.Instance.ScenarioCheckEvents._canBeTargetedCheck;
 
+	public class CanTargetInvisibleCheck : ScenarioCheckEvent<CanTargetInvisibleCheck.Parameters>
+	{
+		public class Parameters(Figure figure) : ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public bool CanTargetInvisible { get; private set; }
+
+			public void SetCanTargetInvisible()
+			{
+				CanTargetInvisible = true;
+			}
+		}
+	}
+
+	private readonly CanTargetInvisibleCheck _canTargetInvisibleCheck = new CanTargetInvisibleCheck();
+	public static CanTargetInvisibleCheck CanTargetInvisibleCheckEvent => GameController.Instance.ScenarioCheckEvents._canTargetInvisibleCheck;
+
 	public class ImmuneToForcedMovementCheck : ScenarioCheckEvent<ImmuneToForcedMovementCheck.Parameters>
 	{
 		public class Parameters(Figure figure)
@@ -754,4 +772,41 @@ public partial class ScenarioCheckEvents
 
 	private readonly DrawBattleGoalsCheck _drawBattleGoalsCheck = new DrawBattleGoalsCheck();
 	public static DrawBattleGoalsCheck DrawBattleGoalsCheckEvent => GameController.Instance.ScenarioCheckEvents._drawBattleGoalsCheck;
+
+	public class FigureFocusCheck : ScenarioCheckEvent<FigureFocusCheck.Parameters>
+	{
+		public class Parameters(AbilityState abilityState) : ParametersBase
+		{
+			public AbilityState AbilityState { get; } = abilityState;
+			public ActionState ActionState { get; } = abilityState.ActionState;
+
+			public Figure FocusFigure { get; private set; }
+
+			public void SetFocusFigure(Figure figure)
+			{
+				FocusFigure = figure;
+			}
+		}
+	}
+
+	private readonly FigureFocusCheck _figureFocusCheck = new FigureFocusCheck();
+	public static FigureFocusCheck FigureFocusCheckEvent => GameController.Instance.ScenarioCheckEvents._figureFocusCheck;
+
+	public class CanBeGivenCardCheck : ScenarioCheckEvent<CanBeGivenCardCheck.Parameters>
+	{
+		public class Parameters(Figure figure, Action<List<AbilityCard>> abilityCard) : ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public Action<List<AbilityCard>> GetAbilityCards { get; } = abilityCard;
+			public bool CanBeGivenCard { get; private set; } = figure is Character;
+
+			public void SetCanBeGivenCard()
+			{
+				CanBeGivenCard = true;
+			}
+		}
+	}
+
+	private readonly CanBeGivenCardCheck _canBeGivenCardCheck = new CanBeGivenCardCheck();
+	public static CanBeGivenCardCheck CanBeGivenCardCheckEvent => GameController.Instance.ScenarioCheckEvents._canBeGivenCardCheck;
 }

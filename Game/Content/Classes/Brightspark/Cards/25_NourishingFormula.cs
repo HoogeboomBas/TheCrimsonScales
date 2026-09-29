@@ -58,7 +58,6 @@ public class NourishingFormula : BrightsparkCardModel<NourishingFormula.CardTop,
 				{
 					figures.AddRange(state.ActionState.GetAbilityState<HealAbility.State>(0).UniqueTargetedFigures
 						.Where(figure => figure != state.Performer));
-					GD.Print(figures.Count);
 				})
 				.WithConditionalAbilityCheck(async state =>
 				{

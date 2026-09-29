@@ -21,7 +21,9 @@ public class Lamentation : HierophantPrayerCardModel<Lamentation.CardTopBottom, 
 							applyParameters.SetDamagePrevented();
 
 							await state.ActionState.RequestDiscardOrLose();
-						}, EffectType.Selectable);
+						}, EffectType.Selectable,
+						effectButtonParameters: new IconEffectButton.Parameters(Icons.Damage),
+						effectInfoViewParameters: new TextEffectInfoView.Parameters("Lose Lamentation to negate the damage"));
 
 					await GDTask.CompletedTask;
 				})

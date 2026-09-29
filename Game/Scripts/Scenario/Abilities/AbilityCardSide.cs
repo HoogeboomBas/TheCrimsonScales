@@ -18,14 +18,14 @@ public class AbilityCardSide : IActionSource
 	{
 		ScenarioEvents.AbilityCardSideStarted.Parameters startedParameters =
 			await ScenarioEvents.AbilityCardSideStartedEvent.CreatePrompt(
-				new ScenarioEvents.AbilityCardSideStarted.Parameters(this, performer));
+				new ScenarioEvents.AbilityCardSideStarted.Parameters(this, performer, Model.Abilities.Select(ability => ability.Ability).ToList()));
 
 		CardState resultingState = CardState.Discarded;
 		bool performed = false;
 
 		if(!startedParameters.ForgoneAction)
 		{
-			ActionState actionState = new ActionState(this, performer, Model.Abilities.Select(ability => ability.Ability).ToList(), //null, 
+			ActionState actionState = new ActionState(this, performer, startedParameters.Abilities, //null,
 				onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);
 			await actionState.Perform();
 

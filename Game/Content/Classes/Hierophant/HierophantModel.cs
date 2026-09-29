@@ -20,6 +20,8 @@ public class HierophantModel : ClassModel
 		ModelDB.Event<Road42>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 61;
+
 	public override string AssetPath => "res://Content/Classes/Hierophant";
 	public override Color PrimaryColor => Color.FromHtml("ddde8a");
 	public override Color SecondaryColor => Color.FromHtml("a9a5ad");

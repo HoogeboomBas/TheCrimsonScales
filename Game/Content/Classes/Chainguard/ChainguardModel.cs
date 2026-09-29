@@ -20,6 +20,8 @@ public class ChainguardModel : ClassModel
 		ModelDB.Event<Road44>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 58;
+
 	public override string AssetPath => "res://Content/Classes/Chainguard";
 	public override Color PrimaryColor => Color.FromHtml("ce6d30");
 	public override Color SecondaryColor => Color.FromHtml("1e1d1d");

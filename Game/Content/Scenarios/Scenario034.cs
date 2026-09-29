@@ -94,7 +94,7 @@ public class Scenario034 : ScenarioModel
 	{
 		await base.InitializeAfterFirstRoomRevealed();
 
-		await AddGoal(new KillAllEnemiesScenarioGoal(true));
+		await AddGoal(new KillAllEnemiesScenarioGoal());
 
 		GameController.Instance.Map.Treasures[0].SetItemLoot(ModelDB.Item<WarPick>());
 

@@ -62,8 +62,6 @@ public class Scenario055 : ScenarioModel
 		await AddGoal(new KillAllEnemiesScenarioGoal(countObjectives: true));
 		_coffinGoal = await AddGoal(new CustomScenarioGoal(textParameters => "Open 4 coffins.", hasProgress: true, maxProgress: 4));
 
-		//TODO: Sarcophagi can't be moved
-
 		GameController.Instance.Map.Treasures[0].SetItemDesignLoot(ModelDB.Item<DrakesBlood>());
 		GameController.Instance.Map.Treasures[1].SetItemDesignLoot(ModelDB.Item<ManaMedicine>());
 
@@ -103,8 +101,7 @@ public class Scenario055 : ScenarioModel
 				SarcophagusObstacle sarcophagusObstacle = RangeHelper.GetHexesInRange(parameters.Figure.Hex, 1)
 					.First(hex => hex.HasHexObjectOfType<SarcophagusObstacle>()).GetHexObjectOfType<SarcophagusObstacle>();
 				Monster monster = await SpawnMonster(parameters.Figure, ModelDB.Monster<LivingBonesScenario55>(), MonsterType.Normal,
-					sarcophagusObstacle.Hexes,
-					alignment: Alignment.Characters, enemies: Alignment.Monsters);
+					sarcophagusObstacle.Hexes, alignment: Alignment.Characters);
 				monster.SetAMDCardDeck(parameters.Figure.AMDCardDeck);
 				_openedSarcophagi.Add(sarcophagusObstacle);
 				await _coffinGoal.AdjustProgress(1);
