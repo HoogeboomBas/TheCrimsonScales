@@ -1,0 +1,1201 @@
+{
+  "PartyName": "Explorers",
+  "StartingGroup": 2,
+  "Characters": [
+    {
+      "ClassModelId": "CLASS_MODEL.HOLLOWPACT_MODEL",
+      "Level": 1,
+      "LevelUpInProgress": false,
+      "AvailableAbilityCards": [
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.VOID_STEP",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.NETHER_BLADES",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.CHANNEL_THE_VOID",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.WITHERING_DELUGE",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.ENERVATING_STRIKE",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.BORROWED_VITALITY",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.UNTETHERED_ADVANCE",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.TOUCH_OF_THE_VOID",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.FIND_AN_OPENING",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.REACHING_DARKNESS",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.GREED_BEFORE_NEED",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.VOID_ERUPTION",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.HOLLOW_EMBRACE",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "HOLLOWPACT_CARD_MODEL`2.THE_VOID_CONSUMES",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        }
+      ],
+      "HandAbilityCardIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "Gold": 30,
+      "XP": 0,
+      "Name": "Hollowpact",
+      "ItemIds": [],
+      "EquippedBaseSlotItems": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "EquippedSmallItems": [],
+      "TotalAvailablePerkCount": 0,
+      "AcquiredPerkIndices": [],
+      "CheckmarkCount": 0,
+      "SavedPersonalQuest": {
+        "ModelId": "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.CREATURES_IN_THE_NIGHT",
+        "PersonalQuestData": {
+          "Progress": 0
+        }
+      },
+      "Guid": "3011c94b-9cb4-4bbf-8025-5b57392d77bc"
+    },
+    {
+      "ClassModelId": "CLASS_MODEL.CHAINGUARD_MODEL",
+      "Level": 1,
+      "LevelUpInProgress": false,
+      "AvailableAbilityCards": [
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.CHOKEHOLD",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.DRAG_THROUGH_DIRT",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.FOLLOW_THE_CHAINS",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.LOCKING_LINKS",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.MERCILESS_BEATDOWN",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.RUSTY_SPIKES",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.SLAMMING_SHOVE",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.SPIKED_KNUCKLES",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.UNTOUCHABLE_KEEPER",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.WRAPPED_IN_METAL",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.GANGING_UP",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.ROUNDHOUSE_SWING",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        },
+        {
+          "ModelId": "CHAINGUARD_CARD_MODEL`2.VIGOROUS_SWAY",
+          "SavedTopEnhancements": {},
+          "SavedBottomEnhancements": {}
+        }
+      ],
+      "HandAbilityCardIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "Gold": 25,
+      "XP": 0,
+      "Name": "Chainguard",
+      "ItemIds": [],
+      "EquippedBaseSlotItems": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "EquippedSmallItems": [],
+      "TotalAvailablePerkCount": 0,
+      "AcquiredPerkIndices": [],
+      "CheckmarkCount": 0,
+      "SavedPersonalQuest": {
+        "ModelId": "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.THY_BE_BLESSED",
+        "PersonalQuestData": {
+          "Progress": 0
+        }
+      },
+      "Guid": "b8c86c47-7220-461a-971e-9bbf5ba8542b"
+    }
+  ],
+  "RetiredCharacters": [],
+  "SavedClasses": {
+    "CLASS_MODEL.BRIGHTSPARK_MODEL": {
+      "Unlocked": true,
+      "Retired": false
+    },
+    "CLASS_MODEL.CHAINGUARD_MODEL": {
+      "Unlocked": true,
+      "Retired": false
+    },
+    "CLASS_MODEL.HOLLOWPACT_MODEL": {
+      "Unlocked": true,
+      "Retired": false
+    },
+    "CLASS_MODEL.STARSLINGER_MODEL": {
+      "Unlocked": true,
+      "Retired": false
+    }
+  },
+  "SavedScenarioProgresses": {
+    "ScenarioProgresses": {
+      "SCENARIO_MODEL.SCENARIO001": {
+        "Discovered": true,
+        "ShownOnMap": true,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO002": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO003": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO007": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO010": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO019": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO025": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO031": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO006": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO005": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO004": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO008": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO017": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO023": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO024": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO032": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO016": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO015": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO013": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO009": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO018": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO021": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO026": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO030": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO051": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO012": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO011": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO014": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO020": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO027": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO028": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO029": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO052": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO053": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO040": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO041": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO022": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO042": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO043": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO044": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO054": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO055": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO045": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO046": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO047": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO048": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO049": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO050": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO033": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO034": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO035": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO036": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO037": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO038": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      },
+      "SCENARIO_MODEL.SCENARIO039": {
+        "Discovered": false,
+        "ShownOnMap": false,
+        "Completed": false,
+        "CollectedTreasureChestNumbers": [],
+        "CustomValues": {}
+      }
+    }
+  },
+  "SavedItems": {
+    "PROSPERITY3_ITEM.AMULET_OF_LIFE": {
+      "ItemModelId": "PROSPERITY3_ITEM.AMULET_OF_LIFE",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "G_H_DESIGNS_ITEM.CIRCLET_OF_ELEMENTS": {
+      "ItemModelId": "G_H_DESIGNS_ITEM.CIRCLET_OF_ELEMENTS",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.HIDE_ARMOR": {
+      "ItemModelId": "PROSPERITY1_ITEM.HIDE_ARMOR",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.LEATHER_ARMOR": {
+      "ItemModelId": "PROSPERITY1_ITEM.LEATHER_ARMOR",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "JOT_L_ITEM.WEATHERED_BOOTS": {
+      "ItemModelId": "JOT_L_ITEM.WEATHERED_BOOTS",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.WINGED_SHOES": {
+      "ItemModelId": "PROSPERITY1_ITEM.WINGED_SHOES",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "G_H_DESIGNS_ITEM.SHOES_OF_HAPPINESS": {
+      "ItemModelId": "G_H_DESIGNS_ITEM.SHOES_OF_HAPPINESS",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY2_ITEM.BOOTS_OF_SPEED": {
+      "ItemModelId": "PROSPERITY2_ITEM.BOOTS_OF_SPEED",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.HEATER_SHIELD": {
+      "ItemModelId": "PROSPERITY1_ITEM.HEATER_SHIELD",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.POISON_DAGGER": {
+      "ItemModelId": "PROSPERITY1_ITEM.POISON_DAGGER",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY5_ITEM.HOOKED_CHAIN": {
+      "ItemModelId": "PROSPERITY5_ITEM.HOOKED_CHAIN",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "JOT_L_ITEM.IRON_SPEAR": {
+      "ItemModelId": "JOT_L_ITEM.IRON_SPEAR",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.MINOR_HEALING_POTION": {
+      "ItemModelId": "PROSPERITY1_ITEM.MINOR_HEALING_POTION",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY1_ITEM.MINOR_POWER_POTION": {
+      "ItemModelId": "PROSPERITY1_ITEM.MINOR_POWER_POTION",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    },
+    "PROSPERITY2_ITEM.MINOR_MANA_POTION": {
+      "ItemModelId": "PROSPERITY2_ITEM.MINOR_MANA_POTION",
+      "UnlockedCount": 2,
+      "StockCount": 2
+    }
+  },
+  "SavedScenario": {
+    "Id": "373fbbaf-c9e7-4b56-ac45-22e0ddea2607",
+    "AppVersion": "0.5.1",
+    "ScenarioModelId": "SCENARIO_MODEL.SCENARIO001",
+    "Seed": 77385113,
+    "ScenarioLevel": 1,
+    "IsOnline": false,
+    "ScenarioSetupState": {
+      "CharacterScenarioSetupStates": [
+        {
+          "StartHexCoords": {
+            "X": 0,
+            "Y": -3
+          },
+          "SelectedBattleGoalIndex": 2
+        },
+        {
+          "StartHexCoords": {
+            "X": 1,
+            "Y": -3
+          },
+          "SelectedBattleGoalIndex": 0
+        }
+      ],
+      "Completed": true
+    },
+    "CardSelectionStates": [
+      {
+        "CharacterCardSelectionStates": [
+          {
+            "ChosenCardReferenceIds": [
+              20,
+              23
+            ],
+            "LongResting": false
+          },
+          {
+            "ChosenCardReferenceIds": [
+              38,
+              36
+            ],
+            "LongResting": false
+          }
+        ],
+        "CurrentPromptIndex": 2,
+        "SyncedActions": [],
+        "Completed": true
+      },
+      {
+        "CharacterCardSelectionStates": [
+          {
+            "ChosenCardReferenceIds": [
+              18,
+              26
+            ],
+            "LongResting": false
+          },
+          {
+            "ChosenCardReferenceIds": [
+              37,
+              30
+            ],
+            "LongResting": false
+          }
+        ],
+        "CurrentPromptIndex": 21,
+        "SyncedActions": [],
+        "Completed": true
+      }
+    ],
+    "PromptAnswers": [
+      {
+        "$type": "TargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 17
+      },
+      {
+        "$type": "HexSelectionPrompt+Answer, Game",
+        "CoordSets": [
+          {
+            "X": 1,
+            "Y": -2
+          }
+        ]
+      },
+      {
+        "$type": "AbilityCardSectionSelectionPrompt+Answer, Game",
+        "CardReferenceId": 23,
+        "AbilityCardSection": 0
+      },
+      {
+        "$type": "TargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 17
+      },
+      {
+        "$type": "ScenarioEventPrompt+Answer, Game"
+      },
+      {
+        "$type": "TargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 16
+      },
+      {
+        "$type": "AbilityCardSectionSelectionPrompt+Answer, Game",
+        "CardReferenceId": 20,
+        "AbilityCardSection": 3
+      },
+      {
+        "$type": "MovePrompt+Answer, Game",
+        "Path": [
+          {
+            "X": 0,
+            "Y": -2
+          },
+          {
+            "X": 0,
+            "Y": -1
+          }
+        ],
+        "MoveSpent": 2
+      },
+      {
+        "$type": "MonsterMovePrompt+Answer, Game",
+        "Path": [
+          {
+            "X": 0,
+            "Y": 2
+          },
+          {
+            "X": 0,
+            "Y": 1
+          },
+          {
+            "X": 0,
+            "Y": 0
+          }
+        ],
+        "MoveSpent": 3,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "LootPrompt+Answer, Game",
+        "Skipped": true,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "MonsterMovePrompt+Answer, Game",
+        "Path": [
+          {
+            "X": 2,
+            "Y": 2
+          },
+          {
+            "X": 2,
+            "Y": 1
+          }
+        ],
+        "MoveSpent": 2,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "MonsterTargetSelectionPrompt+Answer, Game",
+        "Skipped": true,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "MonsterMovePrompt+Answer, Game",
+        "Path": [
+          {
+            "X": 1,
+            "Y": 0
+          },
+          {
+            "X": 1,
+            "Y": -1
+          }
+        ],
+        "MoveSpent": 2,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "MonsterTargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 16,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "ScenarioEventPrompt+Answer, Game"
+      },
+      {
+        "$type": "AbilityCardSectionSelectionPrompt+Answer, Game",
+        "CardReferenceId": 36,
+        "AbilityCardSection": 1
+      },
+      {
+        "$type": "MovePrompt+Answer, Game",
+        "Path": [
+          {
+            "X": 0,
+            "Y": -2
+          },
+          {
+            "X": -1,
+            "Y": -1
+          },
+          {
+            "X": -1,
+            "Y": 0
+          }
+        ],
+        "MoveSpent": 3
+      },
+      {
+        "$type": "ConfirmPrompt+Answer, Game",
+        "Confirmed": true
+      },
+      {
+        "$type": "AbilityCardSectionSelectionPrompt+Answer, Game",
+        "CardReferenceId": 38,
+        "AbilityCardSection": 0
+      },
+      {
+        "$type": "TargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 13
+      },
+      {
+        "$type": "ForcedMovementPrompt+Answer, Game",
+        "Skipped": true
+      },
+      {
+        "$type": "MonsterMovePrompt+Answer, Game",
+        "Skipped": true,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "MonsterTargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 13,
+        "ImmediateCompletion": true
+      },
+      {
+        "$type": "AbilityCardSectionSelectionPrompt+Answer, Game",
+        "CardReferenceId": 30,
+        "AbilityCardSection": 0
+      },
+      {
+        "$type": "TargetSelectionPrompt+Answer, Game",
+        "FigureReferenceId": 14
+      },
+      {
+        "$type": "ForcedMovementPrompt+Answer, Game",
+        "Path": [
+          {
+            "X": -1,
+            "Y": 1
+          }
+        ]
+      }
+    ]
+  },
+  "CollectedPartyAchievements": [],
+  "SanctuaryOfTheGreatOak": {
+    "TotalDonationCount": 0,
+    "CritAMDCardIds": [
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.BLESS_ALLY_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.BLESS_ALLY_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.HEAL_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.HEAL_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.WILD_ELEMENT_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.WILD_ELEMENT_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.ADJACENT_ENEMIES_SUFFER_SANCTUARY_CRIT_AM_D_CARD",
+      "SANCTUARY_CRIT_AM_D_CARD_MODEL.ADJACENT_ENEMIES_SUFFER_SANCTUARY_CRIT_AM_D_CARD"
+    ],
+    "RollingAMDCardIds": [
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.PUSH_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.PUSH_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.HEAL_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.HEAL_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.WOUND_MUDDLE_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.WOUND_MUDDLE_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.PIERCE_SANCTUARY_ROLLING_AM_D_CARD",
+      "SANCTUARY_ROLLING_AM_D_CARD_MODEL.PIERCE_SANCTUARY_ROLLING_AM_D_CARD"
+    ]
+  },
+  "SavedEvents": {
+    "CityEventDeckIds": [
+      "CITY_EVENT_MODEL`2.CITY25",
+      "CITY_EVENT_MODEL`2.CITY27",
+      "CITY_EVENT_MODEL`2.CITY15",
+      "CITY_EVENT_MODEL`2.CITY21",
+      "CITY_EVENT_MODEL`2.CITY05",
+      "CITY_EVENT_MODEL`2.CITY29",
+      "CITY_EVENT_MODEL`2.CITY14",
+      "CITY_EVENT_MODEL`2.CITY12",
+      "CITY_EVENT_MODEL`2.CITY13",
+      "CITY_EVENT_MODEL`2.CITY11",
+      "CITY_EVENT_MODEL`2.CITY10",
+      "CITY_EVENT_MODEL`2.CITY04",
+      "CITY_EVENT_MODEL`2.CITY22",
+      "CITY_EVENT_MODEL`2.CITY23",
+      "CITY_EVENT_MODEL`2.CITY08",
+      "CITY_EVENT_MODEL`2.CITY03",
+      "CITY_EVENT_MODEL`2.CITY20",
+      "CITY_EVENT_MODEL`2.CITY55",
+      "CITY_EVENT_MODEL`2.CITY16",
+      "CITY_EVENT_MODEL`2.CITY18",
+      "CITY_EVENT_MODEL`2.CITY06",
+      "CITY_EVENT_MODEL`2.CITY17",
+      "CITY_EVENT_MODEL`2.CITY35",
+      "CITY_EVENT_MODEL`2.CITY01",
+      "CITY_EVENT_MODEL`2.CITY49",
+      "CITY_EVENT_MODEL`2.CITY02",
+      "CITY_EVENT_MODEL`2.CITY07",
+      "CITY_EVENT_MODEL`2.CITY30",
+      "CITY_EVENT_MODEL`2.CITY26",
+      "CITY_EVENT_MODEL`2.CITY28",
+      "CITY_EVENT_MODEL`2.CITY19",
+      "CITY_EVENT_MODEL`2.CITY24"
+    ],
+    "TopCityDeckQueueIds": [],
+    "RoadEventDeckIds": [
+      "ROAD_EVENT_MODEL`2.ROAD27",
+      "ROAD_EVENT_MODEL`2.ROAD17",
+      "ROAD_EVENT_MODEL`2.ROAD08",
+      "ROAD_EVENT_MODEL`2.ROAD19",
+      "ROAD_EVENT_MODEL`2.ROAD12",
+      "ROAD_EVENT_MODEL`2.ROAD11",
+      "ROAD_EVENT_MODEL`2.ROAD01",
+      "ROAD_EVENT_MODEL`2.ROAD07",
+      "ROAD_EVENT_MODEL`2.ROAD23",
+      "ROAD_EVENT_MODEL`2.ROAD21",
+      "ROAD_EVENT_MODEL`2.ROAD04",
+      "ROAD_EVENT_MODEL`2.ROAD14",
+      "ROAD_EVENT_MODEL`2.ROAD18",
+      "ROAD_EVENT_MODEL`2.ROAD25",
+      "ROAD_EVENT_MODEL`2.ROAD20",
+      "ROAD_EVENT_MODEL`2.ROAD28",
+      "ROAD_EVENT_MODEL`2.ROAD43",
+      "ROAD_EVENT_MODEL`2.ROAD06",
+      "ROAD_EVENT_MODEL`2.ROAD24",
+      "ROAD_EVENT_MODEL`2.ROAD29",
+      "ROAD_EVENT_MODEL`2.ROAD55",
+      "ROAD_EVENT_MODEL`2.ROAD03",
+      "ROAD_EVENT_MODEL`2.ROAD30",
+      "ROAD_EVENT_MODEL`2.ROAD22",
+      "ROAD_EVENT_MODEL`2.ROAD35",
+      "ROAD_EVENT_MODEL`2.ROAD02",
+      "ROAD_EVENT_MODEL`2.ROAD49",
+      "ROAD_EVENT_MODEL`2.ROAD10",
+      "ROAD_EVENT_MODEL`2.ROAD05",
+      "ROAD_EVENT_MODEL`2.ROAD15",
+      "ROAD_EVENT_MODEL`2.ROAD16",
+      "ROAD_EVENT_MODEL`2.ROAD13",
+      "ROAD_EVENT_MODEL`2.ROAD09"
+    ],
+    "TopRoadDeckQueueIds": [],
+    "CanDrawCityEvent": false
+  },
+  "SavedPersonalQuests": {
+    "PersonalQuestDeckIds": [
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.NATURAL_SELECTION",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.AN_ADDER_DIVIDES",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.MUTUAL_SUPPORT",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.SPIRITUAL_GAINS_PERSONAL_QUEST",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.WEAPONS_SPECIALIST",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.PREDATOR_AND_PREY",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.ADRENALINE_SPIKE",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.NO_REST_FOR_THE_WICKED",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.FIELD_RESEARCH",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.CONJURERS_HAND",
+      "THE_CRIMSON_SCALES_PERSONAL_QUEST`1.EXPERIENCED_LEADER"
+    ]
+  },
+  "SavedPartyGoals": {
+    "PartyGoals": [
+      {
+        "ModelId": "SCALES_WITH_CHARACTERS_PARTY_GOAL_MODEL.BATTLE_GOALS_PARTY_GOAL",
+        "PartyGoalData": {
+          "$type": "ScalesWithCharactersPartyGoalData, Game",
+          "CharacterProgresses": {},
+          "Progress": 0
+        }
+      },
+      {
+        "ModelId": "SCALES_WITH_CHARACTERS_PARTY_GOAL_MODEL.EXPERIENCE_PARTY_GOAL",
+        "PartyGoalData": {
+          "$type": "ScalesWithCharactersPartyGoalData, Game",
+          "CharacterProgresses": {},
+          "Progress": 0
+        }
+      },
+      {
+        "ModelId": "SCALES_WITH_CHARACTERS_PARTY_GOAL_MODEL.SPEND_GOLD_AT_SHOP_PARTY_GOAL",
+        "PartyGoalData": {
+          "$type": "ScalesWithCharactersPartyGoalData, Game",
+          "CharacterProgresses": {},
+          "Progress": 0
+        }
+      },
+      {
+        "ModelId": "SCALES_WITH_CHARACTERS_PARTY_GOAL_MODEL.TREASURE_TILE_PARTY_GOAL",
+        "PartyGoalData": {
+          "$type": "ScalesWithCharactersPartyGoalData, Game",
+          "CharacterProgresses": {},
+          "Progress": 0
+        }
+      },
+      {
+        "ModelId": "PARTY_GOAL_MODEL`1.SIDE_SCENARIO_PARTY_GOAL",
+        "PartyGoalData": {
+          "Progress": 0
+        }
+      }
+    ],
+    "CompletedPartyGoalCount": 0,
+    "CompletedEnough": false
+  },
+  "SavedMerchantsGuildHall": {
+    "Rewards": [
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.GAIN_PROSPERITY_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.ADD_CITY_AND_ROAD59_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.ADD_CITY_AND_ROAD60_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.UNLOCK_SCENARIO51_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.UNLOCK_SCENARIO52_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.UNLOCK_SCENARIO53_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.UNLOCK_SCENARIO54_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      },
+      {
+        "ModelId": "MERCHANTS_GUILD_HALL_REWARD_MODEL.UNLOCK_SCENARIO55_MERCHANTS_GUILD_HALL_REWARD",
+        "Unlocked": false
+      }
+    ],
+    "CompletedScenarioCount": 0,
+    "Unlocked": false
+  },
+  "SavedRewards": {
+    "Rewards": [
+      {
+        "$type": "Road26+ChoiceASummonReward, Game",
+        "Completed": false,
+        "MarkedForRemoval": true,
+        "CustomValues": {}
+      }
+    ]
+  },
+  "Reputation": 0,
+  "Prosperity": 0,
+  "EnhancementsUnlocked": false,
+  "GodMode": false,
+  "CustomValues": {
+    "IntroductionSeen": true
+  }
+}

@@ -310,3 +310,6 @@ bus = &"BGS"
 
 [node name="ScreenshotHelper" type="Node" parent="." unique_id=1780657384]
 script = ExtResource("28_p2uns")
+Resolutions = Dictionary[String, Vector2i]({
+"Screenshot": Vector2i(1920, 1080)
+})

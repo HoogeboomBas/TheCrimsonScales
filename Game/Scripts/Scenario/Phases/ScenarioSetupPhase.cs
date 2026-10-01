@@ -213,7 +213,7 @@ public class ScenarioSetupPhase : ScenarioPhase
 
 		if(hasUnfinishedCharacter)
 		{
-			GameController.Instance.HintTextView.Open("Select a battle goal for all characters.");
+			GameController.Instance.HintTextView.Open("Select a battle goal for all characters");
 		}
 		else
 		{
