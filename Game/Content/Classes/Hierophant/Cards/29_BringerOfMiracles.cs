@@ -100,28 +100,7 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 
 					await AbilityCmd.AddCondition(state, state.Performer, Conditions.Bless);
 
-					ScenarioEvents.InflictConditionEvent.Subscribe(state, this,
-						parameters =>
-							parameters.Target == state.Performer &&
-							parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-							Conditions.Bless.ImmunityCompareBaseConditions != null &&
-							parameters.ConditionModel.ImmunityCompareBaseConditions
-								.Any(condition => Conditions.Bless.ImmunityCompareBaseConditions.Contains(condition)),
-						async parameters =>
-						{
-							parameters.SetPrevented(true);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(state, this,
-						parameters => parameters.Figure == state.Performer,
-						parameters =>
-						{
-							parameters.AddImmunity(Conditions.Bless);
-						}
-					);
+					AbilityCmd.AddConditionImmunity(Conditions.Bless, state.Performer, state);
 
 					ScenarioEvents.DuringAttackEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer,
@@ -156,8 +135,7 @@ public class BringerOfMiracles : HierophantLevelUpCardModel<BringerOfMiracles.Ca
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.InflictConditionEvent.Unsubscribe(state, this);
-					ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(state, this);
+					AbilityCmd.RemoveConditionImmunity(state.Performer, state);
 					ScenarioEvents.DuringAttackEvent.Unsubscribe(state, this);
 					ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);

@@ -169,9 +169,8 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		ScenarioEvents.LongRestCardSelectionEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.DuringHealEvent.Unsubscribe(this, _subscriber);
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureKilledEvent.Unsubscribe(this, _subscriber);
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this, _subscriber);
+		AbilityCmd.RemoveConditionImmunity(Owner, _subscriber);
 	}
 
 	protected async GDTask Use(Func<Character, GDTask> apply)
@@ -489,38 +488,19 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 			effectInfoViewParameters: _effectInfoViewParameters);
 	}
 
-	protected void SubscribeConditionImmunity(ConditionModel conditionModel,
-		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
+	protected void SubscribeConditionImmunity(ConditionModel conditionModel)
 	{
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
-			parameters =>
-			{
-				return parameters.Target == Owner &&
-				       parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-				       conditionModel.ImmunityCompareBaseConditions != null &&
-				       parameters.ConditionModel.ImmunityCompareBaseConditions
-					       .Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1));
-			},
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
+		AbilityCmd.AddConditionImmunity(conditionModel, Owner, _subscriber);
+	}
 
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
-			parameters => parameters.Figure == Owner,
-			parameters =>
-			{
-				parameters.AddImmunity(conditionModel);
-			}
-		);
+	protected void SubscribeConditionsImmunity(List<ConditionModel> conditionModels)
+	{
+		AbilityCmd.AddConditionsImmunity(conditionModels, Owner, _subscriber);
 	}
 
 	protected ActionState GetActionState(Figure performer, Ability[] abilities)
 	{
-		ActionState actionState = new ActionState(this, performer, abilities, //null, 
+		ActionState actionState = new ActionState(this, performer, abilities, //null,
 			onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);
 
 		return actionState;

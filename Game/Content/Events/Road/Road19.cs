@@ -115,37 +115,13 @@ public class Road19 : RoadEventModel<Road19.ChoiceA, Road19.ChoiceB>
 		protected override string GetDescriptionLabelText(RichTextParameters textParameters) =>
 			$"All characters adjacent to this obstacle are immune to negative conditions.";
 
+		Figure _figure = GameController.Instance.CharacterManager.Characters.First();
+
 		protected override void OnTotemPlaced(Obstacle obstacle)
 		{
 			base.OnTotemPlaced(obstacle);
 
-			ScenarioEvents.InflictConditionEvent.Subscribe(this,
-				parameters =>
-					parameters.Target is Character &&
-					RangeHelper.Distance(parameters.Target.Hex, obstacle.Hex) <= 1 &&
-					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-					parameters.ConditionModel.ImmunityCompareBaseConditions
-						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1)),
-				async parameters =>
-				{
-					parameters.SetPrevented(true);
-
-					await GDTask.CompletedTask;
-				}
-			);
-
-			ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this,
-				parameters =>
-					parameters.Figure is Character &&
-					RangeHelper.Distance(parameters.Figure.Hex, obstacle.Hex) <= 1,
-				parameters =>
-				{
-					foreach(ConditionModel conditionModel in Conditions.NegativeBaseConditionModels)
-					{
-						parameters.AddImmunity(conditionModel);
-					}
-				}
-			);
+			AbilityCmd.AddAllNegativeConditionImmunity(_figure, this, customCanApply: figure => figure is Character && RangeHelper.Distance(figure.Hex, obstacle.Hex) <= 1);
 
 			ScenarioEvents.FigureEnteredHexEvent.Subscribe(this,
 				parameters => parameters.Figure is Character,
@@ -161,8 +137,7 @@ public class Road19 : RoadEventModel<Road19.ChoiceA, Road19.ChoiceB>
 		{
 			base.OnTotemDestroyed(obstacle);
 
-			ScenarioEvents.InflictConditionEvent.Unsubscribe(this);
-			ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this);
+			AbilityCmd.RemoveConditionImmunity(_figure, this);
 			ScenarioEvents.FigureEnteredHexEvent.Unsubscribe(this);
 		}
 	}

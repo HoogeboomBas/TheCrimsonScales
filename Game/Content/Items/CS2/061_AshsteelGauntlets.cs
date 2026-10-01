@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 
 public class AshsteelGauntlets : CS2Item
@@ -21,29 +21,8 @@ public class AshsteelGauntlets : CS2Item
 		_subscriber = new object();
 
 		ConditionModel conditionModel = Conditions.Disarm;
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
-			parameters =>
-				Owner != null &&
-				parameters.Target == Owner &&
-				parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-				conditionModel.ImmunityCompareBaseConditions != null &&
-				parameters.ConditionModel.ImmunityCompareBaseConditions
-					.Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1)),
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
 
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
-			parameters => parameters.Figure == Owner,
-			parameters =>
-			{
-				parameters.AddImmunity(conditionModel);
-			}
-		);
+		AbilityCmd.AddConditionImmunity(Conditions.Disarm, Owner, this);
 
 		base.Init(owner);
 	}

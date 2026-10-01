@@ -62,25 +62,7 @@ public class City26 : CityEventModel<City26.ChoiceA, City26.ChoiceB>
 		{
 			await base.OnScenarioSetupPhaseCompleted();
 
-			ScenarioEvents.InflictConditionEvent.Subscribe(this,
-				parameters =>
-					parameters.Target is Character &&
-					parameters.ConditionModel.ImmunityCompareBaseConditions.Any(conditionModel => conditionModel == Conditions.Muddle),
-				async parameters =>
-				{
-					parameters.SetPrevented(true);
-
-					await GDTask.CompletedTask;
-				}
-			);
-
-			ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this,
-				parameters => parameters.Figure is Character,
-				parameters =>
-				{
-					parameters.AddImmunity(Conditions.Muddle);
-				}
-			);
+			AbilityCmd.AddConditionImmunity(Conditions.Muddle, GameController.Instance.CharacterManager.Characters.First(), this, customCanApply: figure => figure is Character);
 		}
 	}
 
