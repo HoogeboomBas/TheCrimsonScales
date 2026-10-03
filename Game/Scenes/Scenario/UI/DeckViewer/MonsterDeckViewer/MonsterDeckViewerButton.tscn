@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://b5cxxx5kd3gav"]
+
+[ext_resource type="Script" uid="uid://dnmic7lxj7cu3" path="res://Scripts/Scenario/UI/DeckViewer/MonsterDeckViewer/MonsterDeckViewerButton.cs" id="1_yge1u"]
+[ext_resource type="PackedScene" uid="uid://dvggkww4mpl1t" path="res://Scenes/Scenario/UI/DeckViewer/MonsterDeckViewer/MonsterDeckViewerBox.tscn" id="2_qeqac"]
+[ext_resource type="Script" uid="uid://dir5vjdxjac3n" path="res://Scripts/UI/BetterButton.cs" id="3_jnfi5"]
+
+[node name="Control" type="Control" unique_id=1792582373 node_paths=PackedStringArray("_monsterDeckBackTexture", "ExtraDetailTexture", "_button", "_view", "Grid", "ExtraDetailView")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 350.0
+offset_right = -1463.0
+offset_bottom = -1008.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yge1u")
+_monsterDeckBackTexture = NodePath("Button/TextureRect")
+ExtraDetailTexture = NodePath("Control/Control/TextureRect")
+_button = NodePath("Button")
+_view = NodePath("Control")
+Grid = NodePath("Control/GridContainer")
+DeckViewerBox = ExtResource("2_qeqac")
+ExtraDetailView = NodePath("Control/Control")
+
+[node name="Control" type="Control" parent="." unique_id=627476190]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="Control" unique_id=1236446641]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -8.75
+anchor_right = -8.75
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
+
+[node name="Control" type="Control" parent="Control" unique_id=432685929]
+layout_mode = 1
+anchor_left = -8.75
+anchor_right = -8.75
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/Control" unique_id=858874318]
+layout_mode = 0
+offset_top = -272.0
+offset_right = 490.0
+offset_bottom = 55.0
+expand_mode = 1
+
+[node name="Button" type="BaseButton" parent="." unique_id=50195780]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 106.0
+offset_top = 0.0
+offset_right = 213.0
+offset_bottom = 72.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("3_jnfi5")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="TextureRect" type="TextureRect" parent="Button" unique_id=1566511354]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4

@@ -10,7 +10,7 @@ public abstract class ShamanAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard2>(),
-		ModelDB.MonsterAbilityCard<ShamanAbilityCard3>(),
+		ModelDB.MonsterAbilityCard<ShamanAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard5>(),
 		ModelDB.MonsterAbilityCard<ShamanAbilityCard6>(),
@@ -46,19 +46,6 @@ public class ShamanAbilityCard2 : ShamanAbilityCard
 {
 	public override int Initiative => 23;
 	public override int CardIndex => 2;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithRange(3).Build()),
-	];
-}
-
-public class ShamanAbilityCard3 : ShamanAbilityCard
-{
-	public override int Initiative => 23;
-	public override int CardIndex => 3;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

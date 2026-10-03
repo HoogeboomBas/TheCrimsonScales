@@ -10,7 +10,7 @@ public abstract class WindDemonAbilityCard : MonsterAbilityCardModel
 	[
 		ModelDB.MonsterAbilityCard<WindDemonAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<WindDemonAbilityCard1>(),
-		ModelDB.MonsterAbilityCard<WindDemonAbilityCard2>(),
+		ModelDB.MonsterAbilityCard<WindDemonAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<WindDemonAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<WindDemonAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<WindDemonAbilityCard5>(),
@@ -43,22 +43,6 @@ public class WindDemonAbilityCard1 : WindDemonAbilityCard
 {
 	public override int Initiative => 21;
 	public override int CardIndex => 1;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pull: 1)),
-	];
-
-	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
-		[CardElementInfusion.Infuse(Element.Air)];
-}
-
-public class WindDemonAbilityCard2 : WindDemonAbilityCard
-{
-	public override int Initiative => 21;
-	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
@@ -108,8 +92,8 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 			AttackAbility(
 				monster,
 				+0,
-				aoePattern: new(() => CheckElementConsumed(monster, [Element.Air]) ?
-					new AOEPattern([
+				aoePattern: new(() => CheckElementConsumed(monster, [Element.Air])
+					? new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -117,8 +101,8 @@ public class WindDemonAbilityCard4 : WindDemonAbilityCard
 						new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.East), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East).Add(Direction.East), AOEHexType.Red),
-					]) :
-					new AOEPattern([
+					])
+					: new AOEPattern([
 						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 						new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -155,7 +139,7 @@ public class WindDemonAbilityCard5 : WindDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +1, targets: 
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +1, targets:
 			new(() => CheckElementConsumed(monster, [Element.Air]) ? 2 : 1))),
 	];
 

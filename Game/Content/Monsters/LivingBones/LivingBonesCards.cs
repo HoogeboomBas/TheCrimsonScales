@@ -10,7 +10,7 @@ public abstract class LivingBonesAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard3>(),
-		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard4>(),
+		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard5>(),
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard6>(),
 		ModelDB.MonsterAbilityCard<LivingBonesAbilityCard7>()
@@ -59,18 +59,6 @@ public class LivingBonesAbilityCard3 : LivingBonesAbilityCard
 {
 	public override int Initiative => 45;
 	public override int CardIndex => 3;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-	];
-}
-
-public class LivingBonesAbilityCard4 : LivingBonesAbilityCard
-{
-	public override int Initiative => 45;
-	public override int CardIndex => 4;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[

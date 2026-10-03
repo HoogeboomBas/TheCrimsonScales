@@ -8,7 +8,7 @@ public abstract class GiantViperAbilityCard : MonsterAbilityCardModel
 	public static IEnumerable<MonsterAbilityCardModel> Deck { get; } =
 	[
 		ModelDB.MonsterAbilityCard<GiantViperAbilityCard0>(),
-		ModelDB.MonsterAbilityCard<GiantViperAbilityCard1>(),
+		ModelDB.MonsterAbilityCard<GiantViperAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<GiantViperAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<GiantViperAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<GiantViperAbilityCard4>(),
@@ -22,46 +22,6 @@ public class GiantViperAbilityCard0 : GiantViperAbilityCard
 {
 	public override int Initiative => 32;
 	public override int CardIndex => 0;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					canApplyParameters =>
-					{
-						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
-						{
-							foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
-							{
-								if(monster.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-						}
-
-						return false;
-					},
-					applyFunction: async applyParameters =>
-					{
-						applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
-
-						await GDTask.CompletedTask;
-					}
-				)
-			]
-		))
-	];
-}
-
-public class GiantViperAbilityCard1 : GiantViperAbilityCard
-{
-	public override int Initiative => 32;
-	public override int CardIndex => 1;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

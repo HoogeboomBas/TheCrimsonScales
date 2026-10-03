@@ -22,6 +22,7 @@ public partial class MonsterInfoItem : FigureInfoItem<MonsterInfoItem.Parameters
 	private Label _rangeLabel;
 
 	private Monster _monster;
+	private MonsterDeckViewerButton _monsterDeckViewerButton;
 
 	public override void Init(Parameters parameters)
 	{
@@ -35,6 +36,9 @@ public partial class MonsterInfoItem : FigureInfoItem<MonsterInfoItem.Parameters
 		_moveLabel.SetText(_monster.Stats.Move?.ToString() ?? "-");
 		_attackLabel.SetText(_monster.Stats.Attack.ToString());
 		_rangeLabel.SetText(_monster.Stats.Range?.ToString() ?? "-");
+
+		_monsterDeckViewerButton = GetNode<MonsterDeckViewerButton>("MarginContainer/Content/MonsterDeckViewer");
+		_monsterDeckViewerButton.SetCardDeck(_monster.MonsterGroup.MonsterAbilityCardDeck);
 
 		UpdateAbilityCard();
 

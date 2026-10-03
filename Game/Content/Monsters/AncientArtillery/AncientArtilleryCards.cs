@@ -9,7 +9,7 @@ public abstract class AncientArtilleryAbilityCard : MonsterAbilityCardModel
 	[
 		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard1>(),
-		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard2>(),
+		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<AncientArtilleryAbilityCard5>(),
@@ -33,39 +33,6 @@ public class AncientArtilleryAbilityCard1 : AncientArtilleryAbilityCard
 {
 	public override int Initiative => 71;
 	public override int CardIndex => 1;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-				{
-					List<Figure> sufferDamageTargets = new List<Figure>();
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
-					{
-						if(state.Authority.EnemiesWith(figure))
-						{
-							sufferDamageTargets.Add(figure);
-						}
-					}
-
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 2);
-					}
-
-					state.SetPerformed();
-				}
-			)
-			.Build())
-	];
-}
-
-public class AncientArtilleryAbilityCard2 : AncientArtilleryAbilityCard
-{
-	public override int Initiative => 71;
-	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

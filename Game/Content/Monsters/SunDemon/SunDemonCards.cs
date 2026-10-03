@@ -10,7 +10,7 @@ public abstract class SunDemonAbilityCard : MonsterAbilityCardModel
 	[
 		ModelDB.MonsterAbilityCard<SunDemonAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<SunDemonAbilityCard1>(),
-		ModelDB.MonsterAbilityCard<SunDemonAbilityCard2>(),
+		ModelDB.MonsterAbilityCard<SunDemonAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<SunDemonAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<SunDemonAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<SunDemonAbilityCard5>(),
@@ -48,21 +48,6 @@ public class SunDemonAbilityCard1 : SunDemonAbilityCard
 {
 	public override int Initiative => 36;
 	public override int CardIndex => 1;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, target: Target.Enemies | Target.TargetAll))
-	];
-
-	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
-		[CardElementInfusion.Infuse(Element.Light)];
-}
-
-public class SunDemonAbilityCard2 : SunDemonAbilityCard
-{
-	public override int Initiative => 36;
-	public override int CardIndex => 2;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[

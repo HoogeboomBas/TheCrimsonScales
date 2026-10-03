@@ -8,7 +8,7 @@ public abstract class ToxicImpAbilityCard : MonsterAbilityCardModel
 	public static IEnumerable<MonsterAbilityCardModel> Deck { get; } =
 	[
 		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard0>(),
-		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard1>(),
+		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<ToxicImpAbilityCard4>(),
@@ -19,19 +19,6 @@ public abstract class ToxicImpAbilityCard : MonsterAbilityCardModel
 }
 
 public class ToxicImpAbilityCard0 : ToxicImpAbilityCard
-{
-	public override int Initiative => 41;
-	public override int CardIndex => 0;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Infect])),
-	];
-}
-
-public class ToxicImpAbilityCard1 : ToxicImpAbilityCard
 {
 	public override int Initiative => 41;
 	public override int CardIndex => 0;
