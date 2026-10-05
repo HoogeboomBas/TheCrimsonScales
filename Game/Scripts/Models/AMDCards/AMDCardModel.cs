@@ -19,6 +19,7 @@ public abstract class AMDCardModel : AbstractModel
 
 	public virtual bool Reshuffles => false;
 	public virtual bool RemoveAfterDraw => false;
+	public virtual bool StaysActive => false;
 
 	public virtual AMDCardType Type => AMDCardType.Value;
 
@@ -247,5 +248,10 @@ public abstract class AMDCardModel : AbstractModel
 			Summon summon => summon.CharacterOwner,
 			_ => null
 		};
+	}
+
+	public virtual async GDTask OnBecomeActive(AMDCard card, Character character)
+	{
+    	await GDTask.CompletedTask;
 	}
 }

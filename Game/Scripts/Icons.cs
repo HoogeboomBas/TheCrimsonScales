@@ -29,6 +29,7 @@ public static class Icons
 	public const string UnlockableCards = "res://Art/Icons/Other/LevelCrown.svg";
 	public const string UnavailableCards = "res://Art/Icons/Other/CloseIcon.svg";
 	public const string PlayingCards = "res://Art/Icons/Other/Card.svg";
+	public const string Refresh = "res://Art/Icons/Other/Refresh.svg";
 	public const string Active = "res://Art/Icons/Other/Active.svg";
 	public const string Coins = "res://Art/Icons/Other/Coins.svg";
 	public const string XP = "res://Art/Icons/Abilities/XP.svg";

@@ -1,4 +1,4 @@
-﻿public partial class ScenarioEvents
+public partial class ScenarioEvents
 {
 	public class ProjectileTokenCreated : ScenarioEvent<ProjectileTokenCreated.Parameters>
 	{

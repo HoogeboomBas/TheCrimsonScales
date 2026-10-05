@@ -28,10 +28,26 @@ public class AMDCard : IDeckCard
 			await ScenarioEvents.AMDCardDrawnEvent.CreatePrompt(
 				new ScenarioEvents.AMDCardDrawn.Parameters(attackAbilityState, this));
 
+		AMDCard card = this;
+		Func<AttackAbility.State, Character, GDTask> modelEffects = Model.GetExtraEffects();
+		Func<AttackAbility.State, Character, GDTask> extraEffects = async (state, character) =>
+		{
+			if (Model.StaysActive && character != null)
+			{
+				character.ActiveModifiers.Add(card);
+				await Model.OnBecomeActive(card, character);
+			}
+
+			if (modelEffects != null)
+			{
+				await modelEffects(state, character);
+			}
+		};
+
 		return new AMDCardValue(PotentialDeckOwner, Model.GetRolling(attackAbilityState), amdCardDrawnParameters.Type, amdCardDrawnParameters.Value,
 			Model.Pierce, Model.Push, Model.Pull, Model.Swing, Model.AddedTargets, Model.ElementInfusions,
 			Model.GetConditionModels(attackAbilityState),
-			Model.GetAbilities(attackAbilityState), Model.GetExtraEffects());
+			Model.GetAbilities(attackAbilityState), extraEffects);
 	}
 
 	public Texture2D GetTexture()

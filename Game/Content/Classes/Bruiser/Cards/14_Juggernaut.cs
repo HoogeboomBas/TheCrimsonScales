@@ -1,0 +1,82 @@
+using System.Collections.Generic;
+using System.Linq;
+using Fractural.Tasks;
+using Godot;
+
+public class Juggernaut : BruiserCardModel<Juggernaut.CardTop, Juggernaut.CardBottom>
+{
+	public override string Name => "Juggernaut";
+	public override int Level => 2;
+	public override int Initiative => 21;
+	protected override int AtlasIndex => 14;
+
+	public class CardTop : BruiserCardSide
+	{
+		protected override List<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Poison1)
+				.WithAOEPattern(new AOEPattern(
+					[
+						new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Red),
+						new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+					]
+				))
+				.WithAfterTargetConfirmedSubscription(
+					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
+						parameters => parameters.AbilityState.Target.EnemiesWith(parameters.Performer) &&
+						              RangeHelper.Distance(parameters.Performer.Hex, parameters.AbilityState.Target.Hex) == 1,
+						async parameters =>
+						{
+							parameters.AbilityState.SingleTargetRemoveCondition(Conditions.Poison1);
+							parameters.AbilityState.SingleTargetAddCondition(Conditions.Poison2);
+
+							await GDTask.CompletedTask;
+						}
+					)
+				)
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.Build()),
+			new AbilityCardAbility(ConditionAbility.Builder()
+				.WithConditions(Conditions.Poison1)
+				.WithCustomGetTargets((state, figures) =>
+				{
+					ConditionAbility.State conditionAbilityState = state.ActionState.GetAbilityState<ConditionAbility.State>(0);
+					figures.AddRange(conditionAbilityState.GetRedAOEHexes().SelectMany(hex => hex.GetHexObjectsOfType<Figure>()));
+				})
+				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithMandatory(true)
+				.Build())
+		];
+	}
+
+	public class CardBottom : BruiserCardSide
+	{
+		protected override List<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(0)
+				.WithConditions(Conditions.Muddle)
+				.WithRangeType(RangeType.Range)
+				.WithTarget(Target.Enemies | Target.TargetAll)
+				.WithCustomGetTargets((state, list) =>
+					{
+						foreach(Figure figure in RangeHelper.GetFiguresInRange(state.Performer.Hex, 3))
+						{
+							if(figure.HasPoison())
+							{
+								list.Add(figure);
+							}
+						}
+					}
+				)
+				.Build())
+		];
+	}
+}
