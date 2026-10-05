@@ -22,7 +22,8 @@ public class BossAbilityCard0 : BossAbilityCard
 	public override int Initiative => 11;
 	public override int CardIndex => 0;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
 public class BossAbilityCard1 : BossAbilityCard
@@ -30,7 +31,8 @@ public class BossAbilityCard1 : BossAbilityCard
 	public override int Initiative => 14;
 	public override int CardIndex => 1;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
 public class BossAbilityCard2 : BossAbilityCard
@@ -39,7 +41,8 @@ public class BossAbilityCard2 : BossAbilityCard
 	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial2Abilities(monster);
 }
 
 public class BossAbilityCard3 : BossAbilityCard
@@ -48,7 +51,8 @@ public class BossAbilityCard3 : BossAbilityCard
 	public override int CardIndex => 3;
 	public override bool Reshuffles => true;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public class BossAbilityCard4 : BossAbilityCard
@@ -56,7 +60,8 @@ public class BossAbilityCard4 : BossAbilityCard
 	public override int Initiative => 79;
 	public override int CardIndex => 4;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public class BossAbilityCard5 : BossAbilityCard
@@ -64,7 +69,8 @@ public class BossAbilityCard5 : BossAbilityCard
 	public override int Initiative => 73;
 	public override int CardIndex => 5;
 
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) => ((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
+	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
+		((IBossMonsterModel)monster.MonsterModel).GetSpecial1Abilities(monster);
 }
 
 public class BossAbilityCard6 : BossAbilityCard
@@ -74,8 +80,8 @@ public class BossAbilityCard6 : BossAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -85,8 +91,11 @@ public class BossAbilityCard7 : BossAbilityCard
 	public override int CardIndex => 7;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-    [
-        new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: -1, range: 3, targets: 2)),
-    ];
+	[
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(3)
+			.WithTargets(2)
+			.Build()),
+	];
 }

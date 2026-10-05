@@ -26,8 +26,8 @@ public class OozeAbilityCard0 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 	];
 }
 
@@ -38,8 +38,8 @@ public class OozeAbilityCard1 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -50,7 +50,10 @@ public class OozeAbilityCard2 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, targets: 2, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithTargets(2)
+			.WithConditions(Conditions.Poison1)
+			.Build())
 	];
 }
 
@@ -61,8 +64,8 @@ public class OozeAbilityCard3 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: 1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: 1).Build())
 	];
 }
 
@@ -74,11 +77,9 @@ public class OozeAbilityCard4 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 2);
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Self)
 			.Build()),
 
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
@@ -90,7 +91,6 @@ public class OozeAbilityCard4 : OozeAbilityCard
 					? performingMonster.MonsterLevel
 					: GameController.Instance.SavedScenario.ScenarioLevel;
 				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
-
 				await GDTask.CompletedTask;
 			})
 			.Build())
@@ -105,11 +105,9 @@ public class OozeAbilityCard5 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 2);
-			})
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Self)
 			.Build()),
 
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
@@ -135,7 +133,7 @@ public class OozeAbilityCard6 : OozeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(LootAbility.Builder().WithRange(1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build())
 	];
@@ -154,6 +152,6 @@ public class OozeAbilityCard7 : OozeAbilityCard
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
 
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1))
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, -1).Build())
 	];
 }

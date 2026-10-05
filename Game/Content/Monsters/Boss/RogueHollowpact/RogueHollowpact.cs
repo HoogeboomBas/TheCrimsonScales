@@ -122,15 +122,17 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 
 	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
-		 Jump to an empty hex adjacent to a Void Pit obstacle furthest away from a character within {Icons.Inline(Icons.Range)}4. 
-		 {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Range)}4. 
+		 Jump to an empty hex adjacent to a Void Pit obstacle furthest away from a character within {Icons.Inline(Icons.Range)}4.
+		 {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Range)}4.
 		 All enemies adjacent to a Void Pit obstacle suffer {Icons.Inline(Icons.Damage)}2.
 		 """;
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0, MoveType.Jump)),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +2)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)
+			.WithMoveType(MoveType.Jump)
+			.Build()),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +2).Build()),
 
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(0)
@@ -148,7 +150,7 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(TeleportAbility.Builder()
-			.WithCustomGetHexes((state, hexes) =>
+			.WithCustomGetHexes((_, hexes) =>
 			{
 				// Find all void pits
 				List<Objective> objectives = GameController.Instance.Map.GetChildrenOfType<Objective>()
@@ -195,11 +197,13 @@ public class RogueHollowpact : MonsterModel, IBossMonsterModel
 				hexes.AddRange(targetObjective.Hex.Neighbours.Where(hex => hex.IsEmpty() && Map.SimpleDistance(monster.Hex.Coords, hex.Coords) <= 4));
 			})
 			.Build()),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +2, range: 4)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +2)
+			.WithRange(4)
+			.Build()),
 		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
 			.WithDamage(2)
 			.WithTarget(Target.Enemies | Target.TargetAll)
-			.WithCustomGetTargets((state, figures) =>
+			.WithCustomGetTargets((_, figures) =>
 			{
 				figures.AddRange(GameController.Instance.Map
 					.GetChildrenOfType<Objective>()

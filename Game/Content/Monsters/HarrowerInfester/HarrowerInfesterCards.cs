@@ -26,8 +26,10 @@ public class HarrowerInfesterAbilityCard0 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, targets: 2)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithTargets(2)
+			.Build())
 	];
 }
 
@@ -38,8 +40,10 @@ public class HarrowerInfesterAbilityCard1 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithConditions(Conditions.Poison1)
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -53,8 +57,8 @@ public class HarrowerInfesterAbilityCard2 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(5).WithTarget(Target.Self).Build()),
 	];
 }
@@ -66,7 +70,9 @@ public class HarrowerInfesterAbilityCard3 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +2, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +2)
+			.WithConditions(Conditions.Immobilize)
+			.Build()),
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(2).Build()),
 	];
 }
@@ -91,13 +97,15 @@ public class HarrowerInfesterAbilityCard5 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
-		]))),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast).Add(Direction.SouthEast).Add(Direction.SouthEast), AOEHexType.Red),
+			]))
+			.Build()),
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 			{
@@ -125,18 +133,18 @@ public class HarrowerInfesterAbilityCard6 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, targets: 2, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustAttackValue(2);
-					parameters.AbilityState.AbilityAddCondition(Conditions.Disarm);
-					await GDTask.CompletedTask;
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTargets(2)
+			.WithDuringAttackSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(2);
+						parameters.AbilityState.AbilityAddCondition(Conditions.Disarm);
+						await GDTask.CompletedTask;
+					}))
+			.Build()),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -151,7 +159,10 @@ public class HarrowerInfesterAbilityCard7 : HarrowerInfesterAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 3, conditions: [Conditions.Muddle])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(3)
+			.WithConditions(Conditions.Muddle)
+			.Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(4).WithTarget(Target.Self).Build()),
 	];
 }

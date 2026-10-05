@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public abstract class HoundAbilityCard : MonsterAbilityCardModel
@@ -25,8 +26,10 @@ public class HoundAbilityCard0 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditions(Conditions.Immobilize)
+			.Build())
 	];
 }
 
@@ -37,7 +40,7 @@ public class HoundAbilityCard1 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Muddle)
 			.WithRange(1)
@@ -54,35 +57,18 @@ public class HoundAbilityCard2 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					canApplyParameters =>
-					{
-						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
-						{
-							foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
-							{
-								if(monster.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-						}
-
-						return false;
-					},
-					applyFunction: async applyParameters =>
+					parameters => RangeHelper.GetFiguresInRange(parameters.Performer, 1).Any(figure => parameters.Performer.AlliedWith(figure)),
+					async applyParameters =>
 					{
 						applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
 
 						await GDTask.CompletedTask;
-					}
-				)
-			]
-		))
+					}))
+			.Build())
 	];
 }
 
@@ -94,35 +80,18 @@ public class HoundAbilityCard3 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					canApplyParameters =>
-					{
-						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
-						{
-							foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
-							{
-								if(monster.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-						}
-
-						return false;
-					},
-					applyFunction: async applyParameters =>
+					parameters => RangeHelper.GetFiguresInRange(parameters.Performer, 1).Any(figure => parameters.Performer.AlliedWith(figure)),
+					async applyParameters =>
 					{
 						applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
 
 						await GDTask.CompletedTask;
-					}
-				)
-			]
-		))
+					}))
+			.Build())
 	];
 }
 
@@ -133,8 +102,8 @@ public class HoundAbilityCard4 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0))
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -145,8 +114,8 @@ public class HoundAbilityCard5 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0))
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -157,8 +126,8 @@ public class HoundAbilityCard6 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1))
+		new MonsterAbilityCardAbility(MoveAbility(monster, -2).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build())
 	];
 }
 
@@ -169,8 +138,12 @@ public class HoundAbilityCard7 : HoundAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, pierce: 2)),
-		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, pierce: 2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithPierce(2)
+			.Build()),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -2).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithPierce(2)
+			.Build())
 	];
 }

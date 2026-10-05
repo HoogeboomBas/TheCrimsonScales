@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Godot;
 
 public abstract class ShamanAbilityCard : MonsterAbilityCardModel
 {
@@ -25,8 +24,10 @@ public class ShamanAbilityCard0 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Disarm])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithConditions(Conditions.Disarm)
+			.Build())
 	];
 }
 
@@ -37,8 +38,10 @@ public class ShamanAbilityCard1 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditions(Conditions.Immobilize)
+			.Build())
 	];
 }
 
@@ -50,7 +53,7 @@ public class ShamanAbilityCard2 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithRange(3).Build()),
 	];
 }
@@ -63,7 +66,7 @@ public class ShamanAbilityCard3 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithRange(3).Build()),
 	];
 }
@@ -75,8 +78,8 @@ public class ShamanAbilityCard4 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -87,8 +90,8 @@ public class ShamanAbilityCard5 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 }
 
@@ -99,7 +102,7 @@ public class ShamanAbilityCard6 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(1)
 			.WithRange(1)
@@ -119,7 +122,10 @@ public class ShamanAbilityCard7 : ShamanAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, targets: 2, conditions: [Conditions.Curse])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTargets(2)
+			.WithConditions(Conditions.Curse)
+			.Build())
 	];
 }

@@ -25,7 +25,7 @@ public class AncientArtilleryAbilityCard0 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: 2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, 2).Build()),
 	];
 }
 
@@ -37,27 +37,11 @@ public class AncientArtilleryAbilityCard1 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-				{
-					List<Figure> sufferDamageTargets = new List<Figure>();
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
-					{
-						if(state.Authority.EnemiesWith(figure))
-						{
-							sufferDamageTargets.Add(figure);
-						}
-					}
-
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 2);
-					}
-
-					state.SetPerformed();
-				}
-			)
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
 			.Build())
 	];
 }
@@ -70,27 +54,11 @@ public class AncientArtilleryAbilityCard2 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-				{
-					List<Figure> sufferDamageTargets = new List<Figure>();
-					foreach(Figure figure in RangeHelper.GetFiguresInRange(monster.Hex, 1))
-					{
-						if(state.Authority.EnemiesWith(figure))
-						{
-							sufferDamageTargets.Add(figure);
-						}
-					}
-
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 2);
-					}
-
-					state.SetPerformed();
-				}
-			)
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
 			.Build())
 	];
 }
@@ -107,15 +75,14 @@ public class AncientArtilleryAbilityCard3 : AncientArtilleryAbilityCard
 			.WithRange(1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
-			aoePattern: new AOEPattern(
-				[
-					new AOEHex(Vector2I.Zero, AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-				]
-			)
-		))
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, -1)
+			.WithAOEPattern(new AOEPattern(
+			[
+				new AOEHex(Vector2I.Zero, AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+			]))
+			.Build())
 	];
 }
 
@@ -131,8 +98,9 @@ public class AncientArtilleryAbilityCard4 : AncientArtilleryAbilityCard
 			.WithRange(1)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -1,
-			aoePattern: new AOEPattern([
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, -1)
+			.WithAOEPattern(new AOEPattern(
+			[
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -140,8 +108,8 @@ public class AncientArtilleryAbilityCard4 : AncientArtilleryAbilityCard
 				new AOEHex(Vector2I.Zero.Add(Direction.SouthWest), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.West), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
-			])
-		)),
+			]))
+			.Build()),
 	];
 }
 
@@ -152,7 +120,7 @@ public class AncientArtilleryAbilityCard5 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 }
 
@@ -169,7 +137,7 @@ public class AncientArtilleryAbilityCard6 : AncientArtilleryAbilityCard
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2))
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2).Build())
 	];
 }
 
@@ -180,14 +148,15 @@ public class AncientArtilleryAbilityCard7 : AncientArtilleryAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1,
-			aoePattern: new AOEPattern(
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAOEPattern(new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 				]
-			), conditions: [Conditions.Immobilize]
-		))
+			))
+			.WithConditions(Conditions.Immobilize)
+			.Build())
 	];
 }

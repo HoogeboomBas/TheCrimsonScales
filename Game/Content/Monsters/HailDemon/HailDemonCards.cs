@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Fractural.Tasks;
 using Godot;
 
@@ -29,13 +27,11 @@ public class HailDemonAbilityCard0 : HailDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3,
-			target: Target.TargetAll | Target.Enemies, customGetTargets: (state, figures) =>
-			{
-				IEnumerable<Figure> figuresRange3 = RangeHelper.GetFiguresInRange(state.Performer.Hex, 3, includeOrigin: false);
-				figures.AddRange(figuresRange3.Where(figure => figure.EnemiesWith(state.Performer) && figure.HasCondition(Conditions.Chill)));
-			}
-		))
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithRange(3)
+			.WithTarget(Target.TargetAll | Target.Enemies)
+			.WithFilterTargets((_, figure) => figure.HasCondition(Conditions.Chill))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -49,16 +45,15 @@ public class HailDemonAbilityCard1 : HailDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAddCondition(Conditions.Chill);
-					await GDTask.CompletedTask;
-				}
-			)
-		]))
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1)
+			.WithDuringAttackSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAddCondition(Conditions.Chill);
+						await GDTask.CompletedTask;
+					}))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -72,17 +67,16 @@ public class HailDemonAbilityCard2 : HailDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustPull(2);
-					await GDTask.CompletedTask;
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithDuringAttackSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Air],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustPull(2);
+						await GDTask.CompletedTask;
+					}))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -99,11 +93,8 @@ public class HailDemonAbilityCard3 : HailDemonAbilityCard
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithTarget(Target.Self).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Chill)
-			.WithCustomGetTargets((state, figures) =>
-			{
-				IEnumerable<Figure> figuresRange3 = RangeHelper.GetFiguresInRange(state.Performer.Hex, 3, includeOrigin: false);
-				figures.AddRange(figuresRange3.Where(figure => figure.EnemiesWith(state.Performer) && !figure.HasCondition(Conditions.Chill)));
-			})
+			.WithRange(3)
+			.WithFilterTargets((_, figure) => !figure.HasCondition(Conditions.Chill))
 			.Build()),
 	];
 }
@@ -115,8 +106,8 @@ public class HailDemonAbilityCard4 : HailDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(CreateTrapAbility.Builder()
 			.WithDamage(0)
 			.WithConditions(Conditions.Chill)
@@ -166,8 +157,9 @@ public class HailDemonAbilityCard5 : HailDemonAbilityCard
 			.WithRetaliateValue(3)
 			.WithRange(3)
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: +1,
-			conditionalAbilityCheck: ConsumeElementAbilityCheck<AttackAbility.State>([Element.Air]))),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: +1)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<AttackAbility.State>([Element.Air]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -182,12 +174,14 @@ public class HailDemonAbilityCard6 : HailDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(PullAbility.Builder().WithPull(2).WithRange(3).Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
-		])))
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
+			]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -201,7 +195,10 @@ public class HailDemonAbilityCard7 : HailDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 2, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(2)
+			.WithTarget(Target.TargetAll | Target.Enemies)
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =

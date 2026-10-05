@@ -25,7 +25,11 @@ public class DeepTerrorAbilityCard0 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 3, conditions: [Conditions.Curse])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(3)
+			.WithTargets(3)
+			.WithConditions(Conditions.Curse)
+			.Build())
 	];
 }
 
@@ -37,16 +41,17 @@ public class DeepTerrorAbilityCard1 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithPierce(3)
+			.WithAOEPattern(new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
+			]))
+			.Build())
 	];
 }
 
@@ -58,16 +63,17 @@ public class DeepTerrorAbilityCard2 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithPierce(3)
+			.WithAOEPattern(new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
 				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
+			]))
+			.Build())
 	];
 }
 
@@ -78,8 +84,13 @@ public class DeepTerrorAbilityCard3 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 4, conditions: [Conditions.Wound1])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(4)
+			.WithConditions(Conditions.Wound1)
+			.Build())
 	];
 }
 
@@ -90,8 +101,13 @@ public class DeepTerrorAbilityCard4 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, conditions: [Conditions.Poison1])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 5, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithConditions(Conditions.Poison1)
+			.Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(5)
+			.WithConditions(Conditions.Immobilize)
+			.Build())
 	];
 }
 
@@ -102,8 +118,13 @@ public class DeepTerrorAbilityCard5 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, target: Target.Enemies | Target.TargetAll, conditions: [Conditions.Disarm])),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, targets: 2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(3)
+			.WithTargets(2)
+			.Build()),
 	];
 }
 
@@ -114,7 +135,9 @@ public class DeepTerrorAbilityCard6 : DeepTerrorAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, range: 6)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2)
+			.WithRange(6)
+			.Build()),
 		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
 			.WithMonsterModel(ModelDB.Monster<DeepTerror>())
 			.WithMonsterType(MonsterType.Normal)
@@ -135,7 +158,7 @@ public class DeepTerrorAbilityCard6 : DeepTerrorAbilityCard
 					}
 				}
 			})
-			.Build()),
+			.Build())
 	];
 }
 
@@ -150,6 +173,8 @@ public class DeepTerrorAbilityCard7 : DeepTerrorAbilityCard
 			.WithConditions([Conditions.Wound1, Conditions.Poison1])
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 4)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(4)
+			.Build())
 	];
 }

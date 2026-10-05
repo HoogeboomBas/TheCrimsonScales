@@ -872,8 +872,6 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			}
 		}
 
-		bool shouldFilterTargets = abilityState.AbilityFilterTargets != null;
-
 		for(int i = figures.Count - 1; i >= 0; i--)
 		{
 			Figure figure = figures[i];
@@ -953,7 +951,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 				remove = true;
 			}
 
-			if(shouldFilterTargets && !abilityState.AbilityFilterTargets(abilityState, figure))
+			if(abilityState.AbilityFilterTargets != null && !abilityState.AbilityFilterTargets(abilityState, figure))
 			{
 				remove = true;
 			}

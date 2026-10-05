@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Fractural.Tasks;
-using Godot;
 
 public abstract class CultistAbilityCard : MonsterAbilityCardModel
 {
@@ -26,16 +25,18 @@ public class CultistAbilityCard0 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
 			.WithOnActivate(async state =>
 			{
 				ScenarioEvents.BeforeFigureKilledEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
-					async parameters =>
+					async _ =>
 					{
-						AttackAbility attackAbility = AttackAbility(monster, +2, target: Target.Enemies | Target.TargetAll);
+						AttackAbility attackAbility = AttackAbility(monster, +2)
+							.WithTarget(Target.TargetAll | Target.Enemies)
+							.Build();
 						ActionState actionState = new ActionState(monster, [attackAbility]);
 						await actionState.Perform();
 					}
@@ -44,7 +45,7 @@ public class CultistAbilityCard0 : CultistAbilityCard
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters =>
+						new InfoTextExtraEffect.Parameters(_ =>
 							$"On death, this monster performs {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Targets)} all adjacent enemies"))
 				);
 
@@ -68,16 +69,18 @@ public class CultistAbilityCard1 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
 			.WithOnActivate(async state =>
 			{
 				ScenarioEvents.BeforeFigureKilledEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
-					async parameters =>
+					async _ =>
 					{
-						AttackAbility attackAbility = AttackAbility(monster, +2, target: Target.Enemies | Target.TargetAll);
+						AttackAbility attackAbility = AttackAbility(monster, +2)
+							.WithTarget(Target.TargetAll | Target.Enemies)
+							.Build();
 						ActionState actionState = new ActionState(monster, [attackAbility]);
 						await actionState.Perform();
 					}
@@ -86,7 +89,7 @@ public class CultistAbilityCard1 : CultistAbilityCard
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters =>
+						new InfoTextExtraEffect.Parameters(_ =>
 							$"On death, this monster performs {Icons.Inline(Icons.Attack)}+2, {Icons.Inline(Icons.Targets)} all adjacent enemies"))
 				);
 
@@ -110,8 +113,8 @@ public class CultistAbilityCard2 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -122,8 +125,8 @@ public class CultistAbilityCard3 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -134,8 +137,8 @@ public class CultistAbilityCard4 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()),
 	];
 }
@@ -189,7 +192,7 @@ public class CultistAbilityCard7 : CultistAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithRange(3).Build()),
 	];
 }

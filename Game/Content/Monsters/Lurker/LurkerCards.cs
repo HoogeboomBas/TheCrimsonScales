@@ -45,8 +45,8 @@ public class LurkerAbilityCard1 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 }
 
@@ -57,8 +57,8 @@ public class LurkerAbilityCard2 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -69,8 +69,10 @@ public class LurkerAbilityCard3 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, target: Target.Enemies | Target.MustTargetSameWithAllTargets)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithTarget(Target.Enemies | Target.MustTargetSameWithAllTargets)
+			.Build())
 	];
 }
 
@@ -81,8 +83,8 @@ public class LurkerAbilityCard4 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build())
 	];
 }
 
@@ -93,7 +95,9 @@ public class LurkerAbilityCard5 : LurkerAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build())
 	];
 }
 
@@ -109,8 +113,10 @@ public class LurkerAbilityCard6 : LurkerAbilityCard
 			.WithTarget(Target.Self)
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Ice]))
 			.Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Wound1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithConditions(Conditions.Wound1)
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -126,8 +132,8 @@ public class LurkerAbilityCard7 : LurkerAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(1).Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =

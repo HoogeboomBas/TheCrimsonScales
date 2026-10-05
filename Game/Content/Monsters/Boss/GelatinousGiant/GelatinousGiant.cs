@@ -37,15 +37,17 @@ public class GelatinousGiant : BloodOoze, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0).Build()),
 
 		new MonsterAbilityCardAbility(GrantAbility.Builder()
 			.WithGetAbilities(grantAbilityState =>
 			[
-				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1, range: 1, rangeType: RangeType.Melee),
+				MonsterAbilityCardModel.AttackAbility((Monster)grantAbilityState.Target, extraDamage: -1)
+					.WithRange(1)
+					.Build()
 			])
 			.WithTarget(Target.Allies | Target.TargetAll)
-			.WithCustomGetTargets((state, list) =>
+			.WithCustomGetTargets((_, list) =>
 			{
 				list.AddRange(GameController.Instance.Map.Figures
 					.Where(figure => figure is Monster monsterFigure && monsterFigure.MonsterModel is BloodOoze)
@@ -56,8 +58,10 @@ public class GelatinousGiant : BloodOoze, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: -1, range: 3,
-			target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, extraDamage: -1)
+			.WithRange(3)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>

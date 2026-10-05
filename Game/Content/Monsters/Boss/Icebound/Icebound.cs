@@ -48,7 +48,7 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 			.WithMonsterType(CharacterCount >= 4 || (CharacterCount == 3 && monster.GetCustomValue<bool>("SummonElite"))
 				? MonsterType.Elite
 				: MonsterType.Normal)
-			.WithGetValidHexes((state, list) =>
+			.WithGetValidHexes((_, list) =>
 			{
 				Hex spawnHex = CalculateSpawnPoint(monster);
 				List<Hex> hexes = RangeHelper.GetHexesInRange(spawnHex, 100, requiresLineOfSight: false).ToList();
@@ -72,7 +72,7 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 					                 RangeHelper.Distance(spawnHex, h) == distance)
 				);
 			})
-			.WithOnAbilityEndedPerformed(async state =>
+			.WithOnAbilityEndedPerformed(async _ =>
 			{
 				monster.SetCustomValue("SummonElite", !monster.GetCustomValue<bool>("SummonElite"));
 				//_summonElite = !_summonElite;
@@ -87,9 +87,12 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 
 	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0, range: 3, target: Target.TargetAll | Target.Enemies)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)
+			.WithRange(3)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build()),
 		new MonsterAbilityCardAbility(TeleportAbility.Builder()
-			.WithCustomGetHexes((state, hexes) =>
+			.WithCustomGetHexes((_, hexes) =>
 			{
 				Hex targetHex = CalculateJumpTarget(monster);
 
@@ -124,7 +127,10 @@ public class Icebound : SavvasIceStorm, IBossMonsterModel
 				}
 			})
 			.Build()),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0, range: 3, target: Target.TargetAll | Target.Enemies))
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)
+			.WithRange(3)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build())
 	];
 
 	private MonsterModel CalculateMonsterModel(Monster monster)

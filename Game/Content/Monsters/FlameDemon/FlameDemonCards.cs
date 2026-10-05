@@ -27,8 +27,8 @@ public class FlameDemonAbilityCard0 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -42,8 +42,8 @@ public class FlameDemonAbilityCard1 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -58,9 +58,9 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, 
-			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
-				new AOEPattern(
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAOEPattern(new(() => CheckElementConsumed(monster, [Element.Fire])
+				? new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -71,8 +71,8 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red),
 				])
 				: null
-			)
-		))
+			))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -86,17 +86,16 @@ public class FlameDemonAbilityCard3 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Fire],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustAttackValue(1);
-					parameters.AbilityState.AbilityAddCondition(Conditions.Wound1);
-					await GDTask.CompletedTask;
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithDuringAttackSubscription(
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Fire],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						parameters.AbilityState.AbilityAddCondition(Conditions.Wound1);
+						await GDTask.CompletedTask;
+					}))
+			.Build()),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -110,8 +109,8 @@ public class FlameDemonAbilityCard4 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, -1).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -125,13 +124,14 @@ public class FlameDemonAbilityCard5 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 1, rangeType: RangeType.Melee, target: Target.Enemies | Target.TargetAll)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 1);
-			})
-			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Ice]))
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
+			.Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithTarget(Target.Self)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<SufferDamageAbility.State>([Element.Ice]))
 			.Build())
 	];
 
@@ -146,23 +146,17 @@ public class FlameDemonAbilityCard6 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-				{
-					List<Figure> sufferDamageTargets =
-						RangeHelper.GetFiguresInRange(state.Performer.Hex, 1, includeOrigin: false)
-							.Where(figure => state.Authority.EnemiesWith(figure))
-							.ToList();
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 2);
-					}
-				}
-			)
-			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<OtherAbility.State>([Element.Fire]))
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
+			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<SufferDamageAbility.State>([Element.Fire]))
 			.Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2, targets: 2, conditions: [Conditions.Wound1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2)
+			.WithTargets(2)
+			.WithConditions(Conditions.Wound1)
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -176,7 +170,7 @@ public class FlameDemonAbilityCard7 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(CreateTrapAbility.Builder()
 			.WithDamage(4)
 			.WithCustomSelectHexes((state, hexes) =>

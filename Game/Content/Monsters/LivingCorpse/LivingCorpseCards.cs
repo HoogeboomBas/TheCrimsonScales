@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Godot;
 
 public abstract class LivingCorpseAbilityCard : MonsterAbilityCardModel
 {
@@ -25,7 +24,7 @@ public class LivingCorpseAbilityCard0 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder().WithConditions([Conditions.Muddle, Conditions.Immobilize]).Build()),
 	];
 }
@@ -37,8 +36,8 @@ public class LivingCorpseAbilityCard1 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 }
 
@@ -50,8 +49,8 @@ public class LivingCorpseAbilityCard2 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -63,8 +62,8 @@ public class LivingCorpseAbilityCard3 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -75,8 +74,8 @@ public class LivingCorpseAbilityCard4 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 }
 
@@ -87,12 +86,10 @@ public class LivingCorpseAbilityCard5 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 1);
-			})
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithTarget(Target.Self)
 			.Build())
 	];
 }
@@ -104,8 +101,8 @@ public class LivingCorpseAbilityCard6 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions([Conditions.Poison1])
 			.WithTarget(Target.Enemies | Target.TargetAll)
@@ -120,12 +117,12 @@ public class LivingCorpseAbilityCard7 : LivingCorpseAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +2, push: 1)),
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 1);
-			})
+		new MonsterAbilityCardAbility(AttackAbility(monster, +2)
+			.WithPush(1)
+			.Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithTarget(Target.Self)
 			.Build())
 	];
 }

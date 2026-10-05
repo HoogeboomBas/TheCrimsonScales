@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
-using Godot;
 
 public abstract class RendingDrakeAbilityCard : MonsterAbilityCardModel
 {
@@ -26,8 +24,8 @@ public class RendingDrakeAbilityCard0 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 }
 
@@ -39,9 +37,9 @@ public class RendingDrakeAbilityCard1 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 }
 
@@ -53,8 +51,8 @@ public class RendingDrakeAbilityCard2 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -65,8 +63,8 @@ public class RendingDrakeAbilityCard3 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build())
 	];
 }
 
@@ -77,8 +75,12 @@ public class RendingDrakeAbilityCard4 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, range: 3, targets: 2, conditions: [Conditions.Poison1])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -2).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithRange(3)
+			.WithTargets(2)
+			.WithConditions(Conditions.Poison1)
+			.Build())
 	];
 }
 
@@ -89,8 +91,10 @@ public class RendingDrakeAbilityCard5 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, targets: 2)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -2).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithTargets(2)
+			.Build()),
 	];
 }
 
@@ -101,9 +105,9 @@ public class RendingDrakeAbilityCard6 : RendingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2).Build())
 	];
 }
 
