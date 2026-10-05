@@ -16,7 +16,6 @@ public class EyeForAnEye : BruiserCardModel<EyeForAnEye.CardTop, EyeForAnEye.Car
             new AbilityCardAbility(ShieldAbility.Builder()
 				.WithShieldValue(1)
                 .Build()),
-			
 			new AbilityCardAbility(RetaliateAbility.Builder()
 				.WithRetaliateValue(1)
 				.Build()),

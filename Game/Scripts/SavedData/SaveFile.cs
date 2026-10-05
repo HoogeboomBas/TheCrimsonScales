@@ -2,6 +2,9 @@
 using Godot;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Loads, migrates, and persists one JSON save file in Godot's user data directory.
+/// </summary>
 public class SaveFile<TSaveData>
 	where TSaveData : SaveData, new()
 {

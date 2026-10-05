@@ -46,7 +46,7 @@ public class BruiserAMDCards
 		protected override int AtlasIndex => 6;
 
 		public override async GDTask OnBecomeActive(AMDCard card, Character character)
-    	{
+		{
 			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(character, card,
 				parameters => parameters.Figure == character,
 				parameters =>
@@ -54,8 +54,8 @@ public class BruiserAMDCards
 					parameters.Add(new InfoTextExtraEffect.Parameters(
 							richText => $"{Icons.Inline(Icons.Retaliate, richText)}2 when attacked by an adjacent enemy"));
 				});
-        	ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(character, card,
-            	parameters =>
+			ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(character, card,
+				parameters =>
                 parameters.AbilityState.Target == character &&
                 parameters.AbilityState.Performer.EnemiesWith(character) &&
                 RangeHelper.Distance(parameters.AbilityState.Performer.Hex, character.Hex) <= 1,
@@ -78,7 +78,7 @@ public class BruiserAMDCards
             });
 
         await GDTask.CompletedTask;
-    	}
+		}
 	}
 
 	public class PlusZeroStun : BruiserAMDCardModel
@@ -117,7 +117,7 @@ public class BruiserAMDCards
 
 		public override string ToString(RichTextParameters richTextParameters) =>
 			GetBasicString(richTextParameters, +2,
-				extraText: $"{Icons.Inline(Icons.Push, richTextParameters)}2");	
+				extraText: $"{Icons.Inline(Icons.Push, richTextParameters)}2");
 
 		protected override int AtlasIndex => 11;
 		public override int? GetValue(AttackAbility.State attackAbilityState) => +2;

@@ -252,6 +252,6 @@ public abstract class AMDCardModel : AbstractModel
 
 	public virtual async GDTask OnBecomeActive(AMDCard card, Character character)
 	{
-    	await GDTask.CompletedTask;
+		await GDTask.CompletedTask;
 	}
 }

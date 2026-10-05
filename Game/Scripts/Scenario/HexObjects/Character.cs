@@ -122,9 +122,8 @@ public partial class Character : Figure
 			}
 		}
 
-				// inserting bruiser amd for testing
-		_amdCardDeck.DrawPile.Insert(20,
-    		new AMDCard(ModelDB.AMDCard<BruiserAMDCards.PlusZeroRetaliateOneRolling>(), amdCardOwner, potentialDeckOwner: this));
+		// inserting bruiser amd for testing
+		_amdCardDeck.DrawPile.Insert(20, new AMDCard(ModelDB.AMDCard<BruiserAMDCards.PlusZeroRetaliateOneRolling>(), amdCardOwner, potentialDeckOwner: this));
 
 		PlayableAbilityCardCount = 2;
 
@@ -175,7 +174,7 @@ public partial class Character : Figure
 
 		foreach(AMDCard card in ActiveModifiers)
 		{
-    		AMDCardDeck.DiscardPile.Add(card);
+			AMDCardDeck.DiscardPile.Add(card);
 		}
 		ActiveModifiers.Clear();
 	}

@@ -82,7 +82,7 @@ public partial class MainMenuController : SceneController<MainMenuController>
 		{
 		});
 	}
-	
+
 	private void OnProvingGroundsPressed()
 	{
 		SavedCampaign campaign = SavedCampaign.New("Proving Grounds", StartingGroup.Militants);
@@ -100,7 +100,6 @@ public partial class MainMenuController : SceneController<MainMenuController>
 		provingGrounds.Discover();
 		campaign.SavedScenarioProgresses.ScenarioProgresses.Add(
 			ModelDB.GetId<Scenario900>().ToString(), provingGrounds);
-		
 		int index = 0;
 		AppController.Instance.SaveManager.SetCampaignIndex(index);
 		AppController.Instance.DeviceSaveData.LastCampaignIndex = index;

@@ -45,7 +45,7 @@ public class BruiserPerks
 		public override List<AMDCardModel> CardsToAdd { get; } =
 		[
 			ModelDB.AMDCard<BruiserAMDCards.PlusZeroRetaliateOneRolling>(),
-		]; 
+		];
 	}
 
 	public class ReplaceOnePlusZeroWithOnePlusZeroStun : BruiserPerk
@@ -172,7 +172,7 @@ public class BruiserPerks
 				EffectType.Selectable,
 				effectButtonParameters: new IconEffectButton.Parameters(Icons.Loot),
 				effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Loot)}1, if this ability loots at least one money token, you may {Icons.Inline(Icons.Refresh)} one {Icons.Inline(Icons.GetItem(ItemType.Body))} item"));
-		}	
+		}
 	}
 
 	public class RestedAndReady : BruiserPerk, IEventSubscriber

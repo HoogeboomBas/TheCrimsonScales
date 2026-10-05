@@ -7,6 +7,9 @@ using Fractural.Tasks;
 using Godot;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Composes encounter state and managers, then coordinates the active scenario lifecycle.
+/// </summary>
 public partial class GameController : SceneController<GameController>
 {
 	private static string DefaultSavedGame;

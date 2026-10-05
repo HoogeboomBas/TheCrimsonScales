@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// Runs the setup phases and then cycles through card selection and scenario rounds.
+/// </summary>
 public class ScenarioPhaseManager
 {
 	public ScenarioPhase ActivePhase { get; private set; }
