@@ -44,7 +44,7 @@ public class SpikedKnuckles : ChainguardCardModel<SpikedKnuckles.CardTop, Spiked
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
 						parameters => parameters.Performer == state.Performer &&
-						              parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
+									  parameters.AbilityState.Target.HasCondition(Chainguard.Shackle),
 						async parameters =>
 						{
 							parameters.AbilityState.SingleTargetAdjustPierce(1);

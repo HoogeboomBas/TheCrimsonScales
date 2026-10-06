@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cix0y8uou7vot"]
+
+[ext_resource type="Texture2D" uid="uid://kik130vcvley" path="res://Content/Classes/G2E/Bruiser/Artwork.jpg" id="1_lp6xc"]
+
+[resource]
+atlas = ExtResource("1_lp6xc")
+region = Rect2(250, 300, 800, 1200)

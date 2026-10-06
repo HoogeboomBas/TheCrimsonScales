@@ -1,4 +1,4 @@
-﻿public partial class ScenarioCheckEvents
+public partial class ScenarioCheckEvents
 {
 	public class MaxShackleCountCheck : ScenarioCheckEvent<MaxShackleCountCheck.Parameters>
 	{

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+/// <summary>
+/// Creates, caches, and resolves typed game-content models and their stable IDs.
+/// </summary>
 public static class ModelDB
 {
 	private static readonly Dictionary<ModelId, AbstractModel> ContentById = new Dictionary<ModelId, AbstractModel>(1024);
