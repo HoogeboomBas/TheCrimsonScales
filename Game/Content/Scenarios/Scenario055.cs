@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -190,8 +190,8 @@ public class Scenario055 : ScenarioModel
 
 			ScenarioEvents.SufferDamageEvent.Subscribe(this,
 				parameters => parameters.Figure == tombProtector && parameters.WouldSufferDamage &&
-				              parameters.PotentialDamageDealer != tombProtector &&
-				              GameController.Instance.ScenarioPhaseManager.ActivePhase is not CardSelectionPhase,
+							  parameters.PotentialDamageDealer != tombProtector &&
+							  GameController.Instance.ScenarioPhaseManager.ActivePhase is not CardSelectionPhase,
 				async parameters =>
 				{
 					parameters.SetDamagePrevented();

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+/// <summary>
+/// Coordinates device and campaign save files and prevents writes while saves are blocked.
+/// </summary>
 public class SaveManager
 {
 	public static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()

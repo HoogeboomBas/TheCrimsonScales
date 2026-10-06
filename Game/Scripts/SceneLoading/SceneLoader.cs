@@ -4,6 +4,9 @@ using System.Threading;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// Serializes scene transitions and carries the active typed request into the next scene.
+/// </summary>
 public partial class SceneLoader : Node
 {
 	private static readonly Dictionary<string, PackedScene> CachedScenes = new Dictionary<string, PackedScene>();

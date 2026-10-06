@@ -3,6 +3,9 @@ using System.Threading;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// Owns application-wide services and settings shared across gameplay scenes.
+/// </summary>
 public partial class AppController : SingletonNode<AppController>
 {
 	[Export]

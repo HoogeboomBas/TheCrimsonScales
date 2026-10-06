@@ -33,6 +33,7 @@ public partial class Character : Figure
 	public List<AbilityCard> RoundCards { get; } = new List<AbilityCard>();
 	public List<CardPlayCardData> RoundCardData { get; } = new List<CardPlayCardData>();
 	public List<ItemModel> TurnItemsUsed { get; } = [];
+	public List<AMDCard> ActiveModifiers { get; } = new();
 	public bool LongResting { get; private set; }
 
 	public int ShortRestSeed { get; private set; }
@@ -127,6 +128,9 @@ public partial class Character : Figure
 			}
 		}
 
+		// inserting bruiser amd for testing
+		_amdCardDeck.DrawPile.Insert(20, new AMDCard(ModelDB.AMDCard<BruiserAMDCards.PlusZeroRetaliateOneRolling>(), amdCardOwner, potentialDeckOwner: this));
+
 		PlayableAbilityCardCount = 2;
 
 		FigureViewComponent.TurnStartPS.SetSelfModulate(OutlineColor);
@@ -137,6 +141,8 @@ public partial class Character : Figure
 		AppController.Instance.DeviceOptions.AnimatedCharacters.ValueChangedEvent += OnAnimatedCharactersChanged;
 
 		OnAnimatedCharactersChanged(AppController.Instance.DeviceOptions.AnimatedCharacters.Value);
+
+		TurnStats.Track(this);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -171,6 +177,12 @@ public partial class Character : Figure
 			AbilityCard card = Cards[i];
 			await card.RemoveFromActive();
 		}
+
+		foreach(AMDCard card in ActiveModifiers)
+		{
+			AMDCardDeck.DiscardPile.Add(card);
+		}
+		ActiveModifiers.Clear();
 	}
 
 	public override void _Notification(int what)

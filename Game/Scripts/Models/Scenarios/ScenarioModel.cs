@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
+/// <summary>
+/// Defines a scenario's content and hooks for initializing and reacting to its encounter.
+/// </summary>
 public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscriber
 {
 	private readonly List<ScenarioGoal> _goals = new List<ScenarioGoal>();

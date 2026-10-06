@@ -5,6 +5,9 @@ using System.Threading;
 using Fractural.Tasks;
 using Godot;
 
+/// <summary>
+/// Coordinates campaign actions and downtime between scenario runs.
+/// </summary>
 public partial class BetweenScenariosController : SceneController<BetweenScenariosController>
 {
 	[Export]

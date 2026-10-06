@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Fractural.Tasks;
 
-public class Scenario001 : ScenarioModel
+public class Scenario900 : ScenarioModel
 {
-	public override string ScenePath => "res://Content/Scenarios/Scenario001.tscn";
+	public override string ScenePath => "res://Content/Scenarios/Scenario900.tscn";
 
-	public override int ScenarioNumber => 1;
-	public override string Name => "The Dark Lake";
+	public override int ScenarioNumber => 900;
+	public override string Name => "Proving Grounds";
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario002>(true)];
@@ -31,9 +31,9 @@ public class Scenario001 : ScenarioModel
 
 	public override List<MonsterModel> MonsterModels { get; } =
 	[
-		ModelDB.Monster<SpittingDrake>(),
+		ModelDB.Monster<BanditGuard>(),
+		ModelDB.Monster<BanditArcher>(),
 		ModelDB.Monster<VermlingScout>(),
-		ModelDB.Monster<WaterSpirit>(),
 	];
 
 	public override List<SavedReward> Rewards =>

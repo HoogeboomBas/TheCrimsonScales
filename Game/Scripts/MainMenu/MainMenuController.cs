@@ -1,4 +1,5 @@
-﻿using Godot;
+using System.Linq;
+using Godot;
 
 public partial class MainMenuController : SceneController<MainMenuController>
 {
@@ -6,6 +7,8 @@ public partial class MainMenuController : SceneController<MainMenuController>
 	private BetterButton _continueButton;
 	[Export]
 	private BetterButton _playButton;
+	[Export]
+	private BetterButton _provingGroundsButton;
 	[Export]
 	private BetterButton _optionsButton;
 	[Export]
@@ -26,6 +29,7 @@ public partial class MainMenuController : SceneController<MainMenuController>
 
 		_continueButton.Pressed += OnContinuePressed;
 		_playButton.Pressed += OnPlayPressed;
+		_provingGroundsButton.Pressed += OnProvingGroundsPressed;
 		_optionsButton.Pressed += OnOptionsPressed;
 		_exitButton.Pressed += OnExitPressed;
 
@@ -77,6 +81,28 @@ public partial class MainMenuController : SceneController<MainMenuController>
 		AppController.Instance.PopupManager.RequestPopup(new SaveFileSelectionPopup.Request()
 		{
 		});
+	}
+
+	private void OnProvingGroundsPressed()
+	{
+		SavedCampaign campaign = SavedCampaign.New("Proving Grounds", StartingGroup.Militants);
+		campaign.UnlockClass(ModelDB.Class<BruiserModel>());
+		campaign.AddCharacter(ModelDB.Class<BruiserModel>(), null, "Bruiser");
+		SavedCharacter bruiser = campaign.Characters.LastOrDefault();
+
+		campaign.SavedScenarioProgresses.ScenarioProgresses.Clear();
+		SavedScenarioProgress provingGrounds = new SavedScenarioProgress();
+		provingGrounds.Discover();
+		campaign.SavedScenarioProgresses.ScenarioProgresses.Add(
+			ModelDB.GetId<Scenario900>().ToString(), provingGrounds);
+		int index = 0;
+		AppController.Instance.SaveManager.SetCampaignIndex(index);
+		AppController.Instance.DeviceSaveData.LastCampaignIndex = index;
+		AppController.Instance.CampaignSaveData.SavedCampaign = campaign;
+		AppController.Instance.SaveManager.SaveCampaignAndDevice();
+
+		AppController.Instance.SceneLoader.RequestSceneChange(
+			new BetweenScenariosSceneRequest(campaign));
 	}
 
 	private void OnOptionsPressed()

@@ -13,6 +13,9 @@ Builds can be downloaded on [Steam](https://store.steampowered.com/app/5049800/T
 
 Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.6.1 .NET with C# support.
 
+## Developer documentation
+See the [codebase architecture guide](./Game/ARCHITECTURE.md) for a map of the projects, runtime flow, content model, and save system.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Or let me know on Discord or Reddit.
