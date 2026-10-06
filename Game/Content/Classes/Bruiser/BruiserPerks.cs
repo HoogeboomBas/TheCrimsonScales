@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -248,7 +249,59 @@ public class BruiserPerks
 		protected override string Title => "Fearless Leadership";
 
 		public override string GetNonAMDDescription(RichTextParameters richTextParameters) =>
-			$"TODO - Each character gains advantage on their first attack during the first round of each scenario";
+			$"Each character gains advantage on their first attack during the first round of each scenario";
 
+		public override async GDTask OnScenarioSetupPhaseCompleted(Character character)
+		{
+			await base.OnScenarioSetupPhaseCompleted(character);
+
+			List<Figure> hasPerformedCharacters = [];
+
+			// await new ActionState(character, [OtherActiveAbility.Builder().WithOnActivate(
+			// 	async state =>
+			// 	{
+			// 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe
+			// 		(
+			// 			state, this,
+			// 			parameters =>
+			// 				parameters.Performer == state.Performer || (state.Performer.AlliedWith(parameters.Performer)) && !hasPerformedCharacters.Contains(state.Performer),
+			// 				async parameters =>
+			// 			{
+			// 				hasPerformedCharacters.Add(state.Performer);
+			// 				parameters.AbilityState.SingleTargetSetHasAdvantage();
+
+			// 			} 
+			// 		);
+
+			// 	await GDTask.CompletedTask;
+			// })
+			// .WithOnDeactivate(async state => 
+			// 	{
+			// 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this); 
+			// 		await GDTask.CompletedTask;
+			// 	} 
+			// )
+			// .Build()]).Perform();
+
+			ScenarioEvents.RoundEndedEvent.Subscribe(this,_ => true, async _ =>
+				{
+					ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
+					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(this);
+					await GDTask.CompletedTask;
+				});
+
+			ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe
+				(
+					this,
+					parameters =>
+						parameters.Performer == character && !hasPerformedCharacters.Contains(parameters.Performer) || (parameters.Performer.AlliedWith(character)) && !hasPerformedCharacters.Contains(parameters.Performer) && parameters.Performer.Alignment == Alignment.Characters,
+						async parameters =>
+					{
+						hasPerformedCharacters.Add(parameters.Performer);
+						parameters.AbilityState.SingleTargetSetHasAdvantage();
+
+					} 
+				);
+		}
 	}
 }

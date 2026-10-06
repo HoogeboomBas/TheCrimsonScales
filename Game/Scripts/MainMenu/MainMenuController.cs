@@ -89,11 +89,6 @@ public partial class MainMenuController : SceneController<MainMenuController>
 		campaign.UnlockClass(ModelDB.Class<BruiserModel>());
 		campaign.AddCharacter(ModelDB.Class<BruiserModel>(), null, "Bruiser");
 		SavedCharacter bruiser = campaign.Characters.LastOrDefault();
-		bruiser.AddAvailablePerk();
-		bruiser.AddAvailablePerk();
-		bruiser.AddAvailablePerk();
-		bruiser.AcquirePerk(14);
-		bruiser.AcquirePerk(15);
 
 		campaign.SavedScenarioProgresses.ScenarioProgresses.Clear();
 		SavedScenarioProgress provingGrounds = new SavedScenarioProgress();
