@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dtjlt4uxk288i"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_3p0p2"]
+[ext_resource type="Script" uid="uid://dq5tg2b631jgh" path="res://Content/Classes/Thornreaper/Thornreaper.cs" id="2_tmwtc"]
+[ext_resource type="Texture2D" uid="uid://cxl5yo3t7nx33" path="res://Content/Classes/Thornreaper/MapIcon.tres" id="3_lufkg"]
+[ext_resource type="Texture2D" uid="uid://dlf34i101atuy" path="res://Content/Classes/Thornreaper/Animation.jpg" id="4_regcm"]
+
+[node name="Thornreaper" unique_id=391697815 instance=ExtResource("1_3p0p2")]
+script = ExtResource("2_tmwtc")
+
+[node name="Sprite2D" parent="Mask" index="0"]
+texture = ExtResource("3_lufkg")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+texture = ExtResource("4_regcm")
+hframes = 12
+vframes = 13
+
+[node name="Outline" parent="." index="2"]
+self_modulate = Color(0.866667, 0.870588, 0.541176, 1)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cxl5yo3t7nx33"]
+
+[ext_resource type="Texture2D" uid="uid://bpc1a4skwhmbw" path="res://Content/Classes/Thornreaper/Artwork.png" id="1_syahe"]
+
+[resource]
+atlas = ExtResource("1_syahe")
+region = Rect2(125, 180, 600, 600)
