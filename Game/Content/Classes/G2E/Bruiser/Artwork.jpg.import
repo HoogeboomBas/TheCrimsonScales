@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l27po4y3r43k"
-path="res://.godot/imported/CharacterToken.png-3e08151704ae2be4cf95abc8224a3ee5.ctex"
+uid="uid://kik130vcvley"
+path="res://.godot/imported/Artwork.jpg-8ea73266b4a6004f064e7d457460210f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Bruiser/CharacterToken.png"
-dest_files=["res://.godot/imported/CharacterToken.png-3e08151704ae2be4cf95abc8224a3ee5.ctex"]
+source_file="res://Content/Classes/G2E/Bruiser/Artwork.jpg"
+dest_files=["res://.godot/imported/Artwork.jpg-8ea73266b4a6004f064e7d457460210f.ctex"]
 
 [params]
 

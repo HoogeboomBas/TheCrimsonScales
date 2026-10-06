@@ -20,7 +20,7 @@ public class BruiserModel : ClassModel
 		ModelDB.Event<Road44>(),
 	];
 
-	public override string AssetPath => "res://Content/Classes/Bruiser";
+	public override string AssetPath => "res://Content/Classes/G2E/Bruiser";
 	public override Color PrimaryColor => Color.FromHtml("436483");
 	public override Color SecondaryColor => Color.FromHtml("063758");
 	public override bool HasAnimatedSprite => false;

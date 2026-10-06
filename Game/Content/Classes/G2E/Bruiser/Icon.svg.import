@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kik130vcvley"
-path="res://.godot/imported/Artwork.jpg-7ce7712e874ed9f6e6c5e1b755aa9e49.ctex"
+uid="uid://3xqhry6iq0t"
+path="res://.godot/imported/Icon.svg-2d3006a1f24ff8ded83a2463ea989a40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Bruiser/Artwork.jpg"
-dest_files=["res://.godot/imported/Artwork.jpg-7ce7712e874ed9f6e6c5e1b755aa9e49.ctex"]
+source_file="res://Content/Classes/G2E/Bruiser/Icon.svg"
+dest_files=["res://.godot/imported/Icon.svg-2d3006a1f24ff8ded83a2463ea989a40.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

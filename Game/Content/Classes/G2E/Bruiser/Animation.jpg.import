@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmfik5clo3rpv"
-path="res://.godot/imported/AMDCards.jpg-a9f1c25ac42a0eab3596a64835392289.ctex"
+uid="uid://b13pqbx38lk1p"
+path="res://.godot/imported/Animation.jpg-9d900635f4bd574b41e6cdaf9b4ab819.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Bruiser/AMDCards.jpg"
-dest_files=["res://.godot/imported/AMDCards.jpg-a9f1c25ac42a0eab3596a64835392289.ctex"]
+source_file="res://Content/Classes/G2E/Bruiser/Animation.jpg"
+dest_files=["res://.godot/imported/Animation.jpg-9d900635f4bd574b41e6cdaf9b4ab819.ctex"]
 
 [params]
 

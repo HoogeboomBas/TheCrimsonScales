@@ -28,22 +28,7 @@ public class LetFly : BruiserCardModel<LetFly.CardTop, LetFly.CardBottom>
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(SummonAbility.Builder()
-				.WithName("Crypt Nettle")
-				.WithTexturePath("res://Content/Classes/Bruiser/CryptNettle.png")
-				.WithHealth(3)
-				.WithAttack(1)
-				.WithTraits(new ApplyConditionTrait(Conditions.Poison1),
-					new PerformOnDeathTrait(ConditionAbility.Builder().WithConditions(Conditions.Poison2)
-						.WithTarget(Target.TargetAll | Target.Enemies).WithRange(1).Build()))
-				.WithGetValidHexes((abilityState, list) =>
-					{
-						RangeHelper.FindHexesInRange(abilityState.Performer.Hex, 3, true, list);
-
-						list.RemoveAll(hex => !hex.HasHexObjectOfType<DifficultTerrain>() || !hex.IsUnoccupied());
-					}
-				)
-				.Build())
+			
 		];
 
 		public override int XP => 1;

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfekjuytyy5uv"
-path="res://.godot/imported/MatFront.png-cc9c39bde61900b8e0ed07780a4c8c00.ctex"
+path="res://.godot/imported/MatFront.png-cfa208171817ac44d3b447bfb1dbdd38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/Bruiser/MatFront.png"
-dest_files=["res://.godot/imported/MatFront.png-cc9c39bde61900b8e0ed07780a4c8c00.ctex"]
+source_file="res://Content/Classes/G2E/Bruiser/MatFront.png"
+dest_files=["res://.godot/imported/MatFront.png-cfa208171817ac44d3b447bfb1dbdd38.ctex"]
 
 [params]
 

@@ -2,20 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b13pqbx38lk1p"
-path="res://.godot/imported/Animation.jpg-ee8e55e744d130b818b153444ece558b.ctex"
+uid="uid://3wo3b8qacbtb"
+path.s3tc="res://.godot/imported/LevelUpCards.jpg-64276f874cc1ff0044a449c064838f76.s3tc.ctex"
+path.etc2="res://.godot/imported/LevelUpCards.jpg-64276f874cc1ff0044a449c064838f76.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Content/Classes/Bruiser/Animation.jpg"
-dest_files=["res://.godot/imported/Animation.jpg-ee8e55e744d130b818b153444ece558b.ctex"]
+source_file="res://Content/Classes/G2E/Bruiser/LevelUpCards.jpg"
+dest_files=["res://.godot/imported/LevelUpCards.jpg-64276f874cc1ff0044a449c064838f76.s3tc.ctex", "res://.godot/imported/LevelUpCards.jpg-64276f874cc1ff0044a449c064838f76.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

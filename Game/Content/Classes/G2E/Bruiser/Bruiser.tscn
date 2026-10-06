@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c78um8gkfdoeh"]
 
 [ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_gxnq8"]
-[ext_resource type="Script" uid="uid://djsbh8myusslx" path="res://Content/Classes/Bruiser/Bruiser.cs" id="2_v7h33"]
-[ext_resource type="Texture2D" uid="uid://cu4557jg007fb" path="res://Content/Classes/Bruiser/MapIcon.tres" id="3_hrift"]
-[ext_resource type="Texture2D" uid="uid://b13pqbx38lk1p" path="res://Content/Classes/Bruiser/Animation.jpg" id="4_7klq5"]
+[ext_resource type="Script" uid="uid://djsbh8myusslx" path="res://Content/Classes/G2E/Bruiser/Bruiser.cs" id="2_v7h33"]
+[ext_resource type="Texture2D" uid="uid://cu4557jg007fb" path="res://Content/Classes/G2E/Bruiser/MapIcon.tres" id="3_hrift"]
+[ext_resource type="Texture2D" uid="uid://b13pqbx38lk1p" path="res://Content/Classes/G2E/Bruiser/Animation.jpg" id="4_7klq5"]
 
 [node name="Bruiser" unique_id=185059382 instance=ExtResource("1_gxnq8")]
 script = ExtResource("2_v7h33")
