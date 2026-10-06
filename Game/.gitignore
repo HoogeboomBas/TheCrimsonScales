@@ -2,5 +2,5 @@
 .godot/
 android/
 Build/
-Content/G2E
+/Content/Classes/G2E
 Game.sln.DotSettings.user
