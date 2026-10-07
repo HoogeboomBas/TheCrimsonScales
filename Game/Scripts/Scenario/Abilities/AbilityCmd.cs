@@ -1912,4 +1912,88 @@ public static class AbilityCmd
 		hex1.AddNeighbour(hex2);
 		hex2.AddNeighbour(hex1);
 	}
+
+	public static void AddConditionImmunity(ConditionModel condition, IEventSubscriber eventSubscriber, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		AddConditionsImmunity([condition], eventSubscriber, figure, customCanApply);
+	}
+
+	public static void AddConditionsImmunity(List<ConditionModel> conditions, IEventSubscriber eventSubscriber, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		if(figure == null && customCanApply == null)
+		{
+			return;
+		}
+
+		ScenarioEvents.InflictConditionsEvent.Subscribe(eventSubscriber,
+			parameters =>
+				customCanApply?.Invoke(parameters.Target) ?? true &&
+				parameters.Target == figure,
+			async parameters =>
+			{
+				List<ConditionModel> preventedConditions = parameters.ConditionModels.FindAll(inflictedCondition => conditions.Any(condition => CheckImmunity(inflictedCondition, condition)));
+				if(preventedConditions.Count > 0)
+				{
+					parameters.PreventConditions(preventedConditions);
+				}
+
+				await GDTask.CompletedTask;
+			},
+			order: -1
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(eventSubscriber,
+			parameters =>
+				customCanApply?.Invoke(parameters.Figure) ?? true &&
+				parameters.Figure == figure,
+			parameters =>
+			{
+				conditions.ForEach(condition => parameters.AddImmunity(condition));
+			}
+		);
+	}
+
+	public static void AddAllNegativeConditionImmunity(IEventSubscriber eventSubscriber, Figure figure = null, Func<Figure, bool> customCanApply = null)
+	{
+		if(figure == null && customCanApply == null)
+		{
+			return;
+		}
+
+		ScenarioEvents.InflictConditionsEvent.Subscribe(eventSubscriber,
+			parameters =>
+				customCanApply?.Invoke(parameters.Target) ?? true &&
+				parameters.Target == figure,
+			async parameters =>
+			{
+				List<ConditionModel> preventedConditions = parameters.ConditionModels.FindAll(
+					inflictedCondition => inflictedCondition?.ImmunityCompareBaseConditions != null &&
+					inflictedCondition.ImmunityCompareBaseConditions
+						.Any(c1 => Conditions.NegativeBaseConditionModels.Contains(c1)));
+				if(preventedConditions.Count > 0)
+				{
+					parameters.PreventConditions(preventedConditions);
+				}
+
+				await GDTask.CompletedTask;
+			},
+			order: -1
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(eventSubscriber,
+			parameters =>
+				customCanApply?.Invoke(parameters.Figure) ?? true &&
+				parameters.Figure == figure,
+			parameters =>
+			{
+				Conditions.NegativeBaseConditionModels.ForEach(condition => parameters.AddImmunity(condition));
+			}
+		);
+	}
+
+	public static void RemoveConditionImmunity(IEventSubscriber eventSubscriber)
+	{
+		ScenarioEvents.InflictConditionEvent.Unsubscribe(eventSubscriber);
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(eventSubscriber);
+	}
 }

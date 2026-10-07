@@ -27,7 +27,7 @@ public class ForcedMovementImmunityTrait : FigureTrait
 	{
 		await base.Deactivate(figure);
 
-		ScenarioEvents.InflictConditionEvent.Unsubscribe(figure, this);
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Unsubscribe(figure, this);
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(figure, this);
 	}
 }

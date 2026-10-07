@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 
 public class AshsteelGauntlets : CS2Item
@@ -13,40 +13,6 @@ public class AshsteelGauntlets : CS2Item
 	public override int MinusOneCount => 2;
 
 	protected override int AtlasIndex => 38;
-
-	private object _subscriber;
-
-	public override void Init(Character owner)
-	{
-		_subscriber = new object();
-
-		ConditionModel conditionModel = Conditions.Disarm;
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
-			parameters =>
-				Owner != null &&
-				parameters.Target == Owner &&
-				parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-				conditionModel.ImmunityCompareBaseConditions != null &&
-				parameters.ConditionModel.ImmunityCompareBaseConditions
-					.Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1)),
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
-
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
-			parameters => parameters.Figure == Owner,
-			parameters =>
-			{
-				parameters.AddImmunity(conditionModel);
-			}
-		);
-
-		base.Init(owner);
-	}
 
 	protected override void Subscribe()
 	{
@@ -68,5 +34,7 @@ public class AshsteelGauntlets : CS2Item
 				});
 			}
 		);
+
+		SubscribeConditionImmunity(Conditions.Disarm);
 	}
 }
