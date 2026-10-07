@@ -13,31 +13,9 @@ public class EncasedInThorns : ThornreaperCardModel<EncasedInThorns.CardTop, Enc
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(ConditionAbility.Builder()
-				.WithConditions(Conditions.Disarm)
-				.WithRange(3, new RangeSquare(this, new Vector2(0.60228586f, 0.24413775f)))
-				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvents.ConditionAfterTargetConfirmed.Subscription.New(
-						canApplyFunction: canApplyParameters =>
-						{
-							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
-							{
-								if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-
-							return false;
-						},
-						applyFunction: async parameters =>
-						{
-							parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
-							await AbilityCmd.GainXP(parameters.Performer, 1);
-
-							await GDTask.CompletedTask;
-						})
-				)
+			new AbilityCardAbility(RetaliateAbility.Builder()
+				.WithRetaliateValue(2, new RetaliateSquare(this, new Vector2(0.2f, 0.3f)))
+				.WithRange(2)
 				.Build())
 		];
 	}

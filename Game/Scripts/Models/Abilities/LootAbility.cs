@@ -6,22 +6,26 @@ using Godot;
 /// <summary>
 /// An <see cref="Ability{T}"/> that allows a figure to pick up loot tokens (coins and treasure chests) within range.
 /// </summary>
-public class LootAbility : TargetedAbility<LootAbility.State, SingleTargetState>
+public class LootAbility : Ability<LootAbility.State>
 {
-	public class State : TargetedAbilityState<SingleTargetState>
+	public class State : AbilityState
 	{
 		public List<LootableObject> LootedObjects { get; } = new List<LootableObject>();
 		public List<Hex> LootedHexes { get; } = new List<Hex>();
 		public int LootedCoinCount { get; set; }
 		public int TotalLootedCount { get; set; }
-		//public Hex AbilityPerformHex { get; set; }
-		//public Hex GetPerformHex => AbilityPerformHex ?? Performer.Hex;
+		public Hex AbilityPerformHex { get; set; }
+		public Hex GetPerformHex => AbilityPerformHex ?? Performer.Hex;
 
-		//public async GDTask SetPerform
+		public void SetPerformHex(Hex hex)
+		{
+			AbilityPerformHex = hex ?? Performer.Hex;
+		}
 	}
 
 	private Func<State, Figure> _customGetLootObtainer { get; set; }
-	//public int Range { get; protected set; }
+	private Func<State, Hex> _customGetPerformHex { get; set; }
+	public int Range { get; protected set; }
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -29,27 +33,32 @@ public class LootAbility : TargetedAbility<LootAbility.State, SingleTargetState>
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
 	/// <typeparam name="TAbility"></typeparam> Any ability extending LootAbility.
-	public new class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, SingleTargetState>.AbstractBuilder<TBuilder, TAbility>
-
+	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
+		AbstractBuilder<TBuilder, TAbility>.IRangeStep
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : LootAbility, new()
 	{
-		// public interface IRangeStep
-		// {
-		// 	TBuilder WithRange(int range);
-		// }
+		public interface IRangeStep
+		{
+			TBuilder WithRange(int range);
+		}
 
 		public TBuilder WithCustomGetLootObtainer(Func<State, Figure> customGetLootObtainer)
 		{
 			Obj._customGetLootObtainer = customGetLootObtainer;
 			return (TBuilder)this;
 		}
+		public TBuilder WithCustomGetPerformHex(Func<State, Hex> getPerformHex)
+		{
+			Obj._customGetPerformHex = getPerformHex;
+			return (TBuilder)this;
+		}
 
-		// public TBuilder WithRange(int range)
-		// {
-		// 	Obj.Range = range;
-		// 	return (TBuilder)this;
-		// }
+		public TBuilder WithRange(int range)
+		{
+			Obj.Range = range;
+			return (TBuilder)this;
+		}
 	}
 
 	/// <summary>
@@ -65,7 +74,7 @@ public class LootAbility : TargetedAbility<LootAbility.State, SingleTargetState>
 	/// A convenience method that returns an instance of LootBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static LootBuilder Builder()
+	public static LootBuilder.IRangeStep Builder()
 	{
 		return new LootBuilder();
 	}
@@ -75,15 +84,21 @@ public class LootAbility : TargetedAbility<LootAbility.State, SingleTargetState>
 	protected override async GDTask Perform(State abilityState)
 	{
 		Figure lootObtainer = abilityState.Performer;
+		Hex performHex = abilityState.GetPerformHex;
 
 		if(_customGetLootObtainer != null)
 		{
 			lootObtainer = _customGetLootObtainer(abilityState);
 		}
+		if(_customGetPerformHex != null)
+		{
+			performHex = _customGetPerformHex(abilityState);
+		}
+		
 
 		LootPrompt.Answer confirmAnswer = await PromptManager.Prompt(new LootPrompt(list =>
 		{
-			foreach(Hex hex in RangeHelper.GetHexesInRange(abilityState.GetPerformHex, abilityState.AbilityRange))
+			foreach(Hex hex in RangeHelper.GetHexesInRange(performHex, Range))
 			{
 				foreach(HexObject hexObject in hex.HexObjects)
 				{

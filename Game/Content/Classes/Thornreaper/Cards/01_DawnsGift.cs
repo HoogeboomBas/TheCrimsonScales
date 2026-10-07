@@ -37,8 +37,8 @@ public class DawnsGift : ThornreaperCardModel<DawnsGift.CardTop, DawnsGift.CardB
 						async parameters =>
 						{
 								await AbilityCmd.InfuseElement(abilityState, Element.Earth);
-								if (parameters.AbilityState is TargetedAbilityState targetedAbilityState)
-									targetedAbilityState.SetPerformHex(SelectedHex);
+								if (parameters.AbilityState is LootAbility.State lootAbilityState)
+									lootAbilityState.SetPerformHex(SelectedHex);
 							
 						}, EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters("res://Art/OverlayTiles/Thorns 1h.png"),
