@@ -4,24 +4,39 @@ using Godot;
 
 public class DawnsGift : ThornreaperCardModel<DawnsGift.CardTop, DawnsGift.CardBottom>
 {
-	public override string Name => "Standing Ground";
+	public override string Name => "Dawn's Gift";
 	public override int Level => 1;
-	public override int Initiative => 22;
-	protected override int AtlasIndex => 13 - 1;
+	public override int Initiative => 56;
+	protected override int AtlasIndex => 29 - 1;
 
 	public class CardTop : ThornreaperCardSide
 	{
+		public Hex SelectedHex;
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state =>
-					[
-						ShieldAbility.Builder()
-							.WithShieldValue(2)
-							.WithPierceable(false)
-							.Build()
-					]
+			new AbilityCardAbility(OtherAbility.Builder()
+				.WithPerformAbility(async state =>
+					{
+						SelectedHex = await AbilityCmd.SelectHex(state, 
+							list => 
+							{
+								foreach (Hex possibleHex in RangeHelper.GetHexesInRange(state.Performer.Hex, 1, true))
+								{
+									if (possibleHex != null && possibleHex.IsFeatureless())
+									{
+										list.Add(possibleHex);
+									}
+								}
+							}, true, "Create one 1-hex hazardous terrain in one adjacent featureless hex");
+
+						await CreateHazardousTerrain(SelectedHex);
+						state.SetPerformed();
+					}
 				)
+				.Build()),
+
+			new AbilityCardAbility(LootAbility.Builder()
+				.WithRange(1)
 				.Build())
 		];
 

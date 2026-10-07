@@ -452,6 +452,11 @@ public static class AbilityCmd
 		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
 	}
 
+	public static async GDTask<HazardousTerrain> CreateHazardousTerrain(Hex hex, PackedScene scene)
+	{
+		return await CreateOverlayTile<HazardousTerrain>(hex, scene);
+	}
+
 	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
 	{
 		PackedScene scene = SceneLoader.LoadPackedScene(assetPath);

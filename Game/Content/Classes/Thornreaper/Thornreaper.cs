@@ -12,12 +12,5 @@ public partial class Thornreaper : Character
 		await base.Spawn(savedCharacter, index);
 
 		_ThornreaperModel = (ThornreaperModel)savedCharacter.ClassModel;
-
-		// Copy over all prayer cards from the character
-		foreach(AbilityCardModel prayerCard in _ThornreaperModel.AllPrayerCards)
-		{
-			AbilityCard abilityCard = new AbilityCard(new SavedAbilityCard(prayerCard), this);
-			PrayerCards.Add(abilityCard);
-		}
 	}
 }

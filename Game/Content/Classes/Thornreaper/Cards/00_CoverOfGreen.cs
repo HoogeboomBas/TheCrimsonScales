@@ -1,81 +1,55 @@
 using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
+using Fractural.Tasks;
 
 public class CoverOfGreen : ThornreaperCardModel<CoverOfGreen.CardTop, CoverOfGreen.CardBottom>
 {
-	public override string Name => "Faith Calling";
+	public override string Name => "Cover of Green";
 	public override int Level => 1;
-	public override int Initiative => 13;
-	protected override int AtlasIndex => 13 - 0;
+	public override int Initiative => 34;
+	protected override int AtlasIndex => 29 - 0;
 
 	public class CardTop : ThornreaperCardSide
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(GrantAbility.Builder()
-				.WithGetAbilities(state =>
-					[
-						ShieldAbility.Builder().WithShieldValue(1).Build()
-					]
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(3, new AttackSquare(this, new Vector2(0.234234f, 0.5345345f)))
+				.WithConditions(Conditions.Muddle)
+				.WithAOEPattern(new AOEPattern([
+					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+					new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+					new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red)
+				]),
+				new AOEHexMark(Vector2I.Zero.Add(Direction.East).Add(Direction.NorthEast), this, new Vector2(0.2f, 0.3f)),
+				new AOEHexMark(Vector2I.Zero.Add(Direction.SouthWest), this, new Vector2(0.5f, 0.4f))
 				)
-				.WithTarget(Target.Allies | Target.TargetAll)
-				.WithRange(2, new RangeSquare(this, new Vector2(0.7505667f, 0.14563331f)))
+				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Earth))
 				.Build()
-			),
-
-			new AbilityCardAbility(GivePrayerCardAbility(
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
-
-					GrantAbility.State grantAbilityState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
-
-					return grantAbilityState.Performed && grantAbilityState.UniqueTargetedFigures.Count == 1;
-				},
-				customGetTargets: (state, list) =>
-				{
-					GrantAbility.State grantAbilityState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
-
-					list.Add(grantAbilityState.UniqueTargetedFigures[0]);
-				}
-			))
+				)
 		];
 
-		public override IEnumerable<CardElementInfusion> Elements => [CardElementInfusion.Infuse(Element.Earth)];
-		public override bool Round => true;
+		public override int XP => 1;
 	}
 
 	public class CardBottom : ThornreaperCardSide
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(1, new AttackDiamond(this, new Vector2(0.50844944f, 0.71978086f)))
-				.WithRange(3)
-				.WithAfterTargetConfirmedSubscription(
-					ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-						canApplyFunction: canApplyParameters =>
-						{
-							foreach(Figure figure in RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target.Hex, 1))
-							{
-								if(canApplyParameters.AbilityState.Performer.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
+			new AbilityCardAbility(MoveAbility.Builder()
+			.WithDistance(2, new MoveSquare(this, new Vector2(0.3f, 0.5f)))
+			.Build()),
 
-							return false;
-						},
-						applyFunction: async parameters =>
-						{
-							parameters.AbilityState.SingleTargetAddCondition(Conditions.Curse);
+			new AbilityCardAbility(ShieldAbility.Builder()
+			.WithShieldValue(1)
+			.Build()),
 
-							await GDTask.CompletedTask;
-						}
-					)
-				)
-				.Build())
+			new AbilityCardAbility(OtherAbility.Builder()
+			.WithPerformAbility(state => AbilityCmd.InfuseElement(state, Element.Earth))
+			.Build()
+			)
 		];
+		public override bool Round => true;
 	}
 }

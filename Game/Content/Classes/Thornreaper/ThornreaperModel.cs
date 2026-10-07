@@ -4,9 +4,9 @@ using Godot;
 public class ThornreaperModel : ClassModel
 {
 	public override string Name => "Thornreaper";
-	public override MaxHealthValues MaxHealthValues => MaxHealthValues.Low;
+	public override MaxHealthValues MaxHealthValues => MaxHealthValues.MediumHigh;
 	public override int HandSize => 11;
-	public override Ancestry Ancestry => Ancestry.Human;
+	public override Ancestry Ancestry => Ancestry.Orchid;
 
 	public override List<EventModel> UnlockEvents { get; } =
 	[
@@ -21,8 +21,9 @@ public class ThornreaperModel : ClassModel
 	];
 
 	public override string AssetPath => "res://Content/Classes/Thornreaper";
-	public override Color PrimaryColor => Color.FromHtml("ddde8a");
-	public override Color SecondaryColor => Color.FromHtml("a9a5ad");
+	public override Color PrimaryColor => Color.FromHtml("fbff96");
+	public override Color SecondaryColor => Color.FromHtml("80995a");
+	public override bool HasAnimatedSprite => false;
 
 	public override PackedScene Scene => SceneLoader.LoadPackedScene($"{AssetPath}/Thornreaper.tscn");
 
@@ -87,17 +88,5 @@ public class ThornreaperModel : ClassModel
 		ModelDB.Perk<ThornreaperPerks.IgnoreScenarioEffectsRemoveOnePlusZero>(),
 
 		ModelDB.Perk<ThornreaperPerks.GiftOfTheOak>(),
-	];
-
-	public List<AbilityCardModel> AllPrayerCards { get; } =
-	[
-		ModelDB.AbilityCard<Aspiration>(),
-		ModelDB.AbilityCard<Devotion>(),
-		ModelDB.AbilityCard<Grace>(),
-		ModelDB.AbilityCard<Lamentation>(),
-		ModelDB.AbilityCard<Meditation>(),
-		ModelDB.AbilityCard<Ordination>(),
-		ModelDB.AbilityCard<Penitence>(),
-		ModelDB.AbilityCard<Salvation>()
 	];
 }

@@ -87,7 +87,9 @@ public partial class MainMenuController : SceneController<MainMenuController>
 	{
 		SavedCampaign campaign = SavedCampaign.New("Proving Grounds", StartingGroup.Militants);
 		campaign.UnlockClass(ModelDB.Class<BruiserModel>());
+		campaign.UnlockClass(ModelDB.Class<ThornreaperModel>());
 		campaign.AddCharacter(ModelDB.Class<BruiserModel>(), null, "Bruiser");
+		campaign.AddCharacter(ModelDB.Class<ThornreaperModel>(), null, "Thornreaper");
 		SavedCharacter bruiser = campaign.Characters.LastOrDefault();
 
 		campaign.SavedScenarioProgresses.ScenarioProgresses.Clear();

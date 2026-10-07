@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpc1a4skwhmbw"
-path.s3tc="res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.s3tc.ctex"
-path.etc2="res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.etc2.ctex"
+uid="uid://xnqrem5kshhs"
+path="res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Content/Classes/Thornreaper/Artwork.png"
-dest_files=["res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.s3tc.ctex", "res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.etc2.ctex"]
+dest_files=["res://.godot/imported/Artwork.png-ae1cc02ea2b8718414c291dc6a1912c9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
