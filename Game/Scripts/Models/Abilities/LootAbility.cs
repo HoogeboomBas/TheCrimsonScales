@@ -6,18 +6,22 @@ using Godot;
 /// <summary>
 /// An <see cref="Ability{T}"/> that allows a figure to pick up loot tokens (coins and treasure chests) within range.
 /// </summary>
-public class LootAbility : Ability<LootAbility.State>
+public class LootAbility : TargetedAbility<LootAbility.State, SingleTargetState>
 {
-	public class State : AbilityState
+	public class State : TargetedAbilityState<SingleTargetState>
 	{
 		public List<LootableObject> LootedObjects { get; } = new List<LootableObject>();
 		public List<Hex> LootedHexes { get; } = new List<Hex>();
 		public int LootedCoinCount { get; set; }
 		public int TotalLootedCount { get; set; }
+		//public Hex AbilityPerformHex { get; set; }
+		//public Hex GetPerformHex => AbilityPerformHex ?? Performer.Hex;
+
+		//public async GDTask SetPerform
 	}
 
-	private Func<State, Hex> _customLootFromLocation { get; set; }
-	public int Range { get; protected set; }
+	private Func<State, Figure> _customGetLootObtainer { get; set; }
+	//public int Range { get; protected set; }
 
 	/// <summary>
 	/// A builder extending <see cref="Ability{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -25,27 +29,27 @@ public class LootAbility : Ability<LootAbility.State>
 	/// </summary>
 	/// <typeparam name="TBuilder"></typeparam> Any builder extending this AbstractBuilder.
 	/// <typeparam name="TAbility"></typeparam> Any ability extending LootAbility.
-	public new abstract class AbstractBuilder<TBuilder, TAbility> : Ability<State>.AbstractBuilder<TBuilder, TAbility>,
-		AbstractBuilder<TBuilder, TAbility>.IRangeStep
+	public new class AbstractBuilder<TBuilder, TAbility> : TargetedAbility<State, SingleTargetState>.AbstractBuilder<TBuilder, TAbility>
+
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : LootAbility, new()
 	{
-		public interface IRangeStep
-		{
-			TBuilder WithRange(int range);
-		}
+		// public interface IRangeStep
+		// {
+		// 	TBuilder WithRange(int range);
+		// }
 
-		public TBuilder WithCustomLootFromLocation(Func<State, Hex> customLootFromLocation)
+		public TBuilder WithCustomGetLootObtainer(Func<State, Figure> customGetLootObtainer)
 		{
-			Obj._customLootFromLocation = customLootFromLocation;
+			Obj._customGetLootObtainer = customGetLootObtainer;
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRange(int range)
-		{
-			Obj.Range = range;
-			return (TBuilder)this;
-		}
+		// public TBuilder WithRange(int range)
+		// {
+		// 	Obj.Range = range;
+		// 	return (TBuilder)this;
+		// }
 	}
 
 	/// <summary>
@@ -61,7 +65,7 @@ public class LootAbility : Ability<LootAbility.State>
 	/// A convenience method that returns an instance of LootBuilder.
 	/// </summary>
 	/// <returns></returns>
-	public static LootBuilder.IRangeStep Builder()
+	public static LootBuilder Builder()
 	{
 		return new LootBuilder();
 	}
@@ -70,20 +74,20 @@ public class LootAbility : Ability<LootAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		Hex lootFromLocation = abilityState.Performer.Hex;
+		Figure lootObtainer = abilityState.Performer;
 
-		if(_customLootFromLocation != null)
+		if(_customGetLootObtainer != null)
 		{
-			lootFromLocation = _customLootFromLocation(abilityState);
+			lootObtainer = _customGetLootObtainer(abilityState);
 		}
 
 		LootPrompt.Answer confirmAnswer = await PromptManager.Prompt(new LootPrompt(list =>
 		{
-			foreach(Hex hex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range))
+			foreach(Hex hex in RangeHelper.GetHexesInRange(abilityState.GetPerformHex, abilityState.AbilityRange))
 			{
 				foreach(HexObject hexObject in hex.HexObjects)
 				{
-					if(hexObject is LootableObject lootableObject && lootableObject.CanLoot(abilityState.Performer))//abilityState.Authority?
+					if(hexObject is LootableObject lootableObject && lootableObject.CanLoot(lootObtainer))
 					{
 						list.AddIfNew(hex);
 					}
@@ -98,7 +102,7 @@ public class LootAbility : Ability<LootAbility.State>
 				Hex hex = GameController.Instance.Map.GetHex(coords);
 				abilityState.LootedHexes.Add(hex);
 
-				await LootHex(abilityState, hex, abilityState.Performer);
+				await LootHex(abilityState, hex, lootObtainer);
 			}
 
 			abilityState.SetPerformed();

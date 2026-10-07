@@ -5,38 +5,6 @@ using Fractural.Tasks;
 
 public class ThornreaperAMDCards
 {
-	public class MinusOneGivePrayerCard : ThornreaperAMDCardModel
-	{
-		public override string GetSimpleString(RichTextParameters richTextParameters) =>
-			GetSimpleString(richTextParameters, -1, "PRAY");
-
-		public override string ToString(RichTextParameters richTextParameters) =>
-			GetBasicString(richTextParameters, -1,
-				extraText: "Give one ally one PRAYER card");
-
-		protected override int AtlasIndex => 0;
-		public override int? GetValue(AttackAbility.State attackAbilityState) => -1;
-
-		public override Func<AttackAbility.State, Figure, GDTask> GetExtraEffects() =>
-			async (state, potentialDeckOwner) =>
-			{
-				if(potentialDeckOwner is Thornreaper Thornreaper)
-				{
-					Figure chosenFigure = await AbilityCmd.SelectFigure(Thornreaper,
-						figures => figures.AddRange(
-							GameController.Instance.Map.Figures.Where(possibleFigure =>
-								possibleFigure.AlliedWith(Thornreaper) && possibleFigure is Character)),
-						hintText: () => "Select an ally to give a PRAYER card");
-					if(chosenFigure == null)
-					{
-						return;
-					}
-
-					await ThornreaperCardSide.GivePrayerCard(state, Thornreaper, chosenFigure);
-				}
-			};
-	}
-
 	public class PlusZero : ThornreaperAMDCardModel
 	{
 		protected override int AtlasIndex => 1;

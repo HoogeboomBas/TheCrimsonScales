@@ -58,19 +58,19 @@ public class HordeOfBones : SpiritCallerCardModel<HordeOfBones.CardTop, HordeOfB
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
 				.Build()),
 
-			new AbilityCardAbility(GrantAbility.Builder()
-				.WithAbilities(LootAbility.Builder()
-					.WithRange(1)
-					.WithCustomGetLootObtainer(state => state.ActionState.ParentActionState.Performer)
-					.Build())
-				.WithCustomGetTargets((state, list) =>
-				{
-					list.Add(state.Performer);
-					list.AddRange(Spirit.GetAllSpirits());
-				})
-				.WithTarget(Target.Any)
-				.WithCanTargetNonFigures()
-				.Build())
+			// new AbilityCardAbility(GrantAbility.Builder()
+			// 	.WithAbilities(LootAbility.Builder()
+			// 		.WithRange(1)
+			// 		.WithCustomGetLootObtainer(state => state.ActionState.ParentActionState.Performer)
+			// 		.Build())
+			// 	.WithCustomGetTargets((state, list) =>
+			// 	{
+			// 		list.Add(state.Performer);
+			// 		list.AddRange(Spirit.GetAllSpirits());
+			// 	})
+			// 	.WithTarget(Target.Any)
+			// 	.WithCanTargetNonFigures()
+			// 	.Build())
 		];
 	}
 }

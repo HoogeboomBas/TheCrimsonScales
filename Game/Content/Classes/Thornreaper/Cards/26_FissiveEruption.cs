@@ -52,7 +52,6 @@ public class FissiveEruption : ThornreaperLevelUpCardModel<FissiveEruption.CardT
 				{
 					if(grantAbilityState.GetCustomValue<bool>(this, "TargetOneAlly"))
 					{
-						await GivePrayerCard(grantAbilityState, grantAbilityState.Target);
 					}
 				})
 				.WithTargets(2)

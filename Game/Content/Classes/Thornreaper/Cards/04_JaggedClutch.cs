@@ -17,17 +17,6 @@ public class JaggedClutch : ThornreaperCardModel<JaggedClutch.CardTop, JaggedClu
 				.WithDamage(3, new AttackDiamond(this, new Vector2(0.5081693f, 0.21073955f)))
 				.WithRange(2)
 				.Build()),
-
-			new AbilityCardAbility(GivePrayerCardAbility(
-				conditionalAbilityCheck: async state =>
-				{
-					await GDTask.CompletedTask;
-
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-
-					return attackAbilityState.Performed && attackAbilityState.KilledTargets.Count > 0;
-				}, range: 2
-			))
 		];
 	}
 

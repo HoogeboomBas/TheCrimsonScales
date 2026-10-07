@@ -25,7 +25,6 @@ public class ThornreaperPerks
 
 		public override List<AMDCardModel> CardsToAdd { get; } =
 		[
-			ModelDB.AMDCard<ThornreaperAMDCards.MinusOneGivePrayerCard>(),
 			ModelDB.AMDCard<ThornreaperAMDCards.PlusZero>()
 		];
 	}

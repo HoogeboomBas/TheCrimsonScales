@@ -52,13 +52,11 @@ public class LashingThorns : ThornreaperCardModel<LashingThorns.CardTop, Lashing
 							state.Performer.RemoveCoin();
 							figure.AddCoin();
 
-							await GivePrayerCard(state, figure);
 						}
 					}
 
 					if(targetedFigures.Count == 1)
 					{
-						await GivePrayerCard(state, targetedFigures[0]);
 					}
 				})
 				.Build())

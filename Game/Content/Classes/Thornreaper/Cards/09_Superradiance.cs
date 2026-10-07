@@ -45,7 +45,6 @@ public class Superradiance : ThornreaperCardModel<Superradiance.CardTop, Superra
 							canApplyParameters.AbilityState.GetCustomValue<bool>(this, "UnderHalfHP"),
 						applyFunction: async applyParameters =>
 						{
-							await GivePrayerCard(applyParameters.AbilityState, applyParameters.AbilityState.Target);
 						}
 					)
 				)

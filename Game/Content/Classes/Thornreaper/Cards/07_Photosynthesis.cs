@@ -11,19 +11,21 @@ public class Photosynthesis : ThornreaperCardModel<Photosynthesis.CardTop, Photo
 
 	public class CardTop : ThornreaperCardSide
 	{
-		protected override List<AbilityCardAbility> GetAbilities()
-		{
-			throw new System.NotImplementedException();
-		}
-
+		protected override List<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(AttackAbility.Builder()
+				.WithDamage(2)
+				.Build())
+		];
 	}
 
 	public class CardBottom : ThornreaperCardSide
 	{
-		protected override List<AbilityCardAbility> GetAbilities()
-		{
-			throw new System.NotImplementedException();
-		}
-
+		protected override List<AbilityCardAbility> GetAbilities() =>
+		[
+			new AbilityCardAbility(MoveAbility.Builder()
+				.WithDistance(2)
+				.Build())
+		];
 	}
 }

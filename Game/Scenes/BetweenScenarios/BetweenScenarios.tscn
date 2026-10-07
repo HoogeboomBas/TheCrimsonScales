@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dvuofg15kuckt"]
+[gd_scene format=3 uid="uid://lo2aqmk7lbx"]
 
 [ext_resource type="PackedScene" uid="uid://cmjlk65mr5s6w" path="res://Scenes/BetweenScenarios/ScenarioFlowchart/ScenarioButton.tscn" id="1_5l4i3"]
 [ext_resource type="Script" uid="uid://b7sa3xe4kseh8" path="res://Scripts/BetweenScenarios/BetweenScenariosController.cs" id="1_rtyjh"]
@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cgvuos5ph5e6r" path="res://Art/Icons/BetweenScenariosActions/HazardSign.svg" id="22_ywvcx"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="23_1ehwm"]
 [ext_resource type="Script" uid="uid://co64dv05t1htu" path="res://Scripts/BetweenScenarios/BetweenScenariosSidePanel.cs" id="23_5k12q"]
-[ext_resource type="Shader" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
+[ext_resource type="Shader" uid="uid://dpr1nhb31kvce" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
 [ext_resource type="Script" uid="uid://chjh44dw8f42s" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortraitManager.cs" id="23_cdfbw"]
 [ext_resource type="Script" uid="uid://d0y7qlayk04fe" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SanctuaryOfTheGreatOak.cs" id="23_gyc5w"]
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="23_psaff"]
@@ -785,6 +785,10 @@ theme_override_constants/h_separation = 82
 theme_override_constants/v_separation = 82
 columns = 10
 
+[node name="ScenarioButton900" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=81342639 instance=ExtResource("1_5l4i3")]
+layout_mode = 2
+ScenarioNumber = 900
+
 [node name="ScenarioButton" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=990033337 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 1
@@ -817,7 +821,7 @@ ScenarioNumber = 25
 layout_mode = 2
 ScenarioNumber = 31
 
-[node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=81342639 instance=ExtResource("1_5l4i3")]
+[node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1881025647 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 56
 
@@ -1319,16 +1323,16 @@ visible = false
 
 [node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" unique_id=1735437367 instance=ExtResource("12_41e7t")]
 
-[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=486664386]
+[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=405815499]
 transform = Transform3D(68.9, 0, 0, 0, -4.37114e-06, 102.3, 0, -100, -4.47168e-06, 0, 0, 0)
 
-[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="0" unique_id=237816969]
+[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 585311628) index="0" unique_id=742009990]
 material_override = SubResource("StandardMaterial3D_al8mn")
 
-[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="1" unique_id=151070975]
+[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 585311628) index="1" unique_id=173959976]
 material_override = SubResource("StandardMaterial3D_q3cuy")
 
-[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=1227387750]
+[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=1846994194]
 speed_scale = 1.4
 
 [node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=435648599]
@@ -2103,7 +2107,7 @@ shape = SubResource("BoxShape3D_fobax")
 [node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=79117744 instance=ExtResource("23_t8hrt")]
 transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=1577485582]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=1702667827]
 transform = Transform3D(-33.4565, 37.1572, 1.62419e-06, 0, -2.18557e-06, 50, 37.1572, 33.4565, 1.46243e-06, 0, 0, 0)
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_jvldq")
@@ -2124,11 +2128,11 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 [node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" unique_id=1786094851 instance=ExtResource("17_seeb3")]
 transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=1187616634]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=419473386]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1704719961]
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=105208823]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 

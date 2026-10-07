@@ -93,44 +93,6 @@ public class ExtendedBranch : ThornreaperCardModel<ExtendedBranch.CardTop, Exten
 					]
 				)
 				.Build()),
-
-			new AbilityCardAbility(GivePrayerCardAbility(
-				conditionalAbilityCheck: async state =>
-				{
-					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
-					if(moveAbilityState.Performed)
-					{
-						foreach(Hex hex in moveAbilityState.Hexes)
-						{
-							foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-							{
-								if(state.Performer.AlliedWith(figure))
-								{
-									return await AbilityCmd.AskConsumeElement(state.Performer, Element.Light);
-								}
-							}
-						}
-					}
-
-					return false;
-				},
-				customGetTargets: (state, list) =>
-				{
-					MoveAbility.State moveAbilityState = state.ActionState.GetAbilityState<MoveAbility.State>(0);
-
-					foreach(Hex hex in moveAbilityState.Hexes)
-					{
-						foreach(Figure figure in hex.GetHexObjectsOfType<Figure>())
-						{
-							if(state.Performer.AlliedWith(figure))
-							{
-								list.Add(figure);
-							}
-						}
-					}
-				}
-			))
 		];
 	}
 }

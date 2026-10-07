@@ -31,9 +31,9 @@ public class Scenario900 : ScenarioModel
 
 	public override List<MonsterModel> MonsterModels { get; } =
 	[
-		ModelDB.Monster<BanditGuard>(),
-		ModelDB.Monster<BanditArcher>(),
+		ModelDB.Monster<SpittingDrake>(),
 		ModelDB.Monster<VermlingScout>(),
+		ModelDB.Monster<WaterSpirit>(),
 	];
 
 	public override List<SavedReward> Rewards =>

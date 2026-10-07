@@ -13,20 +13,20 @@ public class Electromagnetism : BrightsparkCardModel<Electromagnetism.CardTop, E
 	{
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
-			new AbilityCardAbility(SummonAbility.Builder()
-				.WithName("Metal Detector")
-				.WithTexturePath("res://Content/Classes/Brightspark/MetalDetector.png")
-				.WithHealth(6, new SummonHealthSquare(this, new Vector2(0.4474074f, 0.2185185f)))
-				.WithMove(1, new SummonMoveSquare(this, new Vector2(0.67767775f, 0.2179894f)))
-				.WithTraits(new AtEndOfTurnTrait(async figure =>
-					{
-						await new ActionState(figure, [
-							LootAbility.Builder().WithRange(1)
-								.WithCustomGetLootObtainer(state => ((Summon)state.Performer).CharacterOwner).Build()
-						]).Perform();
-					}, $"Perform {Icons.Inline(Icons.Loot)}1"))
-				.Build()
-			),
+			// new AbilityCardAbility(SummonAbility.Builder()
+			// 	.WithName("Metal Detector")
+			// 	.WithTexturePath("res://Content/Classes/Brightspark/MetalDetector.png")
+			// 	.WithHealth(6, new SummonHealthSquare(this, new Vector2(0.4474074f, 0.2185185f)))
+			// 	.WithMove(1, new SummonMoveSquare(this, new Vector2(0.67767775f, 0.2179894f)))
+			// 	.WithTraits(new AtEndOfTurnTrait(async figure =>
+			// 		{
+			// 			await new ActionState(figure, [
+			// 				LootAbility.Builder().WithRange(1)
+			// 					.WithCustomGetLootObtainer(state => ((Summon)state.Performer).CharacterOwner).Build()
+			// 			]).Perform();
+			// 		}, $"Perform {Icons.Inline(Icons.Loot)}1"))
+			// 	.Build()
+			// ),
 		];
 
 		public override int XP => 2;
