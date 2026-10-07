@@ -37,6 +37,7 @@ public class DawnsGift : ThornreaperCardModel<DawnsGift.CardTop, DawnsGift.CardB
 
 			new AbilityCardAbility(LootAbility.Builder()
 				.WithRange(1)
+				.WithCustomLootFromLocation(state => state.ActionState.GetAbilityState<OtherAbility>(0).)
 				.Build())
 		];
 

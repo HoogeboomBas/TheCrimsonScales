@@ -16,7 +16,7 @@ public class LootAbility : Ability<LootAbility.State>
 		public int TotalLootedCount { get; set; }
 	}
 
-	private Func<State, Figure> _customGetLootObtainer { get; set; }
+	private Func<State, Hex> _customLootFromLocation { get; set; }
 	public int Range { get; protected set; }
 
 	/// <summary>
@@ -35,9 +35,9 @@ public class LootAbility : Ability<LootAbility.State>
 			TBuilder WithRange(int range);
 		}
 
-		public TBuilder WithCustomGetLootObtainer(Func<State, Figure> customGetLootObtainer)
+		public TBuilder WithCustomLootFromLocation(Func<State, Hex> customLootFromLocation)
 		{
-			Obj._customGetLootObtainer = customGetLootObtainer;
+			Obj._customLootFromLocation = customLootFromLocation;
 			return (TBuilder)this;
 		}
 
@@ -70,11 +70,11 @@ public class LootAbility : Ability<LootAbility.State>
 
 	protected override async GDTask Perform(State abilityState)
 	{
-		Figure lootObtainer = abilityState.Performer;
+		Hex lootFromLocation = abilityState.Performer.Hex;
 
-		if(_customGetLootObtainer != null)
+		if(_customLootFromLocation != null)
 		{
-			lootObtainer = _customGetLootObtainer(abilityState);
+			lootFromLocation = _customLootFromLocation(abilityState);
 		}
 
 		LootPrompt.Answer confirmAnswer = await PromptManager.Prompt(new LootPrompt(list =>
@@ -83,7 +83,7 @@ public class LootAbility : Ability<LootAbility.State>
 			{
 				foreach(HexObject hexObject in hex.HexObjects)
 				{
-					if(hexObject is LootableObject lootableObject && lootableObject.CanLoot(lootObtainer))
+					if(hexObject is LootableObject lootableObject && lootableObject.CanLoot(abilityState.Performer))//abilityState.Authority?
 					{
 						list.AddIfNew(hex);
 					}
@@ -98,7 +98,7 @@ public class LootAbility : Ability<LootAbility.State>
 				Hex hex = GameController.Instance.Map.GetHex(coords);
 				abilityState.LootedHexes.Add(hex);
 
-				await LootHex(abilityState, hex, lootObtainer);
+				await LootHex(abilityState, hex, abilityState.Performer);
 			}
 
 			abilityState.SetPerformed();
