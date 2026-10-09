@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chno406bjkieo"
-path="res://.godot/imported/Drakefiend.jpg-affdee0f647044c66013f05ea97a9465.ctex"
+uid="uid://bmdgfvyn7251y"
+path="res://.godot/imported/DrakeFiend.jpg-0aa1680411c0a14345c5b3ea92d8d47b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Classes/FireKnight/Drakefiend.jpg"
-dest_files=["res://.godot/imported/Drakefiend.jpg-affdee0f647044c66013f05ea97a9465.ctex"]
+source_file="res://Content/Classes/FireKnight/DrakeFiend.jpg"
+dest_files=["res://.godot/imported/DrakeFiend.jpg-0aa1680411c0a14345c5b3ea92d8d47b.ctex"]
 
 [params]
 
