@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dm3tywhgbh24d" path="res://Art/Backgrounds/TCSBanner.webp" id="1_fstlw"]
 [ext_resource type="PackedScene" uid="uid://sn6fhyik5ch5" path="res://Scenes/Scenario/UI/ChoiceButton.tscn" id="3_o2b56"]
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="4_ua038"]
+[ext_resource type="Texture2D" uid="uid://c5fmaemx44w1x" path="res://Art/Particles/circle_05_transparent.png" id="6_vapy7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vapy7"]
 shader = ExtResource("4_ua038")
@@ -13,6 +14,10 @@ shader_parameter/outer_radius = 1.0
 shader_parameter/vignette_strength = 0.8
 shader_parameter/dither_strength = 0.03
 shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_vapy7"]
+offsets = PackedFloat32Array(0, 0.31992337, 0.5766283, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="MainMenu" type="Node" unique_id=775081676 node_paths=PackedStringArray("_continueButton", "_playButton", "_optionsButton", "_exitButton")]
 script = ExtResource("1_056y2")
@@ -126,6 +131,32 @@ script = null
 
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1790228055, 1664087955) index="0" unique_id=1161890966]
 text = "Exit"
+
+[node name="CenterAnchor" type="Control" parent="CanvasLayer/UI" unique_id=25061367]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DustParticles" type="CPUParticles2D" parent="CanvasLayer/UI/CenterAnchor" unique_id=1133579915]
+amount = 70
+texture = ExtResource("6_vapy7")
+lifetime = 8.0
+preprocess = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(2000, 1500)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.04
+scale_amount_max = 0.07
+color = Color(1, 1, 1, 0.49411765)
+color_ramp = SubResource("Gradient_vapy7")
 
 [editable path="CanvasLayer/UI/VBoxContainer/ContinueButton"]
 [editable path="CanvasLayer/UI/VBoxContainer/PlayButton"]
