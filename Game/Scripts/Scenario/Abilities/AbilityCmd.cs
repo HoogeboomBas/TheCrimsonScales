@@ -893,70 +893,40 @@ public static class AbilityCmd
 			return false;
 		}
 
-		if(hexObjectA is Figure figureA && !CanForceMoveTo(potentialAbilityState, figureA, hexObjectB.Hex))
+		Figure figureA = hexObjectA as Figure;
+		Figure figureB = hexObjectB as Figure;
+
+		if(figureA != null && figureB != null)
 		{
-			return false;
+			// Ignore figure to swap with
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(figureA, figureB,
+				parameters =>
+					(parameters.Figure == figureA &&
+					 parameters.OtherFigure == figureB) ||
+					(parameters.OtherFigure == figureA &&
+					 parameters.Figure == figureB),
+				parameters =>
+				{
+					parameters.SetCanStopAt();
+				}
+			);
 		}
 
-		if(hexObjectB is Figure figureB && !CanForceMoveTo(potentialAbilityState, figureB, hexObjectA.Hex))
+		bool canSwap = true;
+
+		if(figureA != null && !CanForceMoveTo(potentialAbilityState, figureA, hexObjectB.Hex))
 		{
-			return false;
+			canSwap = false;
 		}
 
-		return true;
+		if(figureB != null && !CanForceMoveTo(potentialAbilityState, figureB, hexObjectA.Hex))
+		{
+			canSwap = false;
+		}
 
-		// if(figureA.Hex.TryGetHexObjectOfType(out Obstacle obstacle) &&
-		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureB)).HasFlying)
-		// {
-		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureB, figureA.Hex, obstacle, true));
-		//
-		// 	if(!canEnterObstacleParameters.CanEnter)
-		// 	{
-		// 		return false;
-		// 	}
-		// }
-		//
-		// if(figureB.Hex.TryGetHexObjectOfType(out Obstacle obstacle2) &&
-		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureA)).HasFlying)
-		// {
-		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureA, figureB.Hex, obstacle2, true));
-		//
-		// 	if(!canEnterObstacleParameters.CanEnter)
-		// 	{
-		// 		return false;
-		// 	}
-		// }
-		//
-		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureA)).ImmuneToForcedMovement)
-		// {
-		// 	return false;
-		// }
-		//
-		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureB)).ImmuneToForcedMovement)
-		// {
-		// 	return false;
-		// }
-		//
-		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
-		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
-		//
-		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
-		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
-		//
-		// if(!canEnterA.CanEnter || !canEnterB.CanEnter)
-		// {
-		// 	return false;
-		// }
-		//
-		// return true;
+		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, figureB);
+
+		return canSwap;
 	}
 
 	public static bool CanForceMoveTo(AbilityState potentialAbilityState, Figure figure, Hex destination)
@@ -1737,33 +1707,10 @@ public static class AbilityCmd
 
 	private static async GDTask<bool> TrySwap(AbilityState potentialAbilityState, Figure authority, HexObject hexObjectA, HexObject hexObjectB)
 	{
-		Figure figureA = hexObjectA as Figure;
-		Figure figureB = hexObjectB as Figure;
-
-		object subscriber = new object();
-
-		if(figureA != null && figureB != null)
-		{
-			// Ignore figure to swap with
-			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(authority, subscriber,
-				parameters =>
-					(parameters.Figure == figureA &&
-					 parameters.OtherFigure == figureB) ||
-					(parameters.OtherFigure == figureA &&
-					 parameters.Figure == figureB),
-				parameters =>
-				{
-					parameters.SetCanStopAt();
-				}
-			);
-		}
-
 		if(!CanSwap(potentialAbilityState, hexObjectA, hexObjectB))
 		{
 			return false;
 		}
-
-		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(authority, subscriber);
 
 		if(!GameController.FastForward)
 		{
@@ -1772,6 +1719,9 @@ public static class AbilityCmd
 
 		Hex hexA = hexObjectA.Hex;
 		Hex hexB = hexObjectB.Hex;
+
+		Figure figureA = hexObjectA as Figure;
+		Figure figureB = hexObjectB as Figure;
 
 		if(figureA != null)
 		{
