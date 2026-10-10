@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -116,10 +116,12 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 					}
 
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(1);
-					int remainingSwing = swingState.AbilitySwing - swingState.SingleTargetState.ForcedMovementHexes.Count;
+
+					int remainingSwing = swingState.Performed ? swingState.AbilitySwing - swingState.SingleTargetState.ForcedMovementHexes.Count : swingState.AbilitySwing;
+
 					state.AbilityAdjustSwing(remainingSwing);
 
-					if(swingState.SingleTargetState.ForcedMovementHexes.Count > 0)
+					if(swingState.Performed && swingState.SingleTargetState.ForcedMovementHexes.Count > 0)
 					{
 						ScenarioEvents.SwingDirectionCheckEvent.Subscribe(state, this,
 							canApply: parameters => state == parameters.AbilityState,
@@ -144,9 +146,10 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 					}
 
 					SwingAbility.State swingState = state.ActionState.GetAbilityState<SwingAbility.State>(1);
-					int remainingSwing = swingState.AbilitySwing - swingState.SingleTargetState.ForcedMovementHexes.Count;
 
-					return swingState.Performed && remainingSwing > 0;
+					int remainingSwing = swingState.Performed ? swingState.AbilitySwing - swingState.SingleTargetState.ForcedMovementHexes.Count : swingState.AbilitySwing;
+
+					return remainingSwing > 0;
 				})
 				.WithOnAbilityEnded(async state =>
 				{
