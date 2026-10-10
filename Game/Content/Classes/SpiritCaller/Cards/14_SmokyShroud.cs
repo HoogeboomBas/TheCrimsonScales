@@ -42,10 +42,6 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 						{
 							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
 							state.SetCustomValue(this, "InvisibleGiven", false);
-							if(state.ActionState.GetAbilityState<SpawnAbility.State>(0).Spirit.IsDead)
-							{
-								ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
-							}
 						}
 					);
 
@@ -54,6 +50,12 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
+
+					if(state.GetCustomValue<bool>(this, "InvisibleGiven"))
+					{
+						await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
+					}
 
 					await GDTask.CompletedTask;
 				})
