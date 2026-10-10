@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Poison : ConditionModel
 {
@@ -44,4 +45,7 @@ public class Poison : ConditionModel
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 		ScenarioEvents.HealBlockTimeEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		$"All attacks targeting the affected figure gain “+{UpgradableLevel}{Icons.Inline(Icons.Attack, textParameters)}.” This condition is removed when the figure is healed but the heal is prevented from increasing the figure’s current hit point value.";
 }

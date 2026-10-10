@@ -31,4 +31,7 @@ public class Disarm : ConditionModel
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot perform any attack abilities. This condition is removed at the end of the figure’s next turn.";
 }

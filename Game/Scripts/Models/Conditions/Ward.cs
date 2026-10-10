@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Ward : ConditionModel
 {
@@ -31,4 +32,7 @@ public class Ward : ConditionModel
 
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The next time the affected figure suffers damage from any source, they instead suffer half that amount of damage (rounded down), and this condition is then removed.";
 }

@@ -1,9 +1,11 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Wound : ConditionModel
 {
 	public override string Name => "Wound";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Wound.svg";
+
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedByHeal => true;
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Wound1];
@@ -30,4 +32,7 @@ public class Wound : ConditionModel
 
 		ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		$"The affected figure suffers {Icons.Inline(Icons.Damage, textParameters)}{UpgradableLevel} at the start of each of their turns. This condition is removed when the figure is healed.";
 }

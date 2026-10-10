@@ -1,10 +1,12 @@
 ﻿using Fractural.Tasks;
-using Godot;
 
 public abstract class ConditionModel : AbstractModel
 {
+	private Tooltip _tooltip;
+
 	public abstract string Name { get; }
 	public abstract string IconPath { get; }
+
 	public abstract ConditionPolarity ConditionPolarity { get; }
 	public virtual bool CanBeAppliedMultipleTimesOnSingleTarget => false;
 	public virtual ConditionModel[] ImmunityCompareBaseConditions => [this];
@@ -20,6 +22,19 @@ public abstract class ConditionModel : AbstractModel
 
 	public bool IsPositive => ConditionPolarity == ConditionPolarity.Positive;
 	public bool IsNegative => ConditionPolarity == ConditionPolarity.Negative;
+
+	public Tooltip Tooltip
+	{
+		get
+		{
+			if(_tooltip == null)
+			{
+				_tooltip = new Tooltip(Name, IconPath, $"{ConditionPolarity.ToString()} Condition", GetTooltipText);
+			}
+
+			return _tooltip;
+		}
+	}
 
 	public virtual async GDTask OnAdded(Condition condition)
 	{
@@ -37,4 +52,6 @@ public abstract class ConditionModel : AbstractModel
 	{
 		await GDTask.CompletedTask;
 	}
+
+	protected abstract string GetTooltipText(RichTextParameters textParameters);
 }

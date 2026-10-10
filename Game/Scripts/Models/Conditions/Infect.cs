@@ -48,4 +48,7 @@ public class Infect : ConditionModel
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"TODO";
 }

@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Muddle : ConditionModel
 {
@@ -35,4 +36,7 @@ public class Muddle : ConditionModel
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 		ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure gains disadvantage on all of their attacks. This condition is removed at the end of the figure’s next turn.";
 }

@@ -29,4 +29,7 @@ public class Strengthen : ConditionModel
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure gains advantage on all of their attacks. This condition is removed at the end of the figure’s next turn.";
 }

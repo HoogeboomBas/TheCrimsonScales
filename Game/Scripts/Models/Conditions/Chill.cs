@@ -42,4 +42,7 @@ public class Chill : ConditionModel
 
 		return GDTask.CompletedTask;
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"TODO";
 }

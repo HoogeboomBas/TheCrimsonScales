@@ -44,4 +44,7 @@ public class Immobilize : ConditionModel
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot perform any move abilities. This condition is removed at the end of the figure’s next turn.";
 }
