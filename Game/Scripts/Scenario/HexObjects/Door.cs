@@ -71,7 +71,7 @@ public partial class Door : OverlayTile, IEventSubscriber
 		await GDTask.CompletedTask;
 	}
 
-	public async GDTask Open(Figure potentialOpener)
+	public async GDTask Open(Figure potentialOpener, bool initializationPhase = false)
 	{
 		Opened = true;
 
@@ -82,7 +82,7 @@ public partial class Door : OverlayTile, IEventSubscriber
 
 		foreach(Room room in _roomsToOpen)
 		{
-			await room.Reveal(this, potentialOpener, false);
+			await room.Reveal(this, potentialOpener, initializationPhase);
 		}
 
 		GameController.Instance.Map.UpdateWallLines();

@@ -50,6 +50,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 						await AbilityCmd.SufferDamage(state, figure, 3);
 					}
 				})
+				.WithTarget(Target.Enemies | Target.TargetAll)
 				.Build()),
 		];
 

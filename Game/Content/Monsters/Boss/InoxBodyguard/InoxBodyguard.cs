@@ -115,26 +115,26 @@ public class InoxBodyguard : MonsterModel, IBossMonsterModel
 	);
 
 	// IBossMonsterModel
-	public string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
+	public virtual string GetSpecial1Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
 		 {Icons.Inline(Icons.Move, richTextParameters)}{monster.Stats.Move - 1}.
 		 {Icons.Inline(Icons.Attack, richTextParameters)}{monster.Stats.Attack - 1}, {Icons.InlineAOEPattern(AOEPattern, richTextParameters)}.
 		 """;
 
-	public string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
+	public virtual string GetSpecial2Description(Monster monster, RichTextParameters richTextParameters) =>
 		$"""
 		 {Icons.Inline(Icons.Move, richTextParameters)}{monster.Stats.Move}.
 		 {Icons.Inline(Icons.Attack, richTextParameters)}{monster.Stats.Attack}.
 		 {Icons.Inline(Icons.Retaliate, richTextParameters)}{GetRetaliateValue()}.
 		 """;
 
-	public IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
+	public virtual IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, -1)),
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1, aoePattern: AOEPattern))
 	];
 
-	public IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
+	public virtual IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)),
