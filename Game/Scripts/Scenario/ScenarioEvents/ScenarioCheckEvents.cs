@@ -160,6 +160,11 @@ public partial class ScenarioCheckEvents
 			{
 				CanPass = true;
 			}
+
+			public void SetCannotPass()
+			{
+				CanPass = false;
+			}
 		}
 	}
 
