@@ -57,7 +57,20 @@ public class Shackle : ConditionModel
 			parameters =>
 			{
 				parameters.SetCannotPass();
-			}
+			},
+			order: 10
+		);
+
+		// Don't allow movement through an enemy that is adjacent to the Chainguard
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.Figure == condition.Owner &&
+				RangeHelper.GetFiguresInRange(parameters.EnemyFigure.Hex, 1).Any(figure => figure == condition.PotentialGiver),
+			parameters =>
+			{
+				parameters.SetCannotPass();
+			},
+			order: 10
 		);
 	}
 
