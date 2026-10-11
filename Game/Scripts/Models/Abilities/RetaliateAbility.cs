@@ -34,7 +34,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	private bool _customCanApplyReplaceFully;
 
 	public DynamicInt<State> RetaliateValue { get; private set; }
-	public int Range { get; private set; }
+	public DynamicInt<State> Range { get; private set; }
 
 	/// <summary>
 	/// A builder extending <see cref="ActiveAbility{T}.AbstractBuilder{TBuilder, TAbility}"/> with setter methods
@@ -47,7 +47,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		where TBuilder : AbstractBuilder<TBuilder, TAbility>
 		where TAbility : RetaliateAbility, new()
 	{
-		protected int? _range;
+		protected DynamicInt<State> _range;
 
 		public interface IRetaliateValueStep
 		{
@@ -61,7 +61,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 			return (TBuilder)this;
 		}
 
-		public TBuilder WithRange(int range)
+		public TBuilder WithRange(DynamicInt<State> range)
 		{
 			_range = range;
 			Obj.Range = range;
@@ -112,7 +112,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 		base.InitializeState(abilityState);
 
 		abilityState.RetaliateValue = RetaliateValue.GetValue(abilityState);
-		abilityState.Range = Range;
+		abilityState.Range = Range.GetValue(abilityState);
 	}
 
 	protected override async GDTask Perform(State abilityState)
@@ -124,7 +124,7 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	{
 		await base.Activate(abilityState);
 
-		await AbilityCmd.AddRetaliate(abilityState.Performer, this, abilityState.RetaliateValue, Range, _customCanApply, _customCanApplyReplaceFully);
+		await AbilityCmd.AddRetaliate(abilityState.Performer, this, abilityState.RetaliateValue, abilityState.Range, _customCanApply, _customCanApplyReplaceFully);
 
 		foreach(ConditionModel conditionModel in abilityState.ConditionModels)
 		{
