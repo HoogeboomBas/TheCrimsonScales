@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -6,7 +6,7 @@ public class Shackle : ConditionModel
 {
 	public override string Name => "Shackle";
 	public override string IconPath => "res://Content/Classes/Chainguard/Shackle.svg";
-	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.None;
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Immobilize];
 	public override bool RequiresGiver => true;
 	public override bool ShouldShowOnFigure => false;
