@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://davruphgneuad"]
+
+[ext_resource type="Texture2D" uid="uid://c50n0lfjv3r6v" path="res://Art/Icons/ConditionsAndEffects/Wound.svg" id="1_axoop"]
+[ext_resource type="Script" uid="uid://06w8h5pppixt" path="res://Scripts/Tooltips/TooltipItem.cs" id="1_bsmga"]
+[ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="2_bsmga"]
+[ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="3_buuk5"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_yxgmr"]
+
+[node name="TooltipItem" type="MarginContainer" unique_id=1434833762 node_paths=PackedStringArray("_nameLabel", "_iconTexture", "_textLabel")]
+mouse_filter = 2
+script = ExtResource("1_bsmga")
+_nameLabel = NodePath("VBoxContainer/Header/LabelContainer/Label")
+_iconTexture = NodePath("VBoxContainer/Header/Icon")
+_textLabel = NodePath("VBoxContainer/Text")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=889479634]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer" unique_id=1240783003]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/Header" unique_id=2125871734]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_axoop")
+expand_mode = 1
+
+[node name="LabelContainer" type="Control" parent="VBoxContainer/Header" unique_id=1432466995]
+custom_minimum_size = Vector2(280, 47)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Header/LabelContainer" unique_id=106774526]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Wound"
+label_settings = ExtResource("2_bsmga")
+vertical_alignment = 1
+script = ExtResource("3_buuk5")
+_minSize = 20
+_maxSize = 40
+
+[node name="Text" type="RichTextLabel" parent="VBoxContainer" unique_id=1946943507]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_yxgmr")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "The affected figure suffers 1 damage at the start of each of their turns. This condition is removed when the figure is healed."
+fit_content = true
