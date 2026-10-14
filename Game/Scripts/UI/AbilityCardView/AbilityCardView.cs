@@ -64,6 +64,17 @@ public partial class AbilityCardView : CardView
 							_tokens.Add(characterToken);
 						}
 					}
+
+					if(abilityState is ActiveAbilityState activeAbilityState && activeAbilityState.CharacterTokens > 0)
+					{
+						Vector2 position = activeAbilityState.CharacterTokenPosition;
+						Texture2D tokenTexture = abilityCard.Owner.ClassModel.CharacterTokenTexture;
+
+						AbilityCardViewCharacterToken characterToken = _characterTokenScene.Instantiate<AbilityCardViewCharacterToken>();
+						_characterTokenParent.AddChild(characterToken);
+						characterToken.Init(tokenTexture, position, activeAbilityState.CharacterTokens);
+						_tokens.Add(characterToken);
+					}
 				}
 			}
 		}

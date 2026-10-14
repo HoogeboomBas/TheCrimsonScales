@@ -20,7 +20,7 @@ public class SilhouetteCuirass : CS1Item
 				await Use(async user =>
 				{
 					parameters.SetDamagePrevented();
-					await AbilityCmd.AddCondition(null, parameters.Figure, Conditions.Invisible);
+					await AbilityCmd.AddCondition(null, user, Conditions.Invisible, user);
 				});
 			}
 		);

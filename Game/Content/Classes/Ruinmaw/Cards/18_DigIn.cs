@@ -82,6 +82,7 @@ public class DigIn : RuinmawCardModel<DigIn.CardTop, DigIn.CardBottom>
 							$"Remove {Icons.HintText(Icons.GetCondition(Conditions.Invisible))}"));
 
 					object subscriber = new object();
+					state.SetCustomValue(this, "object", subscriber);
 					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, subscriber,
 						canApplyParameters => canApplyParameters.Figure.EnemiesWith(state.Performer) &&
 						                      RangeHelper.Distance(state.Performer.Hex, canApplyParameters.Figure.Hex) <= 1,
@@ -94,6 +95,7 @@ public class DigIn : RuinmawCardModel<DigIn.CardTop, DigIn.CardBottom>
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, state.GetCustomValue<object>(this, "object"));
 
 					await GDTask.CompletedTask;
 				})

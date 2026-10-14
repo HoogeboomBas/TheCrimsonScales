@@ -60,6 +60,7 @@ position = Vector2(-327.35757, 189)
 position = Vector2(-218.2384, 0)
 
 [node name="BearTrap1H" parent="Map/Rooms/Room" index="13" unique_id=180155131 instance=ExtResource("10_5r4do")]
+position = Vector2(-218.2384, -378)
 
 [node name="Boulder3H" parent="Map/Rooms/Room" index="14" unique_id=1039946196 instance=ExtResource("11_rv36e")]
 position = Vector2(436.47678, -378)
@@ -88,26 +89,26 @@ position = Vector2(654.71515, 378)
 MarkerType = 1
 _hideDuringPlay = true
 
-[node name="Marker2" parent="Map/Rooms/Room" index="22" unique_id=12467389 instance=ExtResource("15_vqxvv")]
-position = Vector2(218.2384, 0)
-
-[node name="MonsterSpawner" parent="Map/Rooms/Room" index="23" unique_id=286336762 instance=ExtResource("13_x5m5f")]
+[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="22" unique_id=286336762 instance=ExtResource("13_x5m5f")]
 position = Vector2(109.1192, -189)
 MonsterModelId = "MONSTER_MODEL.DEEP_TERROR"
 MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="MonsterSpawner2" parent="Map/Rooms/Room" index="24" unique_id=1510866611 instance=ExtResource("13_x5m5f")]
+[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="23" unique_id=1510866611 instance=ExtResource("13_x5m5f")]
 position = Vector2(327.35757, -189)
 MonsterModelId = "MONSTER_MODEL.DEEP_TERROR"
 MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="MonsterSpawner3" parent="Map/Rooms/Room" index="25" unique_id=2114910645 instance=ExtResource("13_x5m5f")]
+[node name="MonsterSpawner4" parent="Map/Rooms/Room" index="24" unique_id=2114910645 instance=ExtResource("13_x5m5f")]
 position = Vector2(-218.2384, -378)
 MonsterModelId = "MONSTER_MODEL.BANDIT_GUARD"
 MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
+
+[node name="Marker2" parent="Map/Rooms/Room" index="25" unique_id=12467389 instance=ExtResource("15_vqxvv")]
+position = Vector2(218.2384, 0)

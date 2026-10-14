@@ -84,6 +84,32 @@ offset_bottom = 122.0
 grow_horizontal = 2
 texture = ExtResource("1_fstlw")
 
+[node name="CenterAnchor" type="Control" parent="CanvasLayer/UI" unique_id=25061367]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DustParticles" type="CPUParticles2D" parent="CanvasLayer/UI/CenterAnchor" unique_id=1133579915]
+amount = 70
+texture = ExtResource("6_vapy7")
+lifetime = 8.0
+preprocess = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(2000, 1500)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.04
+scale_amount_max = 0.07
+color = Color(1, 1, 1, 0.49411765)
+color_ramp = SubResource("Gradient_vapy7")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI" unique_id=1189326839]
 layout_mode = 1
 anchors_preset = 7
@@ -131,32 +157,6 @@ script = null
 
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1790228055, 1664087955) index="0" unique_id=1161890966]
 text = "Exit"
-
-[node name="CenterAnchor" type="Control" parent="CanvasLayer/UI" unique_id=25061367]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DustParticles" type="CPUParticles2D" parent="CanvasLayer/UI/CenterAnchor" unique_id=1133579915]
-amount = 70
-texture = ExtResource("6_vapy7")
-lifetime = 8.0
-preprocess = 4.0
-emission_shape = 3
-emission_rect_extents = Vector2(2000, 1500)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 10.0
-initial_velocity_max = 20.0
-scale_amount_min = 0.04
-scale_amount_max = 0.07
-color = Color(1, 1, 1, 0.49411765)
-color_ramp = SubResource("Gradient_vapy7")
 
 [editable path="CanvasLayer/UI/VBoxContainer/ContinueButton"]
 [editable path="CanvasLayer/UI/VBoxContainer/PlayButton"]

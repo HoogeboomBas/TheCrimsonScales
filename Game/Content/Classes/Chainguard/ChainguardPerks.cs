@@ -112,7 +112,7 @@ public class ChainguardPerks
 		public override bool IgnoreItemMinusOneEffects => true;
 	}
 
-	public class UnyieldingJailer : ChainguardPerk, IEventSubscriber
+	public class UnyieldingJailer : ChainguardPerk
 	{
 		public override int PerkBoxCount => 3;
 		protected override string Title => "Unyielding Jailer";

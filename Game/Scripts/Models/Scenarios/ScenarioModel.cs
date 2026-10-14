@@ -233,7 +233,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 					hexes.Shuffle(GameController.Instance.VisualRNG);
 					hexes.Sort((otherHexA, otherHexB) =>
 						RangeHelper.Distance(spawnHex, otherHexA).CompareTo(RangeHelper.Distance(spawnHex, otherHexB)));
-					Hex firstHex = hexes.FirstOrDefault(hex => hex.IsEmpty() || (canHaveFeatures && hex.IsUnoccupied()));
+					Hex firstHex = hexes.FirstOrDefault(hex =>
+						hex.IsEmpty() || (canHaveFeatures && hex.IsUnoccupied() && !hex.HasHexObjectOfType<Obstacle>()));
 
 					if(firstHex == null)
 					{

@@ -604,4 +604,9 @@ public abstract partial class Figure : HexObject, IActionSource
 	{
 		TakingTurn = takingTurn;
 	}
+
+	public void SetCanTakeTurn(bool canTakeTurn)
+	{
+		CanTakeTurn = canTakeTurn;
+	}
 }

@@ -87,6 +87,10 @@ public class Scenario054 : ScenarioModel
 // 				 The Living Bones are Undead Archers. Undead Archers gain {Icons.Inline(Icons.Range)}3 and add -1{Icons.Targets} to all their attacks.
 // 				 The Stone Golems are Terror Drones and use the Deep Terror monster ability deck instead of their own. Whenever a Terror Drone would summon a Deep Terror, summon an Undead Archer instead.
 // 				 """);
+			UpdateScenarioText(
+				$"""
+				 Whenever a Terror Drone would summon a Deep Terror, summon an Undead Archer instead.
+				 """);
 
 			ScenarioEvents.AbilityStartedEvent.Subscribe(this,
 				parameters => parameters.Performer is Monster monster && monster.MonsterModel is TerrorDrone &&

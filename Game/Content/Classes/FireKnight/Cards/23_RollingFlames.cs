@@ -79,7 +79,7 @@ public class RollingFlames : FireKnightLevelUpCardModel<RollingFlames.CardTop, R
 			new AbilityCardAbility(OtherAbility.Builder()
 				.WithPerformAbility(async state =>
 				{
-					foreach(Figure target in GameController.Instance.Map.Figures.Where(target => target.HasWound()))
+					foreach(Figure target in GameController.Instance.Map.Figures.Where(target => target.HasWound()).ToList())
 					{
 						await AbilityCmd.SufferDamage(state, target, state.GetCustomValue<bool>(this, "Fire Consumed") ? 2 : 1);
 						state.SetPerformed();

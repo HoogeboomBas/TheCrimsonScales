@@ -72,6 +72,16 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 	{
 		base._Ready();
 
+		if(SceneRequest.RemovedSavedScenario)
+		{
+			AppController.Instance.PopupManager.RequestPopup(new TextPopup.Request("New Version",
+				"""
+				A new version of The Crimson Scales was installed. This unfortunately meant that the progress on the last scenario was incompatible with the new version.
+
+				Please always make sure to finish up a scenario before installing a new version of the application! Our apologies for the inconvenience.
+				"""));
+		}
+
 		StartSequence().Forget();
 	}
 

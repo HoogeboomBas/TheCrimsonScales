@@ -133,7 +133,7 @@ public class ChieftainPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class PracticedControl : ChieftainPerk, IEventSubscriber
+	public class PracticedControl : ChieftainPerk
 	{
 		protected override string Title => "Practiced Control";
 
@@ -155,7 +155,7 @@ public class ChieftainPerks
 		}
 	}
 
-	public class Stampede : ChieftainPerk, IEventSubscriber
+	public class Stampede : ChieftainPerk
 	{
 		protected override string Title => "Stampede";
 

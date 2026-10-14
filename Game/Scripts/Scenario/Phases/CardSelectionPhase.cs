@@ -188,13 +188,14 @@ public class CardSelectionPhase : ScenarioPhase
 
 	private void ValidateState()
 	{
-		foreach(CharacterCardSelectionState characterCardSelectionState in _cardSelectionState.CharacterCardSelectionStates)
+		for(int characterIndex = 0; characterIndex < _cardSelectionState.CharacterCardSelectionStates.Length; characterIndex++)
 		{
+			CharacterCardSelectionState characterCardSelectionState = _cardSelectionState.CharacterCardSelectionStates[characterIndex];
 			for(int i = characterCardSelectionState.ChosenCardReferenceIds.Count - 1; i >= 0; i--)
 			{
 				int cardReferenceId = characterCardSelectionState.ChosenCardReferenceIds[i];
 				AbilityCard abilityCard = GameController.Instance.ReferenceManager.Get<AbilityCard>(cardReferenceId);
-				if(!CanSelectCardForPlay(abilityCard))
+				if(!CanSelectCardForPlay(GameController.Instance.CharacterManager.Characters[characterIndex], abilityCard))
 				{
 					characterCardSelectionState.ChosenCardReferenceIds.RemoveAt(i);
 				}
@@ -432,7 +433,7 @@ public class CardSelectionPhase : ScenarioPhase
 			return;
 		}
 
-		if(!CanSelectCardForPlay(card))
+		if(!CanSelectCardForPlay(card.Owner, card))
 		{
 			return;
 		}
@@ -460,7 +461,7 @@ public class CardSelectionPhase : ScenarioPhase
 		}
 
 		AbilityCard abilityCard = GetAbilityCard(cardSelectionCard);
-		if(!CanSelectCardForPlay(abilityCard))
+		if(!CanSelectCardForPlay(abilityCard.Owner, abilityCard))
 		{
 			return;
 		}
@@ -549,8 +550,8 @@ public class CardSelectionPhase : ScenarioPhase
 		return GameController.Instance.CardManager.Get(cardSelectionCard.SavedAbilityCard);
 	}
 
-	private bool CanSelectCardForPlay(AbilityCard card)
+	private bool CanSelectCardForPlay(Character character, AbilityCard card)
 	{
-		return card.CardState == CardState.Hand;
+		return card.CardState == CardState.Hand && character.Cards.Contains(card);
 	}
 }

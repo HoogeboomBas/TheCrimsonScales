@@ -58,9 +58,9 @@ public class FlameDemonAbilityCard2 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, 
-			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire]) ?
-				new AOEPattern(
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0,
+			aoePattern: new(() => CheckElementConsumed(monster, [Element.Fire])
+				? new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
@@ -86,17 +86,25 @@ public class FlameDemonAbilityCard3 : FlameDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, duringAttackSubscriptions:
-		[
-			ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Fire],
-				applyFunction: async parameters =>
-				{
-					parameters.AbilityState.AbilityAdjustAttackValue(1);
-					parameters.AbilityState.AbilityAddCondition(Conditions.Wound1);
-					await GDTask.CompletedTask;
-				}
-			)
-		])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
+			aoePattern: new AOEPattern(
+			[
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthEast), AOEHexType.Red),
+			]),
+			duringAttackSubscriptions:
+			[
+				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Fire],
+					applyFunction: async parameters =>
+					{
+						parameters.AbilityState.AbilityAdjustAttackValue(1);
+						parameters.AbilityState.AbilityAddCondition(Conditions.Wound1);
+						await GDTask.CompletedTask;
+					}
+				)
+			]
+		)),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =

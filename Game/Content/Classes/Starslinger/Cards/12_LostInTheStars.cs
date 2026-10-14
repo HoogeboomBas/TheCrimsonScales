@@ -65,12 +65,24 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 						}
 					);
 
+					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
+						parameters =>
+							parameters.Performer == state.Performer,
+						async parameters =>
+						{
+							parameters.SetIsBlocked(true);
+
+							await GDTask.CompletedTask;
+						}
+					);
+
 					ScenarioEvents.FigureTurnStartedEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == state.Performer,
 						async applyParameters =>
 						{
 							await state.RemoveFromActive();
 							await state.ActionState.RequestDiscardOrLose();
+
 							Hex returnHex = await AbilityCmd.SelectHex(applyParameters.Figure,
 								possibleEndHexes =>
 								{
@@ -127,6 +139,7 @@ public class LostInTheStars : StarslingerCardModel<LostInTheStars.CardTop, LostI
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioCheckEvents.InitiativeCheckEvent.Unsubscribe(state, this);
+					ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 					ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})

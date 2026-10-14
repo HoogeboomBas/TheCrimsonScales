@@ -134,13 +134,13 @@ public class BrightsparkPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class SparkOfInspiration : BrightsparkPerk, IEventSubscriber
+	public class SparkOfInspiration : BrightsparkPerk
 	{
 		public override int PerkBoxCount => 2;
 		protected override string Title => "Spark of Inspiration";
 
 		public override string GetNonAMDDescription(RichTextParameters richTextParameters) =>
-			$"Whenever you long rest, after you recover your cards from your discard pile, you may play one card from your hand to perform all persistent abilities on either the top or bottom action of the card.";
+			"Whenever you long rest, after you recover your cards from your discard pile, you may play one card from your hand to perform all persistent abilities on either the top or bottom action of the card.";
 
 		public override async GDTask OnScenarioSetupPhaseCompleted(Character character)
 		{
@@ -148,7 +148,7 @@ public class BrightsparkPerks
 
 			ScenarioEvents.LongRestEndedEvent.Subscribe(this,
 				parameters => parameters.Character == character,
-				async parameters =>
+				async _ =>
 				{
 					AbilityCard selectedAbilityCard = await AbilityCmd.SelectAbilityCard(character, CardState.Hand,
 						canSelectFunc: card => card.Top.Model.Persistent || card.Bottom.Model.Persistent,
@@ -189,7 +189,7 @@ public class BrightsparkPerks
 
 					ScenarioEvents.AbilityStartedEvent.Subscribe(this,
 						abilityStartedParameters => (abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Top ||
-						                            abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Bottom) &&
+						                             abilityStartedParameters.AbilityState.ActionState.ActionSource == card.Bottom) &&
 						                            abilityStartedParameters.AbilityState is not ActiveAbilityState,
 						async abilityStartedParameters =>
 						{

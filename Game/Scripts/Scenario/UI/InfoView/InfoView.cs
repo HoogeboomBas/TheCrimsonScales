@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 using GTweens.Easings;
 
@@ -21,6 +22,8 @@ public partial class InfoView : Control
 	private Hex _visibleHex;
 
 	private InfoViewPanel _panel;
+
+	public event Action<Hex> PinnedHexChangedEvent;
 
 	public override void _Ready()
 	{
@@ -147,6 +150,8 @@ public partial class InfoView : Control
 			_pinButtonContainer.TweenScale(0f, 0.15f).SetEasing(Easing.InBack).PlayFastForwardable();
 			GameController.Instance.HexPin.SetActive(false);
 		}
+
+		PinnedHexChangedEvent?.Invoke(_pinnedHex);
 	}
 
 	private void OnSecondaryButtonPressed()

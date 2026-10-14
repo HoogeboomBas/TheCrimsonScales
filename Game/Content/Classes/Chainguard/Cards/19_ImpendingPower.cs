@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -125,7 +125,6 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 						async parameters =>
 						{
 							((CreateTrapAbility.State)parameters.AbilityState).AbilityAdjustRange(1);
-							ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);
 
 							await GDTask.CompletedTask;
 						}
