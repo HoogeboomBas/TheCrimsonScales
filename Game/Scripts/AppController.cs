@@ -31,8 +31,6 @@ public partial class AppController : SingletonNode<AppController>
 
 	[Export]
 	public StoryView StoryView { get; private set; }
-
-	// public SaveFile SaveFile { get; private set; }
 	public SaveManager SaveManager { get; private set; }
 
 	public RandomNumberGenerator RNG { get; private set; }
@@ -54,16 +52,19 @@ public partial class AppController : SingletonNode<AppController>
 	{
 		base._Ready();
 
-		//TODO: Reimplement this warning when continuing with a campaign save file
-// 		if(SaveFile.RemovedSavedScenario)
-// 		{
-// 			PopupManager.RequestPopup(new TextPopup.Request("New Version",
-// 				"""
-// 				A new version of The Crimson Scales was installed. This unfortunately meant that the progress on the last scenario was incompatible with the new version.
-//
-// 				Please always make sure to finish up a scenario before installing a new version of the application!
-// 				"""));
-// 		}
+		for(int i = 0; i < SaveManager.CampaignSaveFiles.Count; i++) {
+			if(SaveManager.CampaignSaveFiles[i].RemovedSavedScenario == true) {
+	 			PopupManager.RequestPopup(new TextPopup.Request("Scenario Progress Lost",
+	 				"""
+	 				A new version of The Crimson Scales was installed. Unfortunately, your scenario progress was lost due to cross-version incompatibilities.
+
+	 				Please always make sure to complete a scenario before installing a new version of the application.
+
+	 				If your platform supports it you can prevent this by disabling auto-update for this game.
+	 				"""));
+	 			break;
+			}
+		}
 
 		RNG = new RandomNumberGenerator();
 		RNG.Randomize();
