@@ -83,6 +83,7 @@ texture = ExtResource("4_uplxl")
 [node name="AMDViewer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="2" unique_id=1792582373 instance=ExtResource("7_bxli4")]
 custom_minimum_size = Vector2(0, 71)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Effects" type="VBoxContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=333721468]
 layout_mode = 2
