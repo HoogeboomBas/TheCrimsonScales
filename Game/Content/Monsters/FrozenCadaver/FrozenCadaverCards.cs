@@ -27,7 +27,7 @@ public class FrozenCadaverAbilityCard0 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Chill)
 			.WithTarget(Target.TargetAll | Target.Enemies)
@@ -48,7 +48,13 @@ public class FrozenCadaverAbilityCard1 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.WithRange(1)
+			.WithFilterTargets((_, figure) => figure.HasCondition(Conditions.Chill))
+			.Build()),
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
 				{
@@ -73,8 +79,8 @@ public class FrozenCadaverAbilityCard2 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -88,7 +94,9 @@ public class FrozenCadaverAbilityCard3 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +2, conditions: [Conditions.Chill])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +2)
+			.WithConditions(Conditions.Chill)
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -102,22 +110,18 @@ public class FrozenCadaverAbilityCard4 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					applyFunction: async applyParameters =>
+					parameters => parameters.AbilityState.Target.HasCondition(Conditions.Chill),
+					async parameters =>
 					{
-						if(applyParameters.AbilityState.Target.HasCondition(Conditions.Chill))
-						{
-							applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
-						}
-
+						parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 						await GDTask.CompletedTask;
 					}
-				)
-			])),
+				))
+			.Build())
 	];
 }
 
@@ -128,22 +132,18 @@ public class FrozenCadaverAbilityCard5 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					applyFunction: async applyParameters =>
+					parameters => parameters.AbilityState.Target.HasCondition(Conditions.Chill),
+					async parameters =>
 					{
-						if(applyParameters.AbilityState.Target.HasCondition(Conditions.Chill))
-						{
-							applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
-						}
-
+						parameters.AbilityState.SingleTargetAdjustAttackValue(2);
 						await GDTask.CompletedTask;
 					}
-				)
-			])),
+				))
+			.Build())
 	];
 }
 
@@ -154,7 +154,7 @@ public class FrozenCadaverAbilityCard6 : FrozenCadaverAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +2)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +2).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder()
 			.WithHealValue(2)
 			.WithTarget(Target.Self)

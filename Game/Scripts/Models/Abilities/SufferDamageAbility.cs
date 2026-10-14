@@ -18,6 +18,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 		public Target AbilityTarget { get; set; }
 		public int AbilityTargets { get; set; }
 		public Action<State, List<Figure>> AbilityCustomGetTargets { get; set; }
+		public Func<State, Figure, bool> AbilityFilterTargets { get; set; }
 		public AOEPattern AbilityAOEPattern { get; set; }
 		public int AbilityRange { get; set; }
 
@@ -59,6 +60,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 	public bool Mandatory { get; private set; }
 
 	public Action<State, List<Figure>> CustomGetTargets { get; private set; }
+	public Func<State, Figure, bool> FilterTargets { get; private set; }
 
 	public bool IsMultiTarget =>
 		Targets > 1 ||
@@ -104,6 +106,12 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithInfiniteRange()
+		{
+			Obj.Range = RangeHelper.InfiniteRange;
+			return (TBuilder)this;
+		}
+
 		public TBuilder WithRequiresLineOfSight(bool requiresLineOfSight)
 		{
 			Obj.RequiresLineOfSight = requiresLineOfSight;
@@ -145,6 +153,12 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 		public TBuilder WithCustomGetTargets(Action<State, List<Figure>> getTargets)
 		{
 			Obj.CustomGetTargets = getTargets;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithFilterTargets(Func<State, Figure, bool> filterTargets)
+		{
+			Obj.FilterTargets = filterTargets;
 			return (TBuilder)this;
 		}
 
@@ -196,6 +210,9 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 		abilityState.AbilityRange = Range;
 		abilityState.AbilityCustomGetTargets = CustomGetTargets != null
 			? (state, figures) => CustomGetTargets(state, figures)
+			: null;
+		abilityState.AbilityFilterTargets = FilterTargets != null
+			? (state, figures) => FilterTargets(state, figures)
 			: null;
 
 		abilityState.AbilityDamage = Damage.GetValue(abilityState);
@@ -435,6 +452,11 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 					new ScenarioCheckEvents.CanBeTargetedCheck.Parameters(abilityState, performer, figure));
 
 			if(!canBeTargetedParameters.CanBeTargeted)
+			{
+				remove = true;
+			}
+
+			if(abilityState.AbilityFilterTargets != null && !abilityState.AbilityFilterTargets(abilityState, figure))
 			{
 				remove = true;
 			}
