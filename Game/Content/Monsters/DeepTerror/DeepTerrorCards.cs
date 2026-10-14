@@ -9,7 +9,7 @@ public abstract class DeepTerrorAbilityCard : MonsterAbilityCardModel
 	[
 		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard1>(),
-		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard2>(),
+		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<DeepTerrorAbilityCard5>(),
@@ -33,27 +33,6 @@ public class DeepTerrorAbilityCard1 : DeepTerrorAbilityCard
 {
 	public override int Initiative => 60;
 	public override int CardIndex => 1;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, pierce: 3,
-			aoePattern: new AOEPattern([
-				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-				new AOEHex(new Vector2I(1, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(2, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(3, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(4, 0), AOEHexType.Red),
-				new AOEHex(new Vector2I(5, 0), AOEHexType.Red),
-			])
-		)),
-	];
-}
-
-public class DeepTerrorAbilityCard2 : DeepTerrorAbilityCard
-{
-	public override int Initiative => 60;
-	public override int CardIndex => 2;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

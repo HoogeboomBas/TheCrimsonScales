@@ -21,7 +21,7 @@ public class LivingBonesScenario55 : LivingBones
 		public override int Initiative => 50;
 		public override int CardIndex => 0;
 		public override string CardsAtlasPath => "res://Content/Monsters/LivingBones/Scenario55Card.jpg";
-		public override int ColumnCount => 1;
+		public override int ColumnCount => 2;
 		public override int RowCount => 1;
 
 		public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

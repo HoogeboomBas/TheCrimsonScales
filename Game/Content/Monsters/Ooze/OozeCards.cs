@@ -13,7 +13,7 @@ public abstract class OozeAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<OozeAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<OozeAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<OozeAbilityCard4>(),
-		ModelDB.MonsterAbilityCard<OozeAbilityCard5>(),
+		ModelDB.MonsterAbilityCard<OozeAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<OozeAbilityCard6>(),
 		ModelDB.MonsterAbilityCard<OozeAbilityCard7>()
 	];
@@ -70,37 +70,6 @@ public class OozeAbilityCard4 : OozeAbilityCard
 {
 	public override int Initiative => 94;
 	public override int CardIndex => 4;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-			{
-				await AbilityCmd.SufferDamage(state, state.Performer, 2);
-			})
-			.Build()),
-
-		new MonsterAbilityCardAbility(MonsterSummonAbility.Builder()
-			.WithMonsterModel(ModelDB.Monster<Ooze>())
-			.WithMonsterType(MonsterType.Normal)
-			.WithOnAbilityStarted(async state =>
-			{
-				int level = state.Performer is Monster performingMonster
-					? performingMonster.MonsterLevel
-					: GameController.Instance.SavedScenario.ScenarioLevel;
-				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health));
-
-				await GDTask.CompletedTask;
-			})
-			.Build())
-	];
-}
-
-public class OozeAbilityCard5 : OozeAbilityCard
-{
-	public override int Initiative => 94;
-	public override int CardIndex => 5;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

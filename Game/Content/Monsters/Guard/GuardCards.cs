@@ -10,7 +10,7 @@ public abstract class GuardAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<GuardAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<GuardAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<GuardAbilityCard3>(),
-		ModelDB.MonsterAbilityCard<GuardAbilityCard4>(),
+		ModelDB.MonsterAbilityCard<GuardAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<GuardAbilityCard5>(),
 		ModelDB.MonsterAbilityCard<GuardAbilityCard6>(),
 		ModelDB.MonsterAbilityCard<GuardAbilityCard7>()
@@ -58,18 +58,6 @@ public class GuardAbilityCard3 : GuardAbilityCard
 {
 	public override int Initiative => 50;
 	public override int CardIndex => 3;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
-	];
-}
-
-public class GuardAbilityCard4 : GuardAbilityCard
-{
-	public override int Initiative => 50;
-	public override int CardIndex => 4;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[

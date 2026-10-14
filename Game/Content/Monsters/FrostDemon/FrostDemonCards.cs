@@ -13,7 +13,7 @@ public abstract class FrostDemonAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard3>(),
 		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard4>(),
-		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard5>(),
+		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard6>(),
 		ModelDB.MonsterAbilityCard<FrostDemonAbilityCard7>()
 	];
@@ -74,9 +74,10 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 2, extraRange: 
-				new(() => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
-			duringAttackSubscriptions: [
+		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 2, extraRange:
+			new(() => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
+			duringAttackSubscriptions:
+			[
 				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
 					applyFunction: async parameters =>
 					{
@@ -85,7 +86,7 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 						await GDTask.CompletedTask;
 					}
 				)
-		])),
+			])),
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -96,26 +97,6 @@ public class FrostDemonAbilityCard4 : FrostDemonAbilityCard
 {
 	public override int Initiative => 78;
 	public override int CardIndex => 4;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-		])))
-	];
-
-	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
-		[CardElementInfusion.Infuse(Element.Ice)];
-}
-
-public class FrostDemonAbilityCard5 : FrostDemonAbilityCard
-{
-	public override int Initiative => 78;
-	public override int CardIndex => 5;
 	public override bool Reshuffles => true;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>

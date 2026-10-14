@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 
 public abstract class HoundAbilityCard : MonsterAbilityCardModel
@@ -10,9 +11,9 @@ public abstract class HoundAbilityCard : MonsterAbilityCardModel
 		ModelDB.MonsterAbilityCard<HoundAbilityCard0>(),
 		ModelDB.MonsterAbilityCard<HoundAbilityCard1>(),
 		ModelDB.MonsterAbilityCard<HoundAbilityCard2>(),
-		ModelDB.MonsterAbilityCard<HoundAbilityCard3>(),
+		ModelDB.MonsterAbilityCard<HoundAbilityCard2>(),
 		ModelDB.MonsterAbilityCard<HoundAbilityCard4>(),
-		ModelDB.MonsterAbilityCard<HoundAbilityCard5>(),
+		ModelDB.MonsterAbilityCard<HoundAbilityCard4>(),
 		ModelDB.MonsterAbilityCard<HoundAbilityCard6>(),
 		ModelDB.MonsterAbilityCard<HoundAbilityCard7>()
 	];
@@ -59,61 +60,8 @@ public class HoundAbilityCard2 : HoundAbilityCard
 			afterTargetConfirmedSubscriptions:
 			[
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					canApplyParameters =>
-					{
-						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
-						{
-							foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
-							{
-								if(monster.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-						}
-
-						return false;
-					},
-					applyFunction: async applyParameters =>
-					{
-						applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
-
-						await GDTask.CompletedTask;
-					}
-				)
-			]
-		))
-	];
-}
-
-public class HoundAbilityCard3 : HoundAbilityCard
-{
-	public override int Initiative => 19;
-	public override int CardIndex => 3;
-	public override bool Reshuffles => true;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			afterTargetConfirmedSubscriptions:
-			[
-				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
-					canApplyParameters =>
-					{
-						foreach(Hex neighbourHex in canApplyParameters.AbilityState.Target.Hex.Neighbours)
-						{
-							foreach(Figure figure in neighbourHex.GetHexObjectsOfType<Figure>())
-							{
-								if(monster.AlliedWith(figure))
-								{
-									return true;
-								}
-							}
-						}
-
-						return false;
-					},
+					canApplyParameters => RangeHelper.GetFiguresInRange(canApplyParameters.AbilityState.Target, 1)
+						.Any(figure => canApplyParameters.Performer.AlliedWith(figure)),
 					applyFunction: async applyParameters =>
 					{
 						applyParameters.AbilityState.SingleTargetAdjustAttackValue(2);
@@ -130,18 +78,6 @@ public class HoundAbilityCard4 : HoundAbilityCard
 {
 	public override int Initiative => 26;
 	public override int CardIndex => 4;
-
-	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
-	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0))
-	];
-}
-
-public class HoundAbilityCard5 : HoundAbilityCard
-{
-	public override int Initiative => 26;
-	public override int CardIndex => 5;
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
