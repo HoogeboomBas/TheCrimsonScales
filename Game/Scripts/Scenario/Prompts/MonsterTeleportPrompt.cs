@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fractural.Tasks;
 using Godot;
 
 public class MonsterTeleportPrompt(
@@ -32,7 +33,7 @@ public class MonsterTeleportPrompt(
 		{
 			allHexesInRange.AddRange(GameController.Instance.Map.Hexes.Values
 				.Where(hex => hex.Revealed &&
-					Map.SimpleDistance(hex.Coords, performer.Hex.Coords) < teleportAbilityState.Distance));
+				              Map.SimpleDistance(hex.Coords, performer.Hex.Coords) < teleportAbilityState.Distance));
 		}
 		else
 		{
@@ -42,7 +43,7 @@ public class MonsterTeleportPrompt(
 		foreach(Hex hex in allHexesInRange)
 		{
 			if(MoveHelper.CanPass(teleportAbilityState, performer, hex, forcedMovement) &&
-				MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
+			   MoveHelper.CanStopAt(teleportAbilityState, performer, hex))
 			{
 				_possibleHexes.Add(hex);
 			}

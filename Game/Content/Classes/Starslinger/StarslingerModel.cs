@@ -20,6 +20,8 @@ public class StarslingerModel : ClassModel
 		ModelDB.Event<Road50>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 66;
+
 	public override string AssetPath => "res://Content/Classes/Starslinger";
 	public override Color PrimaryColor => Color.FromHtml("6762a1");
 	public override Color SecondaryColor => Color.FromHtml("3f3f3f");

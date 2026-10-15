@@ -20,6 +20,8 @@ public class LuminaryModel : ClassModel
 		ModelDB.Event<Road46>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 64;
+
 	public override string AssetPath => "res://Content/Classes/Luminary";
 	public override Color PrimaryColor => Color.FromHtml("b289be");
 	public override Color SecondaryColor => Color.FromHtml("383f74");

@@ -42,7 +42,7 @@ public class Scenario021 : ScenarioModel
 	public override List<SavedReward> Rewards =>
 	[
 		new GainPartyAchievementReward(PartyAchievement.FallenLava),
-		//new GainCollectiveItemReward(ModelDB.Item<MagmaWaders>()), //TODO
+		new GainCollectiveItemReward(ModelDB.Item<MagmaWaders>()),
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario027>())
 	];
 

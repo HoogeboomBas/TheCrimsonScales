@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class RoundPhase : ScenarioPhase
 {
@@ -67,6 +68,7 @@ public class RoundPhase : ScenarioPhase
 
 			GameController.Instance.Map.SetTurnTaker(figure);
 			GameController.Instance.UndoManager.SetTurnStart();
+
 			await figure.TakeFullTurn();
 
 			await GDTask.DelayFastForwardable(0.5f);

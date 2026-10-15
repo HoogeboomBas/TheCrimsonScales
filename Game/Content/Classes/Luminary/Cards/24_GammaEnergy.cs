@@ -55,7 +55,7 @@ public class GammaEnergy : LuminaryCardModel<GammaEnergy.CardTop, GammaEnergy.Ca
 					int consumedElements = 0;
 					for(int i = 0; i < 6; i++)
 					{
-						if(await AbilityCmd.TryConsumeElement((Element)i))
+						if(await AbilityCmd.TryConsumeElement((Element)i, state.Performer))
 						{
 							consumedElements++;
 							state.SetPerformed();

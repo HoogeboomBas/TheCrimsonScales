@@ -76,6 +76,7 @@ _hideDuringPlay = true
 
 [node name="Sarcophagus2H" parent="Map/Rooms/Room" index="8" unique_id=762056046 instance=ExtResource("9_wgr5s")]
 position = Vector2(-436.4768, -756)
+CannotBeMoved = true
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room" index="9" unique_id=1322844637 instance=ExtResource("7_vfe2g")]
 position = Vector2(0, -756)
@@ -149,10 +150,12 @@ rotation = -4.1887903
 
 [node name="Sarcophagus2H" parent="Map/Rooms/Room2" index="2" unique_id=519897310 instance=ExtResource("9_wgr5s")]
 position = Vector2(982.0728, 567)
+CannotBeMoved = true
 
 [node name="Sarcophagus2H2" parent="Map/Rooms/Room2" index="3" unique_id=262393107 instance=ExtResource("9_wgr5s")]
 position = Vector2(1200.311, -2457)
 rotation = 1.0471976
+CannotBeMoved = true
 
 [node name="PressurePlate1H" parent="Map/Rooms/Room2" index="4" unique_id=1292794351 instance=ExtResource("13_yxoc5")]
 position = Vector2(1745.9073, -1890)
@@ -265,6 +268,7 @@ rotation = 1.0471976
 
 [node name="Sarcophagus2H2" parent="Map/Rooms/Room3" index="3" unique_id=374974989 instance=ExtResource("9_wgr5s")]
 position = Vector2(-654.71515, -1512)
+CannotBeMoved = true
 
 [node name="Treasure1H2" parent="Map/Rooms/Room3" index="4" unique_id=395062118 instance=ExtResource("12_4ypi7")]
 position = Vector2(-218.23842, -1512)

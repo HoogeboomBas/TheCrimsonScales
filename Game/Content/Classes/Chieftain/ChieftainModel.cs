@@ -20,6 +20,8 @@ public class ChieftainModel : ClassModel
 		ModelDB.Event<Road38>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 59;
+
 	public override string AssetPath => "res://Content/Classes/Chieftain";
 	public override Color PrimaryColor => Color.FromHtml("76c7c3");
 	public override Color SecondaryColor => Color.FromHtml("5e7574");

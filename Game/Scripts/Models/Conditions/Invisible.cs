@@ -14,6 +14,8 @@ public class Invisible : ConditionModel
 		ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(condition,
 			parameters =>
 				parameters.PotentialTarget == condition.Owner &&
+				!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+					new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(parameters.Performer)).CanTargetInvisible &&
 				parameters.Performer.EnemiesWith(condition.Owner),
 			parameters =>
 			{
@@ -24,6 +26,8 @@ public class Invisible : ConditionModel
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(condition,
 			parameters =>
 				parameters.PotentialTarget == condition.Owner &&
+				!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+					new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(parameters.Performer)).CanTargetInvisible &&
 				parameters.Performer.EnemiesWith(condition.Owner),
 			parameters =>
 			{
@@ -32,7 +36,9 @@ public class Invisible : ConditionModel
 		);
 
 		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(condition,
-			parameters => parameters.EnemyFigure == condition.Owner,
+			parameters => parameters.EnemyFigure == condition.Owner &&
+			              !ScenarioCheckEvents.CanTargetInvisibleCheckEvent
+				              .Fire(new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(parameters.Figure)).CanTargetInvisible,
 			parameters =>
 			{
 				parameters.SetCanPass();

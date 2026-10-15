@@ -14,7 +14,7 @@ public class PersonalQuestRequirement : ScenarioRequirement
 		return savedCampaign.Characters.Any(character => character.SavedPersonalQuest.Model == _personalQuestModel);
 	}
 
-	public override string NotMetMessage()
+	public override string NotMetMessage(SavedCampaign savedCampaign)
 	{
 		return $"You require a character with the {_personalQuestModel.Name} personal quest.";
 	}

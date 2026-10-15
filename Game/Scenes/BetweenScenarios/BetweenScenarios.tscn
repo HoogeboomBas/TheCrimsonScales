@@ -31,7 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://cgvuos5ph5e6r" path="res://Art/Icons/BetweenScenariosActions/HazardSign.svg" id="22_ywvcx"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="23_1ehwm"]
 [ext_resource type="Script" uid="uid://co64dv05t1htu" path="res://Scripts/BetweenScenarios/BetweenScenariosSidePanel.cs" id="23_5k12q"]
-[ext_resource type="Shader" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
+[ext_resource type="Shader" uid="uid://dpr1nhb31kvce" path="res://Shaders/ShadowCatcher.gdshader" id="23_6rvjw"]
 [ext_resource type="Script" uid="uid://chjh44dw8f42s" path="res://Scripts/BetweenScenarios/BetweenScenariosCharacterPortraitManager.cs" id="23_cdfbw"]
 [ext_resource type="Script" uid="uid://d0y7qlayk04fe" path="res://Scripts/BetweenScenarios/SanctuaryOfTheGreatOak/SanctuaryOfTheGreatOak.cs" id="23_gyc5w"]
 [ext_resource type="Shader" uid="uid://coeiuysk5p21c" path="res://Shaders/Vignette.gdshader" id="23_psaff"]
@@ -820,10 +820,12 @@ ScenarioNumber = 31
 [node name="ScenarioButton56" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=81342639 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 56
+_solo = true
 
 [node name="ScenarioButton57" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1446870956 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 57
+_solo = true
 
 [node name="ScenarioButton6" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=932636773 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -860,10 +862,12 @@ ScenarioNumber = 32
 [node name="ScenarioButton58" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1391620339 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 58
+_solo = true
 
 [node name="ScenarioButton59" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1400750238 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 59
+_solo = true
 
 [node name="ScenarioButton16" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1768341061 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -900,10 +904,12 @@ ScenarioNumber = 30
 [node name="ScenarioButton60" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1729323590 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 60
+_solo = true
 
 [node name="ScenarioButton61" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1949328770 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 61
+_solo = true
 
 [node name="ScenarioButton51" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1672831139 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -940,10 +946,12 @@ ScenarioNumber = 29
 [node name="ScenarioButton62" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1955456679 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 62
+_solo = true
 
 [node name="ScenarioButton63" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=211374835 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 63
+_solo = true
 
 [node name="ScenarioButton52" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1333717090 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -980,10 +988,12 @@ ScenarioNumber = 44
 [node name="ScenarioButton64" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1020384808 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 64
+_solo = true
 
 [node name="ScenarioButton65" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1317776280 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 65
+_solo = true
 
 [node name="ScenarioButton54" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1423459924 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -1020,6 +1030,7 @@ ScenarioNumber = 50
 [node name="ScenarioButton66" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=502899481 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
 ScenarioNumber = 66
+_solo = true
 
 [node name="ScenarioButton100" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer/SubViewport/Container/Flowchart/Buttons" unique_id=1161856206 instance=ExtResource("1_5l4i3")]
 layout_mode = 2
@@ -1319,16 +1330,16 @@ visible = false
 
 [node name="PageAnimation" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page" unique_id=1735437367 instance=ExtResource("12_41e7t")]
 
-[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=486664386]
+[node name="Page" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="0" unique_id=105318155]
 transform = Transform3D(68.9, 0, 0, 0, -4.37114e-06, 102.3, 0, -100, -4.47168e-06, 0, 0, 0)
 
-[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="0" unique_id=237816969]
+[node name="Front" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1756925942) index="0" unique_id=1279332022]
 material_override = SubResource("StandardMaterial3D_al8mn")
 
-[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1654290993) index="1" unique_id=151070975]
+[node name="Back" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation/Page/Skeleton3D" parent_id_path=PackedInt32Array(1735437367, 1756925942) index="1" unique_id=217055601]
 material_override = SubResource("StandardMaterial3D_q3cuy")
 
-[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=1227387750]
+[node name="AnimationPlayer" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root/Page/PageAnimation" index="1" unique_id=65760546]
 speed_scale = 1.4
 
 [node name="CameraController" type="Node3D" parent="CanvasLayer/UI/BetweenScenariosActionManager/ItemShop/Book/Container/3D/SubViewport/Root" unique_id=435648599]
@@ -2103,7 +2114,7 @@ shape = SubResource("BoxShape3D_fobax")
 [node name="TitheBowl" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D" unique_id=79117744 instance=ExtResource("23_t8hrt")]
 transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=1577485582]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/TitheBowlRoot/AnimatableBody3D/TitheBowl" index="0" unique_id=693070776]
 transform = Transform3D(-33.4565, 37.1572, 1.62419e-06, 0, -2.18557e-06, 50, 37.1572, 33.4565, 1.46243e-06, 0, 0, 0)
 layers = 524288
 surface_material_override/0 = SubResource("StandardMaterial3D_jvldq")
@@ -2124,11 +2135,11 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 [node name="CrystalBallHolder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall" unique_id=1786094851 instance=ExtResource("17_seeb3")]
 transform = Transform3D(-5.68248e-09, 0, -0.13, 0, 0.13, 0, 0.13, 0, -5.68248e-09, 0, 0, 0)
 
-[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=1187616634]
+[node name="Circle" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="0" unique_id=562884581]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 
-[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1704719961]
+[node name="Holder" parent="CanvasLayer/UI/BetweenScenariosActionManager/Shared3D/Container/3D/SubViewport/Root/CrystalBallRoot/Container/CrystalBall/CrystalBallHolder" index="1" unique_id=1087851624]
 layers = 524288
 material_override = ExtResource("18_1n38g")
 

@@ -141,7 +141,7 @@ public partial class ScenarioEvents
 
 	public class AMDCardPeeked : ScenarioEvent<AMDCardPeeked.Parameters>
 	{
-		public class Parameters(AbilityState potentialAbilityState, AMDCard amdCard)	: ParametersBase
+		public class Parameters(AbilityState potentialAbilityState, AMDCard amdCard) : ParametersBase
 		{
 			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public AMDCard AMDCard = amdCard;
@@ -541,7 +541,9 @@ public partial class ScenarioEvents
 
 	public class AfterSufferDamage : ScenarioEvent<AfterSufferDamage.Parameters>
 	{
-		public class Parameters(Figure figure, int damageDealt, int damageSuffered, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
+		public class Parameters(
+			Figure figure, int damageDealt, int damageSuffered, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters)
+			: ParametersBase
 		{
 			public Figure Figure { get; } = figure;
 			public int DamageDealt { get; } = damageDealt;
@@ -877,6 +879,26 @@ public partial class ScenarioEvents
 	private readonly ConsumeElement _consumeElement = new ConsumeElement();
 	public static ConsumeElement ConsumeElementEvent => GameController.Instance.ScenarioEvents._consumeElement;
 
+	public class WouldConsumeElement : ScenarioEvent<WouldConsumeElement.Parameters>
+	{
+		public class Parameters(Element element, Figure consumer)
+			: ParametersBase
+		{
+			public Element Element { get; } = element;
+			public Figure Consumer { get; } = consumer;
+
+			public bool Consume { get; private set; } = true;
+
+			public void SetConsume(bool consume)
+			{
+				Consume = consume;
+			}
+		}
+	}
+
+	private readonly WouldConsumeElement _wouldConsumeElement = new WouldConsumeElement();
+	public static WouldConsumeElement WouldConsumeElementEvent => GameController.Instance.ScenarioEvents._wouldConsumeElement;
+
 	public class InfuseElement : ScenarioEvent<InfuseElement.Parameters>
 	{
 		public class Parameters(Element element, AbilityState state, Figure authority)
@@ -884,7 +906,7 @@ public partial class ScenarioEvents
 		{
 			public Figure Authority { get; private set; } = authority;
 			public Element Element { get; } = element;
-			public AbilityState AbilityState { get; } = state;
+			public AbilityState PotentialAbilityState { get; } = state;
 			public bool CanInfuse { get; private set; } = true;
 
 			public void SetCanInfuse(bool canInfuse)
@@ -1084,16 +1106,23 @@ public partial class ScenarioEvents
 
 	public class AbilityCardSideStarted : ScenarioEvent<AbilityCardSideStarted.Parameters>
 	{
-		public class Parameters(AbilityCardSide abilityCardSide, Figure performer) : ParametersBase
+		public class Parameters(AbilityCardSide abilityCardSide, Figure performer, List<Ability> abilities) : ParametersBase
 		{
 			public AbilityCardSide AbilityCardSide { get; } = abilityCardSide;
 			public Figure Performer { get; } = performer;
+			public List<Ability> Abilities { get; } = abilities;
 
 			public bool ForgoneAction { get; private set; }
 
 			public void ForgoAction()
 			{
 				ForgoneAction = true;
+			}
+
+			public void SetAbilities(List<Ability> abilities)
+			{
+				Abilities.Clear();
+				abilities.AddRange(abilities);
 			}
 		}
 	}
@@ -1467,4 +1496,20 @@ public partial class ScenarioEvents
 
 	private readonly AddMinusOnesEventReward _addMinusOnesEventReward = new AddMinusOnesEventReward();
 	public static AddMinusOnesEventReward AddMinusOnesEventRewardEvent => GameController.Instance.ScenarioEvents._addMinusOnesEventReward;
+
+	public class AbilityCardGiven : ScenarioEvent<AbilityCardGiven.Parameters>
+	{
+		public class Parameters(AbilityCard abilityCard, Figure cardGiver, Figure cardReceiver)
+			: ParametersBase
+		{
+			public AbilityCard AbilityCard { get; } = abilityCard;
+
+			public Figure CardGiver { get; } = cardGiver;
+
+			public Figure CardReceiver { get; } = cardReceiver;
+		}
+	}
+
+	private readonly AbilityCardGiven _abilityCardGiven = new AbilityCardGiven();
+	public static AbilityCardGiven AbilityCardGivenEvent => GameController.Instance.ScenarioEvents._abilityCardGiven;
 }

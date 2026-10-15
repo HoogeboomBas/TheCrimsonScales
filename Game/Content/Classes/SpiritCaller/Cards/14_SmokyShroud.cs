@@ -30,8 +30,44 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 							parameters.Figure.Hex == state.ActionState.GetAbilityState<SpawnAbility.State>(0).Spirit.Hex,
 						async parameters =>
 						{
-							await AbilityCmd.AddCondition(state, state.Performer, Conditions.Invisible);
+							ScenarioCheckEvents.CanBeFocusedCheckEvent.Subscribe(state, this,
+								canApplyParameters =>
+									canApplyParameters.PotentialTarget == state.Performer &&
+									canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+									!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+											new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(canApplyParameters.Performer))
+										.CanTargetInvisible &&
+									canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
+								applyParameters =>
+								{
+									applyParameters.SetCannotBeFocused();
+								});
+
+							ScenarioCheckEvents.CanBeTargetedCheckEvent.Subscribe(state, this,
+								canApplyParameters =>
+									canApplyParameters.PotentialTarget == state.Performer &&
+									canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+									!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+											new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(canApplyParameters.Performer))
+										.CanTargetInvisible &&
+									canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
+								applyParameters =>
+								{
+									applyParameters.SetCannotBeTargeted();
+								}
+							);
+
+							ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
+								canApplyParameters => canApplyParameters.EnemyFigure == state.Performer && !ScenarioCheckEvents.CanTargetInvisibleCheckEvent
+									.Fire(new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(canApplyParameters.Figure)).CanTargetInvisible,
+								applyParameters =>
+								{
+									applyParameters.SetCanPass();
+								}
+							);
+
 							state.SetCustomValue(this, "InvisibleGiven", true);
+							await GDTask.CompletedTask;
 						}
 					);
 
@@ -40,8 +76,12 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 							state.GetCustomValue<bool>(this, "InvisibleGiven"),
 						async parameters =>
 						{
-							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
+							ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(state, this);
+							ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(state, this);
+							ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(state, this);
 							state.SetCustomValue(this, "InvisibleGiven", false);
+
+							await GDTask.CompletedTask;
 						}
 					);
 
@@ -51,11 +91,9 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
-
-					if(state.GetCustomValue<bool>(this, "InvisibleGiven"))
-					{
-						await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
-					}
+					ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(state, this);
+					ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(state, this);
+					ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})

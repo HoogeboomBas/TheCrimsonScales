@@ -19,8 +19,8 @@ public class EnvironmentalSurvey : BrightsparkCardModel<EnvironmentalSurvey.Card
 					await AbilityCmd.RelocateOverlayTile(state, overlayTiles =>
 						{
 							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Obstacle>(state.Performer, 2)
-								.Where(obstacle => obstacle.HexObjectShape is HexObjectShape.Single));
-							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Trap>(state.Performer, 2));
+								.Where(obstacle => obstacle.HexObjectShape is HexObjectShape.Single && !obstacle.CannotBeMoved));
+							overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Trap>(state.Performer, 2).Where(trap => !trap.CannotBeMoved));
 						},
 						(_, hexes) => hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 2).Where(moveToHex => moveToHex.IsEmpty())),
 						"Select a trap or obstacle to relocate");

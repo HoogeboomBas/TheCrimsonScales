@@ -44,7 +44,7 @@ public class BloodOozeAbilityCard0 : BloodOozeAbilityCard
 
 				int health = Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2);
 
-				state.SetForcedHitPoints(Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2));
+				state.SetForcedHitPoints(() => Mathf.Min(state.MonsterModel.NormalLevelStats[level].Health, state.Performer.Health - 2));
 
 				await GDTask.CompletedTask;
 			})
@@ -85,7 +85,7 @@ public class BloodOozeAbilityCard1 : BloodOozeAbilityCard
 			.WithMonsterType(MonsterType.Normal)
 			.WithOnAbilityStarted(async state =>
 			{
-				state.SetForcedHitPoints(CheckElementConsumed(monster, [Element.Fire]) ? 3 : 4);
+				state.SetForcedHitPoints(() => CheckElementConsumed(monster, [Element.Fire]) ? 3 : 4);
 
 				await GDTask.CompletedTask;
 			})

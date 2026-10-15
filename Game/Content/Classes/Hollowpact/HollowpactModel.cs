@@ -20,6 +20,8 @@ public class HollowpactModel : ClassModel
 		ModelDB.Event<Road56>(),
 	];
 
+	protected override int SoloScenarioModelNumber { get; } = 62;
+
 	public override string AssetPath => "res://Content/Classes/Hollowpact";
 	public override Color PrimaryColor => Color.FromHtml("a765a9");
 	public override Color SecondaryColor => Color.FromHtml("310f33");

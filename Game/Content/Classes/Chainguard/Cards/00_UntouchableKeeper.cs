@@ -23,6 +23,8 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 							canApplyParameters =>
 								canApplyParameters.PotentialTarget == state.Performer &&
 								canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+								!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+									new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(canApplyParameters.Performer)).CanTargetInvisible &&
 								canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
 							applyParameters =>
 							{
@@ -33,10 +35,21 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 							canApplyParameters =>
 								canApplyParameters.PotentialTarget == state.Performer &&
 								canApplyParameters.Performer.EnemiesWith(state.Performer) &&
+								!ScenarioCheckEvents.CanTargetInvisibleCheckEvent.Fire(
+									new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(canApplyParameters.Performer)).CanTargetInvisible &&
 								canApplyParameters.Performer.HasCondition(Chainguard.Shackle),
 							applyParameters =>
 							{
 								applyParameters.SetCannotBeTargeted();
+							}
+						);
+
+						ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
+							parameters => parameters.EnemyFigure == state.Performer && !ScenarioCheckEvents.CanTargetInvisibleCheckEvent
+								.Fire(new ScenarioCheckEvents.CanTargetInvisibleCheck.Parameters(parameters.Figure)).CanTargetInvisible,
+							parameters =>
+							{
+								parameters.SetCanPass();
 							}
 						);
 
@@ -47,6 +60,7 @@ public class UntouchableKeeper : ChainguardCardModel<UntouchableKeeper.CardTop, 
 					{
 						ScenarioCheckEvents.CanBeFocusedCheckEvent.Unsubscribe(state, this);
 						ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(state, this);
+						ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(state, this);
 
 						await GDTask.CompletedTask;
 					}

@@ -7,6 +7,7 @@ public partial class CardSelectionPopup : Popup<CardSelectionPopup.Request>
 	public class Request : PopupRequest
 	{
 		public SavedCharacter SavedCharacter { get; init; }
+		public ScenarioModel ScenarioModel { get; init; }
 	}
 
 	[Export]
@@ -23,10 +24,17 @@ public partial class CardSelectionPopup : Popup<CardSelectionPopup.Request>
 
 		List<SavedAbilityCard> handCards = PopupRequest.SavedCharacter.HandAbilityCardIndices
 			.Select(cardIndex => PopupRequest.SavedCharacter.AvailableAbilityCards[cardIndex]).ToList();
-		_handCardList.Open(handCards, OnHandCardPressed, null,
-			(cardA, cardB) => cardA.Model.Initiative.CompareTo(cardB.Model.Initiative));
 
 		List<SavedAbilityCard> availableCards = PopupRequest.SavedCharacter.AvailableAbilityCards.Where(card => !handCards.Contains(card)).ToList();
+
+		if(PopupRequest.ScenarioModel != null)
+		{
+			handCards.RemoveAll(card => PopupRequest.ScenarioModel.UnpickableCardModels.Select(model => model.Id).Contains(card.Model.Id));
+			availableCards.RemoveAll(card => PopupRequest.ScenarioModel.UnpickableCardModels.Select(model => model.Id).Contains(card.Model.Id));
+		}
+
+		_handCardList.Open(handCards, OnHandCardPressed, null,
+			(cardA, cardB) => cardA.Model.Initiative.CompareTo(cardB.Model.Initiative));
 		_availableCardList.Open(availableCards, OnAvailableCardPressed, null,
 			(cardA, cardB) => cardA.Model.Initiative.CompareTo(cardB.Model.Initiative));
 

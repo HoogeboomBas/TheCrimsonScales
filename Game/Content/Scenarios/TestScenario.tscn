@@ -112,3 +112,7 @@ MonsterType4Characters = 1
 
 [node name="Marker2" parent="Map/Rooms/Room" index="25" unique_id=12467389 instance=ExtResource("15_vqxvv")]
 position = Vector2(218.2384, 0)
+
+[node name="MonsterSpawner" parent="Map/Rooms/Room" index="23" unique_id=286336762 instance=ExtResource("13_x5m5f")]
+position = Vector2(109.1192, -189)
+MonsterModelId = "MONSTER_MODEL.AESTHER_ASHBLADE"

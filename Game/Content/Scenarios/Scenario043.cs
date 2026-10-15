@@ -119,7 +119,8 @@ public class Scenario043 : ScenarioModel
 				applyParameters.AbilityState.AdjustMoveValue(-1);
 
 				Hex movedToHex = await AbilityCmd.RelocateOverlayTile(applyParameters.AbilityState,
-					overlayTiles => overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Boulder1HObstacle>(applyParameters.Performer, 1)),
+					overlayTiles => overlayTiles.AddRange(RangeHelper.GetOverlayTilesInRange<Boulder1HObstacle>(applyParameters.Performer, 1)
+						.Where(boulder => !boulder.CannotBeMoved)),
 					(boulder, list) =>
 					{
 						list.AddRange(RangeHelper.GetHexesInRange(boulder.Hex, 1)
@@ -132,6 +133,7 @@ public class Scenario043 : ScenarioModel
 					{
 						await trap.Destroy();
 					}
+
 					foreach(Coin coin in movedToHex.GetHexObjectsOfType<Coin>())
 					{
 						await coin.Destroy();

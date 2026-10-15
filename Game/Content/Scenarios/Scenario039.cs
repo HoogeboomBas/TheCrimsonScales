@@ -232,20 +232,18 @@ public class Scenario039 : ScenarioModel
 						if(GameController.Instance.SavedCampaign.Characters.Count == 2)
 						{
 							await SpawnViper(MonsterType.Normal);
-							await SpawnViper(MonsterType.Normal);
 						}
 						else if(GameController.Instance.SavedCampaign.Characters.Count == 3)
 						{
 							await SpawnViper(MonsterType.Normal);
 							await SpawnViper(MonsterType.Normal);
-							await SpawnViper(MonsterType.Elite);
 						}
 						else
 						{
 							await SpawnViper(MonsterType.Elite);
 							await SpawnViper(MonsterType.Elite);
-							await SpawnViper(MonsterType.Elite);
 						}
+						await SpawnViper(MonsterType.Elite);
 					}
 				);
 
@@ -290,7 +288,7 @@ public class Scenario039 : ScenarioModel
 				ScenarioEvents.RoundEndedEvent.Unsubscribe(this);
 
 				ScenarioEvents.RoundEndedEvent.Subscribe(this,
-					parameters => roundEndedParameters.RoundNumber == 6,
+					parameters => parameters.RoundNumber == 6,
 					async parameters =>
 					{
 						timingRule.Remove();

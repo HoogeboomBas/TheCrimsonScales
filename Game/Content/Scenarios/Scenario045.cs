@@ -154,6 +154,6 @@ public class Scenario045 : ScenarioModel
 	private async GDTask SpawnAlliedMonster(MonsterModel monsterModel, MonsterType monsterType)
 	{
 		await SpawnMonster(null, monsterModel, monsterType, _markerAHexes, GameController.Instance.SavedScenario.ScenarioLevel - 1,
-			Alignment.Characters, Alignment.Monsters);
+			Alignment.Characters);
 	}
 }

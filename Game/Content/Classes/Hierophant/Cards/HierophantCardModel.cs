@@ -75,7 +75,7 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 
 	private static async GDTask OnCardDiscarded(AbilityCard abilityCard)
 	{
-		abilityCard.Owner.RemoveCard(abilityCard);
+		abilityCard.Owner?.RemoveCard(abilityCard);
 
 		Hierophant hierophant = (Hierophant)abilityCard.OriginalOwner;
 		hierophant.PrayerCards.Add(abilityCard);
@@ -86,7 +86,7 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 
 	private static async GDTask OnCardLost(AbilityCard abilityCard)
 	{
-		abilityCard.Owner.RemoveCard(abilityCard);
+		abilityCard.Owner?.RemoveCard(abilityCard);
 
 		Hierophant hierophant = (Hierophant)abilityCard.OriginalOwner;
 		hierophant.PrayerCards.Add(abilityCard);

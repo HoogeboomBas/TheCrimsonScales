@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://0jdbgniarub5"]
+
+[ext_resource type="PackedScene" uid="uid://ctftheln1a6pb" path="res://Scenes/Scenario/OverlayTiles/Objective2H.tscn" id="1_8aixp"]
+[ext_resource type="Texture2D" uid="uid://bi06520n4xjyb" path="res://Art/OverlayTiles/Boulder 2h.png" id="2_8aixp"]
+
+[node name="DarkPitObjective2H" unique_id=1817620933 instance=ExtResource("1_8aixp")]
+
+[node name="Shadow" type="Sprite2D" parent="." index="1" unique_id=1975589332]
+self_modulate = Color(0, 0, 0, 0.439216)
+z_index = 1
+position = Vector2(115, 3)
+scale = Vector2(0.57, 0.57)
+texture = ExtResource("2_8aixp")
+
+[node name="Sprite" parent="." index="2" unique_id=786075991]
+z_index = 1
+position = Vector2(114, 0)
+scale = Vector2(0.57, 0.57)
+texture = ExtResource("2_8aixp")
+
+[node name="Hex2" parent="." index="8" unique_id=71774410]
+position = Vector2(218.2384, 0)
+
+[editable path="FigureViewComponent"]

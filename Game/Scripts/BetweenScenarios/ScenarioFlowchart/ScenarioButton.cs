@@ -21,6 +21,10 @@ public partial class ScenarioButton : Control
 	[Export]
 	private PackedScene _scenarioFlowchartArrowScene;
 
+	[Export]
+	private bool _solo;
+	//TODO: Add some sort of visual on the scenario button to show which solo it is
+
 	public Vector2I Coords { get; private set; }
 	public List<ScenarioFlowchartArrow> Arrows { get; } = new List<ScenarioFlowchartArrow>();
 	public SavedScenarioProgress SavedScenarioProgress { get; private set; }

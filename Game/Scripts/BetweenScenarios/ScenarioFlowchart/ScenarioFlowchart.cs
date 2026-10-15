@@ -37,6 +37,7 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 
 	protected override bool SelectCharacter => false;
 	protected override bool CustomTransitioning => _animating;
+	public bool Showing => _subViewportContainer.Visible;
 
 	public override void _EnterTree()
 	{
@@ -207,7 +208,7 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 		}
 	}
 
-	private async GDTaskVoid AnimationSequence()
+	public async GDTaskVoid AnimationSequence()
 	{
 		CancellationToken cancellationToken = BetweenScenariosController.Instance.DestroyCancellationToken;
 

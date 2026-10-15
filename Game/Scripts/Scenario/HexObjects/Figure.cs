@@ -187,7 +187,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		}
 	}
 
-	public async GDTask TakeFullTurn()
+	public async GDTask TakeFullTurn(bool extraTurn = false)
 	{
 		if(!IsDead)
 		{
@@ -201,7 +201,7 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		if(!IsDead)
 		{
-			await EndTurn();
+			await EndTurn(extraTurn);
 		}
 
 		await GameController.Instance.ElementManager.FinishInfusing();
@@ -240,7 +240,7 @@ public abstract partial class Figure : HexObject, IActionSource
 		await GDTask.CompletedTask;
 	}
 
-	protected virtual async GDTask EndTurn()
+	protected virtual async GDTask EndTurn(bool extraTurn)
 	{
 		await ScenarioEvents.FigureTurnEndingEvent.CreatePrompt(
 			new ScenarioEvents.FigureTurnEnding.Parameters(this), this);
@@ -258,7 +258,7 @@ public abstract partial class Figure : HexObject, IActionSource
 			new ScenarioEvents.FigureTurnEndedConditionsFallOff.Parameters(this), this);
 
 		TakingTurn = false;
-		CanTakeTurn = false;
+		CanTakeTurn = extraTurn;
 		DidTakeTurn = true;
 
 		FigureViewComponent.ActivePS.TweenModulateAlpha(0f, 0.2f).OnComplete(FigureViewComponent.ActivePS.Hide).PlayFastForwardable();
