@@ -18,6 +18,9 @@ public partial class BetterButton : BaseButton
 
 	private DateTime _buttonDownTimeStamp;
 
+	public event Action HoverStartedEvent;
+	public event Action HoverEndedEvent;
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -48,12 +51,16 @@ public partial class BetterButton : BaseButton
 	{
 		_hovered = true;
 		UpdateVisuals();
+
+		HoverStartedEvent?.Invoke();
 	}
 
 	private void OnMouseExited()
 	{
 		_hovered = false;
 		UpdateVisuals();
+
+		HoverEndedEvent?.Invoke();
 	}
 
 	private void OnButtonDown()

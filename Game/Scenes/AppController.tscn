@@ -42,7 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://dd103yylqhymu" path="res://Scenes/UI/BattleGoals/BattleGoalProgressUpdateViewItem.tscn" id="34_u72pp"]
 [ext_resource type="PackedScene" uid="uid://datb4w0nwrm8m" path="res://Scenes/UI/StoryView.tscn" id="35_u72pp"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="39_tpo84"]
-[ext_resource type="StyleBox" uid="uid://bht73g872t3sp" path="res://Resources/BlurPanel.tres" id="40_xtbh0"]
+[ext_resource type="StyleBox" uid="uid://d3dljvi7ixs6p" path="res://Resources/PopupPanel.tres" id="40_tpo84"]
 [ext_resource type="Script" uid="uid://brgh2toqcupeq" path="res://Scripts/Tooltips/TooltipView.cs" id="41_tpo84"]
 [ext_resource type="PackedScene" uid="uid://davruphgneuad" path="res://Scenes/UI/Tooltips/TooltipItem.tscn" id="42_xtbh0"]
 
@@ -302,19 +302,20 @@ mouse_filter = 2
 visible = false
 
 [node name="TooltipView" type="PanelContainer" parent="CanvasLayer" unique_id=857427675 node_paths=PackedStringArray("_itemParent")]
-visible = false
 material = ExtResource("39_tpo84")
 offset_left = 50.0
 offset_top = 50.0
 offset_right = 90.0
 offset_bottom = 90.0
-theme_override_styles/panel = ExtResource("40_xtbh0")
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("40_tpo84")
 script = ExtResource("41_tpo84")
 _itemScene = ExtResource("42_xtbh0")
 _itemParent = NodePath("MarginContainer/VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TooltipView" unique_id=1729550474]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -322,6 +323,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TooltipView/MarginContainer" unique_id=801774794]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="AudioController" type="Node" parent="." unique_id=1749230539 node_paths=PackedStringArray("_bgmPlayer", "_bgsPlayer")]

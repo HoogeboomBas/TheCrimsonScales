@@ -232,14 +232,26 @@ public abstract class Ability<T> : Ability
 			await _onAbilityEnded(abilityState);
 		}
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		// Dictionary<int, SavedEnhancement> enhancements =
+		// 	abilityCardSide.AbilityCard.SavedAbilityCard.GetEnhancements(abilityCardSide.AbilityCardSideType == AbilityCardSideType.Top);
+		//
+		// foreach(EnhancementMark enhancementMark in EnhancementMarks)
+		// {
+		// 	int index = abilityCardSide.Model.Enhancements.IndexOf(enhancementMark);
+		// 	if(enhancements.TryGetValue(index, out SavedEnhancement savedEnhancement))
+		// 	{
+		// 		savedEnhancement.Model.GetTooltips(tooltips, enhancementMark);
+		// 	}
+		// }
+	}
 }
 
 public abstract class Ability
 {
-	// public GDTask Perform(ActionState actionState)
-	// {
-	// 	return Perform(actionState, actionState.PerformerAndAuthority, actionState.PerformerAndAuthority);
-	// }
-
 	public abstract GDTask Perform(ActionState actionState);
+
+	public abstract void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide);
 }

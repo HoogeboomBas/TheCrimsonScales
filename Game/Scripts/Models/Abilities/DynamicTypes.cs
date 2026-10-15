@@ -2,8 +2,10 @@
 
 public class DynamicInt<TArg> : DynamicType<int, TArg>
 {
-	public DynamicInt(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicInt(int? value) : base(value) {}
+	public bool CanHaveValue => Value != null || Value > 0 || GetValueFunc != null;
+
+	public DynamicInt(GetValueDelegate getValueFunc) : base(getValueFunc) { }
+	public DynamicInt(int? value) : base(value) { }
 
 	public static implicit operator DynamicInt<TArg>(int value) => new(value);
 	public static implicit operator DynamicInt<TArg>(GetValueDelegate getValueFunc) => new(getValueFunc);
@@ -11,8 +13,8 @@ public class DynamicInt<TArg> : DynamicType<int, TArg>
 
 public class DynamicInt : DynamicType<int>
 {
-	public DynamicInt(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicInt(int? value) : base(value) {}
+	public DynamicInt(GetValueDelegate getValueFunc) : base(getValueFunc) { }
+	public DynamicInt(int? value) : base(value) { }
 
 	public static implicit operator DynamicInt(int value) => new(value);
 	public static implicit operator DynamicInt(GetValueDelegate getValueFunc) => new(getValueFunc);
@@ -20,8 +22,8 @@ public class DynamicInt : DynamicType<int>
 
 public class DynamicTarget : DynamicType<Target>
 {
-	public DynamicTarget(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicTarget(Target? value) : base(value) {}
+	public DynamicTarget(GetValueDelegate getValueFunc) : base(getValueFunc) { }
+	public DynamicTarget(Target? value) : base(value) { }
 
 	public static implicit operator DynamicTarget(Target value) => new(value);
 	public static implicit operator DynamicTarget(GetValueDelegate getValueFunc) => new(getValueFunc);
@@ -29,8 +31,8 @@ public class DynamicTarget : DynamicType<Target>
 
 public class DynamicRangeType : DynamicType<RangeType>
 {
-	public DynamicRangeType(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicRangeType(RangeType? value) : base(value) {}
+	public DynamicRangeType(GetValueDelegate getValueFunc) : base(getValueFunc) { }
+	public DynamicRangeType(RangeType? value) : base(value) { }
 
 	public static implicit operator DynamicRangeType(RangeType value) => new(value);
 	public static implicit operator DynamicRangeType(GetValueDelegate getValueFunc) => new(getValueFunc);
@@ -38,8 +40,8 @@ public class DynamicRangeType : DynamicType<RangeType>
 
 public class DynamicAOEPattern : DynamicClassType<AOEPattern>
 {
-	public DynamicAOEPattern(GetValueDelegate getValueFunc) : base(getValueFunc) {}
-	public DynamicAOEPattern(AOEPattern value) : base(value) {}
+	public DynamicAOEPattern(GetValueDelegate getValueFunc) : base(getValueFunc) { }
+	public DynamicAOEPattern(AOEPattern value) : base(value) { }
 
 	public static implicit operator DynamicAOEPattern(AOEPattern value) => new(value);
 	public static implicit operator DynamicAOEPattern(GetValueDelegate getValueFunc) => new(getValueFunc);
@@ -86,8 +88,8 @@ public abstract class DynamicType<T> where T : struct
 
 public abstract class DynamicType<T, TArg> where T : struct
 {
-	private T? Value { get; }
-	private GetValueDelegate GetValueFunc { get; }
+	protected T? Value { get; }
+	protected GetValueDelegate GetValueFunc { get; }
 
 	public delegate T? GetValueDelegate(TArg arg);
 

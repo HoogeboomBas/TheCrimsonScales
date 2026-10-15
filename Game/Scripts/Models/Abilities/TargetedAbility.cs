@@ -969,4 +969,14 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	{
 		return "Select a target";
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		base.GetTooltips(tooltips, abilityCardSide);
+
+		foreach(ConditionModel conditionModel in Conditions)
+		{
+			tooltips.Add(conditionModel.Tooltip);
+		}
+	}
 }

@@ -422,4 +422,14 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 		return false;
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		base.GetTooltips(tooltips, abilityCardSide);
+
+		if(Pierce.CanHaveValue)
+		{
+			tooltips.Add(Tooltips.Pierce);
+		}
+	}
 }

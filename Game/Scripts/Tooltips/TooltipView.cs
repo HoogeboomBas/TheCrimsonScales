@@ -16,6 +16,8 @@ public partial class TooltipView : Control
 	{
 		Close();
 
+		Show();
+
 		_requester = requester;
 
 		foreach(Tooltip tooltip in tooltips)
@@ -37,6 +39,8 @@ public partial class TooltipView : Control
 
 	private void Close()
 	{
+		Hide();
+
 		foreach(TooltipItem item in _items)
 		{
 			item.QueueFree();

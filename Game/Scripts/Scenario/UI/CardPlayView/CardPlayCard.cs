@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class CardPlayCard : Control
@@ -32,6 +33,9 @@ public partial class CardPlayCard : Control
 		_bottomButton.Pressed += OnBottomPressed;
 		_basicTopButton.BetterButton.Pressed += OnBasicTopPressed;
 		_basicBottomButton.BetterButton.Pressed += OnBasicBottomPressed;
+
+		_topButton.HoverStartedEvent += OnTopHoverStarted;
+		_topButton.HoverEndedEvent += OnTopHoverEnded;
 	}
 
 	public void SetCardData(CardPlayCardData cardData)
@@ -59,6 +63,14 @@ public partial class CardPlayCard : Control
 		}
 	}
 
+	public void Close()
+	{
+		AppController.Instance.TooltipView.Close(AbilityCard.Top);
+		AppController.Instance.TooltipView.Close(AbilityCard.Bottom);
+		AppController.Instance.TooltipView.Close(AbilityCard.BasicTop);
+		AppController.Instance.TooltipView.Close(AbilityCard.BasicBottom);
+	}
+
 	private void OnTopPressed()
 	{
 		CardSectionPressedEvent?.Invoke(this, AbilityCardSection.Top);
@@ -81,5 +93,22 @@ public partial class CardPlayCard : Control
 	{
 		CardSectionPressedEvent?.Invoke(this, AbilityCardSection.BasicBottom);
 		BasicBottomPressedEvent?.Invoke(this);
+	}
+
+	private void OnTopHoverStarted()
+	{
+		List<Tooltip> tooltips = new List<Tooltip>();
+
+		foreach(AbilityCardAbility ability in AbilityCard.Top.Model.Abilities)
+		{
+			ability.Ability.GetTooltips(tooltips, AbilityCard.Top);
+		}
+
+		AppController.Instance.TooltipView.Open(AbilityCard.Top, tooltips);
+	}
+
+	private void OnTopHoverEnded()
+	{
+		AppController.Instance.TooltipView.Close(AbilityCard.Top);
 	}
 }
