@@ -14,7 +14,11 @@ public partial class TooltipItem : Control
 	public void Init(Tooltip tooltip)
 	{
 		_nameLabel.SetText(tooltip.Name);
-		_iconTexture.SetTexture(ResourceLoader.Load<Texture2D>(tooltip.IconPath));
+		_iconTexture.SetVisible(tooltip.IconPath != null);
+		if(tooltip.IconPath != null)
+		{
+			_iconTexture.SetTexture(ResourceLoader.Load<Texture2D>(tooltip.IconPath));
+		}
 
 		// _categoryLabel.SetVisible(tooltip.Category != null);
 		// if(tooltip.Category != null)

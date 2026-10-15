@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System.Collections.Generic;
+using Fractural.Tasks;
 
 /// <summary>
 /// A forced movement <see cref="TargetedAbility{T, TSingleTargetState}"/> that moves the acting figure towards the target,
@@ -61,5 +62,12 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 
 		await ForcedMovement(abilityState, target.Hex, abilityState.Performer, PullSelfValue, ForcedMovementType.Pull,
 			() => $"Select a path to {Icons.HintText(Icons.Pull)}{PullSelfValue} self toward target");
+	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		// tooltips.Add(Tooltips.Pull);
+
+		base.GetTooltips(tooltips, abilityCardSide);
 	}
 }

@@ -978,5 +978,20 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		{
 			tooltips.Add(conditionModel.Tooltip);
 		}
+
+		if(Push > 0)
+		{
+			tooltips.Add(Tooltips.Push);
+		}
+
+		if(Pull > 0)
+		{
+			tooltips.Add(Tooltips.Pull);
+		}
+
+		if(Swing > 0)
+		{
+			tooltips.Add(Tooltips.Swing);
+		}
 	}
 }

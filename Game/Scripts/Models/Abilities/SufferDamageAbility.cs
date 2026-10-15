@@ -455,4 +455,11 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 	{
 		return $"Select a target to suffer {Icons.HintText(Icons.Damage)}{Damage.GetValue(abilityState)}";
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.SufferDamage);
+
+		base.GetTooltips(tooltips, abilityCardSide);
+	}
 }

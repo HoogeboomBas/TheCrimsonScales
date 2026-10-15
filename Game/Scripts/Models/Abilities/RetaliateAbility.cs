@@ -124,7 +124,8 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	{
 		await base.Activate(abilityState);
 
-		await AbilityCmd.AddRetaliate(abilityState.Performer, this, abilityState.RetaliateValue, abilityState.Range, _customCanApply, _customCanApplyReplaceFully);
+		await AbilityCmd.AddRetaliate(abilityState.Performer, this, abilityState.RetaliateValue, abilityState.Range, _customCanApply,
+			_customCanApplyReplaceFully);
 
 		foreach(ConditionModel conditionModel in abilityState.ConditionModels)
 		{
@@ -142,5 +143,12 @@ public class RetaliateAbility : ActiveAbility<RetaliateAbility.State>
 	protected override string DefaultHintText(State abilityState)
 	{
 		return $"Perform the {Icons.HintText(Icons.Retaliate)} ability?";
+	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.Retaliate);
+
+		base.GetTooltips(tooltips, abilityCardSide);
 	}
 }

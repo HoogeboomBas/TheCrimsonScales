@@ -129,4 +129,11 @@ public class LootAbility : Ability<LootAbility.State>
 			}
 		}
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.Loot);
+
+		base.GetTooltips(tooltips, abilityCardSide);
+	}
 }

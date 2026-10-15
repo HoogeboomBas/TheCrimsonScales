@@ -306,4 +306,21 @@ public class MoveAbility : Ability<MoveAbility.State>
 
 		ScenarioEvents.DuringMovementEvent.Unsubscribe(DuringMovementSubscriptions);
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.Move);
+
+		if(MoveType == MoveType.Jump)
+		{
+			tooltips.Add(Tooltips.Jump);
+		}
+
+		if(MoveType == MoveType.Flying)
+		{
+			tooltips.Add(Tooltips.Flying);
+		}
+
+		base.GetTooltips(tooltips, abilityCardSide);
+	}
 }

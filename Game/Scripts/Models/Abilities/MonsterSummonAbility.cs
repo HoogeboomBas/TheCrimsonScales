@@ -174,4 +174,11 @@ public class MonsterSummonAbility : Ability<MonsterSummonAbility.State>
 			}
 		}
 	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.Summon);
+
+		base.GetTooltips(tooltips, abilityCardSide);
+	}
 }

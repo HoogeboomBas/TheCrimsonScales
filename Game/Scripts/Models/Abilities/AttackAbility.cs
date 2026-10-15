@@ -425,6 +425,8 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
 	{
+		tooltips.Add(Tooltips.Attack);
+
 		base.GetTooltips(tooltips, abilityCardSide);
 
 		if(Pierce.CanHaveValue)

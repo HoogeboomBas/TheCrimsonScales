@@ -36,6 +36,15 @@ public partial class CardPlayCard : Control
 
 		_topButton.HoverStartedEvent += OnTopHoverStarted;
 		_topButton.HoverEndedEvent += OnTopHoverEnded;
+
+		_bottomButton.HoverStartedEvent += OnBottomHoverStarted;
+		_bottomButton.HoverEndedEvent += OnBottomHoverEnded;
+
+		_basicTopButton.BetterButton.HoverStartedEvent += OnBasicTopHoverStarted;
+		_basicTopButton.BetterButton.HoverEndedEvent += OnBasicTopHoverEnded;
+
+		_basicBottomButton.BetterButton.HoverStartedEvent += OnBasicBottomHoverStarted;
+		_basicBottomButton.BetterButton.HoverEndedEvent += OnBasicBottomHoverEnded;
 	}
 
 	public void SetCardData(CardPlayCardData cardData)
@@ -97,18 +106,58 @@ public partial class CardPlayCard : Control
 
 	private void OnTopHoverStarted()
 	{
-		List<Tooltip> tooltips = new List<Tooltip>();
-
-		foreach(AbilityCardAbility ability in AbilityCard.Top.Model.Abilities)
-		{
-			ability.Ability.GetTooltips(tooltips, AbilityCard.Top);
-		}
-
-		AppController.Instance.TooltipView.Open(AbilityCard.Top, tooltips);
+		HoverStarted(AbilityCard.Top);
 	}
 
 	private void OnTopHoverEnded()
 	{
-		AppController.Instance.TooltipView.Close(AbilityCard.Top);
+		HoverEnded(AbilityCard.Top);
+	}
+
+	private void OnBottomHoverStarted()
+	{
+		HoverStarted(AbilityCard.Bottom);
+	}
+
+	private void OnBottomHoverEnded()
+	{
+		HoverEnded(AbilityCard.Bottom);
+	}
+
+	private void OnBasicTopHoverStarted()
+	{
+		HoverStarted(AbilityCard.BasicTop);
+	}
+
+	private void OnBasicTopHoverEnded()
+	{
+		HoverEnded(AbilityCard.BasicTop);
+	}
+
+	private void OnBasicBottomHoverStarted()
+	{
+		HoverStarted(AbilityCard.BasicBottom);
+	}
+
+	private void OnBasicBottomHoverEnded()
+	{
+		HoverEnded(AbilityCard.BasicBottom);
+	}
+
+	private void HoverStarted(AbilityCardSide abilityCardSide)
+	{
+		List<Tooltip> tooltips = new List<Tooltip>();
+
+		foreach(AbilityCardAbility ability in abilityCardSide.Model.Abilities)
+		{
+			ability.Ability.GetTooltips(tooltips, abilityCardSide);
+		}
+
+		AppController.Instance.TooltipView.Open(abilityCardSide, tooltips);
+	}
+
+	private void HoverEnded(AbilityCardSide abilityCardSide)
+	{
+		AppController.Instance.TooltipView.Close(abilityCardSide);
 	}
 }

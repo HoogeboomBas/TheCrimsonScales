@@ -18,15 +18,18 @@ public partial class TooltipView : Control
 
 		Show();
 
-		_requester = requester;
-
-		foreach(Tooltip tooltip in tooltips)
+		this.DelayedCall(() =>
 		{
-			TooltipItem item = _itemScene.Instantiate<TooltipItem>();
-			_itemParent.AddChild(item);
-			item.Init(tooltip);
-			_items.Add(item);
-		}
+			foreach(Tooltip tooltip in tooltips)
+			{
+				TooltipItem item = _itemScene.Instantiate<TooltipItem>();
+				_itemParent.AddChild(item);
+				item.Init(tooltip);
+				_items.Add(item);
+			}
+		});
+
+		_requester = requester;
 	}
 
 	public void Close(object requester)

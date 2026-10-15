@@ -106,8 +106,11 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// Character teleporting
 			TeleportPrompt.Answer teleportAnswer =
 				await PromptManager.Prompt(
-					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
-						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
+					new TeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+						forcedMovement: forcedMovement,
+						getHintText: () =>
+							$"Select a destination for {Icons.HintText(Icons.Teleport)}" +
+							(CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
 			if(!teleportAnswer.Skipped)
@@ -120,8 +123,11 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 			// TODO: Not a real monster movement, focus and movement AI not included, works with custom hexes
 			MonsterTeleportPrompt.Answer monsterTeleportAnswer =
 				await PromptManager.Prompt(
-					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes, forcedMovement: forcedMovement,
-						getHintText: () => $"Select a destination for {Icons.HintText(Icons.Teleport)}" + (CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
+					new MonsterTeleportPrompt(abilityState, performer, null, customHexes: CustomGetHexes, filterHexes: FilterHexes,
+						forcedMovement: forcedMovement,
+						getHintText: () =>
+							$"Select a destination for {Icons.HintText(Icons.Teleport)}" +
+							(CustomGetHexes == null ? $"{abilityState.Distance}" : "")),
 					abilityState.Authority);
 
 			if(!monsterTeleportAnswer.Skipped)
@@ -136,5 +142,12 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		}
 
 		await AbilityCmd.Teleport(abilityState, performer, destination, forcedMovement);
+	}
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		tooltips.Add(Tooltips.Teleport);
+
+		base.GetTooltips(tooltips, abilityCardSide);
 	}
 }

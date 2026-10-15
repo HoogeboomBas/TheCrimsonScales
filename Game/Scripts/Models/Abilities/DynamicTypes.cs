@@ -2,7 +2,7 @@
 
 public class DynamicInt<TArg> : DynamicType<int, TArg>
 {
-	public bool CanHaveValue => Value != null || Value > 0 || GetValueFunc != null;
+	public bool CanHaveValue => Value > 0 || GetValueFunc != null;
 
 	public DynamicInt(GetValueDelegate getValueFunc) : base(getValueFunc) { }
 	public DynamicInt(int? value) : base(value) { }

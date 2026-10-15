@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 /// <summary>
 /// A forced movement <see cref="TargetedAbility{T, TSingleTargetState}"/> that moves the enemy in a circular motion around the acting figure,
 /// ignoring most movement rules.
@@ -44,4 +46,11 @@ public class SwingAbility : TargetedAbility<SwingAbility.State, SingleTargetStat
 	}
 
 	public SwingAbility() { }
+
+	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	{
+		// tooltips.Add(Tooltips.Swing);
+
+		base.GetTooltips(tooltips, abilityCardSide);
+	}
 }
