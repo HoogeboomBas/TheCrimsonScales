@@ -139,9 +139,9 @@ public partial class BetweenScenariosPartyGoals : BetweenScenariosAction
 
 		await AppController.Instance.StoryView.OpenAsync("An Invitation for... Tea?", null,
 			"""
-			Toasting your latest success in the Sleeping Lion, a young Vermling scampers up to your party before shyly dropping off an envelope and scurrying off. The envelope itself is blank but very grand, thick and heavily embossed with a grand wax seal on the back. Tearing it open, you find a handwritten note inside: 
+			Toasting your latest success in the Sleeping Lion, a young Vermling scampers up to your party before shyly dropping off an envelope and scurrying off. The envelope itself is blank but very grand, thick and heavily embossed with a grand wax seal on the back. Tearing it open, you find a handwritten note inside:
 
-			“My adventurous friends, Your reputation continues to spread, and I would like to share a small token of gratitude from myself and my fellow citizens of Gloomhaven. Please be so gracious as to take tea with me tomorrow at 3pm at the house. Yours, Councilman Raksani (Sir)”. 
+			“My adventurous friends, Your reputation continues to spread, and I would like to share a small token of gratitude from myself and my fellow citizens of Gloomhaven. Please be so gracious as to take tea with me tomorrow at 3pm at the house. Yours, Councilman Raksani (Sir)”.
 
 			After a brief discussion the next day as to the correct attire for a tea party at the wealthiest merchant in town (you settle on ‘no obvious weapons’), you head up to Councilman Raksani’s huge mansion, which no-one in their right mind could casually refer to as “the house.”
 
@@ -227,7 +227,7 @@ public class FirstFreeEnhancementReward : DowntimeEnhancementCostReward
 		StartingGroup.Militants =>
 			$"Militants: Gain one {Icons.Inline(Icons.GetCondition(Conditions.Strengthen))} enhancement on a single-target ability on any Level 1/X, Level 2 or Level 3 card.",
 		StartingGroup.Protectors =>
-			$"Protectors: Gain one {Icons.Inline(Icons.PlusOneEnhancement)} enhancement on any single target {Icons.Inline(Icons.Heal)}, “S{Icons.Inline(Icons.Shield)} self”, or “{Icons.Inline(Icons.Retaliate)}, self” ability on any Level 1/X card or Level 2 card.",
+			$"Protectors: Gain one {Icons.Inline(Icons.PlusOneEnhancement)} enhancement on any single target {Icons.Inline(Icons.Heal)}, {Icons.Inline(Icons.Shield)} self, or {Icons.Inline(Icons.Retaliate)}, self ability on any Level 1/X card or Level 2 card.",
 		StartingGroup.Explorers =>
 			$"Explorers: Add one {Icons.Inline(Icons.RedAOEHex)} or one {Icons.Inline(Icons.PlusOneEnhancement)} enhancement to an area of effect action on any Level 1/X card or Level 2 card.",
 		StartingGroup.Trailblazers =>

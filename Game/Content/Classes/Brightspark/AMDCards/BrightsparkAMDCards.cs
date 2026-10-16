@@ -34,7 +34,13 @@ public class BrightsparkAMDCards
 						return;
 					}
 
-					await AbilityCmd.ReturnToHand(card);
+					AbilityCard selectedCard = await AbilityCmd.SelectAbilityCard(potentialDeckOwner, CardState.Discarded, mandatory: false, canSelectFunc: abilityCard => abilityCard == card, hintText: "Card randomly recovered from the discard pile");
+					if(selectedCard == null)
+					{
+						return;
+					}
+
+					await AbilityCmd.ReturnToHand(selectedCard);
 				}
 			};
 	}

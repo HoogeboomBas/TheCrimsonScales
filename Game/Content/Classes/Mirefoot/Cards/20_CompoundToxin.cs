@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -47,12 +47,17 @@ public class CompoundToxin : MirefootCardModel<CompoundToxin.CardTop, CompoundTo
 						{
 							foreach(Figure figure in parameters.OverlayTile.Hexes.SelectMany(hex => hex.GetHexObjectsOfType<Figure>()))
 							{
+								if(!figure.EnemiesWith(state.Performer))
+								{
+									continue;
+								}
+
 								ScenarioCheckEvents.FlyingCheck.Parameters flyingCheckParameters =
 									ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figure));
 
 								if(flyingCheckParameters.HasFlying)
 								{
-									return;
+									continue;
 								}
 
 								await AbilityCmd.AddCondition(state, figure, Conditions.Poison2);

@@ -255,7 +255,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 					}
 
 					list.AddRange(hexes.Where(hex =>
-						(hex.IsEmpty() || canHaveFeatures && hex.IsUnoccupied()) && RangeHelper.Distance(spawnHex, hex) == distance)
+						(hex.IsEmpty() || canHaveFeatures && hex.IsUnoccupied() && !hex.HasHexObjectOfType<Obstacle>()) && RangeHelper.Distance(spawnHex, hex) == distance)
 					);
 				}
 			},

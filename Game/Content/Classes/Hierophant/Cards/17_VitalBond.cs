@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -30,15 +30,7 @@ public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond
 					{
 						state.SetPerformed();
 
-						Figure figureA = attackAbilityState.UniqueTargetedFigures[0];
-						Figure figureB = attackAbilityState.UniqueTargetedFigures[0];
-
-						Hex oldFigureAHex = figureA.Hex;
-
-						// Swap the positions, currently not applying any effects in the hexes
-						figureA.SetOriginHexAndRotation(figureB.Hex);
-						figureB.SetOriginHexAndRotation(oldFigureAHex);
-
+						await AbilityCmd.TrySwap(state, attackAbilityState.UniqueTargetedFigures[0], attackAbilityState.UniqueTargetedFigures[1]);
 						await AbilityCmd.GainXP(state.Performer, 1);
 
 						foreach(Figure figure in attackAbilityState.UniqueTargetedFigures)
@@ -55,7 +47,8 @@ public class VitalBond : HierophantLevelUpCardModel<VitalBond.CardTop, VitalBond
 
 						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 						return attackAbilityState.Performed && attackAbilityState.UniqueTargetedFigures.Count == 2 &&
-						       attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => !figure.IsDead);
+						       attackAbilityState.UniqueTargetedFigures.TrueForAll(figure => !figure.IsDead) &&
+							   AbilityCmd.CanSwap(state, attackAbilityState.UniqueTargetedFigures[0], attackAbilityState.UniqueTargetedFigures[1]);
 					}
 				)
 				.Build())
