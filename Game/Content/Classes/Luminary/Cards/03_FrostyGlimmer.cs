@@ -91,7 +91,7 @@ public class FrostyGlimmer : LuminaryCardModel<FrostyGlimmer.CardTop, FrostyGlim
 									}, hintText: "Select a trap to destroy");
 									if(hex != null)
 									{
-										await hex.GetHexObjectOfType<Trap>().Destroy();
+										await hex.GetHexObjectOfType<Trap>().Destroy(parameters.AbilityState);
 									}
 								}
 							);

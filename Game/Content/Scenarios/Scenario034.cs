@@ -243,7 +243,7 @@ public class Scenario034 : ScenarioModel
 	private async GDTask RemoveStartHex(List<CharacterStartHex> hexes, int index)
 	{
 		CharacterStartHex hex = hexes[index];
-		await hex.Destroy(true);
+		await hex.Destroy(immediately: true);
 	}
 
 	private async GDTask CheckMapTileEmpty()

@@ -69,12 +69,12 @@ public partial class Trap : OverlayTile
 			}
 		}
 
-		await Destroy();
+		await Destroy(potentialAbilityState);
 	}
 
-	public async GDTask Disarm()
+	public async GDTask Disarm(AbilityState potentialAbilityState = null, Figure potentialDisarmer = null)
 	{
-		await Destroy();
+		await Destroy(potentialAbilityState, potentialDisarmer);
 	}
 
 	public void UpdateVisuals()

@@ -102,7 +102,7 @@ public class Scenario017 : ScenarioModel
 			foreach(Trap trap in RangeHelper.GetHexesInRange(character.Hex, 1).SelectMany(hex => hex.GetHexObjectsOfType<Trap>())
 				        .Where(trap => trap != null))
 			{
-				await AbilityCmd.DisarmTrap(trap, character);
+				await AbilityCmd.DisarmTrap(trap, potentialDisarmer: character);
 			}
 		});
 

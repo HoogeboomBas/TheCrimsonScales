@@ -50,9 +50,10 @@ public partial class Ladder : DifficultTerrain, IEventSubscriber
 		SetScale(Vector2.Zero);
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 
 		ScenarioCheckEvents.MoveCheckEvent.Unsubscribe(this);
 		ScenarioEvents.HazardousTerrainTriggeredEvent.Unsubscribe(this);

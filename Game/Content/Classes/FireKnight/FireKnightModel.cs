@@ -104,4 +104,10 @@ public class FireKnightModel : ClassModel
 		ModelDB.Item<FireKnightScrollOfProtection>(),
 		ModelDB.Item<FireKnightScrollOfInvigoration>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<FireKnightMasteries.Mastery1>(),
+		ModelDB.Mastery<FireKnightMasteries.Mastery2>()
+	];
 }

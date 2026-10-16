@@ -22,7 +22,7 @@ public partial class Treasure : LootableObject, IEventSubscriber
 
 		if(GameController.Instance.SavedScenarioProgress.CollectedTreasureChestNumbers.Contains(TreasureNumber))
 		{
-			await Destroy(true);
+			await Destroy(immediately: true);
 		}
 
 		if(IsGoal)
@@ -37,9 +37,10 @@ public partial class Treasure : LootableObject, IEventSubscriber
 		}
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 
 		ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Unsubscribe(this);
 	}

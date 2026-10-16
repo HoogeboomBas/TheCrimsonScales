@@ -86,12 +86,13 @@ public partial class NPC : Figure, IEventSubscriber
 		}
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
 		await RemoveTurnActionFromActive();
 		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(this);
 
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 	}
 
 	protected override Initiative GetInitiative()

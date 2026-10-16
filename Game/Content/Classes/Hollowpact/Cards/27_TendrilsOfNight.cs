@@ -59,7 +59,7 @@ public class TendrilsOfNight : HollowpactLevelUpCardModel<TendrilsOfNight.CardTo
 
 					if(hex != null)
 					{
-						await hex.GetHexObjectOfType<Obstacle>().Destroy();
+						await hex.GetHexObjectOfType<Obstacle>().Destroy(state);
 
 						state.SetCustomValue(this, "DesignatedHex", hex);
 						state.SetPerformed();

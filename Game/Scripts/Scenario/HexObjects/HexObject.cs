@@ -77,8 +77,10 @@ public partial class HexObject : Node2D, IReferenced
 		await GDTask.CompletedTask;
 	}
 
-	public virtual async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public virtual async GDTask Destroy(AbilityState potentialAbilityState = null, Figure potentialDestroyer = null, bool immediately = false,
+		bool forceDestroy = false)
 	{
+		potentialDestroyer ??= potentialAbilityState?.Performer;
 		if(CannotBeDestroyed && !forceDestroy)
 		{
 			Log.Error($"Trying to destroy {Name}, but it can not be destroyed!");
@@ -108,7 +110,7 @@ public partial class HexObject : Node2D, IReferenced
 
 		ScenarioEvents.HexObjectDestroyed.Parameters parameters =
 			await ScenarioEvents.HexObjectDestroyedEvent.CreatePrompt(
-				new ScenarioEvents.HexObjectDestroyed.Parameters(this, immediately, forceDestroy));
+				new ScenarioEvents.HexObjectDestroyed.Parameters(this, immediately, forceDestroy, potentialAbilityState, potentialDestroyer));
 
 		await GDTask.CompletedTask;
 	}

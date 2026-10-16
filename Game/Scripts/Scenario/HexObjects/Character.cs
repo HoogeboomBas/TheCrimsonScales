@@ -56,6 +56,8 @@ public partial class Character : Figure
 
 	public event Action<Character> BattleGoalChangedEvent;
 	public event Action<Character> BattleGoalProgressChangedEvent;
+	public event Action<Character> Mastery1ProgressChangedEvent;
+	public event Action<Character> Mastery2ProgressChangedEvent;
 	public event Action<Character> ShortRestedEvent;
 	public event Action<Character> CoinsChangedEvent;
 	public event Action<Character> XPChangedEvent;
@@ -139,9 +141,10 @@ public partial class Character : Figure
 		OnAnimatedCharactersChanged(AppController.Instance.DeviceOptions.AnimatedCharacters.Value);
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 
 		if(GameController.Instance.CharacterManager.Characters.All(character => character.IsDestroyed))
 		{
@@ -151,7 +154,7 @@ public partial class Character : Figure
 		for(int index = Summons.Count - 1; index >= 0; index--)
 		{
 			Summon summon = Summons[index];
-			await summon.Destroy(immediately, forceDestroy);
+			await summon.Destroy(immediately: immediately, forceDestroy: forceDestroy);
 		}
 
 		// Make sure items can no longer trigger by setting their owner to null
@@ -723,6 +726,21 @@ public partial class Character : Figure
 			await BattleGoal.OnScenarioSetupPhaseCompleted();
 		}
 
+		Mastery mastery1 = SavedCharacter.Masteries[0];
+		Mastery mastery2 = SavedCharacter.Masteries[1];
+
+		if(!mastery1.Completed)
+		{
+			await mastery1.Model.OnScenarioSetupPhaseCompleted(mastery1, this);
+			mastery1.ProgressChangedEvent += OnMastery1ProgressChanged;
+		}
+
+		if(!mastery2.Completed)
+		{
+			await mastery2.Model.OnScenarioSetupPhaseCompleted(mastery2, this);
+			mastery2.ProgressChangedEvent += OnMastery2ProgressChanged;
+		}
+
 		await GDTask.CompletedTask;
 	}
 
@@ -735,6 +753,16 @@ public partial class Character : Figure
 	private void OnBattleGoalProgressChanged(BattleGoal battleGoal)
 	{
 		BattleGoalProgressChangedEvent?.Invoke(this);
+	}
+
+	private void OnMastery1ProgressChanged(Mastery mastery)
+	{
+		Mastery1ProgressChangedEvent?.Invoke(this);
+	}
+
+	private void OnMastery2ProgressChanged(Mastery mastery)
+	{
+		Mastery2ProgressChangedEvent?.Invoke(this);
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)

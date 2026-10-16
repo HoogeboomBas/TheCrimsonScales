@@ -90,4 +90,10 @@ public class LuminaryModel : ClassModel
 
 		ModelDB.Perk<LuminaryPerks.IgnitedPower>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<LuminaryMasteries.Mastery1>(),
+		ModelDB.Mastery<LuminaryMasteries.Mastery2>()
+	];
 }

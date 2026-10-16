@@ -39,7 +39,7 @@ public class DeathSentence : MirefootCardModel<DeathSentence.CardTop, DeathSente
 						{
 							foreach(DifficultTerrain difficultTerrain in applyParameters.Hex.GetHexObjectsOfType<DifficultTerrain>())
 							{
-								await AbilityCmd.DestroyDifficultTerrain(difficultTerrain);
+								await AbilityCmd.DestroyDifficultTerrain(difficultTerrain, state);
 							}
 						});
 

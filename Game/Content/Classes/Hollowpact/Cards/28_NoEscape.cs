@@ -35,7 +35,7 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 							{
 								foreach(Obstacle obstacle in enteredHexParameters.Hex.GetHexObjectsOfType<Obstacle>())
 								{
-									await obstacle.Destroy();
+									await obstacle.Destroy(pullParameters.AbilityState);
 									await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 3, pullParameters.Performer);
 									await AbilityCmd.AddConditions(pullParameters.AbilityState, enteredHexParameters.Figure,
 										[Conditions.Wound1, Conditions.Stun]);

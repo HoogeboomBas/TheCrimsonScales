@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://nhwr6bycxnnj"]
+
+[ext_resource type="Script" uid="uid://mf3du53d76fe" path="res://Scripts/UI/Popups/PerksPopup/PerksPopupMastery.cs" id="1_ywyvd"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Popups/PerksPopup/MasteryBox.tscn" id="3_1rk3n"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="3_gfq4l"]
+[ext_resource type="FontFile" uid="uid://d35yxf0dr4r86" path="res://Fonts/GermaniaOne-Regular.ttf" id="4_v67kd"]
+
+[node name="PerksPopupMastery" type="MarginContainer" unique_id=1447228837 node_paths=PackedStringArray("_masteryBox", "_description")]
+offset_right = 620.0
+offset_bottom = 75.0
+mouse_filter = 2
+script = ExtResource("1_ywyvd")
+_masteryBox = NodePath("HBoxContainer/MasteryBox")
+_description = NodePath("HBoxContainer/Description")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2071189325]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="MasteryBox" parent="HBoxContainer" unique_id=1315527475 instance=ExtResource("3_1rk3n")]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="HBoxContainer" unique_id=95447735]
+custom_minimum_size = Vector2(600, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_gfq4l")
+theme_override_fonts/bold_font = ExtResource("4_v67kd")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "Do something cool to gain one perk mark."
+fit_content = true
+vertical_alignment = 1

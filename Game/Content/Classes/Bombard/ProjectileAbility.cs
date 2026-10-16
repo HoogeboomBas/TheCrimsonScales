@@ -191,7 +191,7 @@ public class ProjectileAbility : ActiveAbility<ProjectileAbility.State>
 
 		foreach(BombardProjectileToken token in abilityState.Tokens)
 		{
-			await token.Destroy();
+			await token.Destroy(abilityState);
 		}
 	}
 }

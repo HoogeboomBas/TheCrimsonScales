@@ -75,9 +75,10 @@ public partial class Objective : Figure
 		);
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 
 		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, this);
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(this, this);

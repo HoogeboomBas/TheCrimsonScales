@@ -48,7 +48,7 @@ public class TheVoidConsumes : HollowpactCardModel<TheVoidConsumes.CardTop, TheV
 
 					if(hex != null)
 					{
-						await hex.HexObjects.First(hexObject => hexObject is Obstacle).Destroy();
+						await hex.HexObjects.First(hexObject => hexObject is Obstacle).Destroy(state);
 						await GainVoidEnergy(state);
 
 						state.SetPerformed();

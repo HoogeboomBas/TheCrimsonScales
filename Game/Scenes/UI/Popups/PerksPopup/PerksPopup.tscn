@@ -6,14 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="3_l7jtr"]
 [ext_resource type="LabelSettings" uid="uid://co0cqpevlny13" path="res://Resources/PanelLabel.tres" id="4_23us4"]
 [ext_resource type="PackedScene" uid="uid://bm2kpcuh43pw6" path="res://Scenes/UI/Popups/PerksPopup/CheckmarkBoxSet.tscn" id="4_jmif4"]
+[ext_resource type="PackedScene" uid="uid://nhwr6bycxnnj" path="res://Scenes/UI/Popups/PerksPopup/PerksPopupMastery.tscn" id="4_rxf0f"]
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_rxf0f"]
 
-[node name="PerksPopup" unique_id=1086871411 node_paths=PackedStringArray("_remainingPerksLabel", "_checkmarkBoxSets", "_scrollContainer", "_perkContainer") instance=ExtResource("1_uho5h")]
+[node name="PerksPopup" unique_id=1086871411 node_paths=PackedStringArray("_remainingPerksLabel", "_checkmarkBoxSets", "_scrollContainer", "_masteryContainer", "_perkContainer") instance=ExtResource("1_uho5h")]
 script = ExtResource("2_xnhqj")
 _remainingPerksLabel = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/MarginContainer/VBoxContainer/RequiredCountLabel")
 _checkmarkBoxSets = [NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet2"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet3"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet4"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet5"), NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks/CheckmarkSet6")]
 _scrollContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer")
 _perkScene = ExtResource("3_jmif4")
+_masteryScene = ExtResource("4_rxf0f")
+_masteryContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer3/VBoxContainer/Masteries")
 _perkContainer = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/ScrollContainer/MarginContainer/Perks")
 
 [node name="Panel" parent="." index="1" unique_id=2112547392]
@@ -26,6 +29,7 @@ offset_bottom = 480.5
 text = "Perks"
 
 [node name="Content" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="0" unique_id=1712449809]
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Top" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="0" unique_id=141787139]
@@ -74,8 +78,28 @@ layout_mode = 2
 [node name="CheckmarkSet6" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Top/Perks" index="5" unique_id=535084011 instance=ExtResource("4_jmif4")]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1" unique_id=1431874849]
-custom_minimum_size = Vector2(620, 744)
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="1" unique_id=1976626165]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer3" index="0" unique_id=655400751]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer3/VBoxContainer" index="0" unique_id=1203150654]
+layout_mode = 2
+text = "Masteries:"
+label_settings = ExtResource("4_23us4")
+
+[node name="Masteries" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer3/VBoxContainer" index="1" unique_id=1398023273]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" index="2" unique_id=1431874849]
+custom_minimum_size = Vector2(620, 644)
 layout_mode = 2
 horizontal_scroll_mode = 0
 scroll_deadzone = 10

@@ -14,7 +14,7 @@ public class TrapDisarmTrait(int range) : FigureTrait
 				{
 					foreach(Trap trap in hex.GetHexObjectsOfType<Trap>())
 					{
-						await AbilityCmd.DisarmTrap(trap, figure);
+						await AbilityCmd.DisarmTrap(trap, parameters.PotentialAbilityState, figure);
 					}
 				}
 			}

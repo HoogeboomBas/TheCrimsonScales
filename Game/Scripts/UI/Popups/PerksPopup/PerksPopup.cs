@@ -20,9 +20,14 @@ public partial class PerksPopup : Popup<PerksPopup.Request>
 	[Export]
 	private PackedScene _perkScene;
 	[Export]
+	private PackedScene _masteryScene;
+	[Export]
+	private Control _masteryContainer;
+	[Export]
 	private Control _perkContainer;
 
 	private readonly List<PerksPopupPerk> _perks = new List<PerksPopupPerk>();
+	private readonly List<PerksPopupMastery> _masteries = new List<PerksPopupMastery>();
 
 	private SavedCharacter _savedCharacter;
 
@@ -67,6 +72,14 @@ public partial class PerksPopup : Popup<PerksPopup.Request>
 			perkIndex += perkCount;
 		}
 
+		foreach(Mastery mastery in _savedCharacter.Masteries)
+		{
+			PerksPopupMastery masteryItem = _masteryScene.Instantiate<PerksPopupMastery>();
+			_masteryContainer.AddChild(masteryItem);
+			masteryItem.Init(mastery);
+			_masteries.Add(masteryItem);
+		}
+
 		_savedCharacter.PerksChangedEvent += OnPerksChanged;
 	}
 
@@ -80,6 +93,13 @@ public partial class PerksPopup : Popup<PerksPopup.Request>
 		}
 
 		_perks.Clear();
+
+		foreach(PerksPopupMastery mastery in _masteries)
+		{
+			mastery.QueueFree();
+		}
+
+		_masteries.Clear();
 
 		_scrollContainer.SetVScroll(0);
 

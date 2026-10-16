@@ -102,4 +102,10 @@ public class HierophantModel : ClassModel
 		ModelDB.AbilityCard<Penitence>(),
 		ModelDB.AbilityCard<Salvation>()
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<HierophantMasteries.Mastery1>(),
+		ModelDB.Mastery<HierophantMasteries.Mastery2>()
+	];
 }

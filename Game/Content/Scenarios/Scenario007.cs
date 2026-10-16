@@ -231,7 +231,7 @@ public class Scenario007 : ScenarioModel
 				}
 			}
 
-			await water.Destroy(forceDestroy: true);
+			await water.Destroy(potentialDestroyer: character, forceDestroy: true);
 
 			return;
 		}
@@ -241,7 +241,7 @@ public class Scenario007 : ScenarioModel
 		// hexes.Shuffle(GameController.Instance.StateRNG);
 		// hexes.Sort((otherHexA, otherHexB) => RangeHelper.Distance(hex, otherHexA).CompareTo(RangeHelper.Distance(hex, otherHexB)));
 
-		await water.Destroy(forceDestroy: true);
+		await water.Destroy(potentialDestroyer: character, forceDestroy: true);
 
 		switch(tokenNumber)
 		{

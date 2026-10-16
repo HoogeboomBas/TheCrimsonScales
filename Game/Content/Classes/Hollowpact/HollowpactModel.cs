@@ -88,4 +88,10 @@ public class HollowpactModel : ClassModel
 
 		ModelDB.Perk<HollowpactPerks.IgnoreScenarioEffectsAddOnePlusZeroWardSelf>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<HollowpactMasteries.Mastery1>(),
+		ModelDB.Mastery<HollowpactMasteries.Mastery2>()
+	];
 }

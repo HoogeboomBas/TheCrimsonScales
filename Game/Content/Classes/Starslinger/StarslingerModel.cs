@@ -87,4 +87,10 @@ public class StarslingerModel : ClassModel
 
 		ModelDB.Perk<StarslingerPerks.ReflectiveJourney>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<StarslingerMasteries.Mastery1>(),
+		ModelDB.Mastery<StarslingerMasteries.Mastery2>()
+	];
 }

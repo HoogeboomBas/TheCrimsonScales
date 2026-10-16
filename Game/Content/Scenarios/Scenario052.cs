@@ -108,7 +108,7 @@ public class Scenario052 : ScenarioModel
 			async parameters =>
 			{
 				PressurePlate pressurePlate = parameters.Figure.Hex.GetHexObjectOfType<PressurePlate>();
-				await pressurePlate.Destroy();
+				await pressurePlate.Destroy(potentialDestroyer: parameters.Figure);
 				_pressurePlatesA.Remove(pressurePlate);
 				if(_pressurePlatesA.Count == 0)
 				{

@@ -130,11 +130,12 @@ public class Scenario043 : ScenarioModel
 				{
 					foreach(Trap trap in movedToHex.GetHexObjectsOfType<Trap>())
 					{
-						await trap.Destroy();
+						await trap.Destroy(applyParameters.AbilityState);
 					}
+
 					foreach(Coin coin in movedToHex.GetHexObjectsOfType<Coin>())
 					{
-						await coin.Destroy();
+						await coin.Destroy(applyParameters.AbilityState);
 					}
 				}
 			},

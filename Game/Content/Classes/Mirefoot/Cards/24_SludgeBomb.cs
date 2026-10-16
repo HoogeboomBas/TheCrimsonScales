@@ -58,7 +58,7 @@ public class SludgeBomb : MirefootCardModel<SludgeBomb.CardTop, SludgeBomb.CardB
 						"Destroy up to 4 adjacent difficult terrain tiles");
 					foreach(OverlayTile difficultTerrain in selectedDifficultTerrain)
 					{
-						await AbilityCmd.DestroyDifficultTerrain((DifficultTerrain)difficultTerrain);
+						await AbilityCmd.DestroyDifficultTerrain((DifficultTerrain)difficultTerrain, state);
 						state.SetPerformed();
 					}
 

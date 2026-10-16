@@ -35,6 +35,9 @@ public class UseSlotAbility : ActiveAbility<UseSlotAbility.State>
 
 			UseSlotIndex++;
 
+			await ScenarioEvents.UseSlotAdvancedEvent.CreatePrompt(
+				new ScenarioEvents.UseSlotAdvanced.Parameters(this));
+
 			if(UseSlotIndex >= Slots.Count)
 			{
 				await ActionState.RequestDiscardOrLose();

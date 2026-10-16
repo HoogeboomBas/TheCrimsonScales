@@ -90,4 +90,10 @@ public class ChieftainModel : ClassModel
 
 		ModelDB.Perk<ChieftainPerks.Stampede>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<ChieftainMasteries.Mastery1>(),
+		ModelDB.Mastery<ChieftainMasteries.Mastery2>()
+	];
 }

@@ -91,7 +91,7 @@ public partial class Door : OverlayTile, IEventSubscriber
 		GameController.Instance.Map.AddChild(corridor);
 		await corridor.Init(Hex, RotationIndex);
 
-		await Destroy();
+		await Destroy(potentialDestroyer: potentialOpener);
 	}
 
 	public override void AddInfoItemParameters(List<InfoItemParameters> parametersList)
