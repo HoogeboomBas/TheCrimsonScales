@@ -30,7 +30,7 @@ public class PendantOfDarkPacts : Prosperity6Item
 						await AbilityCmd.RefreshItem(item);
 					}
 
-					await AbilityCmd.AddCondition(null, user, Conditions.Curse);
+					await AbilityCmd.AddCondition(null, user, Conditions.Curse, user);
 				});
 			}
 		);

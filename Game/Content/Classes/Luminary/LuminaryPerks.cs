@@ -137,7 +137,7 @@ public class LuminaryPerks
 		public override bool IgnoreItemMinusOneEffects => true;
 	}
 
-	public class IgnitedPower : LuminaryPerk, IEventSubscriber
+	public class IgnitedPower : LuminaryPerk
 	{
 		protected override string Title => "Ignited Power";
 

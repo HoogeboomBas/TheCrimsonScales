@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
-using Godot;
 
 public class Scenario026 : ScenarioModel
 {
@@ -84,10 +83,10 @@ public class Scenario026 : ScenarioModel
 		int hotThermalStonesRemaining = coldThermalStones.Count;
 
 		_coldThermalStoneRule1 = AddScenarioRule(textParameters =>
-			$"Each time a character or character summons attacks a Cold thermal stone, they gain {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)} immediately following the attack.");
+			$"Each time a figure attacks a Cold thermal stone, they gain {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)} immediately following the attack.");
 
 		_coldThermalStoneRule2 = AddScenarioRule(textParameters =>
-			$"When a character or character summon destroys a Cold thermal stone, they immediately remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)} from self and place a water tile in the hex it was occupying.");
+			$"When a figure destroys a Cold thermal stone, they immediately remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)} from self and place a water tile in the hex it was occupying.");
 
 		foreach(Objective objective in coldThermalStones)
 		{
@@ -95,8 +94,8 @@ public class Scenario026 : ScenarioModel
 
 			ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this, objective,
 				canApplyParameters =>
-					canApplyParameters.AbilityState.Target == objective &&
-					canApplyParameters.AbilityState.Performer is Character or Summon,
+					canApplyParameters.AbilityState.Target == objective, // &&
+				//canApplyParameters.AbilityState.Performer is Character or Summon,
 				async applyParameters =>
 				{
 					await AbilityCmd.AddCondition(null, applyParameters.AbilityState.Performer, Conditions.Chill);
@@ -105,8 +104,8 @@ public class Scenario026 : ScenarioModel
 
 			ScenarioEvents.FigureKilledEvent.Subscribe(this, objective,
 				canApplyParameters =>
-					canApplyParameters.Figure == objective &&
-					canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
+					canApplyParameters.Figure == objective, // &&
+				//canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
 				async applyParameters =>
 				{
 					await _goal.AdjustProgress(1);
@@ -134,8 +133,8 @@ public class Scenario026 : ScenarioModel
 
 			ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this, objective,
 				canApplyParameters =>
-					canApplyParameters.AbilityState.Target == objective &&
-					canApplyParameters.AbilityState.Performer is Character or Summon,
+					canApplyParameters.AbilityState.Target == objective, // &&
+				//canApplyParameters.AbilityState.Performer is Character or Summon,
 				async applyParameters =>
 				{
 					await AbilityCmd.SufferDamage(applyParameters.AbilityState.Performer, 1, objective);
@@ -144,8 +143,8 @@ public class Scenario026 : ScenarioModel
 
 			ScenarioEvents.FigureKilledEvent.Subscribe(this, objective,
 				canApplyParameters =>
-					canApplyParameters.Figure == objective &&
-					canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
+					canApplyParameters.Figure == objective, //&&
+				//canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
 				async applyParameters =>
 				{
 					await _goal.AdjustProgress(1);
@@ -176,8 +175,8 @@ public class Scenario026 : ScenarioModel
 
 		ScenarioEvents.AfterAttackPerformedEvent.Subscribe(this, icyFireThermalStone,
 			canApplyParameters =>
-				canApplyParameters.AbilityState.Target == icyFireThermalStone &&
-				canApplyParameters.AbilityState.Performer is Character or Summon,
+				canApplyParameters.AbilityState.Target == icyFireThermalStone, // &&
+			//canApplyParameters.AbilityState.Performer is Character or Summon,
 			async applyParameters =>
 			{
 				await AbilityCmd.AddConditions(null, applyParameters.AbilityState.Performer, [Conditions.Chill, Conditions.Wound1]);
@@ -186,8 +185,8 @@ public class Scenario026 : ScenarioModel
 
 		ScenarioEvents.FigureKilledEvent.Subscribe(this, icyFireThermalStone,
 			canApplyParameters =>
-				canApplyParameters.Figure == icyFireThermalStone &&
-				canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
+				canApplyParameters.Figure == icyFireThermalStone, // &&
+			//canApplyParameters.PotentialAbilityState.Performer is Character or Summon,
 			async applyParameters =>
 			{
 				await _goal.AdjustProgress(1);
@@ -237,7 +236,7 @@ public class Scenario026 : ScenarioModel
 			EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Chill)),
 			effectInfoViewParameters: new TextEffectInfoView.Parameters(
-				$"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)} 2.")
+				$"Remove all {Icons.Inline(Icons.GetCondition(Conditions.Chill))} from self or one of your summons within {Icons.Inline(Icons.Range)}2.")
 		);
 	}
 
@@ -248,10 +247,10 @@ public class Scenario026 : ScenarioModel
 		if(parameters.Room == GameController.Instance.Map.Rooms[1])
 		{
 			_hotThermalStoneRule1 = AddScenarioRule(textParameters =>
-				$"Each time a character or character summon attacks a Hot thermal stone, they immediately suffer {Icons.Inline(Icons.Damage, textParameters)}1 following the attack.");
+				$"Each time a figure attacks a Hot thermal stone, they immediately suffer {Icons.Inline(Icons.Damage, textParameters)}1 following the attack.");
 
 			_hotThermalStoneRule2 = AddScenarioRule(textParameters =>
-				$"When a character or character summon destroys a Hot thermal stone, they immediately perform {Icons.Inline(Icons.Heal, textParameters)}3, Self and place a hot coal tile in the hex it was occupying.");
+				$"When a figure destroys a Hot thermal stone, they immediately perform {Icons.Inline(Icons.Heal, textParameters)}3, Self and place a hot coal tile in the hex it was occupying.");
 
 			await ShowText(
 				"""
@@ -261,10 +260,10 @@ public class Scenario026 : ScenarioModel
 		else if(parameters.Room == GameController.Instance.Map.Rooms[2])
 		{
 			_icyFireThermalStoneRule1 = AddScenarioRule(textParameters =>
-				$"Each time a character or character summon attacks an Icy Flame thermal stone, they immediately gain {Icons.Inline(Icons.GetCondition(Conditions.Wound1), textParameters)} and {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)}.");
+				$"Each time a figure attacks an Icy Flame thermal stone, they immediately gain {Icons.Inline(Icons.GetCondition(Conditions.Wound1), textParameters)} and {Icons.Inline(Icons.GetCondition(Conditions.Chill), textParameters)}.");
 
 			_icyFireThermalStoneRule2 = AddScenarioRule(textParameters =>
-				$"When a character or character summon destroys the Icy Flame thermal stone, they immediately remove all negative conditions from self.");
+				$"When a figure destroys the Icy Flame thermal stone, they immediately remove all negative conditions from self.");
 
 			await ShowText(
 				"""

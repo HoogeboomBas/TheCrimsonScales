@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 public class CardDeck<T>
 	where T : IDeckCard
 {
 	public List<T> DrawPile { get; } = new List<T>();
 	public List<T> DiscardPile { get; } = new List<T>();
-
-	public bool MarkedForReshuffle;
 
 	public CardDeck(IEnumerable<T> cards)
 	{
@@ -40,8 +39,6 @@ public class CardDeck<T>
 		}
 
 		card.Drawn();
-
-		MarkedForReshuffle |= card.Reshuffles;
 		return card;
 	}
 
@@ -82,9 +79,8 @@ public class CardDeck<T>
 
 	public void ReshuffleIfMarked()
 	{
-		if(MarkedForReshuffle)
+		if(DiscardPile.Any(card => card.Reshuffles))
 		{
-			MarkedForReshuffle = false;
 			Reshuffle();
 		}
 	}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -37,6 +38,8 @@ public partial class AMDViewerButton : Control
 	{
 		base._Ready();
 
+		_amdButton.MouseFilter = MouseFilterEnum.Stop;
+
 		_amdButton.MouseEntered += OnMouseEntered;
 		_amdButton.MouseExited += OnMouseExited;
 		_amdButton.Pressed += OnButtonPressed;
@@ -46,6 +49,16 @@ public partial class AMDViewerButton : Control
 
 		_amdView.TopLevel = true;
 		ExtraDetailView.TopLevel = true;
+
+		GameController.Instance.HexPin.ActiveChangedEvent += OnHexPinActiveChangedEvent;
+		OnHexPinActiveChangedEvent(GameController.Instance.HexPin.Active);
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+
+		GameController.Instance.HexPin.ActiveChangedEvent -= OnHexPinActiveChangedEvent;
 	}
 
 	private void OnMouseEntered()
@@ -109,7 +122,12 @@ public partial class AMDViewerButton : Control
 		_amdView.Position = new Vector2I((int)popupPosition.X, (int)popupPosition.Y);
 	}
 
-	public void UpdateDeck()
+	public void SetAMDCardDeck(AMDCardDeck deck)
+	{
+		_amdCardDeck = deck;
+	}
+
+	private void UpdateDeck()
 	{
 		foreach(Node child in _grid.GetChildren())
 		{
@@ -168,8 +186,11 @@ public partial class AMDViewerButton : Control
 		}
 	}
 
-	public void SetAMDCardDeck(AMDCardDeck deck)
+	private void OnHexPinActiveChangedEvent(bool active)
 	{
-		_amdCardDeck = deck;
+		MouseFilter = active
+			? MouseFilterEnum.Stop
+			: MouseFilterEnum.Ignore;
+		_amdButton.MouseFilter = MouseFilter;
 	}
 }

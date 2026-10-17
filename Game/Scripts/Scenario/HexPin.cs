@@ -12,7 +12,10 @@ public partial class HexPin : Node2D
 
 	private GTween _scaleTween;
 
+	public bool Active { get; private set; }
+
 	public event Action PressedEvent;
+	public event Action<bool> ActiveChangedEvent;
 
 	public override void _Ready()
 	{
@@ -30,6 +33,13 @@ public partial class HexPin : Node2D
 
 	public void SetActive(bool active)
 	{
+		if(active == Active)
+		{
+			return;
+		}
+
+		Active = active;
+
 		_scaleTween?.Kill();
 		if(active)
 		{
@@ -39,6 +49,8 @@ public partial class HexPin : Node2D
 		{
 			_scaleTween = _scaleContainer.TweenScale(0f, 0.15f).SetEasing(Easing.InBack).PlayFastForwardable();
 		}
+
+		ActiveChangedEvent?.Invoke(Active);
 	}
 
 	public void PulsePin()

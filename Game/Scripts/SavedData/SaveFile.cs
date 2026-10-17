@@ -8,7 +8,7 @@ public class SaveFile<TSaveData>
 	private readonly string _path;
 
 	public TSaveData SaveData { get; private set; }
-	public bool RemovedSavedScenario { get; }
+	public bool RemovedSavedScenario { get; set; }
 
 	public SaveFile(string path)
 	{

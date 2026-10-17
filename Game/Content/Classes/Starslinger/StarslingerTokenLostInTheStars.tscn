@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ce33ps15672md" path="res://Content/Classes/Starslinger/StarslingerTokenLostInTheStars.cs" id="1_ale6j"]
 [ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_wo757"]
-[ext_resource type="Texture2D" uid="uid://nwkmma0qwwbh" path="res://Content/Classes/Starslinger/CharacterToken.png" id="3_l8mn5"]
+[ext_resource type="Texture2D" uid="uid://bdu1plvempi8k" path="res://Content/Classes/Starslinger/CharacterToken.png" id="3_l8mn5"]
 
 [node name="StarslingerToken" type="Node2D" unique_id=866315869]
 z_index = 20

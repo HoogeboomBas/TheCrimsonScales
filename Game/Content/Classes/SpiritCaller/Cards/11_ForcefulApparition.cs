@@ -25,7 +25,7 @@ public class ForcefulApparition : SpiritCallerCardModel<ForcefulApparition.CardT
 						.WithDistance(2)
 						.WithOnAbilityEndedPerformed(async state =>
 						{
-							await AbilityCmd.AddCondition(null, state.Performer, Conditions.Stun);
+							await AbilityCmd.AddCondition(null, state.Performer, Conditions.Stun, state.Authority);
 						})
 						.Build(),
 					textParameters =>

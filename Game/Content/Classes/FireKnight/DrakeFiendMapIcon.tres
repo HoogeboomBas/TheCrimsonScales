@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://b22ufay2ob5k7"]
-
-[ext_resource type="Texture2D" uid="uid://chno406bjkieo" path="res://Content/Classes/FireKnight/DrakeFiend.jpg" id="1_ybrw7"]
-
-[resource]
-atlas = ExtResource("1_ybrw7")
-region = Rect2(60, 110, 600, 600)

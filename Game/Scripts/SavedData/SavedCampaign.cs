@@ -175,8 +175,8 @@ public class SavedCampaign
 
 		//savedCampaign.AddCharacter(ModelDB.Class<MirefootModel>(), null, "Moerasvoet");
 		//savedCampaign.AddCharacter(ModelDB.Class<BombardModel>(), ModelDB.PersonalQuest<ExperiencedLeader>(), "Beschieter");
+		savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), ModelDB.PersonalQuest<AnAdderDivides>(), "Vuur Knecht");
 		savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), ModelDB.PersonalQuest<NaturalSelection>(), "Opperpriester");
-		//savedCampaign.AddCharacter(ModelDB.Class<FireKnightModel>(), null, "Vuur Knecht");
 		// savedCampaign.AddCharacter(ModelDB.Class<ChainguardModel>(), null, "Ketting Garde");
 		//savedCampaign.AddCharacter(ModelDB.Class<ChieftainModel>(), null, "Dierenzitter");
 		// savedCampaign.AddCharacter(ModelDB.Class<HierophantModel>(), ModelDB.PersonalQuest<AnAdderDivides>(), "Opperpriester");
@@ -195,10 +195,10 @@ public class SavedCampaign
 		// 	30, savedCampaign.Characters[0].ClassModel, savedCampaign.Characters[0].SavedPersonalQuest.Model);
 
 		savedCampaign.Characters[0].AddGold(1000);
-		for(int i = 0; i <= 14; i++)
+		/*for(int i = 0; i <= 14; i++)
 		{
 			savedCampaign.Characters[0].AcquirePerk(i);
-		}
+		}*/
 
 		// SavedScenarioProgress testScenario = new SavedScenarioProgress();
 		// testScenario.Discover();
@@ -278,6 +278,7 @@ public class SavedCampaign
 	{
 		SavedCharacter character = new SavedCharacter(classModel, personalQuestModel, name);
 		Characters.Add(character);
+		ProsperityLevelUp(character);
 
 		CharactersChangedEvent?.Invoke();
 	}
@@ -357,9 +358,31 @@ public class SavedCampaign
 			// New prosperity level, unlock new items
 			UnlockItems(newProsperityLevel);
 			ProsperityLevelChangedEvent?.Invoke(newProsperityLevel);
+
+			foreach(SavedCharacter character in Characters)
+			{
+				ProsperityLevelUp(character);
+			}
 		}
 
 		ProsperityChangedEvent?.Invoke();
+	}
+
+	private void ProsperityLevelUp(SavedCharacter character)
+	{
+		// Currently have this set to the unofficial recommended rule of (P+1)/2, round up
+		// The official rule is P/2, round up
+		int prosperityLevel = GetProsperityLevel();
+		int targetLevel = (prosperityLevel + 2) / 2;
+
+		if(targetLevel > 1)
+		{
+			int prosperityXP = character.ClassModel.XPLevelValues.Values[targetLevel - 2];
+			if(character.XP < prosperityXP)
+			{
+				character.AddXP(prosperityXP - character.XP);
+			}
+		}
 	}
 
 	public int GetProsperityLevel()

@@ -53,7 +53,6 @@ public class InterplanarVoyage : StarslingerCardModel<InterplanarVoyage.CardTop,
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 					Figure swapped = await AbilityCmd.SelectFigure(state, list =>
 					{
-						GD.Print(attackAbilityState.UniqueTargetedFigures.Count);
 						list.AddRange(attackAbilityState.UniqueTargetedFigures.Where(figure =>
 							!figure.IsDead &&
 							AbilityCmd.CanSwap(state, state.Performer, figure)));

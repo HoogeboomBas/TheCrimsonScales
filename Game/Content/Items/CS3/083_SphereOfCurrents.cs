@@ -40,7 +40,7 @@ public class SphereOfCurrents : CS3Item
 					{
 						if(figure.Hex.HasHexObjectOfType<Water>())
 						{
-							await AbilityCmd.AddCondition(null, figure, Conditions.Muddle);
+							await AbilityCmd.AddCondition(null, figure, Conditions.Muddle, user);
 						}
 					}
 				});

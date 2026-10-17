@@ -14,12 +14,12 @@
 			{
 				await Use(async user =>
 				{
-					await AbilityCmd.AddCondition(null, user, Conditions.Ward);
+					await AbilityCmd.AddCondition(null, user, Conditions.Ward, user);
 
 					if(await AbilityCmd.AskConsumeElement(user, Element.Fire,
 						   effectInfoText: $"{Icons.Inline(Icons.GetCondition(Conditions.Safeguard))}"))
 					{
-						await AbilityCmd.AddCondition(null, user, Conditions.Safeguard);
+						await AbilityCmd.AddCondition(null, user, Conditions.Safeguard, user);
 					}
 				});
 			}

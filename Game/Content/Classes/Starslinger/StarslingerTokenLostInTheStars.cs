@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Fractural.Tasks;
 
 public partial class StarslingerTokenLostInTheStars : HexObject
 {
 	private Figure _character;
-	public async GDTask Init(Figure character, Hex originHex, int rotationIndex = 0, bool hexCanBeNull = false)
+	public async GDTask Init(Figure character, Hex originHex)
 	{
 		await base.Init(originHex);
 		_character = character;

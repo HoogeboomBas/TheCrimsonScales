@@ -1,4 +1,6 @@
-﻿public class BetweenScenariosEvents
+﻿using Godot;
+
+public class BetweenScenariosEvents
 {
 	public class CalculateItemBuyPrice : BetweenScenariosEvent<CalculateItemBuyPrice.Parameters>
 	{
@@ -12,6 +14,7 @@
 			public void AdjustPrice(int delta)
 			{
 				Price += delta;
+				Price = Mathf.Max(0, Price);
 			}
 		}
 	}
