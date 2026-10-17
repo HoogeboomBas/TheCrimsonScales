@@ -264,6 +264,7 @@ position = Vector2(109.119, 567)
 
 [node name="Treasure1H" parent="Map/Rooms/Room4" index="9" unique_id=785250301 instance=ExtResource("12_6b673")]
 position = Vector2(-109.119, 567)
+TreasureNumber = 35
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room4" index="10" unique_id=550056176 instance=ExtResource("8_u456i")]
 position = Vector2(545.596, 1323)
