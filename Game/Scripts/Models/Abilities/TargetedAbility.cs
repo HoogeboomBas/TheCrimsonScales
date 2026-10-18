@@ -542,12 +542,16 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		{
 			List<AOEHex> aoeHexes;
 
+			Hex aoeOrigin = CustomGetPerformHex != null
+				? abilityState.GetPerformHex
+				: TargetHex;
+
 			//TODO: Add `during ability` scenario events to the aoe prompts so the range can be increased
 			if(abilityState.Authority is Character)
 			{
 				AOEPrompt.Answer aoeAnswer =
 					await PromptManager.Prompt(
-						new AOEPrompt(abilityState.Performer, abilityState.AbilityAOEPattern, TargetHex, null, () => "Select where to target",
+						new AOEPrompt(abilityState.Performer, abilityState.AbilityAOEPattern, aoeOrigin, null, () => "Select where to target",
 							abilityState.AbilityRange),
 						abilityState.Authority);
 
