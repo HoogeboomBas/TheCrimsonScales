@@ -24,7 +24,7 @@ public class SeverReality : HollowpactLevelUpCardModel<SeverReality.CardTop, Sev
 
 					if(hex != null)
 					{
-						await hex.GetHexObjectOfType<Obstacle>().Destroy();
+						await hex.GetHexObjectOfType<Obstacle>().Destroy(state);
 						await AbilityCmd.GainXP(state.Performer, 1);
 						await GainVoidEnergy(state);
 

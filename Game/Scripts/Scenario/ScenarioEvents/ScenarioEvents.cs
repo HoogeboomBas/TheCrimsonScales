@@ -48,11 +48,14 @@ public partial class ScenarioEvents
 
 	public class HexObjectDestroyed : ScenarioEvent<HexObjectDestroyed.Parameters>
 	{
-		public class Parameters(HexObject hexObject, bool immediately, bool forceDestroy) : ParametersBase
+		public class Parameters(
+			HexObject hexObject, bool immediately, bool forceDestroy, AbilityState potentialAbilityState, Figure potentialDestroyer) : ParametersBase
 		{
 			public HexObject HexObject { get; } = hexObject;
 			public bool Immediately { get; } = immediately;
 			public bool ForceDestroy { get; } = forceDestroy;
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
+			public Figure PotentialDestroyer { get; } = potentialDestroyer;
 		}
 	}
 
@@ -141,7 +144,7 @@ public partial class ScenarioEvents
 
 	public class AMDCardPeeked : ScenarioEvent<AMDCardPeeked.Parameters>
 	{
-		public class Parameters(AbilityState potentialAbilityState, AMDCard amdCard)	: ParametersBase
+		public class Parameters(AbilityState potentialAbilityState, AMDCard amdCard) : ParametersBase
 		{
 			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public AMDCard AMDCard = amdCard;
@@ -541,7 +544,9 @@ public partial class ScenarioEvents
 
 	public class AfterSufferDamage : ScenarioEvent<AfterSufferDamage.Parameters>
 	{
-		public class Parameters(Figure figure, int damageDealt, int damageSuffered, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters) : ParametersBase
+		public class Parameters(
+			Figure figure, int damageDealt, int damageSuffered, AbilityState abilityState, SufferDamage.Parameters sufferDamageParameters)
+			: ParametersBase
 		{
 			public Figure Figure { get; } = figure;
 			public int DamageDealt { get; } = damageDealt;
@@ -836,9 +841,10 @@ public partial class ScenarioEvents
 
 	public class FinishElementConsumed : ScenarioEvent<FinishElementConsumed.Parameters>
 	{
-		public class Parameters(Element consumedElement) : ParametersBase
+		public class Parameters(Element consumedElement, Figure potentialConsumer) : ParametersBase
 		{
-			public Element ConsumedElement = consumedElement;
+			public Element ConsumedElement { get; } = consumedElement;
+			public Figure PotentialConsumer { get; } = potentialConsumer;
 		}
 	}
 
@@ -1467,4 +1473,26 @@ public partial class ScenarioEvents
 
 	private readonly AddMinusOnesEventReward _addMinusOnesEventReward = new AddMinusOnesEventReward();
 	public static AddMinusOnesEventReward AddMinusOnesEventRewardEvent => GameController.Instance.ScenarioEvents._addMinusOnesEventReward;
+
+	public class UseSlotAdvanced : ScenarioEvent<UseSlotAdvanced.Parameters>
+	{
+		public class Parameters(UseSlotAbility.State abilityState) : ParametersBase<UseSlotAbility.State>(abilityState)
+		{
+		}
+	}
+
+	private readonly UseSlotAdvanced _useSlotAdvanced = new UseSlotAdvanced();
+	public static UseSlotAdvanced UseSlotAdvancedEvent => GameController.Instance.ScenarioEvents._useSlotAdvanced;
+
+	public class AbilityCardGiven : ScenarioEvent<AbilityCardGiven.Parameters>
+	{
+		public class Parameters(Figure cardGiver, Figure cardReceiver) : ParametersBase
+		{
+			public Figure CardGiver { get; } = cardGiver;
+			public Figure CardReceiver { get; } = cardReceiver;
+		}
+	}
+
+	private readonly AbilityCardGiven _abilityCardGiven = new AbilityCardGiven();
+	public static AbilityCardGiven AbilityCardGivenEvent => GameController.Instance.ScenarioEvents._abilityCardGiven;
 }

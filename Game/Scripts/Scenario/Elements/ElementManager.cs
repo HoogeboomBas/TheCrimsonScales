@@ -39,12 +39,12 @@ public class ElementManager
 			new ScenarioEvents.FinishElementInfused.Parameters(element));
 	}
 
-	public async GDTask Consume(Element element)
+	public async GDTask Consume(Element element, Figure potentialConsumer)
 	{
 		SetState(element, ElementState.Inert);
 
 		await ScenarioEvents.FinishElementConsumedEvent.CreatePrompt(
-			new ScenarioEvents.FinishElementConsumed.Parameters(element));
+			new ScenarioEvents.FinishElementConsumed.Parameters(element, potentialConsumer));
 	}
 
 	public void WaneAll()

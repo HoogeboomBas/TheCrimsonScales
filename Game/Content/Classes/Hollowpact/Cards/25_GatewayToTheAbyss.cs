@@ -77,9 +77,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 								state.SetCustomValue(this, "ChoseGrant", true);
 								state.SetPerformed();
 
-								LoseVoidEnergy(state.Performer, 1);
-
-								await GDTask.CompletedTask;
+								await LoseVoidEnergy(state.Performer, 1);
 							},
 							effectButtonParameters: new TextEffectButton.Parameters($"1{Icons.HintText(Hollowpact.VoidEnergy)}"),
 							effectInfoViewParameters: new TextEffectInfoView.Parameters(
@@ -93,9 +91,7 @@ public class GatewayToTheAbyss : HollowpactLevelUpCardModel<GatewayToTheAbyss.Ca
 								state.SetCustomValue(this, "ChoseControl", true);
 								state.SetPerformed();
 
-								LoseVoidEnergy(state.Performer, 1);
-
-								await GDTask.CompletedTask;
+								await LoseVoidEnergy(state.Performer, 1);
 							},
 							effectButtonParameters: new TextEffectButton.Parameters($"1{Icons.HintText(Hollowpact.VoidEnergy)}"),
 							effectInfoViewParameters: new TextEffectInfoView.Parameters(

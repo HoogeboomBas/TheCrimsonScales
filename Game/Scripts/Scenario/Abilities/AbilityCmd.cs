@@ -191,7 +191,7 @@ public static class AbilityCmd
 
 		if(!beforeFigureKilledParameters.Prevented)
 		{
-			await target.Destroy();
+			await target.Destroy(potentialAbilityState, potentialKiller);
 
 			await ScenarioEvents.FigureKilledEvent.CreatePrompt(
 				new ScenarioEvents.FigureKilled.Parameters(potentialAbilityState, target, potentialKiller), target);
@@ -416,30 +416,32 @@ public static class AbilityCmd
 		await GDTask.CompletedTask;
 	}
 
-	public static async GDTask<bool> TryDestroyObstacle(Obstacle obstacle)
+	public static async GDTask<bool> TryDestroyObstacle(Obstacle obstacle, AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null)
 	{
 		if(!obstacle.CannotBeDestroyed)
 		{
-			await obstacle.Destroy();
+			await obstacle.Destroy(potentialAbilityState, potentialDestroyer);
 			return true;
 		}
 
 		return false;
 	}
 
-	public static async GDTask DestroyDifficultTerrain(DifficultTerrain difficultTerrain)
+	public static async GDTask DestroyDifficultTerrain(DifficultTerrain difficultTerrain, AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null)
 	{
 		if(!difficultTerrain.CannotBeDestroyed)
 		{
-			await difficultTerrain.Destroy();
+			await difficultTerrain.Destroy(potentialAbilityState, potentialDestroyer);
 		}
 	}
 
-	public static async GDTask DisarmTrap(Trap trap, Figure potentialDisarmer)
+	public static async GDTask DisarmTrap(Trap trap, AbilityState potentialAbilityState = null, Figure potentialDisarmer = null)
 	{
 		if(!trap.CannotBeDestroyed)
 		{
-			await trap.Disarm();
+			await trap.Disarm(potentialAbilityState, potentialDisarmer);
 
 			await ScenarioEvents.TrapDisarmedEvent.CreatePrompt(
 				new ScenarioEvents.TrapDisarmed.Parameters(trap, potentialDisarmer));
@@ -1087,7 +1089,7 @@ public static class AbilityCmd
 				async applyParameters =>
 				{
 					applyParameters.SetConsumed(possibleElement);
-					await TryConsumeElement(possibleElement);
+					await TryConsumeElement(possibleElement, authority);
 				},
 				mandatory ? EffectType.SelectableMandatory : EffectType.Selectable, 0, false, false,
 				new ConsumeElementEffectButton.Parameters(possibleElement),
@@ -1117,7 +1119,7 @@ public static class AbilityCmd
 			async applyParameters =>
 			{
 				applyParameters.SetConsumed(element);
-				await TryConsumeElement(element);
+				await TryConsumeElement(element, authority);
 			},
 			mandatory ? EffectType.SelectableMandatory : EffectType.Selectable, 0, false, false,
 			new ConsumeElementEffectButton.Parameters(element),
@@ -1145,7 +1147,7 @@ public static class AbilityCmd
 		{
 			foreach(Element element in possibilities[0])
 			{
-				await TryConsumeElement(element);
+				await TryConsumeElement(element, authority);
 			}
 
 			return possibilities[0];
@@ -1186,21 +1188,21 @@ public static class AbilityCmd
 
 			foreach(Element element in chosenConsumption)
 			{
-				await TryConsumeElement(element);
+				await TryConsumeElement(element, authority);
 			}
 
 			return chosenConsumption;
 		}
 	}
 
-	public static async GDTask<bool> TryConsumeElement(Element element)
+	public static async GDTask<bool> TryConsumeElement(Element element, Figure potentialConsumer = null)
 	{
 		if(GameController.Instance.ElementManager.GetState(element) == ElementState.Inert)
 		{
 			return false;
 		}
 
-		await GameController.Instance.ElementManager.Consume(element);
+		await GameController.Instance.ElementManager.Consume(element, potentialConsumer);
 
 		return true;
 	}

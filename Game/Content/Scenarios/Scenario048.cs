@@ -66,14 +66,14 @@ public class Scenario048 : ScenarioModel
 		{
 			foreach(Marker marker in GameController.Instance.Map.GetMarkers(Marker.Type.a))
 			{
-				marker.GetHexObject<DifficultTerrain>()?.Destroy(true, true);
+				marker.GetHexObject<DifficultTerrain>()?.Destroy(immediately: true, forceDestroy: true);
 			}
 		}
 
 		if(GameController.Instance.CharacterManager.Characters.Count == 2)
 		{
 			Door door2 = GameController.Instance.Map.GetMarker(Marker.Type._2).GetHexObject<Door>();
-			await door2.Destroy(true, true);
+			await door2.Destroy(immediately: true, forceDestroy: true);
 
 			Vector2I coords = new Vector2I(5, -7);
 			ScenarioCheckEvents.CanEnterCheckEvent.Subscribe(this,
@@ -95,7 +95,7 @@ public class Scenario048 : ScenarioModel
 				(parameters.Figure.Hex.HasHexObjectOfType<HotCoals>()),
 			async parameters =>
 			{
-				await parameters.Figure.Hex.GetHexObjectOfType<HotCoals>().Destroy();
+				await parameters.Figure.Hex.GetHexObjectOfType<HotCoals>().Destroy(potentialDestroyer: parameters.Figure);
 				await _goal.AdjustProgress(1);
 			}, //EffectType.Selectable,
 			effectButtonParameters: new IconEffectButton.Parameters("res://Art/OverlayTiles/Hot Coals 1h.png"),

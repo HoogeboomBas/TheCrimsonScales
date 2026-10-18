@@ -126,6 +126,8 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 
 			character.AddCard(abilityCard);
 
+			await ScenarioEvents.AbilityCardGivenEvent.CreatePrompt(new ScenarioEvents.AbilityCardGiven.Parameters(abilityState.Performer, target));
+
 			object subscriber = new object();
 			ScenarioEvents.AbilityCardStateChangedEvent.Subscribe(abilityState, subscriber,
 				parameters => parameters.AbilityCard == abilityCard,

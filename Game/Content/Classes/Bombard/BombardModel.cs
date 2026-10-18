@@ -91,4 +91,10 @@ public class BombardModel : ClassModel
 
 		ModelDB.Perk<BombardPerks.EmergencyEmplacement>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<BombardMasteries.Mastery1>(),
+		ModelDB.Mastery<BombardMasteries.Mastery2>()
+	];
 }

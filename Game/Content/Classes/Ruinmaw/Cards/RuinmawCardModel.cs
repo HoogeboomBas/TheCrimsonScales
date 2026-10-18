@@ -38,7 +38,7 @@ public abstract class RuinmawCardSide : AbilityCardSideModel
 		await SateRuinmaw(state.Performer);
 	}
 
-	protected static bool IsSated(Figure figure)
+	public static bool IsSated(Figure figure)
 	{
 		return figure is Ruinmaw ruinmaw && ruinmaw.Sated;
 	}

@@ -92,7 +92,7 @@ public class Scenario002 : ScenarioModel
 
 				await _door1.Unlock();
 
-				await _pressurePlateA.Destroy();
+				await _pressurePlateA.Destroy(potentialDestroyer: applyParameters.Figure);
 
 				ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(this, _pressurePlateA);
 
@@ -133,7 +133,7 @@ public class Scenario002 : ScenarioModel
 
 					await _door2.Unlock();
 
-					await _pressurePlateB.Destroy();
+					await _pressurePlateB.Destroy(potentialDestroyer: applyParameters.Figure);
 
 					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(this, _pressurePlateB);
 
@@ -164,7 +164,7 @@ public class Scenario002 : ScenarioModel
 						}
 					}
 
-					await _pressurePlateC.Destroy();
+					await _pressurePlateC.Destroy(potentialDestroyer: applyParameters.Figure);
 
 					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(this, _pressurePlateC);
 

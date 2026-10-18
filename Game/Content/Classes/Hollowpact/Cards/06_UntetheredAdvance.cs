@@ -59,7 +59,7 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 
 					if(overlayTile != null)
 					{
-						await overlayTile.Destroy();
+						await overlayTile.Destroy(state);
 						await GainVoidEnergy(state);
 
 						state.SetPerformed();

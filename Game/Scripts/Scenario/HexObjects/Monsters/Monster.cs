@@ -155,7 +155,8 @@ public partial class Monster : Figure
 		}
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
 		// Unsubscribe from any events that the monster subscribed to using abilities this turn
 		if(MonsterGroup.ActiveMonsterAbilityCard != null)
@@ -170,7 +171,7 @@ public partial class Monster : Figure
 			ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(this, _bossSpecialSubscriber);
 		}
 
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 
 		await AbilityCmd.SpawnCoin(Hex, this);
 	}

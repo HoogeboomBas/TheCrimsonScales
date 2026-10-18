@@ -156,6 +156,11 @@ public static class ModelDB
 		return GetOrCreate<T>();
 	}
 
+	public static T Mastery<T>() where T : MasteryModel
+	{
+		return GetOrCreate<T>();
+	}
+
 	public static T BattleGoal<T>() where T : BattleGoalModel
 	{
 		return GetOrCreate<T>();

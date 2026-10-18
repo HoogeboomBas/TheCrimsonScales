@@ -47,6 +47,9 @@ public class SavedCharacter
 	public List<int> AcquiredPerkIndices { get; private set; } = new List<int>();
 
 	[JsonProperty]
+	public List<Mastery> Masteries { get; private set; } = new List<Mastery>();
+
+	[JsonProperty]
 	public string[] DonationAMDCardIds { get; private set; }
 
 	[JsonProperty]
@@ -96,6 +99,11 @@ public class SavedCharacter
 		if(personalQuestModel != null)
 		{
 			SavedPersonalQuest = new SavedPersonalQuest(personalQuestModel);
+		}
+
+		foreach(MasteryModel model in classModel.Masteries)
+		{
+			Masteries.Add(new Mastery(model));
 		}
 	}
 

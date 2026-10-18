@@ -19,6 +19,6 @@ public abstract partial class LootableObject : HexObject
 
 		await GDTask.DelayFastForwardable(0.3f);
 
-		await Destroy();
+		await Destroy(potentialDestroyer: lootObtainer);
 	}
 }

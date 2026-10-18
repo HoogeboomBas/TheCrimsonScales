@@ -147,7 +147,7 @@ public partial class Spirit : Figure
 			{
 				if(parameters.HexObject == CharacterOwner)
 				{
-					await Destroy(parameters.Immediately, parameters.ForceDestroy);
+					await Destroy(immediately: parameters.Immediately, forceDestroy: parameters.ForceDestroy);
 				}
 				else
 				{
@@ -265,7 +265,8 @@ public partial class Spirit : Figure
 		}
 	}
 
-	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
+	public override async GDTask Destroy(AbilityState potentialAbilityState = null,
+		Figure potentialDestroyer = null, bool immediately = false, bool forceDestroy = false)
 	{
 		await RemoveTurnActionFromActive();
 
@@ -287,7 +288,7 @@ public partial class Spirit : Figure
 
 		DeregisterSpirit();
 
-		await base.Destroy(immediately, forceDestroy);
+		await base.Destroy(potentialAbilityState, potentialDestroyer, immediately, forceDestroy);
 	}
 
 	public void SetAttack(int? attack)

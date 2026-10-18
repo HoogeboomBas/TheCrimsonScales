@@ -30,7 +30,7 @@ public class BurningPit : SpiritCallerCardModel<BurningPit.CardTop, BurningPit.C
 						{
 							Spirit spirit = state.ActionState.GetAbilityState<SpawnAbility.State>(0).Spirit;
 
-							await spirit.Destroy();
+							await spirit.Destroy(state);
 
 							await AbilityCmd.SufferDamage(state, parameters.Figure,
 								GameController.Instance.ElementManager.GetState(Element.Fire) > ElementState.Inert ? 4 : 3);

@@ -87,4 +87,10 @@ public class RuinmawModel : ClassModel
 
 		ModelDB.Perk<RuinmawPerks.AdrenalineRush>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<RuinmawMasteries.Mastery1>(),
+		ModelDB.Mastery<RuinmawMasteries.Mastery2>()
+	];
 }

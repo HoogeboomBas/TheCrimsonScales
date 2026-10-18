@@ -397,6 +397,11 @@ public partial class GameController : SceneController<GameController>
 					BattleGoalCompletedEvent?.Invoke(character.SavedCharacter, battleGoal.Model);
 				}
 			}
+
+			foreach(Mastery mastery in character.SavedCharacter.Masteries.Where(mastery => !mastery.Completed))
+			{
+				mastery.OnScenarioCompleted(character.SavedCharacter, ScenarioResult);
+			}
 		}
 
 		if(ScenarioResult == ScenarioResult.Win)

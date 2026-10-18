@@ -19,6 +19,8 @@ public abstract class ClassModel : AbstractModel
 
 	public abstract List<AbilityCardModel> AbilityCards { get; }
 	public abstract List<PerkModel> Perks { get; }
+	//Make abstract
+	public virtual List<MasteryModel> Masteries { get; } = [];
 
 	public virtual XPLevelValues XPLevelValues => XPLevelValues.Default;
 	public abstract PackedScene Scene { get; }

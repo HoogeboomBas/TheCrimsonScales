@@ -32,7 +32,7 @@ public class AlchemyPotion : CS1Item, IPotion
 						return;
 					}
 
-					if(await AbilityCmd.TryDestroyObstacle(hex.GetHexObjectOfType<Obstacle>()))
+					if(await AbilityCmd.TryDestroyObstacle(hex.GetHexObjectOfType<Obstacle>(), potentialDestroyer: user))
 					{
 						await AbilityCmd.SpawnCoin(hex);
 					}

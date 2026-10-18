@@ -87,4 +87,10 @@ public class ChainguardModel : ClassModel
 
 		ModelDB.Perk<ChainguardPerks.UnyieldingJailer>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<ChainguardMasteries.Mastery1>(),
+		ModelDB.Mastery<ChainguardMasteries.Mastery2>()
+	];
 }

@@ -74,8 +74,9 @@ public partial class Hollowpact : Character
 		_voidEnergyIndicator.SetStackText(_voidEnergyCount.ToString());
 	}
 
-	public void LoseVoidEnergy(int count = 1)
+	public async GDTask LoseVoidEnergy(int count = 1)
 	{
+		int voidSpent = 0;
 		for(int i = 0; i < count; i++)
 		{
 			if(_voidEnergyCount == 0)
@@ -84,7 +85,10 @@ public partial class Hollowpact : Character
 			}
 
 			_voidEnergyCount--;
+			voidSpent++;
 		}
+
+		await ScenarioEvents.VoidEnergySpentEvent.CreatePrompt(new ScenarioEvents.VoidEnergySpent.Parameters(this, voidSpent));
 
 		if(_voidEnergyCount == 0)
 		{

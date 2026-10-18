@@ -164,7 +164,8 @@ public class Scenario006 : ScenarioModel
 
 				antidoteBottlesPicked++;
 
-				await chosenHex.GetHexObjectOfType<Obstacle>().Destroy(false, true);
+				await chosenHex.GetHexObjectOfType<Obstacle>()
+					.Destroy(potentialDestroyer: parameters.Performer, immediately: false, forceDestroy: true);
 				hexesWithAntidote.Remove(chosenHex);
 
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(parameters.Performer, this,

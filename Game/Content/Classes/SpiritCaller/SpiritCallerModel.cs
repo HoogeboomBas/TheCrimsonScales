@@ -89,4 +89,10 @@ public class SpiritCallerModel : ClassModel
 
 		ModelDB.Perk<SpiritCallerPerks.SpectralVelocity>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<SpiritCallerMasteries.Mastery1>(),
+		ModelDB.Mastery<SpiritCallerMasteries.Mastery2>()
+	];
 }

@@ -83,7 +83,7 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 							{
 								foreach(Obstacle obstacle in enteredHexParameters.Hex.GetHexObjectsOfType<Obstacle>())
 								{
-									await obstacle.Destroy();
+									await obstacle.Destroy(pushParameters.AbilityState);
 									await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 2, pushParameters.Performer);
 								}
 

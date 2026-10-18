@@ -89,4 +89,10 @@ public class MirefootModel : ClassModel
 
 		ModelDB.Perk<MirefootPerks.HiddenBlade>()
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<MirefootMasteries.Mastery1>(),
+		ModelDB.Mastery<MirefootMasteries.Mastery2>()
+	];
 }

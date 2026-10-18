@@ -90,4 +90,10 @@ public class BrightsparkModel : ClassModel
 
 		ModelDB.Perk<BrightsparkPerks.SparkOfInspiration>(),
 	];
+
+	public override List<MasteryModel> Masteries { get; } =
+	[
+		ModelDB.Mastery<BrightsparkMasteries.Mastery1>(),
+		ModelDB.Mastery<BrightsparkMasteries.Mastery2>()
+	];
 }
