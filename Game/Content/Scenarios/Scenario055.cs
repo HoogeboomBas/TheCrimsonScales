@@ -11,6 +11,11 @@ public class Scenario055 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SideScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Open four coffins and kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You are walking near the city walls with Shiela, the potion maker, on a rare day that is both sunny and peaceful, when the Captain of the Guard approaches you. You greet him with mild caution—many of your exploits are technically outside the city’s laws, but he is a good man and generally very good at turning a blind eye to some of your more dubious activities. Still, you are relieved when he asks for your help.

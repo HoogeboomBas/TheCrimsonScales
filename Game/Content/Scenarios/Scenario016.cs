@@ -38,6 +38,11 @@ public class Scenario016 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SailScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Loot both goal treasures to unlock the door and defeat the Apex Demon.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You return to the docks, seeking the Apex Demon’s ship. You don’t quite know what you will encounter, but you do want to know why he tried to prevent you from travelling to the island that Sankas told you about. Although you are careful to avoid the Harbour Master after your disastrous attempt to land the ship you took to the island, you find the Preto Krisanta easily enough.

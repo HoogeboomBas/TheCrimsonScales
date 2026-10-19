@@ -18,6 +18,11 @@ public class Scenario007 : ScenarioModel
 		new ScenarioConnection<Scenario010>()
 	];
 
+	public override string PreviewText =>
+	"""
+		Find the three golden eggs.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Keen to impress both Councilman Raksani and Selandre, you hurry to the Lingering Swamp in search of the Golden Eggs. You had heard of the near-mythical Svarn Seahawk, a dangerous and very protective bird which was supposed to lay golden eggs in remote swampland, but you had never believed it personally. However, the directions are precise, and when you get to the site you see a flattened area of marsh with pockmarked, water filled holes, just like the legend tells.

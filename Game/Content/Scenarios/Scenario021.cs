@@ -12,6 +12,11 @@ public class Scenario021 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario027>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Lavalite.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You cannot wait to show Selandre that you have recovered the Orb of Embers to go with the Frosted Crystal, and burst into The Crimson Scale to show off your find.She is impressed, and a little surprised at your prompt return. “Well, well. How did you find this? Did you get somewhere with that old fool Tredan? He never gives me the time of day.”

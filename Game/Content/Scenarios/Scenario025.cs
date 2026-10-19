@@ -11,6 +11,11 @@ public class Scenario025 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<WondrousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario031>()];
 
+	public override string PreviewText =>
+	"""
+		Protect the Brightspark and loot at least 4 treasures.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		The Aesther’s notes you recovered from the Den of Monstrosity mentioned another master of elements. Unsure what to think, but always keen for an adventure, you travel to the location you have for him, holed up in the old Harbour Master’s office.

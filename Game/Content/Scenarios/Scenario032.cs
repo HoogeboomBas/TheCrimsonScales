@@ -46,6 +46,11 @@ public class Scenario032 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat Selandre.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You step into The Crimson Scale and pause. Something is different; there is a tension in the air, as if battle lines have been drawn.

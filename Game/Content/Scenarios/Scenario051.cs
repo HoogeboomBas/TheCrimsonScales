@@ -12,6 +12,11 @@ public class Scenario051 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SideScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		It is a fine day, and you are walking through the Old Docks with, as usual, one eye out for potential trouble and the other for opportunity.

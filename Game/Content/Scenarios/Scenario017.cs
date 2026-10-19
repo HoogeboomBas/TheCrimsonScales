@@ -12,6 +12,11 @@ public class Scenario017 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario018>(true)];
 
+	public override string PreviewText =>
+	"""
+		Loot the Orb of Embers and escape the room.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Delighted with your find, you rush back to the Sanctuary, sure that Athan Tredan will be excited to see your find, and keen to learn about the perilous task you undertook to recover the book for him. You knock on his door and, barely waiting for an answer, you eagerly burst in. Big mistake.

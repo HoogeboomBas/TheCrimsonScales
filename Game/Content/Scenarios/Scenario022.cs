@@ -51,6 +51,11 @@ public class Scenario022 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill 4 Imps per character.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following Athan Tredan’s information on the Imp Temple, you head towards the Dagger Forest, albeit a little dubiously as imps do not strike you as the religious type. As you approach the clearing in which the temple is set however, you begin to understand.

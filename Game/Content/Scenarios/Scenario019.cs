@@ -16,6 +16,11 @@ public class Scenario019 : ScenarioModel
 		new ScenarioConnection<Scenario023>(), new ScenarioConnection<Scenario024>(), new ScenarioConnection<Scenario025>()
 	];
 
+	public override string PreviewText =>
+	"""
+		Defeat all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following the notes you found in the Den of Monstrosity that Athan Tredan had directed you to, you head to the nearby building which was mentioned in the jotted records you discovered.

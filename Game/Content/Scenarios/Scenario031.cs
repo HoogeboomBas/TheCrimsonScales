@@ -14,6 +14,11 @@ public class Scenario031 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<WondrousScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Eternal Demon.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You are heading back to the Sleeping Lion for a nightcap, and laughing about the eccentric Brightspark, when you hear a loud, crackling, rending noise and a bright flash. A red rimmed hole opens up beneath you, sending you tumbling into a void, before the hole above you seals again.

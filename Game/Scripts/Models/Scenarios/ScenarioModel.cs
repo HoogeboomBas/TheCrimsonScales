@@ -22,6 +22,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 	public virtual IEnumerable<ScenarioConnection> Connections { get; } = [];
 
 	public abstract string IntroductionText { get; }
+	public abstract string PreviewText { get; }
 	public abstract string ConclusionText { get; }
 
 	public abstract List<MonsterModel> MonsterModels { get; }

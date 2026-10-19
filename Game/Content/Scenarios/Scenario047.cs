@@ -10,6 +10,11 @@ public class Scenario047 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill a number of Ghost Vipers equal to the character count plus 4.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You’re fairly certain that you’ve followed the Mirefoot’s directions precisely as you were told, but you’ve been wandering through a part of the Lingering Swamp that you never knew existed before today, and the only movement you’ve seen in hours is that of a few Oozes. The Mirefoot isn’t usually wrong about things like this, and if someone in the city can craft a poison from this Ghost Viper venom, then you’re sure it’ll be of value, so you push on.

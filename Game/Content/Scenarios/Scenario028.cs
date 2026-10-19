@@ -12,6 +12,11 @@ public class Scenario028 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<TaintedScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario029>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Fountain of Bones.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You eventually return to the Crimson Scale following your trip to the docks, as directed. Selandre is waiting for you, again looking tense, but she smiles when she sees you.

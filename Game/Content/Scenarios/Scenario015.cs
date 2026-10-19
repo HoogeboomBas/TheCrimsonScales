@@ -13,6 +13,11 @@ public class Scenario015 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SailScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario016>()];
 
+	public override string PreviewText =>
+	"""
+		Survive 10 rounds.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		As you attempt to head towards your ship carrying the glowing power source between you, you find yourself surrounded by wild island animals who look like they’ve been possessed. Again, they are extremely aggressive, and their eyes have an eerie glow that mimics the blue-green of the power source itself. This does not look right, but if you are going to make it back to your ship alive, you’ll have to fight some of the animals off.
