@@ -19,6 +19,11 @@ public class Scenario009 : ScenarioModel
 		new ScenarioConnection<Scenario014>()
 	];
 
+	public override string PreviewText =>
+	"""
+		Kill revealed enemies and loot the goal treasure.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You make your way down a deep set of stairs, which lead to another wooden door. Luckily for you, this one is unlocked. With a brief nod between you, you push the door open. All of a sudden, you’re blinded by flashing lights, and when you manage to squint your eyes open you see real guards—and more guns.

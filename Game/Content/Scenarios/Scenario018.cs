@@ -38,6 +38,11 @@ public class Scenario018 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario020>(), new ScenarioConnection<Scenario021>()];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies and escape the room.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You sprint back out of the cave, clutching the Orb of Embers tightly. You hear a roar from the beasts in the cave, who seem to have multiplied, and dash down a tight valley to the right of the cavern.

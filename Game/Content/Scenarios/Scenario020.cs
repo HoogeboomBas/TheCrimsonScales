@@ -13,6 +13,11 @@ public class Scenario020 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario022>()];
 
+	public override string PreviewText =>
+	"""
+		Defeault the cultist.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You take the Orb of Embers straight to Athan (knocking cautiously on the office door this time). Rather than his slightly grumpy call of “Enter!,” instead he sounds weary as he invites you in.

@@ -10,6 +10,11 @@ public class Scenario014 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill 3 Cultists.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You are in the Sleeping Lion, catching up with Shiela and her latest potion developments when the singing Quatryl appears. The other patrons are quite happy at this—they’ll either get a good song, or an opportunity to heckle—but you fail to hide your disgust.

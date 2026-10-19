@@ -11,6 +11,11 @@ public class Scenario029 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<TaintedScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario030>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all Bone Archers.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		With Dominic’s warning ringing in your ears, you follow the directions he interpreted to the chamber referenced in the scrolls. It is not too far from the city center, and after a short search in some deep undergrowth, you find a flight of half-buried steps set into the ground. Lighting torches, you venture down.

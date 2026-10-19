@@ -11,6 +11,11 @@ public class Scenario010 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<WondrousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario017>(), new ScenarioConnection<Scenario019>()];
 
+	public override string PreviewText =>
+	"""
+		Destroy at least 5 supply crates.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You remain fascinated by what Selandre called the Frosted Crystal and, having recovered it (somewhat reluctantly) from her, you take it, carefully wrapped, to see her suggested contact, Athan Tredan— Head Keeper of the Gloomhaven Great Oak.

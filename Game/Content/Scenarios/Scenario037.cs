@@ -12,6 +12,11 @@ public class Scenario037 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario038>(true)];
 
+	public override string PreviewText =>
+	"""
+		Defeat all enemies and destory the burning stones.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		There have been rumors for a while of strange lights, storms of energy and even stranger creatures roaming the edges of the Lingering Swamp, but it doesn’t really catch your attention. However, when an acquaintance disappears, and his travelling companion reports of seeing creatures that can manipulate multiple elements at once, you decide it is time to investigate.

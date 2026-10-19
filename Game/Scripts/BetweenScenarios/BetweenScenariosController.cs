@@ -227,8 +227,11 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			return;
 		}
 
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber}",
-			$"Start scenario {scenarioModel.ScenarioNumber}?",
+		string monsterList = string.Join("\n",scenarioModel.MonsterModels.Select(monster => $"- {monster.Name}"));
+
+		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}",
+		$"Goal: {scenarioModel.PreviewText} \n Enemies: \n {monsterList}"
+			,
 			new TextButton.Parameters("Cancel",
 				() =>
 				{

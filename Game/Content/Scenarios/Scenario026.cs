@@ -14,6 +14,11 @@ public class Scenario026 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.FrozenWarrior, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Destroy all 5 thermal stones.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You consult the directions you found in the Aesther’s lab one final time, and haul yourself to the top of a nearby peak. There is significant geo-thermal energy here, creating hot springs and bubbling lava amongst the ice and snow. There is steam, or possibly mist, surrounding the peak, so it is initially hard to see what is going on. You check the brief notes, which seem to refer to harnessing “thermal stones” to create, influence or somehow modify, the strange creatures. You hope that destroying them will halt the mysterious Aesther’s plans, at least for now.
