@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -77,14 +78,15 @@ public class StandingGround : HierophantCardModel<StandingGround.CardTop, Standi
 					}
 				})
 				.WithConditionalAbilityCheck(async state =>
-					{
+				{
 						await GDTask.CompletedTask;
 
 						AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 
-						return attackAbilityState.Performed;
-					}
-				)
+						return attackAbilityState.Performed && attackAbilityState.UniqueTargetedFigures
+							.SelectMany(attackedFigure => RangeHelper.GetFiguresInRange(attackedFigure.Hex, 1))
+							.Any(figure => figure.AlliedWith(state.Performer) && AbilityCmd.CanConsumeElement(Element.Earth, figure));
+				})
 				.Build())
 		];
 	}

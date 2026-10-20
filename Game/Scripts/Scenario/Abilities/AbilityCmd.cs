@@ -639,16 +639,16 @@ public static class AbilityCmd
 	}
 
 	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
-		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, effectCollection, hintText);
+		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, effectCollection, hintText);
 	}
 
 	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null, Func<string> hintText = null)
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, mandatory, effectCollection,
+			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, mandatory, effectCollection,
 				hintText ?? (() => "Select a target")),
 			authority);
 
