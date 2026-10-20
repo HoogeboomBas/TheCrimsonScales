@@ -16,6 +16,11 @@ public static class RangeHelper
 		return GameController.Instance.Map.Distance(origin, destination) ?? InfiniteRange;
 	}
 
+	public static HashSet<Hex> GetHexesOnAnyShortestPath(Hex origin, Hex destination)
+	{
+		return GameController.Instance.Map.GetHexesOnAnyShortestPath(origin, destination);
+	}
+
 	public static void FindHexesInRange(Hex origin, int range, bool requiresLineOfSight, List<Hex> list,
 		bool requiresHexesRevealed = true, bool allowDoors = false, int minRange = 0)
 	{

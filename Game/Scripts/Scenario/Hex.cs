@@ -10,6 +10,8 @@ public partial class Hex : Node2D
 
 	public bool Revealed { get; private set; }
 
+	public Figure Creator { get; set; } = null;
+
 	public List<Hex> Neighbours { get; } = new List<Hex>();
 	public List<HexObject> HexObjects { get; } = new List<HexObject>();
 

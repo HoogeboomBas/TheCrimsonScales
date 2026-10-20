@@ -435,6 +435,14 @@ public static class AbilityCmd
 		}
 	}
 
+	public static async GDTask DestroyHazardousTerrain(HazardousTerrain hazardousTerrain)
+	{
+		if(!hazardousTerrain.CannotBeDestroyed)
+		{
+			await hazardousTerrain.Destroy();
+		}
+	}
+
 	public static async GDTask DisarmTrap(Trap trap, Figure potentialDisarmer)
 	{
 		if(!trap.CannotBeDestroyed)
@@ -461,6 +469,11 @@ public static class AbilityCmd
 		PackedScene scene = SceneLoader.LoadPackedScene(assetPath);
 
 		return await CreateOverlayTile<Obstacle>(hex, scene);
+	}
+
+	public static async GDTask<HazardousTerrain> CreateHazardousTerrain(Hex hex, PackedScene scene)
+	{
+		return await CreateOverlayTile<HazardousTerrain>(hex, scene);
 	}
 
 	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
@@ -702,20 +715,17 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false,
-		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card",
-		bool autoSelectIfAllCanBeSelected = false)
+		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card")
 	{
-		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText,
-				autoSelectIfAllCanBeSelected))
+		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText))
 			.FirstOrDefault();
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Figure authority, Action<List<AbilityCard>> getAllCards, CardState? requiredCardState,
-		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card",
-		bool autoSelectIfAllCanBeSelected = false)
+		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card")
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(getAllCards,
-			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), authority);
+			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText), authority);
 
 		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0
 			? null
@@ -724,7 +734,7 @@ public static class AbilityCmd
 
 	public static async GDTask<List<AbilityCard>> SelectAbilityCards(Character character, CardState? requiredCardState,
 		int minSelectionCount, int maxSelectionCount, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null,
-		string hintText = "Select cards", bool autoSelectIfAllCanBeSelected = false)
+		string hintText = "Select cards")
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(
 			cards =>
@@ -739,7 +749,7 @@ public static class AbilityCmd
 					cards.Add(abilityCard);
 				}
 			},
-			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), character);
+			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText), character);
 
 		return answer.CardReferenceIds == null
 			? []
@@ -926,10 +936,7 @@ public static class AbilityCmd
 			canSwap = false;
 		}
 
-		if(figureA != null && figureB != null)
-		{
-			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, figureB);
-		}
+		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, figureB);
 
 		return canSwap;
 	}
