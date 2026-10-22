@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using Godot;
 
@@ -87,6 +88,85 @@ public partial class Map
 		}
 
 		return distance;
+	}
+
+	public HashSet<Hex> GetHexesOnAnyShortestPath(Hex origin, Hex destination)
+	{
+		if (origin == null || destination == null)
+			return new HashSet<Hex>();
+
+		if (origin == destination)
+			return new HashSet<Hex> { origin };
+
+		var openList = new List<Node>();
+		var closedList = new Dictionary<Hex, Node>();
+
+		var start = new Node(origin, 0);
+		openList.Add(start);
+		closedList[origin] = start;
+
+		Node goal = null;
+
+		while (openList.Count > 0)
+		{
+			Node current = openList[0];
+			openList.RemoveAt(0);
+
+			if (current.Hex == destination)
+			{
+				goal = current;
+				break;
+			}
+
+			foreach (Hex neighbour in current.Hex.Neighbours)
+			{
+				if (neighbour == null)
+					continue;
+
+				var candidate = new Node(neighbour, current.Distance + 1);
+				candidate.Parents.Add(current);
+
+				if (closedList.TryGetValue(neighbour, out Node existing))
+				{
+					var cmp = candidate.CompareTo(existing);
+					if (cmp == CompareResult.Better)
+					{
+						openList.Remove(existing);
+						openList.Add(candidate);
+						closedList[neighbour] = candidate;
+					}
+					else if (cmp == CompareResult.Equal)
+					{
+						existing.Parents.Add(current);
+					}
+				}
+				else
+				{
+					openList.Add(candidate);
+					closedList[neighbour] = candidate;
+				}
+			}
+		}
+
+		if (goal == null)
+			return new HashSet<Hex>();
+
+		// Walk every parent chain so we collect all hexes that participate in any shortest path
+		var result = new HashSet<Hex>();
+		var stack = new Stack<Node>();
+		stack.Push(goal);
+
+		while (stack.Count > 0)
+		{
+			Node node = stack.Pop();
+			if (!result.Add(node.Hex))
+				continue;
+
+			foreach (Node parent in node.Parents)
+				stack.Push(parent);
+		}
+
+		return result;
 	}
 
 	public bool HasLineOfSight(Hex origin, Hex destination)

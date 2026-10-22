@@ -589,9 +589,9 @@ public partial class ScenarioCheckEvents
 
 			public int SortingInitiativeAdjustment { get; private set; } = 0;
 
-			public void AdjustTargetSortingInitiative(int adjutstment)
+			public void AdjustTargetSortingInitiative(int adjustment)
 			{
-				SortingInitiativeAdjustment = adjutstment;
+				SortingInitiativeAdjustment = adjustment;
 			}
 		}
 	}
