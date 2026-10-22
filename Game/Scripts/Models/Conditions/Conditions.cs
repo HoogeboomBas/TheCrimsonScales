@@ -18,6 +18,8 @@ public static class Conditions
 
 	public static Immobilize Immobilize { get; } = ModelDB.Condition<Immobilize>();
 
+	public static Blind Blind { get; } = ModelDB.Condition<Blind>();
+
 	public static Chill Chill { get; } = ModelDB.Condition<Chill>();
 
 	public static Rupture Rupture { get; } = ModelDB.Condition<Rupture>();
@@ -43,6 +45,7 @@ public static class Conditions
 		Wound1,
 		Muddle,
 		Immobilize,
+		Blind,
 		Disarm,
 		Stun,
 		Curse,
