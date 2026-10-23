@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -229,9 +229,9 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 
 		string monsterList = string.Join("\n",scenarioModel.MonsterModels.Select(monster => $"- {monster.Name}"));
 
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}",
-		$"Goal: {scenarioModel.PreviewText} \n Enemies: \n {monsterList}"
-			,
+		AppController.Instance.PopupManager.OpenPopupOnTop(new ScenarioPreviewPopup.Request($"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}",
+		$"Goal: {scenarioModel.PreviewText} \n",
+			scenarioModel.MonsterModels,
 			new TextButton.Parameters("Cancel",
 				() =>
 				{

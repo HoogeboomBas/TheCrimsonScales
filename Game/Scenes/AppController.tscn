@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://csspferq1wa8d" path="res://Scenes/UI/Popups/RewardsPopup/RewardsPopup.tscn" id="23_k5qle"]
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="23_p2uns"]
 [ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="23_xa2sm"]
+[ext_resource type="PackedScene" uid="uid://cru75hhiolec5" path="res://Scenes/UI/Popups/ScenarioPreviewPopup/ScenarioPreviewPopup.tscn" id="28_el2s4"]
 [ext_resource type="Script" uid="uid://bgob383cre1d1" path="res://Scripts/ScreenshotHelper.cs" id="28_p2uns"]
 [ext_resource type="Script" uid="uid://ba4uba34l4vdl" path="res://Scripts/UI/PersonalQuests/PersonalQuestProgressUpdateView.cs" id="29_vkcub"]
 [ext_resource type="PackedScene" uid="uid://bq57guwvi3fda" path="res://Scenes/UI/PersonalQuests/PersonalQuestProgressUpdateViewItem.tscn" id="30_naft5"]
@@ -140,6 +141,9 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="ErrorPopup" parent="CanvasLayer/PopupManager" unique_id=682019035 instance=ExtResource("17_g5bd1")]
+layout_mode = 1
+
+[node name="ScenarioPreviewPopup" parent="CanvasLayer/PopupManager" unique_id=599801622 instance=ExtResource("28_el2s4")]
 layout_mode = 1
 
 [node name="CardPreviewView" type="Control" parent="CanvasLayer" unique_id=588632189]
