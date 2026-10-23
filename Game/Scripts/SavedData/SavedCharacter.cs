@@ -56,6 +56,9 @@ public class SavedCharacter
 	public SavedPersonalQuest SavedPersonalQuest { get; private set; }
 
 	[JsonProperty]
+	public int Generation { get; private set; }
+
+	[JsonProperty]
 	public Guid Guid { get; private set; } = Guid.NewGuid();
 
 	public ClassModel ClassModel => ModelDB.GetById<ClassModel>(ClassModelId);
@@ -73,7 +76,7 @@ public class SavedCharacter
 	{
 	}
 
-	public SavedCharacter(ClassModel classModel, PersonalQuestModel personalQuestModel, string name = "")
+	public SavedCharacter(SavedCampaign savedCampaign, ClassModel classModel, PersonalQuestModel personalQuestModel, string name = "")
 	{
 		ClassModelId = classModel.Id.ToString();
 		Level = 1;
@@ -88,7 +91,7 @@ public class SavedCharacter
 			HandAbilityCardIndices.Add(i);
 		}
 
-		Gold = 30;
+		Gold = savedCampaign.Prosperity * 10 + 20;
 		Name = name;
 		EquippedBaseSlotItems = new string[5];
 		EquippedSmallItems = new List<string>();
@@ -96,6 +99,12 @@ public class SavedCharacter
 		if(personalQuestModel != null)
 		{
 			SavedPersonalQuest = new SavedPersonalQuest(personalQuestModel);
+		}
+
+		Generation = savedCampaign.CharacterGeneration;
+		for(int i = 0; i < Generation; i++)
+		{
+			AddAvailablePerk();
 		}
 	}
 
