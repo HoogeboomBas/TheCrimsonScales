@@ -50,7 +50,8 @@ public partial class AbilityCardView : CardView
 			{
 				foreach(AbilityState abilityState in activeActionState.AbilityStates)
 				{
-					if(abilityState is UseSlotAbility.State useSlotAbilityState && useSlotAbilityState.UseSlotIndex < useSlotAbilityState.Slots.Count)
+					if(abilityState is IUseSlotsAbilityState useSlotAbilityState &&
+					   useSlotAbilityState.UseSlotIndex < useSlotAbilityState.Slots.Count)
 					{
 						UseSlot useSlot = useSlotAbilityState.Slots[useSlotAbilityState.UseSlotIndex];
 

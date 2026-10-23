@@ -61,6 +61,7 @@ public abstract class TargetedAbilityState : AbilityState, IConditionsAbilitySta
 	public int SingleTargetPush { get; set; }
 	public int SingleTargetPull { get; set; }
 	public int SingleTargetSwing { get; set; }
+	public Hex SingleTargetForcedMovementOriginHex { get; set; }
 
 	public abstract Figure Target { get; }
 
@@ -298,6 +299,11 @@ public abstract class TargetedAbilityState : AbilityState, IConditionsAbilitySta
 	public void SingleTargetAdjustSwing(int amount)
 	{
 		SingleTargetSwing += amount;
+	}
+
+	public void SingleTargetSetForcedMovementOriginHex(Hex hex)
+	{
+		SingleTargetForcedMovementOriginHex = hex;
 	}
 }
 
@@ -636,7 +642,10 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 
 			abilityState.SetPerformed();
 
-			await AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
+			if(!await AfterTargetConfirmedBeforeConditionsApplied(abilityState, target))
+			{
+				continue;
+			}
 
 			await ApplyConditions(abilityState, target, abilityState.SingleTargetConditionModels);
 
@@ -645,21 +654,24 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			// Pull
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPull > 0)
 			{
-				await ForcedMovement(abilityState, abilityState.GetPerformHex, target, abilityState.SingleTargetPull, ForcedMovementType.Pull,
+				await ForcedMovement(abilityState, abilityState.SingleTargetForcedMovementOriginHex, target, abilityState.SingleTargetPull,
+					ForcedMovementType.Pull,
 					() => $"Select a path to {Icons.HintText(Icons.Pull)}{abilityState.SingleTargetPull} target");
 			}
 
 			// Push
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetPush > 0)
 			{
-				await ForcedMovement(abilityState, abilityState.GetPerformHex, target, abilityState.SingleTargetPush, ForcedMovementType.Push,
+				await ForcedMovement(abilityState, abilityState.SingleTargetForcedMovementOriginHex, target, abilityState.SingleTargetPush,
+					ForcedMovementType.Push,
 					() => $"Select a path to {Icons.HintText(Icons.Push)}{abilityState.SingleTargetPush} target");
 			}
 
 			// Swing
 			if(!performer.IsDestroyed && !target.IsDestroyed && abilityState.SingleTargetSwing > 0)
 			{
-				await ForcedMovement(abilityState, abilityState.GetPerformHex, target, abilityState.SingleTargetSwing, ForcedMovementType.Swing,
+				await ForcedMovement(abilityState, abilityState.SingleTargetForcedMovementOriginHex, target, abilityState.SingleTargetSwing,
+					ForcedMovementType.Swing,
 					() => $"Select a path to {Icons.HintText(Icons.Swing)}{abilityState.SingleTargetSwing} target");
 			}
 
@@ -694,6 +706,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		abilityState.SingleTargetPush = abilityState.AbilityPush;
 		abilityState.SingleTargetPull = abilityState.AbilityPull;
 		abilityState.SingleTargetSwing = abilityState.AbilitySwing;
+		abilityState.SingleTargetForcedMovementOriginHex = abilityState.GetPerformHex;
 	}
 
 	protected virtual EffectCollection CreateDuringTargetedAbilityEffectCollection(T abilityState)
@@ -701,9 +714,11 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 		return null;
 	}
 
-	protected virtual async GDTask AfterTargetConfirmedBeforeConditionsApplied(T abilityState, Figure target)
+	protected virtual async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(T abilityState, Figure target)
 	{
 		await GDTask.CompletedTask;
+
+		return true;
 	}
 
 	protected virtual async GDTask AfterConditionsApplied(T abilityState, Figure target)

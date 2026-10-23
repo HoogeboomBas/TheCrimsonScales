@@ -87,17 +87,18 @@ public class GiveItemAbility : TargetedAbility<GiveItemAbility.State, SingleTarg
 
 	public GiveItemAbility() { }
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 
 		if(target is not Character character)
 		{
 			Log.Error("Trying to give an item to a figure that isn't a character.");
-			return;
+			return false;
 		}
 
 		await GiveItem(abilityState, character, _getItems, _onItemGiven, _onItemConsumed, _selectAutomatically);
+		return true;
 	}
 
 	public static async GDTask GiveItem(AbilityState abilityState, Character target, Action<AbilityState, List<ItemModel>> getItems,

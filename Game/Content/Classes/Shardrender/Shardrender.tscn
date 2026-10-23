@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://etqpmcjsgury"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_rd461"]
+[ext_resource type="Texture2D" uid="uid://cnfebp4dp2l1e" path="res://Content/Classes/Shardrender/MapIcon.tres" id="2_50exx"]
+[ext_resource type="Texture2D" uid="uid://i68krcwoxajf" path="res://Content/Classes/Shardrender/Artwork.jpg" id="3_ty7oj"]
+
+[node name="Starslinger" unique_id=1379816013 instance=ExtResource("1_rd461")]
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = ExtResource("2_50exx")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+position = Vector2(7, 0)
+scale = Vector2(0.42930043, 0.42930043)
+texture = ExtResource("3_ty7oj")
+hframes = 1
+vframes = 1
+_frameCount = 1
+_framesPerSecond = 1
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.96862745, 0.80784315, 0.39607844, 1)

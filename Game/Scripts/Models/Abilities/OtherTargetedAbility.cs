@@ -65,7 +65,7 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 
 	public OtherTargetedAbility() { }
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 
@@ -73,6 +73,8 @@ public class OtherTargetedAbility : TargetedAbility<OtherTargetedAbility.State, 
 		{
 			await _onAfterTargetConfirmed(abilityState, target);
 		}
+
+		return true;
 	}
 
 	protected override async GDTask AfterConditionsApplied(State abilityState, Figure target)

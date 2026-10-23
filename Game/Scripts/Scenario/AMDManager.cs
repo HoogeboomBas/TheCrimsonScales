@@ -83,6 +83,24 @@ public class AMDManager
 		return true;
 	}
 
+	public async GDTask<bool> Enfeeble(IHasEnfeeble originalOwner, Figure figure)
+	{
+		if(originalOwner.RemainingEnfeebleCount == 0)
+		{
+			return false;
+		}
+
+		originalOwner.RemainingEnfeebleCount--;
+		AMDCard card = new AMDCard(originalOwner.CreateEnfeeble(), figure.AMDCardDeck.Owner, potentialOriginalCardOwner: (Character)originalOwner);
+
+		card.DrawnEvent += OnEnfeebleDrawn;
+
+		figure.AMDCardDeck.AddCard(card, true);
+
+		await GDTask.CompletedTask;
+		return true;
+	}
+
 	private void OnBlessDrawn(AMDCard card)
 	{
 		RemainingBlessCount++;
@@ -101,5 +119,10 @@ public class AMDManager
 	private void OnEmpowerDrawn(AMDCard card)
 	{
 		((IHasEmpower)card.PotentialOriginalCardOwner).RemainingEmpowerCount++;
+	}
+
+	private void OnEnfeebleDrawn(AMDCard card)
+	{
+		((IHasEnfeeble)card.PotentialOriginalCardOwner).RemainingEnfeebleCount++;
 	}
 }

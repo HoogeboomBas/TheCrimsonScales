@@ -75,7 +75,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		return new DivinationBuilder();
 	}
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		if(!GameController.FastForward)
 		{
@@ -131,5 +131,7 @@ public class DivinationAbility : TargetedAbility<DivinationAbility.State, Single
 		{
 			GameController.Instance.VoidSightView.Close();
 		}
+
+		return true;
 	}
 }

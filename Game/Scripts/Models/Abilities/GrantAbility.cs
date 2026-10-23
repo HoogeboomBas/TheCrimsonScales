@@ -108,7 +108,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 		return ScenarioEvents.DuringGrantEvent.CreateEffectCollection(new ScenarioEvents.DuringGrant.Parameters(abilityState));
 	}
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 		// Perform the actual abilities
@@ -118,6 +118,7 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 		abilityState.GrantAbilityActionStates.Add(actionState);
 
 		await actionState.Perform();
+		return true;
 	}
 
 	protected override string DefaultTargetingHintText(State abilityState)

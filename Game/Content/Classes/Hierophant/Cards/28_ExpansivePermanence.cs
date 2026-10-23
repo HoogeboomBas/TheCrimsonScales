@@ -22,7 +22,7 @@ public class ExpansivePermanence : HierophantLevelUpCardModel<ExpansivePermanenc
 									canApplyParameters => true,
 									async applyParameters =>
 									{
-										((ShieldAbility.State)applyParameters.AbilityState).AdjustAdditionalShield(1);
+										((ShieldAbility.State)applyParameters.AbilityState).AdjustShieldValue(1);
 
 										await AbilityCmd.AddCondition(null, applyParameters.Performer, Conditions.Immobilize,
 											applyParameters.Performer);

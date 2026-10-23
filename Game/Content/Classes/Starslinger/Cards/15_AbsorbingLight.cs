@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Fractural.Tasks;
 using Godot;
 
 public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, AbsorbingLight.CardBottom>
@@ -15,39 +14,10 @@ public class AbsorbingLight : StarslingerCardModel<AbsorbingLight.CardTop, Absor
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
 				.WithDamage(3, new AttackDiamond(this, new Vector2(0.61900824f, 0.1985234f)))
-				.WithOnAbilityStarted(async state =>
-				{
-					ScenarioEvents.AfterSufferDamageEvent.Subscribe(state, this,
-						parameters => parameters.PotentialAbilityState == state,
-						async parameters =>
-						{
-							state.SetCustomValue(this, "DamageSuffered", parameters.DamageSuffered);
-
-							ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
-
-							await GDTask.CompletedTask;
-						}
-					);
-
-					await GDTask.CompletedTask;
-				})
-				.WithOnAbilityEnded(async state =>
-				{
-					ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(state, this);
-
-					await GDTask.CompletedTask;
-				})
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
-				.WithHealValue(0)
+				.WithHealValue(new DynamicInt<HealAbility.State>(state => state.ActionState.GetAbilityState<AttackAbility.State>(0).DamageDealt))
 				.WithTarget(Target.Self)
-				.WithOnAbilityStarted(async state =>
-				{
-					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
-					state.AbilityAdjustHealValue(attackAbilityState.GetCustomValue<int>(this, "DamageSuffered"));
-
-					await GDTask.CompletedTask;
-				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];
