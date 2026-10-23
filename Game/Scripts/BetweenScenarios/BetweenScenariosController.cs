@@ -116,11 +116,27 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 	{
 		base._Input(@event);
 
+		if(GetViewport().GuiGetFocusOwner() is LineEdit)
+		{
+			return;
+		}
+
 		if(@event is InputEventKey inputEventKey && inputEventKey.Pressed)
 		{
 			if(inputEventKey.Keycode == Key.Escape)
 			{
 				OpenMenuPopup();
+			}
+
+			if(inputEventKey.Keycode == Key.Quoteleft)
+			{
+				this.DelayedCall(() =>
+				{
+					if(!AppController.Instance.PopupManager.IsPopupOpen())
+					{
+						AppController.Instance.PopupManager.RequestPopup(new CommandPopup.Request());
+					}
+				});
 			}
 
 			if(OS.IsDebugBuild())

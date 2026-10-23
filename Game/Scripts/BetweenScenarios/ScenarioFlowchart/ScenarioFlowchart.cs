@@ -28,6 +28,7 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 	private Node3D _3dRoot;
 
 	private bool _animating;
+	public bool Showing => _subViewportContainer.Visible;
 
 	private readonly Dictionary<int, ScenarioButton> _scenarioButtons = new Dictionary<int, ScenarioButton>();
 	private readonly Dictionary<Vector2I, ScenarioButton> _scenarioButtonsByCoords = new Dictionary<Vector2I, ScenarioButton>();
@@ -207,7 +208,7 @@ public partial class ScenarioFlowchart : BetweenScenariosAction
 		}
 	}
 
-	private async GDTaskVoid AnimationSequence()
+	public async GDTaskVoid AnimationSequence()
 	{
 		CancellationToken cancellationToken = BetweenScenariosController.Instance.DestroyCancellationToken;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 using Newtonsoft.Json;
 
 [Serializable, JsonObject(MemberSerialization.OptIn)]
@@ -28,6 +29,10 @@ public class SavedScenarioProgress
 		}
 
 		Discovered = true;
+		if(BetweenScenariosController.Instance?.ScenarioFlowchart.Showing == true)
+		{
+			BetweenScenariosController.Instance.ScenarioFlowchart.AnimationSequence().Forget();
+		}
 	}
 
 	public void ShowOnMap()

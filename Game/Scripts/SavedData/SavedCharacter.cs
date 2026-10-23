@@ -151,7 +151,7 @@ public class SavedCharacter
 		}
 	}
 
-	public void AddLevelUpCard(AbilityCardModel abilityCardModel)
+	public void AddLevelUpCard(AbilityCardModel abilityCardModel, bool forceAdd = false)
 	{
 		if(AvailableAbilityCards.Any(card => card.Model == abilityCardModel))
 		{
@@ -159,7 +159,7 @@ public class SavedCharacter
 			return;
 		}
 
-		if(!LevelUpInProgress)
+		if(!LevelUpInProgress && !forceAdd)
 		{
 			Log.Error("Trying to add a card while this character is not leveling up currently.");
 			return;
@@ -168,6 +168,13 @@ public class SavedCharacter
 		AvailableAbilityCards.Add(new SavedAbilityCard(abilityCardModel));
 
 		LevelUpInProgress = false;
+
+		CardsChangedEvent?.Invoke(this);
+	}
+
+	public void RemoveCard(AbilityCardModel abilityCardModel)
+	{
+		AvailableAbilityCards.RemoveAll(card => card.ModelId == abilityCardModel.Id.ToString());
 
 		CardsChangedEvent?.Invoke(this);
 	}
@@ -314,9 +321,9 @@ public class SavedCharacter
 		CheckmarkCountChangedEvent?.Invoke(this);
 	}
 
-	public void AcquirePerk(int perkIndex)
+	public void AcquirePerk(int perkIndex, bool forceAcquire = false)
 	{
-		if(!CanAcquirePerk(perkIndex))
+		if(!CanAcquirePerk(perkIndex) && !forceAcquire)
 		{
 			return;
 		}
@@ -325,6 +332,18 @@ public class SavedCharacter
 
 		PerksChangedEvent?.Invoke(this);
 		ClassModel.Perks[perkIndex].OnPerkAcquired(this);
+	}
+
+	public void RemovePerk(int perkIndex)
+	{
+		if(!GetPerkAcquired(perkIndex))
+		{
+			return;
+		}
+
+		AcquiredPerkIndices.Remove(perkIndex);
+
+		PerksChangedEvent?.Invoke(this);
 	}
 
 	public int GetUsedPerkCount()
@@ -351,6 +370,11 @@ public class SavedCharacter
 	public void AddAvailablePerk()
 	{
 		TotalAvailablePerkCount++;
+	}
+
+	public void RemoveAvailablePerk()
+	{
+		TotalAvailablePerkCount--;
 	}
 
 	public bool GetPerkAcquired(int perkIndex)
