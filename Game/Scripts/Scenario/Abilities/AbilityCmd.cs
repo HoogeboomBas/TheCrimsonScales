@@ -814,7 +814,7 @@ public static class AbilityCmd
 
 			foreach(Hex neighbourHex in hex.Neighbours)
 			{
-				if(!CanForceMoveTo(potentialAbilityState, figure, hex))
+				if(!CanForceMoveTo(potentialAbilityState, figure, neighbourHex))
 				{
 					continue;
 				}
