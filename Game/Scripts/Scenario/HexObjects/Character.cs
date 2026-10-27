@@ -33,6 +33,7 @@ public partial class Character : Figure
 	public List<AbilityCard> RoundCards { get; } = new List<AbilityCard>();
 	public List<CardPlayCardData> RoundCardData { get; } = new List<CardPlayCardData>();
 	public List<ItemModel> TurnItemsUsed { get; } = [];
+	public List<AMDCard> ActiveModifiers { get; } = new();
 	public bool LongResting { get; private set; }
 
 	public int ShortRestSeed { get; private set; }
@@ -154,7 +155,7 @@ public partial class Character : Figure
 			await summon.Destroy(immediately, forceDestroy);
 		}
 
-		// Make sure items can no longer trigger
+		// Make sure items can no longer trigger by setting their owner to null
 		for(int i = Items.Count - 1; i >= 0; i--)
 		{
 			ItemModel item = Items[i];
@@ -163,7 +164,7 @@ public partial class Character : Figure
 				await AbilityCmd.SpendOrConsume(item);
 			}
 
-			item.OnOwnerDestroyed(this);
+			item.SetOwner(null);
 		}
 
 		for(int i = Cards.Count - 1; i >= 0; i--)
@@ -171,6 +172,12 @@ public partial class Character : Figure
 			AbilityCard card = Cards[i];
 			await card.RemoveFromActive();
 		}
+
+		foreach(AMDCard card in ActiveModifiers)
+		{
+			AMDCardDeck.DiscardPile.Add(card);
+		}
+		ActiveModifiers.Clear();
 	}
 
 	public override void _Notification(int what)

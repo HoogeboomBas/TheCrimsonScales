@@ -14,9 +14,17 @@ public class LootAbility : Ability<LootAbility.State>
 		public List<Hex> LootedHexes { get; } = new List<Hex>();
 		public int LootedCoinCount { get; set; }
 		public int TotalLootedCount { get; set; }
+		public Hex AbilityPerformHex { get; set; }
+		public Hex GetPerformHex => AbilityPerformHex ?? Performer.Hex;
+
+		public void SetPerformHex(Hex hex)
+		{
+			AbilityPerformHex = hex ?? Performer.Hex;
+		}
 	}
 
 	private Func<State, Figure> _customGetLootObtainer { get; set; }
+	private Func<State, Hex> _customGetPerformHex { get; set; }
 	public int Range { get; protected set; }
 
 	/// <summary>
@@ -38,6 +46,11 @@ public class LootAbility : Ability<LootAbility.State>
 		public TBuilder WithCustomGetLootObtainer(Func<State, Figure> customGetLootObtainer)
 		{
 			Obj._customGetLootObtainer = customGetLootObtainer;
+			return (TBuilder)this;
+		}
+		public TBuilder WithCustomGetPerformHex(Func<State, Hex> getPerformHex)
+		{
+			Obj._customGetPerformHex = getPerformHex;
 			return (TBuilder)this;
 		}
 
@@ -71,15 +84,21 @@ public class LootAbility : Ability<LootAbility.State>
 	protected override async GDTask Perform(State abilityState)
 	{
 		Figure lootObtainer = abilityState.Performer;
+		Hex performHex = abilityState.GetPerformHex;
 
 		if(_customGetLootObtainer != null)
 		{
 			lootObtainer = _customGetLootObtainer(abilityState);
 		}
+		if(_customGetPerformHex != null)
+		{
+			performHex = _customGetPerformHex(abilityState);
+		}
+		
 
 		LootPrompt.Answer confirmAnswer = await PromptManager.Prompt(new LootPrompt(list =>
 		{
-			foreach(Hex hex in RangeHelper.GetHexesInRange(abilityState.Performer.Hex, Range))
+			foreach(Hex hex in RangeHelper.GetHexesInRange(performHex, Range))
 			{
 				foreach(HexObject hexObject in hex.HexObjects)
 				{
