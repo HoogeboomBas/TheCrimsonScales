@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Easings;
@@ -13,18 +13,35 @@ public partial class AMDDrawView : Control
 	private PackedScene _amdDrawCardscene;
 	[Export]
 	private Control _deckAnchor;
-	[Export]
-	private Control _discardAnchor;
+
 	[Export]
 	private Control _discardContainer;
 	[Export]
+	private Control _discardAnchor;
+	[Export]
 	private TextureRect _discardTopCardTextureRect;
+	[Export]
+	public BetterButton FirstTerminalButton;
+
+	[Export]
+	private Control _secondTerminal;
+	[Export]
+	private Control _secondTerminalContainer;
+	[Export]
+	private Control _secondTerminalAnchor;
+	[Export]
+	private TextureRect _secondTerminalTextureRect;
+	[Export]
+	public BetterButton SecondTerminalButton;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		Position = new Vector2(0, OpenDistance);
+
+		FirstTerminalButton.SetEnabled(false, false);
+		SecondTerminalButton.SetEnabled(false, false);
 
 		Hide();
 	}
@@ -34,6 +51,8 @@ public partial class AMDDrawView : Control
 		AMDCardDeck deck = targetDeck;
 
 		Show();
+
+		_secondTerminal.SetVisible(false);
 
 		UpdateDrawPileSize(deck);
 
@@ -51,7 +70,7 @@ public partial class AMDDrawView : Control
 
 			AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
 			AddChild(drawCard);
-			await drawCard.DrawCard(newCard, _deckAnchor, _discardAnchor);
+			await drawCard.DrawCard(newCard, _deckAnchor, _discardAnchor, 1f);
 
 			_discardContainer.Visible = true;
 			_discardTopCardTextureRect.Texture = newCard.GetTexture();
@@ -86,13 +105,17 @@ public partial class AMDDrawView : Control
 		AMDCardDeck deck = attackAbilityState.Performer.AMDCardDeck;
 
 		Show();
+
 		_discardContainer.Visible = deck.DiscardPile.Count > 0;
 		_discardTopCardTextureRect.Texture = deck.DiscardPile.Count > 0 ? deck.DiscardPile[^1].GetTexture() : null;
+
+		_secondTerminal.SetVisible(attackAbilityState.SingleTargetHasAdvantage != attackAbilityState.SingleTargetHasDisadvantage);
+		_secondTerminalContainer.Visible = false;
 
 		UpdateDrawPileSize(deck);
 		UpdateDiscardPileSize(deck);
 
-		await this.TweenPositionY(0f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardableAsync();
+		await this.TweenPositionY(-120f, 0.3f).SetEasing(Easing.OutBack).PlayFastForwardableAsync();
 		await GDTask.DelayFastForwardable(0.2f);
 
 		AMDCardValue terminalCardValue = null;
@@ -106,14 +129,22 @@ public partial class AMDDrawView : Control
 
 			AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
 			AddChild(drawCard);
-			await drawCard.DrawCard(newCard, _deckAnchor, _discardAnchor);
+			await drawCard.DrawCard(newCard, _deckAnchor, terminalCardValue == null ? _discardAnchor : _secondTerminalAnchor,
+				terminalCardValue == null ? 1f : 1.5f);
 
 			//TODO: If reshuffled, visualize that
 
-			UpdateDiscardPileSize(deck);
-
-			_discardContainer.Visible = true;
-			_discardTopCardTextureRect.Texture = newCard.GetTexture();
+			if(terminalCardValue == null)
+			{
+				UpdateDiscardPileSize(deck);
+				_discardContainer.Visible = true;
+				_discardTopCardTextureRect.Texture = newCard.GetTexture();
+			}
+			else
+			{
+				_secondTerminalContainer.Visible = true;
+				_secondTerminalTextureRect.Texture = newCard.GetTexture();
+			}
 
 			// A drawn card can be overridden by an item or ability
 			AMDCardValue newCardValue = await newCard.Draw(attackAbilityState);
@@ -154,71 +185,103 @@ public partial class AMDDrawView : Control
 				int newTerminalScore = newCardValue.GetAttackModifierValue(attackAbilityState);
 				bool newTerminalExtraEffect = newCardValue.GetHasExtraEffects(attackAbilityState);
 
-				if(currentTerminalScore > newTerminalScore)
+				//TODO: The code below does seem to work, but it can cause desyncs if the player adjusts their settings. Need to change this so the prompt contains the full check and checks the option there
+				// if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character &&
+				//    AppController.Instance.DeviceOptions.DecideAMDWithAdvantage.Value)
+				// {
+				// 	// If the relevant option is enabled, always allow the player to decide between the AMD cards
+				// 	await DecideAmbiguity();
+				// }
+				// else
 				{
-					if(currentTerminalExtraEffect && !newTerminalExtraEffect)
+					if(currentTerminalScore > newTerminalScore)
 					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
+						if(currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
+						}
+						else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character)
+							{
+								await DecideAmbiguity();
+							}
+						}
+						else if(currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character)
+							{
+								await DecideAmbiguity();
+							}
+						}
+						else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
+						}
 					}
-					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
+					else if(currentTerminalScore < newTerminalScore)
 					{
-						//Choice
-						//terminal = terminal;
+						if(currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							//Choice
+							if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character)
+							{
+								await DecideAmbiguity();
+							}
+						}
+						else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
+						}
+						else if(currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character)
+							{
+								await DecideAmbiguity();
+							}
+						}
+						else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
+						}
 					}
-					else if(currentTerminalExtraEffect && newTerminalExtraEffect)
+					else //if(currentTerminalScore == newTerminalScore)
 					{
-						//Choice
-						//terminal = terminal;
-					}
-					else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
-					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
-					}
-				}
-				else if(currentTerminalScore < newTerminalScore)
-				{
-					if(currentTerminalExtraEffect && !newTerminalExtraEffect)
-					{
-						//Choice
-						//terminal = terminal;
-					}
-					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
-					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
-					}
-					else if(currentTerminalExtraEffect && newTerminalExtraEffect)
-					{
-						//Choice
-						//terminal = terminal;
-					}
-					else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
-					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
-					}
-				}
-				else //if(currentTerminalScore == newTerminalScore)
-				{
-					if(currentTerminalExtraEffect && !newTerminalExtraEffect)
-					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
-					}
-					else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
-					{
-						terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
-					}
-					else if(currentTerminalExtraEffect && newTerminalExtraEffect)
-					{
-						//Choice
-						//terminal = terminal;
-					}
-					else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
-					{
-						//terminal = terminal;
+						if(currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? terminalCardValue : newCardValue;
+						}
+						else if(!currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							terminalCardValue = attackAbilityState.SingleTargetHasAdvantage ? newCardValue : terminalCardValue;
+						}
+						else if(currentTerminalExtraEffect && newTerminalExtraEffect)
+						{
+							if(attackAbilityState.SingleTargetHasAdvantage && attackAbilityState.Authority is Character)
+							{
+								await DecideAmbiguity();
+							}
+						}
+						else //if(!currentTerminalExtraEffect && !newTerminalExtraEffect)
+						{
+							// Exact same card
+						}
 					}
 				}
 
 				await GDTask.DelayFastForwardable(0.5f);
 				break;
+			}
+
+			async GDTask DecideAmbiguity()
+			{
+				AMDCardSelectionPrompt.Answer answer =
+					await PromptManager.Prompt(new AMDCardSelectionPrompt(null, () => "Select AMD card to use"), attackAbilityState.Authority);
+
+				if(!answer.FirstTerminalSelected)
+				{
+					terminalCardValue = newCardValue;
+				}
 			}
 		}
 

@@ -16,14 +16,13 @@ layout_mode = 2
 script = null
 
 [node name="BasicBottom" parent="MarginContainer" parent_id_path=PackedInt32Array(300802723) index="1" unique_id=741634189 instance=ExtResource("3_sxkfp")]
-visible = false
 layout_mode = 2
 
 [node name="BetterButton" parent="MarginContainer/BasicBottom" index="0" unique_id=1682216027]
 script = null
 
 [node name="RichTextLabel" parent="MarginContainer/BasicBottom/BetterButton/Panel/MarginContainer" parent_id_path=PackedInt32Array(741634189, 247173409) index="0" unique_id=1241256373]
-text = "[img={{40}}]res://Art/Icons/Abilities/Move.svg[/img]2"
+text = "[img=40]res://Art/Icons/Abilities/Move.svg[/img]2"
 
 [editable path="MarginContainer/BasicTop"]
 [editable path="MarginContainer/BasicBottom"]

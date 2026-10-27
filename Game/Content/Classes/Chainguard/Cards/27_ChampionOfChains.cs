@@ -91,6 +91,7 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 
 			new AbilityCardAbility(PushAbility.Builder()
@@ -100,6 +101,7 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 
 			new AbilityCardAbility(SwingAbility.Builder()
@@ -157,6 +159,7 @@ public class ChampionOfChains : ChainguardLevelUpCardModel<ChampionOfChains.Card
 
 					await GDTask.CompletedTask;
 				})
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 		];
 	}

@@ -37,8 +37,8 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0" unique_id=37432173]
-clip_contents = false
 custom_minimum_size = Vector2(270, 0)
+clip_contents = false
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10

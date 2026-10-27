@@ -5,5 +5,5 @@
 
 [node name="RockColumn1H" unique_id=1261496421 instance=ExtResource("1_v1lvd")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_kejnu")

@@ -45,7 +45,8 @@ public partial class TemporaryAMDCardsPopup : Popup<TemporaryAMDCardsPopup.Reque
 			_cards.Add(card);
 		}
 
-		_cardsAndReceiverLabel.Text = $"{PopupRequest.Receiver.GetNameAndIcon()} received two temporary Attack Modifier cards.";
+		_cardsAndReceiverLabel.Text =
+			$"{PopupRequest.Receiver.GetNameAndIcon()} received {(PopupRequest.Cards.Length == 2 ? "two" : "three")} temporary Attack Modifier cards.";
 	}
 
 	protected override void OnClosed()

@@ -6,61 +6,61 @@
 
 [node name="D1b" unique_id=348688636 instance=ExtResource("1_k4s7l")]
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=697082687]
 texture = ExtResource("2_dvm3r")
 
-[node name="Hex" parent="Hexes" index="0" unique_id=1749681635 instance=ExtResource("3_cersc")]
+[node name="Hex" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="0" unique_id=1749681635 instance=ExtResource("3_cersc")]
 position = Vector2(-109.1192, 189)
 
-[node name="Hex2" parent="Hexes" index="1" unique_id=1694287893 instance=ExtResource("3_cersc")]
+[node name="Hex2" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="1" unique_id=1694287893 instance=ExtResource("3_cersc")]
 
-[node name="Hex3" parent="Hexes" index="2" unique_id=1889678759 instance=ExtResource("3_cersc")]
+[node name="Hex3" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="2" unique_id=1889678759 instance=ExtResource("3_cersc")]
 position = Vector2(-218.2384, 0)
 
-[node name="Hex4" parent="Hexes" index="3" unique_id=5223346 instance=ExtResource("3_cersc")]
+[node name="Hex4" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="3" unique_id=5223346 instance=ExtResource("3_cersc")]
 position = Vector2(218.2384, 0)
 
-[node name="Hex5" parent="Hexes" index="4" unique_id=1966020354 instance=ExtResource("3_cersc")]
+[node name="Hex5" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="4" unique_id=1966020354 instance=ExtResource("3_cersc")]
 position = Vector2(436.4768, 0)
 
-[node name="Hex6" parent="Hexes" index="5" unique_id=728355642 instance=ExtResource("3_cersc")]
+[node name="Hex6" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="5" unique_id=728355642 instance=ExtResource("3_cersc")]
 position = Vector2(327.35757, -189)
 
-[node name="Hex7" parent="Hexes" index="6" unique_id=356012821 instance=ExtResource("3_cersc")]
+[node name="Hex7" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="6" unique_id=356012821 instance=ExtResource("3_cersc")]
 position = Vector2(109.1192, -189)
 
-[node name="Hex8" parent="Hexes" index="7" unique_id=1523005851 instance=ExtResource("3_cersc")]
+[node name="Hex8" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="7" unique_id=1523005851 instance=ExtResource("3_cersc")]
 position = Vector2(-109.1192, -189)
 
-[node name="Hex9" parent="Hexes" index="8" unique_id=145483230 instance=ExtResource("3_cersc")]
+[node name="Hex9" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="8" unique_id=145483230 instance=ExtResource("3_cersc")]
 position = Vector2(-218.2384, -378)
 
-[node name="Hex10" parent="Hexes" index="9" unique_id=1760115404 instance=ExtResource("3_cersc")]
+[node name="Hex10" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="9" unique_id=1760115404 instance=ExtResource("3_cersc")]
 position = Vector2(327.35757, 189)
 
-[node name="Hex11" parent="Hexes" index="10" unique_id=187560800 instance=ExtResource("3_cersc")]
+[node name="Hex11" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="10" unique_id=187560800 instance=ExtResource("3_cersc")]
 position = Vector2(109.1192, 189)
 
-[node name="Hex12" parent="Hexes" index="11" unique_id=993411126 instance=ExtResource("3_cersc")]
+[node name="Hex12" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="11" unique_id=993411126 instance=ExtResource("3_cersc")]
 position = Vector2(0, -378)
 
-[node name="Hex13" parent="Hexes" index="12" unique_id=1302572030 instance=ExtResource("3_cersc")]
+[node name="Hex13" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="12" unique_id=1302572030 instance=ExtResource("3_cersc")]
 position = Vector2(218.2384, -378)
 
-[node name="Hex14" parent="Hexes" index="13" unique_id=21576730 instance=ExtResource("3_cersc")]
+[node name="Hex14" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="13" unique_id=21576730 instance=ExtResource("3_cersc")]
 position = Vector2(0, 378)
 
-[node name="Hex15" parent="Hexes" index="14" unique_id=777804259 instance=ExtResource("3_cersc")]
+[node name="Hex15" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="14" unique_id=777804259 instance=ExtResource("3_cersc")]
 position = Vector2(-436.4768, 0)
 
-[node name="Hex16" parent="Hexes" index="15" unique_id=712299168 instance=ExtResource("3_cersc")]
+[node name="Hex16" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="15" unique_id=712299168 instance=ExtResource("3_cersc")]
 position = Vector2(-327.35757, 189)
 
-[node name="Hex17" parent="Hexes" index="16" unique_id=159299504 instance=ExtResource("3_cersc")]
+[node name="Hex17" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="16" unique_id=159299504 instance=ExtResource("3_cersc")]
 position = Vector2(-218.2384, 378)
 
-[node name="Hex18" parent="Hexes" index="17" unique_id=2092021606 instance=ExtResource("3_cersc")]
+[node name="Hex18" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="17" unique_id=2092021606 instance=ExtResource("3_cersc")]
 position = Vector2(218.2384, 378)
 
-[node name="Hex19" parent="Hexes" index="18" unique_id=215592215 instance=ExtResource("3_cersc")]
+[node name="Hex19" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="18" unique_id=215592215 instance=ExtResource("3_cersc")]
 position = Vector2(-327.35757, -189)

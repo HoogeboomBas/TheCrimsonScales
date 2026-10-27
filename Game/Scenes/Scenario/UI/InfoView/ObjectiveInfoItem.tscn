@@ -36,7 +36,7 @@ visible = false
 offset_top = -2.0
 offset_bottom = 2.0
 
-[node name="Effects" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="2" unique_id=333721468]
+[node name="Effects" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="3" unique_id=333721468]
 visible = false
 
 [editable path="MarginContainer/Content/Container/Stats/Health"]

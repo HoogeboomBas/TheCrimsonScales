@@ -26,6 +26,9 @@ public class SavedDeviceOptions
 	public SavedOption<bool> AnimatedCharacters { get; private set; } = new SavedOption<bool>(true);
 
 	[JsonProperty]
+	public SavedOption<bool> DecideAMDWithAdvantage { get; private set; } = new SavedOption<bool>(false);
+
+	[JsonProperty]
 	public SavedOption<int> GameplaySpeed { get; private set; } = new SavedOption<int>(0);
 
 	[JsonProperty]

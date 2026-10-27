@@ -44,7 +44,21 @@ _button = NodePath("Container/BetterButton")
 _container = NodePath("Container")
 _inactiveOverlay = NodePath("Container/BetterButton/InactiveOverlay")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton" parent_id_path=PackedInt32Array(1155449473) index="0" unique_id=1527585755]
+[node name="BetterButton" parent="Container" parent_id_path=PackedInt32Array(521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/BetterButton" index="0" unique_id=1527585755]
 layout_mode = 0
 offset_right = 248.0
 offset_bottom = 516.0
@@ -312,7 +326,7 @@ label_settings = SubResource("LabelSettings_2itvq")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="InactiveOverlay" parent="Container/BetterButton" parent_id_path=PackedInt32Array(1155449473) index="1" unique_id=342110485]
+[node name="InactiveOverlay" parent="Container/BetterButton" index="1" unique_id=342110485]
 theme_override_styles/panel = SubResource("StyleBoxFlat_plu0e")
 
 [editable path="Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/MarginContainer/Classes/StartingGroupClass"]

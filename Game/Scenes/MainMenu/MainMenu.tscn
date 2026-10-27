@@ -131,6 +131,20 @@ custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/ContinueButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(810399806, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
 
@@ -138,6 +152,20 @@ text = "Continue"
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/PlayButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/PlayButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1011399412, 1664087955) index="0" unique_id=1161890966]
 text = "Play"
@@ -147,6 +175,20 @@ custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
 
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/OptionsButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/OptionsButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1013233185, 1664087955) index="0" unique_id=1161890966]
 text = "Options"
 
@@ -154,6 +196,20 @@ text = "Options"
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 2
 script = null
+
+[node name="BetterButton" parent="CanvasLayer/UI/VBoxContainer/ExitButton" index="0" unique_id=550826420]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Label" parent="CanvasLayer/UI/VBoxContainer/ExitButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1790228055, 1664087955) index="0" unique_id=1161890966]
 text = "Exit"

@@ -14,7 +14,7 @@
 
 [node name="Scenario" unique_id=378980893 instance=ExtResource("1_724ll")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1915644004]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1915644004]
 script = ExtResource("2_g8uyp")
 StartsRevealed = true
 
@@ -73,7 +73,7 @@ MonsterModelId = "MONSTER_MODEL.SPITTING_DRAKE"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1790120952]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1790120952]
 script = ExtResource("2_g8uyp")
 
 [node name="L1a" parent="Map/Rooms/Room2" index="0" unique_id=370690920 instance=ExtResource("7_e6787")]
@@ -125,7 +125,7 @@ position = Vector2(1091.19, 378)
 position = Vector2(1418.55, -567)
 TreasureNumber = 21
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="0" unique_id=1112938448 instance=ExtResource("10_fhmks")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1112938448 instance=ExtResource("10_fhmks")]
 position = Vector2(436.477, 0)
 rotation = 3.14159
 _startsLocked = true

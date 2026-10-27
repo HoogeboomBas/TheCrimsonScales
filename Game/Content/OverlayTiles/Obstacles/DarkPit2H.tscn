@@ -7,8 +7,5 @@
 [node name="DarkPit2H" unique_id=1158754903 instance=ExtResource("1_ydj5c")]
 script = ExtResource("2_865qx")
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_ydj5c")
-
-[node name="Hex2" parent="." index="6"]
-position = Vector2(218.2384, 0)

@@ -8,15 +8,15 @@
 script = ExtResource("2_quus8")
 HexObjectShape = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("3_quus8")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.309804)
 position = Vector2(0, -16)

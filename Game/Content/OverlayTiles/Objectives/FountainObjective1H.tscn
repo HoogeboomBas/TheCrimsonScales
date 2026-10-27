@@ -5,7 +5,7 @@
 
 [node name="FountainObjective1H" unique_id=966039425 instance=ExtResource("1_bi1tl")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_bi1tl")
 
 [editable path="FigureViewComponent"]

@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Fractural.Tasks;
 using Godot;
 
@@ -70,6 +71,13 @@ public class OaksEmbrace : HierophantCardModel<OaksEmbrace.CardTop, OaksEmbrace.
 							.Build()
 					]
 				)
+				.WithConditionalAbilityCheck(async state =>
+				{
+					await GDTask.CompletedTask;
+
+					return RangeHelper.GetFiguresInRange(state.Performer.Hex, 1)
+						.Any(figure => figure.AlliedWith(state.Performer) && AbilityCmd.CanConsumeElement(Element.Earth, figure));
+				})
 				.Build())
 		];
 	}

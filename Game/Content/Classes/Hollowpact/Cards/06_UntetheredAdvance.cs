@@ -26,7 +26,7 @@ public class UntetheredAdvance : HollowpactCardModel<UntetheredAdvance.CardTop, 
 						parameters.AbilityState.AbilityAdjustAttackValue(1);
 						await AbilityCmd.GainXP(parameters.AbilityState.Performer, 1);
 					},
-					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Damage)}")))
+					new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}")))
 				.Build()),
 
 			new AbilityCardAbility(MoveAbility.Builder()

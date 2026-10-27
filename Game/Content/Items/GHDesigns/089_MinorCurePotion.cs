@@ -6,7 +6,7 @@ public class MinorCurePotion : GHDesignsItem, IPotion, IMinorPotion
 	public override int Cost => 10;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
-	public override bool CanUseWhenStunned => true;
+	public override bool CanUseWhileStunned => true;
 
 	protected override int AtlasIndex => 18;
 

@@ -332,6 +332,7 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 	public Func<T, Hex> CustomGetPerformHex { get; private set; }
 	public bool CanTargetNonFigures { get; private set; }
 	public Func<T, Figure, bool> FilterTargets { get; private set; }
+	public bool AutoConfirmIfOneTarget { get; private set; }
 
 	public bool IsMultiTarget =>
 		Targets.GetValue() > 1 ||
@@ -484,6 +485,12 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 			return (TBuilder)this;
 		}
 
+		public TBuilder WithAutoConfirmIfOneTarget(bool autoConfirmIfOneTarget)
+		{
+			Obj.AutoConfirmIfOneTarget = autoConfirmIfOneTarget;
+			return (TBuilder)this;
+		}
+
 		/// <summary>
 		/// Overriding so we can set default values.
 		/// </summary>
@@ -602,8 +609,10 @@ public abstract class TargetedAbility<T, TSingleTargetState> : Ability<T>, ITarg
 					Mandatory ||
 					abilityState.AbilityTarget == Target.Self ||
 					(TargetHex != null && abilityState.AbilityAOEPattern == null);
+				bool autoSkipIfNone =
+					!duringTargetedAbilityEffectCollection?.HasSelectableEffects ?? true;
 				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, mandatory: Mandatory,
-					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: false,
+					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: autoSkipIfNone, autoConfirmIfOne: AutoConfirmIfOneTarget,
 					duringTargetedAbilityEffectCollection,
 					() => _getTargetingHintText(abilityState));
 			}

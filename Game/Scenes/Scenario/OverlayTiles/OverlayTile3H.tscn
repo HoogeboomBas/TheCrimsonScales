@@ -8,16 +8,16 @@
 
 [node name="OverlayTile3H" unique_id=1148131430 instance=ExtResource("1_kgl1h")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 position = Vector2(110, -94)
 texture = ExtResource("3_kgl1h")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 position = Vector2(128, -128)
 scale = Vector2(1, -1)
 texture = ExtResource("4_24ms3")
 
-[node name="Stroke" parent="." index="3"]
+[node name="Stroke" parent="." index="3" unique_id=848910060]
 position = Vector2(128, -128)
 scale = Vector2(1, -1)
 texture = ExtResource("3_24ms3")

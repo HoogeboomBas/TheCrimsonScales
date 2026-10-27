@@ -20,7 +20,7 @@
 
 [node name="Scenario" unique_id=135898250 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1070581682]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1070581682]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -121,7 +121,7 @@ position = Vector2(-327.358, 567)
 MonsterModelId = "MONSTER_MODEL.CITY_GUARD"
 MonsterType4Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=456694436]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=456694436]
 script = ExtResource("2_5r85s")
 
 [node name="L1b" parent="Map/Rooms/Room2" index="0" unique_id=1452443455 instance=ExtResource("8_klck1")]
@@ -248,7 +248,6 @@ MonsterType3Characters = 1
 MonsterType4Characters = 1
 AdjustMonsterLevel = -1
 Alignment = 1
-Enemies = 2
 
 [node name="MonsterSpawner9" parent="Map/Rooms/Room2" index="30" unique_id=1012742080 instance=ExtResource("7_vfe2g")]
 position = Vector2(654.715, -756)
@@ -257,7 +256,6 @@ MonsterType3Characters = 0
 MonsterType4Characters = 0
 AdjustMonsterLevel = -1
 Alignment = 1
-Enemies = 2
 
 [node name="MonsterSpawner10" parent="Map/Rooms/Room2" index="31" unique_id=1754321431 instance=ExtResource("7_vfe2g")]
 position = Vector2(327.358, -1701)
@@ -267,7 +265,6 @@ MonsterType3Characters = 0
 MonsterType4Characters = 0
 AdjustMonsterLevel = -1
 Alignment = 1
-Enemies = 2
 
 [node name="MonsterSpawner8" parent="Map/Rooms/Room2" index="32" unique_id=1263138845 instance=ExtResource("7_vfe2g")]
 position = Vector2(109.119, -1323)
@@ -277,7 +274,6 @@ MonsterType3Characters = 1
 MonsterType4Characters = 1
 AdjustMonsterLevel = -1
 Alignment = 1
-Enemies = 2
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=1806512806 instance=ExtResource("17_3rw0n")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1806512806 instance=ExtResource("17_3rw0n")]
 position = Vector2(327.358, -567)

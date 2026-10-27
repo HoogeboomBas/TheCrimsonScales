@@ -47,8 +47,8 @@ public partial class MenuPopup : Popup<MenuPopup.Request>
 
 		_undoTurnButton.GetParent<Control>().SetVisible(GameController.Instance != null && GameController.Instance.UndoManager.CanUndoTurn);
 		_undoRoundButton.GetParent<Control>().SetVisible(GameController.Instance != null && GameController.Instance.UndoManager.CanUndoRound);
-		_resignButton.GetParent<Control>().SetVisible(GameController.Instance != null);
-		_winButton.GetParent<Control>().SetVisible(GameController.Instance != null);
+		_resignButton.GetParent<Control>().SetVisible(GameController.Instance != null && !GameController.Instance.ScenarioEnded);
+		_winButton.GetParent<Control>().SetVisible(GameController.Instance != null && !GameController.Instance.ScenarioEnded);
 		_copyToClipboardButton.GetParent<Control>().SetVisible(GameController.Instance != null);
 	}
 

@@ -9,7 +9,7 @@
 script = ExtResource("2_cy4my")
 HexObjectShape = 2
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
 
 [node name="FigureViewComponent" parent="." index="4" unique_id=840639828 instance=ExtResource("4_48ras")]
@@ -17,23 +17,21 @@ self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
 [node name="Health" parent="FigureViewComponent" index="0" unique_id=375530829]
 position = Vector2(0, 0)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.933333, 0.741176, 0.14902, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.635294)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_5ashk")
 
-[node name="Hex" parent="." index="6"]
+[node name="Hex" parent="." index="6" unique_id=1095442849]
 visible = false
 
-[node name="Hex2" parent="." index="7"]
+[node name="Hex2" parent="." index="7" unique_id=82790082]
 visible = false
-position = Vector2(218.2384, 0)
 
-[node name="Hex3" parent="." index="8"]
+[node name="Hex3" parent="." index="8" unique_id=2073165572]
 visible = false
-position = Vector2(109.1192, -189)
 
 [editable path="FigureViewComponent"]

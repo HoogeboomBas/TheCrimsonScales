@@ -13,7 +13,7 @@ rotation = 0.523599
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("2_06nxl")
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="2" unique_id=786075991]
 z_index = 1
 rotation = 0.523599
 scale = Vector2(0.55, 0.55)

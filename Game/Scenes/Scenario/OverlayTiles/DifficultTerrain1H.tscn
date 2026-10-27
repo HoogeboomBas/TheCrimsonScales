@@ -6,12 +6,12 @@
 [node name="DifficultTerrain1H" unique_id=440019317 instance=ExtResource("1_l4why")]
 script = ExtResource("2_hjxxo")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.403922, 0.215686, 0.576471, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.31)
 position = Vector2(0, -16)

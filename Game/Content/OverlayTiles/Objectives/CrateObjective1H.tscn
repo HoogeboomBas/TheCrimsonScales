@@ -5,7 +5,7 @@
 
 [node name="CrateObjective1H" unique_id=1321994030 instance=ExtResource("1_xpnel")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_qn2vl")
 
 [editable path="FigureViewComponent"]

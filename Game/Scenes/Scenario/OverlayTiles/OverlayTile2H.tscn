@@ -8,15 +8,15 @@
 
 [node name="OverlayTile2H" unique_id=1498989811 instance=ExtResource("1_flbvd")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 position = Vector2(110, 0)
 texture = ExtResource("4_t5oyf")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 position = Vector2(128, 0)
 texture = ExtResource("3_uvy1p")
 
-[node name="Stroke" parent="." index="3"]
+[node name="Stroke" parent="." index="3" unique_id=848910060]
 position = Vector2(127, 0)
 texture = ExtResource("4_ls3f8")
 

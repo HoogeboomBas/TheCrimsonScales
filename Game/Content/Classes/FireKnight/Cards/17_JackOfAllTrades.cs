@@ -67,7 +67,7 @@ public class JackOfAllTrades : FireKnightLevelUpCardModel<JackOfAllTrades.CardTo
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Strengthen)
 				.WithRange(1)
-				.WithTarget(Target.Allies)
+				.WithTarget(Target.TargetAll | Target.Allies)
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);

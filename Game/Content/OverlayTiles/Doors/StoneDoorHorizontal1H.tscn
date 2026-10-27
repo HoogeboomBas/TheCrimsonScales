@@ -8,5 +8,5 @@
 _corridorScene = ExtResource("2_geimk")
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("3_geimk")
