@@ -16,7 +16,7 @@ public class ReferenceManager
 	{
 		if(_references[referenceId] is not T castType)
 		{
-			Log.Error("Stored a wrong reference! Might be a desync issue.");
+			Log.Error("Stored a wrong reference to a "+ typeof(T) + "! Might be a desync issue.");
 			return default(T);
 		}
 
