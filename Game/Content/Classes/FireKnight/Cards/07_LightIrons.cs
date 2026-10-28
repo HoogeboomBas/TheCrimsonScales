@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -49,7 +49,7 @@ public class LightIrons : FireKnightCardModel<LightIrons.CardTop, LightIrons.Car
 								for(int itemIndex = list.Count - 1; itemIndex >= 0; itemIndex--)
 								{
 									Figure potentialTarget = list[itemIndex];
-									if(!state.Performer.AlliedWith(potentialTarget, itemsGivenToSelfCount < 2) || potentialTarget is Character)
+									if(!state.Performer.AlliedWith(potentialTarget, itemsGivenToSelfCount < 2) || potentialTarget is not Character)
 									{
 										list.RemoveAt(itemIndex);
 									}

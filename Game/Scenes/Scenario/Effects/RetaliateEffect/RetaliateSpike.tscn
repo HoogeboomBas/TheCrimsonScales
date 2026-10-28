@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bxk4w1r81pbgt"]
+
+[node name="RetaliateSpike" type="Node2D" unique_id=2064982544]
+scale = Vector2(1.0000001, 1.0000001)
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1404707117]
+polygon = PackedVector2Array(40, 0, 0, -140, -40, 0)
+uv = PackedVector2Array(-132.5, 48.5, -91.5, -80.5, -51, 43.5)

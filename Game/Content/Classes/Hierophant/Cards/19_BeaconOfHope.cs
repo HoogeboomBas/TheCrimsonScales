@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -59,6 +59,8 @@ public class BeaconOfHope : HierophantLevelUpCardModel<BeaconOfHope.CardTop, Bea
 								canApplyParameters.AMDCard.Model is BlessAMDCard,
 							apply: async applyParameters =>
 							{
+								ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+
 								ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
 									canApply: canApplyParameters =>
 										canApplyParameters.AbilityState == applyParameters.AbilityState,

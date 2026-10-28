@@ -7,47 +7,47 @@
 [node name="B3a" unique_id=214830980 instance=ExtResource("1_dy6lv")]
 StepType = 3
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=697082687]
 position = Vector2(109, -95)
 texture = ExtResource("2_dy6lv")
 
-[node name="Hex" parent="Hexes" index="0" unique_id=1651626134 instance=ExtResource("3_fem7u")]
+[node name="Hex" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="0" unique_id=1651626134 instance=ExtResource("3_fem7u")]
 position = Vector2(-109.1192, 189)
 
-[node name="Hex2" parent="Hexes" index="1" unique_id=1600084552 instance=ExtResource("3_fem7u")]
+[node name="Hex2" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="1" unique_id=1600084552 instance=ExtResource("3_fem7u")]
 
-[node name="Hex3" parent="Hexes" index="2" unique_id=526120404 instance=ExtResource("3_fem7u")]
+[node name="Hex3" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="2" unique_id=526120404 instance=ExtResource("3_fem7u")]
 position = Vector2(-218.2384, 0)
 
-[node name="Hex4" parent="Hexes" index="3" unique_id=1796932068 instance=ExtResource("3_fem7u")]
+[node name="Hex4" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="3" unique_id=1796932068 instance=ExtResource("3_fem7u")]
 position = Vector2(218.2384, 0)
 
-[node name="Hex5" parent="Hexes" index="4" unique_id=2051887582 instance=ExtResource("3_fem7u")]
+[node name="Hex5" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="4" unique_id=2051887582 instance=ExtResource("3_fem7u")]
 position = Vector2(436.4768, 0)
 
-[node name="Hex6" parent="Hexes" index="5" unique_id=1065424206 instance=ExtResource("3_fem7u")]
+[node name="Hex6" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="5" unique_id=1065424206 instance=ExtResource("3_fem7u")]
 position = Vector2(327.35757, -189)
 
-[node name="Hex7" parent="Hexes" index="6" unique_id=644632619 instance=ExtResource("3_fem7u")]
+[node name="Hex7" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="6" unique_id=644632619 instance=ExtResource("3_fem7u")]
 position = Vector2(109.1192, -189)
 
-[node name="Hex8" parent="Hexes" index="7" unique_id=1680903135 instance=ExtResource("3_fem7u")]
+[node name="Hex8" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="7" unique_id=1680903135 instance=ExtResource("3_fem7u")]
 position = Vector2(-109.1192, -189)
 
-[node name="Hex9" parent="Hexes" index="8" unique_id=903035497 instance=ExtResource("3_fem7u")]
+[node name="Hex9" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="8" unique_id=903035497 instance=ExtResource("3_fem7u")]
 position = Vector2(-218.2384, -378)
 
-[node name="Hex10" parent="Hexes" index="9" unique_id=60708331 instance=ExtResource("3_fem7u")]
+[node name="Hex10" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="9" unique_id=60708331 instance=ExtResource("3_fem7u")]
 position = Vector2(327.35757, 189)
 
-[node name="Hex11" parent="Hexes" index="10" unique_id=2028145294 instance=ExtResource("3_fem7u")]
+[node name="Hex11" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="10" unique_id=2028145294 instance=ExtResource("3_fem7u")]
 position = Vector2(109.1192, 189)
 
-[node name="Hex12" parent="Hexes" index="11" unique_id=899174805 instance=ExtResource("3_fem7u")]
+[node name="Hex12" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="11" unique_id=899174805 instance=ExtResource("3_fem7u")]
 position = Vector2(0, -378)
 
-[node name="Hex13" parent="Hexes" index="12" unique_id=185393350 instance=ExtResource("3_fem7u")]
+[node name="Hex13" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="12" unique_id=185393350 instance=ExtResource("3_fem7u")]
 position = Vector2(218.2384, -378)
 
-[node name="Hex14" parent="Hexes" index="13" unique_id=635067624 instance=ExtResource("3_fem7u")]
+[node name="Hex14" parent="Hexes" parent_id_path=PackedInt32Array(1438432245) index="13" unique_id=635067624 instance=ExtResource("3_fem7u")]
 position = Vector2(436.47678, -378)

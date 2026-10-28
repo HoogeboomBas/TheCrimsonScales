@@ -6,7 +6,7 @@ public partial class AbilityCardViewCharacterToken : Control
 	private TextureRect _textureRect;
 
 	[Export]
-	private RichTextLabel _countLabel;
+	private RichTextLabel _countLabel2;
 
 	private Vector2 _normalizedPosition;
 
@@ -19,6 +19,11 @@ public partial class AbilityCardViewCharacterToken : Control
 
 	public void Init(Texture2D texture, UseSlot useSlot)
 	{
+		if(!useSlot.NormalizedPosition.HasValue)
+		{
+			return;
+		}
+
 		Init(texture, useSlot.NormalizedPosition!.Value);
 	}
 
@@ -28,8 +33,8 @@ public partial class AbilityCardViewCharacterToken : Control
 		Control parent = GetParent<Control>();
 		_normalizedPosition = position;
 		SetPosition(_normalizedPosition * parent.Size - 0.5f * Size);
-		_countLabel.SetVisible(count > 0);
-		_countLabel.SetText(count.ToString());
+		_countLabel2.SetVisible(count > 0);
+		_countLabel2.SetText(count.ToString());
 	}
 
 	public override void _Process(double delta)

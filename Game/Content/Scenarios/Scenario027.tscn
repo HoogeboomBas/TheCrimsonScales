@@ -15,7 +15,7 @@
 
 [node name="Scenario" unique_id=546703460 instance=ExtResource("1_0uaiq")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1858128667]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1858128667]
 script = ExtResource("2_3qfbo")
 StartsRevealed = true
 
@@ -88,7 +88,7 @@ position = Vector2(327.358, -189)
 MonsterModelId = "MONSTER_MODEL.STONE_GOLEM"
 MonsterType3Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1185781524]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1185781524]
 script = ExtResource("2_3qfbo")
 
 [node name="A2b" parent="Map/Rooms/Room2" index="0" unique_id=705054377 instance=ExtResource("8_27uer")]
@@ -122,7 +122,7 @@ MonsterType4Characters = 2
 [node name="Crystal1H" parent="Map/Rooms/Room2" index="5" unique_id=412928939 instance=ExtResource("9_4nlla")]
 position = Vector2(-654.715, 756)
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=3092331]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=3092331]
 script = ExtResource("2_3qfbo")
 
 [node name="A3a" parent="Map/Rooms/Room3" index="0" unique_id=177251835 instance=ExtResource("10_o1xtf")]
@@ -149,20 +149,20 @@ MonsterModelId = "MONSTER_MODEL.STONE_GOLEM"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="DarkFog1H" parent="Map/Doors" index="0" unique_id=163095491 instance=ExtResource("11_jqv4j")]
+[node name="DarkFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=163095491 instance=ExtResource("11_jqv4j")]
 position = Vector2(-436.477, 378)
 
-[node name="DarkFog1H2" parent="Map/Doors" index="1" unique_id=507810401 instance=ExtResource("11_jqv4j")]
+[node name="DarkFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=507810401 instance=ExtResource("11_jqv4j")]
 position = Vector2(872.954, 378)
 _startsLocked = true
 
 [node name="Marker" parent="Map/Doors/DarkFog1H2" index="7" unique_id=1854043424 instance=ExtResource("7_ebkjt")]
 MarkerType = 26
 
-[node name="Visual" parent="Map/Doors/DarkFog1H2/Marker" index="1"]
+[node name="Visual" parent="Map/Doors/DarkFog1H2/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Doors/DarkFog1H2/Marker/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Doors/DarkFog1H2/Marker/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("12_27uer")
 
 [editable path="Map/Doors/DarkFog1H2/Marker"]

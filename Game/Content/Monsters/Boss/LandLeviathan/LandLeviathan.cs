@@ -68,10 +68,10 @@ public class LandLeviathan : DeepTerror, IBossMonsterModel
 				: ((CharacterCount >= 4) ? MonsterType.Elite : MonsterType.Normal))
 			.WithGetValidHexes((state, hexes) =>
 			{
-				hexes = RangeHelper.GetHexesInRange(state.Performer.Hex, 1, true).Where(hex => hex.IsEmpty()).ToList();
+				hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 1, true).Where(hex => hex.IsEmpty()));
 				if(hexes.Count == 0)
 				{
-					hexes = RangeHelper.GetHexesInRange(state.Performer.Hex, 2, true).Where(hex => hex.IsEmpty()).ToList();
+					hexes.AddRange(RangeHelper.GetHexesInRange(state.Performer.Hex, 2, true).Where(hex => hex.IsEmpty()));
 				}
 			})
 			.WithOnAbilityEndedPerformed(async state =>

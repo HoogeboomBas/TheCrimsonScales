@@ -21,6 +21,7 @@ public class WishUponAStar : StarslingerCardModel<WishUponAStar.CardTop, WishUpo
 				.Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Bless)
+				.WithTarget(Target.TargetAll)
 				.WithCustomGetTargets((state, targets) =>
 				{
 					HealAbility.State healAbilityState = state.ActionState.GetAbilityState<HealAbility.State>(0);

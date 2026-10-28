@@ -44,15 +44,13 @@ public class Scenario006 : ScenarioModel
 		new GainCollectiveItemReward(ModelDB.Item<StunPowder>())
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Poison1)
+	];
+
 	private CustomScenarioGoal _goal;
 	private readonly ScenarioRule[] _spawnRules = new ScenarioRule[4];
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Poison1);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

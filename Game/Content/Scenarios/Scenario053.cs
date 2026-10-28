@@ -41,17 +41,15 @@ public class Scenario053 : ScenarioModel
 		new GainGoldEachReward(5)
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Muddle)
+	];
+
 	private ScenarioRule _somethingWillHappenRule;
 
 	private Door _door1;
 	private Door _door2;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Muddle);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

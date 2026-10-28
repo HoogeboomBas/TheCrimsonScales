@@ -98,7 +98,16 @@ public class UnstoppableForce : HierophantLevelUpCardModel<UnstoppableForce.Card
 						list.AddRange(RangeHelper.GetFiguresInRange(target.Hex, 1));
 					}
 				})
-				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithConditionalAbilityCheck(async state =>
+				{
+					await GDTask.CompletedTask;
+
+					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
+
+					return attackAbilityState.Performed && attackAbilityState.UniqueTargetedFigures
+						.SelectMany(attackedFigure => RangeHelper.GetFiguresInRange(attackedFigure.Hex, 1))
+						.Any(figure => figure.AlliedWith(state.Performer) && AbilityCmd.CanConsumeElement(Element.Earth, figure));
+				})
 				.Build())
 		];
 	}

@@ -150,7 +150,7 @@ public class Scenario038 : ScenarioModel
 				attackParameters => RangeHelper.Distance(attackParameters.Performer.Hex, _altarOfDisorientation.Hex) == 1,
 				async attackParameters =>
 				{
-					attackParameters.AbilityState.SingleTargetAdjustAttackValue(1);
+					attackParameters.AbilityState.SingleTargetAdjustAttackValue(-1);
 					await GDTask.CompletedTask;
 				}
 			);

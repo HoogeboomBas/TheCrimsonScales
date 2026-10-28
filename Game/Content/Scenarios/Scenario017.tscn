@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [node name="Scenario" unique_id=1678201134 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1838251996]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1838251996]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -114,7 +114,7 @@ position = Vector2(109.119, 567)
 [node name="Marker5" parent="Map/Rooms/Room" index="20" unique_id=526164512 instance=ExtResource("15_xsvke")]
 position = Vector2(-109.119, 567)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=650086943]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=650086943]
 script = ExtResource("2_40csl")
 
 [node name="F1a" parent="Map/Rooms/Room2" index="0" unique_id=84295806 instance=ExtResource("3_25llf")]
@@ -179,7 +179,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=2089746464]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=2089746464]
 script = ExtResource("2_40csl")
 
 [node name="D1a" parent="Map/Rooms/Room3" index="0" unique_id=705125357 instance=ExtResource("13_upkwi")]
@@ -194,32 +194,32 @@ position = Vector2(545.596, -1701)
 rotation = 1.0472
 
 [node name="Bookcase2H" parent="Map/Rooms/Room3" index="3" unique_id=172763688 instance=ExtResource("16_nan5a")]
-position = Vector2(545.596, -1701)
+position = Vector2(545.59595, -1701)
 
 [node name="Bookcase2H2" parent="Map/Rooms/Room3" index="4" unique_id=1865921422 instance=ExtResource("16_nan5a")]
-position = Vector2(763.834, -2079)
+position = Vector2(763.8344, -2079)
 
 [node name="Bookcase2H3" parent="Map/Rooms/Room3" index="5" unique_id=1759066375 instance=ExtResource("16_nan5a")]
-position = Vector2(1309.43, -1890)
+position = Vector2(1309.4304, -1890)
 
 [node name="SpikePitTrap1H5" parent="Map/Rooms/Room3" index="6" unique_id=738978495 instance=ExtResource("5_aqnix")]
-position = Vector2(1200.31, -2079)
+position = Vector2(1200.3112, -2079)
 ScaledDamage = false
 ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
 
 [node name="SpikePitTrap1H6" parent="Map/Rooms/Room3" index="7" unique_id=701523111 instance=ExtResource("5_aqnix")]
-position = Vector2(872.954, -1512)
+position = Vector2(872.9536, -1512)
 ScaledDamage = false
 ConditionModels = Array[Object]([SubResource("Resource_xghk0")])
 
 [node name="HotCoals1H" parent="Map/Rooms/Room3" index="8" unique_id=882571463 instance=ExtResource("17_ox6ed")]
-position = Vector2(218.238, -1134)
+position = Vector2(218.23842, -1134)
 
 [node name="HotCoals1H2" parent="Map/Rooms/Room3" index="9" unique_id=169278954 instance=ExtResource("17_ox6ed")]
-position = Vector2(327.358, -945)
+position = Vector2(327.3576, -945)
 
 [node name="HotCoals1H3" parent="Map/Rooms/Room3" index="10" unique_id=1904622303 instance=ExtResource("17_ox6ed")]
-position = Vector2(109.119, -945)
+position = Vector2(109.11921, -945)
 
 [node name="HotCoals1H4" parent="Map/Rooms/Room3" index="11" unique_id=1284743191 instance=ExtResource("17_ox6ed")]
 position = Vector2(-109.119, -1701)
@@ -286,10 +286,10 @@ MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=41147385 instance=ExtResource("18_vjrsn")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=41147385 instance=ExtResource("18_vjrsn")]
 position = Vector2(1200.3112, -1323)
 rotation = 3.1415927
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="1" unique_id=65622385 instance=ExtResource("19_7a1in")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=65622385 instance=ExtResource("19_7a1in")]
 position = Vector2(763.8344, -567)
 rotation = -3.1415927

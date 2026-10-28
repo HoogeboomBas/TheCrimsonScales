@@ -16,7 +16,7 @@
 
 [node name="Scenario" unique_id=144040967 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1523947081]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1523947081]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -117,7 +117,7 @@ position = Vector2(-218.2384, -378)
 [node name="CharacterStartHex5" parent="Map/Rooms/Room" index="22" unique_id=1493873731 instance=ExtResource("9_vak8c")]
 position = Vector2(0, -378)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1354975944]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1354975944]
 script = ExtResource("2_5r85s")
 
 [node name="G1a" parent="Map/Rooms/Room2" index="0" unique_id=262491187 instance=ExtResource("10_pxp6g")]
@@ -194,7 +194,7 @@ MonsterModelId = "MONSTER_MODEL.WATER_SPIRIT"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1031599021]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1031599021]
 script = ExtResource("2_5r85s")
 
 [node name="B1b" parent="Map/Rooms/Room3" index="0" unique_id=1809065383 instance=ExtResource("11_hqseu")]
@@ -256,8 +256,8 @@ position = Vector2(1964.1456, 0)
 position = Vector2(2291.5032, -189)
 TreasureNumber = 11
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=389891978 instance=ExtResource("12_dmohe")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=389891978 instance=ExtResource("12_dmohe")]
 position = Vector2(654.71515, 756)
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=1652638803 instance=ExtResource("12_dmohe")]
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1652638803 instance=ExtResource("12_dmohe")]
 position = Vector2(1964.1456, 756)

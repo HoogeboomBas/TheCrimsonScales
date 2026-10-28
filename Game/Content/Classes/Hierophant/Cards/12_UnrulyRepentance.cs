@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -27,6 +27,8 @@ public class UnrulyRepentance : HierophantCardModel<UnrulyRepentance.CardTop, Un
 							canApplyParameters.AMDCard.Model is CurseAMDCard,
 						apply: async applyParameters =>
 						{
+							ScenarioEvents.AMDCardDrawnEvent.Unsubscribe(state, this);
+
 							ScenarioEvents.AfterAttackPerformedEvent.Subscribe(state, this,
 								canApply: canApplyParameters =>
 									canApplyParameters.AbilityState == applyParameters.AbilityState,

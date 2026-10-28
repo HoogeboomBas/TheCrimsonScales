@@ -36,6 +36,16 @@ public class Stun : ConditionModel
 			},
 			order: 100
 		);
+
+		ScenarioCheckEvents.CanUseItemCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.ItemModel.Owner == condition.Owner &&
+				!parameters.ItemModel.CanUseWhileStunned,
+			parameters =>
+			{
+				parameters.SetIsBlocked(true);
+			}
+		);
 	}
 
 	public override async GDTask OnRemoved(Condition condition)
@@ -44,6 +54,7 @@ public class Stun : ConditionModel
 
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(condition);
+		ScenarioCheckEvents.CanUseItemCheckEvent.Unsubscribe(condition);
 	}
 
 	protected override string GetTooltipText(RichTextParameters textParameters) =>

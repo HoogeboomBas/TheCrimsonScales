@@ -123,7 +123,7 @@ public class AdvancedResearch : BrightsparkCardModel<AdvancedResearch.CardTop, A
 									hintText: $"{Icons.HintText(Icons.RecoverCard)} a card from your lost pile");
 								if(recoveredCard != null)
 								{
-									await AbilityCmd.ReturnToHand(card);
+									await AbilityCmd.ReturnToHand(recoveredCard);
 								}
 							}
 						});

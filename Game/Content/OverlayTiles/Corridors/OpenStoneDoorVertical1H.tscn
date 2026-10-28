@@ -6,5 +6,5 @@
 [node name="OpenWoodDoorVertical1H" unique_id=49484256 instance=ExtResource("1_278af")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_278af")

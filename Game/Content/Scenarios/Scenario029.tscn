@@ -16,7 +16,7 @@
 
 [node name="Scenario" unique_id=388929730 instance=ExtResource("1_0uaiq")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=564871152]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=564871152]
 script = ExtResource("2_3qfbo")
 StartsRevealed = true
 
@@ -88,7 +88,7 @@ MonsterModelId = "LIVING_BONES.BONE_ARCHER"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=598914037]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=598914037]
 script = ExtResource("2_3qfbo")
 
 [node name="K2b" parent="Map/Rooms/Room2" index="0" unique_id=980862683 instance=ExtResource("8_ffhaa")]
@@ -161,7 +161,7 @@ position = Vector2(-654.715, -1890)
 MonsterModelId = "LIVING_BONES.BONE_ARCHER"
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=2112593376]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=2112593376]
 script = ExtResource("2_3qfbo")
 
 [node name="A3b" parent="Map/Rooms/Room3" index="0" unique_id=1447707070 instance=ExtResource("10_opg3s")]
@@ -204,12 +204,12 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=804897527 instance=ExtResource("11_u2r7n")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=804897527 instance=ExtResource("11_u2r7n")]
 position = Vector2(0, -756)
 
-[node name="StoneDoorHorizontal1H2" parent="Map/Doors" index="1" unique_id=798378941 instance=ExtResource("11_u2r7n")]
+[node name="StoneDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=798378941 instance=ExtResource("11_u2r7n")]
 position = Vector2(-1091.19, -756)
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="2" unique_id=1439942139 instance=ExtResource("12_sq65t")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1439942139 instance=ExtResource("12_sq65t")]
 position = Vector2(-654.715, -378)
 rotation = 3.14159

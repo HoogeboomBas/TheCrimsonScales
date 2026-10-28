@@ -20,7 +20,7 @@
 
 [node name="Scenario" unique_id=323879966 instance=ExtResource("1_22j6d")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1509244500]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1509244500]
 script = ExtResource("2_wxbk2")
 StartsRevealed = true
 
@@ -161,7 +161,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1597587231]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1597587231]
 script = ExtResource("2_wxbk2")
 
 [node name="G1a" parent="Map/Rooms/Room2" index="0" unique_id=825324463 instance=ExtResource("14_fhg5n")]
@@ -228,8 +228,8 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=2100975317 instance=ExtResource("17_ruerv")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=2100975317 instance=ExtResource("17_ruerv")]
 position = Vector2(0, -756)
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=336792018 instance=ExtResource("17_ruerv")]
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=336792018 instance=ExtResource("17_ruerv")]
 position = Vector2(1309.4303, -756)

@@ -33,6 +33,7 @@ public partial class BetweenScenariosSidePanel : Control
 		{
 			OnProsperityChanged();
 			OnReputationChanged();
+			OnCharactersChanged();
 		});
 	}
 

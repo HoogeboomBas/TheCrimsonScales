@@ -24,78 +24,70 @@ layout_mode = 2
 [node name="EquipmentSlot2" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="1" unique_id=404840742 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2" index="0"]
-pivot_offset_ratio = Vector2(0, 0)
-focus_behavior_recursive = 0
-mouse_behavior_recursive = 0
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
-
-[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2/BetterButton/ItemContainer" index="1"]
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot2" index="0" unique_id=1453207150]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="EquipmentSlot3" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="2" unique_id=1361666112 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3" index="0"]
-pivot_offset_ratio = Vector2(0, 0)
-focus_behavior_recursive = 0
-mouse_behavior_recursive = 0
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
-
-[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3/BetterButton/ItemContainer" index="1"]
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot3" index="0" unique_id=1453207150]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="EquipmentSlot4" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="3" unique_id=834149868 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4" index="0"]
-pivot_offset_ratio = Vector2(0, 0)
-focus_behavior_recursive = 0
-mouse_behavior_recursive = 0
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
-
-[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4/BetterButton/ItemContainer" index="1"]
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot4" index="0" unique_id=1453207150]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="EquipmentSlot5" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow" index="4" unique_id=544586717 instance=ExtResource("3_aqr01")]
 layout_mode = 2
 
-[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5" index="0"]
-pivot_offset_ratio = Vector2(0, 0)
-focus_behavior_recursive = 0
-mouse_behavior_recursive = 0
-accessibility_name = ""
-accessibility_description = ""
-accessibility_live = 0
-accessibility_controls_nodes = Array[NodePath]([])
-accessibility_described_by_nodes = Array[NodePath]([])
-accessibility_labeled_by_nodes = Array[NodePath]([])
-accessibility_flow_to_nodes = Array[NodePath]([])
-
-[node name="ItemView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5/BetterButton/ItemContainer" index="1"]
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="BetterButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/TopRow/EquipmentSlot5" index="0" unique_id=1453207150]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=212876237]
 layout_mode = 2
@@ -113,8 +105,8 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/MarginContainer/MarginContainer" index="0" unique_id=840631407]
-clip_contents = false
 custom_minimum_size = Vector2(0, 420)
+clip_contents = false
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10

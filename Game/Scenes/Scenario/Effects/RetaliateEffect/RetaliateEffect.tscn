@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dkkf3rcg0ndal"]
+
+[ext_resource type="Script" uid="uid://4oopjefs3sdq" path="res://Scripts/Scenario/Effects/RetaliateEffect.cs" id="1_1nhuq"]
+[ext_resource type="PackedScene" uid="uid://bxk4w1r81pbgt" path="res://Scenes/Scenario/Effects/RetaliateEffect/RetaliateSpike.tscn" id="1_ypr0j"]
+
+[node name="RetaliateEffect" type="Node2D" unique_id=479482905 node_paths=PackedStringArray("_rotationContainer")]
+z_index = -1
+script = ExtResource("1_1nhuq")
+_rotationContainer = NodePath("RotationContainer")
+
+[node name="RotationContainer" type="Node2D" parent="." unique_id=361990370]
+rotation = 0.2617994
+scale = Vector2(0.7, 0.7)
+
+[node name="RetaliateSpike" parent="RotationContainer" unique_id=2064982544 instance=ExtResource("1_ypr0j")]
+
+[node name="RetaliateSpike2" parent="RotationContainer" unique_id=466512863 instance=ExtResource("1_ypr0j")]
+rotation = 0.5235988
+
+[node name="RetaliateSpike3" parent="RotationContainer" unique_id=1999857256 instance=ExtResource("1_ypr0j")]
+rotation = 1.0471976
+
+[node name="RetaliateSpike4" parent="RotationContainer" unique_id=1762064178 instance=ExtResource("1_ypr0j")]
+rotation = 1.5707964
+
+[node name="RetaliateSpike5" parent="RotationContainer" unique_id=2057840187 instance=ExtResource("1_ypr0j")]
+rotation = 2.0943952
+
+[node name="RetaliateSpike6" parent="RotationContainer" unique_id=1701891550 instance=ExtResource("1_ypr0j")]
+rotation = 2.6179938
+
+[node name="RetaliateSpike7" parent="RotationContainer" unique_id=398116060 instance=ExtResource("1_ypr0j")]
+rotation = -3.1415925
+
+[node name="RetaliateSpike8" parent="RotationContainer" unique_id=55545511 instance=ExtResource("1_ypr0j")]
+rotation = -2.6179938
+
+[node name="RetaliateSpike9" parent="RotationContainer" unique_id=1928743288 instance=ExtResource("1_ypr0j")]
+rotation = -2.094395
+
+[node name="RetaliateSpike10" parent="RotationContainer" unique_id=438115395 instance=ExtResource("1_ypr0j")]
+rotation = -1.5707964
+
+[node name="RetaliateSpike11" parent="RotationContainer" unique_id=1455784656 instance=ExtResource("1_ypr0j")]
+rotation = -1.0471977
+
+[node name="RetaliateSpike12" parent="RotationContainer" unique_id=1285911743 instance=ExtResource("1_ypr0j")]
+rotation = -0.52359897

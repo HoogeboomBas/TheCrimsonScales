@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -351,7 +351,7 @@ public class Scenario024 : ScenarioModel
 				},
 				async applyParameters =>
 				{
-					if(GameController.Instance.Map.Rooms[1].Hexes.Contains(applyParameters.Figure.Hex) &&
+					if(GameController.Instance.Map.Rooms[3].Hexes.Contains(applyParameters.Figure.Hex) &&
 					   !RangeHelper.GetHexesInRange(applyParameters.Figure.Hex, 1).Any(hex => hex.HexObjects.Any(obj => _hotCoals.Contains(obj))))
 					{
 						await AbilityCmd.AddCondition(null, applyParameters.Figure, Conditions.Chill);
@@ -381,7 +381,7 @@ public class Scenario024 : ScenarioModel
 								_orbsPlaced++;
 								if(orbPlaced == _markerA)
 								{
-									ScenarioEvents.DuringMovementEvent.Unsubscribe(parameters.Performer, _markerA);
+									ScenarioEvents.AbilityStartedEvent.Unsubscribe(parameters.Performer, _markerA);
 									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerA);
 								}
 								else if(orbPlaced == _markerB)
@@ -389,12 +389,12 @@ public class Scenario024 : ScenarioModel
 									ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerB);
 									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerB);
 								}
-								else if(orbPlaced == _markerB)
+								else if(orbPlaced == _markerC)
 								{
 									ScenarioEvents.RetaliateEvent.Unsubscribe(parameters.Performer, _markerC);
 									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerC);
 								}
-								else if(orbPlaced == _markerB)
+								else if(orbPlaced == _markerD)
 								{
 									ScenarioEvents.DuringAttackEvent.Unsubscribe(parameters.Performer, _markerD);
 									ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(parameters.Performer, _markerD);
@@ -463,7 +463,7 @@ public class Scenario024 : ScenarioModel
 			}
 		);
 
-		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, _markerB,
+		ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(figure, _markerC,
 			parameters => parameters.Figure == figure,
 			parameters =>
 			{

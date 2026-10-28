@@ -49,14 +49,12 @@ public class Scenario013 : ScenarioModel
 		new GainCollectiveItemReward(ModelDB.Item<MajorManaPotion>()),
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Poison1)
+	];
+
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Poison1);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

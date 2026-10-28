@@ -6,15 +6,15 @@
 
 [node name="Bombard" unique_id=49963860 instance=ExtResource("1_g53na")]
 
-[node name="Sprite2D" parent="Mask" index="0"]
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
 position = Vector2(-1.25, 8.75)
 texture = ExtResource("2_7f2mq")
 
-[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
 texture = ExtResource("3_lxq71")
 hframes = 12
 vframes = 13
 _frameCount = 149
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=517487183]
 self_modulate = Color(0.54902, 0.407843, 0.231373, 1)

@@ -22,26 +22,8 @@ public class AllStartScenarioWithConditionReward : SavedReward
 		_conditionModelsIds = conditionModels.Select(model => model.Id.ToString()).ToArray();
 	}
 
-	public override string GetLabelText(RichTextParameters textParameters)
-	{
-		string labelText = "All characters start the next scenario with ";
-
-		ConditionModel[] conditionModels = ConditionModels;
-		for(int i = 0; i < conditionModels.Length; i++)
-		{
-			ConditionModel conditionModel = conditionModels[i];
-			if(i > 0)
-			{
-				labelText += ", ";
-			}
-
-			labelText += Icons.InlineCondition(conditionModel, textParameters);
-		}
-
-		labelText += ".";
-
-		return labelText;
-	}
+	public override string GetLabelText(RichTextParameters textParameters) =>
+		$"All characters start the next scenario with {Icons.InlineConditions(ConditionModels, textParameters)}.";
 
 	public override async GDTask OnScenarioSetupPhaseCompleted()
 	{

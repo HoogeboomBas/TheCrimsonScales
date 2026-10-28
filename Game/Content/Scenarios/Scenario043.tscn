@@ -25,7 +25,7 @@
 
 [node name="Scenario" unique_id=1739978318 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1644520093]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1644520093]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -109,7 +109,7 @@ MonsterModelId = "MONSTER_MODEL.STONE_GOLEM"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=683926362]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=683926362]
 script = ExtResource("2_5r85s")
 
 [node name="I2b" parent="Map/Rooms/Room2" index="0" unique_id=571717643 instance=ExtResource("10_b8kge")]
@@ -181,7 +181,7 @@ MonsterModelId = "MONSTER_MODEL.STONE_GOLEM"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=33664455]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=33664455]
 script = ExtResource("2_5r85s")
 
 [node name="B4a" parent="Map/Rooms/Room3" index="0" unique_id=1525597833 instance=ExtResource("11_seni1")]
@@ -230,7 +230,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=20134554]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=20134554]
 script = ExtResource("2_5r85s")
 
 [node name="A4b" parent="Map/Rooms/Room4" index="0" unique_id=416796910 instance=ExtResource("12_joebt")]
@@ -299,20 +299,20 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=193166033 instance=ExtResource("17_ofkye")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=193166033 instance=ExtResource("17_ofkye")]
 position = Vector2(0, -378)
 _startsLocked = true
 
 [node name="Marker" parent="Map/Doors/StoneDoorHorizontal1H" index="6" unique_id=117069365 instance=ExtResource("11_suf4y")]
 MarkerType = 25
 
-[node name="Visual" parent="Map/Doors/StoneDoorHorizontal1H/Marker" index="1"]
+[node name="Visual" parent="Map/Doors/StoneDoorHorizontal1H/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Doors/StoneDoorHorizontal1H/Marker/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Doors/StoneDoorHorizontal1H/Marker/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("18_b8kge")
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="1" unique_id=1658615167 instance=ExtResource("18_fex56")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1658615167 instance=ExtResource("18_fex56")]
 position = Vector2(654.71515, 0)
 rotation = -3.1415927
 _startsLocked = true
@@ -321,13 +321,13 @@ _startsLocked = true
 rotation = 3.14159
 MarkerType = 26
 
-[node name="Visual" parent="Map/Doors/StoneDoorVertical1H/Marker2" index="1"]
+[node name="Visual" parent="Map/Doors/StoneDoorVertical1H/Marker2" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Doors/StoneDoorVertical1H/Marker2/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Doors/StoneDoorVertical1H/Marker2/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("20_seni1")
 
-[node name="StoneDoorVertical1H2" parent="Map/Doors" index="2" unique_id=720074876 instance=ExtResource("18_fex56")]
+[node name="StoneDoorVertical1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=720074876 instance=ExtResource("18_fex56")]
 position = Vector2(654.71515, -1134)
 rotation = -3.1415927
 _startsLocked = true
@@ -336,23 +336,23 @@ _startsLocked = true
 rotation = 3.14159
 MarkerType = 27
 
-[node name="Visual" parent="Map/Doors/StoneDoorVertical1H2/Marker2" index="1"]
+[node name="Visual" parent="Map/Doors/StoneDoorVertical1H2/Marker2" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Doors/StoneDoorVertical1H2/Marker2/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Doors/StoneDoorVertical1H2/Marker2/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("21_joebt")
 
-[node name="StoneDoorHorizontal1H2" parent="Map/Doors" index="3" unique_id=603960959 instance=ExtResource("17_ofkye")]
+[node name="StoneDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="3" unique_id=603960959 instance=ExtResource("17_ofkye")]
 position = Vector2(1091.1919, -378)
 _startsLocked = true
 
 [node name="Marker" parent="Map/Doors/StoneDoorHorizontal1H2" index="6" unique_id=3746499 instance=ExtResource("11_suf4y")]
 MarkerType = 28
 
-[node name="Visual" parent="Map/Doors/StoneDoorHorizontal1H2/Marker" index="1"]
+[node name="Visual" parent="Map/Doors/StoneDoorHorizontal1H2/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Doors/StoneDoorHorizontal1H2/Marker/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Doors/StoneDoorHorizontal1H2/Marker/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("22_i8nmf")
 
 [editable path="Map/Doors/StoneDoorHorizontal1H/Marker"]

@@ -390,6 +390,22 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 			if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
 			{
+				if(!GameController.FastForward)
+				{
+					if(target.FigureViewComponent.Retaliate.Scale.X > 0.1f)
+					{
+						target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+					}
+
+					await GDTask.DelayFastForwardable(0.3f);
+
+					RetaliateEffect retaliateEffect =
+						SceneLoader.InstantiateScene<RetaliateEffect>("res://Scenes/Scenario/Effects/RetaliateEffect/RetaliateEffect.tscn");
+					target.AddChild(retaliateEffect);
+					retaliateEffect.Init(target);
+					await GDTask.DelayFastForwardable(0.4f);
+				}
+
 				await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
 					potentialDamageDealer: retaliateParameters.RetaliatingFigure);
 			}

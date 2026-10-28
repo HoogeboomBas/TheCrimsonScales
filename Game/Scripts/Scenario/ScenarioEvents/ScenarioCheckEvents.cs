@@ -759,4 +759,23 @@ public partial class ScenarioCheckEvents
 
 	private readonly DrawBattleGoalsCheck _drawBattleGoalsCheck = new DrawBattleGoalsCheck();
 	public static DrawBattleGoalsCheck DrawBattleGoalsCheckEvent => GameController.Instance.ScenarioCheckEvents._drawBattleGoalsCheck;
+
+	public class CanUseItemCheck : ScenarioCheckEvent<CanUseItemCheck.Parameters>
+	{
+		public class Parameters(ItemModel itemModel)
+			: ParametersBase
+		{
+			public ItemModel ItemModel { get; } = itemModel;
+
+			public bool IsBlocked { get; private set; }
+
+			public void SetIsBlocked(bool isBlocked)
+			{
+				IsBlocked = isBlocked;
+			}
+		}
+	}
+
+	private readonly CanUseItemCheck _canUseItemCheck = new CanUseItemCheck();
+	public static CanUseItemCheck CanUseItemCheckEvent => GameController.Instance.ScenarioCheckEvents._canUseItemCheck;
 }

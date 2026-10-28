@@ -4,5 +4,5 @@
 
 [node name="Monster" unique_id=1768804229 instance=ExtResource("1_a33o3")]
 
-[node name="Sprite2D" parent="Mask" index="0"]
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(1347013334) index="0" unique_id=1894192583]
 position = Vector2(0, 45)

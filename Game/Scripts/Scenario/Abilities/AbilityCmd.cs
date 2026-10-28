@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
@@ -90,6 +90,11 @@ public static class AbilityCmd
 	public static async GDTask<int> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
 		Figure potentialDamageDealer = null, bool fromAttack = false)
 	{
+		if(target.Health == 0)
+		{
+			return 0;
+		}
+
 		potentialDamageDealer ??= potentialAbilityState?.Authority;
 
 		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters =
@@ -639,16 +644,19 @@ public static class AbilityCmd
 	}
 
 	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null,
+		Func<string> hintText = null)
 	{
-		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, effectCollection, hintText);
+		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, effectCollection,
+			hintText);
 	}
 
 	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null,
+		Func<string> hintText = null)
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, mandatory, effectCollection,
+			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, mandatory, effectCollection,
 				hintText ?? (() => "Select a target")),
 			authority);
 
@@ -702,17 +710,20 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false,
-		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card")
+		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card",
+		bool autoSelectIfAllCanBeSelected = false)
 	{
-		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText))
+		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText,
+				autoSelectIfAllCanBeSelected))
 			.FirstOrDefault();
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Figure authority, Action<List<AbilityCard>> getAllCards, CardState? requiredCardState,
-		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card")
+		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card",
+		bool autoSelectIfAllCanBeSelected = false)
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(getAllCards,
-			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText), authority);
+			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), authority);
 
 		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0
 			? null
@@ -721,7 +732,7 @@ public static class AbilityCmd
 
 	public static async GDTask<List<AbilityCard>> SelectAbilityCards(Character character, CardState? requiredCardState,
 		int minSelectionCount, int maxSelectionCount, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null,
-		string hintText = "Select cards")
+		string hintText = "Select cards", bool autoSelectIfAllCanBeSelected = false)
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(
 			cards =>
@@ -736,7 +747,7 @@ public static class AbilityCmd
 					cards.Add(abilityCard);
 				}
 			},
-			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText), character);
+			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), character);
 
 		return answer.CardReferenceIds == null
 			? []
@@ -811,7 +822,7 @@ public static class AbilityCmd
 
 			foreach(Hex neighbourHex in hex.Neighbours)
 			{
-				if(!CanForceMoveTo(potentialAbilityState, figure, hex))
+				if(!CanForceMoveTo(potentialAbilityState, figure, neighbourHex))
 				{
 					continue;
 				}
@@ -895,10 +906,12 @@ public static class AbilityCmd
 		Figure figureA = hexObjectA as Figure;
 		Figure figureB = hexObjectB as Figure;
 
+		object subscriber = new object();
+
 		if(figureA != null && figureB != null)
 		{
 			// Ignore figure to swap with
-			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(figureA, figureB,
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(figureA, subscriber,
 				parameters =>
 					(parameters.Figure == figureA &&
 					 parameters.OtherFigure == figureB) ||
@@ -923,7 +936,10 @@ public static class AbilityCmd
 			canSwap = false;
 		}
 
-		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, figureB);
+		if(figureA != null && figureB != null)
+		{
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, subscriber);
+		}
 
 		return canSwap;
 	}
@@ -1037,7 +1053,7 @@ public static class AbilityCmd
 			));
 		}
 
-		await GenericChoice(potentialInfuser, subscriptions);
+		await GenericChoice(potentialInfuser ?? GameController.Instance.CharacterManager.FirstAlive(), subscriptions);
 
 		return element;
 	}
@@ -1442,10 +1458,13 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(false));
 
+		GameController.SetFastForward(false);
+
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioLostView.Open();
 
-		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None,
+			cancellationToken: GameController.CancellationToken);
 
 		await GameController.Instance.EndScenario();
 
@@ -1456,12 +1475,15 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(true));
 
+		GameController.SetFastForward(false);
+
 		await GameController.Instance.OpenStoryViewConclusion();
 
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioWonView.Open();
 
-		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None,
+			cancellationToken: GameController.CancellationToken);
 
 		await GameController.Instance.EndScenario();
 

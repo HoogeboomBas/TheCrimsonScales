@@ -38,6 +38,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 
 			new AbilityCardAbility(PushAbility.Builder()
@@ -47,6 +48,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 					figures.Add(state.ActionState.GetAbilityState<OtherAbility.State>(0).GetCustomValue<Figure>(this, "DesignatedEnemy"));
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 
 			new AbilityCardAbility(SwingAbility.Builder()
@@ -103,6 +105,7 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 
 					await GDTask.CompletedTask;
 				})
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 
 			new AbilityCardAbility(AttackAbility.Builder()
@@ -117,9 +120,10 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 						SwingAbility.State firstState = parameters.AbilityState.ActionState.GetAbilityState<SwingAbility.State>(1);
 						PushAbility.State secondState = parameters.AbilityState.ActionState.GetAbilityState<PushAbility.State>(2);
 						SwingAbility.State thirdState = parameters.AbilityState.ActionState.GetAbilityState<SwingAbility.State>(3);
-						parameters.AbilityState.AbilityAdjustAttackValue(firstState.SingleTargetState.ForcedMovementHexes.Count +
-						                                                  secondState.SingleTargetState.ForcedMovementHexes.Count +
-						                                                  thirdState.SingleTargetState.ForcedMovementHexes.Count);
+						parameters.AbilityState.AbilityAdjustAttackValue(
+							firstState.SingleTargetState?.ForcedMovementHexes.Count ?? 0 +
+							secondState.SingleTargetState?.ForcedMovementHexes.Count ?? 0 +
+							thirdState.SingleTargetState?.ForcedMovementHexes.Count ?? 0);
 
 						await GDTask.CompletedTask;
 					}))

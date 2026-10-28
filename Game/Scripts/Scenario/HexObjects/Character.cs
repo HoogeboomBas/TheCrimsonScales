@@ -154,7 +154,7 @@ public partial class Character : Figure
 			await summon.Destroy(immediately, forceDestroy);
 		}
 
-		// Make sure items can no longer trigger by setting their owner to null
+		// Make sure items can no longer trigger
 		for(int i = Items.Count - 1; i >= 0; i--)
 		{
 			ItemModel item = Items[i];
@@ -163,7 +163,7 @@ public partial class Character : Figure
 				await AbilityCmd.SpendOrConsume(item);
 			}
 
-			item.SetOwner(null);
+			item.OnOwnerDestroyed(this);
 		}
 
 		for(int i = Cards.Count - 1; i >= 0; i--)

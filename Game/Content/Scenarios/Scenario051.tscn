@@ -17,7 +17,7 @@
 
 [node name="Scenario" unique_id=1287628123 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=2020618016]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=2020618016]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -82,7 +82,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1654396594]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1654396594]
 script = ExtResource("2_5r85s")
 
 [node name="B3b" parent="Map/Rooms/Room2" index="0" unique_id=1066252368 instance=ExtResource("7_skxhm")]
@@ -129,7 +129,7 @@ MonsterModelId = "MONSTER_MODEL.VERMLING_SCOUT"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=937074109]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=937074109]
 script = ExtResource("2_5r85s")
 
 [node name="B2b" parent="Map/Rooms/Room3" index="0" unique_id=1760074719 instance=ExtResource("10_riidf")]
@@ -176,7 +176,7 @@ MonsterModelId = "MONSTER_MODEL.VERMLING_SCOUT"
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1421260709]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1421260709]
 script = ExtResource("2_5r85s")
 
 [node name="G2b" parent="Map/Rooms/Room4" index="0" unique_id=1520022619 instance=ExtResource("11_yqmjj")]
@@ -252,18 +252,18 @@ position = Vector2(763.834, 1701)
 MonsterModelId = "MONSTER_MODEL.SUN_DEMON"
 MonsterType4Characters = 1
 
-[node name="WoodDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=1323435263 instance=ExtResource("14_nhbtm")]
+[node name="WoodDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1323435263 instance=ExtResource("14_nhbtm")]
 position = Vector2(-654.715, 378)
 rotation = 3.14159
 
-[node name="WoodDoorHorizontal1H3" parent="Map/Doors" index="1" unique_id=1625283639 instance=ExtResource("14_nhbtm")]
+[node name="WoodDoorHorizontal1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1625283639 instance=ExtResource("14_nhbtm")]
 position = Vector2(-545.596, 1323)
 rotation = 3.14159
 
-[node name="WoodDoorHorizontal1H4" parent="Map/Doors" index="2" unique_id=1075030040 instance=ExtResource("14_nhbtm")]
+[node name="WoodDoorHorizontal1H4" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1075030040 instance=ExtResource("14_nhbtm")]
 position = Vector2(763.834, 1323)
 rotation = 3.14159
 
-[node name="WoodDoorHorizontal1H2" parent="Map/Doors" index="3" unique_id=810153530 instance=ExtResource("14_nhbtm")]
+[node name="WoodDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="3" unique_id=810153530 instance=ExtResource("14_nhbtm")]
 position = Vector2(654.715, 378)
 rotation = 3.14159

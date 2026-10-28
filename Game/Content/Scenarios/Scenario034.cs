@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -30,7 +30,7 @@ public class Scenario034 : ScenarioModel
 
 		You make your way to the temple to find it surrounded by Inox. One very large Inox stands with his fist raised in the air giving orders to his fellow Inox. You don’t speak this dialect of Inoxian but you do catch the words “burn the city dwellers!”
 
-		That’s enough for you to hear to make sure they don’t succeed this day. This must be Ogrum Bonebreaker. He mercilessly kills a temple guardian before you and then marches inside. His guardsmen have spotted you and will not give up their siege so easily.
+		That’s enough for you to hear to make sure they don’t succeed this day. This must be Orgrum Bonebreaker. He mercilessly kills a temple guardian before you and then marches inside. His guardsmen have spotted you and will not give up their siege so easily.
 		""";
 
 	public override string ConclusionText =>
@@ -120,7 +120,6 @@ public class Scenario034 : ScenarioModel
 		int monksLeftCount = 3;
 		ScenarioEvents.FigureKilledEvent.Subscribe(this,
 			parameters =>
-				//parameters.Figure.DisplayName
 				parameters.Figure.DisplayName.Contains("Monk"),
 			async _ =>
 			{
@@ -156,7 +155,7 @@ public class Scenario034 : ScenarioModel
 					],
 					textParameters =>
 						$"""
-						 {Icons.Inline(Icons.Heal, textParameters)}1, {Icons.Inline(Icons.Targets, textParameters)}1 ally, {Icons.Inline(Icons.Range, textParameters)}1
+						 {Icons.Inline(Icons.Heal, textParameters)}2, {Icons.Inline(Icons.Targets, textParameters)}1 ally, {Icons.Inline(Icons.Range, textParameters)}1
 						 """);
 
 				_holyMonks.Add(monk);

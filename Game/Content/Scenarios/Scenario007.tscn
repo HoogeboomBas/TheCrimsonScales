@@ -13,7 +13,7 @@
 
 [node name="Scenario" unique_id=915071015 instance=ExtResource("1_irc6t")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=842464304]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=842464304]
 script = ExtResource("2_ril03")
 StartsRevealed = true
 

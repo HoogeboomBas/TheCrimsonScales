@@ -88,6 +88,9 @@ public class SavedCampaign
 	public int Prosperity { get; private set; }
 
 	[JsonProperty]
+	public int CharacterGeneration { get; private set; }
+
+	[JsonProperty]
 	public bool EnhancementsUnlocked { get; private set; }
 
 	[JsonProperty]
@@ -276,7 +279,7 @@ public class SavedCampaign
 
 	public void AddCharacter(ClassModel classModel, PersonalQuestModel personalQuestModel, string name)
 	{
-		SavedCharacter character = new SavedCharacter(classModel, personalQuestModel, name);
+		SavedCharacter character = new SavedCharacter(this, classModel, personalQuestModel, name);
 		Characters.Add(character);
 		ProsperityLevelUp(character);
 
@@ -335,6 +338,11 @@ public class SavedCampaign
 		if(unlockedClass != null)
 		{
 			UnlockClass(unlockedClass);
+		}
+
+		if(savedCharacter.Generation == CharacterGeneration)
+		{
+			CharacterGeneration++;
 		}
 
 		CharactersChangedEvent?.Invoke();

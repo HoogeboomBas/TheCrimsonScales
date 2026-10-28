@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class MonsterTargetSelectionPrompt(
-	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, EffectCollection effectCollection, Func<string> getHintText)
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, Figure focus, bool mustTargetFocus, EffectCollection effectCollection, Func<string> getHintText)
 	: Prompt<MonsterTargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -31,10 +31,9 @@ public class MonsterTargetSelectionPrompt(
 		{
 			_validTargets.Add(focus);
 		}
-		else
+		else if(!mustTargetFocus)
 		{
 			//TODO: Filter to give priority to attacks without disadvantage
-			//TODO: If focus hasn't and cannot be targeted, one target should still be wasted I think?
 			_validTargets.AddRange(_allTargets);
 		}
 

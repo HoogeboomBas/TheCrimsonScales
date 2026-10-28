@@ -6,5 +6,5 @@
 [node name="Wood1H" unique_id=1097058955 instance=ExtResource("1_35h0j")]
 _stepType = 3
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_35h0j")

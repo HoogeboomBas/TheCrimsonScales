@@ -40,19 +40,17 @@ public class Scenario039 : ScenarioModel
 		new AddCityToTopQueueReward(ModelDB.Event<City57>()) // TODO: Currently doesn't shuffle this with 5 other cards into the top queue
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllSufferDamageScenarioEffect(1)
+	];
+
 	private List<Hex> _markerAHexes;
 	private Hex _markerBHex;
 	private Hex _markerCHex;
 
 	private CustomScenarioGoal _turnsLeftGoal;
 	private CustomScenarioGoal _goal;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.SufferDamage(character, 1, character);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
@@ -102,8 +100,8 @@ public class Scenario039 : ScenarioModel
 
 		AddScenarioRule(textParameters =>
 			$"""
-			 Ghost Vipers add +1{Icons.Inline(Icons.Attack)} to each attack targeting a figure that has {Icons.Inline(Icons.GetCondition(Conditions.Poison1), textParameters)}.
-			 Whenever a Ghost Viper would give {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), textParameters)} to a figure, that figure does not gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize), textParameters)} and gains {Icons.Inline(Icons.GetCondition(Conditions.Muddle), textParameters)} instead.
+			 Ghost Vipers add +1{Icons.Inline(Icons.Attack, textParameters)} to each attack targeting a figure that has {Icons.InlineCondition(Conditions.Poison1, textParameters)}.
+			 Whenever a Ghost Viper would give {Icons.InlineCondition(Conditions.Immobilize, textParameters)} to a figure, that figure does not gain {Icons.InlineCondition(Conditions.Immobilize, textParameters)} and gains {Icons.InlineCondition(Conditions.Muddle, textParameters)} instead.
 			 """);
 
 		ScenarioRule timingRule = AddScenarioRule("Something will happen at the end of the third round.");
@@ -222,7 +220,7 @@ public class Scenario039 : ScenarioModel
 					EffectType.Selectable,
 					effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Poison1)),
 					effectInfoViewParameters: new TextEffectInfoView.Parameters(
-						$"Remove {Icons.GetCondition(Conditions.Poison1)} from self or one adjacent ally")
+						$"Remove {Icons.Inline(Icons.GetCondition(Conditions.Poison1))} from self or one adjacent ally")
 				);
 
 				ScenarioEvents.RoundStartBeforeCardSelectionEvent.Subscribe(this,
@@ -250,7 +248,7 @@ public class Scenario039 : ScenarioModel
 				);
 
 				AddScenarioRule(textParameters =>
-					$"Any character may forgo a top or bottom action to remove {Icons.Inline(Icons.GetCondition(Conditions.Poison1), textParameters)} from themselves or one adjacent ally.");
+					$"Any character may forgo a top or bottom action to remove {Icons.InlineCondition(Conditions.Poison1, textParameters)} from themselves or one adjacent ally.");
 
 				switch(GameController.Instance.CharacterManager.Characters.Count)
 				{

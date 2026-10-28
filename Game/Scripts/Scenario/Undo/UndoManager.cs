@@ -7,7 +7,7 @@ public class UndoManager
 	private readonly List<int> _turnStackIndices = new List<int>();
 	private readonly List<int> _roundStackIndices = new List<int>();
 
-	public bool CanUndo => !GameController.Instance.ScenarioEnded && _stack.Count > 0;
+	public bool CanUndo => GameController.Instance.ScenarioResult == ScenarioResult.None && _stack.Count > 0;
 	public bool CanUndoTurn => CanUndo && _turnStackIndices.Count > 0;
 	public bool CanUndoRound => CanUndo && _roundStackIndices.Count > 0;
 

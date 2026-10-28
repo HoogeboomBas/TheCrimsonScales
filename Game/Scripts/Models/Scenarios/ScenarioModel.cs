@@ -8,6 +8,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 	private readonly List<ScenarioGoal> _goals = new List<ScenarioGoal>();
 	private readonly List<ScenarioRule> _rules = new List<ScenarioRule>();
 
+	private readonly List<ScenarioRule> _scenarioEffectRules = new List<ScenarioRule>();
+
 	private readonly object _subscriber = new object();
 
 	public abstract string ScenePath { get; }
@@ -26,6 +28,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	public abstract List<MonsterModel> MonsterModels { get; }
 	public abstract List<SavedReward> Rewards { get; }
+	public virtual List<ScenarioEffect> ScenarioEffects { get; } = [];
 
 	public virtual string BGMPath => "res://Audio/BGM/Floral-Woods.ogg";
 	public virtual string BGSPath => null;
@@ -58,6 +61,12 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	public virtual async GDTask InitializeBeforeFirstRoomRevealed()
 	{
+		foreach(ScenarioEffect scenarioEffect in ScenarioEffects)
+		{
+			_scenarioEffectRules.Add(
+				AddScenarioRule(textParameters => $"At the start of the scenario: {scenarioEffect.GetDescription(textParameters)}"));
+		}
+
 		await GDTask.CompletedTask;
 	}
 
@@ -84,13 +93,18 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 		await GDTask.CompletedTask;
 	}
 
-	public virtual async GDTask StartOfScenarioEffects(Character character)
+	public virtual async GDTask OnSetupCompleted()
 	{
 		await GDTask.CompletedTask;
 	}
 
-	public virtual async GDTask OnSetupCompleted()
+	public async GDTask OnScenarioEffectsPerformed()
 	{
+		foreach(ScenarioRule effectRule in _scenarioEffectRules)
+		{
+			effectRule.Remove();
+		}
+
 		await GDTask.CompletedTask;
 	}
 
@@ -255,7 +269,8 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 					}
 
 					list.AddRange(hexes.Where(hex =>
-						(hex.IsEmpty() || canHaveFeatures && hex.IsUnoccupied()) && RangeHelper.Distance(spawnHex, hex) == distance)
+						(hex.IsEmpty() || canHaveFeatures && hex.IsUnoccupied() && !hex.HasHexObjectOfType<Obstacle>()) &&
+						RangeHelper.Distance(spawnHex, hex) == distance)
 					);
 				}
 			},
