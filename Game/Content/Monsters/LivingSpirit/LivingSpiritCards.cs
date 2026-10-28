@@ -26,8 +26,10 @@ public class LivingSpiritAbilityCard0 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Muddle])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithConditions(Conditions.Muddle)
+			.Build())
 	];
 }
 
@@ -39,8 +41,10 @@ public class LivingSpiritAbilityCard1 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, target: Target.Enemies | Target.TargetAll)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTarget(Target.Enemies | Target.TargetAll)
+			.Build())
 	];
 }
 
@@ -51,8 +55,8 @@ public class LivingSpiritAbilityCard2 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -63,8 +67,8 @@ public class LivingSpiritAbilityCard3 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -75,7 +79,9 @@ public class LivingSpiritAbilityCard4 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, extraRange: -1, targets: 2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0, -1)
+			.WithTargets(2)
+			.Build()),
 	];
 }
 
@@ -86,8 +92,8 @@ public class LivingSpiritAbilityCard5 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, -1).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(1).WithTarget(Target.Self).Build()),
 	];
 }
@@ -99,7 +105,7 @@ public class LivingSpiritAbilityCard6 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Curse)
 			.WithRange(monster.Stats.Range ?? 1)
@@ -118,20 +124,17 @@ public class LivingSpiritAbilityCard7 : LivingSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithAfterTargetConfirmedSubscription(
 				ConsumeElementCheckSubscription<ScenarioEvents.AttackAfterTargetConfirmed.Parameters>(monster, [Element.Ice],
 					applyFunction: async parameters =>
 					{
 						parameters.AbilityState.SingleTargetAddCondition(Conditions.Stun);
 
 						await GDTask.CompletedTask;
-					}
-				)
-			])
-		),
+					}))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =

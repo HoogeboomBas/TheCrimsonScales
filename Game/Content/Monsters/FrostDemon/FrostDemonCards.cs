@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Godot;
-using Fractural.Tasks;
 
 public abstract class FrostDemonAbilityCard : MonsterAbilityCardModel
 {
@@ -49,8 +48,8 @@ public class FrostDemonAbilityCard1 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build())
 	];
 }
 
@@ -61,8 +60,8 @@ public class FrostDemonAbilityCard2 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build())
 	];
 }
 
@@ -73,19 +72,11 @@ public class FrostDemonAbilityCard3 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, extraDamage: +0, range: 2, extraRange: 
-				new(() => CheckElementConsumed(monster, [Element.Ice]) ? 1 : 0),
-			duringAttackSubscriptions: [
-				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.AbilityAdjustAttackValue(2);
-
-						await GDTask.CompletedTask;
-					}
-				)
-		])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(
+			AttackAbility(monster, new DynamicInt<AttackAbility.State>(_ => CheckElementConsumed(monster, [Element.Ice]) ? +2 : -0))
+				.WithRange(new DynamicInt(() => CheckElementConsumed(monster, [Element.Ice]) ? 3 : 2))
+				.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -100,12 +91,14 @@ public class FrostDemonAbilityCard4 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-		])))
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+			]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -120,12 +113,14 @@ public class FrostDemonAbilityCard5 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-		])))
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
+			]))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -139,8 +134,10 @@ public class FrostDemonAbilityCard6 : FrostDemonAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, pierce: 3)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithPierce(3)
+			.Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -155,7 +152,7 @@ public class FrostDemonAbilityCard7 : FrostDemonAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
 		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
 			.WithDamage(1)
 			.WithTarget(Target.Self)

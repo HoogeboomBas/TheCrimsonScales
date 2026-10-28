@@ -37,10 +37,9 @@ public class WaterSpiritAbilityCard0 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
@@ -51,9 +50,8 @@ public class WaterSpiritAbilityCard0 : WaterSpiritAbilityCard
 
 						await GDTask.CompletedTask;
 					}
-				)
-			]
-		))
+				))
+			.Build())
 	];
 }
 
@@ -65,16 +63,16 @@ public class WaterSpiritAbilityCard1 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			pierce: new DynamicInt<AttackAbility.State>(state =>
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithPierce(new DynamicInt<AttackAbility.State>(state =>
 			{
-				List<Hex> hexes = new List<Hex>();
+				List<Hex> hexes = [];
 				RangeHelper.FindHexesInRange(state.Performer.Hex, 1, false, hexes);
 				int waterHexCount = hexes.Count(hex => hex.HasHexObjectOfType<Water>());
 				return waterHexCount;
-			})
-		)),
+			}))
+			.Build()),
 	];
 }
 
@@ -85,22 +83,17 @@ public class WaterSpiritAbilityCard2 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
 			.WithDamage(1)
 			.WithCustomGetTargets((state, list) =>
 				{
-					foreach(Figure figure in GameController.Instance.Map.Figures)
-					{
-						if(state.Authority.EnemiesWith(figure) && figure.Hex.HasHexObjectOfType<Water>())
-						{
-							list.Add(figure);
-						}
-					}
+					list.AddRange(GameController.Instance.Map.Figures.Where(figure =>
+						state.Authority.EnemiesWith(figure) && figure.Hex.HasHexObjectOfType<Water>()));
 				}
 			)
-			.Build()),
+			.Build())
 	];
 }
 
@@ -111,25 +104,23 @@ public class WaterSpiritAbilityCard3 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1,
-			aoePattern: new AOEPattern(
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAOEPattern(new AOEPattern(
 			[
 				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.SouthEast), AOEHexType.Red)
-			]),
-			afterAttackPerformedSubscriptions:
-			[
+			]))
+			.WithAfterAttackPerformedSubscription(
 				ScenarioEvents.AfterAttackPerformed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
 						await TryCreateWaterTile(applyParameters.AbilityState.Target.Hex);
 					}
-				)
-			]
-		))
+				))
+			.Build())
 	];
 }
 
@@ -140,7 +131,11 @@ public class WaterSpiritAbilityCard4 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 3, pull: 2, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(3)
+			.WithPull(2)
+			.WithConditions(Conditions.Immobilize)
+			.Build())
 	];
 }
 
@@ -151,16 +146,16 @@ public class WaterSpiritAbilityCard5 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(AttackAbility(monster,
-			extraDamage: new(state =>
+			extraDamage: new DynamicInt<AttackAbility.State>(state =>
 			{
-				List<Hex> hexes = new List<Hex>();
+				List<Hex> hexes = [];
 				RangeHelper.FindHexesInRange(state.Performer.Hex, 1, false, hexes);
 				int waterHexCount = Mathf.Min(hexes.Count(hex => hex.HasHexObjectOfType<Water>()), 3);
 				return waterHexCount - 1;
 			})
-		)),
+		).Build()),
 	];
 }
 
@@ -171,7 +166,7 @@ public class WaterSpiritAbilityCard6 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +2)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +2).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(3).WithTarget(Target.Self).Build()),
 		new MonsterAbilityCardAbility(OtherAbility.Builder()
 			.WithPerformAbility(async state =>
@@ -223,16 +218,15 @@ public class WaterSpiritAbilityCard7 : WaterSpiritAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, targets: 2,
-			afterTargetConfirmedSubscriptions:
-			[
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithTargets(2)
+			.WithAfterTargetConfirmedSubscription(
 				ScenarioEvents.AttackAfterTargetConfirmed.Subscription.New(
 					applyFunction: async applyParameters =>
 					{
 						await TryCreateWaterTile(applyParameters.AbilityState.Target.Hex);
 					}
-				)
-			]
-		)),
+				))
+			.Build())
 	];
 }

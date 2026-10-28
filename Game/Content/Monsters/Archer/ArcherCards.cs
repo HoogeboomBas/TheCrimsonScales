@@ -24,8 +24,8 @@ public class ArcherAbilityCard0 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 	];
 }
 
@@ -36,8 +36,8 @@ public class ArcherAbilityCard1 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 }
 
@@ -48,8 +48,8 @@ public class ArcherAbilityCard2 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, -1).Build()),
 	];
 }
 
@@ -60,8 +60,8 @@ public class ArcherAbilityCard3 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 }
 
@@ -72,7 +72,9 @@ public class ArcherAbilityCard4 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, targets: 2)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithTargets(2)
+			.Build()),
 	];
 }
 
@@ -84,7 +86,7 @@ public class ArcherAbilityCard5 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, extraRange: +1)),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1, +1).Build()),
 	];
 }
 
@@ -95,8 +97,8 @@ public class ArcherAbilityCard6 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1).Build()),
 
 		new MonsterAbilityCardAbility(CreateTrapAbility.Builder()
 			.WithDamage(3)
@@ -143,7 +145,9 @@ public class ArcherAbilityCard7 : ArcherAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: +1, conditions: [Conditions.Immobilize])),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1, +1)
+			.WithConditions(Conditions.Immobilize)
+			.Build()),
 	];
 }

@@ -130,14 +130,16 @@ public class InoxBodyguard : MonsterModel, IBossMonsterModel
 
 	public virtual IEnumerable<MonsterAbilityCardAbility> GetSpecial1Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1, aoePattern: AOEPattern))
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, -1).Build()),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, -1)
+			.WithAOEPattern(AOEPattern)
+			.Build())
 	];
 
 	public virtual IEnumerable<MonsterAbilityCardAbility> GetSpecial2Abilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(MonsterAbilityCardModel.AttackAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(RetaliateAbility.Builder().WithRetaliateValue(GetRetaliateValue()).Build())
 	];
 

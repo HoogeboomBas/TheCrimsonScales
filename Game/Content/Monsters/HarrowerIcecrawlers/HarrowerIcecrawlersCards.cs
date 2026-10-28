@@ -28,8 +28,8 @@ public class HarrowerIcecrawlersAbilityCard0 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -44,8 +44,8 @@ public class HarrowerIcecrawlersAbilityCard1 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +1).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0).Build()),
 	];
 
 	public override IEnumerable<CardElementInfusion> ElementInfusions { get; } =
@@ -64,18 +64,18 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 			//TODO: Change Retaliate Event so it requires suffering damage, and can work with retaliate of any range
 			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Subscribe(monster, this,
+				ScenarioEvents.RetaliateEvent.Subscribe(state, this,
 					canApplyParameters =>
 						RangeHelper.Distance(state.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 2,
 					async parameters =>
 					{
 						await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Chill);
 					});
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, this,
 					parameters => parameters.Figure == monster,
 					parameters =>
 					{
-						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+						parameters.Add(new InfoTextExtraEffect.Parameters(_ =>
 							$"Attackers gain {Icons.Inline(Icons.GetCondition(Conditions.Chill))} after suffering {Icons.Inline(Icons.Retaliate)} from this figure."));
 					}
 				);
@@ -83,8 +83,8 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 			})
 			.WithOnDeactivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Unsubscribe(monster, this);
-				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
+				ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(state, this);
 
 				await GDTask.CompletedTask;
 			})
@@ -100,24 +100,15 @@ public class HarrowerIcecrawlersAbilityCard3 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0,
-			aoePattern: new AOEPattern([
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithAOEPattern(new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.East), AOEHexType.Red),
-			]),
-			duringAttackSubscriptions:
-			[
-				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.AbilityAdjustPierce(2);
-						await GDTask.CompletedTask;
-					}
-				)
-			]
-		)),
+			]))
+			.WithPierce(new DynamicInt<AttackAbility.State>(_ => CheckElementConsumed(monster, [Element.Ice]) ? 2 : 0))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -131,18 +122,11 @@ public class HarrowerIcecrawlersAbilityCard4 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, -2)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, +1, range: 3,
-			duringAttackSubscriptions:
-			[
-				ConsumeElementCheckSubscription<ScenarioEvents.DuringAttack.Parameters>(monster, [Element.Ice],
-					applyFunction: async parameters =>
-					{
-						parameters.AbilityState.AbilityAdjustPierce(2);
-						await GDTask.CompletedTask;
-					})
-			]
-		)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, -2).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, +1)
+			.WithRange(3)
+			.WithPierce(new DynamicInt<AttackAbility.State>(_ => CheckElementConsumed(monster, [Element.Ice]) ? 2 : 0))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -156,28 +140,28 @@ public class HarrowerIcecrawlersAbilityCard5 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, +0, range: 5, afterAttackPerformedSubscriptions:
-		[
-			ScenarioEvents.AfterAttackPerformed.Subscription.New(canApplyFunction: canApply => CheckElementConsumed(monster, [Element.Ice]),
-				applyFunction: async applyParameters =>
-				{
-					List<Hex> hexes = [];
-					RangeHelper.FindHexesInRange(applyParameters.AbilityState.Target.Hex, 1, false, hexes);
-
-					List<Figure> enemies = hexes
-						.SelectMany(hex => hex.GetHexObjectsOfType<Figure>())
-						.Where(figure =>
-							figure != applyParameters.AbilityState.Target &&
-							applyParameters.AbilityState.Performer.EnemiesWith(figure))
-						.ToList();
-
-					foreach(Figure enemy in enemies)
+		new MonsterAbilityCardAbility(AttackAbility(monster, +0)
+			.WithRange(5)
+			.WithAfterAttackPerformedSubscription(
+				ScenarioEvents.AfterAttackPerformed.Subscription.New(_ => CheckElementConsumed(monster, [Element.Ice]),
+					async applyParameters =>
 					{
-						await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 1);
-					}
-				}
-			)
-		]))
+						List<Hex> hexes = [];
+						RangeHelper.FindHexesInRange(applyParameters.AbilityState.Target.Hex, 1, false, hexes);
+
+						List<Figure> enemies = hexes
+							.SelectMany(hex => hex.GetHexObjectsOfType<Figure>())
+							.Where(figure =>
+								figure != applyParameters.AbilityState.Target &&
+								applyParameters.AbilityState.Performer.EnemiesWith(figure))
+							.ToList();
+
+						foreach(Figure enemy in enemies)
+						{
+							await AbilityCmd.SufferDamage(applyParameters.AbilityState, enemy, 1);
+						}
+					}))
+			.Build())
 	];
 
 	public override IEnumerable<CardElementConsumption> ElementConsumptions { get; } =
@@ -191,13 +175,15 @@ public class HarrowerIcecrawlersAbilityCard6 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, aoePattern: new AOEPattern([
-			new AOEHex(Vector2I.Zero, AOEHexType.Gray),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthWest), AOEHexType.Red),
-			new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
-		]))),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -1)
+			.WithAOEPattern(new AOEPattern([
+				new AOEHex(Vector2I.Zero, AOEHexType.Gray),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.NorthWest), AOEHexType.Red),
+				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast).Add(Direction.East), AOEHexType.Red),
+			]))
+			.Build()),
 	];
 }
 
@@ -209,7 +195,7 @@ public class HarrowerIcecrawlersAbilityCard7 : HarrowerIcecrawlersAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		//TODO: Add "Add Range 3 to all retaliate" ability
-		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
+		new MonsterAbilityCardAbility(MoveAbility(monster, +0).Build()),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithRange(3).Build())
 	];
 }
