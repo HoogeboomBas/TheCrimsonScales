@@ -697,6 +697,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/UI/BetweenScenariosActionManager/ScenarioFlowchart/Container/SubViewportContainer" unique_id=522609141]
 transparent_bg = true
 handle_input_locally = false
+gui_embed_subwindows = true
 size = Vector2i(1536, 1024)
 render_target_update_mode = 4
 

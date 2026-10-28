@@ -4,6 +4,9 @@ using GTweensGodot.Extensions;
 
 public partial class ScenarioButton : Control
 {
+	private Timer _titleHoverTimer;
+	private PopupPanel _titleTooltip;
+
 	[Export]
 	public int ScenarioNumber { get; private set; }
 
@@ -40,7 +43,46 @@ public partial class ScenarioButton : Control
 		}
 
 		_betterButton.Pressed += OnButtonPressed;
+		InitTitleTooltip();
 		_label.Text = Model.ScenarioNumber.ToString();
+	}
+
+	private void InitTitleTooltip()
+	{
+		_titleTooltip = new PopupPanel { ThemeTypeVariation = "TooltipPanel" };
+		_titleTooltip.SetFlag(Window.Flags.NoFocus, true);
+		_titleTooltip.SetFlag(Window.Flags.Popup, false);
+		_titleTooltip.SetFlag(Window.Flags.MousePassthrough, true);
+		_titleTooltip.AddChild(new Label { Text = Model.Name, ThemeTypeVariation = "TooltipLabel" });
+		_betterButton.AddChild(_titleTooltip);
+
+		_titleHoverTimer = new Timer { WaitTime = 0.1, OneShot = true };
+		AddChild(_titleHoverTimer);
+		_titleHoverTimer.Timeout += ShowTitleTooltip;
+		_betterButton.MouseEntered += () => _titleHoverTimer.Start();
+		_betterButton.MouseExited += HideTitleTooltip;
+		_betterButton.ButtonDown += HideTitleTooltip;
+		_betterButton.VisibilityChanged += HideTitleTooltip;
+	}
+
+	private void ShowTitleTooltip()
+	{
+		if(!_betterButton.IsVisibleInTree())
+		{
+			return;
+		}
+
+		Viewport viewport = GetViewport();
+		Vector2I size = (Vector2I)_titleTooltip.GetContentsMinimumSize().Ceil();
+		Vector2 position = viewport.GetMousePosition() + new Vector2(16, 16);
+		position = position.Clamp(Vector2.Zero, (viewport.GetVisibleRect().Size - size).Max(Vector2.Zero));
+		_titleTooltip.Popup(new Rect2I((Vector2I)position, size));
+	}
+
+	private void HideTitleTooltip()
+	{
+		_titleHoverTimer.Stop();
+		_titleTooltip.Hide();
 	}
 
 	public void Init(Vector2I coords)
