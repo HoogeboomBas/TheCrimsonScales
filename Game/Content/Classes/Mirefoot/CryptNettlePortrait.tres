@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" format=3 uid="uid://4yo437l3ti4r"]
 
-[ext_resource type="Texture2D" uid="uid://fx70uu232fla" path="res://Content/Classes/Mirefoot/CryptNettle.jpg" id="1_cabxq"]
+[ext_resource type="Texture2D" uid="uid://cwmn2yirbl8j6" path="res://Content/Classes/Mirefoot/CryptNettle.jpg" id="1_cabxq"]
 
 [resource]
 atlas = ExtResource("1_cabxq")
-region = Rect2(280, 80, 340, 510)
+region = Rect2(150, 200, 500, 750)

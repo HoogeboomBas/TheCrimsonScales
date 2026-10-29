@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" format=3 uid="uid://cvca1wvixa6cg"]
 
-[ext_resource type="Texture2D" uid="uid://k0j6n4kjoj8i" path="res://Content/Classes/Brightspark/MetalDetector.png" id="1_lik8k"]
+[ext_resource type="Texture2D" uid="uid://dhu23lcgmj0mx" path="res://Content/Classes/Brightspark/MetalDetector.png" id="1_lik8k"]
 
 [resource]
 atlas = ExtResource("1_lik8k")
-region = Rect2(212, 80, 300, 450)
+region = Rect2(225, 200, 300, 450)
