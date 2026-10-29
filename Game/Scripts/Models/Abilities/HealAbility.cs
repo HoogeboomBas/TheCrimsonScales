@@ -178,7 +178,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		return ScenarioEvents.DuringHealEvent.CreateEffectCollection(new ScenarioEvents.DuringHeal.Parameters(abilityState));
 	}
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await ScenarioEvents.HealAfterTargetConfirmedEvent.CreatePrompt(
 			new ScenarioEvents.HealAfterTargetConfirmed.Parameters(abilityState), abilityState);
@@ -234,6 +234,7 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 
 		await ScenarioEvents.AfterHealPerformedEvent.CreatePrompt(
 			new ScenarioEvents.AfterHealPerformed.Parameters(abilityState, blockedAbilityStateParameters.IsBlocked), abilityState);
+		return true;
 	}
 
 	protected override void GetValidTargets(State abilityState, List<Figure> figures, int targetsOutOfAOE)

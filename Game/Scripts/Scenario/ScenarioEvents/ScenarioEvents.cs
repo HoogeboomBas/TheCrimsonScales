@@ -94,11 +94,17 @@ public partial class ScenarioEvents
 	{
 		public class Parameters(AttackAbility.State abilityState) : ParametersBase<AttackAbility.State>(abilityState)
 		{
-			public bool CannotGainDisadvantage { get; private set; } = false;
+			public bool CannotGainDisadvantage { get; private set; }
+			public bool Prevented { get; private set; }
 
 			public void SetCannotGainDisadvantage()
 			{
 				CannotGainDisadvantage = true;
+			}
+
+			public void SetPrevented()
+			{
+				Prevented = true;
 			}
 		}
 	}
@@ -412,12 +418,13 @@ public partial class ScenarioEvents
 			public AbilityState PotentialAbilityState { get; }
 			public Figure Figure { get; }
 			public Figure PotentialDamageDealer { get; }
-			public int InitialDamage { get; }
+			public int InitialDamage { get; private set; }
 
 			public int CalculatedCurrentDamage { get; private set; }
 
 			public int Shield { get; private set; } = 0;
 			public int UnpierceableShield { get; private set; } = 0;
+			public int FinalDamageAdjustment { get; private set; }
 
 			public bool DamagePrevented { get; private set; }
 
@@ -482,6 +489,21 @@ public partial class ScenarioEvents
 				CalculateCurrentDamage();
 			}
 
+			public void AdjustAttackValue(int amount)
+			{
+				((AttackAbility.State)PotentialAbilityState).SingleTargetAdjustAttackValue(amount);
+				InitialDamage += amount;
+
+				CalculateCurrentDamage();
+			}
+
+			public void AdjustFinalDamageAdjustment(int amount)
+			{
+				FinalDamageAdjustment += amount;
+
+				CalculateCurrentDamage();
+			}
+
 			private void CalculateCurrentDamage()
 			{
 				if(DamagePrevented)
@@ -511,7 +533,7 @@ public partial class ScenarioEvents
 					finalDamage /= 2;
 				}
 
-				CalculatedCurrentDamage = finalDamage;
+				CalculatedCurrentDamage = finalDamage + FinalDamageAdjustment;
 			}
 		}
 	}
@@ -837,17 +859,6 @@ public partial class ScenarioEvents
 	private readonly ElementInfused _elementInfused = new ElementInfused();
 	public static ElementInfused ElementInfusedEvent => GameController.Instance.ScenarioEvents._elementInfused;
 
-	public class FinishElementConsumed : ScenarioEvent<FinishElementConsumed.Parameters>
-	{
-		public class Parameters(Element consumedElement) : ParametersBase
-		{
-			public Element ConsumedElement = consumedElement;
-		}
-	}
-
-	private readonly FinishElementConsumed _finishElementConsumed = new FinishElementConsumed();
-	public static FinishElementConsumed FinishElementConsumedEvent => GameController.Instance.ScenarioEvents._finishElementConsumed;
-
 	public class FinishElementInfused : ScenarioEvent<FinishElementInfused.Parameters>
 	{
 		public class Parameters(Element infusedElement) : ParametersBase
@@ -859,12 +870,23 @@ public partial class ScenarioEvents
 	private readonly FinishElementInfused _finishElementInfused = new FinishElementInfused();
 	public static FinishElementInfused FinishElementInfusedEvent => GameController.Instance.ScenarioEvents._finishElementInfused;
 
+	public class FinishElementConsumed : ScenarioEvent<FinishElementConsumed.Parameters>
+	{
+		public class Parameters(Element consumedElement) : ParametersBase
+		{
+			public Element ConsumedElement = consumedElement;
+		}
+	}
+
+	private readonly FinishElementConsumed _finishElementConsumed = new FinishElementConsumed();
+	public static FinishElementConsumed FinishElementConsumedEvent => GameController.Instance.ScenarioEvents._finishElementConsumed;
+
 	public class ConsumeElement : ScenarioEvent<ConsumeElement.Parameters>
 	{
-		public class Parameters(IEnumerable<Element> elements)
+		public class Parameters(List<Element> elements)
 			: ParametersBase
 		{
-			public IEnumerable<Element> Elements { get; } = elements;
+			public List<Element> Elements { get; } = elements;
 
 			public bool Consumed { get; private set; }
 			public Element ConsumedElement { get; private set; }
@@ -873,6 +895,11 @@ public partial class ScenarioEvents
 			{
 				Consumed = true;
 				ConsumedElement = element;
+			}
+
+			public void AddPossibleConsume(Element element)
+			{
+				Elements.AddIfNew(element);
 			}
 		}
 	}
@@ -1470,4 +1497,33 @@ public partial class ScenarioEvents
 
 	private readonly AddMinusOnesEventReward _addMinusOnesEventReward = new AddMinusOnesEventReward();
 	public static AddMinusOnesEventReward AddMinusOnesEventRewardEvent => GameController.Instance.ScenarioEvents._addMinusOnesEventReward;
+
+	public class DodgeUsed : ScenarioEvent<DodgeUsed.Parameters>
+	{
+		public class Parameters(Figure dodgeUser, Figure attacker) : ParametersBase
+		{
+			public Figure DodgeUser { get; } = dodgeUser;
+			public Figure Attacker { get; } = attacker;
+		}
+	}
+
+	private readonly DodgeUsed _dodgeUsed = new DodgeUsed();
+	public static DodgeUsed DodgeUsedEvent => GameController.Instance.ScenarioEvents._dodgeUsed;
+
+	public class DodgeDiscardCard : ScenarioEvent<DodgeDiscardCard.Parameters>
+	{
+		public class Parameters(Figure figure) : ParametersBase
+		{
+			public Figure Figure { get; } = figure;
+			public bool DiscardCard { get; private set; } = true;
+
+			public void SetDiscardCard(bool discardCard)
+			{
+				DiscardCard = discardCard;
+			}
+		}
+	}
+
+	private readonly DodgeDiscardCard _dodgeDiscardCard = new DodgeDiscardCard();
+	public static DodgeDiscardCard DodgeDiscardCardEvent => GameController.Instance.ScenarioEvents._dodgeDiscardCard;
 }

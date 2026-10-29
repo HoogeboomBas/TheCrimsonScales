@@ -1,7 +1,7 @@
 ﻿using Fractural.Tasks;
 using GTweens.Easings;
 
-public abstract partial class LootableObject : HexObject
+public abstract partial class LootableObject : HexObject, IEventSubscriber
 {
 	public virtual bool CanLoot(Figure lootObtainer)
 	{

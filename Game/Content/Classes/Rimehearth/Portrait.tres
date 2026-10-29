@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://b7dlj0y7c0cgo"]
+
+[ext_resource type="Texture2D" uid="uid://rdy5bds6r0pk" path="res://Content/Classes/Rimehearth/Artwork.jpg" id="1_saqdq"]
+
+[resource]
+atlas = ExtResource("1_saqdq")
+region = Rect2(250, 200, 400, 600)

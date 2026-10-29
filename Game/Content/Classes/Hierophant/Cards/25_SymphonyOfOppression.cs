@@ -74,7 +74,7 @@ public class SymphonyOfOppression : HierophantLevelUpCardModel<SymphonyOfOppress
 						{
 							if(parameters.AbilityState is ShieldAbility.State shieldAbilityState)
 							{
-								shieldAbilityState.AdjustAdditionalShield(1);
+								shieldAbilityState.AdjustShieldValue(1);
 							}
 							else if(parameters.AbilityState is RetaliateAbility.State retaliateAbilityState)
 							{

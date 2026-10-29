@@ -107,7 +107,7 @@ public class ControlAbility : TargetedAbility<ControlAbility.State, SingleTarget
 		return ScenarioEvents.DuringControlEvent.CreateEffectCollection(new ScenarioEvents.DuringControl.Parameters(abilityState));
 	}
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 		// Perform the actual abilities
@@ -116,5 +116,6 @@ public class ControlAbility : TargetedAbility<ControlAbility.State, SingleTarget
 			abilityState.ActionState);
 		abilityState.ControlAbilityActionStates.Add(actionState);
 		await actionState.Perform();
+		return true;
 	}
 }

@@ -16,6 +16,11 @@ public class CardElementInfusion
 		return new CardElementInfusion(null, [infusedElement]);
 	}
 
+	public static CardElementInfusion Infuse(IReadOnlyList<Element> possibleInfusedElements)
+	{
+		return new CardElementInfusion(null, possibleInfusedElements);
+	}
+
 	public static CardElementInfusion InfuseWild()
 	{
 		return new CardElementInfusion(null, Elements.All);

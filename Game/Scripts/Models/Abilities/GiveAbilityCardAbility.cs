@@ -94,11 +94,12 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 
 	public GiveAbilityCardAbility() { }
 
-	protected override async GDTask AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
+	protected override async GDTask<bool> AfterTargetConfirmedBeforeConditionsApplied(State abilityState, Figure target)
 	{
 		await base.AfterTargetConfirmedBeforeConditionsApplied(abilityState, target);
 
 		await GiveAbilityCard(abilityState, target, _getAbilityCards, _onCardGiven, _onCardDiscarded, _onCardLost, _selectAutomatically);
+		return true;
 	}
 
 	public static async GDTask GiveAbilityCard(AbilityState abilityState, Figure target, Action<AbilityState, List<AbilityCard>> getAbilityCards,

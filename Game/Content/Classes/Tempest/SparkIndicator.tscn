@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dntx41ar2sdri"]
+
+[ext_resource type="Script" uid="uid://uc3goqncfoam" path="res://Content/Classes/Tempest/SparkIndicator.cs" id="1_s6mql"]
+[ext_resource type="Texture2D" uid="uid://benx8e5e3ktmd" path="res://Content/Classes/Tempest/SparkToken.png" id="2_qlfty"]
+[ext_resource type="FontFile" uid="uid://c4k3lpnj0wc06" path="res://Fonts/PirataOne-Gloomhaven.ttf" id="3_bhsj8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_11iqu"]
+font = ExtResource("3_bhsj8")
+font_size = 60
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="SparkIndicator" type="Node2D" unique_id=1204759387]
+z_index = 11
+script = ExtResource("1_s6mql")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=978478059]
+scale = Vector2(0.173, 0.173)
+texture = ExtResource("2_qlfty")
+
+[node name="StackLabel" type="Label" parent="." unique_id=1972607740]
+visible = false
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 78.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(20, -39)
+text = "4"
+label_settings = SubResource("LabelSettings_11iqu")
+horizontal_alignment = 1
+vertical_alignment = 1

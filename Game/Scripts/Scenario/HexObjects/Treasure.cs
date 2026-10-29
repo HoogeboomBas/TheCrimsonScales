@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
-public partial class Treasure : LootableObject, IEventSubscriber
+public partial class Treasure : LootableObject
 {
 	[Export]
 	public int TreasureNumber = -1;

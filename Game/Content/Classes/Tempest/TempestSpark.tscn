@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://nk20rx3kpa1d"]
+
+[ext_resource type="Script" uid="uid://clne4ttva5dvn" path="res://Content/Classes/Tempest/TempestSpark.cs" id="1_slxxw"]
+[ext_resource type="Script" uid="uid://cga0mgtsgequm" path="res://Scripts/Scenario/SnapToHexGrid.cs" id="2_i8760"]
+[ext_resource type="Texture2D" uid="uid://benx8e5e3ktmd" path="res://Content/Classes/Tempest/SparkToken.png" id="3_aeiyj"]
+
+[node name="TempestSpark" type="Node2D" unique_id=726832961]
+z_index = 20
+script = ExtResource("1_slxxw")
+
+[node name="SnapToHexGrid" type="Node" parent="." unique_id=255625972]
+script = ExtResource("2_i8760")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=222920055]
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 311.0
+offset_bottom = 311.0
+scale = Vector2(0.207, 0.207)
+texture = ExtResource("3_aeiyj")

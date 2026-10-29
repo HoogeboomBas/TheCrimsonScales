@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bqugvw7usuitg"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_rd461"]
+[ext_resource type="Texture2D" uid="uid://rdy5bds6r0pk" path="res://Content/Classes/Rimehearth/Artwork.jpg" id="2_hekwb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxl70"]
+atlas = ExtResource("2_hekwb")
+region = Rect2(130, 180, 600, 600)
+
+[node name="Starslinger" unique_id=1379816013 instance=ExtResource("1_rd461")]
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = SubResource("AtlasTexture_uxl70")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+position = Vector2(6.172838, 49.382713)
+scale = Vector2(0.419909, 0.41990906)
+texture = ExtResource("2_hekwb")
+hframes = 1
+vframes = 1
+_frameCount = 1
+_framesPerSecond = 1
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.95686275, 0.43137255, 0.3019608, 1)

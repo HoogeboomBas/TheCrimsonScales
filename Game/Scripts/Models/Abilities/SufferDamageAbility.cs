@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 /// <summary>
 /// An <see cref="Ability{T}"/> that makes figures suffer damage.
@@ -41,6 +42,17 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 					yield return hex;
 				}
 			}
+		}
+
+		public void AbilityAdjustRange(int amount)
+		{
+			AbilityRange += amount;
+		}
+
+		public void AdjustAbilityDamage(int damage)
+		{
+			AbilityDamage += damage;
+			SingleTargetDamage += damage;
 		}
 	}
 
@@ -453,6 +465,6 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 
 	private string DefaultTargetingHintText(State abilityState)
 	{
-		return $"Select a target to suffer {Icons.HintText(Icons.Damage)}{Damage.GetValue(abilityState)}";
+		return $"Select a target to suffer {Icons.HintText(Icons.Damage)}{abilityState.SingleTargetDamage}";
 	}
 }

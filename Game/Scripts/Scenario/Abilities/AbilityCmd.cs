@@ -48,7 +48,7 @@ public static class AbilityCmd
 		await card.SetCardState(CardState.Hand);
 	}
 
-	public static OtherActiveAbility AllOpposingAttacksGainDisadvantageActiveAbility()
+	public static OtherActiveAbility AllOpposingAttacksGainDisadvantageActiveAbility(bool round = true)
 	{
 		return OtherActiveAbility.Builder()
 			.WithOnActivate(async state =>
@@ -71,7 +71,8 @@ public static class AbilityCmd
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(state, state.Performer,
 					parameters => state.Performer == parameters.Figure,
 					parameters => parameters.Add(
-						new InfoTextExtraEffect.Parameters(textParameters => "All attacks targeting this figure this round gain disadvantage."))
+						new InfoTextExtraEffect.Parameters(textParameters =>
+							$"All attacks targeting this figure {(round ? "this round " : "")}gain disadvantage."))
 				);
 
 				await GDTask.CompletedTask;
@@ -114,7 +115,9 @@ public static class AbilityCmd
 			await ScenarioEvents.JustBeforeSufferDamageEvent.CreatePrompt(
 				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, damageDealt, potentialAbilityState, sufferDamageParameters), target);
 
-		if(justBeforeSufferDamageParameters.Prevented)
+		damageDealt = justBeforeSufferDamageParameters.Damage;
+
+		if(justBeforeSufferDamageParameters.Prevented || damageDealt == 0)
 		{
 			return 0;
 		}
@@ -296,6 +299,20 @@ public static class AbilityCmd
 		return false;
 	}
 
+	public static async GDTask<bool> RemoveWound(Figure target, AbilityState potentialAbilityState = null)
+	{
+		return await RemoveCondition(target, Conditions.Wound1, potentialAbilityState) |
+		       await RemoveCondition(target, Conditions.Wound2, potentialAbilityState);
+	}
+
+	public static async GDTask<bool> RemovePoison(Figure target, AbilityState potentialAbilityState = null)
+	{
+		return await RemoveCondition(target, Conditions.Poison1, potentialAbilityState) |
+		       await RemoveCondition(target, Conditions.Poison2, potentialAbilityState) |
+		       await RemoveCondition(target, Conditions.Poison3, potentialAbilityState) |
+		       await RemoveCondition(target, Conditions.Poison4, potentialAbilityState);
+	}
+
 	public static async GDTask RemoveOneNegativeCondition(AbilityState potentialAbilityState, Figure target)
 	{
 		List<ScenarioEvents.GenericChoice.Subscription> subscriptions =
@@ -347,7 +364,7 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask RemoveChillStack(Figure target)
+	public static async GDTask<bool> RemoveChillStack(Figure target)
 	{
 		if(target.TryGetCondition(Conditions.Chill, out Condition chill))
 		{
@@ -359,7 +376,11 @@ public static class AbilityCmd
 			{
 				await RemoveCondition(chill);
 			}
+
+			return true;
 		}
+
+		return false;
 	}
 
 	public static async GDTask AddCharacterToken(AbilityState abilityState, Figure target, TextHelper.LabelTextDelegate getEffectText)
@@ -1106,7 +1127,7 @@ public static class AbilityCmd
 
 		ScenarioEvents.ConsumeElement.Parameters consumeEventParameters =
 			await ScenarioEvents.ConsumeElementEvent.CreatePrompt(
-				new ScenarioEvents.ConsumeElement.Parameters(possibleElements), authority,
+				new ScenarioEvents.ConsumeElement.Parameters(possibleElements.ToList()), authority,
 				"Select element to consume");
 
 		ScenarioEvents.ConsumeElementEvent.Unsubscribe(authority, subscriber);
@@ -1894,5 +1915,44 @@ public static class AbilityCmd
 	{
 		hex1.AddNeighbour(hex2);
 		hex2.AddNeighbour(hex1);
+	}
+
+	public static bool HexesInStraightLine(Hex startHex, List<Hex> hexes, int? minRequiredInLine = null)
+	{
+		minRequiredInLine ??= hexes.Count;
+		if(hexes.Count < minRequiredInLine)
+		{
+			return false;
+		}
+
+		if(minRequiredInLine <= 1)
+		{
+			return true;
+		}
+
+		Vector2I direction = hexes[0].Coords - startHex.Coords;
+		int lineLength = 1;
+
+		for(int i = 1; i < hexes.Count; i++)
+		{
+			Vector2I currentDirection = hexes[i].Coords - hexes[i - 1].Coords;
+
+			if(currentDirection == direction)
+			{
+				lineLength++;
+
+				if(lineLength >= minRequiredInLine)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				direction = currentDirection;
+				lineLength = 1;
+			}
+		}
+
+		return false;
 	}
 }

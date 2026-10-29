@@ -22,7 +22,7 @@ public class ChannelTheVoid : HollowpactCardModel<ChannelTheVoid.CardTop, Channe
 						canApplyParameters => true,
 						async applyParameters =>
 						{
-							((ShieldAbility.State)applyParameters.AbilityState).AdjustAdditionalShield(1);
+							((ShieldAbility.State)applyParameters.AbilityState).AdjustShieldValue(1);
 
 							await AbilityCmd.GainXP(applyParameters.AbilityState.Performer, 1);
 						}, effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Shield)}")))

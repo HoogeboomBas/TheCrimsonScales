@@ -4,7 +4,7 @@ using Fractural.Tasks;
 using Godot;
 using GTweensGodot.Extensions;
 
-public partial class Coin : LootableObject, IEventSubscriber
+public partial class Coin : LootableObject
 {
 	private bool IsFirstCoin => Hex.GetHexObjectOfType<Coin>() == this;
 

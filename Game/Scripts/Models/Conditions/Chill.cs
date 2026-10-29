@@ -15,9 +15,7 @@ public class Chill : ConditionModel
 		await base.OnAdded(condition);
 
 		ScenarioEvents.AbilityStartedEvent.Subscribe(condition,
-			parameters =>
-				parameters.Performer == condition.Owner &&
-				parameters.AbilityState is AttackAbility.State or MoveAbility.State,
+			parameters => parameters.Performer == condition.Owner && parameters.AbilityState is MoveAbility.State,
 			parameters =>
 			{
 				if(parameters.AbilityState is AttackAbility.State attackState)
@@ -34,11 +32,24 @@ public class Chill : ConditionModel
 				return GDTask.CompletedTask;
 			}
 		);
+
+		ScenarioEvents.DuringAttackEvent.Subscribe(condition,
+			parameters => parameters.Performer == condition.Owner,
+			parameters =>
+			{
+				parameters.AbilityState.SingleTargetAdjustAttackValue(-condition.StackCount);
+
+				condition.Flash();
+
+				return GDTask.CompletedTask;
+			}
+		);
 	}
 
 	public override GDTask OnRemoved(Condition condition)
 	{
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
+		ScenarioEvents.DuringAttackEvent.Unsubscribe(condition);
 
 		return GDTask.CompletedTask;
 	}

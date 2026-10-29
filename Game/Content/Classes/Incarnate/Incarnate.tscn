@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cddptx6jnswl4"]
+
+[ext_resource type="PackedScene" uid="uid://drsppepfslnis" path="res://Scenes/Scenario/Character.tscn" id="1_y5f2d"]
+[ext_resource type="Script" uid="uid://sg8lhsmvrspk" path="res://Content/Classes/Incarnate/Incarnate.cs" id="2_6yvaq"]
+[ext_resource type="Texture2D" uid="uid://cgguw3tu864yn" path="res://Content/Classes/Incarnate/MapIcon.tres" id="3_advu7"]
+[ext_resource type="Texture2D" uid="uid://ccapbwyr7ste5" path="res://Content/Classes/Incarnate/Ritualist.svg" id="4_2g4wi"]
+[ext_resource type="Texture2D" uid="uid://dpnfungc1oc7u" path="res://Content/Classes/Incarnate/Reaver.svg" id="5_2g4wi"]
+[ext_resource type="Texture2D" uid="uid://cps8qg88ep4p6" path="res://Content/Classes/Incarnate/Conqueror.svg" id="5_y3kin"]
+
+[node name="Incarnate" unique_id=1778313695 node_paths=PackedStringArray("_ritualistIndicator", "_conquerorIndicator", "_reaverIndicator") instance=ExtResource("1_y5f2d")]
+script = ExtResource("2_6yvaq")
+_ritualistIndicator = NodePath("Ritualist")
+_conquerorIndicator = NodePath("Conqueror")
+_reaverIndicator = NodePath("Reaver")
+
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
+texture = ExtResource("3_advu7")
+
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
+position = Vector2(0, 9.536743e-07)
+scale = Vector2(0.41722906, 0.41722918)
+texture = ExtResource("3_advu7")
+hframes = 1
+vframes = 1
+_frameCount = 1
+_framesPerSecond = 1
+
+[node name="Outline" parent="." index="2" unique_id=517487183]
+self_modulate = Color(0.7882353, 0.7882353, 0.7882353, 1)
+
+[node name="Ritualist" type="Sprite2D" parent="." index="4" unique_id=860709570]
+visible = false
+position = Vector2(63, -37)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_2g4wi")
+
+[node name="Conqueror" type="Sprite2D" parent="." index="5" unique_id=98280669]
+visible = false
+position = Vector2(63, -37)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_y3kin")
+
+[node name="Reaver" type="Sprite2D" parent="." index="6" unique_id=80713722]
+visible = false
+position = Vector2(63, -37)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_2g4wi")

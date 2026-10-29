@@ -9,13 +9,13 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 {
 	public class State : ActiveAbilityState, IConditionsAbilityState
 	{
-		public int AdditionalShield { get; private set; } = 0;
+		public int ShieldValue { get; set; }
 
 		public List<ConditionModel> ConditionModels { get; } = new List<ConditionModel>();
 
-		public void AdjustAdditionalShield(int value)
+		public void AdjustShieldValue(int value)
 		{
-			AdditionalShield += value;
+			ShieldValue += value;
 		}
 
 		public void AbilityAddCondition(ConditionModel conditionModel)
@@ -101,6 +101,13 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 
 	public ShieldAbility() { }
 
+	protected override void InitializeState(State abilityState)
+	{
+		base.InitializeState(abilityState);
+
+		abilityState.ShieldValue = ShieldValue.GetValue(abilityState);
+	}
+
 	protected override async GDTask Perform(State abilityState)
 	{
 		await AskConfirmAndActivate(abilityState);
@@ -110,8 +117,7 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 	{
 		await base.Activate(abilityState);
 
-		int shieldValue = ShieldValue.GetValue(abilityState);
-		await AbilityCmd.AddShield(abilityState.Performer, this, shieldValue + abilityState.AdditionalShield, ConditionalValue, Pierceable,
+		await AbilityCmd.AddShield(abilityState.Performer, this, abilityState.ShieldValue, ConditionalValue, Pierceable,
 			RequiredRangeType, _customCanApply, _customCanApplyReplaceFully);
 
 		foreach(ConditionModel conditionModel in abilityState.ConditionModels)
