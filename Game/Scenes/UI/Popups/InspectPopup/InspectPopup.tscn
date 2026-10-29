@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dhs5lsurefat2"]
+
+[ext_resource type="PackedScene" uid="uid://dp2uff21w610p" path="res://Scenes/UI/Popups/_PopupBase.tscn" id="1_pytnb"]
+[ext_resource type="Script" uid="uid://d0e2f4coducii" path="res://Scripts/UI/Popups/InspectPopup/InspectPopup.cs" id="2_6c8qj"]
+[ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="3_pytnb"]
+[ext_resource type="PackedScene" uid="uid://dqfdqgmy4ex03" path="res://Scenes/UI/Popups/InspectPopup/InspectPopupTooltip.tscn" id="4_6c8qj"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="6_kedtn"]
+[ext_resource type="PackedScene" uid="uid://b51vd03g1dpc8" path="res://Scenes/UI/PanelButton.tscn" id="7_bemck"]
+
+[node name="InspectPopup" unique_id=1115565838 node_paths=PackedStringArray("_abilityCardView", "_tooltipParent") instance=ExtResource("1_pytnb")]
+script = ExtResource("2_6c8qj")
+_abilityCardView = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/AbilityCardView")
+_tooltipScene = ExtResource("4_6c8qj")
+_tooltipParent = NodePath("Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/ScrollContainer/Tooltips")
+
+[node name="Panel" parent="." index="1" unique_id=2112547392]
+offset_left = -590.0
+offset_top = -417.5
+offset_right = 590.0
+offset_bottom = 417.5
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(639673785) index="1" unique_id=1728821259]
+text = "Inspect"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="0" unique_id=820835052]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="AbilityCardView" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="0" unique_id=140855323 instance=ExtResource("3_pytnb")]
+custom_minimum_size = Vector2(500, 700)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer" index="1" unique_id=2019759088]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = 10
+draw_focus_border = true
+horizontal_scroll_mode = 0
+
+[node name="Tooltips" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/HBoxContainer/ScrollContainer" index="0" unique_id=1386333009]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=1822460955]
+visible = false
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("6_kedtn")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Mirefoot[img height=50, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] retires from the mercenary lifestyle!
+"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Buttons" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1052908713) index="1" unique_id=1394157472]
+visible = false
+
+[node name="ContinueButton" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons" index="0" unique_id=1631588730 instance=ExtResource("7_bemck")]
+layout_mode = 2
+
+[node name="Label" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1631588730, 62362509) index="0" unique_id=188245078]
+text = "Continue"
+
+[editable path="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Buttons/ContinueButton"]

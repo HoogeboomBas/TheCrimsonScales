@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class AbilityCardView : CardView
@@ -13,11 +14,28 @@ public partial class AbilityCardView : CardView
 	[Export]
 	private Control _characterTokenParent;
 
+	[Export]
+	private InspectOverlay _inspectOverlay;
+
+	private AbilityCardModel _model;
+	private SavedAbilityCard _savedAbilityCard;
+
 	private readonly List<AbilityCardViewEnhancement> _enhancements = new List<AbilityCardViewEnhancement>();
 	private readonly List<AbilityCardViewCharacterToken> _tokens = new List<AbilityCardViewCharacterToken>();
 
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_inspectOverlay.InspectRequestedEvent += OnInspectRequested;
+	}
+
 	public void SetCard(AbilityCardModel model)
 	{
+		Clear();
+
+		_model = model;
+
 		Texture2D texture = model.GetTexture();
 		Init(texture);
 	}
@@ -26,22 +44,10 @@ public partial class AbilityCardView : CardView
 	{
 		SetCard(savedAbilityCard.Model);
 
-		foreach(AbilityCardViewEnhancement enhancement in _enhancements)
-		{
-			enhancement.QueueFree();
-		}
-
-		_enhancements.Clear();
+		_savedAbilityCard = savedAbilityCard;
 
 		AddEnhancements(savedAbilityCard.Model.Top.Enhancements, savedAbilityCard.SavedTopEnhancements);
 		AddEnhancements(savedAbilityCard.Model.Bottom.Enhancements, savedAbilityCard.SavedBottomEnhancements);
-
-		foreach(AbilityCardViewCharacterToken token in _tokens)
-		{
-			token.QueueFree();
-		}
-
-		_tokens.Clear();
 
 		AbilityCard abilityCard = GameController.Instance?.CardManager.Get(savedAbilityCard);
 		if(abilityCard != null)
@@ -90,5 +96,34 @@ public partial class AbilityCardView : CardView
 			abilityCardViewEnhancement.Init(enhancementMark, savedEnhancement.Model);
 			_enhancements.Add(abilityCardViewEnhancement);
 		}
+	}
+
+	private void Clear()
+	{
+		_model = null;
+		_savedAbilityCard = null;
+
+		foreach(AbilityCardViewEnhancement enhancement in _enhancements)
+		{
+			enhancement.QueueFree();
+		}
+
+		_enhancements.Clear();
+
+		foreach(AbilityCardViewCharacterToken token in _tokens)
+		{
+			token.QueueFree();
+		}
+
+		_tokens.Clear();
+	}
+
+	private void OnInspectRequested()
+	{
+		AppController.Instance.PopupManager.RequestPopup(new InspectPopup.Request()
+		{
+			SavedAbilityCard = _savedAbilityCard,
+			Model = _model,
+		});
 	}
 }

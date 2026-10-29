@@ -1,56 +1,31 @@
-using System.Collections.Generic;
 using Godot;
 
 public partial class TooltipView : Control
 {
 	[Export]
-	private PackedScene _itemScene;
+	private ResizingLabel _nameLabel;
 	[Export]
-	private Control _itemParent;
+	private TextureRect _iconTexture;
+	// [Export]
+	// private Label _categoryLabel;
+	[Export]
+	private RichTextLabel _textLabel;
 
-	private object _requester;
-
-	private readonly List<TooltipItem> _items = new List<TooltipItem>();
-
-	public void Open(object requester, List<Tooltip> tooltips)
+	public void Init(Tooltip tooltip)
 	{
-		Close();
-
-		Show();
-
-		this.DelayedCall(() =>
+		_nameLabel.SetText(tooltip.Name);
+		_iconTexture.SetVisible(tooltip.IconPath != null);
+		if(tooltip.IconPath != null)
 		{
-			foreach(Tooltip tooltip in tooltips)
-			{
-				TooltipItem item = _itemScene.Instantiate<TooltipItem>();
-				_itemParent.AddChild(item);
-				item.Init(tooltip);
-				_items.Add(item);
-			}
-		});
-
-		_requester = requester;
-	}
-
-	public void Close(object requester)
-	{
-		if(_requester == requester)
-		{
-			Close();
-		}
-	}
-
-	private void Close()
-	{
-		Hide();
-
-		foreach(TooltipItem item in _items)
-		{
-			item.QueueFree();
+			_iconTexture.SetTexture(ResourceLoader.Load<Texture2D>(tooltip.IconPath));
 		}
 
-		_items.Clear();
+		// _categoryLabel.SetVisible(tooltip.Category != null);
+		// if(tooltip.Category != null)
+		// {
+		// 	_categoryLabel.SetText(tooltip.Category);
+		// }
 
-		_requester = null;
+		_textLabel.SetText(tooltip.GetText(_textLabel.GetRichTextParameters()));
 	}
 }

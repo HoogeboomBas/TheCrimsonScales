@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://davruphgneuad"]
 
 [ext_resource type="Texture2D" uid="uid://c50n0lfjv3r6v" path="res://Art/Icons/ConditionsAndEffects/Wound.svg" id="1_axoop"]
-[ext_resource type="Script" uid="uid://06w8h5pppixt" path="res://Scripts/Tooltips/TooltipItem.cs" id="1_bsmga"]
+[ext_resource type="Script" uid="uid://06w8h5pppixt" path="res://Scripts/Tooltips/TooltipView.cs" id="1_bsmga"]
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="2_bsmga"]
 [ext_resource type="Script" uid="uid://ck1ncviofqosh" path="res://Scripts/UI/ResizingLabel.cs" id="3_buuk5"]
 [ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="4_yxgmr"]
 
-[node name="TooltipItem" type="MarginContainer" unique_id=1434833762 node_paths=PackedStringArray("_nameLabel", "_iconTexture", "_textLabel")]
+[node name="TooltipView" type="MarginContainer" unique_id=1434833762 node_paths=PackedStringArray("_nameLabel", "_iconTexture", "_textLabel")]
 mouse_filter = 2
 script = ExtResource("1_bsmga")
 _nameLabel = NodePath("VBoxContainer/Header/LabelContainer/Label")

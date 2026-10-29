@@ -75,10 +75,10 @@ public class PushAbility : TargetedAbility<PushAbility.State, SingleTargetState>
 		return ScenarioEvents.DuringPushEvent.CreateEffectCollection(new ScenarioEvents.DuringPush.Parameters(abilityState));
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		// tooltips.Add(Tooltips.Push);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

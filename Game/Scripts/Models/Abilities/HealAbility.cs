@@ -257,10 +257,10 @@ public class HealAbility : TargetedAbility<HealAbility.State, HealAbility.HealAb
 		return $"Select a target for {Icons.HintText(Icons.Heal)}{abilityState.SingleTargetHealValue}";
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		tooltips.Add(Tooltips.Heal);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

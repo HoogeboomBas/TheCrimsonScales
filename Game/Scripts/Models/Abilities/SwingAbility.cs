@@ -47,10 +47,10 @@ public class SwingAbility : TargetedAbility<SwingAbility.State, SingleTargetStat
 
 	public SwingAbility() { }
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		// tooltips.Add(Tooltips.Swing);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

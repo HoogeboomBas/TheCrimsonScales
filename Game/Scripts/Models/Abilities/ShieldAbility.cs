@@ -132,10 +132,10 @@ public class ShieldAbility : ActiveAbility<ShieldAbility.State>
 		return $"Perform the {Icons.HintText(Icons.Shield)} ability?";
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		tooltips.Add(Tooltips.Shield);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

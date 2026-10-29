@@ -104,4 +104,12 @@ public abstract class AbilityCardSideModel : AbstractModel
 		InitExtraEnhancements();
 		_abilities = GetAbilities();
 	}
+
+	public void GetTooltips(TooltipCollection tooltips)
+	{
+		foreach(AbilityCardAbility ability in Abilities)
+		{
+			ability.Ability.GetTooltips(tooltips);
+		}
+	}
 }

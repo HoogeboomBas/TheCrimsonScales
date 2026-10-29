@@ -32,8 +32,8 @@ public partial class AppController : SingletonNode<AppController>
 	[Export]
 	public StoryView StoryView { get; private set; }
 
-	[Export]
-	public TooltipView TooltipView { get; private set; }
+	// [Export]
+	// public TooltipView TooltipView { get; private set; }
 
 	// public SaveFile SaveFile { get; private set; }
 	public SaveManager SaveManager { get; private set; }

@@ -233,7 +233,7 @@ public abstract class Ability<T> : Ability
 		}
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		// Dictionary<int, SavedEnhancement> enhancements =
 		// 	abilityCardSide.AbilityCard.SavedAbilityCard.GetEnhancements(abilityCardSide.AbilityCardSideType == AbilityCardSideType.Top);
@@ -253,5 +253,5 @@ public abstract class Ability
 {
 	public abstract GDTask Perform(ActionState actionState);
 
-	public abstract void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide);
+	public abstract void GetTooltips(TooltipCollection tooltips);
 }

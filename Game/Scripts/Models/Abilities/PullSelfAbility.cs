@@ -64,10 +64,10 @@ public class PullSelfAbility : TargetedAbility<PullSelfAbility.State, SingleTarg
 			() => $"Select a path to {Icons.HintText(Icons.Pull)}{PullSelfValue} self toward target");
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		// tooltips.Add(Tooltips.Pull);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

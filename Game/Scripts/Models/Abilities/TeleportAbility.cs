@@ -144,10 +144,10 @@ public class TeleportAbility : Ability<TeleportAbility.State>
 		await AbilityCmd.Teleport(abilityState, performer, destination, forcedMovement);
 	}
 
-	public override void GetTooltips(List<Tooltip> tooltips, AbilityCardSide abilityCardSide)
+	public override void GetTooltips(TooltipCollection tooltips)
 	{
 		tooltips.Add(Tooltips.Teleport);
 
-		base.GetTooltips(tooltips, abilityCardSide);
+		base.GetTooltips(tooltips);
 	}
 }

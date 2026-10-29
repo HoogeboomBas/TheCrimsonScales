@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://bmixj6gefxlit" path="res://Scenes/UI/ItemView.tscn" id="23_p2uns"]
 [ext_resource type="PackedScene" uid="uid://dweuor8iwy2lm" path="res://Scenes/UI/AbilityCardView/AbilityCardView.tscn" id="23_xa2sm"]
 [ext_resource type="Script" uid="uid://bgob383cre1d1" path="res://Scripts/ScreenshotHelper.cs" id="28_p2uns"]
+[ext_resource type="PackedScene" uid="uid://dhs5lsurefat2" path="res://Scenes/UI/Popups/InspectPopup/InspectPopup.tscn" id="28_tpo84"]
 [ext_resource type="Script" uid="uid://ba4uba34l4vdl" path="res://Scripts/UI/PersonalQuests/PersonalQuestProgressUpdateView.cs" id="29_vkcub"]
 [ext_resource type="PackedScene" uid="uid://bq57guwvi3fda" path="res://Scenes/UI/PersonalQuests/PersonalQuestProgressUpdateViewItem.tscn" id="30_naft5"]
 [ext_resource type="Script" uid="uid://b3cf7jannumpp" path="res://Scripts/UI/BattleGoals/BattleGoalProgressUpdateView.cs" id="33_sctt1"]
@@ -43,10 +44,9 @@
 [ext_resource type="PackedScene" uid="uid://datb4w0nwrm8m" path="res://Scenes/UI/StoryView.tscn" id="35_u72pp"]
 [ext_resource type="Material" uid="uid://cun442tgtvgh" path="res://Materials/UIBlur.tres" id="39_tpo84"]
 [ext_resource type="StyleBox" uid="uid://d3dljvi7ixs6p" path="res://Resources/PopupPanel.tres" id="40_tpo84"]
-[ext_resource type="Script" uid="uid://brgh2toqcupeq" path="res://Scripts/Tooltips/TooltipView.cs" id="41_tpo84"]
-[ext_resource type="PackedScene" uid="uid://davruphgneuad" path="res://Scenes/UI/Tooltips/TooltipItem.tscn" id="42_xtbh0"]
+[ext_resource type="Script" uid="uid://06w8h5pppixt" path="res://Scripts/Tooltips/TooltipView.cs" id="41_tpo84"]
 
-[node name="AppController" type="Node" unique_id=714369031 node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview", "PersonalQuestProgressUpdateView", "BattleGoalProgressUpdateView", "StoryView", "TooltipView")]
+[node name="AppController" type="Node" unique_id=714369031 node_paths=PackedStringArray("InputController", "SceneLoader", "PopupManager", "AudioController", "CardSelectionCardPreview", "ItemPreview", "PersonalQuestProgressUpdateView", "BattleGoalProgressUpdateView", "StoryView")]
 script = ExtResource("1_6s6iu")
 InputController = NodePath("InputController")
 SceneLoader = NodePath("SceneLoader")
@@ -57,7 +57,6 @@ ItemPreview = NodePath("CanvasLayer/CardPreviewView/MarginContainer/Container/It
 PersonalQuestProgressUpdateView = NodePath("CanvasLayer/PersonalQuestProgressUpdateView")
 BattleGoalProgressUpdateView = NodePath("CanvasLayer/BattleGoalProgressUpdateView")
 StoryView = NodePath("CanvasLayer/StoryView")
-TooltipView = NodePath("CanvasLayer/TooltipView")
 
 [node name="InputController" type="Node" parent="." unique_id=1860667538]
 script = ExtResource("2_2vstq")
@@ -145,6 +144,9 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="ErrorPopup" parent="CanvasLayer/PopupManager" unique_id=682019035 instance=ExtResource("17_g5bd1")]
+layout_mode = 1
+
+[node name="InspectPopup" parent="CanvasLayer/PopupManager" unique_id=1115565838 instance=ExtResource("28_tpo84")]
 layout_mode = 1
 
 [node name="CardPreviewView" type="Control" parent="CanvasLayer" unique_id=588632189]
@@ -301,7 +303,7 @@ mouse_filter = 2
 [node name="StoryView" parent="CanvasLayer" unique_id=297419416 instance=ExtResource("35_u72pp")]
 visible = false
 
-[node name="TooltipView" type="PanelContainer" parent="CanvasLayer" unique_id=857427675 node_paths=PackedStringArray("_itemParent")]
+[node name="TooltipView" type="PanelContainer" parent="CanvasLayer" unique_id=857427675]
 material = ExtResource("39_tpo84")
 offset_left = 50.0
 offset_top = 50.0
@@ -310,8 +312,6 @@ offset_bottom = 90.0
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("40_tpo84")
 script = ExtResource("41_tpo84")
-_itemScene = ExtResource("42_xtbh0")
-_itemParent = NodePath("MarginContainer/VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TooltipView" unique_id=1729550474]
 layout_mode = 2
