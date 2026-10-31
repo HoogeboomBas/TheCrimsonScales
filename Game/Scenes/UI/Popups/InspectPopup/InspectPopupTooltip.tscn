@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://davruphgneuad" path="res://Scenes/UI/Tooltips/TooltipView.tscn" id="2_v1ekx"]
 
 [node name="InspectPopupTooltip" type="PanelContainer" unique_id=772523428 node_paths=PackedStringArray("_tooltipView")]
+mouse_filter = 2
 theme_override_styles/panel = ExtResource("1_qiofq")
 script = ExtResource("2_pd1fa")
 _tooltipView = NodePath("MarginContainer/TooltipView")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1478713967]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20

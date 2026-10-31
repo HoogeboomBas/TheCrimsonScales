@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://pit4gd0ldlxw"]
+
+[ext_resource type="Script" uid="uid://gs74s57xam61" path="res://Scripts/UI/Popups/InspectPopup/InspectButton.cs" id="1_ugjqs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vj2rk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7utr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jl2ct"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2070k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iep4o"]
+
+[node name="InspectButton" type="Button" unique_id=955398738 node_paths=PackedStringArray("_abilityCardView")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vj2rk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_n7utr")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jl2ct")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2070k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_iep4o")
+button_mask = 2
+script = ExtResource("1_ugjqs")
+_abilityCardView = NodePath("")

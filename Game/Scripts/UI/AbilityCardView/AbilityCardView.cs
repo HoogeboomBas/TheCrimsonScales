@@ -14,11 +14,11 @@ public partial class AbilityCardView : CardView
 	[Export]
 	private Control _characterTokenParent;
 
-	[Export]
-	private InspectOverlay _inspectOverlay;
+	// [Export]
+	// private InspectOverlay _inspectOverlay;
 
-	private AbilityCardModel _model;
-	private SavedAbilityCard _savedAbilityCard;
+	public AbilityCardModel Model { get; private set; }
+	public SavedAbilityCard SavedAbilityCard { get; private set; }
 
 	private readonly List<AbilityCardViewEnhancement> _enhancements = new List<AbilityCardViewEnhancement>();
 	private readonly List<AbilityCardViewCharacterToken> _tokens = new List<AbilityCardViewCharacterToken>();
@@ -27,14 +27,14 @@ public partial class AbilityCardView : CardView
 	{
 		base._Ready();
 
-		_inspectOverlay.InspectRequestedEvent += OnInspectRequested;
+		// _inspectOverlay.InspectRequestedEvent += OnInspectRequested;
 	}
 
 	public void SetCard(AbilityCardModel model)
 	{
 		Clear();
 
-		_model = model;
+		Model = model;
 
 		Texture2D texture = model.GetTexture();
 		Init(texture);
@@ -44,7 +44,7 @@ public partial class AbilityCardView : CardView
 	{
 		SetCard(savedAbilityCard.Model);
 
-		_savedAbilityCard = savedAbilityCard;
+		SavedAbilityCard = savedAbilityCard;
 
 		AddEnhancements(savedAbilityCard.Model.Top.Enhancements, savedAbilityCard.SavedTopEnhancements);
 		AddEnhancements(savedAbilityCard.Model.Bottom.Enhancements, savedAbilityCard.SavedBottomEnhancements);
@@ -100,8 +100,8 @@ public partial class AbilityCardView : CardView
 
 	private void Clear()
 	{
-		_model = null;
-		_savedAbilityCard = null;
+		Model = null;
+		SavedAbilityCard = null;
 
 		foreach(AbilityCardViewEnhancement enhancement in _enhancements)
 		{
@@ -118,12 +118,12 @@ public partial class AbilityCardView : CardView
 		_tokens.Clear();
 	}
 
-	private void OnInspectRequested()
-	{
-		AppController.Instance.PopupManager.RequestPopup(new InspectPopup.Request()
-		{
-			SavedAbilityCard = _savedAbilityCard,
-			Model = _model,
-		});
-	}
+	// private void OnInspectRequested()
+	// {
+	// 	AppController.Instance.PopupManager.RequestPopup(new InspectPopup.Request()
+	// 	{
+	// 		SavedAbilityCard = _savedAbilityCard,
+	// 		Model = _model,
+	// 	});
+	// }
 }
