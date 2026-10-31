@@ -14,8 +14,8 @@ public partial class AbilityCardView : CardView
 	[Export]
 	private Control _characterTokenParent;
 
-	// [Export]
-	// private InspectOverlay _inspectOverlay;
+	[Export]
+	private InspectButton _inspectButton;
 
 	public AbilityCardModel Model { get; private set; }
 	public SavedAbilityCard SavedAbilityCard { get; private set; }
@@ -27,7 +27,7 @@ public partial class AbilityCardView : CardView
 	{
 		base._Ready();
 
-		// _inspectOverlay.InspectRequestedEvent += OnInspectRequested;
+		_inspectButton.Pressed += OnInspectButtonPressed;
 	}
 
 	public void SetCard(AbilityCardModel model)
@@ -118,12 +118,12 @@ public partial class AbilityCardView : CardView
 		_tokens.Clear();
 	}
 
-	// private void OnInspectRequested()
-	// {
-	// 	AppController.Instance.PopupManager.RequestPopup(new InspectPopup.Request()
-	// 	{
-	// 		SavedAbilityCard = _savedAbilityCard,
-	// 		Model = _model,
-	// 	});
-	// }
+	private void OnInspectButtonPressed()
+	{
+		AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
+		{
+			SavedAbilityCard = SavedAbilityCard,
+			Model = Model,
+		});
+	}
 }

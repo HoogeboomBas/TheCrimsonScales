@@ -13,6 +13,9 @@ public partial class InspectPopup : Popup<InspectPopup.Request>
 	private AbilityCardView _abilityCardView;
 
 	[Export]
+	private ScrollContainer _scrollContainer;
+
+	[Export]
 	private PackedScene _tooltipScene;
 	[Export]
 	private Control _tooltipParent;
@@ -22,6 +25,8 @@ public partial class InspectPopup : Popup<InspectPopup.Request>
 	protected override void OnOpen()
 	{
 		base.OnOpen();
+
+		_scrollContainer.SetVScroll(0);
 
 		if(PopupRequest.SavedAbilityCard != null)
 		{

@@ -186,6 +186,9 @@ layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 
+[node name="InspectButton" parent="CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview/AbilityCardView" index="1" unique_id=955398738]
+visible = false
+
 [node name="ItemPreview" type="Control" parent="CanvasLayer/CardPreviewView/MarginContainer/Container" unique_id=1586069982 node_paths=PackedStringArray("_itemView")]
 anchors_preset = 0
 offset_right = 180.0
@@ -314,3 +317,5 @@ bus = &"BGS"
 
 [node name="ScreenshotHelper" type="Node" parent="." unique_id=1780657384]
 script = ExtResource("28_p2uns")
+
+[editable path="CanvasLayer/CardPreviewView/MarginContainer/Container/CardSelectionCardPreview/AbilityCardView"]
