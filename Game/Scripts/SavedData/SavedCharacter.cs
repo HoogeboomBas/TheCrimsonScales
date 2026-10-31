@@ -91,7 +91,7 @@ public class SavedCharacter
 			HandAbilityCardIndices.Add(i);
 		}
 
-		Gold = savedCampaign.Prosperity * 10 + 20;
+		Gold = savedCampaign.GetProsperityLevel() * 10 + 20;
 		Name = name;
 		EquippedBaseSlotItems = new string[5];
 		EquippedSmallItems = new List<string>();

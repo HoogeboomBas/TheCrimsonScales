@@ -89,7 +89,10 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 	public void SetOwner(Character character)
 	{
-		Unsubscribe();
+		if(Owner != null)
+		{
+			Unsubscribe();
+		}
 
 		Owner = character;
 
