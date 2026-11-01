@@ -12,6 +12,11 @@ public class Scenario024 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario026>(true)];
 
+	public override string PreviewText =>
+	"""
+		Place C globes in the dome.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		The Aesther’s notes on the frozen creatures she has discovered are slightly hit and miss — on one hand, the directions are generally very good, but the details of what is to be found within are not so detailed. It is almost as if she needed to record the location, but instinctively knows how to deal with what she finds within.

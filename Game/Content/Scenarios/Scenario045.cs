@@ -11,6 +11,11 @@ public class Scenario045 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Land Leviathan.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		The Lingering Swamp stretches for miles and, particularly near the coast, can often be a relatively calming place, though the wildlife is not always friendly. Today though, the animalistic screams that suddenly cut through the air chill even you to the bone.

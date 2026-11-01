@@ -12,6 +12,11 @@ public class Scenario053 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SideScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		As you rest near a river not far off the road, you notice that the normally calm river has a far stronger current than normal. Fallen trees and even boulders of various sizes are being ripped from the bank and dragged with the current into a small cave entrance not far away. Although your instincts are telling you this is not a good idea, you decide to investigate what’s causing this.

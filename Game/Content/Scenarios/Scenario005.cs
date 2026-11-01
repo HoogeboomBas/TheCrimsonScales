@@ -14,6 +14,11 @@ public class Scenario005 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario006>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Gelatinous Giant.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following the dramatic infection of the guards, you proceed out of the gates with caution, extremely wary of the plagueridden monster, but it doesn’t take long before you find what you are looking for.

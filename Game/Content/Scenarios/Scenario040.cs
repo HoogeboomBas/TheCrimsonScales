@@ -11,6 +11,11 @@ public class Scenario040 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Drake Porter
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Having loosened a few tongues with a few drinks in the Sleeping Lion, you set out to find the Drake Porter and claim the ransom for him.

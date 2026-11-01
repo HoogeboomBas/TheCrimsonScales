@@ -11,6 +11,11 @@ public class Scenario001 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario002>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following the vague instructions you were given, you head to the Dark Lake. As you arrive at the shore you see... nothing. The shore, and the lake are deserted of all wildlife, let alone ‘strange creatures.’ You start to walk round the lake, growing slowly more dispirited as you go. You’ve clearly been tricked, and accusing looks pass between the party as you mutter about whose fault it was.

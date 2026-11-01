@@ -12,6 +12,11 @@ public class Scenario044 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill 2 Living Spirits per character.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Your party approaches the large manor house with little trepidation; tales of ghosts and hauntings have never scared you—even physical beings only occasionally concern you, and that’s usually when they’re trying to kill you.
