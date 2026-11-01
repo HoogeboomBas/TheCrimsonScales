@@ -190,6 +190,9 @@ bone_angle = 0.0
 position = Vector2(-108.33333, -49.999996)
 scale = Vector2(0.735, 0.735)
 rest = Transform2D(1, 0, 0, 1, -108.33332, -50)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=84261608]
 texture = ExtResource("3_jcsxd")
