@@ -265,11 +265,17 @@ position = Vector2(256, 256)
 position = Vector2(-141.66667, -33.333332)
 scale = Vector2(1e-05, 1e-05)
 rest = Transform2D(1, 0, 0, 1, -141.66667, -33.333332)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Bone2D2" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Cut/Sprite2D/Skeleton2D" index="1" unique_id=2067266998]
 position = Vector2(-124.99997, -33.33333)
 scale = Vector2(1e-05, 1e-05)
 rest = Transform2D(1, 0, 0, 1, 133.33334, -62.5)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Drip1" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1144187009]
 scale = Vector2(0.99999994, 0.99999994)
@@ -295,6 +301,9 @@ rest = Transform2D(1, 0, 0, 1, -91.66668, -25.000002)
 position = Vector2(-4.1666565, 75.00001)
 scale = Vector2(1e-05, 1e-05)
 rest = Transform2D(1, 0, 0, 1, -4.1666565, 75.00001)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Drip2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=1982549703]
 scale = Vector2(0.99999994, 0.99999994)
@@ -320,6 +329,9 @@ rest = Transform2D(1, 0, 0, 1, 0, -37.500004)
 position = Vector2(0, 91.66667)
 scale = Vector2(1e-05, 1e-05)
 rest = Transform2D(1, 0, 0, 1, 0, 91.66667)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Drip3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="4" unique_id=1562602992]
 scale = Vector2(0.9999998, 0.9999998)
@@ -345,6 +357,9 @@ rest = Transform2D(1, 0, 0, 1, 95.83335, -50.000008)
 position = Vector2(4.1666675, 45.83334)
 scale = Vector2(1e-05, 1e-05)
 rest = Transform2D(1, 0, 0, 1, 4.1666675, 45.83334)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="5" unique_id=84261608]
 texture = ExtResource("4_4sa5n")

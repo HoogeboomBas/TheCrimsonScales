@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://docs1aeadmic"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_hude5"]
+[ext_resource type="Texture2D" uid="uid://ihnenhpuqns4" path="res://Art/Icons/ConditionsAndEffects/Strengthen/Arm.svg" id="2_mmqef"]
+[ext_resource type="Texture2D" uid="uid://d42a3ljgi1ev" path="res://Art/Icons/ConditionsAndEffects/Strengthen.svg" id="3_jcsxd"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 3.0314333, 4.756827),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0471976, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Elbow:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-1.5707964, -1.5707964, 0.08726646, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Elbow/Wrist:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1670819, 0.44916826),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.0471976, -1.0471976, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Bicep:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.33524877, 0.5240296, 0.76666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.735, 0.735), Vector2(0.735, 0.735), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0471976]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Elbow:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Elbow/Wrist:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0471976]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Arm/Sprite2D/Skeleton2D/Shoulder/Bicep:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.735, 0.735)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_hude5")]
+_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
+_sfxVolumeDb = -8.0
+_sfxDelay = 0.5
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.3019608, 0.59607846, 0.827451, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+speed_scale = 1.2
+
+[node name="Arm" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=106945629]
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Sprite2D" type="Polygon2D" parent="ScaleContainer/Inset/AnimationContainer/Arm" index="0" unique_id=1597135245]
+position = Vector2(-256, -256)
+texture = ExtResource("2_mmqef")
+skeleton = NodePath("Skeleton2D")
+polygon = PackedVector2Array(277.45502, 94.51766, 251.7821, 93.750786, 221.55078, 98.45755, 196.5, 108, 167.5, 127, 154.69948, 151.17892, 130.51282, 202.70744, 123.06802, 224.13025, 118.05365, 246.76907, 112.99194, 275.19217, 121, 313.7, 127.328094, 328.32333, 149.38902, 339.72147, 179.7228, 346.8913, 224.03459, 367.11407, 270.5464, 357.7382, 309.2, 351.7, 343, 359.9, 365.12378, 356.35422, 379.4, 354, 389.19025, 351.17325, 392, 320.6, 392, 280.6, 383, 222, 383, 216, 342.1, 216, 312.84216, 226.10707, 281, 217.7, 260.0761, 218.20053, 231.4, 221.4, 227, 181.4, 249.1, 181.9, 271.3, 199, 278.4, 199, 293.4, 190, 296.3, 190, 304.3, 171, 307.5439, 153.91824, 304.0436, 135.69199, 298.42203, 111.230484, 182.10553, 280.9364, 212.00317, 251.03873, 186.82623, 150.85538, 203.08636, 169.7381, 235.0196, 277.4166, 268.91046, 278.20477, 303.19537, 275.8403)
+uv = PackedVector2Array(277.45502, 94.51766, 251.7821, 93.750786, 221.55078, 98.45755, 196.5, 108, 167.5, 127, 154.69948, 151.17892, 130.51282, 202.70744, 123.06802, 224.13025, 118.05365, 246.76907, 112.99194, 275.19217, 121, 313.7, 127.328094, 328.32333, 149.38902, 339.72147, 179.7228, 346.8913, 224.03459, 367.11407, 270.5464, 357.7382, 309.2, 351.7, 343, 359.9, 365.12378, 356.35422, 379.4, 354, 389.19025, 351.17325, 392, 320.6, 392, 280.6, 383, 222, 383, 216, 342.1, 216, 312.84216, 226.10707, 281, 217.7, 260.0761, 218.20053, 231.4, 221.4, 227, 181.4, 249.1, 181.9, 271.3, 199, 278.4, 199, 293.4, 190, 296.3, 190, 304.3, 171, 307.5439, 153.91824, 304.0436, 135.69199, 298.42203, 111.230484, 182.10553, 280.9364, 212.00317, 251.03873, 186.82623, 150.85538, 203.08636, 169.7381, 235.0196, 277.4166, 268.91046, 278.20477, 303.19537, 275.8403)
+polygons = [[10, 11, 12], [18, 19, 21], [19, 20, 21], [17, 18, 21], [23, 24, 25], [22, 23, 25], [1, 2, 31], [2, 30, 31], [31, 32, 34], [32, 33, 34], [34, 35, 36], [31, 34, 36], [31, 36, 37], [31, 37, 38], [0, 1, 38], [1, 31, 38], [0, 38, 39], [8, 9, 40], [7, 8, 40], [12, 13, 40], [9, 10, 40], [10, 12, 40], [6, 7, 41], [7, 40, 41], [2, 3, 42], [3, 4, 42], [4, 5, 42], [2, 30, 43], [2, 42, 43], [5, 6, 43], [5, 42, 43], [29, 41, 43], [6, 41, 43], [29, 30, 43], [28, 29, 44], [29, 41, 44], [40, 41, 44], [14, 15, 44], [13, 14, 44], [13, 40, 44], [15, 16, 45], [15, 44, 45], [27, 28, 45], [28, 44, 45], [16, 45, 46], [26, 27, 46], [27, 45, 46], [22, 25, 46], [25, 26, 46], [21, 22, 46], [16, 17, 46], [17, 21, 46]]
+bones = ["Shoulder", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5, 0.5), "Shoulder/Elbow", PackedFloat32Array(0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0.5, 0, 0, 0), "Shoulder/Elbow/Wrist", PackedFloat32Array(0, 0.5, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0, 0, 0), "Shoulder/Elbow/Wrist/Fist", PackedFloat32Array(0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0), "Shoulder/Bicep", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
+internal_vertex_count = 7
+
+[node name="Skeleton2D" type="Skeleton2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D" index="0" unique_id=1873739348]
+position = Vector2(256, 256)
+
+[node name="Shoulder" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D/Skeleton2D" index="0" unique_id=1495304795]
+position = Vector2(112.49999, 33.333332)
+rotation = -1.0471976
+rest = Transform2D(1, 0, 0, 1, 112.49999, 33.333332)
+
+[node name="Elbow" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D/Skeleton2D/Shoulder" index="0" unique_id=525052603]
+position = Vector2(-183.33331, -8.333328)
+rotation = -1.5707964
+rest = Transform2D(1, 0, 0, 1, -183.33331, -8.333328)
+
+[node name="Wrist" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D/Skeleton2D/Shoulder/Elbow" index="0" unique_id=1712909558]
+position = Vector2(8.333282, -137.5)
+rotation = -1.0471976
+rest = Transform2D(1, 0, 0, 1, 8.333282, -137.5)
+
+[node name="Fist" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D/Skeleton2D/Shoulder/Elbow/Wrist" index="0" unique_id=1967684317]
+position = Vector2(79.166695, -4.1666718)
+rest = Transform2D(1, 0, 0, 1, 79.166695, -4.1666718)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Bicep" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Arm/Sprite2D/Skeleton2D/Shoulder" index="1" unique_id=1609741151]
+position = Vector2(-108.33333, -49.999996)
+scale = Vector2(0.735, 0.735)
+rest = Transform2D(1, 0, 0, 1, -108.33332, -50)
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=84261608]
+texture = ExtResource("3_jcsxd")
