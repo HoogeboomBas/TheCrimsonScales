@@ -93,6 +93,9 @@
 [ext_resource type="Texture2D" uid="uid://31a3dsjl7gfg" path="res://Content/Classes/Hollowpact/Voidsight/EyeMask.svg" id="88_jy8qd"]
 [ext_resource type="Texture2D" uid="uid://bumv44gdtn5wc" path="res://Content/Classes/Hollowpact/Voidsight/Pupil.svg" id="89_lv1i0"]
 [ext_resource type="Texture2D" uid="uid://c2sl4orcxuvbr" path="res://Content/Classes/Hollowpact/Voidsight/Eyelid.svg" id="90_8ytt2"]
+[ext_resource type="PackedScene" uid="uid://fskhryy2qybs" path="res://Content/Classes/Mirefoot/Mirefoot.tscn" id="94_w6gon"]
+[ext_resource type="Shader" uid="uid://bdmfi11rnffvx" path="res://Shaders/DissolveEffect.gdshader" id="95_cuih5"]
+[ext_resource type="Script" uid="uid://o8wnekaot55w" path="res://Scripts/FracturedHexObjectEffect/FracturedHexObjectEffect.cs" id="96_6jvh0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fcllr"]
 shader = ExtResource("20_76yld")
@@ -319,6 +322,21 @@ font_size = 100
 [sub_resource type="LabelSettings" id="LabelSettings_hctre"]
 font = ExtResource("39_namyh")
 font_size = 50
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6jvh0"]
+shader = ExtResource("95_cuih5")
+shader_parameter/factor = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w6gon"]
+viewport_path = NodePath("EffectPivot/SubViewportContainer/SubViewport")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cuih5"]
+noise_type = 2
+fractal_type = 0
+cellular_return_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6jvh0"]
+noise = SubResource("FastNoiseLite_cuih5")
 
 [node name="Game" type="Node" unique_id=836903355 node_paths=PackedStringArray("CameraController", "CursorOverUIChecker", "CardSelectionView", "ShortRestView", "TreasureItemRewardView", "CardPlayView", "SelectFigureView", "ChoiceButtonsView", "CardSelectionButtonsView", "ScenarioSetupButtonsView", "UndoView", "MovePath", "TeleportPath", "AOEView", "AOEButtonView", "SufferDamageView", "PortraitView", "EffectSelectionView", "EffectInfoViewManager", "AMDDrawView", "HintTextView", "ElementsView", "ScenarioLostView", "ScenarioWonView", "Selector", "CharacterStartHexMoveIndicator", "HexPin", "ScreenDistortion", "MoveParent", "VoidSightView")]
 script = ExtResource("1_arwlr")
@@ -1948,6 +1966,47 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "(2, 2)"
 label_settings = SubResource("LabelSettings_hctre")
+
+[node name="EffectPivot" type="Node2D" parent="." unique_id=1230066049]
+position = Vector2(-500, -500)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="EffectPivot" unique_id=1363845340]
+visible = false
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="EffectPivot/SubViewportContainer" unique_id=1529451319]
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 0
+
+[node name="SubViewportCenter" type="Node2D" parent="EffectPivot/SubViewportContainer/SubViewport" unique_id=699929328]
+position = Vector2(128, 128)
+
+[node name="Mirefoot" parent="EffectPivot/SubViewportContainer/SubViewport/SubViewportCenter" unique_id=43725059 instance=ExtResource("94_w6gon")]
+
+[node name="Mirefoot" parent="EffectPivot" unique_id=286845579 instance=ExtResource("94_w6gon")]
+
+[node name="TextureRect" type="TextureRect" parent="EffectPivot" unique_id=866825839]
+material = SubResource("ShaderMaterial_6jvh0")
+offset_right = 256.0
+offset_bottom = 256.0
+texture = SubResource("ViewportTexture_w6gon")
+
+[node name="TextureRect2" type="TextureRect" parent="EffectPivot" unique_id=455914566]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("NoiseTexture2D_6jvh0")
+
+[node name="Polygon2D" type="Polygon2D" parent="EffectPivot" unique_id=1244417327]
+
+[node name="FracturedHexObjectEffect" type="Node2D" parent="." unique_id=512714509]
+script = ExtResource("96_6jvh0")
 
 [editable path="HexPin/ScaleContainer/WorldButton"]
 [editable path="CanvasLayer/UI/ScenarioSetupButtonsView/StartScenario"]
