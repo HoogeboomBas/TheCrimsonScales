@@ -14,6 +14,11 @@ public class Scenario038 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<NaturalSelection>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat all revealed enemies and destroy at least two altars.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following the twin entrances down from the Burning Stones, you find yourself in a complex, hand-dug series of tunnels. Although the tunnel network is mainly lit by torches, there is the odd flash and crackle of elemental and transformative energy in the air. With a certain amount of caution, both as to what you’ll find and the stability of the tunnels, you venture deeper underground.

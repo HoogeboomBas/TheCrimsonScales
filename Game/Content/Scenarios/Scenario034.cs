@@ -14,6 +14,11 @@ public class Scenario034 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<ProtectAndServe>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat all enemies and allow no more than 2 monks to die.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		After the short-lived celebration, it isn’t long until commotion is once again stirred up in the city. Shouts of guards can be heard in the distance with soldiers one again donning their armor and weapons to ready defenses. You spot the Captain of the Guard giving orders to the ramshackle city defenses.

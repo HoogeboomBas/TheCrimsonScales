@@ -13,6 +13,11 @@ public class Scenario012 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SailScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario015>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies and loot the goal treasure.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You follow Sankas’s instructions across the heavily overgrown island, spending hours cutting through the thorny undergrowth. This hidden source has clearly lain undisturbed for many years— if it is still here.

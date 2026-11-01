@@ -13,6 +13,11 @@ public class Scenario035 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario036>()];
 
+	public override string PreviewText =>
+	"""
+		Protect the allied Chainguard and kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Having a quiet drink one evening, the relative peace is shattered by a mass scrambling of the slightly rag-tag City Guard, clearly responding to an emergency, but looking more panicked than forceful defenders of the gates. Slightly amused, you take another swig and return to your conversation.

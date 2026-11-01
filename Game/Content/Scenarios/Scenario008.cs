@@ -11,6 +11,11 @@ public class Scenario008 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario009>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You’ve heard of the fortress of course. Infamous in Gloomhaven for having secret rooms that have never been found (or looted), you had always meant to put that right, but somehow never found the time. This seems like the perfect excuse.

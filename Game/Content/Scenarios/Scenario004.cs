@@ -14,6 +14,11 @@ public class Scenario004 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario005>()];
 
+	public override string PreviewText =>
+	"""
+		Heal all infected warriors and kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Following the old man’s warning, you cautiously head in the direction he came from. Bloody pox is a constant threat to the city of Gloomhaven, and is both highly contagious and lethal. It can be healed, but time is of the essence.
