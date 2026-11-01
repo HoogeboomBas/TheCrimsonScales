@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="Arrow.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="1.1255704"
+     inkscape:cx="228.32868"
+     inkscape:cy="329.16644"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="Layer_2"
+       data-name="Layer 2"
+       transform="matrix(0.22032402,0,0,0.22032145,0.249432,0.25000004)">
+      <g
+         id="Immobilize">
+        <path
+           class="cls-2"
+           d="M 243.35,372.74 154.7,199.59 c -2,-3.92 0.81,-6.38 4.76,-8.41 3.95,-2.03 7.47,-2.8 9.49,1.12 l 88.62,173.11 c 2.99847,5.7943 24.19157,58.65699 22.70161,60.10463"
+           id="path3"
+           style="fill:#ffffff"
+           sodipodi:nodetypes="ccsccc" />
+        <path
+           class="cls-2"
+           d="m 224,249.85 c -1.49,11.18 -1.79,23.57 -1.79,23.57 0,0 -32.56,-64.5 -36.64,-72.71 8.34,-5.91 10.16,-19 12.42,-29.71 7.81,4.39 9.36,25.46 14.76,34.31 1.52,2.46 4.16,2.83 6.28,-2 7.43,10.51 6.83,32.53 5,46.54"
+           id="path4"
+           style="fill:#ffffff" />
+        <path
+           class="cls-2"
+           d="m 169.46,278.39 c 10,5.27 20.26,12.23 20.26,12.23 0,0 -33.7,-63.93 -38.06,-72 -9.62,3.34 -21.37,-2.74 -31.4,-7.13 -1,8.95 15.33,22.39 19.38,31.95 1.15,2.67 -0.07,5 -5.23,3.95 4.25,12.16 22.56,24.38 35.05,31"
+           id="path5"
+           style="fill:#ffffff" />
+      </g>
+    </g>
+  </g>
+</svg>
