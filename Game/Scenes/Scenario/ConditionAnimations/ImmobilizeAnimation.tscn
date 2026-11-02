@@ -68,7 +68,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-75.00001, 75.00001)]
+"values": [Vector2(195.83334, -175)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -114,9 +114,6 @@ _data = {
 }
 
 [node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_6hk84")]
-_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
-_sfxVolumeDb = -8.0
-_sfxDelay = 0.5
 
 [node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(0.6039216, 0.20392157, 0.18039216, 1)
@@ -142,13 +139,14 @@ internal_vertex_count = 4
 position = Vector2(256, 256)
 
 [node name="Toes" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D" index="0" unique_id=1601463784]
-position = Vector2(-75.00001, 75.00001)
+position = Vector2(195.83334, -175)
 rotation = 0.7278023
 rest = Transform2D(1, 0, 0, 1, -75.00001, 75.00001)
 
 [node name="Ankle" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D/Toes" index="0" unique_id=1166506917]
 position = Vector2(120.83334, 4.166649)
 rotation = 0.17453292
+scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(1, 0, 0, 1, 120.83334, 4.166649)
 
 [node name="Top" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D/Toes/Ankle" index="0" unique_id=64431517]

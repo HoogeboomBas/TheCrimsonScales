@@ -36,7 +36,7 @@ public abstract class ConditionModel : AbstractModel
 		}
 	}
 
-	public virtual async GDTask OnAdded(Condition condition)
+	public async GDTask ShowAnimation(Condition condition)
 	{
 		if(!GameController.FastForward && ConditionAnimationScenePath != null)
 		{
@@ -44,8 +44,13 @@ public abstract class ConditionModel : AbstractModel
 			GameController.Instance.Map.AddChild(conditionAnimation);
 			conditionAnimation.Init(condition.Owner);
 
-			await GDTask.DelayFastForwardable(0.5f);
+			await GDTask.DelayFastForwardable(0.7f);
 		}
+	}
+
+	public virtual async GDTask OnAdded(Condition condition)
+	{
+		await GDTask.CompletedTask;
 	}
 
 	public virtual async GDTask OnRemoved(Condition condition)

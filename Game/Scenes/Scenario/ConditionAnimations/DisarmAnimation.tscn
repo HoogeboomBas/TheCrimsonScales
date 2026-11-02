@@ -30,7 +30,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.36666667, 0.46666667, 0.6, 0.73333335),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.2617994, 0.2617994, 0.0, -0.12217304763960307, 0.0]
+"values": [0.2617994, 0.2617994, 0.0, -0.12217304763960309, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -115,9 +115,6 @@ _data = {
 }
 
 [node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_v3dq0")]
-_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
-_sfxVolumeDb = -8.0
-_sfxDelay = 0.5
 
 [node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(0.40784314, 0.47843137, 0.49411765, 1)
@@ -144,20 +141,28 @@ position = Vector2(256, 256)
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D" index="0" unique_id=1885189985]
 position = Vector2(195.50348, 204.48067)
 rotation = 1.3962634
+scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(1, 0, 0, 1, 195.50348, 204.48067)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D" index="0" unique_id=1381901948]
 position = Vector2(-124.683304, -140.6428)
 rotation = 0.2617994
+scale = Vector2(0.9999999, 0.9999999)
 rest = Transform2D(1, 0, 0, 1, -124.683304, -140.6428)
 
 [node name="Thumb" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D" index="0" unique_id=332460151]
 position = Vector2(29.92403, -46.880943)
 rest = Transform2D(1, 0, 0, 1, 29.92403, -46.880943)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Fingers" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D" index="1" unique_id=792051132]
 position = Vector2(-24.936638, -13.964523)
 rest = Transform2D(1, 0, 0, 1, -24.936638, -13.964523)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
 
 [node name="Lines" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1025566634]
 position = Vector2(41.035774, 51.898155)

@@ -257,9 +257,6 @@ _data = {
 }
 
 [node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_guwdb")]
-_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
-_sfxVolumeDb = -8.0
-_sfxDelay = 0.5
 
 [node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(0.4392157, 0.3529412, 0.26666668, 1)
@@ -292,36 +289,43 @@ rest = Transform2D(1, 0, 0, 1, -8.333333, 120.83333)
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D" index="0" unique_id=955797002]
 position = Vector2(-9.536743e-07, -70.83333)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -9.536743e-07, -70.83333)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D" index="0" unique_id=1913856495]
 position = Vector2(-12.499999, -41.66667)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -12.499999, -41.66667)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D/Bone2D" index="0" unique_id=92163619]
 position = Vector2(54.166664, -45.83333)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, 54.166664, -45.83333)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D/Bone2D/Bone2D" index="0" unique_id=766099936]
 position = Vector2(7.6293945e-06, -87.50001)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, 7.6293945e-06, -87.50001)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D" index="0" unique_id=2033580402]
 position = Vector2(-33.333336, -8.3333435)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -33.333336, -8.3333435)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D" index="0" unique_id=945511182]
 position = Vector2(-37.500008, 25.00002)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, -37.500008, 25.00002)
 
 [node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/QuestionMark/Sprite2D/Skeleton2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D/Bone2D" index="0" unique_id=1643776220]
 position = Vector2(4.1666718, 37.500004)
 rotation = 0.34906584
+scale = Vector2(0.99999994, 0.99999994)
 rest = Transform2D(1, 0, 0, 1, 4.1666718, 37.500004)
 auto_calculate_length_and_angle = false
 length = 16.0

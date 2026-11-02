@@ -6,6 +6,7 @@ public class Immobilize : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Immobilize.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/ImmobilizeAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{

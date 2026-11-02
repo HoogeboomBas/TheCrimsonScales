@@ -10,6 +10,7 @@ public class Wound : ConditionModel
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Wound1];
 	public override ConditionModel BaseLevelCondition => Conditions.Wound1;
 	public override int UpgradableLevel => 1;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/WoundAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{

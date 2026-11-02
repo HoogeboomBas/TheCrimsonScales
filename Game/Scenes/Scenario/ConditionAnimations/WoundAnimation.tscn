@@ -236,9 +236,6 @@ _data = {
 }
 
 [node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_4sa5n")]
-_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
-_sfxVolumeDb = -8.0
-_sfxDelay = 0.5
 
 [node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
 self_modulate = Color(0.89411765, 0.3882353, 0.14901961, 1)
