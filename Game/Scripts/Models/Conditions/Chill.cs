@@ -9,6 +9,7 @@ public class Chill : ConditionModel
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Immobilize, Conditions.Muddle];
 	public override bool RemovedAtEndOfTurn => true;
 	public override bool Stackable => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/ChillAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{

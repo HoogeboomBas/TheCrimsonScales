@@ -80,6 +80,54 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(92.4, -199.2), Vector2(0, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Container/Shards/SmallShard1/Offset:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.05, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-90, -218.75), Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Container/Shards/SmallShard2/Offset:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.15, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-90, -218.75), Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Container/Shards/SmallShard3/Offset:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.25, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-90, -218.75), Vector2(0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Container/Shards/SmallShard4/Offset:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.35, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-90, -218.75), Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_awnv4"]
 length = 0.001
@@ -155,6 +203,54 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(92.4, -199.2)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Container/Shards/SmallShard1/Offset:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-90, -218.75)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Container/Shards/SmallShard2/Offset:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-90, -218.75)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Container/Shards/SmallShard3/Offset:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-90, -218.75)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Container/Shards/SmallShard4/Offset:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-90, -218.75)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
 _data = {
@@ -224,34 +320,46 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("3_2pogg")
 
 [node name="SmallShard1" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="4" unique_id=1015238268]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard1" index="0" unique_id=337806332]
-position = Vector2(-36, -87.5)
-texture = ExtResource("4_pejrf")
-
-[node name="SmallShard2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="5" unique_id=119417874]
-visible = false
-rotation = 1.5707964
-
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard2" index="0" unique_id=1023561186]
-position = Vector2(-36, -87.5)
-texture = ExtResource("4_pejrf")
-
-[node name="SmallShard3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="6" unique_id=1154197131]
-visible = false
 rotation = 3.1415927
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard3" index="0" unique_id=78499554]
-position = Vector2(-36, -87.5)
+[node name="Offset" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard1" index="0" unique_id=1113770264]
+position = Vector2(-90, -218.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard1/Offset" index="0" unique_id=337806332]
+position = Vector2(-35.999996, -87.5)
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("4_pejrf")
 
-[node name="SmallShard4" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="7" unique_id=1700672275]
-visible = false
+[node name="SmallShard2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="5" unique_id=826098255]
 rotation = 4.712389
 
-[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard4" index="0" unique_id=42071373]
-position = Vector2(-36, -87.5)
+[node name="Offset" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard2" index="0" unique_id=1697415891]
+position = Vector2(-90, -218.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard2/Offset" index="0" unique_id=310918824]
+position = Vector2(-35.999996, -87.5)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("4_pejrf")
+
+[node name="SmallShard3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="6" unique_id=442301087]
+
+[node name="Offset" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard3" index="0" unique_id=1313295655]
+position = Vector2(-90, -218.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard3/Offset" index="0" unique_id=2046959767]
+position = Vector2(-35.999996, -87.5)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("4_pejrf")
+
+[node name="SmallShard4" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards" index="7" unique_id=363705573]
+rotation = 1.5707964
+
+[node name="Offset" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard4" index="0" unique_id=1910894213]
+position = Vector2(-90, -218.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Container/Shards/SmallShard4/Offset" index="0" unique_id=1219774579]
+position = Vector2(-35.999996, -87.5)
+scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("4_pejrf")
 
 [node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=84261608]
