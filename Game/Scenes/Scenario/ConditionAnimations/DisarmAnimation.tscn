@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://bdik4ww3jy8uc"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_v3dq0"]
+[ext_resource type="Texture2D" uid="uid://cpko4a5vcl8w6" path="res://Art/Icons/ConditionsAndEffects/Disarm/HandClosed.svg" id="2_ncdxp"]
+[ext_resource type="Texture2D" uid="uid://ctoqvc88hd67v" path="res://Art/Icons/ConditionsAndEffects/Disarm/Hand.svg" id="2_ovin4"]
+[ext_resource type="Texture2D" uid="uid://dn47v4rk5a2es" path="res://Art/Icons/ConditionsAndEffects/Disarm/Line.svg" id="3_ncdxp"]
+[ext_resource type="Texture2D" uid="uid://b6h45kvfwokpe" path="res://Art/Icons/ConditionsAndEffects/Disarm.svg" id="4_72l1v"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Sprite2D/Skeleton2D/Bone2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.46666667, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.3962634, -0.17453292, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.36666667, 0.46666667, 0.6, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.2617994, 0.2617994, 0.0, -0.12217304763960307, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Lines:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4209349, 0.7, 0.76666665, 0.832719, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(0.9, 0.9), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/Sprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.45753792),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_ncdxp"), ExtResource("2_ovin4")]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Sprite2D/Skeleton2D/Bone2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.3962634]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2617994]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Lines:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hand/Sprite2D:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ovin4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_v3dq0")]
+_sfxPath = "res://Audio/SFX/631769__robinhood76__11095-ancestor-curse-spell.wav"
+_sfxVolumeDb = -8.0
+_sfxDelay = 0.5
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.40784314, 0.47843137, 0.49411765, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+speed_scale = 1.2
+
+[node name="Hand" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1047855544]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Polygon2D" parent="ScaleContainer/Inset/AnimationContainer/Hand" index="0" unique_id=486215517]
+position = Vector2(-256, -256)
+texture = ExtResource("2_ovin4")
+skeleton = NodePath("Skeleton2D")
+polygon = PackedVector2Array(293, 157, 275.06705, 147.5285, 265.1551, 144.82796, 255.3, 147, 244.42473, 151.58786, 241.72076, 160.1504, 246.67802, 172.76889, 275.18338, 238.7532, 226.79738, 177.35834, 221.42696, 172.93564, 211.63383, 168.03908, 202.6305, 168.35498, 189.6, 176, 185.25558, 181.46513, 182, 198.6, 190.93143, 208.53078, 240.48257, 260.06943, 179.50827, 221.89851, 163.2971, 237.54279, 166, 260.2, 182.99744, 272.9732, 216.18774, 293.77393, 179.0058, 282.86734, 167.10838, 288.3203, 160.66394, 300.71347, 163, 315.5, 192.39041, 332.43994, 217.67244, 345.3288, 232.0485, 350.7818, 260.30377, 385.48004, 281.12427, 402.33472, 304.9191, 402.33472, 326.23532, 405.8048, 397.5, 512, 435.79297, 529.7372, 457.1092, 516.35254, 476.93823, 513.87396, 486.3, 488, 497.75873, 474.21585, 479.41632, 470.74634, 470.49323, 452.40448, 398.6, 344.5, 390.5, 271.4, 398.1449, 223.40256, 397, 206.9, 389.08722, 197.55603, 381, 194.8, 356.5, 200, 351.8, 200, 333.1939, 248.66951, 304.94843, 180.77013)
+uv = PackedVector2Array(293, 157, 275.06705, 147.5285, 265.1551, 144.82796, 255.3, 147, 244.42473, 151.58786, 241.72076, 160.1504, 246.67802, 172.76889, 275.18338, 238.7532, 226.79738, 177.35834, 221.42696, 172.93564, 211.63383, 168.03908, 202.6305, 168.35498, 189.6, 176, 185.25558, 181.46513, 182, 198.6, 190.93143, 208.53078, 240.48257, 260.06943, 179.50827, 221.89851, 163.2971, 237.54279, 166, 260.2, 182.99744, 272.9732, 216.18774, 293.77393, 179.0058, 282.86734, 167.10838, 288.3203, 160.66394, 300.71347, 163, 315.5, 192.39041, 332.43994, 217.67244, 345.3288, 232.0485, 350.7818, 260.30377, 385.48004, 281.12427, 402.33472, 304.9191, 402.33472, 326.23532, 405.8048, 397.5, 512, 435.79297, 529.7372, 457.1092, 516.35254, 476.93823, 513.87396, 486.3, 488, 497.75873, 474.21585, 479.41632, 470.74634, 470.49323, 452.40448, 398.6, 344.5, 390.5, 271.4, 398.1449, 223.40256, 397, 206.9, 389.08722, 197.55603, 381, 194.8, 356.5, 200, 351.8, 200, 333.1939, 248.66951, 304.94843, 180.77013)
+polygons = [[3, 4, 5], [0, 1, 6], [3, 5, 6], [1, 2, 6], [2, 3, 6], [9, 10, 11], [9, 11, 12], [8, 9, 15], [12, 13, 15], [13, 14, 15], [9, 12, 15], [7, 8, 16], [8, 15, 16], [17, 18, 19], [16, 17, 20], [17, 19, 20], [16, 20, 21], [22, 23, 24], [22, 24, 25], [21, 22, 26], [22, 25, 26], [21, 26, 27], [16, 21, 28], [21, 27, 28], [29, 30, 31], [33, 34, 35], [35, 36, 37], [37, 38, 39], [35, 37, 39], [33, 35, 40], [35, 39, 40], [32, 33, 40], [32, 40, 41], [31, 32, 41], [43, 44, 46], [44, 45, 46], [43, 46, 47], [47, 48, 49], [42, 43, 49], [43, 47, 49], [31, 41, 49], [41, 42, 49], [29, 31, 49], [28, 29, 49], [7, 16, 49], [16, 28, 49], [7, 49, 50], [0, 6, 50], [6, 7, 50]]
+bones = ["Bone2D", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone2D/Bone2D", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone2D/Bone2D/Thumb", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0), "Bone2D/Bone2D/Fingers", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D" index="0" unique_id=1817012545]
+position = Vector2(256, 256)
+
+[node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D" index="0" unique_id=1885189985]
+position = Vector2(195.50348, 204.48067)
+rotation = 1.3962634
+rest = Transform2D(1, 0, 0, 1, 195.50348, 204.48067)
+
+[node name="Bone2D" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D" index="0" unique_id=1381901948]
+position = Vector2(-124.683304, -140.6428)
+rotation = 0.2617994
+rest = Transform2D(1, 0, 0, 1, -124.683304, -140.6428)
+
+[node name="Thumb" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D" index="0" unique_id=332460151]
+position = Vector2(29.92403, -46.880943)
+rest = Transform2D(1, 0, 0, 1, 29.92403, -46.880943)
+
+[node name="Fingers" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Hand/Sprite2D/Skeleton2D/Bone2D/Bone2D" index="1" unique_id=792051132]
+position = Vector2(-24.936638, -13.964523)
+rest = Transform2D(1, 0, 0, 1, -24.936638, -13.964523)
+
+[node name="Lines" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1025566634]
+position = Vector2(41.035774, 51.898155)
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Line1" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Lines" index="0" unique_id=1277241157]
+position = Vector2(-163.85522, 76.77067)
+rotation = -0.71876127
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Lines/Line1" index="0" unique_id=1885062613]
+texture = ExtResource("3_ncdxp")
+
+[node name="Line2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Lines" index="1" unique_id=2076717888]
+position = Vector2(-222.11694, -50.209023)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Lines/Line2" index="0" unique_id=980723852]
+texture = ExtResource("3_ncdxp")
+
+[node name="Line3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Lines" index="2" unique_id=567485354]
+position = Vector2(-184.12479, -143.94249)
+rotation = 0.41730654
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Lines/Line3" index="0" unique_id=146429777]
+texture = ExtResource("3_ncdxp")
+
+[node name="Line4" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Lines" index="3" unique_id=980906004]
+position = Vector2(-78.27254, -230.0882)
+rotation = 1.0731713
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Lines/Line4" index="0" unique_id=2022187418]
+texture = ExtResource("3_ncdxp")
+
+[node name="Line5" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Lines" index="4" unique_id=942862006]
+position = Vector2(37.15145, -201.93604)
+rotation = 1.5464547
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Lines/Line5" index="0" unique_id=317623010]
+texture = ExtResource("3_ncdxp")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=84261608]
+texture = ExtResource("4_72l1v")
