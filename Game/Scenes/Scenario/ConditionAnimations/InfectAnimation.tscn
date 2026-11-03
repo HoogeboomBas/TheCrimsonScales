@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://cxbj4sm1suouc"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_40b47"]
+[ext_resource type="Texture2D" uid="uid://duscgqsayg2y5" path="res://Art/Icons/ConditionsAndEffects/Infect/Claw.svg" id="2_08d6j"]
+[ext_resource type="Texture2D" uid="uid://cyuarxiuqsi6v" path="res://Art/Icons/ConditionsAndEffects/Infect.svg" id="3_40b47"]
+[ext_resource type="Texture2D" uid="uid://2udrq0xtgo1u" path="res://Art/Icons/ConditionsAndEffects/Infect/Ring.svg" id="4_8r6r2"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Claws/Claw:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Claws/Claw2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Claws/Claw3:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.20000845, 0.4, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Claws:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.76666665),
+"transitions": PackedFloat32Array(0.6, 1),
+"update": 0,
+"values": [-3.141592653589793, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ring:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.36666667, 0.76979995, 0.8666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3.2, 3.2), Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Claws/Claw:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Claws/Claw2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Claws/Claw3:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Claws:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ring:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.2, 3.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_40b47")]
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.47058824, 0.03137255, 0.41960785, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+
+[node name="Claws" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1969366007]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Claw" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Claws" index="0" unique_id=2142265303]
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Claws/Claw" index="0" unique_id=1772231008]
+position = Vector2(0, -10)
+texture = ExtResource("2_08d6j")
+
+[node name="Claw2" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Claws" index="1" unique_id=1180681717]
+rotation = 2.0943952
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Claws/Claw2" index="0" unique_id=655084593]
+position = Vector2(0, -10)
+texture = ExtResource("2_08d6j")
+
+[node name="Claw3" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer/Claws" index="2" unique_id=1272861763]
+rotation = 4.1887903
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Claws/Claw3" index="0" unique_id=1955954293]
+position = Vector2(0, -10)
+texture = ExtResource("2_08d6j")
+
+[node name="Ring" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1937107142]
+scale = Vector2(3.2, 3.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Ring" index="0" unique_id=808357595]
+texture = ExtResource("4_8r6r2")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=84261608]
+self_modulate = Color(1, 1, 1, 0.47843137)
+texture = ExtResource("3_40b47")
