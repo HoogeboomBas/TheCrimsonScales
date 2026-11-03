@@ -7,6 +7,7 @@ public class Regenerate : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Regenerate.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 	public override bool RemovedAtEndOfTurn => false;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/RegenerateAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
