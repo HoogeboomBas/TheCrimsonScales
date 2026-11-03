@@ -6,6 +6,7 @@ public class Ward : ConditionModel
 	public override string Name => "Ward";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Ward.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/WardAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
