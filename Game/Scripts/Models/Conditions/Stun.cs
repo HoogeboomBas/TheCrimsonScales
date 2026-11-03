@@ -7,6 +7,7 @@ public class Stun : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Stun.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/StunAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
