@@ -76,7 +76,7 @@ public sealed class TestGame : IAsyncDisposable
 		{
 			Id = Guid.NewGuid(),
 			ScenarioModelId = ModelDB.Scenario<TestScenario>().Id.ToString(),
-			Seed = setup.Seed,
+			Seed = 42,
 			ScenarioLevel = 1,
 			IsOnline = false
 		});
@@ -96,17 +96,6 @@ public sealed class TestGame : IAsyncDisposable
 			{
 				await room.Reveal(null, null, true);
 			}
-			foreach(ScenarioSetup.OverlaySpec spec in setup.Overlays)
-			{
-				HexObject overlay = SceneLoader.InstantiateScene<HexObject>(spec.ScenePath);
-				if(overlay is Door)
-				{
-					overlay.Free();
-					throw new NotSupportedException("Doors require separate room topology; use obstacles or terrain in the initial single-room harness.");
-				}
-				game.Map.AddChild(overlay);
-				await overlay.Init(game.Map.GetHex(spec.Position), spec.Rotation);
-			}
 			for(int i = 0; i < setup.Characters.Count; i++)
 			{
 				ScenarioSetup.CharacterSpec spec = setup.Characters[i];
@@ -117,38 +106,6 @@ public sealed class TestGame : IAsyncDisposable
 				controller.CharacterManager.Characters.Add(character);
 				game._figures.Add(spec.Name, character);
 				await character.OnScenarioSetupCompleted();
-				if(setup.NeutralModifiers)
-				{
-					AMDCardDeck deck = character.AMDCardDeck;
-					deck.DrawPile.Clear();
-					deck.DiscardPile.Clear();
-					for(int j = 0; j < 20; j++)
-					{
-						deck.AddCard(new AMDCard(ModelDB.AMDCard<PlusZeroAMDCard>(), deck.Owner, character), false);
-					}
-				}
-			}
-			foreach(ScenarioSetup.MonsterSpec spec in setup.Monsters)
-			{
-				Monster monster = await game.Map.CreateMonster(spec.Model, spec.Type, spec.Position, false);
-				if(monster == null)
-				{
-					throw new InvalidOperationException($"Could not spawn monster '{spec.Name}'.");
-				}
-				game._figures.Add(spec.Name, monster);
-				if(spec.Health is int health)
-				{
-					monster.SetMaxHealth(health);
-					monster.SetHealth(health);
-				}
-			}
-			foreach(ScenarioSetup.ConditionSpec spec in setup.Conditions)
-			{
-				if(spec.Model.RequiresGiver && spec.Giver == null)
-				{
-					throw new ArgumentException($"Starting condition {spec.Model.Name} requires a giver.");
-				}
-				await game.Figure(spec.Name).AddCondition(spec.Model, spec.Giver == null ? null : game.Figure(spec.Giver));
 			}
 			game.Map.UpdateWallLines();
 			controller.CameraController.SetProcess(false);
@@ -227,6 +184,47 @@ public sealed class TestGame : IAsyncDisposable
 		if(ShowGame)
 		{
 			await _controller.ToSignal(_controller.GetTree().CreateTimer(0.8), SceneTreeTimer.SignalName.Timeout);
+		}
+	}
+}
+
+public sealed class ScriptedChoices : IPromptDecisionSource
+{
+	private readonly Queue<(Type PromptType, Func<object, PromptAnswer> Answer)> _answers = new();
+	private readonly TestGame _game;
+
+	internal ScriptedChoices(TestGame game) => _game = game;
+
+	public ScriptedChoices SelectTarget(UnitHandle unit) => Answer<TargetSelectionPrompt>(prompt => prompt.SelectTarget(_game.Resolve(unit)));
+	/// <summary>Escape hatch for additional prompt types; prefer validated selection helpers where available.</summary>
+	public ScriptedChoices Answer<TPrompt>(Func<TPrompt, PromptAnswer> answer)
+	{
+		_answers.Enqueue((typeof(TPrompt), prompt => answer((TPrompt)prompt)));
+		return this;
+	}
+
+	public GDTask<TAnswer> Decide<TAnswer>(Prompt<TAnswer> prompt, Figure authority)
+		where TAnswer : PromptAnswer, new()
+	{
+		if(!_answers.TryPeek(out var next) || !next.PromptType.IsInstanceOfType(prompt))
+		{
+			throw new InvalidOperationException($"Unexpected {prompt.GetType().Name} for {authority?.DebugName}. " +
+			                                    $"Next scripted choice: {(_answers.Count == 0 ? "none" : next.PromptType.Name)}.");
+		}
+
+		_answers.Dequeue();
+		TAnswer answer = next.Answer(prompt) as TAnswer
+			?? throw new InvalidOperationException($"Invalid scripted answer for {prompt.GetType().Name}.");
+		return GDTask.FromResult(answer);
+	}
+
+	internal void Clear() => _answers.Clear();
+
+	internal void AssertConsumed()
+	{
+		if(_answers.Count != 0)
+		{
+			throw new InvalidOperationException($"{_answers.Count} scripted choice(s) were not used. Next: {_answers.Peek().PromptType.Name}.");
 		}
 	}
 }

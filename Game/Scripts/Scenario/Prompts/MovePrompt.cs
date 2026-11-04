@@ -17,28 +17,6 @@ public class MovePrompt(MoveAbility.State moveAbilityState, Figure performer, Ef
 	private readonly List<MoveNode> _waypoints = new List<MoveNode>();
 	private readonly List<Hex> _path = new List<Hex>();
 
-	/// <summary>Select a reachable destination using the same movement search as the interactive prompt.</summary>
-	public Answer SelectDestination(Hex destination)
-	{
-		Dictionary<Hex, MoveNode> reachable = new Dictionary<Hex, MoveNode>();
-		MoveHelper.FindReachableHexes(moveAbilityState, new MoveNode(performer.Hex, 0, moveAbilityState.MoveValue, 0),
-			performer, moveAbilityState.MoveType, reachable);
-		if(destination == null || !reachable.TryGetValue(destination, out MoveNode node) ||
-		   node.Parents.Count == 0 || !MoveHelper.CanStopAt(moveAbilityState, destination))
-		{
-			throw new InvalidOperationException($"Cannot move {performer.DebugName} to {destination?.Coords.ToString() ?? "null"}.");
-		}
-
-		List<Vector2I> path = new List<Vector2I>();
-		for(MoveNode current = node; current.Parents.Count > 0; current = current.Parents[0])
-		{
-			path.Add(current.Hex.Coords);
-		}
-
-		path.Reverse();
-		return new Answer { Path = path, MoveSpent = node.MoveSpent };
-	}
-
 	protected override bool CanConfirm
 	{
 		get
