@@ -165,11 +165,22 @@ public partial class GameController : SceneController<GameController>
 
 	public event EndEventHandler EndEvent;
 
+	/// <summary>Configure a directly instantiated gameplay scene before adding it to the tree.</summary>
+	public void Configure(GameSceneRequest sceneRequest)
+	{
+		if(IsInsideTree())
+		{
+			throw new InvalidOperationException("Configure the game before adding it to the scene tree.");
+		}
+
+		SceneRequest = sceneRequest;
+	}
+
 	public override void _EnterTree()
 	{
 		base._EnterTree();
 
-		SceneRequest = AppController.Instance.SceneLoader.CurrentSceneRequest as GameSceneRequest;
+		SceneRequest ??= AppController.Instance.SceneLoader.CurrentSceneRequest as GameSceneRequest;
 
 		if(SceneRequest == null)
 		{
@@ -226,10 +237,10 @@ public partial class GameController : SceneController<GameController>
 		VisualRNG = new RandomNumberGenerator();
 		VisualRNG.Randomize();
 
-		PromptManager = new PromptManager();
+		PromptManager = new PromptManager(SceneRequest.DecisionSource);
 		SyncedActionManager = new SyncedActionManager();
 
-		Scenario = SceneLoader.InstantiateScene<Scenario>(ScenarioModel.ScenePath);
+		Scenario = SceneLoader.InstantiateScene<Scenario>(SceneRequest.ScenarioScenePath ?? ScenarioModel.ScenePath);
 		AddChild(Scenario);
 		Scenario.Init();
 
@@ -273,7 +284,10 @@ public partial class GameController : SceneController<GameController>
 
 		ReadyEvent?.Invoke();
 
-		Start().Forget();
+		if(SceneRequest.RunScenarioPhases)
+		{
+			Start().Forget();
+		}
 	}
 
 	public override void _Input(InputEvent @event)

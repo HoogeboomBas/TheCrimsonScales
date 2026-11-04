@@ -53,4 +53,6 @@
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=inox/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=quatryl/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=valrath/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=vermling/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=vermling/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/UnitTesting/VsTestProvider/TestProjectMasks/=_002A_002AGame_002ETests_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+</wpf:ResourceDictionary>

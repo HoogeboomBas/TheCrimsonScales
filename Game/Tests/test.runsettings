@@ -1,0 +1,16 @@
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>1</MaxCpuCount>
+    <TestSessionTimeout>120000</TestSessionTimeout>
+    <TreatNoTestsAsError>true</TreatNoTestsAsError>
+    <EnvironmentVariables>
+      <DOTNET_ROLL_FORWARD>Major</DOTNET_ROLL_FORWARD>
+      <CRIMSON_TEST_SHOW_GAME>0</CRIMSON_TEST_SHOW_GAME>
+    </EnvironmentVariables>
+  </RunConfiguration>
+  <GdUnit4>
+    <Parameters>--headless --rendering-method gl_compatibility --audio-driver Dummy</Parameters>
+    <CaptureStdOut>true</CaptureStdOut>
+    <CompileProcessTimeout>120000</CompileProcessTimeout>
+  </GdUnit4>
+</RunSettings>

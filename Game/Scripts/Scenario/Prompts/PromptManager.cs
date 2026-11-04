@@ -1,9 +1,44 @@
 ﻿using System;
 using Fractural.Tasks;
 
+public interface IPromptDecisionSource
+{
+	GDTask<TAnswer> Decide<TAnswer>(Prompt<TAnswer> prompt, Figure authority)
+		where TAnswer : PromptAnswer, new();
+}
+
+public sealed class InteractiveDecisionSource : IPromptDecisionSource
+{
+	public async GDTask<TAnswer> Decide<TAnswer>(Prompt<TAnswer> prompt, Figure authority)
+		where TAnswer : PromptAnswer, new()
+	{
+		GameController controller = GameController.Instance;
+		GameController.SetFastForward(false);
+		try
+		{
+			return await prompt.Decide(authority);
+		}
+		finally
+		{
+			// A canceled prompt must not clean up UI belonging to a replacement scene.
+			if(ReferenceEquals(GameController.Instance, controller))
+			{
+				prompt.Cleanup();
+			}
+		}
+	}
+}
+
 public class PromptManager
 {
 	private int _promptIndex = 0;
+
+	private readonly IPromptDecisionSource _decisions;
+
+	public PromptManager(IPromptDecisionSource decisions)
+	{
+		_decisions = decisions ?? throw new ArgumentNullException(nameof(decisions));
+	}
 
 	public event Action<Character> PromptStartedEvent;
 	public event Action<Character> PromptEndedEvent;
@@ -60,10 +95,7 @@ public class PromptManager
 				{
 					// Local player needs to make a decision
 
-					GameController.SetFastForward(false);
-
-					answer = await prompt.Decide(authority);
-					prompt.Cleanup();
+					answer = await _decisions.Decide(prompt, authority);
 
 					//TODO: Multiplayer sync resign
 					await GameController.Instance.CheckEarlyEnd();
