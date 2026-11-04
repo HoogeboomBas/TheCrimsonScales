@@ -228,3 +228,16 @@ public sealed class ScriptedChoices : IPromptDecisionSource
 		}
 	}
 }
+
+internal static class TargetSelectionPromptExtensions
+{
+	public static TargetSelectionPrompt.Answer SelectTarget(this TargetSelectionPrompt prompt, Figure figure)
+	{
+		if(figure == null || !prompt.GetValidTargets().Contains(figure))
+		{
+			throw new InvalidOperationException($"{figure?.DebugName ?? "Null"} is not a valid target for this prompt.");
+		}
+
+		return new TargetSelectionPrompt.Answer { FigureReferenceId = figure.ReferenceId };
+	}
+}

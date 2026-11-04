@@ -6,20 +6,3 @@ Game.sln.DotSettings.user
 gdunit4_testadapter_v5/
 TestResults/
 obj/
-
-# Generated game-resource copies for the separate test project.
-/Tests/Art/
-/Tests/Content/
-/Tests/Fonts/
-/Tests/GTweensGodot/
-/Tests/Materials/
-/Tests/Resources/
-/Tests/Scenes/
-/Tests/Scripts/
-/Tests/Shaders/
-/Tests/addons/
-/Tests/default_bus_layout.tres
-/Tests/icon.svg
-/Tests/icon.svg.import
-/Tests/cs-crimson-scales-icon.png
-/Tests/cs-crimson-scales-icon.png.import

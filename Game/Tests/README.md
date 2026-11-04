@@ -1,6 +1,6 @@
 # Wish Upon a Star regression
 
-`WishUponAStarTests` runs inside Godot 4.7.1 .NET using gdUnit4Net. It creates a real gameplay scene in a 10×10 room, gives Wish Upon a Star to a Starslinger, and places two injured allies nearby. Playing the card's top with Dark must heal both allies to full and add one Bless to each modifier deck.
+`WishUponAStarTests` runs inside Godot 4.7.1 .NET using gdUnit4Net. It creates a real gameplay scene in a 10×10 room and plays Wish Upon a Star through the real card engine. Parameterized cases vary both allies' starting damage and cover Dark consumed, available but declined, and unavailable. Only healed targets at full health may receive Bless, and only when Dark is consumed. Separate cases cover targeting the Starslinger and an already-full-health ally.
 
 Set `GODOT_BIN` to your Godot .NET executable, including in the environment inherited by Rider:
 
@@ -21,6 +21,6 @@ The fixture supports only character placement, starting cards, and scripted prom
 
 Production hooks allow configuring the gameplay scene before it enters the tree, selecting the fixture room, pausing automatic scenario phases, and injecting decisions into `PromptManager`. Target choices use the game's valid-target check. Normal gameplay defaults remain interactive.
 
-The separate Godot project isolates test packages, import caches, saves, and logs. Its build copies production resources into ignored directories to preserve existing `res://` paths, while referencing the compiled game assembly. `TestBootstrap` registers that assembly's Godot scripts before autoloads start. After deleting or renaming production resources, run `dotnet clean Tests/Game.Tests.csproj` before rebuilding to remove stale copies.
+The separate Godot project isolates test packages, import caches, saves, and logs. Its build generates the runnable Godot project and production resource copies under `Tests/obj/godot/` to preserve existing `res://` paths, while referencing the compiled game assembly. The authored `Tests/project.godot` is the configuration template. `TestBootstrap` registers that assembly's Godot scripts before autoloads start. After deleting or renaming production resources, run `dotnet clean Tests/Game.Tests.csproj` before rebuilding to remove stale copies.
 
-Open `Tests/project.godot` to inspect `Fixtures/TestRoom.tscn`. Edit production assets in the main project and rebuild to refresh the copies. The generated `gdunit4_testadapter_v5` directory is ignored by Git.
+After building, open `Tests/obj/godot/project.godot` to inspect `Fixtures/TestRoom.tscn`. Edit production assets in the main project and rebuild to refresh the copies. The adapter runner and Godot import cache also stay under the ignored generated project.

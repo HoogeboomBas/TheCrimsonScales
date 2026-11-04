@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class TargetSelectionPrompt(
-	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool autoSkipIfNone, bool autoConfirmIfOne, bool mandatory,
-	EffectCollection effectCollection,
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool autoSkipIfNone, bool autoConfirmIfOne, bool mandatory, EffectCollection effectCollection,
 	Func<string> getHintText)
 	: Prompt<TargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
@@ -17,16 +16,11 @@ public class TargetSelectionPrompt(
 
 	private Figure _selectedFigure;
 
-	public Answer SelectTarget(Figure figure)
+	public IReadOnlyList<Figure> GetValidTargets()
 	{
-		List<Figure> validTargets = new List<Figure>();
-		getValidTargets(validTargets);
-		if(figure == null || !validTargets.Contains(figure))
-		{
-			throw new InvalidOperationException($"{figure?.DebugName ?? "Null"} is not a valid target for this prompt.");
-		}
-
-		return new Answer { FigureReferenceId = figure.ReferenceId };
+		List<Figure> targets = new List<Figure>();
+		getValidTargets(targets);
+		return targets.AsReadOnly();
 	}
 
 	protected override bool CanConfirm => _selectedFigure != null;
@@ -37,7 +31,7 @@ public class TargetSelectionPrompt(
 		base.Enable();
 
 		_validTargets.Clear();
-		getValidTargets(_validTargets);
+		_validTargets.AddRange(GetValidTargets());
 
 		if((autoSelectIfOne || autoConfirmIfOne) && _validTargets.Count == 1)
 		{

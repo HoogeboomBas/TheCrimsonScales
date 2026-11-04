@@ -12,20 +12,10 @@ public sealed class InteractiveDecisionSource : IPromptDecisionSource
 	public async GDTask<TAnswer> Decide<TAnswer>(Prompt<TAnswer> prompt, Figure authority)
 		where TAnswer : PromptAnswer, new()
 	{
-		GameController controller = GameController.Instance;
 		GameController.SetFastForward(false);
-		try
-		{
-			return await prompt.Decide(authority);
-		}
-		finally
-		{
-			// A canceled prompt must not clean up UI belonging to a replacement scene.
-			if(ReferenceEquals(GameController.Instance, controller))
-			{
-				prompt.Cleanup();
-			}
-		}
+		TAnswer answer = await prompt.Decide(authority);
+		prompt.Cleanup();
+		return answer;
 	}
 }
 
