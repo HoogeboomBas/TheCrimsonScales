@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class BoosterShot : CS2Item
 {
@@ -90,7 +90,7 @@ public class BoosterShot : CS2Item
 							},
 							effectType: EffectType.SelectableMandatory,
 							effectButtonParameters: new IconEffectButton.Parameters(Icons.Attack),
-							effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}2, advantage")
+							effectInfoViewParameters: new TextEffectInfoView.Parameters($"{Icons.Inline(Icons.Attack)}2")
 						);
 
 					await AbilityCmd.GenericChoice(user,
