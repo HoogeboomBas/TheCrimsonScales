@@ -217,7 +217,7 @@ self_modulate = Color(0.18039216, 0.27450982, 0.40784314, 1)
 
 [node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
 libraries/ = SubResource("AnimationLibrary_vvigo")
-speed_scale = 0.4
+speed_scale = 0.6
 
 [node name="Container" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1447886668]
 scale = Vector2(0.99999994, 0.99999994)

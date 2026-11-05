@@ -10,6 +10,7 @@ public class Poison : ConditionModel
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Poison1];
 	public override ConditionModel BaseLevelCondition => Conditions.Poison1;
 	public override int UpgradableLevel => 1;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/PoisonAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
