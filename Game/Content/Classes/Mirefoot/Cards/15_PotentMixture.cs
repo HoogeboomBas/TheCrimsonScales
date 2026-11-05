@@ -31,8 +31,9 @@ public class PotentMixture : MirefootCardModel<PotentMixture.CardTop, PotentMixt
 							parameters.AbilityState.SingleTargetAddCondition(Conditions.Poison3);
 
 							await AbilityCmd.GainXP(state.Performer, 1);
-						}
-					);
+						}, EffectType.Selectable,
+						effectButtonParameters: new IconEffectButton.Parameters(Icons.GetCondition(Conditions.Poison3)),
+						effectInfoViewParameters: new AbilityCardEffectInfoView.Parameters(GetAbilityCardSide(state)));
 
 					await GDTask.CompletedTask;
 				})
