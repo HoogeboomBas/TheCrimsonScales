@@ -25,7 +25,7 @@ public class City18 : CityEventModel<City18.ChoiceA, City18.ChoiceB>
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			new LoseReputationReward(1),
-			new LoseCollectiveGoldReward(5)
+			new LoseGoldEachReward(5)
 		];
 	}
 
@@ -41,7 +41,7 @@ public class City18 : CityEventModel<City18.ChoiceA, City18.ChoiceB>
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
 			new GainReputationReward(1),
-			new GainCollectiveGoldReward(5)
+			new GainGoldEachReward(5)
 		];
 	}
 }
