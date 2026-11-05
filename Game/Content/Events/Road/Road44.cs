@@ -80,9 +80,9 @@ public class Road44 : RoadEventModel<Road44.ChoiceA, Road44.ChoiceB>
 
 	private static void CustomSelectHexes(List<Hex> list, Character user)
 	{
-		foreach(Figure figure in GameController.Instance.Map.Figures.Where(figure => user.EnemiesWith(figure)))
+		foreach(Figure figure in GameController.Instance.Map.Figures.Where(user.EnemiesWith))
 		{
-			foreach(Hex adjacentHex in RangeHelper.GetHexesInRange(user.Hex, 1).Where(hex => hex.IsEmpty()))
+			foreach(Hex adjacentHex in RangeHelper.GetHexesInRange(figure.Hex, 1).Where(hex => hex.IsEmpty()))
 			{
 				list.AddIfNew(adjacentHex);
 			}
