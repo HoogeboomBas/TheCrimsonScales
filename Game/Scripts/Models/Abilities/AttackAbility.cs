@@ -392,7 +392,11 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			{
 				if(!GameController.FastForward)
 				{
-					target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+					if(target.FigureViewComponent.Retaliate.Scale.X > 0.1f)
+					{
+						target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+					}
+
 					await GDTask.DelayFastForwardable(0.3f);
 
 					RetaliateEffect retaliateEffect =

@@ -59,6 +59,11 @@ public class Scenario010 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario019>()),
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllDiscardCardScenarioEffect()
+	];
+
 	public override string BGSPath => null;
 
 	private bool _fireConsumed;
@@ -73,18 +78,6 @@ public class Scenario010 : ScenarioModel
 	private ScenarioRule _impConsumeRule;
 	private ScenarioRule _lurkerConsumeRule;
 	private ScenarioRule _progressRule;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		AbilityCard card = await AbilityCmd.SelectAbilityCard(character, CardState.Hand, true, hintText: "Select a card to discard");
-
-		if(card != null)
-		{
-			await card.SetCardState(CardState.Discarded);
-		}
-	}
 
 	public override async GDTask InitializeBeforeFirstRoomRevealed()
 	{

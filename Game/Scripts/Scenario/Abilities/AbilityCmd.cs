@@ -1458,6 +1458,8 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(false));
 
+		GameController.SetFastForward(false);
+
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioLostView.Open();
 
@@ -1472,6 +1474,8 @@ public static class AbilityCmd
 	public static async GDTask Win()
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(true));
+
+		GameController.SetFastForward(false);
 
 		await GameController.Instance.OpenStoryViewConclusion();
 

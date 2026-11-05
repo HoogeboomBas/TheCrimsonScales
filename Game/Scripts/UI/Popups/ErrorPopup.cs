@@ -51,6 +51,13 @@ public partial class ErrorPopup : Popup<ErrorPopup.Request>
 		_undoButton.GetParent<Control>().SetVisible(GameController.Instance != null);
 	}
 
+	protected override void OnClosed()
+	{
+		base.OnClosed();
+
+		Log.ResetHasLoggedError();
+	}
+
 	private void OnFilePressed()
 	{
 	}
@@ -68,19 +75,16 @@ public partial class ErrorPopup : Popup<ErrorPopup.Request>
 	private async GDTaskVoid ReturnToTown()
 	{
 		GameController.Instance.SetScenarioResult(ScenarioResult.Loss);
-		Log.ResetHasLoggedError();
 		await GameController.Instance.EndScenario();
 	}
 
 	private void OnUndoPressed()
 	{
 		GameController.Instance.UndoManager.Undo();
-		Log.ResetHasLoggedError();
 	}
 
 	private void ToMainMenuPressed()
 	{
 		AppController.Instance.SceneLoader.RequestSceneChange(new MainMenuSceneRequest());
-		Log.ResetHasLoggedError();
 	}
 }

@@ -40,7 +40,7 @@ public partial class RetaliateEffect : Node2D
 			.Build().PlayFastForwardable();
 
 		_tweenB = GTweenSequenceBuilder.New()
-			.AppendTime(0.4f)
+			.AppendTime(0.3f)
 			.Append(this.TweenScale(1.6f, 0.3f).SetEasing(Easing.OutQuad))
 			.Append(this.TweenScale(1.5f, 0.15f).SetEasing(Easing.InQuad))
 			.AppendTime(0.5f)

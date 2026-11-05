@@ -45,6 +45,11 @@ public class Scenario026 : ScenarioModel
 		new GainCheckmarkReward()
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Chill)
+	];
+
 	public override string BGSPath => "res://Audio/BGS/Cave.ogg";
 
 	private CustomScenarioGoal _goal;
@@ -55,13 +60,6 @@ public class Scenario026 : ScenarioModel
 	private ScenarioRule _hotThermalStoneRule2;
 	private ScenarioRule _icyFireThermalStoneRule1;
 	private ScenarioRule _icyFireThermalStoneRule2;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Chill);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

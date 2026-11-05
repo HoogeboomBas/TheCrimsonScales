@@ -44,18 +44,10 @@ public class Scenario012 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario015>())
 	];
 
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		ItemModel item = await AbilityCmd.SelectItem(character, ItemState.Available, ItemType.Small,
-			hintText: $"Select one {Icons.HintText(Icons.GetItem(ItemType.Small))} to {Icons.HintText(Icons.LoseCard)}");
-
-		if(item != null)
-		{
-			await item.SetItemState(ItemState.Consumed);
-		}
-	}
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllLoseItemScenarioEffect(ItemType.Small)
+	];
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

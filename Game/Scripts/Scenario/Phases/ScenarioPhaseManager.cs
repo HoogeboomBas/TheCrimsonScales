@@ -24,6 +24,11 @@ public class ScenarioPhaseManager
 		{
 			Log.Write(e.ToString());
 		}
+		catch(Exception e)
+		{
+			GameController.SetFastForward(false);
+			Log.Error(e.ToString());
+		}
 	}
 
 	private async GDTask PlayTask(CancellationToken cancellationToken)

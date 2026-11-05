@@ -41,7 +41,9 @@ public class MantleOfPurity : CS1Item
 
 					await GDTask.CompletedTask;
 				});
-			}
+			}, GetSubscriptionEffectType,
+			effectButtonParameters: _effectButtonParameters,
+			effectInfoViewParameters: _effectInfoViewParameters
 		);
 	}
 

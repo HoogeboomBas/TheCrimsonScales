@@ -54,12 +54,10 @@ public class Scenario054 : ScenarioModel
 		new GainGoldEachReward(30)
 	];
 
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddConditions(null, character, [Conditions.Curse, Conditions.Curse]);
-	}
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Curse, Conditions.Curse)
+	];
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

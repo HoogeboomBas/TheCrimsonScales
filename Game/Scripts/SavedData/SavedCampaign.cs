@@ -193,7 +193,7 @@ public class SavedCampaign
 		//savedCampaign.Characters[1].SetEquippedSmallSlotItem(0, ModelDB.Item<ScrollOfCharisma>());
 		//savedCampaign.Characters[1].AddItem(ModelDB.Item<MinorManaPotion>());
 		savedCampaign.Characters[0].AddItem(ModelDB.Item<PoisonDagger>());
-		savedCampaign.Characters[0].AddItem(ModelDB.Item<Chainmail>());
+		savedCampaign.Characters[0].AddItem(ModelDB.Item<SteelSabatons>());
 		// savedCampaign.Characters[0].SavedPersonalQuest.PersonalQuestData.AdjustProgress(
 		// 	30, savedCampaign.Characters[0].ClassModel, savedCampaign.Characters[0].SavedPersonalQuest.Model);
 
