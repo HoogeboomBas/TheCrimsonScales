@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Godot;
 
 public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTop, DizzyingRelease.CardBottom>
 {
@@ -121,8 +122,8 @@ public class DizzyingRelease : ChainguardLevelUpCardModel<DizzyingRelease.CardTo
 						PushAbility.State secondState = parameters.AbilityState.ActionState.GetAbilityState<PushAbility.State>(2);
 						SwingAbility.State thirdState = parameters.AbilityState.ActionState.GetAbilityState<SwingAbility.State>(3);
 						parameters.AbilityState.AbilityAdjustAttackValue(
-							firstState.SingleTargetState?.ForcedMovementHexes.Count ?? 0 +
-							secondState.SingleTargetState?.ForcedMovementHexes.Count ?? 0 +
+							(firstState.SingleTargetState?.ForcedMovementHexes.Count ?? 0) +
+							(secondState.SingleTargetState?.ForcedMovementHexes.Count ?? 0) +
 							thirdState.SingleTargetState?.ForcedMovementHexes.Count ?? 0);
 
 						await GDTask.CompletedTask;

@@ -14,7 +14,7 @@ public class SolarEclipse : StarslingerCardModel<SolarEclipse.CardTop, SolarEcli
 		protected override List<AbilityCardAbility> GetAbilities() =>
 		[
 			new AbilityCardAbility(AttackAbility.Builder()
-				.WithDamage(2, new AttackDiamond(this, new Vector2(0.4989511f, 0.20602313f)))
+				.WithDamage(2, new AttackDiamond(this, new Vector2(0.49901202f, 0.15734074f)))
 				.WithAOEPattern(new AOEPattern(
 				[
 					new AOEHex(Vector2I.Zero, AOEHexType.Gray),
@@ -22,6 +22,12 @@ public class SolarEclipse : StarslingerCardModel<SolarEclipse.CardTop, SolarEcli
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest), AOEHexType.Red),
 					new AOEHex(Vector2I.Zero.Add(Direction.NorthWest).Add(Direction.NorthEast), AOEHexType.Yellow),
 				]))
+				.WithAbilityPerformedSubscription(
+					ScenarioEvents.AbilityPerformed.Subscription.ConsumeElement(Element.Dark,
+						applyFunction: async parameters =>
+						{
+							await AbilityCmd.InfuseElement(parameters.AbilityState, Element.Light);
+						}, effectInfoViewParameters: new TextEffectInfoView.Parameters(Icons.Inline(Icons.GetElement(Element.Light)))))
 				.Build()),
 			new AbilityCardAbility(ConditionAbility.Builder()
 				.WithConditions(Conditions.Invisible)
