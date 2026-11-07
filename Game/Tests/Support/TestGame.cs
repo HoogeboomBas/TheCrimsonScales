@@ -83,12 +83,10 @@ public sealed class TestGame : IAsyncDisposable
 
 		GameController controller = SceneLoader.InstantiateScene<GameController>("res://Scenes/Scenario/Game.tscn");
 		TestGame game = new TestGame(controller, setup);
-		controller.Configure(new GameSceneRequest(campaign)
-		{
-			ScenarioScenePath = "res://Fixtures/TestRoom.tscn",
-			RunScenarioPhases = false,
-			DecisionSource = game._choices
-		});
+		controller.Configure(new GameSceneRequest(campaign),
+			scenarioScenePath: "res://Fixtures/TestRoom.tscn",
+			runScenarioPhases: false,
+			decisionSource: game._choices);
 		try
 		{
 			((SceneTree)Engine.GetMainLoop()).Root.AddChild(controller);
@@ -140,21 +138,18 @@ public sealed class TestGame : IAsyncDisposable
 		Character character = Character(characterName);
 		AbilityCard card = character.Cards.FirstOrDefault(card => card.Model is TCard && card.CardState == CardState.Hand)
 			?? throw new InvalidOperationException($"{characterName} has no {typeof(TCard).Name} in hand.");
-		AbilityCardSide side = section switch
-		{
-			AbilityCardSection.Top => card.Top,
-			AbilityCardSection.Bottom => card.Bottom,
-			AbilityCardSection.BasicTop => card.BasicTop,
-			AbilityCardSection.BasicBottom => card.BasicBottom,
-			_ => throw new ArgumentOutOfRangeException(nameof(section))
-		};
 		_playing = true;
 		try
 		{
+			_choices.Answer<AbilityCardSectionSelectionPrompt>(_ => new AbilityCardSectionSelectionPrompt.Answer
+			{
+				CardReferenceId = card.ReferenceId,
+				AbilityCardSection = section
+			});
 			choices?.Invoke(_choices);
 			Map.SetTurnTaker(character);
 			await card.SetCardState(CardState.Playing);
-			await side.Perform(character).AsTask().WaitAsync(TimeSpan.FromSeconds(15));
+			await AbilityCmd.PerformAbilityCardTopOrBottom(character, card).AsTask().WaitAsync(TimeSpan.FromSeconds(15));
 			_choices.AssertConsumed();
 			await PauseForVisibleRun();
 		}

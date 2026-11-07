@@ -17,9 +17,9 @@ For an optional visible run:
 dotnet test Tests/Game.Tests.csproj -- GdUnit4.Parameters="--windowed --rendering-method gl_compatibility --audio-driver Dummy" RunConfiguration.EnvironmentVariables.CRIMSON_TEST_SHOW_GAME=1
 ```
 
-The fixture supports only character placement, starting cards, and scripted prompt answers needed by this regression. It resolves the real card side, including effects and final card state, without starting the automatic round loop. Unexpected prompts and unused answers fail the test. Sessions must be disposed with `await using`.
+The fixture supports only character placement, starting cards, and scripted prompt answers needed by this regression. It scripts the production card-side selection prompt and calls `AbilityCmd.PerformAbilityCardTopOrBottom`, including effects and final card state, without starting the automatic round loop. Unexpected prompts and unused answers fail the test. Sessions must be disposed with `await using`.
 
-Production hooks allow configuring the gameplay scene before it enters the tree, selecting the fixture room, pausing automatic scenario phases, and injecting decisions into `PromptManager`. Target choices use the game's valid-target check. Normal gameplay defaults remain interactive.
+`GameController.Configure` accepts the scene request and initialization options before the scene enters the tree. The options select the fixture room, pause automatic scenario phases, and inject decisions into `PromptManager`; `GameSceneRequest` contains no test initialization options. Target choices use the game's valid-target check. Normal gameplay defaults remain interactive.
 
 The separate Godot project isolates test packages, import caches, saves, and logs. Its build generates the runnable Godot project and production resource copies under `Tests/obj/godot/` to preserve existing `res://` paths, while referencing the compiled game assembly. The authored `Tests/project.godot` is the configuration template. `TestBootstrap` registers that assembly's Godot scripts before autoloads start. After deleting or renaming production resources, run `dotnet clean Tests/Game.Tests.csproj` before rebuilding to remove stale copies.
 

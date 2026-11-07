@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -165,8 +165,13 @@ public partial class GameController : SceneController<GameController>
 
 	public event EndEventHandler EndEvent;
 
+	private string _scenarioScenePath;
+	private bool _runScenarioPhases = true;
+	private IPromptDecisionSource _decisionSource = new InteractiveDecisionSource();
+
 	/// <summary>Configure a directly instantiated gameplay scene before adding it to the tree.</summary>
-	public void Configure(GameSceneRequest sceneRequest)
+	public void Configure(GameSceneRequest sceneRequest, string scenarioScenePath,
+		bool runScenarioPhases, IPromptDecisionSource decisionSource)
 	{
 		if(IsInsideTree())
 		{
@@ -174,6 +179,9 @@ public partial class GameController : SceneController<GameController>
 		}
 
 		SceneRequest = sceneRequest;
+		_scenarioScenePath = scenarioScenePath;
+		_runScenarioPhases = runScenarioPhases;
+		_decisionSource = decisionSource;
 	}
 
 	public override void _EnterTree()
@@ -237,10 +245,10 @@ public partial class GameController : SceneController<GameController>
 		VisualRNG = new RandomNumberGenerator();
 		VisualRNG.Randomize();
 
-		PromptManager = new PromptManager(SceneRequest.DecisionSource);
+		PromptManager = new PromptManager(_decisionSource);
 		SyncedActionManager = new SyncedActionManager();
 
-		Scenario = SceneLoader.InstantiateScene<Scenario>(SceneRequest.ScenarioScenePath ?? ScenarioModel.ScenePath);
+		Scenario = SceneLoader.InstantiateScene<Scenario>(_scenarioScenePath ?? ScenarioModel.ScenePath);
 		AddChild(Scenario);
 		Scenario.Init();
 
@@ -284,7 +292,7 @@ public partial class GameController : SceneController<GameController>
 
 		ReadyEvent?.Invoke();
 
-		if(SceneRequest.RunScenarioPhases)
+		if(_runScenarioPhases)
 		{
 			Start().Forget();
 		}
