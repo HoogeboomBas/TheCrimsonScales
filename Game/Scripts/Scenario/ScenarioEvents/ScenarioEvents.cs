@@ -429,13 +429,13 @@ public partial class ScenarioEvents
 			public bool WouldSufferDamage => CalculatedCurrentDamage > 0 && !DamagePrevented;
 			public int TotalShield => Shield + UnpierceableShield;
 
-			public Parameters(AbilityState abilityState, Figure figure, Figure potentialDamageDealer, int initialDamage, bool fromAttack)
+			public Parameters(AbilityState abilityState, Figure figure, Figure potentialDamageDealer, int initialDamage)
 			{
 				PotentialAbilityState = abilityState;
 				Figure = figure;
 				PotentialDamageDealer = potentialDamageDealer;
 				InitialDamage = initialDamage;
-				FromAttack = fromAttack;
+				FromAttack = abilityState is not null and AttackAbility.State;
 
 				CalculateCurrentDamage();
 			}

@@ -88,7 +88,7 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<int> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
-		Figure potentialDamageDealer = null, bool fromAttack = false)
+		Figure potentialDamageDealer = null)
 	{
 		if(target.Health == 0)
 		{
@@ -125,7 +125,7 @@ public static class AbilityCmd
 
 		int damageSuffered = target.Health - newHealth;
 
-		GameController.Instance.CameraController.Shake(damageSuffered * 4f, fromAttack ? 0.15f / AppController.Instance.GameplayTimeScale : 0f);
+		GameController.Instance.CameraController.Shake(damageSuffered * 4f, sufferDamageParameters.FromAttack ? 0.15f / AppController.Instance.GameplayTimeScale : 0f);
 
 		target.SetHealth(newHealth);
 
@@ -176,9 +176,9 @@ public static class AbilityCmd
 		return damageDealt;
 	}
 
-	public static async GDTask<int> SufferDamage(Figure target, int damage, Figure potentialDamageDealer, bool fromAttack = false)
+	public static async GDTask<int> SufferDamage(Figure target, int damage, Figure potentialDamageDealer)
 	{
-		return await SufferDamage(null, target, damage, potentialDamageDealer, fromAttack);
+		return await SufferDamage(null, target, damage, potentialDamageDealer);
 	}
 
 	public static async GDTask KillOrExhaust(AbilityState potentialAbilityState, Figure target, Figure potentialKiller)

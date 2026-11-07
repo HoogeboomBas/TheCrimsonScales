@@ -316,7 +316,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 		}
 
-		int damageDealt = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue, fromAttack: true);
+		int damageDealt = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
 
 		if(!GameController.FastForward)
 		{
