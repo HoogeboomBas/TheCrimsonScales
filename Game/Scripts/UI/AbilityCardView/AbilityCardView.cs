@@ -120,10 +120,10 @@ public partial class AbilityCardView : CardView
 
 	private void OnInspectButtonPressed()
 	{
-		AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
-		{
-			SavedAbilityCard = SavedAbilityCard,
-			Model = Model,
-		});
+		// AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
+		// {
+		// 	SavedAbilityCard = SavedAbilityCard,
+		// 	Model = Model,
+		// });
 	}
 }

@@ -110,9 +110,9 @@ public partial class CardSelectionCard : Control
 
 	private void OnInspectButtonPressed()
 	{
-		AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
-		{
-			SavedAbilityCard = SavedAbilityCard,
-		});
+		// AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
+		// {
+		// 	SavedAbilityCard = SavedAbilityCard,
+		// });
 	}
 }
