@@ -190,7 +190,36 @@ public sealed class ScriptedChoices : IPromptDecisionSource
 
 	internal ScriptedChoices(TestGame game) => _game = game;
 
-	public ScriptedChoices SelectTarget(UnitHandle unit) => Answer<TargetSelectionPrompt>(prompt => prompt.SelectTarget(_game.Resolve(unit)));
+	public ScriptedChoices SelectTarget(UnitHandle unit) => Answer<TargetSelectionPrompt>(prompt =>
+	{
+		prompt.Selection.Refresh();
+		prompt.Selection.Select(_game.Resolve(unit));
+		return new TargetSelectionPrompt.Answer { FigureReferenceId = prompt.Selection.SelectedFigure.ReferenceId };
+	});
+
+	public ScriptedChoices ConsumeElement(Element element)
+	{
+		Answer<ScenarioEventPrompt>(prompt => new ScenarioEventPrompt.Answer
+		{
+			SelectedEffectIndex = prompt.EffectCollection.ApplicableEffects.Single(effect =>
+				effect.Subscription.EffectButtonParameters is ConsumeElementEffectButton.Parameters parameters &&
+				parameters.Elements.Count == 1 &&
+				parameters.Elements[0].ConsumableElements.Count == 1 &&
+				parameters.Elements[0].ConsumableElements.Contains(element)).Index
+		});
+		return FinishEffects();
+	}
+
+	public ScriptedChoices FinishEffects() =>
+		Answer<ScenarioEventPrompt>(_ => new ScenarioEventPrompt.Answer());
+
+	public ScriptedChoices FinishTargetSelection(Action<TargetSelectionPrompt> assert = null) =>
+		Answer<TargetSelectionPrompt>(prompt =>
+		{
+			assert?.Invoke(prompt);
+			return new TargetSelectionPrompt.Answer { Skipped = true };
+		});
+
 	/// <summary>Escape hatch for additional prompt types; prefer validated selection helpers where available.</summary>
 	public ScriptedChoices Answer<TPrompt>(Func<TPrompt, PromptAnswer> answer)
 	{
@@ -221,18 +250,5 @@ public sealed class ScriptedChoices : IPromptDecisionSource
 		{
 			throw new InvalidOperationException($"{_answers.Count} scripted choice(s) were not used. Next: {_answers.Peek().PromptType.Name}.");
 		}
-	}
-}
-
-internal static class TargetSelectionPromptExtensions
-{
-	public static TargetSelectionPrompt.Answer SelectTarget(this TargetSelectionPrompt prompt, Figure figure)
-	{
-		if(figure == null || !prompt.GetValidTargets().Contains(figure))
-		{
-			throw new InvalidOperationException($"{figure?.DebugName ?? "Null"} is not a valid target for this prompt.");
-		}
-
-		return new TargetSelectionPrompt.Answer { FigureReferenceId = figure.ReferenceId };
 	}
 }

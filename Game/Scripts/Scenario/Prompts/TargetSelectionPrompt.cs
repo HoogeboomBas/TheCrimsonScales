@@ -12,38 +12,23 @@ public class TargetSelectionPrompt(
 		public int FigureReferenceId { get; init; }
 	}
 
-	private readonly List<Figure> _validTargets = new List<Figure>();
+	public TargetSelection Selection { get; } = new TargetSelection(
+		getValidTargets, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, mandatory);
 
-	private Figure _selectedFigure;
-
-	public IReadOnlyList<Figure> GetValidTargets()
-	{
-		List<Figure> targets = new List<Figure>();
-		getValidTargets(targets);
-		return targets.AsReadOnly();
-	}
-
-	protected override bool CanConfirm => _selectedFigure != null;
-	protected override bool CanSkip => _validTargets.Count == 0 || !mandatory;
+	protected override bool CanConfirm => Selection.CanConfirm;
+	protected override bool CanSkip => Selection.CanSkip;
 
 	protected override void Enable()
 	{
 		base.Enable();
 
-		_validTargets.Clear();
-		_validTargets.AddRange(GetValidTargets());
-
-		if((autoSelectIfOne || autoConfirmIfOne) && _validTargets.Count == 1)
+		Selection.Initialize();
+		if(Selection.ShouldAutoConfirm)
 		{
-			_selectedFigure = _validTargets[0];
-
-			if(mandatory || autoConfirmIfOne)
-			{
-				Complete(true);
-			}
+			Complete(true);
 		}
 
-		if(autoSkipIfNone && _validTargets.Count == 0)
+		if(Selection.ShouldAutoSkip)
 		{
 			Skip();
 		}
@@ -55,7 +40,7 @@ public class TargetSelectionPrompt(
 
 		GameController.Instance.HexIndicatorManager.StartSettingIndicators();
 
-		HashSet<Hex> hexes = _validTargets.SelectMany(figure => figure.Hexes).ToHashSet();
+		HashSet<Hex> hexes = Selection.ValidTargets.SelectMany(figure => figure.Hexes).ToHashSet();
 		foreach(Hex hex in hexes)
 		{
 			if(hex == null)
@@ -64,7 +49,7 @@ public class TargetSelectionPrompt(
 			}
 
 			GameController.Instance.HexIndicatorManager.SetIndicator(hex,
-				_selectedFigure?.Hexes.Contains(hex) ?? false ? HexIndicatorType.Selected : HexIndicatorType.Normal,
+				Selection.SelectedFigure?.Hexes.Contains(hex) ?? false ? HexIndicatorType.Selected : HexIndicatorType.Normal,
 				OnIndicatorPressed);
 		}
 
@@ -83,26 +68,34 @@ public class TargetSelectionPrompt(
 	{
 		return new Answer()
 		{
-			FigureReferenceId = _selectedFigure.ReferenceId
+			FigureReferenceId = Selection.SelectedFigure.ReferenceId
 		};
 	}
 
 	private void OnIndicatorPressed(HexIndicator hexIndicator)
 	{
-		if(_selectedFigure != null && hexIndicator.Hex == _selectedFigure.Hex)
+		if(Selection.SelectedFigure != null && hexIndicator.Hex == Selection.SelectedFigure.Hex)
 		{
-			_selectedFigure = null;
+			Selection.Clear();
 		}
 		else
 		{
-			List<Figure> figures = hexIndicator.Hex.GetHexObjectsOfType<Figure>().Where(_validTargets.Contains).ToList();
+			List<Figure> figures = hexIndicator.Hex.GetHexObjectsOfType<Figure>().Where(figure => Selection.ValidTargets.Contains(figure)).ToList();
 			if(figures.Count > 1)
 			{
 				GameController.Instance.SelectFigureView.Open(figures, OnFigurePressed);
 			}
 			else
 			{
-				_selectedFigure = figures.FirstOrDefault();
+				Figure figure = figures.FirstOrDefault();
+				if(figure == null)
+				{
+					Selection.Clear();
+				}
+				else
+				{
+					Selection.Select(figure);
+				}
 			}
 		}
 
@@ -113,8 +106,65 @@ public class TargetSelectionPrompt(
 	{
 		GameController.Instance.SelectFigureView.Close();
 
-		_selectedFigure = figure;
+		Selection.Select(figure);
 
 		FullUpdateState();
+	}
+
+	/// <summary>Target eligibility and selection state, independent of prompt presentation.</summary>
+	public sealed class TargetSelection
+	{
+		private readonly Action<List<Figure>> _getValidTargets;
+		private readonly bool _autoSelectIfOne;
+		private readonly bool _autoSkipIfNone;
+		private readonly bool _autoConfirmIfOne;
+		private readonly bool _mandatory;
+		private readonly List<Figure> _validTargets = new List<Figure>();
+
+		public IReadOnlyList<Figure> ValidTargets { get; }
+		public Figure SelectedFigure { get; private set; }
+		public bool CanConfirm => SelectedFigure != null;
+		public bool CanSkip => _validTargets.Count == 0 || !_mandatory;
+		public bool ShouldAutoConfirm => (_autoSelectIfOne || _autoConfirmIfOne) &&
+			_validTargets.Count == 1 && (_mandatory || _autoConfirmIfOne);
+		public bool ShouldAutoSkip => _autoSkipIfNone && _validTargets.Count == 0;
+
+		public TargetSelection(Action<List<Figure>> getValidTargets, bool autoSelectIfOne,
+			bool autoSkipIfNone, bool autoConfirmIfOne, bool mandatory)
+		{
+			_getValidTargets = getValidTargets;
+			_autoSelectIfOne = autoSelectIfOne;
+			_autoSkipIfNone = autoSkipIfNone;
+			_autoConfirmIfOne = autoConfirmIfOne;
+			_mandatory = mandatory;
+			ValidTargets = _validTargets.AsReadOnly();
+		}
+
+		public void Initialize()
+		{
+			Refresh();
+			if((_autoSelectIfOne || _autoConfirmIfOne) && _validTargets.Count == 1)
+			{
+				Select(_validTargets[0]);
+			}
+		}
+
+		public void Refresh()
+		{
+			_validTargets.Clear();
+			_getValidTargets(_validTargets);
+		}
+
+		public void Select(Figure figure)
+		{
+			if(figure == null || !_validTargets.Contains(figure))
+			{
+				throw new InvalidOperationException($"{figure?.DebugName ?? "Null"} is not a valid target for this prompt.");
+			}
+
+			SelectedFigure = figure;
+		}
+
+		public void Clear() => SelectedFigure = null;
 	}
 }

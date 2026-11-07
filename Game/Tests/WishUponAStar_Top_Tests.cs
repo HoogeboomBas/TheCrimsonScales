@@ -9,7 +9,7 @@ namespace CrimsonScales.Tests;
 
 [TestSuite]
 [RequireGodotRuntime]
-public class WishUponAStarTests
+public class WishUponAStar_Top_Tests
 {
 	private const int HealAmount = 3;
 	private const int DamageBelowHealAmount = HealAmount - 1;
@@ -57,28 +57,20 @@ public class WishUponAStarTests
 			choices.SelectTarget(first).SelectTarget(second);
 			if(darkAvailable)
 			{
-				if(consumeDark)
-				{
-					choices.Answer<ScenarioEventPrompt>(prompt => new ScenarioEventPrompt.Answer
-					{
-						SelectedEffectIndex = prompt.EffectCollection.ApplicableEffects.Single().Index
-					});
-				}
-				// Finish the effects prompt, consuming or declining Dark as scripted above.
-				choices.Answer<ScenarioEventPrompt>(_ => new ScenarioEventPrompt.Answer());
+				if(consumeDark) choices.ConsumeElement(Element.Dark);
+				else choices.FinishEffects(); // Decline the offered Dark consumption.
 			}
 
 			if(consumeDark)
 			{
 				if(firstReceivesBless) choices.SelectTarget(first);
 				if(secondReceivesBless) choices.SelectTarget(second);
-				choices.Answer<TargetSelectionPrompt>(prompt =>
+				choices.FinishTargetSelection(prompt =>
 				{
 					// A still-injured target and an unhealed full-health unit must not be eligible.
 					if(!firstReceivesBless) AssertRejected(prompt, first);
 					if(!secondReceivesBless) AssertRejected(prompt, second);
 					AssertRejected(prompt, starslinger);
-					return new TargetSelectionPrompt.Answer { Skipped = true };
 				});
 			}
 		});
@@ -107,14 +99,10 @@ public class WishUponAStarTests
 
 		await game.PlayCard<WishUponAStar>(starslinger, AbilityCardSection.Top, choices => choices
 			.SelectTarget(starslinger)
-			.Answer<TargetSelectionPrompt>(_ => new TargetSelectionPrompt.Answer { Skipped = true })
-			.Answer<ScenarioEventPrompt>(prompt => new ScenarioEventPrompt.Answer
-			{
-				SelectedEffectIndex = prompt.EffectCollection.ApplicableEffects.Single().Index
-			})
-			.Answer<ScenarioEventPrompt>(_ => new ScenarioEventPrompt.Answer())
+			.FinishTargetSelection()
+			.ConsumeElement(Element.Dark)
 			.SelectTarget(starslinger)
-			.Answer<TargetSelectionPrompt>(_ => new TargetSelectionPrompt.Answer { Skipped = true }));
+			.FinishTargetSelection());
 
 		AssertThat(starslinger.Unit.Health).IsEqual(starslinger.Unit.MaxHealth);
 		AssertThat(BlessCount(starslinger)).IsEqual(1);
@@ -129,8 +117,11 @@ public class WishUponAStarTests
 			firstReceivesBless: true, secondReceivesBless: true);
 
 
-	private static void AssertRejected(TargetSelectionPrompt prompt, UnitHandle<Character> unit) =>
-		AssertThrown(() => { prompt.SelectTarget(unit.Unit); }).IsInstanceOf<InvalidOperationException>();
+	private static void AssertRejected(TargetSelectionPrompt prompt, UnitHandle<Character> unit)
+	{
+		prompt.Selection.Refresh();
+		AssertThrown(() => prompt.Selection.Select(unit.Unit)).IsInstanceOf<InvalidOperationException>();
+	}
 
 	private static int BlessCount(UnitHandle<Character> character) =>
 		character.Unit.AMDCardDeck.DrawPile.Count(card => card.Model is BlessAMDCard);
