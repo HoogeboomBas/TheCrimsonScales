@@ -438,4 +438,16 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 		return false;
 	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.Attack);
+
+		base.GetTooltips(tooltips);
+
+		if(Pierce.CanHaveValue)
+		{
+			tooltips.Add(Tooltips.Pierce);
+		}
+	}
 }

@@ -7,6 +7,7 @@
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_b7evf"]
 [ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/TintGrayscale.gdshader" id="6_72eni"]
 [ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="7_84o0e"]
+[ext_resource type="PackedScene" uid="uid://pit4gd0ldlxw" path="res://Scenes/UI/Popups/InspectPopup/InspectButton.tscn" id="8_hgfth"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teg01"]
 corner_radius_top_left = 10
@@ -17,7 +18,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0audc"]
 shader = ExtResource("6_72eni")
 
-[node name="CardSelectionCard" type="Control" unique_id=1027414232 node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
+[node name="CardSelectionCard" type="Control" unique_id=1027414232 node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer", "_inspectButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 470.0
@@ -30,6 +31,7 @@ _initiativeLabel = NodePath("Container/InitiativeButton/TextureRect/Label")
 _cardButton = NodePath("Container/CardButton")
 _initiativeButton = NodePath("Container/InitiativeButton")
 _initiativeIndicatorContainer = NodePath("InitiativeIndicator")
+_inspectButton = NodePath("Container/CardButton/InspectButton")
 
 [node name="InitiativeIndicator" type="Control" parent="." unique_id=1088246835]
 layout_mode = 1
@@ -304,3 +306,6 @@ grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("7_84o0e")
 expand_mode = 1
+
+[node name="InspectButton" parent="Container/CardButton" unique_id=955398738 instance=ExtResource("8_hgfth")]
+layout_mode = 1

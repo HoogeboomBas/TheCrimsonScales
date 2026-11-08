@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://cquxololho33p"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_bejpp"]
+[ext_resource type="Texture2D" uid="uid://b8t5swpstfab7" path="res://Art/Icons/ConditionsAndEffects/Regenerate.svg" id="2_kkib5"]
+[ext_resource type="Shader" uid="uid://cym8dh8o0mi4o" path="res://Shaders/RegenerateHand.gdshader" id="2_ovgw5"]
+[ext_resource type="Texture2D" uid="uid://3tjn8abwjko4" path="res://Art/Icons/ConditionsAndEffects/Regenerate/Lines.svg" id="3_6hgu4"]
+[ext_resource type="Texture2D" uid="uid://cna0xanofbk2k" path="res://Art/Icons/ConditionsAndEffects/Regenerate/FullHand.png" id="3_bejpp"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Sprite2D:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.57434916, 1),
+"update": 0,
+"values": [0.30000001425, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.023256795),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hand/Sprite2D:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hand:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_id5h3"]
+shader = ExtResource("2_ovgw5")
+shader_parameter/lines = ExtResource("3_6hgu4")
+shader_parameter/progress = 0.0
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_bejpp")]
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.78431374, 0.23921569, 0.5921569, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+speed_scale = 0.8
+
+[node name="Hand" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1055207289]
+visible = false
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Hand" index="0" unique_id=1076450611]
+material = SubResource("ShaderMaterial_id5h3")
+texture = ExtResource("3_bejpp")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=84261608]
+texture = ExtResource("2_kkib5")
