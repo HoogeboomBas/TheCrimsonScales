@@ -13,7 +13,7 @@ public class CommandPopupInputReputation : CommandPopupInput
 		{
 			if(int.TryParse(arguments[1], out int num))
 			{
-				GameController.Instance.SavedCampaign.AdjustReputation(num);
+				BetweenScenariosController.Instance.SavedCampaign.AdjustReputation(num);
 				commandPopup.SetOutputText(num < 0
 					? $"lost {-num} reputation."
 					: $"gained {num} reputation.");

@@ -179,7 +179,10 @@ public class SpiritCallerPerks
 				async parameters =>
 				{
 					ScenarioEvents.AbilityStartedEvent.Unsubscribe(character, this);
-				});
+
+					await GDTask.CompletedTask;
+				}
+			);
 		}
 	}
 }

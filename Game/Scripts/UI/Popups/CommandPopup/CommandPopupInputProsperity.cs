@@ -13,7 +13,7 @@ public class CommandPopupInputProsperity : CommandPopupInput
 		{
 			if(int.TryParse(arguments[1], out int num))
 			{
-				GameController.Instance.SavedCampaign.AdjustProsperity(num);
+				BetweenScenariosController.Instance.SavedCampaign.AdjustProsperity(num);
 				commandPopup.SetOutputText(num < 0
 					? $"lost {-num} prosperity."
 					: $"gained {num} prosperity.");
