@@ -67,10 +67,8 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 					pushParameters => true,
 					async pushParameters =>
 					{
-						pushParameters.AbilityState.SetCustomValue(this, "AtLeastOneObstaclesDestroyed", false);
-
 						ScenarioCheckEvents.CanEnterObstacleCheckEvent.Subscribe(pushParameters.AbilityState, this,
-							obstacleCheckParameters => obstacleCheckParameters.Figure == pushParameters.AbilityState.Target,
+							obstacleCheckParameters => obstacleCheckParameters.Figure == pushParameters.AbilityState.Target && !obstacleCheckParameters.Obstacle.CannotBeDestroyed,
 							obstacleCheckParameters =>
 							{
 								obstacleCheckParameters.SetCanEnter();
@@ -83,8 +81,10 @@ public class Obliterate : HollowpactLevelUpCardModel<Obliterate.CardTop, Obliter
 							{
 								foreach(Obstacle obstacle in enteredHexParameters.Hex.GetHexObjectsOfType<Obstacle>())
 								{
-									await obstacle.Destroy();
-									await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 2, pushParameters.Performer);
+									if(await AbilityCmd.TryDestroyObstacle(obstacle))
+									{
+										await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 2, pushParameters.Performer);
+									}
 								}
 
 								pushParameters.AbilityState.SetCustomValue(this, "AtLeastOneObstaclesDestroyed", true);

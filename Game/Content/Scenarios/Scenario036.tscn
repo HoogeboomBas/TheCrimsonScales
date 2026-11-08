@@ -22,7 +22,7 @@
 
 [node name="Scenario" unique_id=1562962450 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=327752308]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=327752308]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -118,7 +118,7 @@ position = Vector2(218.238, 0)
 [node name="CharacterStartHex5" parent="Map/Rooms/Room" index="22" unique_id=1926206171 instance=ExtResource("9_56l1d")]
 position = Vector2(436.477, 0)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1794824003]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1794824003]
 script = ExtResource("2_40csl")
 
 [node name="L1b" parent="Map/Rooms/Room2" index="0" unique_id=2060719784 instance=ExtResource("11_bc5jf")]
@@ -165,7 +165,7 @@ MonsterType2Characters = 3
 MonsterType3Characters = 3
 MonsterType4Characters = 3
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=80038387]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=80038387]
 script = ExtResource("2_40csl")
 
 [node name="L3a" parent="Map/Rooms/Room3" index="0" unique_id=2098275905 instance=ExtResource("15_vh28g")]
@@ -226,8 +226,8 @@ MonsterModelId = "MONSTER_MODEL.HOUND"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=432109706 instance=ExtResource("19_xg5dm")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=432109706 instance=ExtResource("19_xg5dm")]
 position = Vector2(-872.954, -1134)
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=74318507 instance=ExtResource("19_xg5dm")]
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=74318507 instance=ExtResource("19_xg5dm")]
 position = Vector2(436.477, -1134)

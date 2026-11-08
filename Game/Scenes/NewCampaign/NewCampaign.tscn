@@ -167,12 +167,40 @@ theme_override_constants/separation = 40
 [node name="Militants" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=1313157086 instance=ExtResource("16_s2n21")]
 layout_mode = 2
 
+[node name="BetterButton" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Militants/Container" parent_id_path=PackedInt32Array(1313157086, 521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="LeftHalf" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Militants/Container/BetterButton/VBoxContainer/Details/VBoxContainer/ComplexityRating/Rating/RatingCircle3" parent_id_path=PackedInt32Array(1313157086, 1157550253) index="1" unique_id=610584884]
 visible = true
 
 [node name="Protectors" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=242628062 instance=ExtResource("16_s2n21")]
 layout_mode = 2
 StartingGroup = 1
+
+[node name="BetterButton" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Protectors/Container" parent_id_path=PackedInt32Array(242628062, 521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Protectors/Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(242628062, 1118588208) index="0" unique_id=163133792]
 self_modulate = Color(0.72156864, 0.85882354, 0.92941177, 1)
@@ -208,6 +236,20 @@ text = "Melee Damage, Monster Manipulation, Protection, Summoning, Support, and 
 [node name="Explorers" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=1317509930 instance=ExtResource("16_s2n21")]
 layout_mode = 2
 StartingGroup = 2
+
+[node name="BetterButton" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Explorers/Container" parent_id_path=PackedInt32Array(1317509930, 521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Explorers/Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(1317509930, 1118588208) index="0" unique_id=163133792]
 self_modulate = Color(0.83137256, 0.5254902, 0.7607843, 1)
@@ -247,6 +289,20 @@ text = "Elements, Area of Effect, Monster Manipulation, Obstacle Creation, Heali
 layout_mode = 2
 StartingGroup = 3
 
+[node name="BetterButton" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Trailblazers/Container" parent_id_path=PackedInt32Array(2088470843, 521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
+
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Trailblazers/Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(2088470843, 1118588208) index="0" unique_id=163133792]
 self_modulate = Color(0.9843137, 0.92156863, 0.58431375, 1)
 
@@ -280,6 +336,20 @@ text = "Delayed Damage, Protection, Elements, Area of Effect, Support and Healin
 [node name="Naturalists" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups" unique_id=706800764 instance=ExtResource("16_s2n21")]
 layout_mode = 2
 StartingGroup = 4
+
+[node name="BetterButton" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Naturalists/Container" parent_id_path=PackedInt32Array(706800764, 521323546) index="0" unique_id=1155449473]
+oversampling_with_scale = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+translation_context = &""
 
 [node name="Background" parent="CanvasLayer/UI/Steps/StartingGroup/StartingGroups/Groups/Naturalists/Container/BetterButton/VBoxContainer/Box/MarginContainer/VBoxContainer/Header" parent_id_path=PackedInt32Array(706800764, 1118588208) index="0" unique_id=163133792]
 self_modulate = Color(0.62352943, 0.8, 0.58431375, 1)

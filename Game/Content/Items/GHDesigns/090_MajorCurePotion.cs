@@ -6,7 +6,7 @@ public class MajorCurePotion : GHDesignsItem, IPotion
 	public override int Cost => 30;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
-	public override bool CanUseWhenStunned => true;
+	public override bool CanUseWhileStunned => true;
 
 	protected override int AtlasIndex => 19;
 

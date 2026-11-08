@@ -14,7 +14,7 @@ position = Vector2(108, 1)
 scale = Vector2(0.57, 0.57)
 texture = ExtResource("2_k7g65")
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="2" unique_id=786075991]
 z_index = 1
 position = Vector2(107, -2)
 scale = Vector2(0.57, 0.57)

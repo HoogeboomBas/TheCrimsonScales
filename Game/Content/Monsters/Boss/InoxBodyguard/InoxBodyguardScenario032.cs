@@ -52,6 +52,7 @@ public class InoxBodyguardScenario032 : InoxBodyguard
 						else
 						{
 							exhaustedAllPotentialTargets = true;
+							parameters.AbilityState.SetBlocked();
 						}
 
 						await GDTask.CompletedTask;
@@ -125,7 +126,8 @@ public class InoxBodyguardScenario032 : InoxBodyguard
 	private static List<Figure> GetAllInox()
 	{
 		return GameController.Instance.Map.Figures
-			.Where(figure => figure is Monster monsterFigure &&
+			.Where(figure => !figure.IsDead &&
+							 figure is Monster monsterFigure &&
 			                 monsterFigure.MonsterModel is InoxArcher or InoxGuard or InoxShaman or InoxBodyguardScenario032)
 			.ToList();
 	}

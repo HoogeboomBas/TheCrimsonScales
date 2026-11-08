@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 128 128"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="Ring.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="0.6457691"
+     inkscape:cx="157.17692"
+     inkscape:cy="267.89761"
+     inkscape:window-width="1470"
+     inkscape:window-height="805"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2"
+       spacingy="2"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="Layer_2"
+       data-name="Layer 2"
+       transform="matrix(3.5417626,0,0,3.5417626,0.24827283,0.24827283)">
+      <g
+         id="Layer_1-2"
+         data-name="Layer 1">
+        <g
+           id="Слой_1">
+          <g
+             id="_1865599803008"
+             data-name=" 1865599803008" />
+        </g>
+      </g>
+    </g>
+    <path
+       id="path2"
+       style="fill:#ffffff;stroke-width:0.25;fill-opacity:1"
+       d="M 64 40 A 24 24 0 0 0 40 64 A 24 24 0 0 0 64 88 A 24 24 0 0 0 88 64 A 24 24 0 0 0 64 40 z M 64 44 A 20 20 0 0 1 84 64 A 20 20 0 0 1 64 84 A 20 20 0 0 1 44 64 A 20 20 0 0 1 64 44 z " />
+  </g>
+</svg>

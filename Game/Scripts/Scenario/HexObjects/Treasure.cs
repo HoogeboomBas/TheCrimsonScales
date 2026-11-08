@@ -8,6 +8,9 @@ public partial class Treasure : LootableObject, IEventSubscriber
 	[Export]
 	public int TreasureNumber = -1;
 
+	[Export]
+	private Control _goalContainer;
+
 	private Character _lootingCharacter;
 	private Func<Figure, bool> _canLootFunction;
 	private Func<Character, GDTask> _obtainLootFunction;
@@ -22,19 +25,11 @@ public partial class Treasure : LootableObject, IEventSubscriber
 
 		if(GameController.Instance.SavedScenarioProgress.CollectedTreasureChestNumbers.Contains(TreasureNumber))
 		{
+			// Treasure tile has already been collected, just remove it from the map
 			await Destroy(true);
 		}
 
-		if(IsGoal)
-		{
-			ScenarioCheckEvents.GenericInfoItemExtraEffectsCheckEvent.Subscribe(this,
-				parameters => parameters.HexObject == this,
-				parameters =>
-				{
-					parameters.Add(new InfoTextExtraEffect.Parameters(textParameters => "This treasure tile is a Goal tile, see special rules."));
-				}
-			);
-		}
+		_goalContainer.SetVisible(IsGoal);
 	}
 
 	public override async GDTask Destroy(bool immediately = false, bool forceDestroy = false)
@@ -106,6 +101,7 @@ public partial class Treasure : LootableObject, IEventSubscriber
 	{
 		base.AddInfoItemParameters(parametersList);
 
-		parametersList.Add(new GenericInfoItem.Parameters(this, "Treasure", "Great rewards lie within!"));
+		parametersList.Add(new GenericInfoItem.Parameters(this, "Treasure",
+			IsGoal ? "This treasure is a Goal tile, see the Scenario's rules to find out more." : "Great rewards lie within!"));
 	}
 }

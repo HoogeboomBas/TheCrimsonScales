@@ -352,11 +352,15 @@ public partial class GameController : SceneController<GameController>
 
 	public void RequestResign()
 	{
+		UndoManager.AddStep(new EmptyUndoStep());
+
 		ResignRequested = true;
 	}
 
 	public void RequestCheatWin()
 	{
+		UndoManager.AddStep(new EmptyUndoStep());
+
 		CheatWinRequested = true;
 	}
 

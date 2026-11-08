@@ -32,16 +32,14 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 						{
 							await AbilityCmd.AddCondition(state, state.Performer, Conditions.Invisible);
 							state.SetCustomValue(this, "InvisibleGiven", true);
-						}
-					);
-
-					ScenarioEvents.RoundEndedEvent.Subscribe(state, this,
-						parameters =>
-							state.GetCustomValue<bool>(this, "InvisibleGiven"),
-						async parameters =>
-						{
-							await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
-							state.SetCustomValue(this, "InvisibleGiven", false);
+							ScenarioEvents.RoundEndedEvent.Subscribe(state, this,
+								_ => true,
+								async _ =>
+								{
+									await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
+									ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
+								}
+							);
 						}
 					);
 
@@ -50,12 +48,6 @@ public class SmokyShroud : SpiritCallerCardModel<SmokyShroud.CardTop, SmokyShrou
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
-					ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
-
-					if(state.GetCustomValue<bool>(this, "InvisibleGiven"))
-					{
-						await AbilityCmd.RemoveCondition(state.Performer, Conditions.Invisible, state);
-					}
 
 					await GDTask.CompletedTask;
 				})

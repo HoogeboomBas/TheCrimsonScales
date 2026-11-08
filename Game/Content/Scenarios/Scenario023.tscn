@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [node name="Scenario" unique_id=639688930 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1181583188]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1181583188]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -127,7 +127,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=286715477]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=286715477]
 script = ExtResource("2_5r85s")
 
 [node name="K1b" parent="Map/Rooms/Room2" index="0" unique_id=1148322192 instance=ExtResource("12_vsb2e")]
@@ -211,7 +211,7 @@ position = Vector2(1309.4303, -756)
 MonsterModelId = "WIND_DEMON.HAIL_DEMON"
 MonsterType4Characters = 0
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1312879866]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1312879866]
 script = ExtResource("2_5r85s")
 
 [node name="E1b" parent="Map/Rooms/Room3" index="0" unique_id=2117788203 instance=ExtResource("13_hm0y7")]
@@ -278,8 +278,8 @@ MonsterModelId = "HARROWER_INFESTER.HARROWER_ICECRAWLERS"
 MonsterType2Characters = 0
 MonsterType3Characters = 1
 
-[node name="DarkFog1H" parent="Map/Doors" index="0" unique_id=640180540 instance=ExtResource("17_l5omk")]
+[node name="DarkFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=640180540 instance=ExtResource("17_l5omk")]
 position = Vector2(327.35757, 189)
 
-[node name="DarkFog1H2" parent="Map/Doors" index="1" unique_id=796679350 instance=ExtResource("17_l5omk")]
+[node name="DarkFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=796679350 instance=ExtResource("17_l5omk")]
 position = Vector2(1745.9072, 0)

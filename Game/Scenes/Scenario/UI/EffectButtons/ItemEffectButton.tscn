@@ -36,13 +36,13 @@ offset_bottom = 210.86
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Container" parent="BetterButton/Panel/MarginContainer/Mask/ItemView" index="0"]
+[node name="Container" parent="BetterButton/Panel/MarginContainer/Mask/ItemView" index="0" unique_id=662699399]
 scale = Vector2(0.45, 0.45)
 
-[node name="Mask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="0"]
+[node name="Mask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="0" unique_id=475620982]
 clip_children = 0
 
-[node name="ItemCountMask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="1"]
+[node name="ItemCountMask" parent="BetterButton/Panel/MarginContainer/Mask/ItemView/Container" index="1" unique_id=768239211]
 visible = false
 
 [node name="Icon" type="Control" parent="BetterButton/Panel/MarginContainer/Mask" index="1" unique_id=1328433870]

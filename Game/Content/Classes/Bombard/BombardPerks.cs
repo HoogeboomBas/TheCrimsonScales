@@ -165,7 +165,7 @@ public class BombardPerks
 				{
 					await AbilityCmd.AddCondition(null, character, Conditions.Immobilize, character);
 					foreach(AbilityState abilityState in character.Cards.SelectMany(card => card.ActiveActionStates).SelectMany(actionState =>
-						        actionState.AbilityStates.Where(abilityState => abilityState is ProjectileAbility.State)))
+						        actionState.AbilityStates.Where(abilityState => abilityState is ProjectileAbility.State)).ToList())
 					{
 						ProjectileAbility.State projectileState = (ProjectileAbility.State)abilityState;
 						await projectileState.PerformAbilities();

@@ -88,6 +88,9 @@ public class SavedCampaign
 	public int Prosperity { get; private set; }
 
 	[JsonProperty]
+	public int CharacterGeneration { get; private set; }
+
+	[JsonProperty]
 	public bool EnhancementsUnlocked { get; private set; }
 
 	[JsonProperty]
@@ -190,7 +193,7 @@ public class SavedCampaign
 		//savedCampaign.Characters[1].SetEquippedSmallSlotItem(0, ModelDB.Item<ScrollOfCharisma>());
 		//savedCampaign.Characters[1].AddItem(ModelDB.Item<MinorManaPotion>());
 		savedCampaign.Characters[0].AddItem(ModelDB.Item<PoisonDagger>());
-		savedCampaign.Characters[0].AddItem(ModelDB.Item<Chainmail>());
+		savedCampaign.Characters[0].AddItem(ModelDB.Item<SteelSabatons>());
 		// savedCampaign.Characters[0].SavedPersonalQuest.PersonalQuestData.AdjustProgress(
 		// 	30, savedCampaign.Characters[0].ClassModel, savedCampaign.Characters[0].SavedPersonalQuest.Model);
 
@@ -276,7 +279,7 @@ public class SavedCampaign
 
 	public void AddCharacter(ClassModel classModel, PersonalQuestModel personalQuestModel, string name)
 	{
-		SavedCharacter character = new SavedCharacter(classModel, personalQuestModel, name);
+		SavedCharacter character = new SavedCharacter(this, classModel, personalQuestModel, name);
 		Characters.Add(character);
 		ProsperityLevelUp(character);
 
@@ -335,6 +338,11 @@ public class SavedCampaign
 		if(unlockedClass != null)
 		{
 			UnlockClass(unlockedClass);
+		}
+
+		if(savedCharacter.Generation == CharacterGeneration)
+		{
+			CharacterGeneration++;
 		}
 
 		CharactersChangedEvent?.Invoke();

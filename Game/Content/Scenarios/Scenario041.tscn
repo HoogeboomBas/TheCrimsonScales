@@ -13,7 +13,7 @@
 
 [node name="Scenario" unique_id=1494773770 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1136452332]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1136452332]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -89,7 +89,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 0
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1387208431]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1387208431]
 script = ExtResource("2_5r85s")
 
 [node name="N1a" parent="Map/Rooms/Room2" index="0" unique_id=1552199524 instance=ExtResource("8_7pn4y")]
@@ -127,5 +127,5 @@ MonsterType2Characters = 2
 MonsterType3Characters = 2
 MonsterType4Characters = 2
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=893072624 instance=ExtResource("9_mnffx")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=893072624 instance=ExtResource("9_mnffx")]
 position = Vector2(218.238, -378)

@@ -17,7 +17,7 @@
 
 [node name="Scenario" unique_id=285238780 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1940596704]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1940596704]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -96,7 +96,7 @@ position = Vector2(218.238, -378)
 [node name="CharacterStartHex5" parent="Map/Rooms/Room" index="17" unique_id=1875714362 instance=ExtResource("9_vak8c")]
 position = Vector2(436.47678, -378)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1096869103]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1096869103]
 script = ExtResource("2_5r85s")
 
 [node name="G2a" parent="Map/Rooms/Room2" index="0" unique_id=1953601394 instance=ExtResource("6_3xc1f")]
@@ -153,7 +153,7 @@ MonsterType2Characters = 1
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1720230174]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1720230174]
 script = ExtResource("2_5r85s")
 
 [node name="I2a" parent="Map/Rooms/Room3" index="0" unique_id=370184599 instance=ExtResource("7_5m1f6")]
@@ -223,9 +223,9 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="StoneDoorVertical1H" parent="Map/Doors" index="0" unique_id=1692284131 instance=ExtResource("11_fmnl1")]
+[node name="StoneDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1692284131 instance=ExtResource("11_fmnl1")]
 position = Vector2(-436.477, 0)
 rotation = 3.14159
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="1" unique_id=1005381615 instance=ExtResource("13_vnvrx")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1005381615 instance=ExtResource("13_vnvrx")]
 position = Vector2(-1309.43, -378)

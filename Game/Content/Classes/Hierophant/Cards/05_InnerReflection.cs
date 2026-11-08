@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Godot;
 
 public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, InnerReflection.CardBottom>
@@ -43,7 +43,7 @@ public class InnerReflection : HierophantCardModel<InnerReflection.CardTop, Inne
 									list.Add(otherFigure);
 								}
 							}
-						}, autoSelectIfOne: false, hintText: () => "Select a character ally to receive a coin");
+						}, autoSelectIfOne: false, autoSkipIfNone: true, hintText: () => "Select a character ally to receive a coin");
 
 						if(figure != null)
 						{

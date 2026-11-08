@@ -1011,6 +1011,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -1020,9 +1021,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.0
@@ -1042,7 +1044,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -1092,7 +1104,7 @@ mouse_filter = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="AMDDrawView" type="Control" parent="CanvasLayer/UI" unique_id=515860131 node_paths=PackedStringArray("_deckAnchor", "_discardAnchor", "_discardContainer", "_discardTopCardTextureRect")]
+[node name="AMDDrawView" type="Control" parent="CanvasLayer/UI" unique_id=515860131 node_paths=PackedStringArray("_deckAnchor", "_discardContainer", "_discardAnchor", "_discardTopCardTextureRect", "FirstTerminalButton", "_secondTerminal", "_secondTerminalContainer", "_secondTerminalAnchor", "_secondTerminalTextureRect", "SecondTerminalButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1103,12 +1115,33 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("44_j1euc")
 _amdDrawCardscene = ExtResource("45_bopvg")
-_deckAnchor = NodePath("Deck/CardAnchor")
-_discardAnchor = NodePath("Discard/CardAnchor")
-_discardContainer = NodePath("Discard")
-_discardTopCardTextureRect = NodePath("Discard/CardAnchor/Mask/TextureRect")
+_deckAnchor = NodePath("HBoxContainer/Deck/CardAnchor")
+_discardContainer = NodePath("HBoxContainer/Discard/Container")
+_discardAnchor = NodePath("HBoxContainer/Discard/Container/BetterButton/CardAnchor")
+_discardTopCardTextureRect = NodePath("HBoxContainer/Discard/Container/BetterButton/CardAnchor/Mask/TextureRect")
+FirstTerminalButton = NodePath("HBoxContainer/Discard/Container/BetterButton")
+_secondTerminal = NodePath("HBoxContainer/SecondTerminal")
+_secondTerminalContainer = NodePath("HBoxContainer/SecondTerminal/Container")
+_secondTerminalAnchor = NodePath("HBoxContainer/SecondTerminal/Container/BetterButton/CardAnchor")
+_secondTerminalTextureRect = NodePath("HBoxContainer/SecondTerminal/Container/BetterButton/CardAnchor/Mask/TextureRect")
+SecondTerminalButton = NodePath("HBoxContainer/SecondTerminal/Container/BetterButton")
 
-[node name="Deck" type="Control" parent="CanvasLayer/UI/AMDDrawView" unique_id=1365380714]
+[node name="RollingPile" type="Control" parent="CanvasLayer/UI/AMDDrawView" unique_id=1971955825]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -120.0
+offset_right = 180.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/AMDDrawView" unique_id=1568430640]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1117,13 +1150,19 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -410.0
 offset_top = -290.0
-offset_right = -50.0
+offset_right = 410.0
 offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Deck" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer" unique_id=1020046327]
+custom_minimum_size = Vector2(360, 240)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck" unique_id=1930160282]
+[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Deck" unique_id=80636291]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1133,7 +1172,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ijbs")
 
-[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Deck" unique_id=1212099771]
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Deck" unique_id=2055681963]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1142,7 +1181,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor" unique_id=1519664910]
+[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Deck/CardAnchor" unique_id=853738480]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1152,7 +1191,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qbjvo")
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor" unique_id=196981479]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Deck/CardAnchor" unique_id=1092850888]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1163,7 +1202,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Deck/CardAnchor/Mask" unique_id=52850444]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Deck/CardAnchor/Mask" unique_id=1366659811]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1174,22 +1213,116 @@ mouse_filter = 2
 texture = ExtResource("34_dfaft")
 expand_mode = 1
 
-[node name="Discard" type="Control" parent="CanvasLayer/UI/AMDDrawView" unique_id=2112197146]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -290.0
-offset_right = 410.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Discard" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer" unique_id=1433077860]
+custom_minimum_size = Vector2(360, 240)
+layout_mode = 2
 mouse_filter = 2
 
-[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard" unique_id=1966839248]
+[node name="Container" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard" unique_id=2136759780]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container" unique_id=1038661607]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+oversampling_with_scale = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+custom_minimum_size = Vector2(0, 0)
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("38_grpwx")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container/BetterButton" unique_id=348045854]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1199,7 +1332,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ijbs")
 
-[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/Discard" unique_id=268289797]
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container/BetterButton" unique_id=561551710]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1208,7 +1341,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor" unique_id=1770903785]
+[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container/BetterButton/CardAnchor" unique_id=1512723936]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1218,7 +1351,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qbjvo")
 
-[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor" unique_id=669611772]
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container/BetterButton/CardAnchor" unique_id=704806106]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 15
@@ -1229,7 +1362,167 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/Discard/CardAnchor/Mask" unique_id=1425301614]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/Discard/Container/BetterButton/CardAnchor/Mask" unique_id=336341930]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("34_dfaft")
+expand_mode = 1
+
+[node name="SecondTerminal" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer" unique_id=774895434]
+custom_minimum_size = Vector2(360, 240)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Container" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal" unique_id=1523772742]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BetterButton" type="BaseButton" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container" unique_id=750178974]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+oversampling_with_scale = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+custom_minimum_size = Vector2(0, 0)
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("38_grpwx")
+metadata/_custom_type_script = "uid://dir5vjdxjac3n"
+
+[node name="Shadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container/BetterButton" unique_id=978830370]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ijbs")
+
+[node name="CardAnchor" type="Control" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container/BetterButton" unique_id=346559218]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopCardShadow" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container/BetterButton/CardAnchor" unique_id=423990947]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qbjvo")
+
+[node name="Mask" type="Panel" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container/BetterButton/CardAnchor" unique_id=419617389]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_akno6")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/AMDDrawView/HBoxContainer/SecondTerminal/Container/BetterButton/CardAnchor/Mask" unique_id=213362780]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1573,6 +1866,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -1582,9 +1876,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.0
@@ -1604,7 +1899,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -1684,6 +1989,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -1693,9 +1999,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.0
@@ -1715,7 +2022,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -1780,7 +2097,7 @@ layout_mode = 2
 texture = ExtResource("69_b2ul3")
 expand_mode = 1
 
-[node name="ScenarioLostView" type="Control" parent="CanvasLayer/UI" unique_id=1166739896 node_paths=PackedStringArray("_retryButton", "_returnToTownButton")]
+[node name="ScenarioLostView" type="Control" parent="CanvasLayer/UI" unique_id=1166739896 node_paths=PackedStringArray("_undoButton", "_retryButton", "_returnToTownButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1789,8 +2106,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("43_vn1gt")
-_retryButton = NodePath("Retry")
-_returnToTownButton = NodePath("ReturnToTown")
+_undoButton = NodePath("HBoxContainer/Undo")
+_retryButton = NodePath("HBoxContainer/Retry")
+_returnToTownButton = NodePath("HBoxContainer/ReturnToTown")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioLostView" unique_id=704371925]
 layout_mode = 1
@@ -1816,27 +2134,47 @@ label_settings = SubResource("LabelSettings_mdo4f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" parent="CanvasLayer/UI/ScenarioLostView" unique_id=611575934 instance=ExtResource("29_4v2ql")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/ScenarioLostView" unique_id=1624588872]
 layout_mode = 1
-offset_left = -310.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
 offset_top = -250.0
-offset_right = -10.0
+offset_right = 20.0
 offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/Retry/BetterButton/Panel" parent_id_path=PackedInt32Array(611575934, 1664087955) index="0" unique_id=1161890966]
+[node name="Undo" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer" unique_id=82874565 instance=ExtResource("29_4v2ql")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+_startActive = true
+
+[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer/Undo/BetterButton/Panel" parent_id_path=PackedInt32Array(82874565, 1664087955) index="0" unique_id=1161890966]
+text = "Undo"
+
+[node name="Retry" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer" unique_id=2033901443 instance=ExtResource("29_4v2ql")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+_startActive = true
+
+[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer/Retry/BetterButton/Panel" parent_id_path=PackedInt32Array(2033901443, 1664087955) index="0" unique_id=1161890966]
 text = "Replay"
 
-[node name="ReturnToTown" parent="CanvasLayer/UI/ScenarioLostView" unique_id=905364201 instance=ExtResource("29_4v2ql")]
-layout_mode = 1
-offset_left = 10.0
-offset_top = -250.0
-offset_right = 310.0
-offset_bottom = -150.0
+[node name="ReturnToTown" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer" unique_id=1653905658 instance=ExtResource("29_4v2ql")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+_startActive = true
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/ReturnToTown/BetterButton/Panel" parent_id_path=PackedInt32Array(905364201, 1664087955) index="0" unique_id=1161890966]
+[node name="Label" parent="CanvasLayer/UI/ScenarioLostView/HBoxContainer/ReturnToTown/BetterButton/Panel" parent_id_path=PackedInt32Array(1653905658, 1664087955) index="0" unique_id=1161890966]
 text = "Return to Town"
 
-[node name="ScenarioWonView" type="Control" parent="CanvasLayer/UI" unique_id=722758123 node_paths=PackedStringArray("_continueButton")]
+[node name="ScenarioWonView" type="Control" parent="CanvasLayer/UI" unique_id=722758123 node_paths=PackedStringArray("_undoButton", "_continueButton")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1845,7 +2183,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("44_7vhok")
-_continueButton = NodePath("ContinueButton")
+_undoButton = NodePath("HBoxContainer/Undo")
+_continueButton = NodePath("HBoxContainer/ContinueButton")
 
 [node name="Background" type="ColorRect" parent="CanvasLayer/UI/ScenarioWonView" unique_id=1935944811]
 layout_mode = 1
@@ -1871,12 +2210,36 @@ label_settings = SubResource("LabelSettings_mdo4f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContinueButton" parent="CanvasLayer/UI/ScenarioWonView" unique_id=1682459466 instance=ExtResource("29_4v2ql")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/ScenarioWonView" unique_id=572340059]
 layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
 offset_top = -250.0
+offset_right = 20.0
 offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="Label" parent="CanvasLayer/UI/ScenarioWonView/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1682459466, 1664087955) index="0" unique_id=1161890966]
+[node name="Undo" parent="CanvasLayer/UI/ScenarioWonView/HBoxContainer" unique_id=987819709 instance=ExtResource("29_4v2ql")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+_startActive = true
+
+[node name="Label" parent="CanvasLayer/UI/ScenarioWonView/HBoxContainer/Undo/BetterButton/Panel" parent_id_path=PackedInt32Array(987819709, 1664087955) index="0" unique_id=1161890966]
+text = "Undo"
+
+[node name="ContinueButton" parent="CanvasLayer/UI/ScenarioWonView/HBoxContainer" unique_id=1682459466 instance=ExtResource("29_4v2ql")]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+_startActive = true
+
+[node name="Label" parent="CanvasLayer/UI/ScenarioWonView/HBoxContainer/ContinueButton/BetterButton/Panel" parent_id_path=PackedInt32Array(1682459466, 1664087955) index="0" unique_id=1161890966]
 text = "Continue"
 
 [node name="CharacterStartHexMoveIndicator" type="Control" parent="CanvasLayer/UI" unique_id=1411136690 node_paths=PackedStringArray("_icon", "_line2D")]
@@ -1968,6 +2331,8 @@ label_settings = SubResource("LabelSettings_hctre")
 [editable path="CanvasLayer/UI/ElementsView/Elements/Dark"]
 [editable path="CanvasLayer/UI/CardSelectionView"]
 [editable path="CanvasLayer/UI/CardSelectionView/MarginContainer/Container/CardSelectionList"]
-[editable path="CanvasLayer/UI/ScenarioLostView/Retry"]
-[editable path="CanvasLayer/UI/ScenarioLostView/ReturnToTown"]
-[editable path="CanvasLayer/UI/ScenarioWonView/ContinueButton"]
+[editable path="CanvasLayer/UI/ScenarioLostView/HBoxContainer/Undo"]
+[editable path="CanvasLayer/UI/ScenarioLostView/HBoxContainer/Retry"]
+[editable path="CanvasLayer/UI/ScenarioLostView/HBoxContainer/ReturnToTown"]
+[editable path="CanvasLayer/UI/ScenarioWonView/HBoxContainer/Undo"]
+[editable path="CanvasLayer/UI/ScenarioWonView/HBoxContainer/ContinueButton"]

@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://cj74o3h2s5jeh" path="res://Content/Classes/Mirefoot/CharacterToken.png" id="2_1ua8t"]
 [ext_resource type="FontFile" uid="uid://b8midaa8ilaan" path="res://Fonts/Markazi Text SemiBold.ttf" id="3_1ua8t"]
 
-[node name="CardViewCharacterToken" type="Control" unique_id=1365675874 node_paths=PackedStringArray("_textureRect", "_countLabel")]
+[node name="CardViewCharacterToken" type="Control" unique_id=1365675874 node_paths=PackedStringArray("_textureRect", "_countLabel2")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 62.0
 offset_bottom = 62.0
 script = ExtResource("1_pfmdx")
 _textureRect = NodePath("TextureRect")
-_countLabel = NodePath("TextureRect/RichTextLabel")
+_countLabel2 = NodePath("TextureRect/RichTextLabel")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1383320374]
 layout_mode = 1

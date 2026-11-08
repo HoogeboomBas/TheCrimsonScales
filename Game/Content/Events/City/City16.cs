@@ -15,6 +15,8 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 	{
 		public override string ChoiceText => "Run back to the tavern to tell the other patrons about the sight.";
 
+		public override EventResolveType GetEventResolveType(SavedEventState state) => EventResolveType.ReturnCardToBottom;
+
 		public override string GetStoryText(SavedEventState state) =>
 			"""
 			You return to the tavern with claims of having witnessed the gigantic Vermling, but the rest of the patrons laugh off your story and consider your tale to be brought upon by too much ale.
@@ -39,7 +41,8 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddRoadReward(ModelDB.Event<Road34>())
+			new AddRoadReward(ModelDB.Event<Road34>()),
+			new GainReputationReward(1)
 		];
 	}
 }

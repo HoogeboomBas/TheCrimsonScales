@@ -27,7 +27,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_7q8mq")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "Buy Boots of Striding for [img={30}, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] Mirefoot?
+text = "Buy Boots of Striding for [img=30, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] Mirefoot?
 "
 fit_content = true
 autowrap_mode = 0
@@ -39,7 +39,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_7q8mq")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "Cost: [img={30}, color=#fff]res://Art/Icons/Other/Coins.svg[/img]20"
+text = "Cost: [img=30, color=#fff]res://Art/Icons/Other/Coins.svg[/img]20"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1

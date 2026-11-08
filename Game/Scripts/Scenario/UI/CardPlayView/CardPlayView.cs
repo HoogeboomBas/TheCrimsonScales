@@ -40,6 +40,11 @@ public partial class CardPlayView : Control
 	public void Close()
 	{
 		Hide();
+
+		foreach(CardPlayCard card in _cards)
+		{
+			card.Close();
+		}
 	}
 
 	private void OnCardSectionPressed(CardPlayCard card, AbilityCardSection section)

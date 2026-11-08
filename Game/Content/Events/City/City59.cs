@@ -76,7 +76,8 @@ public class City59 : CityEventModel<City59.ChoiceA, City59.ChoiceB>
 			{
 				return
 				[
-					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard3>())
+					// new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard3>()) //TODO: This AMD is not really implemented yet
+					new UnlockPartyAMDReward(ModelDB.AMDCard<PartyAMDCard4>())
 				];
 			}
 			else

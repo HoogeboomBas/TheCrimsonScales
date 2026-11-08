@@ -88,7 +88,7 @@ public partial class PerkConfirmationPopup : Popup<PerkConfirmationPopup.Request
 		AddCards(perkModel.CardsToAdd, _cardsToAddContainer, _cardsToAddParent);
 		AddCards(perkModel.CardsToRemove, _cardsToRemoveContainer, _cardsToRemoveParent);
 
-		_confirmationLabel.Text = $"Acquire this perk for {PopupRequest.SavedCharacter.GetNameAndIcon()}?";
+		_confirmationLabel.Text = $"Acquire this perk for {PopupRequest.SavedCharacter.GetNameAndIcon(_confirmationLabel.GetRichTextParameters())}?";
 	}
 
 	protected override void OnClosed()

@@ -173,6 +173,13 @@ public class SpiritCallerPerks
 					await GDTask.CompletedTask;
 				}
 			);
+
+			ScenarioEvents.RoundEndedEvent.Subscribe(character, this,
+				parameters => true,
+				async parameters =>
+				{
+					ScenarioEvents.AbilityStartedEvent.Unsubscribe(character, this);
+				});
 		}
 	}
 }

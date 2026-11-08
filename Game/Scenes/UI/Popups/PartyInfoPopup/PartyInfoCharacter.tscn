@@ -56,8 +56,8 @@ theme_override_constants/separation = 20
 
 [node name="Mask" type="Panel" parent="VBoxContainer/Header/MarginContainer/HBoxContainer" unique_id=875058468]
 clip_children = 1
-clip_contents = true
 custom_minimum_size = Vector2(100, 0)
+clip_contents = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wid1p")
@@ -191,8 +191,8 @@ clip_contents = true
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Items/VBoxContainer/MarginContainer/MarginContainer" unique_id=1833829469]
-clip_contents = false
 custom_minimum_size = Vector2(0, 80)
+clip_contents = false
 layout_mode = 2
 vertical_scroll_mode = 0
 scroll_deadzone = 10

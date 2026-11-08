@@ -40,19 +40,17 @@ public class Scenario039 : ScenarioModel
 		new AddCityToTopQueueReward(ModelDB.Event<City57>()) // TODO: Currently doesn't shuffle this with 5 other cards into the top queue
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllSufferDamageScenarioEffect(1)
+	];
+
 	private List<Hex> _markerAHexes;
 	private Hex _markerBHex;
 	private Hex _markerCHex;
 
 	private CustomScenarioGoal _turnsLeftGoal;
 	private CustomScenarioGoal _goal;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.SufferDamage(character, 1, character);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

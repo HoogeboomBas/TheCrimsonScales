@@ -1,8 +1,10 @@
-﻿using Godot;
+using Godot;
 using GTweensGodot.Extensions;
 
 public partial class ScenarioWonView : Control
 {
+	[Export]
+	private ChoiceButton _undoButton;
 	[Export]
 	private ChoiceButton _continueButton;
 
@@ -10,8 +12,7 @@ public partial class ScenarioWonView : Control
 	{
 		base._Ready();
 
-		_continueButton.SetActive(true);
-
+		_undoButton.BetterButton.Pressed += OnUndoPressed;
 		_continueButton.BetterButton.Pressed += OnContinuePressed;
 
 		Hide();
@@ -23,6 +24,11 @@ public partial class ScenarioWonView : Control
 
 		this.TweenModulateAlpha(0f, 0f).Play(true);
 		this.TweenModulateAlpha(1f, 0.5f).Play();
+	}
+
+	private void OnUndoPressed()
+	{
+		GameController.Instance.UndoManager.Undo();
 	}
 
 	private void OnContinuePressed()

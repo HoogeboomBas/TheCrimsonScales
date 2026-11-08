@@ -85,6 +85,24 @@ public static class Icons
 		return Inline(GetCondition(conditionModel), richTextParameters, true);
 	}
 
+	public static string InlineConditions(ConditionModel[] conditionModels, RichTextParameters richTextParameters)
+	{
+		string labelText = string.Empty;
+
+		for(int i = 0; i < conditionModels.Length; i++)
+		{
+			ConditionModel conditionModel = conditionModels[i];
+			if(i > 0)
+			{
+				labelText += ", ";
+			}
+
+			labelText += InlineCondition(conditionModel, richTextParameters);
+		}
+
+		return labelText;
+	}
+
 	public static string GetAMDValue(string amdValue)
 	{
 		return $"res://Art/Icons/AMDs/{amdValue}.png";
@@ -129,7 +147,7 @@ public static class Icons
 
 	public static string HintText(string iconPath)
 	{
-		return $"[img={{{50}}}]{iconPath}[/img]";
+		return $"[img height=50]{iconPath}[/img]";
 	}
 
 	private static string PatternToString(AOEPattern aoePattern)

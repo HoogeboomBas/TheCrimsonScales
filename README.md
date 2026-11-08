@@ -11,7 +11,7 @@ Available for both Windows and Android, you can play from the comfort of your co
 ## Installation
 Builds can be downloaded on [Steam](https://store.steampowered.com/app/5049800/The_Crimson_Scales/) or on [itch.io](https://bas-hoogeboom.itch.io/the-crimson-scales).
 
-Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.6.1 .NET with C# support.
+Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.7.1 .NET with C# support.
 
 ## Contributing
 

@@ -67,16 +67,14 @@ public class Scenario018 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario021>()),
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Immobilize)
+	];
+
 	private IEnumerable<Hex> _markerHexes;
 
 	private CustomScenarioGoal _goal;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

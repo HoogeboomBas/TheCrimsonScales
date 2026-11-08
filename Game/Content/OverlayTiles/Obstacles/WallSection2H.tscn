@@ -6,5 +6,5 @@
 [node name="WallSection2H" unique_id=1839609018 instance=ExtResource("1_j1xop")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_j1xop")

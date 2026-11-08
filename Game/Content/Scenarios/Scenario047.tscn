@@ -19,7 +19,7 @@
 
 [node name="Scenario" unique_id=126905393 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=533137205]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=533137205]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -116,7 +116,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=566633697]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=566633697]
 script = ExtResource("2_5r85s")
 
 [node name="C2a" parent="Map/Rooms/Room2" index="0" unique_id=2076902645 instance=ExtResource("4_kghc6")]
@@ -165,7 +165,7 @@ MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1593150197]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1593150197]
 script = ExtResource("2_5r85s")
 
 [node name="M1b" parent="Map/Rooms/Room3" index="0" unique_id=1970957670 instance=ExtResource("13_xmiv3")]
@@ -256,8 +256,8 @@ position = Vector2(-1309.43, -378)
 MonsterModelId = "MONSTER_MODEL.EARTH_DEMON"
 MonsterType4Characters = 1
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=695219829 instance=ExtResource("13_mf5fa")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=695219829 instance=ExtResource("13_mf5fa")]
 position = Vector2(-654.715, -756)
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=154051902 instance=ExtResource("13_mf5fa")]
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=154051902 instance=ExtResource("13_mf5fa")]
 position = Vector2(327.358, -1323)

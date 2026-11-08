@@ -7,13 +7,13 @@
 [node name="HazardousTerrain1H" unique_id=192967756 instance=ExtResource("1_7dp8f")]
 script = ExtResource("3_yrfq0")
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=99128073]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent" parent_id_path=PackedInt32Array(949901025) index="0" unique_id=478131049]
 self_modulate = Color(0.827451, 0.352941, 0.156863, 1)
 
-[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0"]
+[node name="Icon" parent="OverlayTileViewComponent/Icon" index="0" unique_id=1672198517]
 self_modulate = Color(1, 1, 1, 0.38)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_1rfrt")

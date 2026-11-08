@@ -39,12 +39,10 @@ public class Scenario029 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario030>())
 	];
 
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddConditions(null, character, [Conditions.Curse, Conditions.Curse, Conditions.Curse]);
-	}
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Curse, Conditions.Curse, Conditions.Curse)
+	];
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

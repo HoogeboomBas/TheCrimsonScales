@@ -18,7 +18,7 @@
 
 [node name="Scenario" unique_id=1137458822 instance=ExtResource("1_22j6d")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1683580122]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1683580122]
 script = ExtResource("2_wxbk2")
 StartsRevealed = true
 
@@ -89,7 +89,7 @@ position = Vector2(654.71515, 378)
 [node name="Rubble1H2" parent="Map/Rooms/Room" index="14" unique_id=419625436 instance=ExtResource("6_wxbk2")]
 position = Vector2(0, -756)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=372697655]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=372697655]
 script = ExtResource("2_wxbk2")
 
 [node name="D1a" parent="Map/Rooms/Room2" index="0" unique_id=1985029732 instance=ExtResource("7_cdnfh")]
@@ -147,7 +147,7 @@ MonsterType4Characters = 1
 position = Vector2(1200.3112, -567)
 rotation = -1.0471976
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1424566658]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1424566658]
 script = ExtResource("2_wxbk2")
 
 [node name="D2a" parent="Map/Rooms/Room3" index="0" unique_id=1130019867 instance=ExtResource("8_dueci")]
@@ -199,7 +199,7 @@ MonsterType4Characters = 1
 [node name="Shelf2H" parent="Map/Rooms/Room3" index="8" unique_id=1461746009 instance=ExtResource("9_dueci")]
 position = Vector2(109.11915, -2079)
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1303975610]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1303975610]
 script = ExtResource("2_wxbk2")
 
 [node name="K2a" parent="Map/Rooms/Room4" index="0" unique_id=1831095284 instance=ExtResource("9_6ijvl")]
@@ -274,7 +274,7 @@ position = Vector2(1964.1456, -1512)
 MonsterModelId = "MONSTER_MODEL.CITY_GUARD"
 MonsterType4Characters = 0
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=589452302 instance=ExtResource("7_wxbk2")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=589452302 instance=ExtResource("7_wxbk2")]
 position = Vector2(1091.1919, 0)
 rotation = 1.0471976
 _startsLocked = true
@@ -284,7 +284,7 @@ rotation = -1.0471976
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="StoneDoorHorizontal1H2" parent="Map/Doors" index="1" unique_id=905156179 instance=ExtResource("7_wxbk2")]
+[node name="StoneDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=905156179 instance=ExtResource("7_wxbk2")]
 position = Vector2(218.23842, -1134)
 _startsLocked = true
 
@@ -292,7 +292,7 @@ _startsLocked = true
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="StoneDoorHorizontal1H3" parent="Map/Doors" index="2" unique_id=1509277340 instance=ExtResource("7_wxbk2")]
+[node name="StoneDoorHorizontal1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1509277340 instance=ExtResource("7_wxbk2")]
 position = Vector2(763.8344, -2079)
 rotation = 1.0471976
 
@@ -301,7 +301,7 @@ rotation = -1.0471976
 MarkerType = 26
 _hideDuringPlay = true
 
-[node name="StoneDoorHorizontal1H4" parent="Map/Doors" index="3" unique_id=177944894 instance=ExtResource("7_wxbk2")]
+[node name="StoneDoorHorizontal1H4" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="3" unique_id=177944894 instance=ExtResource("7_wxbk2")]
 position = Vector2(1636.788, -945)
 
 [node name="Marker" parent="Map/Doors/StoneDoorHorizontal1H4" index="6" unique_id=1848274240 instance=ExtResource("8_cdnfh")]
