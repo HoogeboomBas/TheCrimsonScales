@@ -157,24 +157,20 @@ public class SavvasLavaflowAbilityCard5 : SavvasLavaflowAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(OtherAbility.Builder()
-			.WithPerformAbility(async state =>
-				{
-					List<Figure> sufferDamageTargets = GameController.Instance.Map.Figures.FindAll(figure => state.Authority.EnemiesWith(figure));
-					foreach(Figure target in sufferDamageTargets)
-					{
-						await AbilityCmd.SufferDamage(state, target, 2);
-					}
-				}
-			)
+		new MonsterAbilityCardAbility(SufferDamageAbility.Builder()
+			.WithDamage(2)
+			.WithRange(int.MaxValue)
+			.WithTarget(Target.Enemies | Target.TargetAll)
 			.Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Wound1)
+			.WithRange(int.MaxValue)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Fire]))
 			.Build()),
 		new MonsterAbilityCardAbility(ConditionAbility.Builder()
 			.WithConditions(Conditions.Disarm)
+			.WithRange(int.MaxValue)
 			.WithTarget(Target.Enemies | Target.TargetAll)
 			.WithConditionalAbilityCheck(ConsumeElementAbilityCheck<ConditionAbility.State>([Element.Earth]))
 			.Build())
