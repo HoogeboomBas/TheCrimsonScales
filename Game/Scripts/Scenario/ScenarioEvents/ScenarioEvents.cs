@@ -654,6 +654,20 @@ public partial class ScenarioEvents
 	private readonly Retaliate _retaliate = new Retaliate();
 	public static Retaliate RetaliateEvent => GameController.Instance.ScenarioEvents._retaliate;
 
+	public class AfterRetaliate : ScenarioEvent<AfterRetaliate.Parameters>
+	{
+		public class Parameters(AttackAbility.State abilityState, Figure retaliatingFigure, bool retaliateBlocked, int damageSuffere) : ParametersBase<AttackAbility.State>(abilityState)
+		{
+			public Figure RetaliatingFigure { get; } = retaliatingFigure;
+
+			public bool RetaliateBlocked { get; private set; } = retaliateBlocked;
+			public int DamageSuffered { get; private set; } = damageSuffere;
+		}
+	}
+
+	private readonly AfterRetaliate _afterRetaliate = new AfterRetaliate();
+	public static AfterRetaliate AfterRetaliateEvent => GameController.Instance.ScenarioEvents._afterRetaliate;
+
 	public class DuringMovement : ScenarioEvent<DuringMovement.Parameters>
 	{
 		public class Parameters(MoveAbility.State abilityState) : ParametersBase<MoveAbility.State>(abilityState)

@@ -388,6 +388,8 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 				await ScenarioEvents.RetaliateEvent.CreatePrompt(
 					new ScenarioEvents.Retaliate.Parameters(abilityState, target), abilityState);
 
+			int damageSuffered = 0;
+
 			if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
 			{
 				if(!GameController.FastForward)
@@ -406,9 +408,12 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 					await GDTask.DelayFastForwardable(0.4f);
 				}
 
-				await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
+				(_, damageSuffered) = await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
 					potentialDamageDealer: retaliateParameters.RetaliatingFigure);
 			}
+
+			await ScenarioEvents.AfterRetaliateEvent.CreatePrompt(
+				new ScenarioEvents.AfterRetaliate.Parameters(abilityState, target, retaliateParameters.RetaliateBlocked, damageSuffered), abilityState);
 		}
 
 		await ScenarioEvents.AfterAttackPerformedEvent.CreatePrompt(

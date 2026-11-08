@@ -61,16 +61,17 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
-			//TODO: Change Retaliate Event so it requires suffering damage, and can work with retaliate of any range
 			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Subscribe(monster, this,
+				ScenarioEvents.AfterRetaliateEvent.Subscribe(monster, this,
 					canApplyParameters =>
-						RangeHelper.Distance(state.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 2,
+						canApplyParameters.RetaliatingFigure == state.Performer &&
+						canApplyParameters.DamageSuffered > 0,
 					async parameters =>
 					{
 						await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Chill);
 					});
+
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
 					parameters => parameters.Figure == monster,
 					parameters =>
@@ -83,7 +84,7 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 			})
 			.WithOnDeactivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Unsubscribe(monster, this);
+				ScenarioEvents.AfterRetaliateEvent.Unsubscribe(monster, this);
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
 
 				await GDTask.CompletedTask;

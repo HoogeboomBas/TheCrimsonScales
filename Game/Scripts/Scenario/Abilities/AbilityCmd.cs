@@ -87,25 +87,25 @@ public static class AbilityCmd
 			.Build();
 	}
 
-	public static async GDTask<int> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
+	public static async GDTask<(int, int)> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
 		Figure potentialDamageDealer = null)
 	{
 		if(target.Health == 0)
 		{
-			return 0;
+			return (0, 0);
 		}
 
 		potentialDamageDealer ??= potentialAbilityState?.Authority;
 
 		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters =
-			new ScenarioEvents.SufferDamage.Parameters(potentialAbilityState, target, potentialDamageDealer, damage, fromAttack);
+			new ScenarioEvents.SufferDamage.Parameters(potentialAbilityState, target, potentialDamageDealer, damage);
 		EffectCollection sufferDamageCollection = ScenarioEvents.SufferDamageEvent.CreateEffectCollection(sufferDamageParameters);
 		await PromptManager.Prompt(new SufferDamagePrompt(sufferDamageParameters, sufferDamageCollection,
 			() => $"Suffer {Icons.HintText(Icons.Damage)}{sufferDamageParameters.CalculatedCurrentDamage}?"), target);
 
 		if(sufferDamageParameters.DamagePrevented || sufferDamageParameters.CalculatedCurrentDamage == 0)
 		{
-			return 0;
+			return (0, 0);
 		}
 
 		int damageDealt = sufferDamageParameters.CalculatedCurrentDamage;
@@ -116,7 +116,7 @@ public static class AbilityCmd
 
 		if(justBeforeSufferDamageParameters.Prevented)
 		{
-			return 0;
+			return (0, 0);
 		}
 
 		potentialAbilityState?.DamagedFigures.Add(target);
@@ -173,10 +173,10 @@ public static class AbilityCmd
 				target);
 		}
 
-		return damageDealt;
+		return (damageDealt, damageSuffered);
 	}
 
-	public static async GDTask<int> SufferDamage(Figure target, int damage, Figure potentialDamageDealer)
+	public static async GDTask<(int, int)> SufferDamage(Figure target, int damage, Figure potentialDamageDealer)
 	{
 		return await SufferDamage(null, target, damage, potentialDamageDealer);
 	}

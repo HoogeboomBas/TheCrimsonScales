@@ -75,7 +75,7 @@ public class GelatinousGiant : BloodOoze, IBossMonsterModel
 
 					foreach(Figure figure in monsterGroup)
 					{
-						damageSuffered += await AbilityCmd.SufferDamage(state, figure, damage);
+						damageSuffered += (await AbilityCmd.SufferDamage(state, figure, damage)).Item2;
 					}
 				}
 
