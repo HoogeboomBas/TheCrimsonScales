@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -165,11 +165,30 @@ public partial class GameController : SceneController<GameController>
 
 	public event EndEventHandler EndEvent;
 
+	private string _scenarioScenePath;
+	private bool _runScenarioPhases = true;
+	private IPromptDecisionSource _decisionSource = new InteractiveDecisionSource();
+
+	/// <summary>Configure a directly instantiated gameplay scene before adding it to the tree.</summary>
+	public void Configure(GameSceneRequest sceneRequest, string scenarioScenePath,
+		bool runScenarioPhases, IPromptDecisionSource decisionSource)
+	{
+		if(IsInsideTree())
+		{
+			throw new InvalidOperationException("Configure the game before adding it to the scene tree.");
+		}
+
+		SceneRequest = sceneRequest;
+		_scenarioScenePath = scenarioScenePath;
+		_runScenarioPhases = runScenarioPhases;
+		_decisionSource = decisionSource;
+	}
+
 	public override void _EnterTree()
 	{
 		base._EnterTree();
 
-		SceneRequest = AppController.Instance.SceneLoader.CurrentSceneRequest as GameSceneRequest;
+		SceneRequest ??= AppController.Instance.SceneLoader.CurrentSceneRequest as GameSceneRequest;
 
 		if(SceneRequest == null)
 		{
@@ -226,10 +245,10 @@ public partial class GameController : SceneController<GameController>
 		VisualRNG = new RandomNumberGenerator();
 		VisualRNG.Randomize();
 
-		PromptManager = new PromptManager();
+		PromptManager = new PromptManager(_decisionSource);
 		SyncedActionManager = new SyncedActionManager();
 
-		Scenario = SceneLoader.InstantiateScene<Scenario>(ScenarioModel.ScenePath);
+		Scenario = SceneLoader.InstantiateScene<Scenario>(_scenarioScenePath ?? ScenarioModel.ScenePath);
 		AddChild(Scenario);
 		Scenario.Init();
 
@@ -273,7 +292,10 @@ public partial class GameController : SceneController<GameController>
 
 		ReadyEvent?.Invoke();
 
-		Start().Forget();
+		if(_runScenarioPhases)
+		{
+			Start().Forget();
+		}
 	}
 
 	public override void _Input(InputEvent @event)
