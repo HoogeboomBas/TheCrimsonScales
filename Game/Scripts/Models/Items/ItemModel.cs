@@ -506,32 +506,14 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 	protected void SubscribeConditionImmunity(ConditionModel conditionModel)
 	{
-		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
-			parameters =>
-			{
-				return
-					CheckCanUse() &&
-					parameters.Target == Owner &&
-					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
-					conditionModel.ImmunityCompareBaseConditions != null &&
-					parameters.ConditionModel.ImmunityCompareBaseConditions
-						.Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1));
-			},
-			async parameters =>
-			{
-				parameters.SetPrevented(true);
+		AbilityCmd.AddConditionImmunity(conditionModel, ScenarioEvents.GetSubscriberPair(this, _subscriber), Owner,
+			customCanApply: figure => CheckCanUse());
+	}
 
-				await GDTask.CompletedTask;
-			}
-		);
-
-		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
-			parameters => CheckCanUse() && parameters.Figure == Owner,
-			parameters =>
-			{
-				parameters.AddImmunity(conditionModel);
-			}
-		);
+	protected void SubscribeConditionsImmunity(List<ConditionModel> conditionModels)
+	{
+		AbilityCmd.AddConditionsImmunity(conditionModels, ScenarioEvents.GetSubscriberPair(this, _subscriber), Owner,
+			customCanApply: figure => CheckCanUse());
 	}
 
 	protected bool CheckCanUse()
