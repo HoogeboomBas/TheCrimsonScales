@@ -39,11 +39,10 @@ public class Road18 : RoadEventModel<Road18.ChoiceA, Road18.ChoiceB>
 			ScenarioEvents.RetaliateEvent.Subscribe(this,
 				parameters =>
 					parameters.RetaliatingFigure is Character &&
-					RangeHelper.Distance(parameters.RetaliatingFigure.Hex, obstacle.Hex) <= 1 &&
-					RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
+					RangeHelper.Distance(parameters.RetaliatingFigure.Hex, obstacle.Hex) <= 1,
 				async parameters =>
 				{
-					parameters.AdjustRetaliate(1);
+					parameters.AddRetaliate(1, 1);
 					await GDTask.CompletedTask;
 				}
 			);

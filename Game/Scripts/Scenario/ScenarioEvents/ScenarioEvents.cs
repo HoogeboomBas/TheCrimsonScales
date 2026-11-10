@@ -429,13 +429,13 @@ public partial class ScenarioEvents
 			public bool WouldSufferDamage => CalculatedCurrentDamage > 0 && !DamagePrevented;
 			public int TotalShield => Shield + UnpierceableShield;
 
-			public Parameters(AbilityState abilityState, Figure figure, Figure potentialDamageDealer, int initialDamage, bool fromAttack)
+			public Parameters(AbilityState abilityState, Figure figure, Figure potentialDamageDealer, int initialDamage)
 			{
 				PotentialAbilityState = abilityState;
 				Figure = figure;
 				PotentialDamageDealer = potentialDamageDealer;
 				InitialDamage = initialDamage;
-				FromAttack = fromAttack;
+				FromAttack = abilityState is not null and AttackAbility.State;
 
 				CalculateCurrentDamage();
 			}
@@ -636,12 +636,19 @@ public partial class ScenarioEvents
 		{
 			public Figure RetaliatingFigure { get; } = retaliatingFigure;
 
-			public int Retaliate { get; private set; }
+			public List<(int, int)> RetaliateValues { get; } = new List<(int, int)>();
+			public int ExtraRange { get; private set; } = 0;
+
 			public bool RetaliateBlocked { get; private set; }
 
-			public void AdjustRetaliate(int amount)
+			public void AddRetaliate(int amount, int range)
 			{
-				Retaliate += amount;
+				RetaliateValues.Add((amount, range));
+			}
+
+			public void AdjustExtraRange(int amount)
+			{
+				ExtraRange += amount;
 			}
 
 			public void SetRetaliateBlocked()
@@ -653,6 +660,20 @@ public partial class ScenarioEvents
 
 	private readonly Retaliate _retaliate = new Retaliate();
 	public static Retaliate RetaliateEvent => GameController.Instance.ScenarioEvents._retaliate;
+
+	public class AfterRetaliate : ScenarioEvent<AfterRetaliate.Parameters>
+	{
+		public class Parameters(AttackAbility.State abilityState, Figure retaliatingFigure, bool retaliateBlocked, int damageSuffere) : ParametersBase<AttackAbility.State>(abilityState)
+		{
+			public Figure RetaliatingFigure { get; } = retaliatingFigure;
+
+			public bool RetaliateBlocked { get; private set; } = retaliateBlocked;
+			public int DamageSuffered { get; private set; } = damageSuffere;
+		}
+	}
+
+	private readonly AfterRetaliate _afterRetaliate = new AfterRetaliate();
+	public static AfterRetaliate AfterRetaliateEvent => GameController.Instance.ScenarioEvents._afterRetaliate;
 
 	public class DuringMovement : ScenarioEvent<DuringMovement.Parameters>
 	{

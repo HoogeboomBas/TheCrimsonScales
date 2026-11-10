@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 using System.Linq;
@@ -61,16 +61,17 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 	[
 		new MonsterAbilityCardAbility(ShieldAbility.Builder().WithShieldValue(2).Build()),
 		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
-			//TODO: Change Retaliate Event so it requires suffering damage, and can work with retaliate of any range
 			.WithOnActivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Subscribe(monster, this,
+				ScenarioEvents.AfterRetaliateEvent.Subscribe(monster, this,
 					canApplyParameters =>
-						RangeHelper.Distance(state.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 2,
+						canApplyParameters.RetaliatingFigure == state.Performer &&
+						canApplyParameters.DamageSuffered > 0,
 					async parameters =>
 					{
 						await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Chill);
 					});
+
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
 					parameters => parameters.Figure == monster,
 					parameters =>
@@ -83,7 +84,7 @@ public class HarrowerIcecrawlersAbilityCard2 : HarrowerIcecrawlersAbilityCard
 			})
 			.WithOnDeactivate(async state =>
 			{
-				ScenarioEvents.RetaliateEvent.Unsubscribe(monster, this);
+				ScenarioEvents.AfterRetaliateEvent.Unsubscribe(monster, this);
 				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
 
 				await GDTask.CompletedTask;
@@ -208,7 +209,37 @@ public class HarrowerIcecrawlersAbilityCard7 : HarrowerIcecrawlersAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		//TODO: Add "Add Range 3 to all retaliate" ability
+		new MonsterAbilityCardAbility(OtherActiveAbility.Builder()
+			.WithOnActivate(async state =>
+			{
+				ScenarioEvents.RetaliateEvent.Subscribe(monster, this,
+					canApplyParameters =>
+						state.Performer == canApplyParameters.RetaliatingFigure,
+					async parameters =>
+					{
+						parameters.AdjustExtraRange(2);
+
+						await GDTask.CompletedTask;
+					}, order: -1);
+
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Subscribe(monster, this,
+					parameters => parameters.Figure == monster,
+					parameters =>
+					{
+						parameters.Add(new InfoTextExtraEffect.Parameters(textParameters =>
+							$"This figure gains {Icons.Inline(Icons.Range)}3 on all {Icons.Inline(Icons.Retaliate)} this turn."));
+					}
+				);
+				await GDTask.CompletedTask;
+			})
+			.WithOnDeactivate(async state =>
+			{
+				ScenarioEvents.RetaliateEvent.Unsubscribe(monster, this);
+				ScenarioCheckEvents.FigureInfoItemExtraEffectsCheckEvent.Unsubscribe(monster, this);
+
+				await GDTask.CompletedTask;
+			})
+			.Build()),
 		new MonsterAbilityCardAbility(MoveAbility(monster, +0)),
 		new MonsterAbilityCardAbility(HealAbility.Builder().WithHealValue(2).WithRange(3).Build())
 	];
