@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
@@ -1628,7 +1628,7 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask AddRetaliate(Figure figure, object subscriber, int retaliateValue, int range,
-		Func<ScenarioEvents.Retaliate.Parameters, bool> customCanApply = null, bool customCanApplyReplaceFully = false)
+		Func<ScenarioEvents.Retaliate.Parameters, bool> customCanApply = null, bool customCanApplyReplaceFully = false, Action<ScenarioEvents.Retaliate.Parameters> customApply = null)
 	{
 		ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(figure, subscriber,
 			canApplyParameters =>
@@ -1643,8 +1643,7 @@ public static class AbilityCmd
 			canApplyParameters =>
 			{
 				bool canApply =
-					canApplyParameters.RetaliatingFigure == figure &&
-					RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, figure.Hex) <= range;
+					canApplyParameters.RetaliatingFigure == figure;
 
 				if(customCanApply != null)
 				{
@@ -1660,7 +1659,9 @@ public static class AbilityCmd
 			},
 			async applyParameters =>
 			{
-				applyParameters.AdjustRetaliate(retaliateValue);
+				applyParameters.AddRetaliate(retaliateValue, range);
+
+				customApply?.Invoke(applyParameters);
 
 				await GDTask.CompletedTask;
 			}

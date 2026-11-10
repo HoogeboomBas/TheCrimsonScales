@@ -198,11 +198,10 @@ public class Scenario017 : ScenarioModel
 
 		ScenarioEvents.RetaliateEvent.Subscribe(this,
 			canApplyParameters =>
-				canApplyParameters.RetaliatingFigure == _frostedCrystalHolder &&
-				RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, _frostedCrystalHolder.Hex) <= 1,
+				canApplyParameters.RetaliatingFigure == _frostedCrystalHolder,
 			async applyParameters =>
 			{
-				applyParameters.AdjustRetaliate(1);
+				applyParameters.AddRetaliate(1, 1);
 
 				await GDTask.CompletedTask;
 			}

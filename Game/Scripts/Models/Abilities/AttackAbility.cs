@@ -316,7 +316,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 		}
 
-		int damageDealt = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
+		(int damageDealt, _) = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
 
 		if(!GameController.FastForward)
 		{
@@ -390,26 +390,39 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 			int damageSuffered = 0;
 
-			if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
+			if(!retaliateParameters.RetaliateBlocked)
 			{
-				if(!GameController.FastForward)
+				int finalRetaliate = 0;
+
+				foreach((int value, int range) in retaliateParameters.RetaliateValues)
 				{
-					if(target.FigureViewComponent.Retaliate.Scale.X > 0.1f)
+					if(RangeHelper.Distance(abilityState.Performer.Hex, target.Hex) <= range + retaliateParameters.ExtraRange)
 					{
-						target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+						finalRetaliate += value;
 					}
-
-					await GDTask.DelayFastForwardable(0.3f);
-
-					RetaliateEffect retaliateEffect =
-						SceneLoader.InstantiateScene<RetaliateEffect>("res://Scenes/Scenario/Effects/RetaliateEffect/RetaliateEffect.tscn");
-					target.AddChild(retaliateEffect);
-					retaliateEffect.Init(target);
-					await GDTask.DelayFastForwardable(0.4f);
 				}
 
-				(_, damageSuffered) = await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
-					potentialDamageDealer: retaliateParameters.RetaliatingFigure);
+				if(finalRetaliate > 0)
+				{
+					if(!GameController.FastForward)
+					{
+						if(target.FigureViewComponent.Retaliate.Scale.X > 0.1f)
+						{
+							target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+						}
+
+						await GDTask.DelayFastForwardable(0.3f);
+
+						RetaliateEffect retaliateEffect =
+							SceneLoader.InstantiateScene<RetaliateEffect>("res://Scenes/Scenario/Effects/RetaliateEffect/RetaliateEffect.tscn");
+						target.AddChild(retaliateEffect);
+						retaliateEffect.Init(target);
+						await GDTask.DelayFastForwardable(0.4f);
+					}
+
+					(_, damageSuffered) = await AbilityCmd.SufferDamage(abilityState.Performer, finalRetaliate,
+						potentialDamageDealer: retaliateParameters.RetaliatingFigure);
+				}
 			}
 
 			await ScenarioEvents.AfterRetaliateEvent.CreatePrompt(

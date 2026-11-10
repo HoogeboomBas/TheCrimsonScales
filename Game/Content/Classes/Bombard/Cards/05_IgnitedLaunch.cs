@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -55,42 +55,13 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 						{
 							if(parameters.Figure.TurnMovedHexes.Count <= 1)
 							{
-								// Gain 2 retaliate for the round
-								ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(state, this,
-									canApplyParameters =>
-										canApplyParameters.Figure == state.Performer,
-									applyParameters =>
-									{
-										applyParameters.AddRetaliate(2, 1);
-									}
-								);
-
-								//state.Performer.UpdateRetaliate();
-
-								ScenarioEvents.RetaliateEvent.Subscribe(state, this,
-									canApplyParameters =>
-									{
-										return
-											canApplyParameters.RetaliatingFigure == state.Performer &&
-											RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
-									},
-									async applyParameters =>
-									{
-										applyParameters.AdjustRetaliate(2);
-
-										await GDTask.CompletedTask;
-									}
-								);
+								await AbilityCmd.AddRetaliate(state.Performer, this, 2, 1);
 
 								ScenarioEvents.RoundEndedEvent.Subscribe(state, this,
 									parameters => true,
 									async parameters =>
 									{
-										ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
-
-										//state.Performer.UpdateRetaliate();
-
-										ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+										AbilityCmd.RemoveRetaliate(state.Performer, this);
 
 										ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 
@@ -109,11 +80,7 @@ public class IgnitedLaunch : BombardCardModel<IgnitedLaunch.CardTop, IgnitedLaun
 					{
 						ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
 
-						ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
-
-						//state.Performer.UpdateRetaliate();
-
-						ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+						AbilityCmd.RemoveRetaliate(state.Performer, this);
 
 						ScenarioEvents.RoundEndedEvent.Unsubscribe(state, this);
 

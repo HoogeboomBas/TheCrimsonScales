@@ -33,12 +33,11 @@ public class HalfElementsShieldRetaliateTrait : FigureTrait
 			canApplyParameters =>
 			{
 				return
-					canApplyParameters.RetaliatingFigure == figure &&
-					RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, figure.Hex) <= 1;
+					canApplyParameters.RetaliatingFigure == figure;
 			},
 			async applyParameters =>
 			{
-				applyParameters.AdjustRetaliate(CalculateElements());
+				applyParameters.AddRetaliate(CalculateElements(), 1);
 				await GDTask.CompletedTask;
 			});
 

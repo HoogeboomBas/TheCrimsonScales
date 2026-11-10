@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Godot;
 using Fractural.Tasks;
 
@@ -24,14 +24,14 @@ public class BonecladShawl : CS1Item
 		base.Subscribe();
 
 		SubscribeRetaliate(
-			canApply: state =>
-				state.RetaliatingFigure == Owner &&
-				RangeHelper.Distance(state.AbilityState.Performer.Hex, state.RetaliatingFigure.Hex) <= 1,
-			apply: async state =>
+			canApply: parameters =>
+				parameters.RetaliatingFigure == Owner &&
+				RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1 + parameters.ExtraRange,
+			apply: async parameters =>
 			{
 				await Use(async user =>
 				{
-					state.AdjustRetaliate(2);
+					parameters.AddRetaliate(2, 1);
 
 					await GDTask.CompletedTask;
 				});

@@ -636,12 +636,19 @@ public partial class ScenarioEvents
 		{
 			public Figure RetaliatingFigure { get; } = retaliatingFigure;
 
-			public int Retaliate { get; private set; }
+			public List<(int, int)> RetaliateValues { get; } = new List<(int, int)>();
+			public int ExtraRange { get; private set; } = 0;
+
 			public bool RetaliateBlocked { get; private set; }
 
-			public void AdjustRetaliate(int amount)
+			public void AddRetaliate(int amount, int range)
 			{
-				Retaliate += amount;
+				RetaliateValues.Add((amount, range));
+			}
+
+			public void AdjustExtraRange(int amount)
+			{
+				ExtraRange += amount;
 			}
 
 			public void SetRetaliateBlocked()
