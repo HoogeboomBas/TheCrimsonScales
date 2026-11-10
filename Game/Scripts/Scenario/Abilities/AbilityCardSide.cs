@@ -25,7 +25,7 @@ public class AbilityCardSide : IActionSource
 
 		if(!startedParameters.ForgoneAction)
 		{
-			ActionState actionState = new ActionState(this, performer, Model.Abilities.Select(ability => ability.Ability).ToList(), //null, 
+			ActionState actionState = new ActionState(this, performer, Model.Abilities.Select(ability => ability.Ability).ToList(), //null,
 				onFirstActivateAbilityActivated: OnFirstActivateAbilityActivated, onDiscardOrLoseRequested: OnDiscardOrLoseRequested);
 			await actionState.Perform();
 

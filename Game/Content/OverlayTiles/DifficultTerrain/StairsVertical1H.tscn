@@ -6,5 +6,5 @@
 [node name="StairsHorizontal1H" unique_id=881870330 instance=ExtResource("1_tcyrp")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_5s50c")

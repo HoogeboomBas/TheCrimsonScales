@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Fractural.Tasks;
+using Godot;
 
 /// <summary>
 /// An <see cref="ActiveAbility{T}"/> that has a number of uses before it is discarded/lost.
@@ -19,6 +20,12 @@ public class UseSlotAbility : ActiveAbility<UseSlotAbility.State>
 
 		public async GDTask AdvanceUseSlot()
 		{
+			if(UseSlotIndex >= Slots.Count)
+			{
+				Log.Warning("Trying to advance a use slot while none remain. Perhaps an event was not unsubscribed from?");
+				return;
+			}
+
 			UseSlot from = Slots[UseSlotIndex];
 
 			if(from.OnExit != null)

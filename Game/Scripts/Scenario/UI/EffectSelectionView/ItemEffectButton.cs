@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 public partial class ItemEffectButton : EffectButton<ItemEffectButton.Parameters>
 {
@@ -26,7 +26,7 @@ public partial class ItemEffectButton : EffectButton<ItemEffectButton.Parameters
 	{
 		base.Init(parameters);
 
-		_itemView.SetItem(parameters.ItemModel);
+		_itemView.SetItem(parameters.ItemModel, showCostItemCount: false);
 
 		_iconContainer.SetVisible(parameters.ItemModel.Owner != null);
 		if(parameters.ItemModel.Owner != null)

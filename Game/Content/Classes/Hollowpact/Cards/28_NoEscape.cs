@@ -22,7 +22,7 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 					async pullParameters =>
 					{
 						ScenarioCheckEvents.CanEnterObstacleCheckEvent.Subscribe(pullParameters.AbilityState, this,
-							obstacleCheckParameters => obstacleCheckParameters.Figure == pullParameters.AbilityState.Target,
+							obstacleCheckParameters => obstacleCheckParameters.Figure == pullParameters.AbilityState.Target && !obstacleCheckParameters.Obstacle.CannotBeDestroyed,
 							obstacleCheckParameters =>
 							{
 								obstacleCheckParameters.SetCanEnter();
@@ -35,12 +35,14 @@ public class NoEscape : HollowpactLevelUpCardModel<NoEscape.CardTop, NoEscape.Ca
 							{
 								foreach(Obstacle obstacle in enteredHexParameters.Hex.GetHexObjectsOfType<Obstacle>())
 								{
-									await obstacle.Destroy();
-									await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 3, pullParameters.Performer);
-									await AbilityCmd.AddConditions(pullParameters.AbilityState, enteredHexParameters.Figure,
-										[Conditions.Wound1, Conditions.Stun]);
+									if(await AbilityCmd.TryDestroyObstacle(obstacle))
+									{
+										await AbilityCmd.SufferDamage(enteredHexParameters.Figure, 3, pullParameters.Performer);
+										await AbilityCmd.AddConditions(pullParameters.AbilityState, enteredHexParameters.Figure,
+											[Conditions.Wound1, Conditions.Stun]);
 
-									await AbilityCmd.GainXP(pullParameters.Performer, 1);
+										await AbilityCmd.GainXP(pullParameters.Performer, 1);
+									}
 								}
 							});
 

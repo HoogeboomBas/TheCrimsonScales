@@ -65,7 +65,9 @@ public class LingeringSwampMoss : MirefootCardModel<LingeringSwampMoss.CardTop, 
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
-						parameters => parameters.Figure.EnemiesWith(state.Performer) && parameters.Figure.Hex.HasHexObjectOfType<DifficultTerrain>(),
+						parameters =>
+							parameters.Figure.EnemiesWith(state.Performer) &&
+							(parameters.Figure.Hex?.HasHexObjectOfType<DifficultTerrain>() ?? false),
 						async parameters =>
 						{
 							await AbilityCmd.RemoveCondition(parameters.Figure, Conditions.Immobilize, state);

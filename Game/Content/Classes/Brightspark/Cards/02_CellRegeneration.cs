@@ -37,7 +37,7 @@ public class CellRegeneration : BrightsparkCardModel<CellRegeneration.CardTop, C
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
+					ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 						parameters => parameters.Figure == state.Performer,
 						async parameters =>
 						{
@@ -53,7 +53,7 @@ public class CellRegeneration : BrightsparkCardModel<CellRegeneration.CardTop, C
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 					await GDTask.CompletedTask;
 				})
 				.WithUseSlots(

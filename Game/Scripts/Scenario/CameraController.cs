@@ -147,7 +147,7 @@ public partial class CameraController : Node
 		{
 			const float maxIntensity = 30;
 			_shakeIntensity += intensity;
-			Mathf.Min(_shakeIntensity, maxIntensity);
+			_shakeIntensity = Mathf.Min(_shakeIntensity, maxIntensity);
 		}, delay);
 	}
 

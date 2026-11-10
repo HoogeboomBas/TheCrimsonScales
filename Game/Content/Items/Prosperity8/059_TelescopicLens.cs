@@ -35,7 +35,7 @@ public class TelescopicLens : Prosperity8Item
 						async parameters =>
 						{
 							AttackAbility.State attackAbilityState = ((AttackAbility.State)parameters.AbilityState);
-							attackAbilityState.AbilityAdjustRange(1);
+							attackAbilityState.AbilityAdjustRange(2);
 
 							await GDTask.CompletedTask;
 						}

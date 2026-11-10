@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, SpiritBarrage.CardBottom>
@@ -21,7 +22,7 @@ public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, Spirit
 						{
 							parameters.AbilityState.AdjustTargets(1);
 
-							await GainXP(parameters.AbilityState);
+							await Task.CompletedTask;
 						},
 						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Targets)}")))
 				.WithOnAbilityStarted(async state =>

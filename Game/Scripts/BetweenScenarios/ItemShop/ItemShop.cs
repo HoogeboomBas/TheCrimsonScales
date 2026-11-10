@@ -91,6 +91,7 @@ public partial class ItemShop : BetweenScenariosAction
 	{
 		int price = itemModel.Cost;
 		price += BetweenScenariosController.Instance.SavedCampaign.GetReputationItemPriceChange();
+		price = Mathf.Max(0, price);
 
 		BetweenScenariosEvents.CalculateItemBuyPrice.Parameters parameters =
 			BetweenScenariosEvents.CalculateItemBuyPriceEvent.Fire(

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -73,6 +73,7 @@ public class DragThroughDirt : ChainguardCardModel<DragThroughDirt.CardTop, Drag
 
 					return state.ActionState.GetAbilityState<MoveAbility.State>(1).GetCustomValue<bool>(this, "DesignatedEnemyIsChosen");
 				})
+				.WithAutoConfirmIfOneTarget(true)
 				.Build())
 		];
 

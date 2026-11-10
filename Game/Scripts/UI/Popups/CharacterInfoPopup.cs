@@ -65,6 +65,7 @@ public partial class CharacterInfoPopup : Popup<CharacterInfoPopup.Request>
 		}
 
 		AppController.Instance.RetireCharacter(PopupRequest.SavedCharacter, PopupRequest.SavedCampaign);
+		AppController.Instance.SaveGame();
 
 		Close();
 	}

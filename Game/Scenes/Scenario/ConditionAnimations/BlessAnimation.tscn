@@ -157,15 +157,15 @@ _data = {
 _sfxPath = "res://Audio/SFX/MAGIC_SPELL_Fade_In_Metallic_Pingpong_Fade_mono.wav"
 _sfxDelay = 0.4
 
-[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" index="0"]
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
 libraries/ = SubResource("AnimationLibrary_xpfdn")
 speed_scale = 0.8
 
-[node name="InnerRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="1" unique_id=330754006]
+[node name="InnerRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=330754006]
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("2_ou0iv")
 
-[node name="OuterRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" index="2" unique_id=1539937256]
+[node name="OuterRing" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1539937256]
 rotation = 3.14159
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_3ffv0")

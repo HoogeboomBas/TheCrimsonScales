@@ -15,7 +15,7 @@ public class SlowAndSteady : ChieftainCardModel<SlowAndSteady.CardTop, SlowAndSt
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Giant Tortoise")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise.png")
 				.WithHealth(6, new SummonHealthSquare(this, new Vector2(0.44711232f, 0.1984234f)))
 				.WithMove(1, new SummonMoveSquare(this, new Vector2(0.67825043f, 0.1984234f)))
 				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.44711232f, 0.27472314f)))

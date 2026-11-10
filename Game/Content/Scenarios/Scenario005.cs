@@ -43,6 +43,11 @@ public class Scenario005 : ScenarioModel
 		new GainPartyAchievementReward(PartyAchievement.OozeDestroyed)
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Infect)
+	];
+
 	private int _markersLeftToRemove;
 	private List<Marker> _markers = null;
 	private readonly Dictionary<Marker, List<Hex>> _infectedWaterSources = [];
@@ -51,13 +56,6 @@ public class Scenario005 : ScenarioModel
 	private CustomScenarioGoal _infectedWaterGoal;
 	private ScenarioRule _gelatinousGiantInvulnerableRule;
 	private ScenarioRule _spawnEliteBloodOozeRule;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Infect);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{
@@ -141,8 +139,8 @@ public class Scenario005 : ScenarioModel
 				hasProgress: true, maxProgress: characterCount, order: -1));
 
 		_gelatinousGiantInvulnerableRule =
-			AddScenarioRule(
-				"The Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained.");
+			AddScenarioRule(textParameters =>
+				$"The Gelatinous Giant is immune to all negative conditions and cannot suffer damage from any source until the infected water has been drained. Whenever an elite Blood Ooze is killed, remove the water tile on any hex marked {Icons.InlineMarker(Marker.Type.a, textParameters)} and all connected water tiles. This counts as draining the infected water. Water tiles can not be removed from the board by any other means.");
 
 		_spawnEliteBloodOozeRule =
 			AddScenarioRule(

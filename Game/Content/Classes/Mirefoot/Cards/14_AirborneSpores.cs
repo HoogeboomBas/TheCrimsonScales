@@ -54,6 +54,8 @@ public class AirborneSpores : MirefootCardModel<AirborneSpores.CardTop, Airborne
 				.WithMandatory(true)
 				.Build())
 		];
+
+		public override int XP => 1;
 	}
 
 	public class CardBottom : MirefootCardSide

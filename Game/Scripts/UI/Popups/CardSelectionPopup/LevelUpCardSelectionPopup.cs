@@ -46,6 +46,11 @@ public partial class LevelUpCardSelectionPopup : Popup<LevelUpCardSelectionPopup
 
 	private void OnUnlockableCardPressed(CardSelectionCard card)
 	{
+		if(!PopupRequest.SavedCharacter.LevelUpInProgress)
+		{
+			return;
+		}
+
 		_availableCardList.AddCard(card.SavedAbilityCard);
 
 		PopupRequest.SavedCharacter.AddLevelUpCard(card.SavedAbilityCard.Model);

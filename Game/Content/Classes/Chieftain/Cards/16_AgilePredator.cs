@@ -16,7 +16,7 @@ public class AgilePredator : ChieftainCardModel<AgilePredator.CardTop, AgilePred
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Black Panther")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/black_panther_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/black_panther.png")
 				.WithHealth(5, new SummonHealthSquare(this, new Vector2(0.44668853f, 0.20578967f)))
 				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.67717457f, 0.20578967f)))
 				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.44668853f, 0.2806894f)))

@@ -90,7 +90,10 @@ public abstract partial class Figure : HexObject, IActionSource
 
 		object figureEnteredHexEventSubscriber = new object();
 		ScenarioEvents.FigureEnteredHexEvent.Subscribe(this, figureEnteredHexEventSubscriber,
-			enteredHexParameters => enteredHexParameters.PotentialAbilityState is MoveAbility.State or PullSelfAbility.State,
+			enteredHexParameters =>
+				TakingTurn &&
+				enteredHexParameters.Figure == this &&
+				enteredHexParameters.PotentialAbilityState is MoveAbility.State or PullSelfAbility.State,
 			async enteredHexParameters =>
 			{
 				TurnMovedHexes.Add(enteredHexParameters.Hex);
@@ -201,6 +204,8 @@ public abstract partial class Figure : HexObject, IActionSource
 			await EndTurn();
 		}
 
+		await GameController.Instance.ElementManager.FinishInfusing();
+
 		await GDTask.DelayFastForwardable(0.5f);
 	}
 
@@ -255,8 +260,6 @@ public abstract partial class Figure : HexObject, IActionSource
 		TakingTurn = false;
 		CanTakeTurn = false;
 		DidTakeTurn = true;
-
-		await GameController.Instance.ElementManager.FinishInfusing();
 
 		FigureViewComponent.ActivePS.TweenModulateAlpha(0f, 0.2f).OnComplete(FigureViewComponent.ActivePS.Hide).PlayFastForwardable();
 	}
@@ -600,5 +603,10 @@ public abstract partial class Figure : HexObject, IActionSource
 	public void SetTakingTurn(bool takingTurn)
 	{
 		TakingTurn = takingTurn;
+	}
+
+	public void SetCanTakeTurn(bool canTakeTurn)
+	{
+		CanTakeTurn = canTakeTurn;
 	}
 }

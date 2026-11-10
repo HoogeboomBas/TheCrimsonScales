@@ -69,7 +69,7 @@ public class GiveAbilityCardAbility : TargetedAbility<GiveAbilityCardAbility.Sta
 		/// </summary>
 		public override TAbility Build()
 		{
-			_target ??= Target.Allies;
+			_target ??= Target.Allies | Target.MustTargetCharacters;
 			return base.Build();
 		}
 	}

@@ -14,7 +14,7 @@ public class SniffingHound : ChieftainCardModel<SniffingHound.CardTop, SniffingH
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Scout Dog")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/scout_dog_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/scout_dog.png")
 				.WithHealth(4, new SummonHealthSquare(this, new Vector2(0.5267429f, 0.19222368f)))
 				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.81171906f, 0.19222368f)))
 				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.5267429f, 0.26822355f)))

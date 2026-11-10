@@ -2,7 +2,7 @@ using Fractural.Tasks;
 
 public class RocketBoots : GHRewardsItem
 {
-	public override string Name => "Winged Shoes";
+	public override string Name => "Rocket Boots";
 	public override int ItemNumber => 96;
 	public override int ShopCount => 2;
 	public override int Cost => 80;

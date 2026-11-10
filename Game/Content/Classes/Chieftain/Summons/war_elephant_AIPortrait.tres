@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://dg403btmgygji"]
-
-[ext_resource type="Texture2D" uid="uid://dadmcyn33ehrh" path="res://Content/Classes/Chieftain/Summons/war_elephant_AI.png" id="1_wvgrd"]
-
-[resource]
-atlas = ExtResource("1_wvgrd")
-region = Rect2(80, 50, 400, 600)

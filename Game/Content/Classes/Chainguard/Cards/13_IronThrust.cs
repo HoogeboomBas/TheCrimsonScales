@@ -21,7 +21,7 @@ public class IronThrust : ChainguardLevelUpCardModel<IronThrust.CardTop, IronThr
 				{
 					ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
 						parameters =>
-							parameters.AbilityState == state &&
+							parameters.PotentialAbilityState == state &&
 							parameters.Figure == state.Target,
 						parameters =>
 						{

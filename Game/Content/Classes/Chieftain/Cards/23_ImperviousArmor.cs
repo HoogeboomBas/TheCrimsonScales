@@ -15,7 +15,7 @@ public class ImperviousArmor : ChieftainCardModel<ImperviousArmor.CardTop, Imper
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Battle Rhinoceros")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/battle_rhinoceros_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/battle_rhinoceros.png")
 				.WithHealth(7, new SummonHealthSquare(this, new Vector2(0.4311768f, 0.2107228f)))
 				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.62168443f, 0.2107228f)))
 				.WithAttack(2, new SummonAttackSquare(this, new Vector2(0.4311768f, 0.28662243f)))

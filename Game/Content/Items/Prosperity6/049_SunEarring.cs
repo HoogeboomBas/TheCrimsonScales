@@ -1,9 +1,9 @@
-public class SunEarring : Prosperity5Item
+public class SunEarring : Prosperity6Item
 {
 	public override string Name => "Sun Earring";
 	public override int ItemNumber => 49;
 	public override int ShopCount => 2;
-	public override int Cost => 35;
+	public override int Cost => 40;
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 

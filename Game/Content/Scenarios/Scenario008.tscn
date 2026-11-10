@@ -21,7 +21,7 @@
 
 [node name="Scenario" unique_id=1295388591 instance=ExtResource("1_sr3we")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1080007822]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1080007822]
 script = ExtResource("2_iohx8")
 StartsRevealed = true
 
@@ -117,7 +117,7 @@ position = Vector2(-545.596, -189)
 [node name="Shelf2H2" parent="Map/Rooms/Room" index="20" unique_id=2022420138 instance=ExtResource("15_tpm86")]
 position = Vector2(327.358, -189)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=691627800]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=691627800]
 script = ExtResource("2_iohx8")
 
 [node name="D1a" parent="Map/Rooms/Room2" index="0" unique_id=1675254696 instance=ExtResource("7_pge7o")]
@@ -203,7 +203,7 @@ position = Vector2(1636.7881, -567)
 [node name="Rubble1H2" parent="Map/Rooms/Room2" index="16" unique_id=966988051 instance=ExtResource("16_goqco")]
 position = Vector2(1200.3112, -189)
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=867318263 instance=ExtResource("17_rnfns")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=867318263 instance=ExtResource("17_rnfns")]
 position = Vector2(545.59595, -1323)
 rotation = 1.0471976
 

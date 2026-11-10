@@ -22,7 +22,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 	public virtual bool Persistent => false;
 	public virtual bool Unrecoverable => false;
 
-	public virtual bool CanUseWhenStunned => false;
+	public virtual bool CanUseWhileStunned => false;
 
 	public virtual int MinusOneCount => 0; // Amount of -1 cards this would add to the character's AMD if they do not have the ignore -1 card perk
 
@@ -89,11 +89,25 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 	public void SetOwner(Character character)
 	{
-		Unsubscribe();
+		if(Owner != null)
+		{
+			Unsubscribe();
+		}
 
 		Owner = character;
 
 		TrySubscribe();
+	}
+
+	public void OnOwnerDestroyed(Character character)
+	{
+		if(character != Owner)
+		{
+			Log.Error("Item doesn't belong to this character.");
+			return;
+		}
+
+		Unsubscribe();
 	}
 
 	public async GDTask SetItemState(ItemState state)
@@ -170,7 +184,8 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.DuringHealEvent.Unsubscribe(this, _subscriber);
 		ScenarioEvents.FigureKilledEvent.Unsubscribe(this, _subscriber);
-		AbilityCmd.RemoveConditionImmunity(ScenarioEvents.GetSubscriberPair(this, _subscriber));
+		ScenarioEvents.InflictConditionEvent.Unsubscribe(this, _subscriber);
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Unsubscribe(this, _subscriber);
 	}
 
 	protected async GDTask Use(Func<Character, GDTask> apply)
@@ -249,7 +264,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.CardSideSelectionEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -264,7 +279,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 			effectInfoViewParameters: _effectInfoViewParameters);
 
 		ScenarioEvents.AfterCardsPlayedEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -279,7 +294,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 			effectInfoViewParameters: _effectInfoViewParameters);
 
 		ScenarioEvents.LongRestCardSelectionEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Character),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.Character)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -300,6 +315,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 	{
 		ScenarioEvents.AbilityStartedEvent.Subscribe(this, _subscriber,
 			parameters =>
+				CheckCanUse() &&
 				parameters.AbilityState is T castState &&
 				(canApply == null || canApply(castState)),
 			async parameters =>
@@ -320,7 +336,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.FigureTurnEndedEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.Figure),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.Figure)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -339,7 +355,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.DuringHealEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -358,7 +374,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.DuringAttackEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -378,7 +394,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -398,7 +414,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.AMDCardDrawnEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -417,7 +433,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.DuringMovementEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApply == null || canApply(canApplyParameters.AbilityState),
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters.AbilityState)),
 			async applyParameters =>
 			{
 				if(apply != null)
@@ -437,7 +453,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.SufferDamageEvent.Subscribe(this, _subscriber,
-			canApply,
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters)),
 			apply,
 			GetSubscriptionEffectType,
 			order: order,
@@ -451,7 +467,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.RetaliateEvent.Subscribe(this, _subscriber,
-			canApply,
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters)),
 			apply,
 			GetSubscriptionEffectType,
 			order: order,
@@ -465,7 +481,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.InitiativesSortedEvent.Subscribe(this, _subscriber,
-			canApply,
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters)),
 			apply,
 			GetSubscriptionEffectType,
 			order: order,
@@ -479,7 +495,7 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 		int order = 0, bool canApplyMultipleTimesDuringAbility = false)
 	{
 		ScenarioEvents.FigureKilledEvent.Subscribe(this, _subscriber,
-			canApply,
+			canApplyParameters => CheckCanUse() && (canApply == null || canApply(canApplyParameters)),
 			apply,
 			GetSubscriptionEffectType,
 			order: order,
@@ -490,12 +506,40 @@ public abstract class ItemModel : AbstractModel<ItemModel>, IActionSource
 
 	protected void SubscribeConditionImmunity(ConditionModel conditionModel)
 	{
-		AbilityCmd.AddConditionImmunity(conditionModel, ScenarioEvents.GetSubscriberPair(this, _subscriber), Owner);
+		ScenarioEvents.InflictConditionEvent.Subscribe(this, _subscriber,
+			parameters =>
+			{
+				return
+					CheckCanUse() &&
+					parameters.Target == Owner &&
+					parameters.ConditionModel?.ImmunityCompareBaseConditions != null &&
+					conditionModel.ImmunityCompareBaseConditions != null &&
+					parameters.ConditionModel.ImmunityCompareBaseConditions
+						.Any(c1 => conditionModel.ImmunityCompareBaseConditions.Contains(c1));
+			},
+			async parameters =>
+			{
+				parameters.SetPrevented(true);
+
+				await GDTask.CompletedTask;
+			}
+		);
+
+		ScenarioCheckEvents.ImmunitiesVisualCheckEvent.Subscribe(this, _subscriber,
+			parameters => CheckCanUse() && parameters.Figure == Owner,
+			parameters =>
+			{
+				parameters.AddImmunity(conditionModel);
+			}
+		);
 	}
 
-	protected void SubscribeConditionsImmunity(List<ConditionModel> conditionModels)
+	protected bool CheckCanUse()
 	{
-		AbilityCmd.AddConditionsImmunity(conditionModels, ScenarioEvents.GetSubscriberPair(this, _subscriber), Owner);
+		ScenarioCheckEvents.CanUseItemCheck.Parameters parameters =
+			ScenarioCheckEvents.CanUseItemCheckEvent.Fire(new ScenarioCheckEvents.CanUseItemCheck.Parameters(this));
+
+		return !parameters.IsBlocked;
 	}
 
 	protected ActionState GetActionState(Figure performer, Ability[] abilities)

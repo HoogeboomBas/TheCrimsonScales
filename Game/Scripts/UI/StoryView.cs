@@ -106,6 +106,11 @@ public partial class StoryView : Control
 		_text.SetText(text);
 		_text.SetVisibleCharacters(0);
 
+		_text.SetHorizontalAlignment(
+			_text.GetLineCount() <= 1
+				? HorizontalAlignment.Left
+				: HorizontalAlignment.Fill);
+
 		_skipText = false;
 		_transitioningText = false;
 		_skipTextButton.Show();

@@ -120,7 +120,7 @@ public class MirefootPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class SilentStepOfTheBogWraith : MirefootPerk, IEventSubscriber
+	public class SilentStepOfTheBogWraith : MirefootPerk
 	{
 		protected override string Title => "Silent Step of the Bog Wraith";
 
@@ -162,7 +162,7 @@ public class MirefootPerks
 		}
 	}
 
-	public class HiddenBlade : MirefootPerk, IEventSubscriber
+	public class HiddenBlade : MirefootPerk
 	{
 		protected override string Title => "Hidden Blade";
 

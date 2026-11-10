@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class AbilityCardView : CardView
@@ -13,11 +14,28 @@ public partial class AbilityCardView : CardView
 	[Export]
 	private Control _characterTokenParent;
 
+	[Export]
+	private InspectButton _inspectButton;
+
+	public AbilityCardModel Model { get; private set; }
+	public SavedAbilityCard SavedAbilityCard { get; private set; }
+
 	private readonly List<AbilityCardViewEnhancement> _enhancements = new List<AbilityCardViewEnhancement>();
 	private readonly List<AbilityCardViewCharacterToken> _tokens = new List<AbilityCardViewCharacterToken>();
 
+	public override void _Ready()
+	{
+		base._Ready();
+
+		_inspectButton.Pressed += OnInspectButtonPressed;
+	}
+
 	public void SetCard(AbilityCardModel model)
 	{
+		Clear();
+
+		Model = model;
+
 		Texture2D texture = model.GetTexture();
 		Init(texture);
 	}
@@ -26,22 +44,10 @@ public partial class AbilityCardView : CardView
 	{
 		SetCard(savedAbilityCard.Model);
 
-		foreach(AbilityCardViewEnhancement enhancement in _enhancements)
-		{
-			enhancement.QueueFree();
-		}
-
-		_enhancements.Clear();
+		SavedAbilityCard = savedAbilityCard;
 
 		AddEnhancements(savedAbilityCard.Model.Top.Enhancements, savedAbilityCard.SavedTopEnhancements);
 		AddEnhancements(savedAbilityCard.Model.Bottom.Enhancements, savedAbilityCard.SavedBottomEnhancements);
-
-		foreach(AbilityCardViewCharacterToken token in _tokens)
-		{
-			token.QueueFree();
-		}
-
-		_tokens.Clear();
 
 		AbilityCard abilityCard = GameController.Instance?.CardManager.Get(savedAbilityCard);
 		if(abilityCard != null)
@@ -64,6 +70,17 @@ public partial class AbilityCardView : CardView
 							_tokens.Add(characterToken);
 						}
 					}
+
+					if(abilityState is ActiveAbilityState activeAbilityState && activeAbilityState.CharacterTokens > 0)
+					{
+						Vector2 position = activeAbilityState.CharacterTokenPosition;
+						Texture2D tokenTexture = abilityCard.Owner.ClassModel.CharacterTokenTexture;
+
+						AbilityCardViewCharacterToken characterToken = _characterTokenScene.Instantiate<AbilityCardViewCharacterToken>();
+						_characterTokenParent.AddChild(characterToken);
+						characterToken.Init(tokenTexture, position, activeAbilityState.CharacterTokens);
+						_tokens.Add(characterToken);
+					}
 				}
 			}
 		}
@@ -79,5 +96,34 @@ public partial class AbilityCardView : CardView
 			abilityCardViewEnhancement.Init(enhancementMark, savedEnhancement.Model);
 			_enhancements.Add(abilityCardViewEnhancement);
 		}
+	}
+
+	private void Clear()
+	{
+		Model = null;
+		SavedAbilityCard = null;
+
+		foreach(AbilityCardViewEnhancement enhancement in _enhancements)
+		{
+			enhancement.QueueFree();
+		}
+
+		_enhancements.Clear();
+
+		foreach(AbilityCardViewCharacterToken token in _tokens)
+		{
+			token.QueueFree();
+		}
+
+		_tokens.Clear();
+	}
+
+	private void OnInspectButtonPressed()
+	{
+		// AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
+		// {
+		// 	SavedAbilityCard = SavedAbilityCard,
+		// 	Model = Model,
+		// });
 	}
 }

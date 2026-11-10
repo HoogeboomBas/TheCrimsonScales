@@ -29,7 +29,7 @@ metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [node name="Scenario" unique_id=2025162200 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1153485185]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1153485185]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -95,7 +95,7 @@ position = Vector2(218.2384, -378)
 MonsterModelId = "LIVING_CORPSE.FROZEN_CADAVER"
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=546988257]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=546988257]
 script = ExtResource("2_5r85s")
 
 [node name="K1b" parent="Map/Rooms/Room2" index="0" unique_id=2009961055 instance=ExtResource("12_vsb2e")]
@@ -185,7 +185,7 @@ position = Vector2(327.358, -1323)
 MonsterModelId = "LIVING_CORPSE.FROZEN_CADAVER"
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1952812949]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1952812949]
 script = ExtResource("2_5r85s")
 
 [node name="B3b" parent="Map/Rooms/Room3" index="0" unique_id=704010289 instance=ExtResource("15_rmipa")]
@@ -227,7 +227,7 @@ MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1264367513]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1264367513]
 script = ExtResource("2_5r85s")
 
 [node name="K2a" parent="Map/Rooms/Room4" index="0" unique_id=1794092510 instance=ExtResource("17_8ne5d")]
@@ -264,6 +264,7 @@ position = Vector2(109.119, 567)
 
 [node name="Treasure1H" parent="Map/Rooms/Room4" index="9" unique_id=785250301 instance=ExtResource("12_6b673")]
 position = Vector2(-109.119, 567)
+TreasureNumber = 35
 
 [node name="MonsterSpawner" parent="Map/Rooms/Room4" index="10" unique_id=550056176 instance=ExtResource("8_u456i")]
 position = Vector2(545.596, 1323)
@@ -303,21 +304,21 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 0
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=1913055212 instance=ExtResource("21_7o3mj")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1913055212 instance=ExtResource("21_7o3mj")]
 position = Vector2(-109.119, -567)
 
 [node name="Marker5" parent="Map/Doors/StoneDoorHorizontal1H" index="6" unique_id=1538352953 instance=ExtResource("13_3c418")]
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="StoneDoorHorizontal1H2" parent="Map/Doors" index="1" unique_id=2094199771 instance=ExtResource("21_7o3mj")]
+[node name="StoneDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=2094199771 instance=ExtResource("21_7o3mj")]
 position = Vector2(982.073, -567)
 
 [node name="Marker6" parent="Map/Doors/StoneDoorHorizontal1H2" index="6" unique_id=1579690466 instance=ExtResource("13_3c418")]
 MarkerType = 26
 _hideDuringPlay = true
 
-[node name="StoneDoorHorizontal1H3" parent="Map/Doors" index="2" unique_id=2109324137 instance=ExtResource("21_7o3mj")]
+[node name="StoneDoorHorizontal1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=2109324137 instance=ExtResource("21_7o3mj")]
 position = Vector2(1091.19, 378)
 rotation = 3.14159
 

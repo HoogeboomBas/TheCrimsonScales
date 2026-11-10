@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cpy4ir5p1cexi"]
+
+[ext_resource type="Texture2D" uid="uid://dtb8t3t6k6ca8" path="res://Content/Classes/Chieftain/Summons/warrior_hawk.png" id="1_r8mtx"]
+
+[resource]
+atlas = ExtResource("1_r8mtx")
+region = Rect2(104, 140, 400, 400)

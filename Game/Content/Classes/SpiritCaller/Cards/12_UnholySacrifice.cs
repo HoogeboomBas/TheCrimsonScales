@@ -63,7 +63,7 @@ public class UnholySacrifice : SpiritCallerCardModel<UnholySacrifice.CardTop, Un
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.HexObjectDestroyedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})

@@ -6,6 +6,12 @@ using Godot;
 
 public partial class Character : Figure
 {
+	public class LongRestActionSource : IActionSource
+	{
+	}
+
+	public readonly LongRestActionSource _longRestActionSource = new LongRestActionSource();
+
 	private Sprite2D _staticSprite;
 	private AnimatedSpriteSheet2D _animatedSprite;
 
@@ -148,7 +154,7 @@ public partial class Character : Figure
 			await summon.Destroy(immediately, forceDestroy);
 		}
 
-		// Make sure items can no longer trigger by setting their owner to null
+		// Make sure items can no longer trigger
 		for(int i = Items.Count - 1; i >= 0; i--)
 		{
 			ItemModel item = Items[i];
@@ -157,7 +163,7 @@ public partial class Character : Figure
 				await AbilityCmd.SpendOrConsume(item);
 			}
 
-			item.SetOwner(null);
+			item.OnOwnerDestroyed(this);
 		}
 
 		for(int i = Cards.Count - 1; i >= 0; i--)
@@ -238,7 +244,7 @@ public partial class Character : Figure
 			return new Initiative()
 			{
 				MainInitiative = 99,
-				SortingInitiative = 99 * 10000000 + 99999
+				SortingInitiative = 99 * 10000000 + 99999 + Index * 100
 			};
 		}
 

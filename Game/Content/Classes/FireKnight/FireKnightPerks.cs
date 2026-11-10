@@ -132,7 +132,7 @@ public class FireKnightPerks
 		public override bool IgnoreItemMinusOneEffects => true;
 	}
 
-	public class FearlessLeader : FireKnightPerk, IEventSubscriber
+	public class FearlessLeader : FireKnightPerk
 	{
 		public override int PerkBoxCount => 2;
 		protected override string Title => "Fearless Leader";
@@ -152,6 +152,7 @@ public class FireKnightPerks
 				{
 					await AbilityCmd.InfuseElement(null, Element.Fire, character);
 					disadvantage = true;
+					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this);
 				});
 
 			ScenarioEvents.DoorOpenedEvent.Subscribe(this,

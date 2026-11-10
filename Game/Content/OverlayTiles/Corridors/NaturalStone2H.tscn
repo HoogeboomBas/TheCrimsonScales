@@ -6,8 +6,8 @@
 [node name="NaturalStone2H" unique_id=1612151355 instance=ExtResource("1_f3wph")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_redgy")
 
-[node name="Hex2" parent="." index="6"]
+[node name="Hex2" parent="." index="6" unique_id=71774410]
 position = Vector2(218.2384, 0)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bol33srqhjpg6"]
+
+[ext_resource type="Texture2D" uid="uid://wfuvghf3n2i2" path="res://Content/Classes/Chieftain/Summons/pack_mule.png" id="1_v100r"]
+
+[resource]
+atlas = ExtResource("1_v100r")
+region = Rect2(50, 165, 400, 600)

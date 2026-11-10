@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dj7mhuqpsukk5"]
+
+[ext_resource type="Texture2D" uid="uid://ufcmlcm2jhex" path="res://Content/Classes/Chieftain/Summons/battle_rhinoceros.png" id="1_4sb7y"]
+
+[resource]
+atlas = ExtResource("1_4sb7y")
+region = Rect2(150, 200, 400, 600)

@@ -20,7 +20,7 @@
 
 [node name="Scenario" unique_id=1453754275 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1485454247]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1485454247]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -56,7 +56,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1348981204]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1348981204]
 script = ExtResource("2_40csl")
 
 [node name="J2b" parent="Map/Rooms/Room2" index="0" unique_id=273340713 instance=ExtResource("6_i888c")]
@@ -134,7 +134,7 @@ MonsterModelId = "MONSTER_MODEL.HARROWER_INFESTER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=1963562095]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=1963562095]
 script = ExtResource("2_40csl")
 
 [node name="J1b" parent="Map/Rooms/Room3" index="0" unique_id=1185506257 instance=ExtResource("12_sln64")]
@@ -210,7 +210,7 @@ MonsterModelId = "MONSTER_MODEL.HARROWER_INFESTER"
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1900663613]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1900663613]
 script = ExtResource("2_40csl")
 
 [node name="B1b" parent="Map/Rooms/Room4" index="0" unique_id=1570136945 instance=ExtResource("14_udspg")]
@@ -245,12 +245,12 @@ position = Vector2(2727.98, 189)
 [node name="Marker5" parent="Map/Rooms/Room4" index="7" unique_id=1162119288 instance=ExtResource("15_xr3mr")]
 position = Vector2(2837.0994, 0)
 
-[node name="StoneDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=821295642 instance=ExtResource("18_vjrsn")]
+[node name="StoneDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=821295642 instance=ExtResource("18_vjrsn")]
 position = Vector2(0, -378)
 rotation = 3.1415927
 
-[node name="DarkFog1H" parent="Map/Doors" index="1" unique_id=2129737725 instance=ExtResource("17_cjnsg")]
+[node name="DarkFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=2129737725 instance=ExtResource("17_cjnsg")]
 position = Vector2(1418.55, 189)
 
-[node name="StoneDoorHorizontal1H2" parent="Map/Doors" index="2" unique_id=1090630694 instance=ExtResource("18_vjrsn")]
+[node name="StoneDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1090630694 instance=ExtResource("18_vjrsn")]
 position = Vector2(2837.0994, 756)

@@ -18,6 +18,7 @@ public class Miser : TheCrimsonScalesBattleGoal
 			parameters =>
 				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
+				parameters.Hex != null &&
 				parameters.Hex.Room != null,
 			async parameters =>
 			{
@@ -31,6 +32,7 @@ public class Miser : TheCrimsonScalesBattleGoal
 			parameters =>
 				!battleGoal.ProgressFull &&
 				parameters.Figure == character &&
+				leavingHex != null &&
 				parameters.Hex.Room != null &&
 				parameters.Hex.Room != leavingHex.Room &&
 				leavingHex.Room.Hexes.Any(hex => hex.HasHexObjectOfType<Coin>()),

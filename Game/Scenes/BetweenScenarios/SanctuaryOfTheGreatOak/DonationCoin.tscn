@@ -45,7 +45,7 @@ Visual = NodePath("Coin")
 
 [node name="Coin" parent="." unique_id=546229570 instance=ExtResource("1_ass6a")]
 
-[node name="Plane" parent="Coin" index="0" unique_id=670868958]
+[node name="Plane" parent="Coin" index="0" unique_id=1601194160]
 transform = Transform3D(15, 0, 0, 0, -6.55671e-07, 20, 0, -15, -8.74228e-07, 0, 0, 0)
 layers = 524288
 material_override = SubResource("StandardMaterial3D_8ad0h")

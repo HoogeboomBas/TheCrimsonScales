@@ -212,7 +212,7 @@ public static class RangeHelper
 
 	public static bool CheckCanPlaceObstacle(Hex targetHex)
 	{
-		// Find all neighbours of the targetHex, and check if one of its neighbours is still connected to the other neighbors
+		// Find all neighbors of the targetHex, and check if one of its neighbors is still connected to the other neighbors
 		List<Hex> walkableNeighbours = new List<Hex>();
 		foreach(Hex neighbour in targetHex.Neighbours)
 		{

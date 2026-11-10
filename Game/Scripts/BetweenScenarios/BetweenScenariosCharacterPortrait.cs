@@ -95,6 +95,7 @@ public partial class BetweenScenariosCharacterPortrait : Control
 		UpdateScaling();
 
 		BetterButton.SetEnabled(false, false);
+		_levelUpButton.SetEnabled(true, false);
 
 		SavedCharacter.GoldChangedEvent += OnGoldChanged;
 		SavedCharacter.XPChangedEvent += OnXPChanged;
@@ -189,7 +190,6 @@ public partial class BetweenScenariosCharacterPortrait : Control
 
 		bool canLevelUp = SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp();
 		_levelUpExclamationMark.SetActive(canLevelUp);
-		_levelUpButton.SetEnabled(canLevelUp, false);
 
 		bool canAcquirePerk = false;
 		for(int i = 0; i < SavedCharacter.ClassModel.Perks.Count; i++)
@@ -291,15 +291,12 @@ public partial class BetweenScenariosCharacterPortrait : Control
 
 	private void OnLevelUpPressed()
 	{
-		if(SavedCharacter.LevelUpInProgress || SavedCharacter.CheckCanLevelUp())
-		{
-			SavedCharacter.TryLevelUp();
+		SavedCharacter.TryLevelUp();
 
-			AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
-			{
-				SavedCharacter = SavedCharacter
-			});
-		}
+		AppController.Instance.PopupManager.RequestPopup(new LevelUpCardSelectionPopup.Request
+		{
+			SavedCharacter = SavedCharacter
+		});
 	}
 
 	private void OnViewportSizeChanged()

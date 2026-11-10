@@ -3,7 +3,7 @@ using Fractural.Tasks;
 public class TowerShield : Prosperity4Item
 {
 	public override string Name => "Tower Shield";
-	public override int ItemNumber => 29;
+	public override int ItemNumber => 32;
 	public override int ShopCount => 2;
 	public override int Cost => 40;
 	public override ItemType ItemType => ItemType.OneHand;

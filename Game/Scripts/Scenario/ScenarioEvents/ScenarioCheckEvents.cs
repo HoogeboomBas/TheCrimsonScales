@@ -147,10 +147,10 @@ public partial class ScenarioCheckEvents
 
 	public class CanPassEnemyCheck : ScenarioCheckEvent<CanPassEnemyCheck.Parameters>
 	{
-		public class Parameters(AbilityState abilityState, Figure figure, Figure enemyFigure)
+		public class Parameters(AbilityState potentialAbilityState, Figure figure, Figure enemyFigure)
 			: ParametersBase
 		{
-			public AbilityState AbilityState { get; } = abilityState;
+			public AbilityState PotentialAbilityState { get; } = potentialAbilityState;
 			public Figure Figure { get; } = figure;
 			public Figure EnemyFigure { get; } = enemyFigure;
 
@@ -159,6 +159,11 @@ public partial class ScenarioCheckEvents
 			public void SetCanPass()
 			{
 				CanPass = true;
+			}
+
+			public void SetCannotPass()
+			{
+				CanPass = false;
 			}
 		}
 	}
@@ -754,4 +759,23 @@ public partial class ScenarioCheckEvents
 
 	private readonly DrawBattleGoalsCheck _drawBattleGoalsCheck = new DrawBattleGoalsCheck();
 	public static DrawBattleGoalsCheck DrawBattleGoalsCheckEvent => GameController.Instance.ScenarioCheckEvents._drawBattleGoalsCheck;
+
+	public class CanUseItemCheck : ScenarioCheckEvent<CanUseItemCheck.Parameters>
+	{
+		public class Parameters(ItemModel itemModel)
+			: ParametersBase
+		{
+			public ItemModel ItemModel { get; } = itemModel;
+
+			public bool IsBlocked { get; private set; }
+
+			public void SetIsBlocked(bool isBlocked)
+			{
+				IsBlocked = isBlocked;
+			}
+		}
+	}
+
+	private readonly CanUseItemCheck _canUseItemCheck = new CanUseItemCheck();
+	public static CanUseItemCheck CanUseItemCheckEvent => GameController.Instance.ScenarioCheckEvents._canUseItemCheck;
 }

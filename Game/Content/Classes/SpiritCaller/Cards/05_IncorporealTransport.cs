@@ -48,7 +48,6 @@ public class IncorporealTransport : SpiritCallerCardModel<IncorporealTransport.C
 							if(state.Performer.AlliedWith(figure) || Spirit.CountsAsSpirit(figure))
 							{
 								list.AddIfNew(figure);
-								break;
 							}
 						}
 					}

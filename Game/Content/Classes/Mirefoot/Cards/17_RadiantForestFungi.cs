@@ -45,7 +45,7 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 					ScenarioCheckEvents.ShieldCheckEvent.Subscribe(state, this,
 						parameters =>
 							state.Performer.AlliedWith(parameters.Figure, true) &&
-							parameters.Figure.Hex.HasHexObjectOfType<DifficultTerrain>(),
+							(parameters.Figure.Hex?.HasHexObjectOfType<DifficultTerrain>() ?? false),
 						applyParameters =>
 						{
 							applyParameters.AdjustShield(2);
@@ -55,7 +55,7 @@ public class RadiantForestFungi : MirefootCardModel<RadiantForestFungi.CardTop, 
 					ScenarioEvents.SufferDamageEvent.Subscribe(state, this,
 						parameters =>
 							state.Performer.AlliedWith(parameters.Figure, true) && parameters.FromAttack &&
-							parameters.Figure.Hex.HasHexObjectOfType<DifficultTerrain>(),
+							(parameters.Figure.Hex?.HasHexObjectOfType<DifficultTerrain>() ?? false),
 						async parameters =>
 						{
 							parameters.AdjustShield(2);

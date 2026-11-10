@@ -12,7 +12,10 @@ public class SurviveXRoundsScenarioGoal : ScenarioGoal
 		_allSurvive = allSurvive;
 	}
 
-	public override string GetLabelText(RichTextParameters textParameters) => $"Survive {_rounds} rounds.";
+	public override string GetLabelText(RichTextParameters textParameters) =>
+		_allSurvive
+			? $"Survive {_rounds} rounds with all Characters."
+			: $"Survive {_rounds} rounds.";
 
 	public override async GDTask Start()
 	{

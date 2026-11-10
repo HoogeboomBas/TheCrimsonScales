@@ -25,7 +25,7 @@ public class LightTheWay : LuminaryCardModel<LightTheWay.CardTop, LightTheWay.Ca
 		{
 			return SummonAbility.Builder()
 				.WithName("Gleaming Squid")
-				.WithTexturePath("res://Content/Classes/Luminary/GleamingSquid.png")
+				.WithTexturePath("res://Content/Classes/Luminary/GleamingSquid.jpg")
 				.WithHealth(3)
 				.WithMove(3)
 				.WithAttack(2)

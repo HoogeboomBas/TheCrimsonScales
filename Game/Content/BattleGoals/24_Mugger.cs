@@ -38,7 +38,8 @@ public class Mugger : TheCrimsonScalesBattleGoal
 		ScenarioEvents.CoinLootedEvent.Subscribe(character, this,
 			parameters =>
 				!battleGoal.ProgressFull &&
-				roundCoinsToCoinDroppersMap.ContainsKey(parameters.Coin) && 
+				parameters.LootObtainer == character &&
+				roundCoinsToCoinDroppersMap.ContainsKey(parameters.Coin) &&
 				roundKilledFigures.Contains(roundCoinsToCoinDroppersMap[parameters.Coin]),
 			async parameters =>
 			{

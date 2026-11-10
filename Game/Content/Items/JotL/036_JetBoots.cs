@@ -21,7 +21,7 @@ public class JetBoots : JotLItem
 			{
 				await Use(async user =>
 				{
-					state.AdjustMoveValue(2);
+					state.AdjustMoveValue(1);
 					state.AddJump();
 
 					await GDTask.CompletedTask;

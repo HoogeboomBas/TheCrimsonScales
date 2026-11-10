@@ -85,7 +85,7 @@ public class RuinmawPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class FollowTheScent : RuinmawPerk, IEventSubscriber
+	public class FollowTheScent : RuinmawPerk
 	{
 		protected override string Title => "Follow the Scent";
 
@@ -116,7 +116,7 @@ public class RuinmawPerks
 		}
 	}
 
-	public class ALullInHunger : RuinmawPerk, IEventSubscriber
+	public class ALullInHunger : RuinmawPerk
 	{
 		protected override string Title => "A Lull in Hunger";
 
@@ -129,7 +129,7 @@ public class RuinmawPerks
 
 			ScenarioEvents.CoinLootedEvent.Subscribe(this,
 				parameters => parameters.LootObtainer == character,
-				async parameters =>
+				async _ =>
 				{
 					await RuinmawCardSide.SateRuinmaw(character);
 				}, EffectType.Selectable,
@@ -152,7 +152,7 @@ public class RuinmawPerks
 
 			if(character is Ruinmaw ruinmawCharacter)
 			{
-				ruinmawCharacter.SateEvent += async ruinmaw => await AbilityCmd.AddCondition(null, ruinmaw, Conditions.Ward);
+				ruinmawCharacter.SateEvent += async ruinmaw => await AbilityCmd.AddCondition(null, ruinmaw, Conditions.Ward, ruinmaw);
 			}
 		}
 	}

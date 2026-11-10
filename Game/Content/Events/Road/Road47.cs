@@ -65,9 +65,8 @@ public class Road47 : RoadEventModel<Road47.ChoiceA, Road47.ChoiceB>
 			ScenarioEvents.DuringHealEvent.Subscribe(this,
 				parameters =>
 					parameters.Performer is Character character &&
-					parameters.AbilityState.Target == character &&
 					character.LongResting &&
-					parameters.AbilityState.ActionState.ActionSource == null,
+					parameters.AbilityState.ActionState.ActionSource is Character.LongRestActionSource,
 				async parameters =>
 				{
 					parameters.AbilityState.AbilityAdjustHealValue(1);

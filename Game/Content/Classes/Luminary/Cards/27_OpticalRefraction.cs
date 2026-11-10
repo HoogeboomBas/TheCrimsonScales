@@ -75,7 +75,6 @@ public class OpticalRefraction : LuminaryCardModel<OpticalRefraction.CardTop, Op
 								await glowActionState.RequestDiscardOrLose();
 							}
 
-							//TODO: Change to work with the damage glow
 							if(applyParameters.AbilityState is IAOEAbilityState aoeAbilityState &&
 							   aoeAbilityState.GetRedAOEHexes().Any())
 							{

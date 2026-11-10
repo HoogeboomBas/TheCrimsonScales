@@ -70,6 +70,8 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 				canApplyParameters => true,
 				async applyParameters =>
 				{
+					ScenarioEvents.AbilityEndedEvent.Unsubscribe(state, this);
+
 					ActionState healAbility = new ActionState(state.Performer, [
 						HealAbility.Builder()
 							.WithHealValue(1)
@@ -78,8 +80,6 @@ public class ForceField : StarslingerCardModel<ForceField.CardTop, ForceField.Ca
 					]);
 
 					await healAbility.Perform();
-
-					ScenarioEvents.AbilityEndedEvent.Unsubscribe(state, this);
 				}
 			);
 

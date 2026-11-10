@@ -24,7 +24,7 @@ public class ShiftingCompass : CS2Item
 						ControlAbility.Builder()
 							.WithGetAbilities(state =>
 							[
-								MoveAbility.Builder().WithDistance(2).Build()
+								MoveAbility.Builder().WithDistance(2).WithMoveType(MoveType.Jump).Build()
 							])
 							.WithRange(5)
 							.Build()

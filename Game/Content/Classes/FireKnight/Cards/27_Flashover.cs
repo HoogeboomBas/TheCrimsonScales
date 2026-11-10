@@ -31,25 +31,23 @@ public class Flashover : FireKnightLevelUpCardModel<Flashover.CardTop, Flashover
 					await summonAbility.Perform(state.ActionState);
 					SummonAbility.State summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(1);
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(summonAbilityState, summonAbility);
-					int characterTokens = 0;
 
 					ScenarioEvents.FigureKilledEvent.Subscribe(state, this,
 						canApplyParameters => canApplyParameters.Figure == summonAbilityState.Summon,
 						async parameters =>
 						{
-							if(characterTokens < 2)
+							if(state.CharacterTokens < 2)
 							{
-								characterTokens++;
-								//TODO: Add visual indicator for number of character tokens
-								ScenarioEvents.FigureTurnEndedEvent.Subscribe(state, this,
+								state.AdjustCharacterTokens(1);
+								ScenarioEvents.FigureTurnEndingEvent.Subscribe(state, this,
 									canApplyParameters => canApplyParameters.Figure == state.Performer,
 									async applyParameters =>
 									{
 										summonAbility = SummonDrakefiend();
 										await summonAbility.Perform(state.ActionState);
-										summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(characterTokens + 1);
+										summonAbilityState = state.ActionState.GetAbilityState<SummonAbility.State>(state.CharacterTokens + 1);
 										ScenarioEvents.FigureKilledEvent.Unsubscribe(summonAbilityState, summonAbility);
-										ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+										ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
 										await GDTask.CompletedTask;
 									}
@@ -67,10 +65,11 @@ public class Flashover : FireKnightLevelUpCardModel<Flashover.CardTop, Flashover
 				.WithOnDeactivate(async state =>
 				{
 					ScenarioEvents.FigureKilledEvent.Unsubscribe(state, this);
-					ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(state, this);
+					ScenarioEvents.FigureTurnEndingEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
+				.WithCharacterTokenPosition(new Vector2(0.13732624f, 0.39501387f))
 				.Build())
 		];
 

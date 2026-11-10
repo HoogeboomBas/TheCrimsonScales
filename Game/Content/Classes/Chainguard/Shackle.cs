@@ -1,12 +1,11 @@
-using System.Linq;
+﻿using System.Linq;
 using Fractural.Tasks;
-using Godot;
 
 public class Shackle : ConditionModel
 {
 	public override string Name => "Shackle";
 	public override string IconPath => "res://Content/Classes/Chainguard/Shackle.svg";
-	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
+	public override ConditionPolarity ConditionPolarity => ConditionPolarity.None;
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Immobilize];
 	public override bool RequiresGiver => true;
 	public override bool ShouldShowOnFigure => false;
@@ -57,7 +56,20 @@ public class Shackle : ConditionModel
 			parameters =>
 			{
 				parameters.SetCannotPass();
-			}
+			},
+			order: 10
+		);
+
+		// Don't allow movement through an enemy that is adjacent to the Chainguard
+		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(condition,
+			parameters =>
+				parameters.Figure == condition.Owner &&
+				RangeHelper.GetFiguresInRange(parameters.EnemyFigure.Hex, 1).Any(figure => figure == condition.PotentialGiver),
+			parameters =>
+			{
+				parameters.SetCannotPass();
+			},
+			order: 10
 		);
 	}
 
@@ -72,4 +84,7 @@ public class Shackle : ConditionModel
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 		ScenarioCheckEvents.CanPassAllyCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot perform any move abilities while adjacent to the figure who inflicted this condition and monsters do not take that effect into account when determining movement. This condition is normally removed when another figure is shackled.";
 }

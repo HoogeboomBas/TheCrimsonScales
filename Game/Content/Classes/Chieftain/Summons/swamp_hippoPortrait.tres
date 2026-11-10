@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bl0uye22bj6qk"]
+
+[ext_resource type="Texture2D" uid="uid://xm8c172y7ei6" path="res://Content/Classes/Chieftain/Summons/swamp_hippo.png" id="1_icfcw"]
+
+[resource]
+atlas = ExtResource("1_icfcw")
+region = Rect2(30, 155, 400, 600)

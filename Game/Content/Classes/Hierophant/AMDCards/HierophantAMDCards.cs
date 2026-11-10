@@ -111,8 +111,8 @@ public class HierophantAMDCards
 
 		public override string ToString(RichTextParameters richTextParameters) =>
 			GetBasicString(richTextParameters, +0,
-				extraText:
-				$"{Icons.Inline(Icons.Heal, richTextParameters)}1, {Icons.Inline(Icons.Targets, richTextParameters)}1 ally or self");
+				extraText: $"{Icons.Inline(Icons.Heal, richTextParameters)}1, {Icons.Inline(Icons.Targets, richTextParameters)}1 ally or self",
+				rolling: true);
 
 		protected override int AtlasIndex => 11;
 		public override bool GetRolling(AttackAbility.State attackAbilityState) => true;

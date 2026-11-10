@@ -36,7 +36,7 @@ public class Supernova : StarslingerCardModel<Supernova.CardTop, Supernova.CardB
 
 							await AbilityCmd.GainXP(parameters.Performer, 1);
 						},
-						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Attack)}, -1{Icons.Inline(Icons.Range)}")
+						effectInfoViewParameters: new TextEffectInfoView.Parameters($"+1{Icons.Inline(Icons.Targets)}, -1{Icons.Inline(Icons.Range)}")
 					)
 				)
 				.Build())

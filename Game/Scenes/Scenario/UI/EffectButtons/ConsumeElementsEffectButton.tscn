@@ -6,11 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d043xqe7kffio" path="res://Art/Icons/Elements/Consume.svg" id="4_eth7g"]
 [ext_resource type="PackedScene" uid="uid://c8a610q1aglpc" path="res://Scenes/Scenario/UI/EffectButtons/ConsumeElementsEffectButtonElement.tscn" id="5_dou83"]
 
-[node name="ConsumeElementsEffectButton" unique_id=1277349269 node_paths=PackedStringArray("_singleElementContainer", "_singleElementTextureRect", "_singleElementConsumeTextureRect", "_multipleElementsContainer", "_elementsContainer", "_button", "_panel") instance=ExtResource("1_yi3lj")]
+[node name="ConsumeElementsEffectButton" unique_id=1277349269 node_paths=PackedStringArray("_singleElementContainer", "_singleElementTextureRect", "_multipleElementsContainer", "_elementsContainer", "_button", "_panel") instance=ExtResource("1_yi3lj")]
 script = ExtResource("2_kb35e")
 _singleElementContainer = NodePath("BetterButton/Panel/MarginContainer/Container/SingleElementContainer")
 _singleElementTextureRect = NodePath("BetterButton/Panel/MarginContainer/Container/SingleElementContainer/TextureRect")
-_singleElementConsumeTextureRect = NodePath("BetterButton/Panel/MarginContainer/Container/SingleElementContainer/ConsumeIcon")
 _multipleElementsContainer = NodePath("BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer")
 _elementsContainer = NodePath("BetterButton/Panel/MarginContainer/Container/MultipleElementsContainer/HBoxContainer")
 _elementIconScene = ExtResource("5_dou83")

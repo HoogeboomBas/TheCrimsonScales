@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
+using Newtonsoft.Json;
 
 public class NaturalSelection : TheCrimsonScalesPersonalQuest<NaturalSelection.Data>
 {
 	public class Data : PersonalQuestData
 	{
+		[JsonProperty]
 		public List<Element> Elements { get; private set; } = new List<Element>();
 	}
 
@@ -36,4 +38,3 @@ public class NaturalSelection : TheCrimsonScalesPersonalQuest<NaturalSelection.D
 		);
 	}
 }
-

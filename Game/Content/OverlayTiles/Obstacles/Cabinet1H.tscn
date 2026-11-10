@@ -5,5 +5,5 @@
 
 [node name="Cabinet1H" unique_id=710285690 instance=ExtResource("1_jw76h")]
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_jw76h")

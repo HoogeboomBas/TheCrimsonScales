@@ -35,7 +35,7 @@ public class HurriedRepairs : BombardCardModel<HurriedRepairs.CardTop, HurriedRe
 				{
 					ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
 						parameters =>
-							parameters.AbilityState == state &&
+							parameters.PotentialAbilityState == state &&
 							parameters.Figure == state.Performer,
 						parameters =>
 						{

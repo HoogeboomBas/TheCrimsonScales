@@ -10,7 +10,7 @@ public class ChainguardModel : ClassModel
 
 	public override List<EventModel> UnlockEvents { get; } =
 	[
-		//ModelDB.Event<City43>(),
+		ModelDB.Event<City43>(),
 		ModelDB.Event<Road43>(),
 	];
 

@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" format=3 uid="uid://275gden5yn2s"]
 
-[ext_resource type="Texture2D" uid="uid://bbhygy722humr" path="res://Content/Classes/Mirefoot/FlailingIvies.png" id="1_f4t25"]
+[ext_resource type="Texture2D" uid="uid://dssqg7sqkh5f5" path="res://Content/Classes/Mirefoot/FlailingIvies.jpg" id="1_f4t25"]
 
 [resource]
 atlas = ExtResource("1_f4t25")
-region = Rect2(0, 0, 512, 512)
+region = Rect2(100, 200, 700, 700)

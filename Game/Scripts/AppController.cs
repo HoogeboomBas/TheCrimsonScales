@@ -32,6 +32,9 @@ public partial class AppController : SingletonNode<AppController>
 	[Export]
 	public StoryView StoryView { get; private set; }
 
+	// [Export]
+	// public TooltipView TooltipView { get; private set; }
+
 	// public SaveFile SaveFile { get; private set; }
 	public SaveManager SaveManager { get; private set; }
 
@@ -53,17 +56,6 @@ public partial class AppController : SingletonNode<AppController>
 	public override void _Ready()
 	{
 		base._Ready();
-
-		//TODO: Reimplement this warning when continuing with a campaign save file
-// 		if(SaveFile.RemovedSavedScenario)
-// 		{
-// 			PopupManager.RequestPopup(new TextPopup.Request("New Version",
-// 				"""
-// 				A new version of The Crimson Scales was installed. This unfortunately meant that the progress on the last scenario was incompatible with the new version.
-//
-// 				Please always make sure to finish up a scenario before installing a new version of the application!
-// 				"""));
-// 		}
 
 		RNG = new RandomNumberGenerator();
 		RNG.Randomize();

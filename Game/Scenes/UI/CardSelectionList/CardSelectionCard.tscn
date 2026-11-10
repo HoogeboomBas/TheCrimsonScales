@@ -7,6 +7,7 @@
 [ext_resource type="LabelSettings" uid="uid://d235d2njdpdmg" path="res://Resources/ButtonLabel.tres" id="5_b7evf"]
 [ext_resource type="Shader" uid="uid://cg26rea5jvj0r" path="res://Shaders/TintGrayscale.gdshader" id="6_72eni"]
 [ext_resource type="Texture2D" uid="uid://bhjy7s2mheqbu" path="res://Art/AbilityCardExample.tres" id="7_84o0e"]
+[ext_resource type="PackedScene" uid="uid://pit4gd0ldlxw" path="res://Scenes/UI/Popups/InspectPopup/InspectButton.tscn" id="8_hgfth"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_teg01"]
 corner_radius_top_left = 10
@@ -17,7 +18,7 @@ corner_radius_bottom_left = 10
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0audc"]
 shader = ExtResource("6_72eni")
 
-[node name="CardSelectionCard" type="Control" unique_id=1027414232 node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer")]
+[node name="CardSelectionCard" type="Control" unique_id=1027414232 node_paths=PackedStringArray("_container", "_textureRect", "_initiativeLabel", "_cardButton", "_initiativeButton", "_initiativeIndicatorContainer", "_inspectButton")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 470.0
@@ -30,6 +31,7 @@ _initiativeLabel = NodePath("Container/InitiativeButton/TextureRect/Label")
 _cardButton = NodePath("Container/CardButton")
 _initiativeButton = NodePath("Container/InitiativeButton")
 _initiativeIndicatorContainer = NodePath("InitiativeIndicator")
+_inspectButton = NodePath("Container/CardButton/InspectButton")
 
 [node name="InitiativeIndicator" type="Control" parent="." unique_id=1088246835]
 layout_mode = 1
@@ -75,6 +77,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -84,9 +87,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 4
 anchor_left = 0.0
@@ -106,7 +110,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -181,6 +195,7 @@ self_modulate = Color(1, 1, 1, 1)
 show_behind_parent = false
 top_level = false
 clip_children = 0
+oversampling_with_scale = 0
 light_mask = 1
 visibility_layer = 1
 z_index = 0
@@ -190,9 +205,10 @@ texture_filter = 0
 texture_repeat = 0
 material = null
 use_parent_material = false
-clip_contents = false
 custom_minimum_size = Vector2(0, 0)
-layout_direction = 0
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
 layout_mode = 1
 anchors_preset = 4
 anchor_left = 0.0
@@ -212,7 +228,17 @@ pivot_offset_ratio = Vector2(0, 0)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
 localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
 tooltip_text = ""
 tooltip_auto_translate_mode = 0
 focus_neighbor_left = NodePath("")
@@ -280,3 +306,6 @@ grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("7_84o0e")
 expand_mode = 1
+
+[node name="InspectButton" parent="Container/CardButton" unique_id=955398738 instance=ExtResource("8_hgfth")]
+layout_mode = 1

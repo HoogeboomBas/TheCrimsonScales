@@ -1,5 +1,3 @@
-using Fractural.Tasks;
-
 public class ShoesOfPhasing : CS1Item
 {
 	public override string Name => "Shoes Of Phasing";
@@ -25,7 +23,7 @@ public class ShoesOfPhasing : CS1Item
 		base.Subscribe();
 
 		ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(this, _subscriber,
-			canApplyParameters => canApplyParameters.AbilityState.Performer == Owner,
+			canApplyParameters => canApplyParameters.PotentialAbilityState != null && canApplyParameters.PotentialAbilityState.Performer == Owner,
 			applyParameters =>
 			{
 				applyParameters.SetCanPass();

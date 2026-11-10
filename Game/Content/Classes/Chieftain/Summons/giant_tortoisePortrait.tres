@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://yddkiwgg88a6"]
+
+[ext_resource type="Texture2D" uid="uid://b1uly2qqdipra" path="res://Content/Classes/Chieftain/Summons/giant_tortoise.png" id="1_whluv"]
+
+[resource]
+atlas = ExtResource("1_whluv")
+region = Rect2(45, 180, 400, 600)

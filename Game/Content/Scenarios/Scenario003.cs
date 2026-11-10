@@ -125,7 +125,7 @@ public class Scenario003 : ScenarioModel
 					Hex newHex = _waterSpawnHexes[i];
 					Water newWater =
 						await AbilityCmd.CreateDifficultTerrain(newHex,
-							SceneLoader.LoadPackedScene("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn")) as Water;
+							SceneLoader.LoadPackedScene("res://Content/OverlayTiles/DifficultTerrain/Water1H.tscn"), forceSpawn: true) as Water;
 					_waterTiles.Add(newWater);
 				}
 

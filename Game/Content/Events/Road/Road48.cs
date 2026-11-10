@@ -15,7 +15,7 @@ public class Road48 : RoadEventModel<Road48.ChoiceA, Road48.ChoiceB>
 	public class ChoiceAOnScenarioStartedReward : OnScenarioStartedReward
 	{
 		public override string GetLabelText(RichTextParameters textParameters) =>
-			$"One character starts the scenario with {Icons.Inline(Icons.GetCondition(Conditions.Muddle), textParameters)}, all other characters start with {Icons.Inline(Icons.GetCondition(Conditions.Strengthen), textParameters)}.";
+			$"One character starts the scenario with {Icons.InlineCondition(Conditions.Muddle, textParameters)}, all other characters start with {Icons.InlineCondition(Conditions.Strengthen, textParameters)}.";
 
 		public override async GDTask OnScenarioSetupPhaseCompleted()
 		{
@@ -56,7 +56,7 @@ public class Road48 : RoadEventModel<Road48.ChoiceA, Road48.ChoiceB>
 	public class ChoiceBOnScenarioStartedReward : OnScenarioStartedReward
 	{
 		public override string GetLabelText(RichTextParameters textParameters) =>
-			$"One character starts the scenario with {Icons.Inline(Icons.GetCondition(Conditions.Stun), textParameters)}, all other characters start with {Icons.Inline(Icons.GetCondition(Conditions.Invisible), textParameters)}.";
+			$"One character starts the scenario with {Icons.InlineCondition(Conditions.Stun, textParameters)}, all other characters start with {Icons.InlineCondition(Conditions.Invisible, textParameters)}.";
 
 		public override async GDTask OnScenarioSetupPhaseCompleted()
 		{
@@ -85,7 +85,7 @@ public class Road48 : RoadEventModel<Road48.ChoiceA, Road48.ChoiceB>
 
 		public override string GetStoryText(SavedEventState state) =>
 			"""
-			You ask the Vermling to hold nothing back and she begins to shriek and wave her hands frantically in the air. The light intensifies until it becomes blinding and you shudder as you close your eyes. All of a sudden, her shrieking stops and you open your eyes to find nothing but a singed twig in the place of the bush, and a burning sensation running through you like nothing you've ever experienced before. 
+			You ask the Vermling to hold nothing back and she begins to shriek and wave her hands frantically in the air. The light intensifies until it becomes blinding and you shudder as you close your eyes. All of a sudden, her shrieking stops and you open your eyes to find nothing but a singed twig in the place of the bush, and a burning sensation running through you like nothing you've ever experienced before.
 			""";
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>

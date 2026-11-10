@@ -14,7 +14,7 @@
 
 [node name="Scenario" unique_id=834794704 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=221520441]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=221520441]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -43,7 +43,7 @@ position = Vector2(436.477, 0)
 
 [node name="Marker" parent="Map/Rooms/Room/AltarHorizontalObjective1H" index="8" unique_id=1598046051 instance=ExtResource("15_xr3mr")]
 
-[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H/Marker" index="1"]
+[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
 [node name="AltarHorizontalObjective1H2" parent="Map/Rooms/Room" index="7" unique_id=191293844 instance=ExtResource("6_e7oa7")]
@@ -52,10 +52,10 @@ position = Vector2(-654.715, 756)
 [node name="Marker" parent="Map/Rooms/Room/AltarHorizontalObjective1H2" index="8" unique_id=472324628 instance=ExtResource("15_xr3mr")]
 MarkerType = 2
 
-[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H2/Marker" index="1"]
+[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H2/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Rooms/Room/AltarHorizontalObjective1H2/Marker/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Rooms/Room/AltarHorizontalObjective1H2/Marker/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("8_enh65")
 
 [node name="AltarHorizontalObjective1H3" parent="Map/Rooms/Room" index="8" unique_id=1752670976 instance=ExtResource("6_e7oa7")]
@@ -64,10 +64,10 @@ position = Vector2(436.477, 1512)
 [node name="Marker" parent="Map/Rooms/Room/AltarHorizontalObjective1H3" index="8" unique_id=1353562884 instance=ExtResource("15_xr3mr")]
 MarkerType = 1
 
-[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H3/Marker" index="1"]
+[node name="Visual" parent="Map/Rooms/Room/AltarHorizontalObjective1H3/Marker" index="1" unique_id=818755345]
 position = Vector2(-60, -36)
 
-[node name="Sprite2D" parent="Map/Rooms/Room/AltarHorizontalObjective1H3/Marker/Visual" index="0"]
+[node name="Sprite2D" parent="Map/Rooms/Room/AltarHorizontalObjective1H3/Marker/Visual" index="0" unique_id=2033660287]
 texture = ExtResource("9_hjhce")
 
 [node name="CharacterStartHex" parent="Map/Rooms/Room" index="9" unique_id=581477004 instance=ExtResource("9_56l1d")]

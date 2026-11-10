@@ -1,6 +1,6 @@
 using System.Linq;
 
-public class LuckyEye : Prosperity1Item
+public class LuckyEye : Prosperity8Item
 {
 	public override string Name => "Lucky Eye";
 	public override int ItemNumber => 63;
@@ -9,7 +9,7 @@ public class LuckyEye : Prosperity1Item
 	public override ItemType ItemType => ItemType.Small;
 	public override ItemUseType ItemUseType => ItemUseType.Consume;
 
-	protected override int AtlasIndex => 22;
+	protected override int AtlasIndex => 12;
 
 	protected override void Subscribe()
 	{
@@ -23,7 +23,7 @@ public class LuckyEye : Prosperity1Item
 				{
 					foreach(Figure figure in RangeHelper.GetFiguresInRange(user.Hex, 1).Where(figure => user.AlliedWith(figure, true)))
 					{
-						await AbilityCmd.AddCondition(null, figure, Conditions.Strengthen);
+						await AbilityCmd.AddCondition(null, figure, Conditions.Strengthen, user);
 					}
 				});
 			}

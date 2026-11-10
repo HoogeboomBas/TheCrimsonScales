@@ -8,11 +8,11 @@
 script = ExtResource("2_85se7")
 _cardSideView = NodePath("MarginContainer/Content/CardSideView")
 
-[node name="LabelContainer" parent="MarginContainer/Content" index="0"]
+[node name="LabelContainer" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="0" unique_id=520630334]
 custom_minimum_size = Vector2(320, 47)
 
-[node name="Label" parent="MarginContainer/Content/LabelContainer" index="0"]
+[node name="Label" parent="MarginContainer/Content/LabelContainer" index="0" unique_id=1652435008]
 text = "Projectile"
 
-[node name="CardSideView" parent="MarginContainer/Content" index="1" unique_id=2046928161 instance=ExtResource("3_52ma0")]
+[node name="CardSideView" parent="MarginContainer/Content" parent_id_path=PackedInt32Array(1858054355) index="1" unique_id=2046928161 instance=ExtResource("3_52ma0")]
 layout_mode = 2

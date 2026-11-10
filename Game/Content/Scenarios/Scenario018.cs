@@ -24,12 +24,7 @@ public class Scenario018 : ScenarioModel
 		protected override void EnhancementBoughtApplyFunction(BetweenScenariosEvents.EnhancementBought.Parameters parameters)
 		{
 			int costAdjustment = parameters.BaseCost - parameters.Cost;
-			SetCustomValue(parameters.Buyer.Guid.ToString(), int.Min(100, GetCustomValue<int>(parameters.Buyer.Guid.ToString() + costAdjustment)));
-
-			// if(parameters.EnhancementModel is IPlusOneEnhancement && parameters.SavedAbilityCard.Model.Level == 1)
-			// {
-			// 	Complete();
-			// }
+			SetCustomValue(parameters.Buyer.Guid.ToString(), int.Min(100, GetCustomValue<int>(parameters.Buyer.Guid.ToString()) + costAdjustment));
 		}
 	}
 
@@ -72,16 +67,14 @@ public class Scenario018 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario021>()),
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Immobilize)
+	];
+
 	private IEnumerable<Hex> _markerHexes;
 
 	private CustomScenarioGoal _goal;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
-	}
 
 	public override async GDTask InitializeAfterFirstRoomRevealed()
 	{

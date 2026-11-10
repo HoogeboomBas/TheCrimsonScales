@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="The Crimson Scales"
-config/version="0.5.1"
+config/version="0.9.11"
 run/main_scene="uid://coxp0vgao3884"
-config/features=PackedStringArray("4.6", "C#", "Mobile")
+config/features=PackedStringArray("4.7", "C#", "Mobile")
 boot_splash/bg_color=Color(0.14902, 0.176471, 0.2, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="uid://5e1k8j5eg7ip"
 
 [autoload]
 
@@ -37,7 +37,7 @@ project/assembly_name="Game"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ModelIdDropdownPlugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/ModelIdDropdownPlugin/plugin.cfg", "res://addons/auto_polygon2d_triangulation/plugin.cfg")
 
 [gui]
 
@@ -78,6 +78,10 @@ skip_ai_decision={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[internationalization]
+
+rendering/icon="res://cs-crimson-scales-icon.png"
 
 [layer_names]
 

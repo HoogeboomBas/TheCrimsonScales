@@ -46,11 +46,11 @@ public class ReachingDarkness : HollowpactCardModel<ReachingDarkness.CardTop, Re
 				{
 					return
 						await AbilityCmd.HasPerformedAbility(state, 0) &&
+						state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).UniqueTargetedFigures.Count > 0 &&
 						!state.ActionState.GetAbilityState<SufferDamageAbility.State>(0).UniqueTargetedFigures.First().IsDead &&
 						await LoseVoidEnergyConditionalAbilityCheck(state.Performer, 1,
 							new TextEffectInfoView.Parameters(
 								$"{Icons.Inline(Icons.Teleport)} to any hex adjacent to the enemy, then perform {Icons.Inline(Icons.Attack)}2, {Icons.Inline(Icons.GetCondition(Conditions.Stun))}"));
-					;
 				})
 				.Build()),
 

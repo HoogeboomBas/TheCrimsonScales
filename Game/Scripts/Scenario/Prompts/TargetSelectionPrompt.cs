@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class TargetSelectionPrompt(
-	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool autoSkipIfNone, bool mandatory, EffectCollection effectCollection,
+	Action<List<Figure>> getValidTargets, bool autoSelectIfOne, bool autoSkipIfNone, bool autoConfirmIfOne, bool mandatory, EffectCollection effectCollection,
 	Func<string> getHintText)
 	: Prompt<TargetSelectionPrompt.Answer>(effectCollection, getHintText)
 {
@@ -26,11 +26,11 @@ public class TargetSelectionPrompt(
 		_validTargets.Clear();
 		getValidTargets(_validTargets);
 
-		if(autoSelectIfOne && _validTargets.Count == 1)
+		if((autoSelectIfOne || autoConfirmIfOne) && _validTargets.Count == 1)
 		{
 			_selectedFigure = _validTargets[0];
 
-			if(mandatory)
+			if(mandatory || autoConfirmIfOne)
 			{
 				Complete(true);
 			}
@@ -51,6 +51,11 @@ public class TargetSelectionPrompt(
 		HashSet<Hex> hexes = _validTargets.SelectMany(figure => figure.Hexes).ToHashSet();
 		foreach(Hex hex in hexes)
 		{
+			if(hex == null)
+			{
+				continue;
+			}
+
 			GameController.Instance.HexIndicatorManager.SetIndicator(hex,
 				_selectedFigure?.Hexes.Contains(hex) ?? false ? HexIndicatorType.Selected : HexIndicatorType.Normal,
 				OnIndicatorPressed);

@@ -14,7 +14,7 @@ public class ChestThumper : ChieftainCardModel<ChestThumper.CardTop, ChestThumpe
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Lowland Gorilla")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/lowland_gorilla_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/lowland_gorilla.png")
 				.WithHealth(7, new SummonHealthSquare(this, new Vector2(0.4473646f, 0.18335739f)))
 				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.67825043f, 0.18335739f)))
 				.WithAttack(2, new SummonAttackSquare(this, new Vector2(0.4473646f, 0.25967413f)))

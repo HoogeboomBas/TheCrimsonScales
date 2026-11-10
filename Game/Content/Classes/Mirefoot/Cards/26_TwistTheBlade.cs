@@ -35,9 +35,6 @@ public class TwistTheBlade : MirefootCardModel<TwistTheBlade.CardTop, TwistTheBl
 						}))
 				.Build())
 		];
-
-		public override int XP => 1;
-		public override bool Persistent => true;
 	}
 
 	public class CardBottom : MirefootCardSide

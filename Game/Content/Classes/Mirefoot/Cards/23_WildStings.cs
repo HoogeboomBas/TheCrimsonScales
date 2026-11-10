@@ -30,7 +30,7 @@ public class WildStings : MirefootCardModel<WildStings.CardTop, WildStings.CardB
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Crypt Nettle")
-				.WithTexturePath("res://Content/Classes/Mirefoot/CryptNettle.png")
+				.WithTexturePath("res://Content/Classes/Mirefoot/CryptNettle.jpg")
 				.WithHealth(3)
 				.WithAttack(1)
 				.WithTraits(new ApplyConditionTrait(Conditions.Poison1),

@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://ma5sm3k8s538"]
-
-[ext_resource type="Texture2D" uid="uid://n1f537om623x" path="res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png" id="1_g160a"]
-
-[resource]
-atlas = ExtResource("1_g160a")
-region = Rect2(70, 60, 400, 600)

@@ -14,7 +14,7 @@ public class CatastrophicCattle : ChieftainCardModel<CatastrophicCattle.CardTop,
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Fighting Bull")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/fighting_bull_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/fighting_bull.png")
 				.WithHealth(4, new SummonHealthSquare(this, new Vector2(0.44718847f, 0.23893806f)))
 				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.67835045f, 0.23893806f)))
 				.WithAttack(2, new SummonAttackSquare(this, new Vector2(0.44718847f, 0.31493726f)))

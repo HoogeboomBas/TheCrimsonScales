@@ -8,7 +8,8 @@ public class CardSelectionPrompt(
 	int minSelectionCount,
 	int maxSelectionCount,
 	EffectCollection effectCollection,
-	Func<string> getHintText)
+	Func<string> getHintText,
+	bool autoSelectIfAllCanBeSelected = false)
 	: Prompt<CardSelectionPrompt.Answer>(effectCollection, getHintText)
 {
 	public class Answer : PromptAnswer
@@ -45,6 +46,11 @@ public class CardSelectionPrompt(
 		}
 
 		_selectedCards.Clear();
+
+		if(autoSelectIfAllCanBeSelected && _selectableCards.Count >= minSelectionCount && _selectableCards.Count <= maxSelectionCount)
+		{
+			_selectedCards.AddRange(_selectableCards);
+		}
 
 		GameController.Instance.CardSelectionView.Open(_cards, OnCardPressed, OnInitiativePressed, null, null);
 	}

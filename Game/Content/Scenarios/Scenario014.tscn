@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://cgqyf8xqnnevf"
 
 [node name="Scenario" unique_id=707649277 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=193227889]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=193227889]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -104,7 +104,7 @@ position = Vector2(-109.119, 189)
 [node name="CharacterStartHex5" parent="Map/Rooms/Room" index="14" unique_id=746364656 instance=ExtResource("9_56l1d")]
 position = Vector2(109.119, 189)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=46185050]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=46185050]
 script = ExtResource("2_40csl")
 
 [node name="J2b" parent="Map/Rooms/Room2" index="0" unique_id=1255187460 instance=ExtResource("8_40csl")]
@@ -180,7 +180,7 @@ position = Vector2(1527.6688, -378)
 ScaledDamage = false
 ConditionModels = Array[Object]([SubResource("Resource_uvc16"), SubResource("Resource_0kd31")])
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=784100424]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=784100424]
 script = ExtResource("2_40csl")
 
 [node name="L3b" parent="Map/Rooms/Room3" index="0" unique_id=1447310062 instance=ExtResource("10_uc2oh")]
@@ -256,7 +256,7 @@ MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1436803060]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1436803060]
 script = ExtResource("2_40csl")
 
 [node name="B4b" parent="Map/Rooms/Room4" index="0" unique_id=409460750 instance=ExtResource("13_nousr")]
@@ -295,7 +295,7 @@ MonsterModelId = "MONSTER_MODEL.DEEP_TERROR"
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="DarkFog1H" parent="Map/Doors" index="0" unique_id=1469231779 instance=ExtResource("14_w4e10")]
+[node name="DarkFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1469231779 instance=ExtResource("14_w4e10")]
 position = Vector2(436.4768, 0)
 _startsLocked = true
 
@@ -303,8 +303,8 @@ _startsLocked = true
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="DarkFog1H2" parent="Map/Doors" index="1" unique_id=711361769 instance=ExtResource("14_w4e10")]
+[node name="DarkFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=711361769 instance=ExtResource("14_w4e10")]
 position = Vector2(1636.788, 189)
 
-[node name="DarkFog1H3" parent="Map/Doors" index="2" unique_id=1165655308 instance=ExtResource("14_w4e10")]
+[node name="DarkFog1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1165655308 instance=ExtResource("14_w4e10")]
 position = Vector2(2073.265, -945)

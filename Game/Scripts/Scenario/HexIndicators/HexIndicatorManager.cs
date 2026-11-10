@@ -37,7 +37,7 @@ public class HexIndicatorManager
 	{
 		if(hex == null)
 		{
-			Log.Error("Cannot put a hex indicator on a null hex.");
+			Log.Warning("Cannot put a hex indicator on a null hex.");
 			return;
 		}
 

@@ -32,7 +32,7 @@ public class LashingVines : MirefootCardModel<LashingVines.CardTop, LashingVines
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Flailing Ivies")
-				.WithTexturePath("res://Content/Classes/Mirefoot/FlailingIvies.png")
+				.WithTexturePath("res://Content/Classes/Mirefoot/FlailingIvies.jpg")
 				.WithHealth(1)
 				.WithAttack(1)
 				.WithTraits(new TargetsTrait(3))

@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 public class ApexDemon : EarthDemon
 {
@@ -6,7 +6,7 @@ public class ApexDemon : EarthDemon
 		base.EliteLevelStats
 			.Select(stats => stats with
 			{
-				Health = stats.Health * (CharacterCount - 1),
+				Health = stats.Health * (CharacterCount + 1),
 				Move = stats.Move + 2,
 				Traits = (stats.Traits ?? [])
 				.Append(new ConditionImmunityTrait(Conditions.Stun))

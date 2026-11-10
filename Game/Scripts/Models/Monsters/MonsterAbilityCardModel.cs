@@ -26,8 +26,12 @@ public abstract class MonsterAbilityCardModel : AbstractModel //, IDeckCard
 	{
 		if(!monster.Stats.Move.HasValue)
 		{
-			Log.Error("Trying to perform a move ability with a monster that does not move.");
-			return null;
+			return global::MoveAbility.Builder()
+				.WithDistance(0)
+				.WithMoveType(moveType)
+				.Build();
+			// Log.Error("Trying to perform a move ability with a monster that does not move.");
+			// return null;
 		}
 
 		return global::MoveAbility.Builder()

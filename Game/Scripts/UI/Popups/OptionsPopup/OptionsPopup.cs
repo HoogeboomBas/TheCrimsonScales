@@ -53,6 +53,8 @@ public partial class OptionsPopup : Popup<OptionsPopup.Request>
 
 		AddCheckmarkOption(deviceOptions.AnimatedCharacters, "Animated Characters");
 
+		// AddCheckmarkOption(deviceOptions.DecideAMDWithAdvantage, "Always choose AMD card with Advantage");
+
 		if(campaignOptions != null)
 		{
 			AddLabeledSliderOption(campaignOptions.Difficulty, "Difficulty", SavedCampaignOptions.DifficultyOptions, GameController.Instance == null);

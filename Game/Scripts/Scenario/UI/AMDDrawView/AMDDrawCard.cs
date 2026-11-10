@@ -13,7 +13,7 @@ public partial class AMDDrawCard : Control
 	[Export]
 	private TextureRect _cardBack;
 
-	public async GDTask DrawCard(AMDCard card, Control deckAnchor, Control discardAnchor)
+	public async GDTask DrawCard(AMDCard card, Control deckAnchor, Control discardAnchor, float durationMultiplier)
 	{
 		GlobalPosition = deckAnchor.GlobalPosition;
 
@@ -22,9 +22,9 @@ public partial class AMDDrawCard : Control
 
 		AppController.Instance.AudioController.PlayFastForwardable(SFX.GetCardDraw(), volumeDb: -8);
 
-		this.TweenGlobalPosition(discardAnchor.GlobalPosition, 0.3f).SetEasing(Easing.InOutQuad).PlayFastForwardable();
+		this.TweenGlobalPosition(discardAnchor.GlobalPosition, 0.3f * durationMultiplier).SetEasing(Easing.InOutQuad).PlayFastForwardable();
 		await GTweenSequenceBuilder.New()
-			.Append(_container.TweenScale(new Vector2(0f, 1.3f), 0.15f).SetEasing(Easing.Linear))
+			.Append(_container.TweenScale(new Vector2(0f, 1.3f), 0.15f * durationMultiplier).SetEasing(Easing.Linear))
 			.AppendCallback(() =>
 			{
 				_cardBack.Visible = false;

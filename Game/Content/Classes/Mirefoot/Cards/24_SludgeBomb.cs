@@ -69,20 +69,20 @@ public class SludgeBomb : MirefootCardModel<SludgeBomb.CardTop, SludgeBomb.CardB
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AttackAfterTargetConfirmedEvent.Subscribe(state, this,
-						parameters =>
-							parameters.Performer == state.Performer,
+						parameters => parameters.Performer == state.Performer,
 						async parameters =>
 						{
-							//TODO: Show some visual indicator of how many difficult terrain were destroyed
-							ConditionModel conditionModel = state.ActionState.GetAbilityState<OtherAbility.State>(0)
-									.GetCustomValue<int>(this, "DestroyedDifficultTerrain") switch
-								{
-									1 => Conditions.Poison1,
-									2 => Conditions.Poison2,
-									3 => Conditions.Poison3,
-									4 => Conditions.Poison4,
-									_ => throw new ArgumentOutOfRangeException()
-								};
+							int count = state.ActionState.GetAbilityState<OtherAbility.State>(0)
+								.GetCustomValue<int>(this, "DestroyedDifficultTerrain");
+							state.AdjustCharacterTokens(count);
+							ConditionModel conditionModel = count switch
+							{
+								1 => Conditions.Poison1,
+								2 => Conditions.Poison2,
+								3 => Conditions.Poison3,
+								4 => Conditions.Poison4,
+								_ => throw new ArgumentOutOfRangeException()
+							};
 
 							parameters.AbilityState.SingleTargetAddCondition(conditionModel);
 							await state.AdvanceUseSlot();
@@ -99,6 +99,7 @@ public class SludgeBomb : MirefootCardModel<SludgeBomb.CardTop, SludgeBomb.CardB
 					}
 				)
 				.WithUseSlot(new UseSlot(new Vector2(0.4989973f, 0.88249975f), GainXP))
+				.WithCharacterTokenPosition(new Vector2(0.8412582f, 0.6587258f))
 				.WithConditionalAbilityCheck(state => AbilityCmd.HasPerformedAbility(state, 0))
 				.Build())
 		];

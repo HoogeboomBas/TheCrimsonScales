@@ -383,6 +383,8 @@ public partial class Spirit : Figure
 	{
 		List<Spirit> spirits = GetOwnedSpirits(CharacterOwner);
 
+		spirits.Remove(this);
+
 		for(int i = 0; i < spirits.Count; i++)
 		{
 			Spirit spirit = spirits[i];

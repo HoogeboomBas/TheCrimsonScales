@@ -31,7 +31,7 @@ public class City07 : CityEventModel<City07.ChoiceA, City07.ChoiceB>
 		public override SummonAbility SummonAbility { get; } =
 			SummonAbility.Builder()
 				.WithName("Battle Turkey")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/speedy_ostrich_AI.png") //TODO: Generic or AI summon visual?
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/speedy_ostrich.png") //TODO: Generic summon visual?
 				.WithHealth(5)
 				.WithMove(2)
 				.WithAttack(2)

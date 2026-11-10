@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://bf7tie3858bpo"]
-
-[ext_resource type="Texture2D" uid="uid://dfi4jvveoao5s" path="res://Content/Classes/Chieftain/Summons/giant_tortoise_AI.png" id="1_x2o28"]
-
-[resource]
-atlas = ExtResource("1_x2o28")
-region = Rect2(40, 150, 400, 400)

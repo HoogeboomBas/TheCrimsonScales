@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://r7p0wvywg3r2"]
+
+[ext_resource type="Texture2D" uid="uid://cdkmjsbtp2hgd" path="res://Content/Classes/Chieftain/Summons/cavalry_camel.png" id="1_qvhcc"]
+
+[resource]
+atlas = ExtResource("1_qvhcc")
+region = Rect2(100, 200, 400, 400)

@@ -56,15 +56,13 @@ public class Scenario027 : ScenarioModel
 		new UnlockScenarioReward(ModelDB.Scenario<Scenario028>()),
 	];
 
+	public override List<ScenarioEffect> ScenarioEffects { get; } =
+	[
+		new AllStartWithConditionScenarioEffect(Conditions.Immobilize)
+	];
+
 	private ScenarioRule _scenarioDoorRule;
 	private ScenarioRule _scenarioOrbRule;
-
-	public override async GDTask StartOfScenarioEffects(Character character)
-	{
-		await base.StartOfScenarioEffects(character);
-
-		await AbilityCmd.AddCondition(null, character, Conditions.Immobilize);
-	}
 
 	private Door _door2;
 

@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://cxwmr3gcxdkjv"]
-
-[ext_resource type="Texture2D" uid="uid://dk3k06dmm06xu" path="res://Content/Classes/Chieftain/Summons/fighting_bull_AI.png" id="1_b6fc0"]
-
-[resource]
-atlas = ExtResource("1_b6fc0")
-region = Rect2(80, 70, 400, 600)

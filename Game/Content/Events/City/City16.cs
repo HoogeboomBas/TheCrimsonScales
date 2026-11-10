@@ -2,7 +2,7 @@
 
 public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 {
-	public override int Number => 00;
+	public override int Number => 16;
 
 	public override string Text =>
 		"""
@@ -14,6 +14,8 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 	public class ChoiceA : EventChoiceModel
 	{
 		public override string ChoiceText => "Run back to the tavern to tell the other patrons about the sight.";
+
+		public override EventResolveType GetEventResolveType(SavedEventState state) => EventResolveType.ReturnCardToBottom;
 
 		public override string GetStoryText(SavedEventState state) =>
 			"""
@@ -39,7 +41,8 @@ public class City16 : CityEventModel<City16.ChoiceA, City16.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new AddRoadReward(ModelDB.Event<Road34>())
+			new AddRoadReward(ModelDB.Event<Road34>()),
+			new GainReputationReward(1)
 		];
 	}
 }

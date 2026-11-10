@@ -4,5 +4,5 @@
 
 [node name="Earth2H" unique_id=1044871933 instance=ExtResource("1_tuhwf")]
 
-[node name="Hex2" parent="." index="6"]
+[node name="Hex2" parent="." index="6" unique_id=71774410]
 position = Vector2(218.2384, 0)

@@ -17,7 +17,9 @@ public class OrbOfRetribution : CS1Item
 		base.Subscribe();
 
 		SubscribeRetaliate(
-			canApply: parameters => parameters.RetaliatingFigure == Owner && RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
+			canApply: parameters =>
+				parameters.RetaliatingFigure == Owner &&
+				RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
 			apply: async parameters =>
 			{
 				await Use(async user =>

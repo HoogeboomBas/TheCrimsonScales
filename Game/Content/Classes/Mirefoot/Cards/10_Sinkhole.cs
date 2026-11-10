@@ -97,7 +97,6 @@ public class Sinkhole : MirefootCardModel<Sinkhole.CardTop, Sinkhole.CardBottom>
 				.Build())
 		];
 
-		public override int XP => 2;
 		public override bool Round => true;
 	}
 }

@@ -47,8 +47,8 @@ public partial class MenuPopup : Popup<MenuPopup.Request>
 
 		_undoTurnButton.GetParent<Control>().SetVisible(GameController.Instance != null && GameController.Instance.UndoManager.CanUndoTurn);
 		_undoRoundButton.GetParent<Control>().SetVisible(GameController.Instance != null && GameController.Instance.UndoManager.CanUndoRound);
-		_resignButton.GetParent<Control>().SetVisible(GameController.Instance != null);
-		_winButton.GetParent<Control>().SetVisible(GameController.Instance != null);
+		_resignButton.GetParent<Control>().SetVisible(GameController.Instance != null && !GameController.Instance.ScenarioEnded);
+		_winButton.GetParent<Control>().SetVisible(GameController.Instance != null && !GameController.Instance.ScenarioEnded);
 		_copyToClipboardButton.GetParent<Control>().SetVisible(GameController.Instance != null);
 	}
 
@@ -149,7 +149,12 @@ public partial class MenuPopup : Popup<MenuPopup.Request>
 			}));
 		}
 
+		string exitText =
+			AppController.Instance.SceneLoader.CurrentSceneRequest is GameSceneRequest
+				? "If the game is updated between when you save and when you start the game next time, the scenario progress will be lost due to Early Access version incompatibilities.\nYou can prevent this by disabling auto-update for this game in Steam."
+				: "Would you like to save and exit?";
+
 		AppController.Instance.PopupManager.OpenPopupOnTop(
-			new TextPopup.Request("Save and Exit", "Would you like to exit?", textButtonParametersList.ToArray()));
+			new TextPopup.Request("Save and Exit", exitText, textButtonParametersList.ToArray()));
 	}
 }

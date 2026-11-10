@@ -33,13 +33,13 @@ label_settings = ExtResource("4_xb0gi")
 horizontal_alignment = 1
 
 [node name="Label" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content/Effects" index="1" unique_id=1641262772]
+custom_maximum_size = Vector2(800, -1)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_invh1")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "Ignore negative item effects"
 fit_content = true
-autowrap_mode = 0
 horizontal_alignment = 1
 
 [node name="CardsToRemove" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Content" parent_id_path=PackedInt32Array(1712449809) index="1" unique_id=226734017]
@@ -75,7 +75,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("4_invh1")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "Acquire this perk for [img={30}, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img] Mirefoot?"
+text = "Acquire this perk for Mirefoot[img=30, color=#ef6b26]res://Content/Classes/Mirefoot/Icon.svg[/img]?"
 fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1

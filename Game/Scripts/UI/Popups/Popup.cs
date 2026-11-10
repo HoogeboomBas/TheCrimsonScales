@@ -58,7 +58,7 @@ public abstract partial class Popup<T> : PopupBase
 
 	public sealed override void Close()
 	{
-		if(!_canClose)
+		if(!_canClose || !IsOpened)
 		{
 			return;
 		}

@@ -57,5 +57,6 @@ public class SteelSabatons : Prosperity7Item
 		AbilityCmd.RemoveShield(Owner, _subscriber);
 
 		ScenarioEvents.FigureTurnEndedEvent.Unsubscribe(this, _subscriber);
+		ScenarioEvents.RoundEndedEvent.Unsubscribe(this, _subscriber);
 	}
 }

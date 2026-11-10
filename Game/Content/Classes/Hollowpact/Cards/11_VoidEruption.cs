@@ -20,7 +20,7 @@ public class VoidEruption : HollowpactCardModel<VoidEruption.CardTop, VoidErupti
 				{
 					foreach(Hex hex in state.TargetedHexes.Where(hex => hex.IsUnoccupied()))
 					{
-						await AbilityCmd.CreateObstacle(hex, "res://Content/Classes/Hollowpact/VoidPit.tscn");
+						await AbilityCmd.TryCreateObstacle(hex, "res://Content/Classes/Hollowpact/VoidPit.tscn");
 					}
 
 					await GainVoidEnergy(state, 2);

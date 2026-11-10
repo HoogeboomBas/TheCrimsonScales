@@ -79,6 +79,11 @@ public class ChieftainAMDCards
 		public override string GetSimpleString(RichTextParameters richTextParameters) =>
 			GetSimpleString(richTextParameters, -2, $"{Icons.InlineCondition(Conditions.Bless, richTextParameters)}");
 
+		public override string ToString(RichTextParameters richTextParameters) =>
+			GetBasicString(richTextParameters, -2,
+				extraText:
+				$"{Icons.InlineCondition(Conditions.Bless, richTextParameters)}, self");
+
 		protected override int AtlasIndex => 5;
 		public override int? GetValue(AttackAbility.State attackAbilityState) => -2;
 

@@ -13,7 +13,7 @@ public partial class FigureInfoConditionsEffect : Control
 
 	public void SetConditions(List<ConditionModel> conditionModels)
 	{
-		List<ConditionModel> visibleConditionModels = conditionModels.Where(conditionModel => conditionModel.ShouldShowOnFigure).ToList();
+		List<ConditionModel> visibleConditionModels = conditionModels.ToList();
 		SetVisible(visibleConditionModels.Count > 0);
 
 		this.DelayedCall(() =>

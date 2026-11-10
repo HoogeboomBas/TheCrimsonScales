@@ -9,16 +9,16 @@ As you might know, The Crimson Scales, created by Boardgame613, is the famous fa
 Available for both Windows and Android, you can play from the comfort of your computer or even on the go on your commute!
 
 ## Installation
-Builds can be downloaded on [itch.io](https://bas-hoogeboom.itch.io/the-crimson-scales).
+Builds can be downloaded on [Steam](https://store.steampowered.com/app/5049800/The_Crimson_Scales/) or on [itch.io](https://bas-hoogeboom.itch.io/the-crimson-scales).
 
-Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.6.1 .NET with C# support.
+Download the source code through GIT or GitHub, and open the project in [Godot](https://godotengine.org/) 4.7.1 .NET with C# support.
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Or let me know on Discord or Reddit.
 A few of us hang out in the CCUG Discord, in the `#the-crimson-scales-digital` channel.
 
-## License
+## License and Credits
 The Crimson Scales is designed and produced by fans. This is not an official product of [Cephalofair Games](https://cephalofair.com/). All Gloomhaven materials are owned by Cephalofair Games, and used under Creative Commons BY-NC-SA 4.0 license.
 Gloomhaven® is a registered trademark of Cephalofair Games LLC.
 
@@ -27,12 +27,16 @@ The Crimson Scales was created by various creators. The creators whose contribut
 - Alexandr Elichev
 - Quasilocal
 - TH3 DISC1PLE
-- Themris
+- GrandDuke
+- Yknits
+- Testim
 - Dareth
+- Nerdhaven
 
 The game also contains custom content contributions from the following creators:
-- Satire Gaming
+- Argus
 - General CGO
+- Nerdhaven
 
 The Music and Sound Effects are the property of various artists, including but not limited to:
 - thomas devlin
@@ -40,6 +44,14 @@ The Music and Sound Effects are the property of various artists, including but n
 - John Leonard French
 - EminYILDIRIM
 - Robinhood76
+
+The game contains some temporary art in the form of photographs. These were created by:
+- 852278-MCS (Black Hole summon)
+- Betty Wills (Gleaming Squid summon)
+- Didier Descouens (Flailing Ivies summon)
+- Dominicus Johannes Bergsma (Crypt Nettle summon)
+- Kyösti Viinamäki (Metal Detector summon)
+- Patisa (Spotted Hound summon)
 
 These pieces of Audio are licensed to be used for this product specifically, and cannot be used in other games or products.
 They have been removed from the repository to make sure they're not misused. The game still works without them.
@@ -49,9 +61,9 @@ Included are the following plugins created by various authors, used under the MI
 - [GTweensGodot](https://github.com/Guillemsc/GTweensGodot)
 
 Code/content contributors:
-- Sergey Burgsdorf
 - NastoK
 - Saahil Herrero
+- Sergey Burgsdorf
 
 Most of the other Code and Godot asset files used in this project were made by Bas Hoogeboom. These are licensed as follows:
 ~~~~

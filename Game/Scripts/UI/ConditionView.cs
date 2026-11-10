@@ -5,7 +5,7 @@ public partial class ConditionView : Control
 	[Export]
 	private TextureRect _textureRect;
 	[Export]
-	private Label _stackLabel;
+	private RichTextLabel _stackLabel;
 
 	public ConditionModel ConditionModel { get; private set; }
 
@@ -20,7 +20,7 @@ public partial class ConditionView : Control
 
 	public void SetStackText(string text)
 	{
-		_stackLabel.Visible = text != null;
-		_stackLabel.Text = text;
+		_stackLabel.SetVisible(text != null);
+		_stackLabel.SetText(text);
 	}
 }

@@ -50,6 +50,8 @@ public class DeathIsNotDefeat : SpiritCallerCardModel<DeathIsNotDefeat.CardTop, 
 									countsAsSpiritParameters.SetCountsAsSpirit();
 								}
 							);
+
+							await state.ActionState.RequestDiscardOrLose();
 						}
 					);
 

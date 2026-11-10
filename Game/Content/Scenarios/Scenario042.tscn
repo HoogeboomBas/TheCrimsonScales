@@ -20,7 +20,7 @@
 
 [node name="Scenario" unique_id=1923029771 instance=ExtResource("1_2or2l")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=1363558703]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=1363558703]
 script = ExtResource("2_5r85s")
 StartsRevealed = true
 
@@ -54,7 +54,7 @@ position = Vector2(218.238, 378)
 [node name="Boulder2H4" parent="Map/Rooms/Room" index="9" unique_id=626083204 instance=ExtResource("4_ahy3v")]
 position = Vector2(654.715, 0)
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1787079635]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1787079635]
 script = ExtResource("2_5r85s")
 
 [node name="I2a" parent="Map/Rooms/Room2" index="0" unique_id=491126559 instance=ExtResource("6_nh0t0")]
@@ -115,7 +115,7 @@ MonsterType2Characters = 3
 MonsterType3Characters = 3
 MonsterType4Characters = 3
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=495330934]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=495330934]
 script = ExtResource("2_5r85s")
 
 [node name="D1b" parent="Map/Rooms/Room3" index="0" unique_id=1139412590 instance=ExtResource("7_a8ric")]
@@ -169,7 +169,7 @@ position = Vector2(-654.715, 1512)
 MonsterModelId = "MONSTER_MODEL.CAVE_BEAR"
 MonsterType4Characters = 0
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1414677858]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1414677858]
 script = ExtResource("2_5r85s")
 
 [node name="B1b" parent="Map/Rooms/Room4" index="0" unique_id=687431134 instance=ExtResource("13_8bxq0")]
@@ -220,21 +220,21 @@ MonsterType4Characters = 0
 position = Vector2(982.073, 1323)
 TreasureNumber = 14
 
-[node name="LightFog1H" parent="Map/Doors" index="0" unique_id=798267124 instance=ExtResource("16_o2qmy")]
+[node name="LightFog1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=798267124 instance=ExtResource("16_o2qmy")]
 position = Vector2(109.119, -189)
 
 [node name="Marker" parent="Map/Doors/LightFog1H" index="6" unique_id=437863016 instance=ExtResource("11_suf4y")]
 MarkerType = 25
 _hideDuringPlay = true
 
-[node name="LightFog1H2" parent="Map/Doors" index="1" unique_id=1534661479 instance=ExtResource("16_o2qmy")]
+[node name="LightFog1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1534661479 instance=ExtResource("16_o2qmy")]
 position = Vector2(-545.596, 567)
 
 [node name="Marker2" parent="Map/Doors/LightFog1H2" index="6" unique_id=1354130190 instance=ExtResource("11_suf4y")]
 MarkerType = 26
 _hideDuringPlay = true
 
-[node name="LightFog1H3" parent="Map/Doors" index="2" unique_id=1199485821 instance=ExtResource("16_o2qmy")]
+[node name="LightFog1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=1199485821 instance=ExtResource("16_o2qmy")]
 position = Vector2(763.834, 567)
 
 [node name="Marker3" parent="Map/Doors/LightFog1H3" index="6" unique_id=1933989818 instance=ExtResource("11_suf4y")]

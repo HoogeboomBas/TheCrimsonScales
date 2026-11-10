@@ -6,6 +6,6 @@
 [node name="ChainguardRopeTrap" unique_id=1391908279 instance=ExtResource("1_ba0rb")]
 _stepType = 1
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_ba0rb")

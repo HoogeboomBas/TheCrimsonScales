@@ -382,14 +382,33 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 
 	protected override async GDTask AfterEffects(State abilityState, Figure target)
 	{
-		ScenarioEvents.Retaliate.Parameters retaliateParameters =
-			await ScenarioEvents.RetaliateEvent.CreatePrompt(
-				new ScenarioEvents.Retaliate.Parameters(abilityState, target), abilityState);
-
-		if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
+		if(!target.IsDead)
 		{
-			await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
-				potentialDamageDealer: retaliateParameters.RetaliatingFigure);
+			ScenarioEvents.Retaliate.Parameters retaliateParameters =
+				await ScenarioEvents.RetaliateEvent.CreatePrompt(
+					new ScenarioEvents.Retaliate.Parameters(abilityState, target), abilityState);
+
+			if(!retaliateParameters.RetaliateBlocked && retaliateParameters.Retaliate > 0)
+			{
+				if(!GameController.FastForward)
+				{
+					if(target.FigureViewComponent.Retaliate.Scale.X > 0.1f)
+					{
+						target.FigureViewComponent.Retaliate.TweenPulse(1.4f, 0.3f).PlayFastForwardable();
+					}
+
+					await GDTask.DelayFastForwardable(0.3f);
+
+					RetaliateEffect retaliateEffect =
+						SceneLoader.InstantiateScene<RetaliateEffect>("res://Scenes/Scenario/Effects/RetaliateEffect/RetaliateEffect.tscn");
+					target.AddChild(retaliateEffect);
+					retaliateEffect.Init(target);
+					await GDTask.DelayFastForwardable(0.4f);
+				}
+
+				await AbilityCmd.SufferDamage(abilityState.Performer, retaliateParameters.Retaliate,
+					potentialDamageDealer: retaliateParameters.RetaliatingFigure);
+			}
 		}
 
 		await ScenarioEvents.AfterAttackPerformedEvent.CreatePrompt(
@@ -418,5 +437,17 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 		}
 
 		return false;
+	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.Attack);
+
+		base.GetTooltips(tooltips);
+
+		if(Pierce.CanHaveValue)
+		{
+			tooltips.Add(Tooltips.Pierce);
+		}
 	}
 }

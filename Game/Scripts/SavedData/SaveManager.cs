@@ -15,21 +15,21 @@ public class SaveManager
 
 	private readonly List<object> _saveBlockers = new List<object>();
 
-	public List<SaveFile<CampaignSaveData>> CampaignSaveFiles { get; } = new List<SaveFile<CampaignSaveData>>();
+	public List<CampaignSaveFile> CampaignSaveFiles { get; } = new List<CampaignSaveFile>();
 	public int CurrentCampaignIndex { get; private set; } = -1;
 
-	public SaveFile<DeviceSaveData> DeviceSaveFile { get; private set; }
+	public DeviceSaveFile DeviceSaveFile { get; }
 
 	public bool CanSave => _saveBlockers.Count == 0;
-	public SaveFile<CampaignSaveData> CampaignSaveFile => CurrentCampaignIndex < 0 ? null : CampaignSaveFiles[CurrentCampaignIndex];
+	public CampaignSaveFile CampaignSaveFile => CurrentCampaignIndex < 0 ? null : CampaignSaveFiles[CurrentCampaignIndex];
 
 	public SaveManager()
 	{
-		DeviceSaveFile = new SaveFile<DeviceSaveData>("user://DeviceSaveFile.save");
+		DeviceSaveFile = new DeviceSaveFile("user://DeviceSaveFile");
 
 		for(int i = 0; i < 3; i++)
 		{
-			CampaignSaveFiles.Add(new SaveFile<CampaignSaveData>($"user://Campaign-{i + 1}.save"));
+			CampaignSaveFiles.Add(new CampaignSaveFile($"user://Campaign-{i + 1}"));
 		}
 	}
 
@@ -56,7 +56,7 @@ public class SaveManager
 			return;
 		}
 
-		foreach(SaveFile<CampaignSaveData> saveFile in CampaignSaveFiles)
+		foreach(CampaignSaveFile saveFile in CampaignSaveFiles)
 		{
 			saveFile.Save();
 		}

@@ -23,7 +23,7 @@
 
 [node name="Scenario" unique_id=675117343 instance=ExtResource("1_yauc0")]
 
-[node name="Room" type="Node2D" parent="Map/Rooms" index="0" unique_id=941595942]
+[node name="Room" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="0" unique_id=941595942]
 script = ExtResource("2_40csl")
 StartsRevealed = true
 
@@ -102,7 +102,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 0
 MonsterType4Characters = 1
 
-[node name="Room2" type="Node2D" parent="Map/Rooms" index="1" unique_id=1981572962]
+[node name="Room2" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="1" unique_id=1981572962]
 script = ExtResource("2_40csl")
 
 [node name="A1a" parent="Map/Rooms/Room2" index="0" unique_id=425365929 instance=ExtResource("7_vepty")]
@@ -136,7 +136,7 @@ position = Vector2(0, -1134)
 [node name="Cabinet1H" parent="Map/Rooms/Room2" index="7" unique_id=720459122 instance=ExtResource("9_rm4by")]
 position = Vector2(-545.596, -945)
 
-[node name="Room3" type="Node2D" parent="Map/Rooms" index="2" unique_id=530303263]
+[node name="Room3" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="2" unique_id=530303263]
 script = ExtResource("2_40csl")
 
 [node name="B2b" parent="Map/Rooms/Room3" index="0" unique_id=919910310 instance=ExtResource("10_7vkbw")]
@@ -181,7 +181,7 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room4" type="Node2D" parent="Map/Rooms" index="3" unique_id=1656623655]
+[node name="Room4" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="3" unique_id=1656623655]
 script = ExtResource("2_40csl")
 
 [node name="B3b" parent="Map/Rooms/Room4" index="0" unique_id=383818344 instance=ExtResource("13_61glb")]
@@ -230,7 +230,7 @@ position = Vector2(872.954, 0)
 [node name="Crate1H" parent="Map/Rooms/Room4" index="9" unique_id=2098118679 instance=ExtResource("12_36mhe")]
 position = Vector2(1309.4303, -378)
 
-[node name="Room5" type="Node2D" parent="Map/Rooms" index="4" unique_id=1278318819]
+[node name="Room5" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="4" unique_id=1278318819]
 script = ExtResource("2_40csl")
 
 [node name="A3b" parent="Map/Rooms/Room5" index="0" unique_id=263042150 instance=ExtResource("14_r26hf")]
@@ -266,7 +266,7 @@ MonsterType2Characters = 1
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="Room6" type="Node2D" parent="Map/Rooms" index="5" unique_id=1102398364]
+[node name="Room6" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="5" unique_id=1102398364]
 script = ExtResource("2_40csl")
 
 [node name="A4b" parent="Map/Rooms/Room6" index="0" unique_id=2024029361 instance=ExtResource("17_36mhe")]
@@ -300,7 +300,7 @@ position = Vector2(1745.9073, -1134)
 [node name="Cabinet1H" parent="Map/Rooms/Room6" index="7" unique_id=735443397 instance=ExtResource("9_rm4by")]
 position = Vector2(1636.788, -945)
 
-[node name="Room7" type="Node2D" parent="Map/Rooms" index="6" unique_id=1512943249]
+[node name="Room7" type="Node2D" parent="Map/Rooms" parent_id_path=PackedInt32Array(1508226184) index="6" unique_id=1512943249]
 script = ExtResource("2_40csl")
 
 [node name="A2a" parent="Map/Rooms/Room7" index="0" unique_id=1015590995 instance=ExtResource("18_61glb")]
@@ -336,22 +336,22 @@ MonsterType2Characters = 0
 MonsterType3Characters = 1
 MonsterType4Characters = 1
 
-[node name="WoodDoorHorizontal1H" parent="Map/Doors" index="0" unique_id=1362826000 instance=ExtResource("12_g8avs")]
+[node name="WoodDoorHorizontal1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="0" unique_id=1362826000 instance=ExtResource("12_g8avs")]
 position = Vector2(0, -756)
 
-[node name="WoodDoorHorizontal1H3" parent="Map/Doors" index="1" unique_id=1455952357 instance=ExtResource("12_g8avs")]
+[node name="WoodDoorHorizontal1H3" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="1" unique_id=1455952357 instance=ExtResource("12_g8avs")]
 position = Vector2(1200.311, 189)
 rotation = -3.1415927
 
-[node name="WoodDoorHorizontal1H4" parent="Map/Doors" index="2" unique_id=462268723 instance=ExtResource("12_g8avs")]
+[node name="WoodDoorHorizontal1H4" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="2" unique_id=462268723 instance=ExtResource("12_g8avs")]
 position = Vector2(1091.1919, -756)
 
-[node name="WoodDoorHorizontal1H2" parent="Map/Doors" index="3" unique_id=236609458 instance=ExtResource("12_g8avs")]
+[node name="WoodDoorHorizontal1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="3" unique_id=236609458 instance=ExtResource("12_g8avs")]
 position = Vector2(-982.07275, 189)
 
-[node name="WoodDoorVertical1H" parent="Map/Doors" index="4" unique_id=102976230 instance=ExtResource("11_7ceqe")]
+[node name="WoodDoorVertical1H" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="4" unique_id=102976230 instance=ExtResource("11_7ceqe")]
 position = Vector2(-654.71515, -378)
 
-[node name="WoodDoorVertical1H2" parent="Map/Doors" index="5" unique_id=382065486 instance=ExtResource("11_7ceqe")]
+[node name="WoodDoorVertical1H2" parent="Map/Doors" parent_id_path=PackedInt32Array(1045544097) index="5" unique_id=382065486 instance=ExtResource("11_7ceqe")]
 position = Vector2(654.71515, -378)
 rotation = 3.1415927

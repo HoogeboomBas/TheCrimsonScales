@@ -21,7 +21,7 @@ public class SyndicatedAssault : ChainguardLevelUpCardModel<SyndicatedAssault.Ca
 				{
 					ScenarioCheckEvents.CanPassEnemyCheckEvent.Subscribe(state, this,
 						parameters =>
-							parameters.AbilityState == state &&
+							parameters.PotentialAbilityState == state &&
 							parameters.Figure == state.Target,
 						parameters =>
 						{

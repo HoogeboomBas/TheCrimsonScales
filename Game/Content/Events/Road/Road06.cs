@@ -16,7 +16,7 @@ public class Road06 : RoadEventModel<Road06.ChoiceA, Road06.ChoiceB>
 		public override SummonAbility SummonAbility { get; } =
 			SummonAbility.Builder()
 				.WithName("Snapping Turtle")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise_AI.png") //TODO: Generic or AI summon visual?
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/giant_tortoise.png") //TODO: Generic summon visual?
 				.WithHealth(3)
 				.WithMove(1)
 				.WithAttack(2)

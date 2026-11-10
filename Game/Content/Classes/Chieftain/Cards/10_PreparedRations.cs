@@ -15,7 +15,7 @@ public class PreparedRations : ChieftainCardModel<PreparedRations.CardTop, Prepa
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Pack Mule")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/pack_mule_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/pack_mule.png")
 				.WithHealth(4, new SummonHealthSquare(this, new Vector2(0.44591248f, 0.18810727f)))
 				.WithMove(3, new SummonMoveSquare(this, new Vector2(0.6773092f, 0.18810727f)))
 				.WithTraits(

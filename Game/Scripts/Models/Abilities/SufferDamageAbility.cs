@@ -277,7 +277,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 				Figure focus = (await abilityState.ActionState.GetFocus(abilityState)).Item1;
 
 				MonsterTargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, null,
+					new MonsterTargetSelectionPrompt(getValidTargets, true, focus, false, null,
 						() => _getTargetingHintText(abilityState)), abilityState.Authority);
 
 				target = targetAnswer.Skipped ? null : GameController.Instance.ReferenceManager.Get<Figure>(targetAnswer.FigureReferenceId);
@@ -454,5 +454,12 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 	private string DefaultTargetingHintText(State abilityState)
 	{
 		return $"Select a target to suffer {Icons.HintText(Icons.Damage)}{Damage.GetValue(abilityState)}";
+	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.SufferDamage);
+
+		base.GetTooltips(tooltips);
 	}
 }

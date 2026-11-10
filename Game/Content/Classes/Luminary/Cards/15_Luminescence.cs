@@ -75,6 +75,7 @@ public class Luminescence : LuminaryCardModel<Luminescence.CardTop, Luminescence
 				.Build()),
 			new AbilityCardAbility(HealAbility.Builder()
 				.WithHealValue(3)
+				.WithTarget(Target.Self)
 				.WithConditionalAbilityCheck(async state =>
 				{
 					await GDTask.CompletedTask;

@@ -14,10 +14,10 @@ public class ThyBeBlessed : TheCrimsonScalesPersonalQuest<PersonalQuestData>
 
 		ScenarioEvents.AMDCardDrawnEvent.Subscribe(character, this,
 			parameters =>
-				parameters.Performer == character ||
-				parameters.AMDCard.Model == ModelDB.AMDCard<BlessAMDCard>() ||
-				parameters.AMDCard.Model is SanctuaryCritAMDCardModel ||
-				parameters.AMDCard.Model is SanctuaryRollingAMDCardModel,
+				parameters.Performer == character &&
+				(parameters.AMDCard.Model == ModelDB.AMDCard<BlessAMDCard>() ||
+				 parameters.AMDCard.Model is SanctuaryCritAMDCardModel ||
+				 parameters.AMDCard.Model is SanctuaryRollingAMDCardModel),
 			async parameters =>
 			{
 				personalQuestData.AdjustProgress(1, character);

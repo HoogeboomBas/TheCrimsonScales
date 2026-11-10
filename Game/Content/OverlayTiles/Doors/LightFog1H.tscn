@@ -7,5 +7,5 @@
 [node name="LightFog1H" unique_id=976656958 instance=ExtResource("1_3ja3u")]
 _corridorScene = ExtResource("2_rn53l")
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" parent="." index="1" unique_id=786075991]
 texture = ExtResource("2_hsu1w")

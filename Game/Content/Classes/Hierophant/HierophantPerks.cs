@@ -124,7 +124,7 @@ public class HierophantPerks
 		public override bool IgnoreScenarioEffects => true;
 	}
 
-	public class GiftOfTheOak : HierophantPerk, IEventSubscriber
+	public class GiftOfTheOak : HierophantPerk
 	{
 		protected override string Title => "Gift of the Oak";
 

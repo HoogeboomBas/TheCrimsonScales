@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Fractural.Tasks;
 using Newtonsoft.Json;
@@ -29,7 +30,8 @@ public class City57 : CityEventModel<City57.ChoiceA, City57.ChoiceB>
 		{
 			AnAdderDivides personalQuest = ModelDB.PersonalQuest<AnAdderDivides>();
 
-			foreach(SavedCharacter savedCharacter in savedCampaign.AllCharacters)
+			List<SavedCharacter> allCharacters = savedCampaign.AllNonRetiredCharacters.ToList();
+			foreach(SavedCharacter savedCharacter in allCharacters)
 			{
 				if(savedCharacter.SavedPersonalQuest?.Model == personalQuest)
 				{

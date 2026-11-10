@@ -36,7 +36,7 @@ public class ElixirOfLife : BrightsparkCardModel<ElixirOfLife.CardTop, ElixirOfL
 							parameters.SetPrevented();
 							target.SetHealth((target.MaxHealth + 1) / 2);
 							List<AbilityCard> selectedAbilityCards =
-								await AbilityCmd.SelectAbilityCards(state.Performer as Character, CardState.Lost, 0, 4,
+								await AbilityCmd.SelectAbilityCards(target as Character, CardState.Lost, 0, 4,
 									hintText: "Select up to four lost cards to recover");
 
 							foreach(AbilityCard selectedAbilityCard in selectedAbilityCards)

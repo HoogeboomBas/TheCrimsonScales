@@ -6,6 +6,7 @@ public class Immobilize : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Immobilize.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/ImmobilizeAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -44,4 +45,7 @@ public class Immobilize : ConditionModel
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot perform any move abilities. This condition is removed at the end of the figure’s next turn.";
 }

@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Fractural.Tasks;
 using Godot;
 using GTweens.Builders;
@@ -91,6 +90,11 @@ public static class AbilityCmd
 	public static async GDTask<int> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
 		Figure potentialDamageDealer = null, bool fromAttack = false)
 	{
+		if(target.Health == 0)
+		{
+			return 0;
+		}
+
 		potentialDamageDealer ??= potentialAbilityState?.Authority;
 
 		ScenarioEvents.SufferDamage.Parameters sufferDamageParameters =
@@ -181,6 +185,11 @@ public static class AbilityCmd
 	{
 		potentialAbilityState?.SetPerformed();
 
+		if(target.IsDead)
+		{
+			return;
+		}
+
 		ScenarioEvents.BeforeFigureKilled.Parameters beforeFigureKilledParameters =
 			await ScenarioEvents.BeforeFigureKilledEvent.CreatePrompt(
 				new ScenarioEvents.BeforeFigureKilled.Parameters(potentialAbilityState, target), potentialKiller);
@@ -209,9 +218,10 @@ public static class AbilityCmd
 		return conditionModel.ImmunityCompareBaseConditions.Contains(immunityConditionModel);
 	}
 
-	public static GDTask AddCondition(AbilityState potentialAbilityState, Figure target, ConditionModel conditionModel)
+	public static GDTask AddCondition(AbilityState potentialAbilityState, Figure target, ConditionModel conditionModel,
+		Figure potentialConditionGiver = null)
 	{
-		return AddConditions(potentialAbilityState, target, [conditionModel]);
+		return AddConditions(potentialAbilityState, target, [conditionModel], potentialConditionGiver);
 	}
 
 	public static async GDTask AddConditions(AbilityState potentialAbilityState, Figure target, List<ConditionModel> conditionModels,
@@ -269,9 +279,8 @@ public static class AbilityCmd
 			await target.RemoveCondition(condition);
 		}
 
-		ScenarioEvents.AfterRemoveCondition.Parameters afterRemoveConditionParameters =
-			await ScenarioEvents.AfterRemoveConditionEvent.CreatePrompt(
-				new ScenarioEvents.AfterRemoveCondition.Parameters(target, condition.ConditionModel, potentialAbilityState), target);
+		await ScenarioEvents.AfterRemoveConditionEvent.CreatePrompt(
+			new ScenarioEvents.AfterRemoveCondition.Parameters(target, condition.ConditionModel, potentialAbilityState), target);
 	}
 
 	public static async GDTask<bool> RemoveCondition(Figure target, ConditionModel conditionModel, AbilityState potentialAbilityState = null)
@@ -442,9 +451,21 @@ public static class AbilityCmd
 		}
 	}
 
-	public static async GDTask<DifficultTerrain> CreateDifficultTerrain(Hex hex, PackedScene scene)
+	public static async GDTask<DifficultTerrain> CreateDifficultTerrain(Hex hex, PackedScene scene, bool forceSpawn = false)
 	{
-		return await CreateOverlayTile<DifficultTerrain>(hex, scene);
+		return await CreateOverlayTile<DifficultTerrain>(hex, scene, forceSpawn);
+	}
+
+	public static async GDTask<Obstacle> TryCreateObstacle(Hex hex, string assetPath)
+	{
+		if(!RangeHelper.CheckCanPlaceObstacle(hex))
+		{
+			return null;
+		}
+
+		PackedScene scene = SceneLoader.LoadPackedScene(assetPath);
+
+		return await CreateOverlayTile<Obstacle>(hex, scene);
 	}
 
 	public static async GDTask<Obstacle> CreateObstacle(Hex hex, string assetPath)
@@ -497,12 +518,12 @@ public static class AbilityCmd
 		return await GameController.Instance.Map.CreateMonster(monsterModel, monsterType, hex.Coords, false, monsterLevel, alignment);
 	}
 
-	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene, Action<OverlayTile> onInstantiate = null)
+	public static async GDTask<T> CreateOverlayTile<T>(Hex hex, PackedScene scene, bool forceSpawn = false, Action<OverlayTile> onInstantiate = null)
 		where T : OverlayTile
 	{
-		if(!hex.IsFeatureless())
+		if(!forceSpawn && !hex.IsFeatureless())
 		{
-			Log.Error("Trying to create an overlay tile in a hex that already has a feature!");
+			Log.Warning("Trying to create an overlay tile in a hex that already has a feature!");
 			return null;
 		}
 
@@ -589,7 +610,7 @@ public static class AbilityCmd
 	{
 		PackedScene scene = SceneLoader.LoadPackedScene(assetPath ?? "res://Content/OverlayTiles/Traps/BearTrap1H.tscn");
 
-		return await CreateOverlayTile<Trap>(hex, scene, trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
+		return await CreateOverlayTile<Trap>(hex, scene, onInstantiate: trap => ((Trap)trap).SetTrapValues(damage, conditions ?? []));
 	}
 
 	public static GDTask<List<Hex>> SelectHexes(AbilityState state, Action<List<Hex>> getValidHexes, int minSelectionCount, int maxSelectionCount,
@@ -617,22 +638,25 @@ public static class AbilityCmd
 		string hintText = "Select a hex")
 	{
 		HexSelectionPrompt.Answer answer = await PromptManager.Prompt(
-			new HexSelectionPrompt(getValidHexes, false, null, () => hintText, mandatory ? 1 : 0, 1), authority);
+			new HexSelectionPrompt(getValidHexes, false, null, () => hintText, mandatory ? 1 : 0), authority);
 
 		return answer.Skipped ? null : answer.CoordSets.Select(coords => GameController.Instance.Map.GetHex(coords)).FirstOrDefault();
 	}
 
 	public static GDTask<Figure> SelectFigure(AbilityState state, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null,
+		Func<string> hintText = null)
 	{
-		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, effectCollection, hintText);
+		return SelectFigure(state.Authority, getValidTargets, mandatory, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, effectCollection,
+			hintText);
 	}
 
 	public static async GDTask<Figure> SelectFigure(Figure authority, Action<List<Figure>> getValidTargets, bool mandatory = false,
-		bool autoSelectIfOne = true, bool autoSkipIfNone = false, EffectCollection effectCollection = null, Func<string> hintText = null)
+		bool autoSelectIfOne = true, bool autoSkipIfNone = false, bool autoConfirmIfOne = false, EffectCollection effectCollection = null,
+		Func<string> hintText = null)
 	{
 		TargetSelectionPrompt.Answer targetAnswer = await PromptManager.Prompt(
-			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, mandatory, effectCollection,
+			new TargetSelectionPrompt(getValidTargets, autoSelectIfOne, autoSkipIfNone, autoConfirmIfOne, mandatory, effectCollection,
 				hintText ?? (() => "Select a target")),
 			authority);
 
@@ -655,7 +679,7 @@ public static class AbilityCmd
 		string hintText = "Select a hex")
 	{
 		OverlayTileSelectionPrompt.Answer answer = await PromptManager.Prompt(
-			new OverlayTileSelectionPrompt(getValidOverlayTiles, false, null, () => hintText, mandatory ? 1 : 0, 1), authority);
+			new OverlayTileSelectionPrompt(getValidOverlayTiles, false, null, () => hintText, mandatory ? 1 : 0), authority);
 
 		return answer.Skipped
 			? null
@@ -686,17 +710,20 @@ public static class AbilityCmd
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Character character, CardState? requiredCardState, bool mandatory = false,
-		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card")
+		Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null, string hintText = "Select a card",
+		bool autoSelectIfAllCanBeSelected = false)
 	{
-		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText))
+		return (await SelectAbilityCards(character, requiredCardState, mandatory ? 1 : 0, 1, canSelectFunc, effectCollection, hintText,
+				autoSelectIfAllCanBeSelected))
 			.FirstOrDefault();
 	}
 
 	public static async GDTask<AbilityCard> SelectAbilityCard(Figure authority, Action<List<AbilityCard>> getAllCards, CardState? requiredCardState,
-		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card")
+		bool mandatory = false, EffectCollection effectCollection = null, string hintText = "Select a card",
+		bool autoSelectIfAllCanBeSelected = false)
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(getAllCards,
-			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText), authority);
+			requiredCardState, mandatory ? 1 : 0, 1, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), authority);
 
 		return answer.CardReferenceIds == null || answer.CardReferenceIds.Count == 0
 			? null
@@ -705,7 +732,7 @@ public static class AbilityCmd
 
 	public static async GDTask<List<AbilityCard>> SelectAbilityCards(Character character, CardState? requiredCardState,
 		int minSelectionCount, int maxSelectionCount, Func<AbilityCard, bool> canSelectFunc = null, EffectCollection effectCollection = null,
-		string hintText = "Select cards")
+		string hintText = "Select cards", bool autoSelectIfAllCanBeSelected = false)
 	{
 		CardSelectionPrompt.Answer answer = await PromptManager.Prompt(new CardSelectionPrompt(
 			cards =>
@@ -720,7 +747,7 @@ public static class AbilityCmd
 					cards.Add(abilityCard);
 				}
 			},
-			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText), character);
+			requiredCardState, minSelectionCount, maxSelectionCount, effectCollection, () => hintText, autoSelectIfAllCanBeSelected), character);
 
 		return answer.CardReferenceIds == null
 			? []
@@ -795,7 +822,7 @@ public static class AbilityCmd
 
 			foreach(Hex neighbourHex in hex.Neighbours)
 			{
-				if(!CanForceMoveTo(potentialAbilityState, figure, hex))
+				if(!CanForceMoveTo(potentialAbilityState, figure, neighbourHex))
 				{
 					continue;
 				}
@@ -876,70 +903,45 @@ public static class AbilityCmd
 			return false;
 		}
 
-		if(hexObjectA is Figure figureA && !CanForceMoveTo(potentialAbilityState, figureA, hexObjectB.Hex))
+		Figure figureA = hexObjectA as Figure;
+		Figure figureB = hexObjectB as Figure;
+
+		object subscriber = new object();
+
+		if(figureA != null && figureB != null)
 		{
-			return false;
+			// Ignore figure to swap with
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(figureA, subscriber,
+				parameters =>
+					(parameters.Figure == figureA &&
+					 parameters.OtherFigure == figureB) ||
+					(parameters.OtherFigure == figureA &&
+					 parameters.Figure == figureB),
+				parameters =>
+				{
+					parameters.SetCanStopAt();
+				}
+			);
 		}
 
-		if(hexObjectB is Figure figureB && !CanForceMoveTo(potentialAbilityState, figureB, hexObjectA.Hex))
+		bool canSwap = true;
+
+		if(figureA != null && !CanForceMoveTo(potentialAbilityState, figureA, hexObjectB.Hex))
 		{
-			return false;
+			canSwap = false;
 		}
 
-		return true;
+		if(figureB != null && !CanForceMoveTo(potentialAbilityState, figureB, hexObjectA.Hex))
+		{
+			canSwap = false;
+		}
 
-		// if(figureA.Hex.TryGetHexObjectOfType(out Obstacle obstacle) &&
-		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureB)).HasFlying)
-		// {
-		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureB, figureA.Hex, obstacle, true));
-		//
-		// 	if(!canEnterObstacleParameters.CanEnter)
-		// 	{
-		// 		return false;
-		// 	}
-		// }
-		//
-		// if(figureB.Hex.TryGetHexObjectOfType(out Obstacle obstacle2) &&
-		//    !ScenarioCheckEvents.FlyingCheckEvent.Fire(new ScenarioCheckEvents.FlyingCheck.Parameters(figureA)).HasFlying)
-		// {
-		// 	ScenarioCheckEvents.CanEnterObstacleCheck.Parameters canEnterObstacleParameters =
-		// 		ScenarioCheckEvents.CanEnterObstacleCheckEvent.Fire(
-		// 			new ScenarioCheckEvents.CanEnterObstacleCheck.Parameters(figureA, figureB.Hex, obstacle2, true));
-		//
-		// 	if(!canEnterObstacleParameters.CanEnter)
-		// 	{
-		// 		return false;
-		// 	}
-		// }
-		//
-		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureA)).ImmuneToForcedMovement)
-		// {
-		// 	return false;
-		// }
-		//
-		// if(ScenarioCheckEvents.ImmuneToForcedMovementCheckEvent.Fire(
-		// 	   new ScenarioCheckEvents.ImmuneToForcedMovementCheck.Parameters(figureB)).ImmuneToForcedMovement)
-		// {
-		// 	return false;
-		// }
-		//
-		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterA =
-		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureA, figureB.Hex));
-		//
-		// ScenarioCheckEvents.CanEnterCheck.Parameters canEnterB =
-		// 	ScenarioCheckEvents.CanEnterCheckEvent.Fire(
-		// 		new ScenarioCheckEvents.CanEnterCheck.Parameters(figureB, figureA.Hex));
-		//
-		// if(!canEnterA.CanEnter || !canEnterB.CanEnter)
-		// {
-		// 	return false;
-		// }
-		//
-		// return true;
+		if(figureA != null && figureB != null)
+		{
+			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(figureA, subscriber);
+		}
+
+		return canSwap;
 	}
 
 	public static bool CanForceMoveTo(AbilityState potentialAbilityState, Figure figure, Hex destination)
@@ -1051,7 +1053,7 @@ public static class AbilityCmd
 			));
 		}
 
-		await GenericChoice(potentialInfuser, subscriptions);
+		await GenericChoice(potentialInfuser ?? GameController.Instance.CharacterManager.FirstAlive(), subscriptions);
 
 		return element;
 	}
@@ -1456,10 +1458,13 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(false));
 
+		GameController.SetFastForward(false);
+
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioLostView.Open();
 
-		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None,
+			cancellationToken: GameController.CancellationToken);
 
 		await GameController.Instance.EndScenario();
 
@@ -1470,12 +1475,15 @@ public static class AbilityCmd
 	{
 		await ScenarioEvents.ScenarioEndedEvent.CreatePrompt(new ScenarioEvents.ScenarioEnded.Parameters(true));
 
+		GameController.SetFastForward(false);
+
 		await GameController.Instance.OpenStoryViewConclusion();
 
 		GameController.Instance.MarkScenarioEnded();
 		GameController.Instance.ScenarioWonView.Open();
 
-		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None);
+		await GDTask.WaitWhile(() => GameController.Instance.ScenarioResult == ScenarioResult.None,
+			cancellationToken: GameController.CancellationToken);
 
 		await GameController.Instance.EndScenario();
 
@@ -1720,33 +1728,10 @@ public static class AbilityCmd
 
 	private static async GDTask<bool> TrySwap(AbilityState potentialAbilityState, Figure authority, HexObject hexObjectA, HexObject hexObjectB)
 	{
-		Figure figureA = hexObjectA as Figure;
-		Figure figureB = hexObjectB as Figure;
-
-		object subscriber = new object();
-
-		if(figureA != null && figureB != null)
-		{
-			// Ignore figure to swap with
-			ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Subscribe(authority, subscriber,
-				parameters =>
-					(parameters.Figure == figureA &&
-					 parameters.OtherFigure == figureB) ||
-					(parameters.OtherFigure == figureA &&
-					 parameters.Figure == figureB),
-				parameters =>
-				{
-					parameters.SetCanStopAt();
-				}
-			);
-		}
-
 		if(!CanSwap(potentialAbilityState, hexObjectA, hexObjectB))
 		{
 			return false;
 		}
-
-		ScenarioCheckEvents.CanStopMoveAtHexWithFigureCheckEvent.Unsubscribe(authority, subscriber);
 
 		if(!GameController.FastForward)
 		{
@@ -1755,6 +1740,9 @@ public static class AbilityCmd
 
 		Hex hexA = hexObjectA.Hex;
 		Hex hexB = hexObjectB.Hex;
+
+		Figure figureA = hexObjectA as Figure;
+		Figure figureB = hexObjectB as Figure;
 
 		if(figureA != null)
 		{

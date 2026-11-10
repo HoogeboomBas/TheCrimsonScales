@@ -51,4 +51,7 @@ public class Safeguard : ConditionModel
 
 		ScenarioEvents.InflictConditionsEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"TODO";
 }

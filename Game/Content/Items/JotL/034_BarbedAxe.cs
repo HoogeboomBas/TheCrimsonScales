@@ -21,11 +21,11 @@ public class BarbedAxe : JotLItem
 			{
 				await Use(async user =>
 				{
-					state.AbilityAddCondition(Conditions.Stun);
+					state.AbilityAddCondition(Conditions.Wound1);
 
 					object subscriber = new object();
 
-					// Also add stun to all attacks in the same action
+					// Also add wound to all attacks in the same action
 					ScenarioEvents.AbilityStartedEvent.Subscribe(this, subscriber,
 						parameters =>
 							parameters.AbilityState.ActionState == state.ActionState &&
@@ -33,7 +33,7 @@ public class BarbedAxe : JotLItem
 						async parameters =>
 						{
 							AttackAbility.State attackAbilityState = ((AttackAbility.State)parameters.AbilityState);
-							attackAbilityState.AbilityAddCondition(Conditions.Stun);
+							attackAbilityState.AbilityAddCondition(Conditions.Wound1);
 
 							await GDTask.CompletedTask;
 						}

@@ -21,6 +21,9 @@ public partial class CardSelectionCard : Control
 	[Export]
 	private Control _initiativeIndicatorContainer;
 
+	[Export]
+	private InspectButton _inspectButton;
+
 	public SavedAbilityCard SavedAbilityCard { get; private set; }
 
 	public bool Selected { get; private set; }
@@ -50,6 +53,8 @@ public partial class CardSelectionCard : Control
 		_initiativeButton.Pressed += OnInitiativePressed;
 		_cardButton.MouseEntered += OnMouseEntered;
 		_cardButton.MouseExited += OnMouseExited;
+
+		_inspectButton.Pressed += OnInspectButtonPressed;
 	}
 
 	public void SetSelected(bool selected)
@@ -101,5 +106,13 @@ public partial class CardSelectionCard : Control
 	private void OnMouseExited()
 	{
 		MouseExitedEvent?.Invoke(this);
+	}
+
+	private void OnInspectButtonPressed()
+	{
+		// AppController.Instance.PopupManager.TryOpenPopupOnTop(new InspectPopup.Request()
+		// {
+		// 	SavedAbilityCard = SavedAbilityCard,
+		// });
 	}
 }

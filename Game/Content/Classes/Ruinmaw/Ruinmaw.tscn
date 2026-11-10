@@ -10,16 +10,16 @@
 script = ExtResource("2_7s24i")
 _satedIndicator = NodePath("SatedIndicator")
 
-[node name="Sprite2D" parent="Mask" index="0"]
+[node name="Sprite2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="0" unique_id=1804687506]
 texture = ExtResource("3_eb0ki")
 
-[node name="AnimatedSpriteSheet2D" parent="Mask" index="1"]
+[node name="AnimatedSpriteSheet2D" parent="Mask" parent_id_path=PackedInt32Array(517148938) index="1" unique_id=825112643]
 texture = ExtResource("4_eb0ki")
 hframes = 12
 vframes = 7
 _frameCount = 80
 
-[node name="Outline" parent="." index="2"]
+[node name="Outline" parent="." index="2" unique_id=517487183]
 self_modulate = Color(0.788235, 0.145098, 0.172549, 1)
 
 [node name="SatedIndicator" parent="." index="4" unique_id=579109723 instance=ExtResource("5_eb0ki")]

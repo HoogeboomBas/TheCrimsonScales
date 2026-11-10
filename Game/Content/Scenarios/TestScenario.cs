@@ -21,12 +21,11 @@ public class TestScenario : ScenarioModel
 		TODO
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } = [];
-	// [
-	// 	ModelDB.Monster<SpittingDrake>(),
-	// 	ModelDB.Monster<VermlingScout>(),
-	// 	ModelDB.Monster<WaterSpirit>(),
-	// ];
+	public override List<MonsterModel> MonsterModels { get; } =
+	[
+		ModelDB.Monster<BanditGuard>(),
+		ModelDB.Monster<DeepTerror>(),
+	];
 
 	public override List<SavedReward> Rewards { get; } =
 	[

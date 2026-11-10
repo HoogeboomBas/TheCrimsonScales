@@ -29,7 +29,7 @@ font_size = 20
 outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
-[node name="ItemView" type="Control" unique_id=873347691 node_paths=PackedStringArray("_container", "TextureRect", "_costLabel", "_itemCountLabel", "_characterTokenParent", "_maxUseCountTokenParent", "TextureRects")]
+[node name="ItemView" type="Control" unique_id=873347691 node_paths=PackedStringArray("_container", "TextureRect", "_coin", "_costLabel", "_itemCountMask", "_itemCountLabel", "_characterTokenParent", "_maxUseCountTokenParent", "TextureRects")]
 custom_minimum_size = Vector2(180, 275.4)
 layout_mode = 3
 anchors_preset = 0
@@ -39,7 +39,9 @@ mouse_filter = 2
 script = ExtResource("1_keb7s")
 _container = NodePath("Container")
 TextureRect = NodePath("Container/Mask/TextureRect")
+_coin = NodePath("Container/Mask/Coin")
 _costLabel = NodePath("Container/Mask/Coin/CostLabel")
+_itemCountMask = NodePath("Container/ItemCountMask")
 _itemCountLabel = NodePath("Container/ItemCountMask/ItemCountLabel")
 _characterTokenScene = ExtResource("2_5m6ac")
 _characterTokenParent = NodePath(".")

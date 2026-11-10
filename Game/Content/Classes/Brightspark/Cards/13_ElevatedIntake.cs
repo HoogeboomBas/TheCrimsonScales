@@ -19,8 +19,8 @@ public class ElevatedIntake : BrightsparkCardModel<ElevatedIntake.CardTop, Eleva
 				.WithOnAbilityStarted(async state =>
 				{
 					ScenarioEvents.ItemStateChangedEvent.Subscribe(state, this,
-						canApplyParameters =>
-							canApplyParameters.Item.ItemState == ItemState.Consumed && canApplyParameters.Item.Owner == state.Performer,
+						canApplyParameters => canApplyParameters.Item.ItemState == ItemState.Consumed &&
+						                      canApplyParameters.Item.Owner == state.Performer && canApplyParameters.Item.ItemType is ItemType.Small,
 						async applyParameters =>
 						{
 							state.AbilityAdjustAttackValue(2);
@@ -55,8 +55,9 @@ public class ElevatedIntake : BrightsparkCardModel<ElevatedIntake.CardTop, Eleva
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.ItemStateChangedEvent.Subscribe(state, this,
-						canApplyParameters =>
-							canApplyParameters.Item.Owner == state.Performer && canApplyParameters.Item.ItemState == ItemState.Consumed,
+						canApplyParameters => canApplyParameters.Item.Owner == state.Performer &&
+						                      canApplyParameters.Item.ItemState == ItemState.Consumed &&
+						                      canApplyParameters.Item.ItemType is ItemType.Small,
 						async applyParameters =>
 						{
 							await AbilityCmd.InfuseWildElement(state);

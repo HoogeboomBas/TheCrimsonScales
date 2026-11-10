@@ -18,6 +18,7 @@ public class RemoteBeetle : CS4Item
 		SubscribeDuringTurn(
 			canApply: character =>
 				character == Owner &&
+				character.Hex != null &&
 				RangeHelper.GetHexesInRange(character.Hex, 2, allowDoors: true)
 					.Any(hex => hex.TryGetHexObjectOfType(out Door door) && !door.Opened && !door.Locked),
 			apply: async character =>

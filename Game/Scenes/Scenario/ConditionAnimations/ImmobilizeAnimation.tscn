@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://pff5scyh8882"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_6hk84"]
+[ext_resource type="Texture2D" uid="uid://bhmii76ypwfu" path="res://Art/Icons/ConditionsAndEffects/Immobilize/Boot.svg" id="2_6hk84"]
+[ext_resource type="Texture2D" uid="uid://cl407eiclctbe" path="res://Art/Icons/ConditionsAndEffects/Immobilize/Arrow.svg" id="3_35kfw"]
+[ext_resource type="Texture2D" uid="uid://b3cve1k33q2hp" path="res://Art/Icons/ConditionsAndEffects/Immobilize.svg" id="3_kewga"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5518045),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(195.83334, -175), Vector2(-75.00001, 75.00001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.55352193, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.7278023, 0.0, -0.08726646, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes/Ankle:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.55352193, 0.7, 0.99531347),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.5235987755982988, 0.0, -0.13962634, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arrow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.46666667, 0.6, 0.6411517),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-154.16666, -249.99998), Vector2(7.5, 12.5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(195.83334, -175)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7278023]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Boot/Sprite2D/Skeleton2D/Toes/Ankle:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.17453292]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Arrow:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-154.16666, -249.99998)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_6hk84")]
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.6039216, 0.20392157, 0.18039216, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+speed_scale = 1.5
+
+[node name="Boot" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1047855544]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Sprite2D" type="Polygon2D" parent="ScaleContainer/Inset/AnimationContainer/Boot" index="0" unique_id=648357432]
+position = Vector2(-256, -256)
+texture = ExtResource("2_6hk84")
+skeleton = NodePath("Skeleton2D")
+polygon = PackedVector2Array(301.7049, 134.41747, 284, 135.2, 239, 149.3, 239, 157.8, 248, 186.8, 262.65363, 189.29384, 281.4, 192, 255, 196, 248.91678, 202.77629, 252, 222, 256.799, 234.56937, 282.1, 236.5, 256.5, 242, 248.40385, 263.31372, 232.7, 294, 186.4, 307.5, 166.3, 305, 157.9, 305, 146.90395, 323.85535, 144.61447, 333.77637, 151, 356.8, 169.2864, 368.62494, 218.63611, 381.59564, 235.42557, 383.8851, 250.8, 385, 261.9, 385, 286.9, 375.6, 313.4, 382, 319.7, 382, 359.6, 371, 366.94205, 360.98926, 368, 343.3, 368, 330.4, 352, 267.5, 352, 259, 359.0491, 214.97191, 361, 198.3, 373.55756, 180.90053, 377, 163.8, 360.3295, 147.57599, 346, 136.3, 257.47876, 292.16245, 330.00348, 316.15558, 250.9352, 303.06842, 329.4582, 331.96924)
+uv = PackedVector2Array(301.7049, 134.41747, 284, 135.2, 239, 149.3, 239, 157.8, 248, 186.8, 262.65363, 189.29384, 281.4, 192, 255, 196, 248.91678, 202.77629, 252, 222, 256.799, 234.56937, 282.1, 236.5, 256.5, 242, 248.40385, 263.31372, 232.7, 294, 186.4, 307.5, 166.3, 305, 157.9, 305, 146.90395, 323.85535, 144.61447, 333.77637, 151, 356.8, 169.2864, 368.62494, 218.63611, 381.59564, 235.42557, 383.8851, 250.8, 385, 261.9, 385, 286.9, 375.6, 313.4, 382, 319.7, 382, 359.6, 371, 366.94205, 360.98926, 368, 343.3, 368, 330.4, 352, 267.5, 352, 259, 359.0491, 214.97191, 361, 198.3, 373.55756, 180.90053, 377, 163.8, 360.3295, 147.57599, 346, 136.3, 257.47876, 292.16245, 330.00348, 316.15558, 250.9352, 303.06842, 329.4582, 331.96924)
+polygons = [[1, 2, 3], [1, 3, 5], [3, 4, 5], [0, 1, 6], [1, 5, 6], [6, 7, 9], [7, 8, 9], [6, 9, 11], [9, 10, 11], [11, 12, 13], [15, 16, 18], [16, 17, 18], [15, 18, 19], [15, 19, 20], [15, 20, 21], [14, 15, 22], [15, 21, 22], [11, 33, 34], [6, 11, 35], [11, 34, 35], [6, 35, 36], [37, 38, 39], [36, 37, 39], [36, 39, 40], [0, 6, 40], [6, 36, 40], [13, 14, 41], [11, 13, 41], [11, 33, 42], [11, 41, 42], [32, 33, 42], [41, 42, 43], [24, 25, 43], [14, 41, 43], [25, 26, 43], [23, 24, 43], [14, 22, 43], [22, 23, 43], [42, 43, 44], [26, 43, 44], [28, 29, 44], [26, 27, 44], [27, 28, 44], [31, 32, 44], [32, 42, 44], [29, 30, 44], [30, 31, 44]]
+bones = ["Toes", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1), "Toes/Ankle", PackedFloat32Array(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0), "Toes/Ankle/Top", PackedFloat32Array(1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0)]
+internal_vertex_count = 4
+
+[node name="Skeleton2D" type="Skeleton2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D" index="0" unique_id=1540708332]
+position = Vector2(256, 256)
+
+[node name="Toes" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D" index="0" unique_id=1601463784]
+position = Vector2(195.83334, -175)
+rotation = 0.7278023
+rest = Transform2D(1, 0, 0, 1, -75.00001, 75.00001)
+
+[node name="Ankle" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D/Toes" index="0" unique_id=1166506917]
+position = Vector2(120.83334, 4.166649)
+rotation = 0.17453292
+scale = Vector2(0.9999999, 0.9999999)
+rest = Transform2D(1, 0, 0, 1, 120.83334, 4.166649)
+
+[node name="Top" type="Bone2D" parent="ScaleContainer/Inset/AnimationContainer/Boot/Sprite2D/Skeleton2D/Toes/Ankle" index="0" unique_id=64431517]
+position = Vector2(4.166668, -187.5)
+rest = Transform2D(1, 0, 0, 1, 4.166668, -187.5)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+
+[node name="Arrow" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1130018531]
+position = Vector2(-154.16666, -249.99998)
+scale = Vector2(0.9999998, 0.9999998)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Arrow" index="0" unique_id=2082042232]
+texture = ExtResource("3_35kfw")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=84261608]
+texture = ExtResource("3_kewga")

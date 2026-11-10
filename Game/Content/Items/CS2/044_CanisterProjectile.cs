@@ -1,11 +1,13 @@
+using Fractural.Tasks;
+
 public class CanisterProjectile : CS2Item
 {
 	public override string Name => "Canister Projectile";
 	public override int ItemNumber => 44;
 	public override int ShopCount => 1;
 	public override int Cost => 30;
-	public override ItemType ItemType => ItemType.Small;
-	public override ItemUseType ItemUseType => ItemUseType.Consume;
+	public override ItemType ItemType => ItemType.OneHand;
+	public override ItemUseType ItemUseType => ItemUseType.Spend;
 
 	protected override int AtlasIndex => 17;
 
@@ -13,28 +15,15 @@ public class CanisterProjectile : CS2Item
 	{
 		base.Subscribe();
 
-		SubscribeDuringTurn(
-			canApply: character => character == Owner,
-			apply: async character =>
+		SubscribeDuringAttack(
+			canApply: state => state.Performer == Owner && state.SingleTargetRangeType == RangeType.Range,
+			apply: async state =>
 			{
 				await Use(async user =>
 				{
-					ActionState actionState = new ActionState(user,
-					[
-						GrantAbility.Builder()
-							.WithAbilities(
-							[
-								AbilityCmd.SummonMovePlusX(0).Build(),
-								AbilityCmd.SummonAttackPlusX(0).Build()
-							])
-							.WithCustomGetTargets((grantState, figures) =>
-							{
-								figures.AddRange(((Character)grantState.Performer).Summons);
-							})
-							.WithTarget(Target.Allies)
-							.Build()
-					]);
-					await actionState.Perform();
+					state.SingleTargetAdjustPierce(2);
+
+					await GDTask.CompletedTask;
 				});
 			}
 		);

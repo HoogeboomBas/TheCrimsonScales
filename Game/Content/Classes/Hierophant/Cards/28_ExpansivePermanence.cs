@@ -24,7 +24,8 @@ public class ExpansivePermanence : HierophantLevelUpCardModel<ExpansivePermanenc
 									{
 										((ShieldAbility.State)applyParameters.AbilityState).AdjustAdditionalShield(1);
 
-										await AbilityCmd.AddCondition(null, applyParameters.Performer, Conditions.Immobilize);
+										await AbilityCmd.AddCondition(null, applyParameters.Performer, Conditions.Immobilize,
+											applyParameters.Performer);
 										await AbilityCmd.GainXP(grantAbilityState.Performer, 1);
 									},
 									effectInfoViewParameters: new TextEffectInfoView.Parameters(

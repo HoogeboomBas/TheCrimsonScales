@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
 public class Scenario049 : ScenarioModel
@@ -8,7 +8,7 @@ public class Scenario049 : ScenarioModel
 	public override int ScenarioNumber => 49;
 	public override string Name => "Oak Invasion A";
 
-	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.OaksAlliance, false)];
+	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.OaksAlliance, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
 	public override string IntroductionText =>

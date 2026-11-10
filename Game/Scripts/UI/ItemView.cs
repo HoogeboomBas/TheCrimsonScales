@@ -10,7 +10,11 @@ public partial class ItemView : Control
 	public TextureRect TextureRect { get; private set; }
 
 	[Export]
+	private Control _coin;
+	[Export]
 	private Label _costLabel;
+	[Export]
+	private Control _itemCountMask;
 	[Export]
 	private Label _itemCountLabel;
 
@@ -28,7 +32,7 @@ public partial class ItemView : Control
 
 	public ItemModel ItemModel { get; private set; }
 
-	public void SetItem(ItemModel itemModel, bool showCharacterToken = false)
+	public void SetItem(ItemModel itemModel, bool showCharacterToken = false, bool showCostItemCount = true)
 	{
 		ItemModel = itemModel;
 
@@ -52,6 +56,9 @@ public partial class ItemView : Control
 
 		SetCost(ItemModel.Cost);
 		SetItemCount(1, ItemModel.ShopCount);
+
+		_coin.SetVisible(showCostItemCount && ItemModel.ShopCount > 0);
+		_itemCountMask.SetVisible(showCostItemCount && ItemModel.ShopCount > 0);
 
 		_container.SetScale(Size / _container.Size);
 		this.DelayedCall(() =>

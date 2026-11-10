@@ -14,7 +14,7 @@ public class MoundedSight : ChieftainCardModel<MoundedSight.CardTop, MoundedSigh
 		[
 			new AbilityCardAbility(SummonAbility.Builder()
 				.WithName("Cavalry Camel")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/cavalry_camel_AI.png")
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/cavalry_camel.png")
 				.WithHealth(5, new SummonHealthSquare(this, new Vector2(0.44601247f, 0.21150608f)))
 				.WithMove(2, new SummonMoveSquare(this, new Vector2(0.67785037f, 0.21150608f)))
 				.WithAttack(1, new SummonAttackSquare(this, new Vector2(0.44601247f, 0.2875057f)))

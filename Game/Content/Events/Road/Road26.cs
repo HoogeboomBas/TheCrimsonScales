@@ -17,7 +17,7 @@ public class Road26 : RoadEventModel<Road26.ChoiceA, Road26.ChoiceB>
 		public override SummonAbility SummonAbility { get; } =
 			SummonAbility.Builder()
 				.WithName("Slithering Viper")
-				.WithTexturePath("res://Content/Classes/Chieftain/Summons/cottonmouth_snake_AI.png") //TODO: Generic or AI summon visual?
+				.WithTexturePath("res://Content/Classes/Chieftain/Summons/cottonmouth_snake.png") //TODO: Generic summon visual?
 				.WithHealth(3)
 				.WithMove(3)
 				.WithAttack(1)

@@ -10,6 +10,7 @@ public partial class EffectSelectionView : Control
 	private readonly List<EffectButtonBase> _effects = new List<EffectButtonBase>();
 
 	private EffectCollection _effectCollection;
+	private bool _effectSelected;
 
 	public int EffectCount => _effects.Count;
 
@@ -39,6 +40,8 @@ public partial class EffectSelectionView : Control
 			effectSelectionEffect.PressedEvent += OnEffectPressed;
 			_effects.Add(effectSelectionEffect);
 		}
+
+		_effectSelected = false;
 	}
 
 	public void Close()
@@ -53,6 +56,13 @@ public partial class EffectSelectionView : Control
 
 	private void OnEffectPressed(EffectButtonBase effect)
 	{
+		if(_effectSelected || !_effects.Contains(effect))
+		{
+			return;
+		}
+
+		_effectSelected = true;
+
 		EffectSelectedEvent?.Invoke(effect.Effect);
 	}
 }

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ma5sm3k8s538"]
+
+[ext_resource type="Texture2D" uid="uid://dh4obm2xghocg" path="res://Content/Classes/Chieftain/Summons/speedy_ostrich.png" id="1_tod1b"]
+
+[resource]
+atlas = ExtResource("1_tod1b")
+region = Rect2(55, 130, 400, 600)

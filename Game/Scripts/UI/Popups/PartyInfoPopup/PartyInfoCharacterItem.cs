@@ -12,7 +12,7 @@ public partial class PartyInfoCharacterItem : Control
 
 	public void Init(ItemType itemType, ItemModel itemModel)
 	{
-		_itemView.SetItem(itemModel);
+		_itemView.SetItem(itemModel, showCostItemCount: false);
 		_itemView.SetVisible(itemModel != null);
 
 		if(itemModel != null)

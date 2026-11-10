@@ -4,7 +4,7 @@ using Fractural.Tasks;
 public class Duelist : TheCrimsonScalesBattleGoal
 {
 	public override string Title => "Duelist";
-	public override string Description => "Never exit a hex adjacent to the enemy except through forced movement.";
+	public override string Description => "Never exit a hex adjacent to an enemy except through forced movement.";
 
 	public override BattleGoalCheckmarkCount CheckmarkCount => BattleGoalCheckmarkCount.Two;
 
@@ -15,14 +15,14 @@ public class Duelist : TheCrimsonScalesBattleGoal
 		ScenarioEvents.FigureExitingHexEvent.Subscribe(this,
 			parameters =>
 				!battleGoal.ProgressFull &&
-				parameters.Figure == character && 
+				parameters.Figure == character &&
 				parameters.PotentialAbilityState is MoveAbility.State or TeleportAbility.State &&
 				parameters.Hex.Neighbours.Any(hex => hex.GetFigures().Any(figure => figure.EnemiesWith(character))),
 			async parameters =>
 			{
 				battleGoal.AdjustProgress(1);
 
-				await GDTask.CompletedTask; 
+				await GDTask.CompletedTask;
 			}
 		);
 

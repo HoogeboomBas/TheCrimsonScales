@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://b3cr21sg6rs7n"]
-
-[ext_resource type="Texture2D" uid="uid://dg3fhdcs2t7l4" path="res://Content/Classes/Chieftain/Summons/lowland_gorilla_AI.png" id="1_3kl50"]
-
-[resource]
-atlas = ExtResource("1_3kl50")
-region = Rect2(60, 70, 400, 600)

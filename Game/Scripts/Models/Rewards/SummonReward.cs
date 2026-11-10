@@ -29,6 +29,10 @@ public abstract class SummonReward : SavedReward
 		{
 			ActionState actionState = new ActionState(selectedFigure, [summonAbility]);
 			await actionState.Perform();
+			if(actionState.GetAbilityState<SummonAbility.State>(0).Performed)
+			{
+				actionState.GetAbilityState<SummonAbility.State>(0).Summon.SetCanTakeTurn(true);
+			}
 		}
 	}
 }
