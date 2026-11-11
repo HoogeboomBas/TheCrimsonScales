@@ -22,7 +22,7 @@ public abstract class ScenarioModel : AbstractModel<ScenarioModel>, IEventSubscr
 
 	public abstract ScenarioChain ScenarioChain { get; }
 	public virtual IEnumerable<ScenarioConnection> Connections { get; } = [];
-
+	public abstract string PreviewText { get; }
 	public abstract string IntroductionText { get; }
 	public abstract string ConclusionText { get; }
 

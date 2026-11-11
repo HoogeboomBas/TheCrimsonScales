@@ -14,6 +14,11 @@ public class Scenario052 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SideScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Occupy both pressure plates at the end of the round.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		There is an old wishing well located somewhere between the Horn District and the Ward of Scales. It is frequently visited by the poor Inox workers or young couples who toss in the few coins they can spare to wish for a better life, healthy babies or everlasting love and happiness. Lately, strange noises are coming from the well and people are avoiding the place, especially at night, when a foul stench rises from the deep. The city workers refuse to go down the sewers, so the administrator has hired you to investigate the well and clean up whatever mess you might find down there.
