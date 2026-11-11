@@ -10,6 +10,11 @@ public class Scenario054 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SideScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		It is another night in the Sleeping Lion, not exactly uneventful: you eject a Vermling who’s trying to pretend an old piece of metal with some runes on is some ancient artifact, and there’s an impressive bar fight, but nothing out of the ordinary. After a couple of hours, and more than a few drinks, an old drunk approaches your table.

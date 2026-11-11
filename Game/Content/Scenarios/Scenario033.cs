@@ -12,6 +12,11 @@ public class Scenario033 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<ProtectAndServe>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You’ve spent the morning sleeping off the excess of ale from the night before. Your head is booming, It sounds like thunder. Boom! Boom! Wait... there is a booming! It’s not all in your head, it’s coming from outside. You hurry outside of your hovel and into the streets. Guards are scrambling this way and that. “Inox!” one of them calls. “At the Western Gate! Positions!”

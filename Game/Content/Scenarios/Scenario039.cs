@@ -12,6 +12,11 @@ public class Scenario039 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<AnAdderDivides>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		All characters occupy or are exhausted on the ending hex.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		After trudging through some murky places, you finally are able to piece together the little clues you’ve found, and narrow down the white viper to a region in the Lingering Swamp. You had been searching for days before you finally saw it. A pure white viper; just like you saw on that foreboding day. You’re not mad. And another one. And another... They seem to be living in a massive pit concealed by the overgrowth.

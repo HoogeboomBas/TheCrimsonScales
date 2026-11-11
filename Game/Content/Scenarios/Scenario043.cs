@@ -13,6 +13,11 @@ public class Scenario043 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Councilman Raksani’s lush lawns stretch away to one side, and you can see his enormous mansion to the other. In front of you lies the labyrinth he so proudly showed off to you. The merchant is a very wealthy and influential man, so you humor him—but a garden maze? This is a child’s game.

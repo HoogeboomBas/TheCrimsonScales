@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 
 public class Scenario044 : ScenarioModel
@@ -11,6 +11,11 @@ public class Scenario044 : ScenarioModel
 	public override List<ScenarioLink> Links => [GloomhavenLink.Instance];
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
+
+	public override string PreviewText =>
+	"""
+		Kill two Living Spirits per character.
+	""";
 
 	public override string IntroductionText =>
 		"""
