@@ -426,11 +426,6 @@ public abstract class ScenarioEvent
 			AbilityState = abilityState;
 			Authority = AbilityState.Authority;
 		}
-
-		public void SetAuthority(Figure figure)
-		{
-			Authority = figure;
-		}
 	}
 
 	public abstract class ParametersBaseWithAbilityState : ParametersBase
