@@ -54,7 +54,7 @@ public class CardDeck<T>
 
 	public void DiscardCard(T card)
 	{
-		DiscardPile.AddIfNew(card);
+		DiscardPile.Add(card);
 	}
 
 	public void MoveCardToTop(T card)
