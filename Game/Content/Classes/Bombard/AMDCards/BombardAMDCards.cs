@@ -145,7 +145,7 @@ public class BombardAMDCards
 
 		public override List<Ability> GetAbilities(AttackAbility.State attackAbilityState) =>
 		[
-			PullSelfAbility.Builder().WithPullSelfValue(3).WithCustomGetTargets(((state, list) => list.Add(attackAbilityState.Target))).Build()
+			PullSelfAbility.Builder().WithPullSelfValue(3).WithCustomGetTargets((state, list) => list.Add(attackAbilityState.Target)).WithAutoConfirmIfOneTarget(true).Build()
 		];
 	}
 }
