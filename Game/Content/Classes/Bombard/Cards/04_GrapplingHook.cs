@@ -24,6 +24,7 @@ public class GrapplingHook : BombardCardModel<GrapplingHook.CardTop, GrapplingHo
 					AttackAbility.State attackAbilityState = state.ActionState.GetAbilityState<AttackAbility.State>(0);
 					targets.AddRange(attackAbilityState.UniqueTargetedFigures);
 				})
+				.WithAutoConfirmIfOneTarget(true)
 				.Build())
 		];
 	}
