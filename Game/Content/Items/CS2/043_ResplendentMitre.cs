@@ -16,7 +16,9 @@ public class ResplendentMitre : CS2Item
 		base.Subscribe();
 
 		SubscribeDuringHeal(
-			canApply: state => state.Performer == Owner,
+			canApply: state =>
+				state.Performer == Owner &&
+				state.ActionState.ActionSource is AbilityCardSide,
 			apply: async state =>
 			{
 				await Use(async user =>
@@ -25,15 +27,15 @@ public class ResplendentMitre : CS2Item
 
 					object subscriber = new object();
 
-					// Also add 1 to all attacks in the same action
+					// Also add 1 to all heals in the same action
 					ScenarioEvents.AbilityStartedEvent.Subscribe(this, subscriber,
 						parameters =>
 							parameters.AbilityState.ActionState == state.ActionState &&
 							parameters.AbilityState is HealAbility.State,
 						async parameters =>
 						{
-							HealAbility.State attackAbilityState = ((HealAbility.State)parameters.AbilityState);
-							attackAbilityState.AbilityAdjustHealValue(2);
+							HealAbility.State healAbilityState = ((HealAbility.State)parameters.AbilityState);
+							healAbilityState.AbilityAdjustHealValue(2);
 
 							await GDTask.CompletedTask;
 						}
