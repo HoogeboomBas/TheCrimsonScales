@@ -32,7 +32,6 @@ public class Miser : TheCrimsonScalesBattleGoal
 				parameters.Figure == character &&
 				leavingHex != null &&
 				leavingHex.Room != null &&
-				parameters.Hex.Room != null &&
 				parameters.Hex.Room != leavingHex.Room &&
 				leavingHex.Room.Hexes.Any(hex => hex.HasHexObjectOfType<Coin>()),
 			async parameters =>
