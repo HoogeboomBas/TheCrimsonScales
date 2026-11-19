@@ -124,7 +124,12 @@ public partial class Spirit : Figure
 
 		MoveAbility moveAbility = MoveAbility.Builder()
 			.WithDistance(new(state => Move ?? 0))
-			.WithConditionalAbilityCheck(async state => Move.HasValue)
+			.WithConditionalAbilityCheck(async state =>
+			{
+				await GDTask.CompletedTask;
+
+				return Move.HasValue;
+			})
 			.Build();
 		_abilities.Add(moveAbility);
 
@@ -133,7 +138,12 @@ public partial class Spirit : Figure
 			.WithRange(Range ?? 1)
 			.WithMinRange(1)
 			.WithRangeType(RangeType)
-			.WithConditionalAbilityCheck(async state => Attack.HasValue)
+			.WithConditionalAbilityCheck(async state =>
+			{
+				await GDTask.CompletedTask;
+
+				return Attack.HasValue;
+			})
 			.Build();
 		_abilities.Add(attackAbility);
 
