@@ -120,10 +120,13 @@ public partial class AMDDrawView : Control
 
 		AMDCardValue terminalCardValue = null;
 		List<AMDCardValue> rollingCards = new List<AMDCardValue>();
+		List<AMDCard> drawnCards = new List<AMDCard>();
 
 		while(true)
 		{
-			AMDCard newCard = deck.DrawCard();
+			AMDCard newCard = deck.DrawCard(autoDiscard: false);
+
+			drawnCards.Add(newCard);
 
 			UpdateDrawPileSize(deck);
 
@@ -294,6 +297,15 @@ public partial class AMDDrawView : Control
 		}
 
 		await terminalCardValue.Apply(attackAbilityState);
+
+		foreach(AMDCard drawnCard in drawnCards)
+		{
+			if(!drawnCard.RemoveAfterDraw)
+			{
+				deck.DiscardCard(drawnCard);
+			}
+		}
+
 	}
 
 	private void UpdateDrawPileSize(AMDCardDeck deck)
