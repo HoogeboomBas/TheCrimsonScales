@@ -11,6 +11,11 @@ public class Scenario050 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.InoxAlliance, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Somewhat reluctantly, you support the Inox in their dispute with the Hierophant and his acolytes. You have no strong personal religious beliefs and, although he was a good colleague, you suspect that the Hierophant’s desire for securing a genuine holy site. Besides, the Inox can be powerful allies when needed.

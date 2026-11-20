@@ -13,6 +13,11 @@ public class Scenario006 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.OozeDestroyed, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<InfectiousScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Purify all poisoned water.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You trace the fountain’s water supply up to the main water source for the whole of Gloomhaven—a large lake at the top of a hill that siphons off into a complex series of pipes and pumps.

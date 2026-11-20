@@ -13,6 +13,11 @@ public class Scenario011 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<SailScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario012>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You are in The Crimson Scale, for no reason other than boredom (and a slight disagreement over an outstanding tab at the Sleeping Lion), when Selandre appears, towing a slightly resistant Sankas behind her. “Aha!” she cries in delight, “Just the people I was looking for. You remember my friend Sankas? He requires an artefact from an island in the Misty Sea. Fancy a boat ride?”

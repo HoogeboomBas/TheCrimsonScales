@@ -12,6 +12,11 @@ public class Scenario042 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Goring Grizzly, King Cobra and Sly Wolf.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Intrigued by the reports of the strange beasts the tiger-riding Orchid told you about, you approach the area of the forest she directed you to. At first glance, all seems clear and calm, but then you notice the eyes.

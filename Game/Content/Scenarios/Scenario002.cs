@@ -13,6 +13,11 @@ public class Scenario002 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario003>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You cautiously enter the channel. It was originally formed of bricks, like a sewer, but is now so overgrown that it appears organic. Also like a sewer, it is dark, damp and smells terrible.

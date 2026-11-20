@@ -14,6 +14,11 @@ public class Scenario036 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PersonalQuestRequirement(ModelDB.PersonalQuest<BanditBanisher>())];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<PersonalQuestScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill the Terrible Two.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You look at the fearsome Chainguard who has just left the prison’s employment. “What are you going to do now?”

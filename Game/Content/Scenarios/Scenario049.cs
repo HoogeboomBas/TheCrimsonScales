@@ -11,6 +11,11 @@ public class Scenario049 : ScenarioModel
 	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.OaksAlliance, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Supporting your old friend the Hierophant, you travel to the Dagger Forest to support his brothers in their battle to clear the Inox encampment and reclaim the area for the Oak. You have no great religious beliefs yourself, but you believe in loyalty—and reward for a job well done.
