@@ -43,9 +43,9 @@ public partial class ActionState
 				{
 					Target target = attackAbility.TargetType.GetValue();
 
-					aiMoveParameters.Targets = target.HasFlag(Target.MustTargetSameWithAllTargets) ? 1 : 
-						attackAbility.Targets.GetValue();
+					aiMoveParameters.Targets = attackAbility.Targets.GetValue();
 					aiMoveParameters.TargetAll = target.HasFlag(Target.TargetAll);
+					aiMoveParameters.MustTargetSameWithAllTargets = target.HasFlag(Target.MustTargetSameWithAllTargets);
 					aiMoveParameters.Range = attackAbility.Range.GetValue();
 					aiMoveParameters.RangeType = attackAbility.TypeOfRange.GetValue();
 					aiMoveParameters.AOEPattern = attackAbility.AOEPattern?.GetValue();

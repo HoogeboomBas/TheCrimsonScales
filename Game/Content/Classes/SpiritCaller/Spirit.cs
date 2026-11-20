@@ -122,22 +122,30 @@ public partial class Spirit : Figure
 
 		UpdateInitiative();
 
-		if(Move.HasValue)
-		{
-			MoveAbility moveAbility = MoveAbility.Builder().WithDistance(Move.Value).Build();
-			_abilities.Add(moveAbility);
-		}
+		MoveAbility moveAbility = MoveAbility.Builder()
+			.WithDistance(new(state => Move ?? 0))
+			.WithConditionalAbilityCheck(async state =>
+			{
+				await GDTask.CompletedTask;
 
-		if(Attack.HasValue)
-		{
-			AttackAbility attackAbility = AttackAbility.Builder()
-				.WithDamage(Attack.Value)
-				.WithRange(Range ?? 1)
-				.WithMinRange(1)
-				.WithRangeType(RangeType)
-				.Build();
-			_abilities.Add(attackAbility);
-		}
+				return Move.HasValue;
+			})
+			.Build();
+		_abilities.Add(moveAbility);
+
+		AttackAbility attackAbility = AttackAbility.Builder()
+			.WithDamage(new(state => Attack ?? 0))
+			.WithRange(Range ?? 1)
+			.WithMinRange(1)
+			.WithRangeType(RangeType)
+			.WithConditionalAbilityCheck(async state =>
+			{
+				await GDTask.CompletedTask;
+
+				return Attack.HasValue;
+			})
+			.Build();
+		_abilities.Add(attackAbility);
 
 		ScenarioEvents.HexObjectDestroyedEvent.Subscribe(this, CharacterOwner,
 			parameters =>

@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 public class AlchemyPotion : CS1Item, IPotion
 {
@@ -23,9 +23,7 @@ public class AlchemyPotion : CS1Item, IPotion
 				{
 					Hex hex = await AbilityCmd.SelectHex(character, list =>
 						list.AddRange(RangeHelper.GetHexesInRange(character.Hex, 1)
-							.SelectMany(hex => hex.GetHexObjectsOfType<Obstacle>())
-							.Where(obstacle => !obstacle.CannotBeDestroyed)
-							.Select(obstacle => obstacle.Hex)));
+							.Where(hex => hex.HasHexObjectOfType<Obstacle>() && !hex.GetHexObjectOfType<Obstacle>().CannotBeDestroyed)));
 
 					if(hex == null)
 					{
