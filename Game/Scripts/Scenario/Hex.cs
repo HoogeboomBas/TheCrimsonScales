@@ -14,7 +14,7 @@ public partial class Hex : Node2D
 	public List<HexObject> HexObjects { get; } = new List<HexObject>();
 
 	public Room Room => GameController.Instance.Map.Rooms.FirstOrDefault(room => room.MapTiles.Contains(MapTile)) ??
-		GameController.Instance.Map.Rooms.FirstOrDefault(room => room.GetChildrenOfType<Corridor>().Any(corridor => corridor.Hex == this));
+		GameController.Instance.Map.Rooms.FirstOrDefault(room => room.GetChildrenOfType<Corridor>().Any(corridor => corridor.Hexes.Contains(this)));
 
 	public event Action<Hex> HexObjectsChangedEvent;
 
