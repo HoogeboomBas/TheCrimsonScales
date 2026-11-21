@@ -2,6 +2,8 @@
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game.csproj", "{48E1B3B9-961B-4A80-BE78-1B4F3EB8BE50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Tests", "Tests\Game.Tests.csproj", "{C0B41E69-2CE4-45C9-BFE9-FF6E0684337B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -15,5 +17,9 @@ Global
 		{48E1B3B9-961B-4A80-BE78-1B4F3EB8BE50}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{48E1B3B9-961B-4A80-BE78-1B4F3EB8BE50}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{48E1B3B9-961B-4A80-BE78-1B4F3EB8BE50}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{C0B41E69-2CE4-45C9-BFE9-FF6E0684337B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B41E69-2CE4-45C9-BFE9-FF6E0684337B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B41E69-2CE4-45C9-BFE9-FF6E0684337B}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B41E69-2CE4-45C9-BFE9-FF6E0684337B}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

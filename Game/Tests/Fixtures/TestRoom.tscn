@@ -1,0 +1,322 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Scenario/Scenario.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/Scenario/Room.cs" id="2"]
+[ext_resource type="PackedScene" path="res://Scenes/Scenario/MapTile.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/Scenario/Hex.tscn" id="4"]
+[ext_resource type="Texture2D" path="res://Fixtures/TestRoom.svg" id="5"]
+
+[node name="TestRoom" instance=ExtResource("1")]
+
+[node name="Room" type="Node2D" parent="Map/Rooms" index="0"]
+script = ExtResource("2")
+StartsRevealed = true
+
+[node name="Floor" parent="Map/Rooms/Room" instance=ExtResource("3")]
+StepType = 1
+
+[node name="Sprite2D" parent="Map/Rooms/Room/Floor" index="0"]
+position = Vector2(-109.1192, -126)
+scale = Vector2(1, 1)
+texture = ExtResource("5")
+centered = false
+
+[node name="Hex_0_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(0.00000, 0)
+
+[node name="Hex_1_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(218.23840, 0)
+
+[node name="Hex_2_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(436.47680, 0)
+
+[node name="Hex_3_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(654.71521, 0)
+
+[node name="Hex_4_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(872.95361, 0)
+
+[node name="Hex_5_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1091.19201, 0)
+
+[node name="Hex_6_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1309.43041, 0)
+
+[node name="Hex_7_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1527.66881, 0)
+
+[node name="Hex_8_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1745.90721, 0)
+
+[node name="Hex_9_0" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1964.14562, 0)
+
+[node name="Hex_0_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(109.11920, 189)
+
+[node name="Hex_1_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(327.35760, 189)
+
+[node name="Hex_2_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(545.59600, 189)
+
+[node name="Hex_3_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(763.83441, 189)
+
+[node name="Hex_4_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(982.07281, 189)
+
+[node name="Hex_5_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1200.31121, 189)
+
+[node name="Hex_6_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1418.54961, 189)
+
+[node name="Hex_7_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1636.78801, 189)
+
+[node name="Hex_8_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1855.02641, 189)
+
+[node name="Hex_9_1" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2073.26482, 189)
+
+[node name="Hex_0_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(218.23840, 378)
+
+[node name="Hex_1_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(436.47680, 378)
+
+[node name="Hex_2_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(654.71521, 378)
+
+[node name="Hex_3_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(872.95361, 378)
+
+[node name="Hex_4_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1091.19201, 378)
+
+[node name="Hex_5_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1309.43041, 378)
+
+[node name="Hex_6_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1527.66881, 378)
+
+[node name="Hex_7_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1745.90721, 378)
+
+[node name="Hex_8_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1964.14562, 378)
+
+[node name="Hex_9_2" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2182.38402, 378)
+
+[node name="Hex_0_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(327.35760, 567)
+
+[node name="Hex_1_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(545.59600, 567)
+
+[node name="Hex_2_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(763.83441, 567)
+
+[node name="Hex_3_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(982.07281, 567)
+
+[node name="Hex_4_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1200.31121, 567)
+
+[node name="Hex_5_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1418.54961, 567)
+
+[node name="Hex_6_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1636.78801, 567)
+
+[node name="Hex_7_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1855.02641, 567)
+
+[node name="Hex_8_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2073.26482, 567)
+
+[node name="Hex_9_3" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2291.50322, 567)
+
+[node name="Hex_0_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(436.47680, 756)
+
+[node name="Hex_1_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(654.71521, 756)
+
+[node name="Hex_2_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(872.95361, 756)
+
+[node name="Hex_3_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1091.19201, 756)
+
+[node name="Hex_4_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1309.43041, 756)
+
+[node name="Hex_5_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1527.66881, 756)
+
+[node name="Hex_6_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1745.90721, 756)
+
+[node name="Hex_7_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1964.14562, 756)
+
+[node name="Hex_8_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2182.38402, 756)
+
+[node name="Hex_9_4" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2400.62242, 756)
+
+[node name="Hex_0_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(545.59600, 945)
+
+[node name="Hex_1_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(763.83441, 945)
+
+[node name="Hex_2_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(982.07281, 945)
+
+[node name="Hex_3_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1200.31121, 945)
+
+[node name="Hex_4_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1418.54961, 945)
+
+[node name="Hex_5_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1636.78801, 945)
+
+[node name="Hex_6_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1855.02641, 945)
+
+[node name="Hex_7_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2073.26482, 945)
+
+[node name="Hex_8_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2291.50322, 945)
+
+[node name="Hex_9_5" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2509.74162, 945)
+
+[node name="Hex_0_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(654.71521, 1134)
+
+[node name="Hex_1_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(872.95361, 1134)
+
+[node name="Hex_2_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1091.19201, 1134)
+
+[node name="Hex_3_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1309.43041, 1134)
+
+[node name="Hex_4_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1527.66881, 1134)
+
+[node name="Hex_5_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1745.90721, 1134)
+
+[node name="Hex_6_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1964.14562, 1134)
+
+[node name="Hex_7_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2182.38402, 1134)
+
+[node name="Hex_8_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2400.62242, 1134)
+
+[node name="Hex_9_6" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2618.86082, 1134)
+
+[node name="Hex_0_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(763.83441, 1323)
+
+[node name="Hex_1_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(982.07281, 1323)
+
+[node name="Hex_2_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1200.31121, 1323)
+
+[node name="Hex_3_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1418.54961, 1323)
+
+[node name="Hex_4_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1636.78801, 1323)
+
+[node name="Hex_5_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1855.02641, 1323)
+
+[node name="Hex_6_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2073.26482, 1323)
+
+[node name="Hex_7_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2291.50322, 1323)
+
+[node name="Hex_8_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2509.74162, 1323)
+
+[node name="Hex_9_7" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2727.98002, 1323)
+
+[node name="Hex_0_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(872.95361, 1512)
+
+[node name="Hex_1_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1091.19201, 1512)
+
+[node name="Hex_2_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1309.43041, 1512)
+
+[node name="Hex_3_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1527.66881, 1512)
+
+[node name="Hex_4_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1745.90721, 1512)
+
+[node name="Hex_5_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1964.14562, 1512)
+
+[node name="Hex_6_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2182.38402, 1512)
+
+[node name="Hex_7_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2400.62242, 1512)
+
+[node name="Hex_8_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2618.86082, 1512)
+
+[node name="Hex_9_8" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2837.09922, 1512)
+
+[node name="Hex_0_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(982.07281, 1701)
+
+[node name="Hex_1_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1200.31121, 1701)
+
+[node name="Hex_2_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1418.54961, 1701)
+
+[node name="Hex_3_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1636.78801, 1701)
+
+[node name="Hex_4_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(1855.02641, 1701)
+
+[node name="Hex_5_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2073.26482, 1701)
+
+[node name="Hex_6_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2291.50322, 1701)
+
+[node name="Hex_7_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2509.74162, 1701)
+
+[node name="Hex_8_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2727.98002, 1701)
+
+[node name="Hex_9_9" parent="Map/Rooms/Room/Floor/Hexes" instance=ExtResource("4")]
+position = Vector2(2946.21842, 1701)

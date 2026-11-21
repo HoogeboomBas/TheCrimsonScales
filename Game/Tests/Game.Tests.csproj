@@ -1,0 +1,65 @@
+<Project>
+    <PropertyGroup>
+        <TestSourceDir>$(MSBuildThisFileDirectory)</TestSourceDir>
+        <TestRuntimeDir>$(TestSourceDir)obj/godot/</TestRuntimeDir>
+        <GodotProjectDir>$(TestRuntimeDir)</GodotProjectDir>
+    </PropertyGroup>
+    <Import Project="Sdk.props" Sdk="Godot.NET.Sdk" Version="4.7.1" />
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <EnableDynamicLoading>true</EnableDynamicLoading>
+        <IsTestProject>true</IsTestProject>
+        <IsPackable>false</IsPackable>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <RunSettingsFilePath>$(TestSourceDir)test.runsettings</RunSettingsFilePath>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="$(TestSourceDir)../Game.csproj" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+        <PackageReference Include="gdUnit4.api" Version="5.1.0-rc6" />
+        <PackageReference Include="gdUnit4.test.adapter" Version="3.2.0" PrivateAssets="all" />
+    </ItemGroup>
+    <!-- Keep resource paths identical to the game while referencing its compiled assembly.
+         These incremental copies are local build output, not another copy of game source in Git. -->
+    <ItemGroup>
+        <GameResource Include="$(TestSourceDir)../Art/**/*"><TargetRoot>Art/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Content/**/*"><TargetRoot>Content/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Fonts/**/*"><TargetRoot>Fonts/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../GTweensGodot/**/*"><TargetRoot>GTweensGodot/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Materials/**/*"><TargetRoot>Materials/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Resources/**/*"><TargetRoot>Resources/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Scenes/**/*"><TargetRoot>Scenes/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Scripts/**/*"><TargetRoot>Scripts/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../Shaders/**/*"><TargetRoot>Shaders/</TargetRoot></GameResource>
+        <GameResource Include="$(TestSourceDir)../addons/**/*"><TargetRoot>addons/</TargetRoot></GameResource>
+        <GameRootResource Include="$(TestSourceDir)../default_bus_layout.tres;$(TestSourceDir)../icon.svg;$(TestSourceDir)../icon.svg.import;$(TestSourceDir)../cs-crimson-scales-icon.png;$(TestSourceDir)../cs-crimson-scales-icon.png.import" />
+        <GameResource Include="@(GameRootResource)" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="$(TestSourceDir)Support/**/*.cs;$(TestSourceDir)*Tests.cs"
+                 Exclude="$(TestSourceDir)Support/TestBootstrap.cs" />
+        <!-- Godot Node scripts must compile from their runtime resource paths. -->
+        <Compile Include="$(TestRuntimeDir)Support/TestBootstrap.cs;$(TestRuntimeDir)gdunit4_testadapter_v5/**/*.cs" />
+        <TestResource Include="$(TestSourceDir)Fixtures/**/*"><TargetRoot>Fixtures/</TargetRoot></TestResource>
+        <TestResource Include="$(TestSourceDir)Support/**/*.cs"><TargetRoot>Support/</TargetRoot></TestResource>
+        <TestResource Include="$(TestSourceDir)Support/**/*.uid"><TargetRoot>Support/</TargetRoot></TestResource>
+    </ItemGroup>
+    <Target Name="PrepareGodotTestResources" BeforeTargets="BeforeBuild">
+        <Copy SourceFiles="@(GameResource)"
+              DestinationFiles="@(GameResource->'$(TestRuntimeDir)%(TargetRoot)%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(TestResource)"
+              DestinationFiles="@(TestResource->'$(TestRuntimeDir)%(TargetRoot)%(RecursiveDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+        <Copy SourceFiles="$(TestSourceDir)project.godot" DestinationFolder="$(TestRuntimeDir)" SkipUnchangedFiles="true" />
+        <!-- The adapter locates a Godot project by searching upward from the test assembly for a csproj.
+             Import the authored project so adapter-triggered builds use the same source and output paths. -->
+        <WriteLinesToFile File="$(TestRuntimeDir)Game.Tests.csproj"
+                          Lines="&lt;Project&gt;&lt;Import Project=&quot;../../Game.Tests.csproj&quot; /&gt;&lt;/Project&gt;"
+                          Overwrite="true" WriteOnlyWhenDifferent="true" />
+    </Target>
+    <Target Name="CleanGodotTestResources" AfterTargets="Clean">
+        <RemoveDir Directories="$(TestRuntimeDir)" />
+    </Target>
+    <Import Project="Sdk.targets" Sdk="Godot.NET.Sdk" Version="4.7.1" />
+</Project>
