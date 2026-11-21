@@ -316,7 +316,7 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 			await GameController.Instance.AMDDrawView.DrawCards(abilityState);
 		}
 
-		(int damageDealt, _) = await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue);
+		int damageDealt = (await AbilityCmd.SufferDamage(abilityState, target, abilityState.SingleTargetAttackValue)).damageDealt;
 
 		if(!GameController.FastForward)
 		{
@@ -420,8 +420,8 @@ public class AttackAbility : TargetedAbility<AttackAbility.State, SingleTargetSt
 						await GDTask.DelayFastForwardable(0.4f);
 					}
 
-					(_, damageSuffered) = await AbilityCmd.SufferDamage(abilityState.Performer, finalRetaliate,
-						potentialDamageDealer: retaliateParameters.RetaliatingFigure);
+					damageSuffered = (await AbilityCmd.SufferDamage(abilityState.Performer, finalRetaliate,
+						potentialDamageDealer: retaliateParameters.RetaliatingFigure)).damageSuffered;
 				}
 			}
 

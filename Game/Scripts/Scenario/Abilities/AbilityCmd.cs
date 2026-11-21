@@ -87,12 +87,14 @@ public static class AbilityCmd
 			.Build();
 	}
 
-	public static async GDTask<(int, int)> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
+	public static async GDTask<(int damageDealt, int damageSuffered)> SufferDamage(AbilityState potentialAbilityState, Figure target, int damage,
 		Figure potentialDamageDealer = null)
 	{
+		(int damageDealt, int damageSuffered) returnValue = (damageDealt: 0, damageSuffered: 0);
+
 		if(target.Health == 0)
 		{
-			return (0, 0);
+			return returnValue;
 		}
 
 		potentialDamageDealer ??= potentialAbilityState?.Authority;
@@ -105,27 +107,27 @@ public static class AbilityCmd
 
 		if(sufferDamageParameters.DamagePrevented || sufferDamageParameters.CalculatedCurrentDamage == 0)
 		{
-			return (0, 0);
+			return returnValue;
 		}
 
-		int damageDealt = sufferDamageParameters.CalculatedCurrentDamage;
+		returnValue.damageDealt = sufferDamageParameters.CalculatedCurrentDamage;
 
 		ScenarioEvents.JustBeforeSufferDamage.Parameters justBeforeSufferDamageParameters =
 			await ScenarioEvents.JustBeforeSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, damageDealt, potentialAbilityState, sufferDamageParameters), target);
+				new ScenarioEvents.JustBeforeSufferDamage.Parameters(target, returnValue.damageDealt, potentialAbilityState, sufferDamageParameters), target);
 
 		if(justBeforeSufferDamageParameters.Prevented)
 		{
-			return (0, 0);
+			return returnValue;
 		}
 
 		potentialAbilityState?.DamagedFigures.Add(target);
 
-		int newHealth = Mathf.Max(target.Health - damageDealt, 0);
+		int newHealth = Mathf.Max(target.Health - returnValue.damageDealt, 0);
 
-		int damageSuffered = target.Health - newHealth;
+		returnValue.damageSuffered = target.Health - newHealth;
 
-		GameController.Instance.CameraController.Shake(damageSuffered * 4f, sufferDamageParameters.FromAttack ? 0.15f / AppController.Instance.GameplayTimeScale : 0f);
+		GameController.Instance.CameraController.Shake(returnValue.damageSuffered * 4f, sufferDamageParameters.FromAttack ? 0.15f / AppController.Instance.GameplayTimeScale : 0f);
 
 		target.SetHealth(newHealth);
 
@@ -141,7 +143,7 @@ public static class AbilityCmd
 			}
 		}
 
-		if(damageDealt > 0)
+		if(returnValue.damageDealt > 0)
 		{
 			if(!GameController.FastForward)
 			{
@@ -169,14 +171,14 @@ public static class AbilityCmd
 			}
 
 			await ScenarioEvents.AfterSufferDamageEvent.CreatePrompt(
-				new ScenarioEvents.AfterSufferDamage.Parameters(target, damageDealt, damageSuffered, potentialAbilityState, sufferDamageParameters),
+				new ScenarioEvents.AfterSufferDamage.Parameters(target, returnValue.damageDealt, returnValue.damageSuffered, potentialAbilityState, sufferDamageParameters),
 				target);
 		}
 
-		return (damageDealt, damageSuffered);
+		return returnValue;
 	}
 
-	public static async GDTask<(int, int)> SufferDamage(Figure target, int damage, Figure potentialDamageDealer)
+	public static async GDTask<(int damageDealt, int damageSuffered)> SufferDamage(Figure target, int damage, Figure potentialDamageDealer)
 	{
 		return await SufferDamage(null, target, damage, potentialDamageDealer);
 	}
@@ -1627,7 +1629,7 @@ public static class AbilityCmd
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(figure, subscriber);
 	}
 
-	public static async GDTask AddRetaliate(Figure figure, object subscriber, int retaliateValue, int range,
+	public static async GDTask AddRetaliate(Figure figure, object subscriber, int retaliateValue, int range = 1,
 		Func<ScenarioEvents.Retaliate.Parameters, bool> customCanApply = null, bool customCanApplyReplaceFully = false, Action<ScenarioEvents.Retaliate.Parameters> customApply = null)
 	{
 		ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(figure, subscriber,

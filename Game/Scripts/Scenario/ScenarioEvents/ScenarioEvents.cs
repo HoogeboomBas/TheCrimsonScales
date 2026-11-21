@@ -641,7 +641,7 @@ public partial class ScenarioEvents
 
 			public bool RetaliateBlocked { get; private set; }
 
-			public void AddRetaliate(int amount, int range)
+			public void AddRetaliate(int amount, int range = 1)
 			{
 				RetaliateValues.Add((amount, range));
 			}

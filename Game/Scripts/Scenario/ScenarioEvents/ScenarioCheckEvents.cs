@@ -248,7 +248,7 @@ public partial class ScenarioCheckEvents
 
 			public List<(int, int)> RetaliateValues { get; } = new List<(int, int)>();
 
-			public void AddRetaliate(int amount, int range)
+			public void AddRetaliate(int amount, int range = 1)
 			{
 				RetaliateValues.Add((amount, range));
 			}
