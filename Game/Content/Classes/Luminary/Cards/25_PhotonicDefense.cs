@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -49,12 +49,11 @@ public class PhotonicDefense : LuminaryCardModel<PhotonicDefense.CardTop, Photon
 										ScenarioEvents.RetaliateEvent.Subscribe(state, this,
 											canApplyParameters =>
 											{
-												return canApplyParameters.RetaliatingFigure == state.Performer &&
-												       RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
+												return canApplyParameters.RetaliatingFigure == state.Performer;
 											},
 											async applyParameters =>
 											{
-												applyParameters.AdjustRetaliate(3);
+												applyParameters.AddRetaliate(3, 1);
 												ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
 												await GDTask.CompletedTask;

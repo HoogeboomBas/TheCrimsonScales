@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class DrakescaleShield : CS2Item
 {
@@ -23,7 +23,7 @@ public class DrakescaleShield : CS2Item
 			{
 				await Use(async user =>
 				{
-					state.AdjustRetaliate(3);
+					state.AddRetaliate(3, 1);
 
 					await GDTask.CompletedTask;
 				});

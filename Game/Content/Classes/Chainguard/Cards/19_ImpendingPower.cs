@@ -49,12 +49,11 @@ public class ImpendingPower : ChainguardLevelUpCardModel<ImpendingPower.CardTop,
 										ScenarioEvents.RetaliateEvent.Subscribe(state, this,
 											canApplyParameters =>
 											{
-												return canApplyParameters.RetaliatingFigure == state.Performer &&
-												       RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, state.Performer.Hex) <= 1;
+												return canApplyParameters.RetaliatingFigure == state.Performer;
 											},
 											async applyParameters =>
 											{
-												applyParameters.AdjustRetaliate(1);
+												applyParameters.AddRetaliate(1, 1);
 												ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 
 												await GDTask.CompletedTask;

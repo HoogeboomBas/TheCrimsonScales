@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -14,41 +14,18 @@ public class Devotion : HierophantPrayerCardModel<Devotion.CardTop, Devotion.Car
 			new AbilityCardAbility(UseSlotAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioCheckEvents.RetaliateCheckEvent.Subscribe(state, this,
-						canApplyParameters =>
-							canApplyParameters.Figure == state.Performer,
-						applyParameters =>
+					await AbilityCmd.AddRetaliate(state.Performer, this, 2, 3,
+						customCanApplyParameters => customCanApplyParameters.AbilityState.SingleTargetRangeType == RangeType.Melee,
+						customApply: async customApplyParameters =>
 						{
-							applyParameters.AddRetaliate(2, 1);
-						}
-					);
-
-					//state.Performer.UpdateRetaliate();
-
-					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
-						canApplyParameters =>
-						{
-							return
-								canApplyParameters.RetaliatingFigure == state.Performer &&
-								canApplyParameters.AbilityState.SingleTargetRangeType == RangeType.Melee;
-						},
-						async applyParameters =>
-						{
-							applyParameters.AdjustRetaliate(2);
-
 							await state.AdvanceUseSlot();
-						}
-					);
+						});
 
 					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 					{
-						ScenarioCheckEvents.RetaliateCheckEvent.Unsubscribe(state, this);
-
-						//state.Performer.UpdateRetaliate();
-
-						ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+						AbilityCmd.RemoveRetaliate(state.Performer, this);
 
 						await GDTask.CompletedTask;
 					}

@@ -18,11 +18,10 @@ public class RetaliateAuraTrait(int retaliate, int range, bool canBeSelf) : Figu
 
 		ScenarioEvents.RetaliateEvent.Subscribe(figure, this,
 			canApplyParameters =>
-				canApplyParameters.RetaliatingFigure == figure &&
-				RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, figure.Hex) <= range,
+				canApplyParameters.RetaliatingFigure == figure,
 			async applyParameters =>
 			{
-				applyParameters.AdjustRetaliate(retaliate);
+				applyParameters.AddRetaliate(retaliate, range);
 
 				await GDTask.CompletedTask;
 			}

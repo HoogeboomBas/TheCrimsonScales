@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class StaffOfRetribution : CS2Item
 {
@@ -16,14 +16,14 @@ public class StaffOfRetribution : CS2Item
 		base.Subscribe();
 
 		SubscribeRetaliate(
-			canApply: state =>
-				state.RetaliatingFigure == Owner &&
-				RangeHelper.Distance(state.AbilityState.Performer.Hex, state.RetaliatingFigure.Hex) <= 3,
-			apply: async state =>
+			canApply: parameters =>
+				parameters.RetaliatingFigure == Owner &&
+				RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 3 + parameters.ExtraRange,
+			apply: async parameters =>
 			{
 				await Use(async user =>
 				{
-					state.AdjustRetaliate(1);
+					parameters.AddRetaliate(1, 3);
 
 					await GDTask.CompletedTask;
 				});

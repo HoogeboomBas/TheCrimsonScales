@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -20,10 +20,10 @@ public class DefenseMechanism : BombardCardModel<DefenseMechanism.CardTop, Defen
 			new AbilityCardAbility(OtherActiveAbility.Builder()
 				.WithOnActivate(async state =>
 				{
-					ScenarioEvents.RetaliateEvent.Subscribe(state, this,
+					ScenarioEvents.AfterRetaliateEvent.Subscribe(state, this,
 						canApplyParameters =>
 							canApplyParameters.RetaliatingFigure == state.Performer &&
-							RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, canApplyParameters.RetaliatingFigure.Hex) <= 1,
+							canApplyParameters.DamageSuffered > 0,
 						async parameters =>
 						{
 							await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Wound1);
@@ -33,7 +33,7 @@ public class DefenseMechanism : BombardCardModel<DefenseMechanism.CardTop, Defen
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
+					ScenarioEvents.AfterRetaliateEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})
