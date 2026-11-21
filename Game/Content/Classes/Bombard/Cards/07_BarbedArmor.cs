@@ -28,6 +28,8 @@ public class BarbedArmor : BombardCardModel<BarbedArmor.CardTop, BarbedArmor.Car
 						{
 							await AbilityCmd.AddCondition(state, parameters.AbilityState.Performer, Conditions.Wound1);
 						});
+
+					await GDTask.CompletedTask;
 				})
 				.WithOnDeactivate(async state =>
 				{
