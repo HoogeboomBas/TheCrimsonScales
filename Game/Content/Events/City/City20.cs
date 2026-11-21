@@ -6,7 +6,7 @@ public class City20 : CityEventModel<City20.ChoiceA, City20.ChoiceB>
 
 	public override string Text =>
 		"""
-		You've enjoyed a night full of laughs and good drinks in the Sleeping Lion when you begin to prepare to head out for the night. "Wait!" a Quatryl you knw well, Shiela, stumbles in your direction. Clearly she's had one too many drinks. "Where... where do I..." she gasps as she suddenly collapses to the ground.
+		You've enjoyed a night full of laughs and good drinks in the Sleeping Lion when you begin to prepare to head out for the night. "Wait!" a Quatryl you know well, Shiela, stumbles in your direction. Clearly she's had one too many drinks. "Where... where do I..." she gasps as she suddenly collapses to the ground.
 
 		The bartender looks to you with stern eyes as if expecting you to take responsibility for this situation. You're familiar with where she lives, but it's a long walk to the Mixed District.
 		""";

@@ -122,11 +122,11 @@ public class Scenario055 : ScenarioModel
 				await AbilityCmd.AddCharacterToken(character, monster,
 					textParameters => $"{character.SavedCharacter.GetNameAndIcon(textParameters)} controls all this figure's abilities.");
 
-				ScenarioEvents.AbilityStartedEvent.Subscribe(this, monster,
-					abilityStartedParameters => abilityStartedParameters.Authority == monster,
-					async abilityStartedParameters =>
+				ScenarioCheckEvents.ChangeAuthorityCheckEvent.Subscribe(this, monster,
+					changeAuthorityParameters => changeAuthorityParameters.Authority == monster,
+					async changeAuthorityParameters =>
 					{
-						abilityStartedParameters.SetAuthority(parameters.Figure);
+						changeAuthorityParameters.SetAuthority(parameters.Figure);
 						await GDTask.CompletedTask;
 					}
 				);

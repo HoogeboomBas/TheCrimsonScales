@@ -37,7 +37,7 @@ project/assembly_name="Game"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ModelIdDropdownPlugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/ModelIdDropdownPlugin/plugin.cfg", "res://addons/auto_polygon2d_triangulation/plugin.cfg")
 
 [gui]
 

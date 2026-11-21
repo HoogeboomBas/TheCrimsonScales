@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Muddle : ConditionModel
 {
@@ -6,6 +7,7 @@ public class Muddle : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Muddle.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/MuddleAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -35,4 +37,7 @@ public class Muddle : ConditionModel
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 		ScenarioCheckEvents.DisadvantageCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure gains disadvantage on all of their attacks. This condition is removed at the end of the figure’s next turn.";
 }

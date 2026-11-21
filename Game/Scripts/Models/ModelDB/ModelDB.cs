@@ -54,6 +54,21 @@ public static class ModelDB
 		return GetById<T>(GetId(type));
 	}
 
+	public static T GetByEntry<T>(string entry) where T : AbstractModel
+	{
+		foreach(Type type in GetSubtypes<T>())
+		{
+			ModelId id = GetId(type);
+
+			if(id.Entry == entry)
+			{
+				return (T)DeserializeGetOrCreate(type);
+			}
+		}
+
+		return null;
+	}
+
 	public static bool Contains(Type type)
 	{
 		return ContentById.ContainsKey(GetId(type));

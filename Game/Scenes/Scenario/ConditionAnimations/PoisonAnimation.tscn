@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://beicy1sd63u5e"]
+
+[ext_resource type="PackedScene" uid="uid://btnvtl0cxfet5" path="res://Scenes/Scenario/ConditionAnimations/ConditionAnimation.tscn" id="1_a0bem"]
+[ext_resource type="Texture2D" uid="uid://dlysuefo6ufnk" path="res://Art/Icons/ConditionsAndEffects/Poison/Skull.svg" id="2_li3bf"]
+[ext_resource type="Texture2D" uid="uid://dpwxj7yahea8y" path="res://Art/Icons/ConditionsAndEffects/Poison/Circle.svg" id="2_yiaa0"]
+[ext_resource type="Texture2D" uid="uid://b37l4p8l06773" path="res://Art/Icons/ConditionsAndEffects/Poison.svg" id="3_a0bem"]
+[ext_resource type="Texture2D" uid="uid://ik22o4ue7m2t" path="res://Art/Icons/Other/Circle.svg" id="3_msmpy"]
+
+[sub_resource type="Animation" id="Animation_jkiup"]
+resource_name = "ConditionAnimation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skull:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.36666667, 0.7, 0.79999995, 0.9, 0.9666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(0.9, 0.9), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skull:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.36666667, 0.69538367),
+"transitions": PackedFloat32Array(0.70710677, 1),
+"update": 0,
+"values": [-1.5707964, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:scale_amount_max")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.76666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.15, 0.15]
+}
+
+[sub_resource type="Animation" id="Animation_awnv4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skull:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skull:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:scale_amount_max")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vvigo"]
+_data = {
+&"ConditionAnimation": SubResource("Animation_jkiup"),
+&"RESET": SubResource("Animation_awnv4")
+}
+
+[sub_resource type="Curve" id="Curve_2uhie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.6090832, 0.0, 0, 0]
+point_count = 2
+
+[node name="ConditionAnimation" unique_id=1667929375 instance=ExtResource("1_a0bem")]
+
+[node name="Inset" parent="ScaleContainer" parent_id_path=PackedInt32Array(1860426973) index="0" unique_id=405775494]
+self_modulate = Color(0.49019608, 0.49803922, 0.40784314, 1)
+
+[node name="AnimationPlayer" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="0" unique_id=1033924189]
+libraries/ = SubResource("AnimationLibrary_vvigo")
+speed_scale = 0.9
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="1" unique_id=1501131639]
+position = Vector2(0, 300)
+scale = Vector2(0.99999994, 0.99999994)
+emitting = false
+texture = ExtResource("2_yiaa0")
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(250, 1)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 800.0
+scale_amount_min = 0.02
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_2uhie")
+
+[node name="Skull" type="Node2D" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="2" unique_id=1300739326]
+rotation = -1.5707964
+scale = Vector2(1e-05, 1e-05)
+
+[node name="Background" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Skull" index="0" unique_id=1760832625]
+self_modulate = Color(0.49019608, 0.49803922, 0.40784314, 1)
+position = Vector2(-50.000004, -12.500001)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("3_msmpy")
+
+[node name="Background2" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Skull" index="1" unique_id=1514921738]
+self_modulate = Color(0.49019608, 0.49803922, 0.40784314, 1)
+position = Vector2(50, -12.5)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("3_msmpy")
+
+[node name="Background3" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Skull" index="2" unique_id=484474591]
+self_modulate = Color(0.49019608, 0.49803922, 0.40784314, 1)
+position = Vector2(0, 8)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("3_msmpy")
+
+[node name="Sprite2D" type="Sprite2D" parent="ScaleContainer/Inset/AnimationContainer/Skull" index="3" unique_id=751920102]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_li3bf")
+
+[node name="Preview" parent="ScaleContainer/Inset/AnimationContainer" parent_id_path=PackedInt32Array(100062592) index="3" unique_id=84261608]
+texture = ExtResource("3_a0bem")

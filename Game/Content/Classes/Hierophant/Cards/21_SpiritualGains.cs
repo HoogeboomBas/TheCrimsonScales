@@ -91,7 +91,7 @@ public class SpiritualGains : HierophantLevelUpCardModel<SpiritualGains.CardTop,
 				})
 				.WithOnDeactivate(async state =>
 				{
-					ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(state, this);
+					ScenarioEvents.ShortRestStartedEvent.Unsubscribe(state, this);
 
 					await GDTask.CompletedTask;
 				})

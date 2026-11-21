@@ -15,6 +15,8 @@ public class City31 : CityEventModel<City31.ChoiceA, City31.ChoiceB>
 	{
 		public override string ChoiceText => "Explain you must have gotten lost.";
 
+		public override EventResolveType GetEventResolveType(SavedEventState state) => EventResolveType.ReturnCardToBottom;
+
 		public override string GetStoryText(SavedEventState state) =>
 			"""
 			You explain that you must have gotten lost on your way. "Leave here at once," one of the guards snarls. "This is no place for lost fools."

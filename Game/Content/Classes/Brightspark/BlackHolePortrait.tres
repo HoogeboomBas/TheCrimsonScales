@@ -1,7 +1,7 @@
 [gd_resource type="AtlasTexture" format=3 uid="uid://c77ou41v3tk53"]
 
-[ext_resource type="Texture2D" uid="uid://uo5qrdyyit4t" path="res://Content/Classes/Brightspark/BlackHole.png" id="1_jhhe6"]
+[ext_resource type="Texture2D" uid="uid://bsuggc8p4o8cj" path="res://Content/Classes/Brightspark/BlackHole.png" id="1_jhhe6"]
 
 [resource]
 atlas = ExtResource("1_jhhe6")
-region = Rect2(180, 30, 600, 900)
+region = Rect2(75, 0, 600, 900)

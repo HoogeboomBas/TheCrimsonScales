@@ -16,4 +16,7 @@ public class Bless : ConditionModel
 
 		GameController.Instance.AMDManager.Bless(condition.Owner);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		$"The affected figure must shuffle a bless card into their attack modifier deck. If the figure does not use an attack modifier deck, bless has no effect. When a bless card is drawn, it acts as a {Icons.Inline(Icons.GetAMDValue("2x"), textParameters, true)} modifier and is returned to the supply once resolved, instead of placed in the discard pile. There are 10 bless cards, which can be added to any deck. If there are no bless cards available, this condition has no effect.";
 }

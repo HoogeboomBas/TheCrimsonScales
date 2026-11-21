@@ -18,25 +18,26 @@ public class MajesticMalevolence : HollowpactLevelUpCardModel<MajesticMalevolenc
 				.WithOnActivate(async state =>
 				{
 					ScenarioEvents.AbilityStartedEvent.Subscribe(state, this,
-						parameters => parameters.Performer == state.Performer,
+						parameters =>
+							parameters.Performer == state.Performer &&
+							parameters.AbilityState is TargetedAbilityState targetedAbilityState,
 						async parameters =>
 						{
-							if(parameters.AbilityState is TargetedAbilityState targetedAbilityState)
+							await ((TargetedAbilityState)parameters.AbilityState).SetPerformHex(hexes =>
 							{
-								await targetedAbilityState.SetPerformHex(hexes =>
-								{
-									hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
-										.Where(voidpit => !voidpit.IsDestroyed)
-										.Select(voidPit => voidPit.Hex));
-								});
-							}
+								hexes.AddRange(GameController.Instance.Map.GetChildrenOfType<VoidPit>()
+									.Where(voidpit => !voidpit.IsDestroyed)
+									.Select(voidPit => voidPit.Hex));
+							});
 						}, EffectType.Selectable,
 						effectButtonParameters: new IconEffectButton.Parameters("res://Content/Classes/Hollowpact/cs-void-pit.png"),
 						effectInfoViewParameters: new TextEffectInfoView.Parameters(
 							"Perform the ability as if you were occupying a hex with a Void Pit"));
 
 					ScenarioEvents.ActionEndedEvent.Subscribe(state, this,
-						parameters => parameters.ActionState.Performer == state.Performer,
+						parameters =>
+							parameters.ActionState.Performer == state.Performer &&
+							parameters.ActionState == state.ActionState,
 						async parameters =>
 						{
 							ScenarioEvents.AbilityStartedEvent.Unsubscribe(state, this);

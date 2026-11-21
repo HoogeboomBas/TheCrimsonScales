@@ -170,7 +170,10 @@ public class BombardPerks
 						ProjectileAbility.State projectileState = (ProjectileAbility.State)abilityState;
 						await projectileState.PerformAbilities();
 					}
-				});
+				},
+				effectType: EffectType.Selectable,
+				effectButtonParameters: new IconEffectButton.Parameters(BombardCardSide.ProjectileIconPath),
+				effectInfoViewParameters: new TextEffectInfoView.Parameters($"Gain {Icons.Inline(Icons.GetCondition(Conditions.Immobilize))} to immediately resolve any of your active {Icons.Inline(BombardCardSide.ProjectileIconPath)} abilities."));
 		}
 	}
 }

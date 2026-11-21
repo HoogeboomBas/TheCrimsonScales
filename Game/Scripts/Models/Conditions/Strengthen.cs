@@ -6,6 +6,7 @@ public class Strengthen : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Strengthen.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/StrengthenAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -29,4 +30,7 @@ public class Strengthen : ConditionModel
 
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure gains advantage on all of their attacks. This condition is removed at the end of the figure’s next turn.";
 }

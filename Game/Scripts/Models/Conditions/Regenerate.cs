@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Regenerate : ConditionModel
 {
@@ -6,6 +7,7 @@ public class Regenerate : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Regenerate.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
 	public override bool RemovedAtEndOfTurn => false;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/RegenerateAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -47,4 +49,7 @@ public class Regenerate : ConditionModel
 		ScenarioEvents.FigureTurnStartedEvent.Unsubscribe(condition);
 		ScenarioEvents.AfterSufferDamageEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		$"The affected figure performs “{Icons.Inline(Icons.Heal, textParameters)}1, self” at the start of each of their turns, even if they have {Icons.InlineCondition(Conditions.Stun, textParameters)}. This condition is removed when the figure suffers {Icons.Inline(Icons.Damage, textParameters)}. If a figure also has {Icons.InlineCondition(Conditions.Wound1, textParameters)}, this effect is applied first, removing {Icons.InlineCondition(Conditions.Wound1, textParameters)} before it takes effect.";
 }

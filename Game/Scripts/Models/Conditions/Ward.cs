@@ -1,10 +1,12 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Ward : ConditionModel
 {
 	public override string Name => "Ward";
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Ward.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Positive;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/WardAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -31,4 +33,7 @@ public class Ward : ConditionModel
 
 		ScenarioEvents.SufferDamageEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The next time the affected figure suffers damage from any source, they instead suffer half that amount of damage (rounded down), and this condition is then removed.";
 }

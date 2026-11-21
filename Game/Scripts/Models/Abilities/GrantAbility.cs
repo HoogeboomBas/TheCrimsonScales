@@ -124,4 +124,11 @@ public class GrantAbility : TargetedAbility<GrantAbility.State, SingleTargetStat
 	{
 		return "Select a target for the grant ability";
 	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.Grant);
+
+		base.GetTooltips(tooltips);
+	}
 }

@@ -166,7 +166,9 @@ public class MonsterMovePrompt(
 
 				int finalTargetCount = aiMoveParameters.TargetAll
 					? AttackableFiguresCache.Count
-					: Mathf.Min(AttackableFiguresCache.Count, aiMoveParameters.Targets);
+					: aiMoveParameters.MustTargetSameWithAllTargets
+						? 1
+						: Mathf.Min(AttackableFiguresCache.Count, aiMoveParameters.Targets);
 				int nonDisadvantageCount = AttackableFiguresCache.Count - disadvantageCount;
 				int finalNonDisadvantageCount = aiMoveParameters.TargetAll
 					? nonDisadvantageCount

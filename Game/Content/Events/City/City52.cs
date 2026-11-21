@@ -1,4 +1,5 @@
-﻿// using System.Collections.Generic;
+﻿// TODO:
+// using System.Collections.Generic;
 // using System.Linq;
 //
 // public class City52 : CityEventModel<City52.ChoiceA, City52.ChoiceB>

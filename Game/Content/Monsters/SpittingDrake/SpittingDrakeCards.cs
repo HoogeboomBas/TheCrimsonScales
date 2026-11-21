@@ -92,7 +92,7 @@ public class SpittingDrakeAbilityCard5 : SpittingDrakeAbilityCard
 
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, conditions: [Conditions.Stun])),
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2, conditions: [Conditions.Stun])),
 	];
 }
 
@@ -121,7 +121,7 @@ public class SpittingDrakeAbilityCard7 : SpittingDrakeAbilityCard
 	public override IEnumerable<MonsterAbilityCardAbility> GetAbilities(Monster monster) =>
 	[
 		new MonsterAbilityCardAbility(MoveAbility(monster, -1)),
-		new MonsterAbilityCardAbility(AttackAbility(monster, -1, extraRange: -2,
+		new MonsterAbilityCardAbility(AttackAbility(monster, -2, extraRange: -2,
 			aoePattern: new AOEPattern([
 				new AOEHex(Vector2I.Zero, AOEHexType.Red),
 				new AOEHex(Vector2I.Zero.Add(Direction.NorthEast), AOEHexType.Red),

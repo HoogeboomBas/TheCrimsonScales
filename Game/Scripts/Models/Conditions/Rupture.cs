@@ -35,4 +35,7 @@ public class Rupture : ConditionModel
 
 		ScenarioEvents.AbilityEndedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"TODO";
 }

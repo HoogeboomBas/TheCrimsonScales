@@ -48,4 +48,7 @@ public class Invisible : ConditionModel
 		ScenarioCheckEvents.CanBeTargetedCheckEvent.Unsubscribe(condition);
 		ScenarioCheckEvents.CanPassEnemyCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot be focused on or targeted by any enemy, though non-targeted abilities remain unaffected. The figure and their allies can still interact with each other. This condition is removed at the end of the figure’s next turn.";
 }

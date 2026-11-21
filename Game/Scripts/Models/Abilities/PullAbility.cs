@@ -74,4 +74,11 @@ public class PullAbility : TargetedAbility<PullAbility.State, SingleTargetState>
 	{
 		return ScenarioEvents.DuringPullEvent.CreateEffectCollection(new ScenarioEvents.DuringPull.Parameters(abilityState));
 	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		// tooltips.Add(Tooltips.Pull);
+
+		base.GetTooltips(tooltips);
+	}
 }

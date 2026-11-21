@@ -11,7 +11,7 @@ public class BombardModel : ClassModel
 	public override List<EventModel> UnlockEvents { get; } =
 	[
 		ModelDB.Event<City39>(),
-		//ModelDB.Event<Road39>(),
+		//TODO: ModelDB.Event<Road39>(),
 	];
 
 	public override List<EventModel> RetirementEvents { get; } =

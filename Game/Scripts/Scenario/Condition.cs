@@ -34,6 +34,8 @@ public class Condition : IEventSubscriber
 
 	public async GDTask OnAdded()
 	{
+		await ConditionModel.ShowAnimation(this);
+
 		if(ConditionModel.ShouldShowOnFigure)
 		{
 			EffectView = Owner.AddEffectView<ConditionHexObjectEffectView>(new ConditionHexObjectEffectView.Parameters(ConditionModel));

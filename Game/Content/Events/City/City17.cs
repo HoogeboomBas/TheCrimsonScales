@@ -59,14 +59,16 @@ public class City17 : CityEventModel<City17.ChoiceA, City17.ChoiceB>
 			{
 				ItemModel majorPotionModel = GetAMajorVersionOfAMinorPotion(parameters.ItemModel);
 
-				if(majorPotionModel.ShopCount == 0)
+				SavedItem savedItem = AppController.Instance.CampaignSaveData.SavedCampaign.GetSavedItem(majorPotionModel);
+
+				if(savedItem.StockCount == 0)
 				{
 					return;
 				}
 
 				parameters.Seller.AddItem(majorPotionModel);
-				AppController.Instance.CampaignSaveData.SavedCampaign.GetSavedItem(majorPotionModel).AddUnlocked(1);
-				AppController.Instance.CampaignSaveData.SavedCampaign.GetSavedItem(majorPotionModel).RemoveStock(1);
+				savedItem.AddUnlocked(1);
+				savedItem.RemoveStock(1);
 
 				Complete();
 			}
@@ -84,7 +86,7 @@ public class City17 : CityEventModel<City17.ChoiceA, City17.ChoiceB>
 
 		public override List<SavedReward> GetRewards(SavedEventState state) =>
 		[
-			new GainCollectiveItemReward(ModelDB.Item<AlchemyPotion>())
+			new GainItemDesignReward(ModelDB.Item<AlchemyPotion>())
 		];
 	}
 

@@ -260,4 +260,11 @@ public class SummonAbility : ActiveAbility<SummonAbility.State>
 			await abilityState.Summon.Destroy();
 		}
 	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.Summon);
+
+		base.GetTooltips(tooltips);
+	}
 }

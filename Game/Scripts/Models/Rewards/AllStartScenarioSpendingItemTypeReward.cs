@@ -29,7 +29,7 @@ public class AllStartScenarioSpendingItemTypeReward : SavedReward
 		foreach(Character character in GameController.Instance.CharacterManager.Characters)
 		{
 			ItemModel item =
-				await AbilityCmd.SelectItem(character, ItemState.Spent, requiredItemType: _itemType, hintText: "Select an item to spend");
+				await AbilityCmd.SelectItem(character, ItemState.Available, requiredItemType: _itemType, hintText: "Select an item to spend");
 			if(item != null)
 			{
 				await AbilityCmd.SpendItem(item);

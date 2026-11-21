@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dstnhtko8aei3" path="res://Scenes/UI/AbilityCardView/AbilityCardViewEnhancement.tscn" id="3_7udp3"]
 [ext_resource type="PackedScene" uid="uid://drs874b0lo5o6" path="res://Scenes/UI/AbilityCardView/AbilityCardViewCharacterToken.tscn" id="4_vj2rk"]
 [ext_resource type="Shader" uid="uid://8e675qc3s5tr" path="res://Shaders/CardView.gdshader" id="5_7udp3"]
+[ext_resource type="PackedScene" uid="uid://pit4gd0ldlxw" path="res://Scenes/UI/Popups/InspectPopup/InspectButton.tscn" id="6_vj2rk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wbx5w"]
 shader = ExtResource("5_7udp3")
@@ -14,12 +15,16 @@ shader_parameter/rounded_corner_top_right = true
 shader_parameter/rounded_corner_bottom_left = true
 shader_parameter/rounded_corner_bottom_right = true
 
-[node name="AbilityCardView" unique_id=140855323 node_paths=PackedStringArray("_enhancementParent", "_characterTokenParent") instance=ExtResource("1_w0yx6")]
+[node name="AbilityCardView" unique_id=140855323 node_paths=PackedStringArray("_enhancementParent", "_characterTokenParent", "_inspectButton") instance=ExtResource("1_w0yx6")]
 script = ExtResource("2_mu48a")
 _enhancementScene = ExtResource("3_7udp3")
 _enhancementParent = NodePath(".")
 _characterTokenScene = ExtResource("4_vj2rk")
 _characterTokenParent = NodePath(".")
+_inspectButton = NodePath("InspectButton")
 
 [node name="TextureRect" parent="Container" parent_id_path=PackedInt32Array(1927638018) index="0" unique_id=364472112]
 material = SubResource("ShaderMaterial_wbx5w")
+
+[node name="InspectButton" parent="." index="1" unique_id=955398738 instance=ExtResource("6_vj2rk")]
+layout_mode = 1

@@ -15,6 +15,8 @@ public partial class ConditionAnimation : Node2D
 	private float _sfxVolumeDb;
 	[Export]
 	private float _sfxDelay;
+	[Export]
+	private float _animationDelay;
 
 	public void Init(Figure figure)
 	{
@@ -36,7 +38,7 @@ public partial class ConditionAnimation : Node2D
 		}
 
 		GTweenSequenceBuilder.New()
-			.AppendTime(0.2f)
+			.AppendTime(0.2f + _animationDelay)
 			.AppendCallback(() => _animationPlayer.Play("ConditionAnimation"))
 			.AppendTime(1.2f)
 			.Append(_scaleContainer.TweenScale(0f, 0.4f).SetEasing(Easing.InBack))

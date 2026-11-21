@@ -117,4 +117,11 @@ public class ControlAbility : TargetedAbility<ControlAbility.State, SingleTarget
 		abilityState.ControlAbilityActionStates.Add(actionState);
 		await actionState.Perform();
 	}
+
+	public override void GetTooltips(TooltipCollection tooltips)
+	{
+		tooltips.Add(Tooltips.Control);
+
+		base.GetTooltips(tooltips);
+	}
 }

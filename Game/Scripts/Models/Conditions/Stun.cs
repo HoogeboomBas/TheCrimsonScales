@@ -1,4 +1,5 @@
-﻿using Fractural.Tasks;
+﻿using System;
+using Fractural.Tasks;
 
 public class Stun : ConditionModel
 {
@@ -6,6 +7,7 @@ public class Stun : ConditionModel
 	public override string IconPath => "res://Art/Icons/ConditionsAndEffects/Stun.svg";
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedAtEndOfTurn => true;
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/StunAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -55,4 +57,7 @@ public class Stun : ConditionModel
 		ScenarioEvents.CanMoveFurtherCheckEvent.Unsubscribe(condition);
 		ScenarioCheckEvents.CanUseItemCheckEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"The affected figure cannot perform any abilities or use or trigger any items, but bonuses previously gained are still active. This condition is removed at the end of the figure’s next turn. At the start of the round, stunned characters still must select two cards to play (or declare a long rest), but the cards will be discarded with no effect if this condition is not removed by some other means before the end of their turn. Long resting still occurs normally for stunned characters.";
 }

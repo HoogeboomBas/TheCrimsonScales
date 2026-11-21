@@ -2,6 +2,7 @@
 {
 	public int Targets { get; set; } = 1;
 	public bool TargetAll { get; set; } = false;
+	public bool MustTargetSameWithAllTargets { get; set; } = false;
 
 	public int Range { get; set; } = 1;
 	public RangeType? RangeType { get; set; } = null;

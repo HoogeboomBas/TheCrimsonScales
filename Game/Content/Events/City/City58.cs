@@ -1,4 +1,5 @@
-﻿// using System.Collections.Generic;
+﻿// TODO:
+// using System.Collections.Generic;
 // using System.Linq;
 //
 // public class City58 : CityEventModel<City58.ChoiceA, City58.ChoiceB>
@@ -96,7 +97,7 @@
 // 		public override string GetStoryText(SavedEventState state) =>
 // 			"""
 // 			"A prudent decision to invest in the wel-being of your crew," the captain replies. "The team can often accomplish more than the individual. Now you must learn to support your crew under pressure!"
-// 			
+//
 // 			You join the crew as they rehearse various tactics of survival and rescue. Improving your ability to perform under stress and physical exhaustion will undoubtedly serve you well.
 // 			""";
 //

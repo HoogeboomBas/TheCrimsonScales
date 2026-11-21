@@ -20,6 +20,18 @@ public class City37 : CityEventModel<City37.ChoiceA, City37.ChoiceB>
 
 		public override string ChoiceText => "Buy the whistle from the Orchid for fifteen gold.";
 
+		public override EventResolveType GetEventResolveType(SavedEventState state)
+		{
+			if(state.GetCustomValue<bool>(EnoughGoldKey))
+			{
+				return EventResolveType.Lost;
+			}
+			else
+			{
+				return EventResolveType.ReturnCardToBottom;
+			}
+		}
+
 		public override void InitState(SavedEventState state, SavedCampaign savedCampaign)
 		{
 			base.InitState(state, savedCampaign);
@@ -69,6 +81,18 @@ public class City37 : CityEventModel<City37.ChoiceA, City37.ChoiceB>
 		private const string EnoughGoldKey = "EnoughGold";
 
 		public override string ChoiceText => "Try to charm the Orchid into giving it to you for free.";
+
+		public override EventResolveType GetEventResolveType(SavedEventState state)
+		{
+			if(state.GetCustomValue<bool>(OrchidInPartyKey) || state.GetCustomValue<bool>(EnoughGoldKey))
+			{
+				return EventResolveType.Lost;
+			}
+			else
+			{
+				return EventResolveType.ReturnCardToBottom;
+			}
+		}
 
 		public override void InitState(SavedEventState state, SavedCampaign savedCampaign)
 		{

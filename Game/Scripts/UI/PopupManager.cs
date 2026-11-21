@@ -56,15 +56,27 @@ public partial class PopupManager : Node
 		TryOpenFirstPopup();
 	}
 
-	public void OpenPopupOnTop(PopupRequest request)
+	public void OpenPopupOnTop<T>(T request)
+		where T : PopupRequest
 	{
-		if(_openRequests.Any(openRequest => openRequest.GetType() == request.GetType()))
+		if(IsPopupOpen<T>())
 		{
 			Log.Error($"Popup with request type {request.GetType()} already opened");
 			return;
 		}
 
 		OpenPopup(request);
+	}
+
+	public void TryOpenPopupOnTop<T>(T request)
+		where T : PopupRequest
+	{
+		if(IsPopupOpen<T>())
+		{
+			return;
+		}
+
+		OpenPopupOnTop(request);
 	}
 
 	public void CloseTopPopup()

@@ -61,6 +61,8 @@ public class SpiritBarrage : SpiritCallerCardModel<SpiritBarrage.CardTop, Spirit
 					list.AddRange(Spirit.GetAllSpirits());
 				})
 				.WithConditionalAbilityCheck(state => AbilityCmd.AskConsumeElement(state.Performer, Element.Dark))
+				.WithTarget(Target.Any)
+				.WithCanTargetNonFigures()
 				.Build()),
 
 			new AbilityCardAbility(OtherAbility.Builder()

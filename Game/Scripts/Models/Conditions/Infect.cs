@@ -7,6 +7,7 @@ public class Infect : ConditionModel
 	public override ConditionPolarity ConditionPolarity => ConditionPolarity.Negative;
 	public override bool RemovedByHeal => true;
 	public override ConditionModel[] ImmunityCompareBaseConditions => [Conditions.Poison1];
+	protected override string ConditionAnimationScenePath => "res://Scenes/Scenario/ConditionAnimations/InfectAnimation.tscn";
 
 	public override async GDTask OnAdded(Condition condition)
 	{
@@ -48,4 +49,7 @@ public class Infect : ConditionModel
 		ScenarioEvents.AttackAfterTargetConfirmedEvent.Unsubscribe(condition);
 		ScenarioEvents.AbilityStartedEvent.Unsubscribe(condition);
 	}
+
+	protected override string GetTooltipText(RichTextParameters textParameters) =>
+		"TODO";
 }
