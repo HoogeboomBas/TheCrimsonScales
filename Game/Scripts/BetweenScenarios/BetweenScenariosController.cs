@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -243,9 +243,7 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			return;
 		}
 
-		AppController.Instance.PopupManager.OpenPopupOnTop(new ScenarioPreviewPopup.Request($"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}",
-		$"Goal: {scenarioModel.PreviewText} \n",
-			scenarioModel.MonsterModels,
+		AppController.Instance.PopupManager.OpenPopupOnTop(new ScenarioPreviewPopup.Request(scenarioModel,
 			new TextButton.Parameters("Cancel",
 				() =>
 				{

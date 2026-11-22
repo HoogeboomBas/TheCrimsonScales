@@ -12,28 +12,13 @@ public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
 
 		public List<MonsterModel> MonsterModels { get; }
 
-
 		public Request(
-			string headerText,
-			string getText,
-			List<MonsterModel> monsterModels,
-			params TextButton.Parameters[] buttonParameters)
-			: this(
-				headerText,
-				parameters => getText,
-				monsterModels,
-				buttonParameters)
-		{
-		}
-		public Request(
-			string headerText,
-			TextHelper.LabelTextDelegate getText,
-			List<MonsterModel> monsterModels,
+			ScenarioModel scenarioModel,
 			params TextButton.Parameters[] buttonParameters)
 		{
-			HeaderText = headerText;
-			GetText = getText;
-			MonsterModels = monsterModels;
+			HeaderText = $"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}";
+			GetText = parameters => $"Goal: {scenarioModel.PreviewText} \n";
+			MonsterModels = scenarioModel.MonsterModels;
 			ButtonParameters = buttonParameters;
 		}
 	}
