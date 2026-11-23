@@ -60,6 +60,8 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 
 	public Action<State, List<Figure>> CustomGetTargets { get; private set; }
 
+	public bool AutoConfirmIfOneTarget { get; private set; } = false;
+
 	public bool IsMultiTarget =>
 		Targets > 1 ||
 		Target.HasFlag(Target.TargetAll) ||
@@ -145,6 +147,12 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 		public TBuilder WithCustomGetTargets(Action<State, List<Figure>> getTargets)
 		{
 			Obj.CustomGetTargets = getTargets;
+			return (TBuilder)this;
+		}
+
+		public TBuilder WithAutoConfirmIfOneTarget(bool autoConfirmIfOneTarget)
+		{
+			Obj.AutoConfirmIfOneTarget = autoConfirmIfOneTarget;
 			return (TBuilder)this;
 		}
 
@@ -268,7 +276,7 @@ public class SufferDamageAbility : Ability<SufferDamageAbility.State>
 					abilityState.AbilityTarget == Target.Self ||
 					(TargetHex != null && abilityState.AbilityAOEPattern == null);
 				target = await AbilityCmd.SelectFigure(abilityState, getValidTargets, mandatory: Mandatory,
-					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: true,
+					autoSelectIfOne: autoSelectIfOne, autoSkipIfNone: true, autoConfirmIfOne: AutoConfirmIfOneTarget,
 					effectCollection: null,
 					hintText: () => _getTargetingHintText(abilityState));
 			}
