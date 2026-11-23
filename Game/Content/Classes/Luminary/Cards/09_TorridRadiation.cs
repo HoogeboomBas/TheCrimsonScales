@@ -33,6 +33,7 @@ public class TorridRadiation : LuminaryCardModel<TorridRadiation.CardTop, Torrid
 					       await AbilityCmd.AskConsumeElement(state.Performer, Element.Fire);
 				})
 				.WithOnAbilityEndedPerformed(async state => await AbilityCmd.GainXP(state.Performer, 1))
+				.WithAutoConfirmIfOneTarget(true)
 				.Build()),
 			Scuttle(1, [Element.Dark]),
 		];

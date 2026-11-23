@@ -38,7 +38,8 @@ public class FaithCalling : HierophantCardModel<FaithCalling.CardTop, FaithCalli
 					GrantAbility.State grantAbilityState = state.ActionState.GetAbilityState<GrantAbility.State>(0);
 
 					list.Add(grantAbilityState.UniqueTargetedFigures[0]);
-				}
+				},
+				autoConfirmIfOneTarget: true
 			))
 		];
 

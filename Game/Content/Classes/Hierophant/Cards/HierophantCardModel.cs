@@ -24,7 +24,8 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 {
 	protected GiveAbilityCardAbility GivePrayerCardAbility(int targets = 1, int range = 1,
 		Action<GiveAbilityCardAbility.State, List<Figure>> customGetTargets = null,
-		GiveAbilityCardAbility.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null)
+		GiveAbilityCardAbility.ConditionalAbilityCheckDelegate conditionalAbilityCheck = null,
+		bool autoConfirmIfOneTarget = false)
 	{
 		return GiveAbilityCardAbility.Builder()
 			.WithGetAbilityCards((state, list) =>
@@ -39,6 +40,7 @@ public abstract class HierophantCardSide : AbilityCardSideModel<Hierophant>
 			.WithRange(range)
 			.WithCustomGetTargets(customGetTargets)
 			.WithConditionalAbilityCheck(conditionalAbilityCheck)
+			.WithAutoConfirmIfOneTarget(autoConfirmIfOneTarget)
 			.Build();
 	}
 
