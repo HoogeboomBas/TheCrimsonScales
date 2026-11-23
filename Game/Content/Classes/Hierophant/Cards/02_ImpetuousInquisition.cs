@@ -81,6 +81,7 @@ public class ImpetuousInquisition : HierophantCardModel<ImpetuousInquisition.Car
 					]
 				)
 				.WithTarget(Target.Allies | Target.TargetAll)
+				.WithRange(int.MaxValue)
 				.WithOnAbilityEndedPerformed(async state =>
 				{
 					await AbilityCmd.GainXP(state.Performer, 1);
