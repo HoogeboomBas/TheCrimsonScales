@@ -1,3 +1,4 @@
+using System.Linq;
 using Fractural.Tasks;
 
 public class MantleOfPurity : CS1Item
@@ -25,7 +26,9 @@ public class MantleOfPurity : CS1Item
 		base.Subscribe();
 
 		ScenarioEvents.InflictConditionsEvent.Subscribe(this, _subscriber,
-			canApply: parameters => parameters.Target == Owner,
+			canApply: parameters =>
+				parameters.Target == Owner &&
+				parameters.ConditionModels.Any(condition => condition.IsNegative),
 			apply: async parameters =>
 			{
 				await Use(async user =>
