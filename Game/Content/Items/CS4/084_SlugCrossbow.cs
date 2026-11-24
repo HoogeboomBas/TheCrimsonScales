@@ -20,7 +20,8 @@ public class SlugCrossbow : CS4Item
 			canApply: state =>
 				state.Performer == Owner &&
 				state.IsSingleTarget &&
-				state.AbilityRangeType == RangeType.Range,
+				state.AbilityRangeType == RangeType.Range &&
+				state.AbilityCustomGetTargets == null,
 			apply: async state =>
 			{
 				await Use(async user =>

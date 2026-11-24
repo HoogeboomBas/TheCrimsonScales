@@ -99,7 +99,8 @@ public abstract class LuminaryCardSide : AbilityCardSideModel
 						ActionState actionState = new ActionState(performer, [glowAbility.Ability(glowAbility.Elements)]);
 						await actionState.Perform();
 					},
-					effectInfoViewParameters: new TextEffectInfoView.Parameters(glowAbility.HintText)
+					effectInfoViewParameters: new TextEffectInfoView.Parameters(glowAbility.HintText),
+					potentialConsumer: performer
 				));
 			}
 			else

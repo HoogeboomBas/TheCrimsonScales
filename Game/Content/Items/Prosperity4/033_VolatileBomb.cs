@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using Godot;
 
 public class VolatileBomb : Prosperity4Item
@@ -20,7 +20,8 @@ public class VolatileBomb : Prosperity4Item
 			canApply: state =>
 				state.Performer == Owner &&
 				state.IsSingleTarget &&
-				state.AbilityRangeType == RangeType.Range,
+				state.AbilityRangeType == RangeType.Range &&
+				state.AbilityCustomGetTargets == null,
 			apply: async state =>
 			{
 				await Use(async user =>

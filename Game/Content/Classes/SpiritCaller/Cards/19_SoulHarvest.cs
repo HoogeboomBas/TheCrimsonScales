@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 using Godot;
@@ -44,7 +44,7 @@ public class SoulHarvest : SpiritCallerCardModel<SoulHarvest.CardTop, SoulHarves
 				{
 					int spiritCount = 1;
 					List<ScenarioEvents.GenericChoice.Subscription> subscriptions = new List<ScenarioEvents.GenericChoice.Subscription>();
-					subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.ConsumeElement(Element.Ice,
+					subscriptions.Add(ScenarioEvents.GenericChoice.Subscription.ConsumeElement(elements: [CardElementConsumption.Consume(Element.Ice)],
 						applyFunction: async applyParameters =>
 						{
 							await AbilityCmd.AddCondition(state, state.Performer, Conditions.Curse);
@@ -55,7 +55,8 @@ public class SoulHarvest : SpiritCallerCardModel<SoulHarvest.CardTop, SoulHarves
 						},
 						effectType: EffectType.Selectable,
 						effectInfoViewParameters: new TextEffectInfoView.Parameters(
-							$"Remove a damage counter from two Spirits instead.")
+							$"Remove a damage counter from two Spirits instead."),
+						potentialConsumer: state.Performer
 					));
 
 					EffectCollection effectCollection = AbilityCmd.GenericChoiceCollection(state.Performer, subscriptions);

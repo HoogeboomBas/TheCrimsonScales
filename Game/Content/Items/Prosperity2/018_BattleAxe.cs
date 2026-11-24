@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 using Godot;
 
 public class BattleAxe : Prosperity2Item
@@ -20,7 +20,8 @@ public class BattleAxe : Prosperity2Item
 			canApply: state =>
 				state.Performer == Owner &&
 				state.IsSingleTarget &&
-				state.AbilityRangeType == RangeType.Melee,
+				state.AbilityRangeType == RangeType.Melee &&
+				state.AbilityCustomGetTargets == null,
 			apply: async state =>
 			{
 				await Use(async user =>
