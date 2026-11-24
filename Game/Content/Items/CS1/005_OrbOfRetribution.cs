@@ -1,4 +1,4 @@
-using Fractural.Tasks;
+﻿using Fractural.Tasks;
 
 public class OrbOfRetribution : CS1Item
 {
@@ -19,12 +19,12 @@ public class OrbOfRetribution : CS1Item
 		SubscribeRetaliate(
 			canApply: parameters =>
 				parameters.RetaliatingFigure == Owner &&
-				RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1,
+				RangeHelper.Distance(parameters.AbilityState.Performer.Hex, parameters.RetaliatingFigure.Hex) <= 1 + parameters.ExtraRange,
 			apply: async parameters =>
 			{
 				await Use(async user =>
 				{
-					parameters.AdjustRetaliate(1);
+					parameters.AddRetaliate(1, 1);
 
 					await GDTask.CompletedTask;
 				});

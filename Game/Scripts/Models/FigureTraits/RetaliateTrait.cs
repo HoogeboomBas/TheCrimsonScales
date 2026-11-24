@@ -17,13 +17,11 @@ public class RetaliateTrait(int retaliate, int range = 1) : FigureTrait
 		ScenarioEvents.RetaliateEvent.Subscribe(figure, this,
 			canApplyParameters =>
 			{
-				return
-					canApplyParameters.RetaliatingFigure == figure &&
-					RangeHelper.Distance(canApplyParameters.AbilityState.Performer.Hex, figure.Hex) <= range;
+				return canApplyParameters.RetaliatingFigure == figure;
 			},
 			async applyParameters =>
 			{
-				applyParameters.AdjustRetaliate(retaliate);
+				applyParameters.AddRetaliate(retaliate, range);
 				await GDTask.CompletedTask;
 			});
 

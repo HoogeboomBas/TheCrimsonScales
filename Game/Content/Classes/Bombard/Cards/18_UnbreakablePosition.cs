@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fractural.Tasks;
 using Godot;
 
@@ -29,11 +29,10 @@ public class UnbreakablePosition : BombardCardModel<UnbreakablePosition.CardTop,
 						{
 							ScenarioEvents.RetaliateEvent.Subscribe(state, this,
 								retaliateParameters => retaliateParameters.RetaliatingFigure == state.Performer &&
-								                       parameters.PotentialAbilityState == retaliateParameters.AbilityState &&
-								                       RangeHelper.Distance(state.Performer.Hex, retaliateParameters.Performer.Hex) <= 1,
+								                       parameters.PotentialAbilityState == retaliateParameters.AbilityState,
 								async retaliateParameters =>
 								{
-									retaliateParameters.AdjustRetaliate(parameters.TotalShield);
+									retaliateParameters.AddRetaliate(parameters.TotalShield, 1);
 									ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 									await GDTask.CompletedTask;
 								});
@@ -71,10 +70,7 @@ public class UnbreakablePosition : BombardCardModel<UnbreakablePosition.CardTop,
 								                       parameters.PotentialAbilityState == retaliateParameters.AbilityState,
 								async retaliateParameters =>
 								{
-									if(RangeHelper.Distance(state.Performer.Hex, retaliateParameters.Performer.Hex) <= 3)
-									{
-										retaliateParameters.AdjustRetaliate(2);
-									}
+									retaliateParameters.AddRetaliate(2, 3);
 
 									ScenarioEvents.RetaliateEvent.Unsubscribe(state, this);
 									await state.AdvanceUseSlot();
