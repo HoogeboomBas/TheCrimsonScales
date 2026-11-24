@@ -37,6 +37,10 @@ The game also contains custom content contributions from the following creators:
 - Argus
 - General CGO
 - Nerdhaven
+- Xephan_GR
+
+The game contains some temporary art in the form of photographs. These were created by:
+- Betty Wills (Gleaming Squid summon)
 
 The Music and Sound Effects are the property of various artists, including but not limited to:
 - thomas devlin
@@ -44,14 +48,6 @@ The Music and Sound Effects are the property of various artists, including but n
 - John Leonard French
 - EminYILDIRIM
 - Robinhood76
-
-The game contains some temporary art in the form of photographs. These were created by:
-- 852278-MCS (Black Hole summon)
-- Betty Wills (Gleaming Squid summon)
-- Didier Descouens (Flailing Ivies summon)
-- Dominicus Johannes Bergsma (Crypt Nettle summon)
-- Kyösti Viinamäki (Metal Detector summon)
-- Patisa (Spotted Hound summon)
 
 These pieces of Audio are licensed to be used for this product specifically, and cannot be used in other games or products.
 They have been removed from the repository to make sure they're not misused. The game still works without them.
