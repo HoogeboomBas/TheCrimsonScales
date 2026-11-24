@@ -21,7 +21,7 @@ public abstract class DummyScenario : ScenarioModel
 		TODO
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		//TODO
 	];

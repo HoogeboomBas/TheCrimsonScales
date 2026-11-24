@@ -27,7 +27,7 @@ public class Scenario029 : ScenarioModel
 		Heaving the fallen rocks aside, you make a gap big enough to crawl through to whatever lies beyond.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BoneArcher>(),
 		ModelDB.Monster<LivingCorpse>(),

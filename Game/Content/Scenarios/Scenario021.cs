@@ -32,7 +32,7 @@ public class Scenario021 : ScenarioModel
 		The Lavalite falls to the ground, hopelessly clutching at his fatal blow. “Gloomhaven will fall without us” he croaks. “You have been…” and he falls back, fiery red liquid bubbling out of his mouth and ears.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EarthDemon>(),
 		ModelDB.Monster<FlameDemon>(),

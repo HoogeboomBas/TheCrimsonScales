@@ -29,7 +29,7 @@ public class Scenario006 : ScenarioModel
 		Shiela emerges carefully from behind the cart. “Thank you,” she stammers, “you have saved me, and the town.” She rummages in her cloak, “Here, take this, it’s the least I can do.”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BloodOoze>(),
 		ModelDB.Monster<FlamingDrake>(),

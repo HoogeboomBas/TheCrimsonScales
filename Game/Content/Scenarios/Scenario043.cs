@@ -27,7 +27,7 @@ public class Scenario043 : ScenarioModel
 		“A little trickier than you may have thought, perhaps?!” he says with a wink. “I heard you were good, and I thought it was worth finding out for myself. I hope this trinket is sufficient for your troubles?” Feeling a little like you were tricked and put in harm’s way for someone’s enjoyment; and feeling a lot like you just got paid for exercising your natural talents, you accept graciously and head back to town. Just another day in Gloomhaven.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<AncientArtillery>(),
 		ModelDB.Monster<CityGuard>(),
@@ -132,6 +132,7 @@ public class Scenario043 : ScenarioModel
 					{
 						await trap.Destroy();
 					}
+
 					foreach(Coin coin in movedToHex.GetHexObjectsOfType<Coin>())
 					{
 						await coin.Destroy();

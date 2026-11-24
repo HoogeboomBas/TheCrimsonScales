@@ -28,7 +28,7 @@ public class Scenario033 : ScenarioModel
 
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario034>(true)];
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<Hound>(),
 		ModelDB.Monster<InoxArcher>(),

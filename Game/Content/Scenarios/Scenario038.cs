@@ -26,7 +26,7 @@ public class Scenario038 : ScenarioModel
 		As you leave the caves, you find yourself wondering, how much did the Night Demons manage to change the creatures—and how permanent are the changes likely to be?
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<LivingSpirit>(),

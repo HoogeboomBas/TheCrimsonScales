@@ -28,7 +28,7 @@ public class Scenario024 : ScenarioModel
 		You don’t really understand what is happening, but realize that now would be a good time to leave before the whole place collapses.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FrozenCadaver>(),
 		ModelDB.Monster<HailDemon>(),

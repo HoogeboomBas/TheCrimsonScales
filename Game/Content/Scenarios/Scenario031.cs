@@ -32,7 +32,7 @@ public class Scenario031 : ScenarioModel
 		For a second you fumble completely blindly, until your vision slowly starts to adjust. As shapes become more distinct and solid, you realize you are back on the spot where you were first kidnapped from. Finding the whole experience deeply unsettling, you hurry to the Sleeping Lion, resolving to catch up with the Brightspark at the earliest opportunity.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EternalDemon>(),
 		ModelDB.Monster<HarrowerInfester>(),
@@ -130,7 +130,8 @@ public class Scenario031 : ScenarioModel
 			parameters =>
 				parameters.Hex.MapTile != parameters.Figure.Hex.MapTile &&
 				((parameters.Figure is Monster monster && monster.MonsterModel is not EternalDemon) ||
-				 (parameters.Figure is Monster demon && demon.MonsterModel is EternalDemon && parameters.PotentialAbilityState is not TeleportAbility.State) ||
+				 (parameters.Figure is Monster demon && demon.MonsterModel is EternalDemon &&
+				  parameters.PotentialAbilityState is not TeleportAbility.State) ||
 				 (parameters.Figure is Character && parameters.PotentialAbilityState is TeleportAbility.State)),
 			parameters =>
 			{

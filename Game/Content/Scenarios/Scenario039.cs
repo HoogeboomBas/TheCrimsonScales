@@ -28,7 +28,7 @@ public class Scenario039 : ScenarioModel
 		People are surprised by this new discovery of vipers with such ghastly skin, but within a few days, they are already forgotten by everyone but you. In the end, you can’t help wonder why you went through this whole ordeal.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EarthDemon>(),
 		ModelDB.Monster<GhostViperScenario039>(),

@@ -39,7 +39,7 @@ public class Scenario011 : ScenarioModel
 		You are unsure who planned the ambush, or how demons got on your ship, but with treasure on your mind you head onto the island.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FlameDemon>(),
 		ModelDB.Monster<InoxArcher>(),

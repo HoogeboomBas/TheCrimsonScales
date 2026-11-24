@@ -44,7 +44,7 @@ public class Scenario007 : ScenarioModel
 		Having learned the hard way never to leave money unattended for long, you head back to Selandre’s hideout to collect it before deciding where to go next.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CaveBear>(),
 		ModelDB.Monster<ForestImp>(),

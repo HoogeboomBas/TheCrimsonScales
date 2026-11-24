@@ -27,7 +27,7 @@ public class Scenario048 : ScenarioModel
 		“Speaking of Chief.” the Fire Knight exclaims after a brief pause, “he sent your payday along and made me swear to thank you properly. We appreciate your help! And hey, with this experience, maybe you’ll even join the Brigade when you retire too!” You share a laugh with your former companion and trade stories all the way back to Gloomhaven. Time to enjoy your payday with your old pal at the Sleeping Lion.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<GiantViper>(),
 		ModelDB.Monster<InoxArcher>(),

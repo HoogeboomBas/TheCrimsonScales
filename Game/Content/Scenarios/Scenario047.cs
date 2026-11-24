@@ -26,7 +26,7 @@ public class Scenario047 : ScenarioModel
 		After asking around a bit, you find a Quatryl who is able to work with the venom. She offers you a finder’s fee and promises to have a new potent poison on the market in no time.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EarthDemon>(),
 		ModelDB.Monster<GhostViperScenario047>(),

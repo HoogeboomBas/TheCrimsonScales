@@ -71,7 +71,7 @@ public class Scenario022 : ScenarioModel
 		Counting your loot, you say a silent prayer of thanks to Athan and decide to make a large donation to the Great Oak the next time you’re in town.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<ForestImp>(),

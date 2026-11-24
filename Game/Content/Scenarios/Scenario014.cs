@@ -36,7 +36,7 @@ public class Scenario014 : ScenarioModel
 		You step over the last of the bodies, counting your loot, and then look at the hole you dropped through, some ten feet above your heads. Maybe a little more planning wouldn’t go amiss next time…
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<Cultist>(),
 		ModelDB.Monster<DeepTerror>(),

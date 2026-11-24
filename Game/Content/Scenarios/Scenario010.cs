@@ -45,7 +45,7 @@ public class Scenario010 : ScenarioModel
 		In the back room, there are a series of notes on how to modify the creatures. Little of it makes sense, but there is reference to removing the creatures ‘core elemental powers’ before working on them, and a reference to another building nearby. Although you want to return the book to Athan as soon as possible, the idea of removing powers from these creatures that seem to plague you at every turn would be extremely useful…
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<Lurker>(),

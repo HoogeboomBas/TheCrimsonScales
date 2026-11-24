@@ -38,7 +38,7 @@ public class Scenario054 : ScenarioModel
 		As a couple of regulars start to examine the black bear pelt, your questions are largely forgotten by the comforting thought of the beer in your hand and the valuable goods in front of you. Best not to ask too many questions you think, and chalk it down to just another night in The Sleeping Lion.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackBear>(),
 		ModelDB.Monster<CaveImp>(),

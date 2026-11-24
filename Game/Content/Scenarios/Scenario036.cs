@@ -32,7 +32,7 @@ public class Scenario036 : ScenarioModel
 		The brothers and their gang are vanquished, and for the first time you see an expression approaching tranquility on the face of the Chainguard. “Thank you. My brother Inox will be grateful.” He kneels for a moment in silent reflection at justice delivered, before standing and resuming his usual attitude. “I wasn’t sure about you, but you’ve proven fairly capable. I go where the work is, and the work is whoever I’m paid to hunt down. Join me, and there’ll be more of this,” he says, throwing you a bag of gold he’s cut from one of the bandits. You are temporarily lost for words, but you think he’s just asked to join your party.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BanditArcher>(),
 		ModelDB.Monster<BanditGuard>(),

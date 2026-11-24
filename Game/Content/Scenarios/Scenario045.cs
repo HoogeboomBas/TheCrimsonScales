@@ -25,7 +25,7 @@ public class Scenario045 : ScenarioModel
 		Meanwhile, your temporary battle colleagues slink away into the marshes. The truce is over, and they may well be foes of yours again in future.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<CaveBear>(),

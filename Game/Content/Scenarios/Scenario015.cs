@@ -47,7 +47,7 @@ public class Scenario015 : ScenarioModel
 		For the first time, Selandre looks stressed. Without saying another word, she turns and leaves, sweeping the glasses off the table as she goes.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CaveBear>(),
 		ModelDB.Monster<GiantViper>(),

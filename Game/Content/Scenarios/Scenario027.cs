@@ -41,7 +41,7 @@ public class Scenario027 : ScenarioModel
 		Abruptly her demeanor changes, and she says “I have work to do, I must check on the progress.” And with that, she turns on her heel and strides off. You are finding Selandre more and more unpredictable, but the money keeps on rolling in, so you enjoy the free drinks and celebrate your victory without her.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FrostDemon>(),
 		ModelDB.Monster<Icebound>(),

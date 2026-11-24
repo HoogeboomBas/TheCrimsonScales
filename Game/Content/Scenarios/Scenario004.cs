@@ -26,7 +26,7 @@ public class Scenario004 : ScenarioModel
 		“Thank you” he nods, “but the work is not yet complete. We gained the pox from a creature that is threatening Gloomhaven’s water supply. You need to kill the creature, and cleanse the water, or the whole of Gloomhaven will be poisoned.”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CityArcher>(),
 		ModelDB.Monster<CityGuard>(),
@@ -82,7 +82,7 @@ public class Scenario004 : ScenarioModel
 		await base.OnSetupCompleted();
 
 		// This implements
-		// One character gains the “Pox Antidote” item. 
+		// One character gains the “Pox Antidote” item.
 		// During this scenario, this item may be equipped without it occupying an item slot.
 		// Map map = GameController.Instance.Map;
 		//

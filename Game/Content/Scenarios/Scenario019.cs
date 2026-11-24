@@ -40,7 +40,7 @@ public class Scenario019 : ScenarioModel
 		Deeply troubled by the idea of new and unknown demons, you resolve to seek out and destroy them before they multiply, and to track down this other elemental master. In the meantime, you help yourself to some useful looking potion and move on.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EarthDemon>(),
 		ModelDB.Monster<FlameDemon>(),
@@ -83,8 +83,8 @@ public class Scenario019 : ScenarioModel
 			              _pressurePlates.Select(pressurePlate => pressurePlate.Hex).Contains(parameters.Figure.Hex),
 			async parameters =>
 			{
-				int count = parameters.Figure.Hex.Room.Figures.Count(
-					figure => figure is Monster monster && monster.MonsterModel is VermlingExperiment);
+				int count =
+					parameters.Figure.Hex.Room.Figures.Count(figure => figure is Monster monster && monster.MonsterModel is VermlingExperiment);
 				for(int i = 0; i < count; i++)
 				{
 					if(await AbilityCmd.AskConsumeWildElement(parameters.Figure) == null)

@@ -27,7 +27,7 @@ public class Scenario008 : ScenarioModel
 		It seems like the rumors were at least partly true—and this doesn’t seem to be over quite yet.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<AncientArtillery>(),
 		ModelDB.Monster<LivingSpirit>(),

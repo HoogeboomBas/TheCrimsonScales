@@ -25,7 +25,7 @@ public class Scenario049 : ScenarioModel
 		As you clear the camp, the members of the Oak suddenly fall to their knees around a young sapling you hadn’t previously noticed. As they pray, the edges of its young, delicate leaves begin to glow golden around the edges and you feel infused with strength and good fortune. Maybe there is something to this holy site, after all...
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CityArcher>(),
 		ModelDB.Monster<CityGuard>(),

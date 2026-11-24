@@ -40,7 +40,7 @@ public class Scenario028 : ScenarioModel
 		The scrolls seem to have sapped Dominic of his positivity, so you say farewell without taking the library tour. As you leave, he calls out “Remember, destroy the potion. You must destroy it!”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<Cultist>(),
 		ModelDB.Monster<LivingBones>(),

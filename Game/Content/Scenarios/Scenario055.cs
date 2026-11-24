@@ -31,7 +31,7 @@ public class Scenario055 : ScenarioModel
 		You travel back to Gloomhaven, thinking that you probably owe Shiela a drink for her reviving powder—and the Captain of the Guard definitely owes you one.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BanditArcher>(),
 		ModelDB.Monster<EarthDemon>(),

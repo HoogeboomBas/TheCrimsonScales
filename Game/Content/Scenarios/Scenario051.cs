@@ -42,7 +42,7 @@ public class Scenario051 : ScenarioModel
 		A very good day indeed.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FlameDemon>(),
 		ModelDB.Monster<SunDemon>(),

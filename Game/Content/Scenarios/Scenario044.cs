@@ -30,7 +30,7 @@ public class Scenario044 : ScenarioModel
 		As you trudge back to The Sleeping Lion to inform Shiela that her inheritance has been secured, you each silently ponder. Despite the loot and odd trinket you collected on the way, not to mention the bag of coins waiting behind the bar, who really got the better deal?
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<HarrowerInfester>(),
 		ModelDB.Monster<LivingSpirit>(),

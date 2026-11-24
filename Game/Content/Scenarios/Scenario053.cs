@@ -28,7 +28,7 @@ public class Scenario053 : ScenarioModel
 		You grab anything of value, as well as the strange orb and start to climb the fallen down rocks to the surface. As you dry off, you resolve to be a bit less nosy about strange water currents in the future.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<Lurker>(),
 		ModelDB.Monster<SpittingDrake>(),

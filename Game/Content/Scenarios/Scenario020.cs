@@ -61,7 +61,7 @@ public class Scenario020 : ScenarioModel
 		Thanking the old man once more, you leave his office, quietly proud that you have won him over and softened the grumpy exterior. As you walk down the corridor however, you hear him bellow “Shut the door, you fools—my cuttings! And look at these dirty footprints! Weevils and bark beetles, the lot of you!”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CultLeader>(),
 		ModelDB.Monster<DeepTerror>(),

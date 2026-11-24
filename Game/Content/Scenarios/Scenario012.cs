@@ -31,7 +31,7 @@ public class Scenario012 : ScenarioModel
 		As you get further down, the energy is such that there’s a crackle in the air, like a continuous static charge. Before long, your blade hits something metallic, and you uncover a strange cube—lead bands surrounding it in all dimensions, with a green-blue glow pulsing from between them, shifting in color and intensity. It is extremely heavy, and you reluctantly begin to heave the cube back to the ship, when you suddenly find yourself face-to-face with more snakes again, with other creatures slowly beginning to surround you.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FlameDemon>(),
 		ModelDB.Monster<GiantViper>(),

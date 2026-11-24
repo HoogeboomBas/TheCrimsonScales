@@ -32,7 +32,7 @@ public class Scenario037 : ScenarioModel
 		You are about to give up when you notice a faint light on the ground. Getting closer, you see that two tunnels have been dug into the soft ground and well propped and lit with torches. Perhaps this will lead you to the cause of the rejuvenated Burning Stones.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FlameDemon>(),
 		ModelDB.Monster<FrostDemon>(),

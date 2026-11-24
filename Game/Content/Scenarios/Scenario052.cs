@@ -32,7 +32,7 @@ public class Scenario052 : ScenarioModel
 		You still wonder what happened down there. Did the poor city workers accidentally lock themselves in? Or was it perhaps their punishment for trying to steal the coins from the well? You will probably never know, but at least the wish of the city administrator has been granted. The well is all cleaned up.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<LivingCorpse>(),

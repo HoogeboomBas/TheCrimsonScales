@@ -32,7 +32,7 @@ public class Scenario026 : ScenarioModel
 		Baffled, not for the first time, by the actions of Aesthers, you take the item and return to Gloomhaven before the snow sets in.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FrozenCadaver>(),
 		ModelDB.Monster<HailDemon>(),

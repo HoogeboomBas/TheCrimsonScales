@@ -33,7 +33,7 @@ public class Scenario025 : ScenarioModel
 		As he turns to leave, he calls—“Oh, and watch the Eternal Demon—he’s a tricky fellow.”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<ForestImp>(),
 		ModelDB.Monster<GiantViper>(),
@@ -78,7 +78,7 @@ public class Scenario025 : ScenarioModel
 		AddScenarioRule("The Brightspark draws from whichever modifier deck you prefer.");
 		AddScenarioRule("If the Brightspark is killed, the scenario is lost.");
 
-		//The Brightspark acts on Initiative 50 every turn, performing “{Icons.Inline(Icons.Move, textParameters)}2, {Icons.Inline(Icons.Attack, textParameters)}1” (using whichever modifier deck you prefer). 
+		//The Brightspark acts on Initiative 50 every turn, performing “{Icons.Inline(Icons.Move, textParameters)}2, {Icons.Inline(Icons.Attack, textParameters)}1” (using whichever modifier deck you prefer).
 		AddScenarioRule(textParameters =>
 			$"""
 			 For each Goal treasure tile you loot, the Brightspark gains the following benefit:

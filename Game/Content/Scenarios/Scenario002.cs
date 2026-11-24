@@ -29,7 +29,7 @@ public class Scenario002 : ScenarioModel
 		You duck into a recess just as an enormous wave of water rushes through the main channel. It rises quickly, and you start to regret unlocking the doors. Soon, the water is rising up to your knees, then your waist. As you begin to worry about having to swim for it, the wall behind you collapses and the rush of water sweeps you into another cavern.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<DeepTerror>(),
 		ModelDB.Monster<InoxArcher>(),

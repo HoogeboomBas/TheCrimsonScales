@@ -27,7 +27,7 @@ public class Scenario040 : ScenarioModel
 		Outside, you find a horse and cart and ride it back to Gloomhaven with the Porter’s body in the back (and the hides underneath) to claim the reward issued for his head, and quietly sell the hides. You could get used to this bounty hunting.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<DrakePorter>(),
 		ModelDB.Monster<RendingDrake>(),

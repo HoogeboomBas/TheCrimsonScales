@@ -76,7 +76,7 @@ public class Scenario032 : ScenarioModel
 		Then, you walk out of the door, and cross the road—there’s a dark corner of The Sleeping Lion with your name on it.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<AncientArtillery>(),
 		ModelDB.Monster<InoxArcher>(),

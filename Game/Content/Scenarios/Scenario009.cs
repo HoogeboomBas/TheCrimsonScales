@@ -49,7 +49,7 @@ public class Scenario009 : ScenarioModel
 		As she leaves, she turns back and says to you, “Oh and well done, we’ve sent several other parties to slay Granurso, and none have returned. There’s a gesture of my appreciation on the bar, and I’ll have another little task for you shortly.”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<AncientArtillery>(),
 		ModelDB.Monster<Granurso>(),

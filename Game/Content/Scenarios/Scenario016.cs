@@ -58,7 +58,7 @@ public class Scenario016 : ScenarioModel
 		Eventually though, you realize that morality has never really bothered you in the past, and Selandre is a well paying client. Whatever she’s up to, she’s keeping the money flowing straight into your pocket—which you then responsibly invest behind the many bars of Gloomhaven.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<ApexDemon>(),
 		ModelDB.Monster<BlackImp>(),

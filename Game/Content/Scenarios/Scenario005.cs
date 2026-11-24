@@ -28,7 +28,7 @@ public class Scenario005 : ScenarioModel
 		You race to the lake above Gloomhaven to try and purify the water at its source.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<GelatinousGiant>(),
 		ModelDB.Monster<GelatinousGiantSecondStage>(),

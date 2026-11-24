@@ -54,7 +54,7 @@ public class Scenario003 : ScenarioModel
 		You discuss whether to go and check the guards or travel straight to the Lingering Swamp to recover the eggs for Selandre.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<GiantViper>(),
 		ModelDB.Monster<Lurker>(),

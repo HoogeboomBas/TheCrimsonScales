@@ -52,7 +52,7 @@ public class Scenario018 : ScenarioModel
 		After a few rowdy drinks, your thoughts eventually turn to Athan and Selandre. Should you go and show Athan your acquisition, or Selandre?
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<DeepTerror>(),

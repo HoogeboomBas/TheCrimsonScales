@@ -32,7 +32,7 @@ public class Scenario030 : ScenarioModel
 		Can you trust Selandre? But, 70 gold each is a lot of money, and that’s what you’re here for.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BlackImp>(),
 		ModelDB.Monster<LivingCorpse>(),

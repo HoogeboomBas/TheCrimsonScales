@@ -32,7 +32,7 @@ public class Scenario013 : ScenarioModel
 		A few days later she sees you again. Looking at the weals the hanging moss has left, she smiles. “I hope I didn’t put you in any trouble,” she says, slightly mischievously. “That moss has incredible powers—help yourself to one of these, and thank you!”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<LivingCorpse>(),
 		ModelDB.Monster<Lurker>(),

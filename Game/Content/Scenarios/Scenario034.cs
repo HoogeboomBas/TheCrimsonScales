@@ -44,7 +44,7 @@ public class Scenario034 : ScenarioModel
 		Entering into the Sleeping Lion you smell the sweet aroma of fine ales and decide to quit another time.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<Hound>(),
 		ModelDB.Monster<InoxArcher>(),

@@ -24,7 +24,7 @@ public class Scenario042 : ScenarioModel
 		As you kill the final beast, you retreat back onto the path. The remaining creatures, still dangerous, but not in the same league as the three leaders, are even keener to remain in their respective habitats, and you have no desire to go back in there. You have helped the Orchid’s village by killing the most vicious; they can take care of the rest.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CaveBear>(),
 		ModelDB.Monster<GiantViper>(),

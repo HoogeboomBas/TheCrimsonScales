@@ -22,7 +22,7 @@ public class Scenario023 : ScenarioModel
 		There are many strange and terrifying creatures in and around Gloomhaven, and you figure the city doesn’t need any more, so you perform your civic duty and slaughter them all. The Society of Zoological wonders might disagree—but then the frozen horrors weren’t trying to kill them, were they?
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<FrozenCadaver>(),
 		ModelDB.Monster<HailDemon>(),

@@ -27,7 +27,7 @@ public class Scenario050 : ScenarioModel
 		“Thank you,” he says simply with a bow. “You have done us a great service today, and it will not be forgotten.”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CaptainOfTheGuard>(),
 		ModelDB.Monster<CaveBear>(),

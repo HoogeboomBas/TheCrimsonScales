@@ -28,7 +28,7 @@ public class Scenario041 : ScenarioModel
 		As your eyes readjust, you see that it is very much dead, and set about recovering the many remaining pieces in order to claim the reward. Turns out bounty hunting isn’t always as glamorous as it sounds.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BanditArcher>(),
 		ModelDB.Monster<BanditGuard>(),

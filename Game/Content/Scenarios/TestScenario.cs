@@ -21,7 +21,7 @@ public class TestScenario : ScenarioModel
 		TODO
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BanditGuard>(),
 		ModelDB.Monster<DeepTerror>(),

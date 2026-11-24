@@ -42,7 +42,7 @@ public class Scenario017 : ScenarioModel
 		However, it has also driven a new ferocity in the remaining creatures. You turn and make for the exit, slaying whatever you can on the way
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<EarthDemon>(),
 		ModelDB.Monster<FlameDemon>(),

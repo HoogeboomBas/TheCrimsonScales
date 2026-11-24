@@ -31,7 +31,7 @@ public class Scenario046 : ScenarioModel
 		You have long outstayed your welcome, and hastily leave the Vermling Gardens—you have no wish to cause further trouble. Ten minutes down the road, you find a Vermling peddler who attempts to sell you  one of the fruit from the Tree of Death. You hesitate for a second, torn between warning him and forcibly taking and destroying the fruit. Then, you sigh and walk away—one good deed is more than enough for the day.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<CaveBear>(),
 		ModelDB.Monster<Hound>(),

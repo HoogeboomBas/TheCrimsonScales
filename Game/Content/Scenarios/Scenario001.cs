@@ -29,7 +29,7 @@ public class Scenario001 : ScenarioModel
 		You explore further, and find an old tunnel. It is obviously some sort of overflow from somewhere, but currently it is only damp. There are prints in the muddy soil by the entrance though, and you can see other signs of activity. Maybe, whatever this mysterious object is, it lies in here.
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<SpittingDrake>(),
 		ModelDB.Monster<VermlingScout>(),

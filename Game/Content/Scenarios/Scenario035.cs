@@ -39,7 +39,7 @@ public class Scenario035 : ScenarioModel
 		“Ah, but of course” says Beetleworth between gritted teeth. “And how can I reward you, Sergeant?” “Forget it!” spits the Chainguard. ”I think it’s safer outside these walls than in. I quit!”
 		""";
 
-	public override List<MonsterModel> MonsterModels { get; } =
+	public override List<MonsterModel> MonsterModels =>
 	[
 		ModelDB.Monster<BanditArcher>(),
 		ModelDB.Monster<BanditGuard>(),
