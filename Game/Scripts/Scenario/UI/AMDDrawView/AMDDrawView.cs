@@ -127,10 +127,13 @@ public partial class AMDDrawView : Control
 
 			UpdateDrawPileSize(deck);
 
-			AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
-			AddChild(drawCard);
-			await drawCard.DrawCard(newCard, _deckAnchor, terminalCardValue == null ? _discardAnchor : _secondTerminalAnchor,
-				terminalCardValue == null ? 1f : 1.5f);
+			if(!GameController.FastForward)
+			{
+				AMDDrawCard drawCard = _amdDrawCardscene.Instantiate<AMDDrawCard>();
+				AddChild(drawCard);
+				await drawCard.DrawCard(newCard, _deckAnchor, terminalCardValue == null ? _discardAnchor : _secondTerminalAnchor,
+					terminalCardValue == null ? 1f : 1.5f);
+			}
 
 			//TODO: If reshuffled, visualize that
 
