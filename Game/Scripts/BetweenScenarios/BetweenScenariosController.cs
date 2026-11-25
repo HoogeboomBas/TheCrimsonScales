@@ -244,19 +244,9 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 		}
 
 		AppController.Instance.PopupManager.OpenPopupOnTop(new ScenarioPreviewPopup.Request(scenarioModel,
-			new TextButton.Parameters("Cancel",
-				() =>
-				{
-				}
-			),
-			new TextButton.Parameters("Confirm",
-				() =>
-				{
-					StartScenarioSequence(scenarioModel).Forget();
-				},
-				TextButton.ColorType.Green
+					() => StartScenarioSequence(scenarioModel).Forget()
 			)
-		));
+		);
 	}
 
 	public void ReturnToGloomhaven()

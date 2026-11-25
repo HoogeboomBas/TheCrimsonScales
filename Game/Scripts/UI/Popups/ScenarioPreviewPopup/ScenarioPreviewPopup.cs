@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
@@ -14,12 +15,20 @@ public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
 
 		public Request(
 			ScenarioModel scenarioModel,
-			params TextButton.Parameters[] buttonParameters)
+			Action confirmCallback)
 		{
 			HeaderText = $"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}";
 			GetText = parameters => $"Goal: {scenarioModel.PreviewText} \n";
 			MonsterModels = scenarioModel.MonsterModels;
-			ButtonParameters = buttonParameters;
+			ButtonParameters = [
+				new TextButton.Parameters("Cancel", () => {}),
+				new TextButton.Parameters("Confirm",
+				() =>
+				{
+					confirmCallback();
+				},
+				TextButton.ColorType.Green
+			)];
 		}
 	}
 
@@ -33,7 +42,6 @@ public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
 	private HBoxContainer _monsterPreviewParent;
 	[Export]
 	private Label _rewardsText;
-	private readonly List<ScenarioPreviewPopupMonster> _monsters = new List<ScenarioPreviewPopupMonster>();
 
 	[Export]
 	private PackedScene _textButtonScene;
@@ -41,6 +49,8 @@ public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
 	private Control _textButtonParent;
 
 	private readonly List<TextButton> _buttons = new List<TextButton>();
+
+	private readonly List<ScenarioPreviewPopupMonster> _monsters = new List<ScenarioPreviewPopupMonster>();
 
 	protected override void OnOpen()
 	{
@@ -74,6 +84,7 @@ public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
 		{
 			monster.QueueFree();
 		}
+
 		_monsters.Clear();
 	}
 
