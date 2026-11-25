@@ -23,7 +23,7 @@ public class CardDeck<T>
 		return DrawPile[DrawPile.Count - 1 - position];
 	}
 
-	public T DrawCard()
+	public T DrawCard(bool autoDiscard = true)
 	{
 		if(DrawPile.Count == 0)
 		{
@@ -33,7 +33,7 @@ public class CardDeck<T>
 		T card = DrawPile[^1];
 		DrawPile.RemoveAt(DrawPile.Count - 1);
 
-		if(!card.RemoveAfterDraw)
+		if(!card.RemoveAfterDraw && autoDiscard)
 		{
 			DiscardPile.Add(card);
 		}
@@ -50,6 +50,11 @@ public class CardDeck<T>
 		{
 			ShuffleDrawPile();
 		}
+	}
+
+	public void DiscardCard(T card)
+	{
+		DiscardPile.Add(card);
 	}
 
 	public void MoveCardToTop(T card)
