@@ -11,6 +11,11 @@ public class Scenario046 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Tree of Death.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Led by the instructions of the dying Vermling you discovered by the roadside, you find the fabled Vermling Gardens.

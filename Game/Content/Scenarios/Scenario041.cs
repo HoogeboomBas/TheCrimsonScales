@@ -10,6 +10,11 @@ public class Scenario041 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Defeat the Rogue Hollowpact.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Pursuing the rogue Savvas on the wanted poster, a few coins in the right pocket lets you learn its broad location, and a potted history of it.

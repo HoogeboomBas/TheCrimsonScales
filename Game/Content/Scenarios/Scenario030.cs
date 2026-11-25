@@ -14,6 +14,11 @@ public class Scenario030 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<TaintedScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario032>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Shadow Demon and Twin Corpses.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You crawl through the narrow hole you have formed from the previous chamber, into yet another warren of vaults. The undead are on you immediately, but this feels different, almost like they are protecting something. You are on the right path. Tired, but battle ready from your previous exertions you steel yourself for one more push. Time to get to the bottom of who, or what, is responsible for this necromancy.

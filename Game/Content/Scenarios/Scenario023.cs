@@ -12,6 +12,11 @@ public class Scenario023 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario026>(true)];
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		The abandoned Aesther’s lab contained details of some kind of new, or maybe mutated, demons, who she has discovered in a cave in the heights of the Copperneck Mountains. The directions are very thorough, and you find the cave easily. The details of what is inside however, are very sketchy, and you don’t really know what to expect as you creep into the long, gloomy ice cave. Suddenly, a deeply unsettling noise, half wheeze, half growl, comes from the cave, very close to you. Whatever made the noise, you’re about to find out…

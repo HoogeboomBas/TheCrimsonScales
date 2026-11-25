@@ -16,6 +16,11 @@ public class Scenario003 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario004>(), new ScenarioConnection<Scenario007>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Hydra Spirit.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		The tidal wave of filthy water carries you into a large cavern, the biggest you’ve seen yet. It bears a resemblance to the previous channels, with its brick interior overwhelmed by natural growths, but there seems to be no Quatryl wizardry here.

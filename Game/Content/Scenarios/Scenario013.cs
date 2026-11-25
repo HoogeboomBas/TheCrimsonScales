@@ -10,6 +10,11 @@ public class Scenario013 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Kill all enemies.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		You are walking through the Sinking Market, trying to avoid the hustlers hawking strange pieces of metal and the like, when you are approached by a slightly flustered Shiela, the potion maker from The Sleeping Lion.

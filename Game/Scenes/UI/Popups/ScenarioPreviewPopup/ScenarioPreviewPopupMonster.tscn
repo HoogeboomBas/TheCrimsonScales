@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bvyvr1m1poq7l"]
+
+[ext_resource type="PackedScene" uid="uid://3hqfq7j4p4n7" path="res://Scenes/UI/MonsterView.tscn" id="1_jrdmh"]
+[ext_resource type="Script" uid="uid://cevlkv2wndhfa" path="res://Scripts/UI/Popups/ScenarioPreviewPopup/ScenarioPreviewPopupMonster.cs" id="1_ndo5t"]
+[ext_resource type="FontVariation" uid="uid://ciy2q5rti2m6m" path="res://Fonts/MarkaziVariation.tres" id="2_p0ve1"]
+
+[node name="ScenarioPreviewPopupMonster" type="MarginContainer" unique_id=91874163 node_paths=PackedStringArray("_monsterNameLabel", "_monsterView")]
+script = ExtResource("1_ndo5t")
+_monsterNameLabel = NodePath("VBoxContainer/MonsterName")
+_monsterView = NodePath("VBoxContainer/MonsterView")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=378949509]
+custom_minimum_size = Vector2(150, 225)
+layout_mode = 2
+
+[node name="MonsterView" parent="VBoxContainer" unique_id=1882316233 instance=ExtResource("1_jrdmh")]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MonsterName" type="RichTextLabel" parent="VBoxContainer" unique_id=1600581305]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_p0ve1")
+theme_override_font_sizes/normal_font_size = 24
+text = "Monster Name"
+horizontal_alignment = 1

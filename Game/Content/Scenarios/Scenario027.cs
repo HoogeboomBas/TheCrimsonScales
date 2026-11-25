@@ -11,6 +11,11 @@ public class Scenario027 : ScenarioModel
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<MainCampaignScenarioChain>();
 	public override IEnumerable<ScenarioConnection> Connections => [new ScenarioConnection<Scenario028>()];
 
+	public override string PreviewText =>
+	"""
+		Defeat the Icebound.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		Flushed with your success with the Lavalite, you return jubilantly to The Crimson Scale and find Selandre waiting for you.

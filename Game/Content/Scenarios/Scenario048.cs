@@ -11,6 +11,11 @@ public class Scenario048 : ScenarioModel
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
 
+	public override string PreviewText =>
+	"""
+		Extinguish all fires.
+	""";
+
 	public override string IntroductionText =>
 		"""
 		After agreeing to help extinguish spot fires during the ongoing wildfire, the Fire Knight provides your party with extra Fire Brigade uniforms to protect your skin from the flames before sending you on your way to patrol a nearby section of the forest. In your conversation with the Fire Knight, you learned that one of the lnox tribes of the Corpsewood Forest started this blaze. You suspect that it might be an effort to distract the City Guard long enough to launch an assault against the city. They have never been happy about the city-dwellers building homes and cottages deeper and deeper into forested lands.

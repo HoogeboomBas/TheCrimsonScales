@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -13,6 +13,11 @@ public class Scenario026 : ScenarioModel
 
 	protected override List<ScenarioRequirement> Requirements => [new PartyAchievementRequirement(PartyAchievement.FrozenWarrior, true)];
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<ChillyScenarioChain>();
+
+	public override string PreviewText =>
+	"""
+		Destroy all five Thermal Stones.
+	""";
 
 	public override string IntroductionText =>
 		"""

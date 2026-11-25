@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Fractural.Tasks;
 
@@ -10,6 +10,11 @@ public class Scenario040 : ScenarioModel
 	public override string Name => "Smugglers’ Hideout";
 
 	public override ScenarioChain ScenarioChain => ModelDB.ScenarioChain<EventScenarioChain>();
+
+	public override string PreviewText =>
+	"""
+		Defeat the Drake Porter.
+	""";
 
 	public override string IntroductionText =>
 		"""

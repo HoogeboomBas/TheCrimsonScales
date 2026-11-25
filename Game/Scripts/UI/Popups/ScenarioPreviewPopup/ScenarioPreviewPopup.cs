@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using Godot;
+
+public partial class ScenarioPreviewPopup : Popup<ScenarioPreviewPopup.Request>
+{
+	public class Request : PopupRequest
+	{
+		public string HeaderText { get; }
+		public TextHelper.LabelTextDelegate GetText { get; }
+
+		public TextButton.Parameters[] ButtonParameters { get; }
+
+		public List<MonsterModel> MonsterModels { get; }
+
+		public Request(
+			ScenarioModel scenarioModel,
+			Action confirmCallback)
+		{
+			HeaderText = $"Scenario {scenarioModel.ScenarioNumber} - {scenarioModel.Name}";
+			GetText = parameters => $"Goal: {scenarioModel.PreviewText} \n";
+			MonsterModels = scenarioModel.MonsterModels;
+			ButtonParameters = [
+				new TextButton.Parameters("Cancel", () => {}),
+				new TextButton.Parameters("Confirm",
+				() =>
+				{
+					confirmCallback();
+				},
+				TextButton.ColorType.Green
+			)];
+		}
+	}
+
+	[Export]
+	private Label _headerLabel;
+	[Export]
+	private RichTextLabel _bodyLabel;
+	[Export]
+	private PackedScene _monsterView;
+	[Export]
+	private HBoxContainer _monsterPreviewParent;
+	[Export]
+	private Label _rewardsText;
+
+	[Export]
+	private PackedScene _textButtonScene;
+	[Export]
+	private Control _textButtonParent;
+
+	private readonly List<TextButton> _buttons = new List<TextButton>();
+
+	private readonly List<ScenarioPreviewPopupMonster> _monsters = new List<ScenarioPreviewPopupMonster>();
+
+	protected override void OnOpen()
+	{
+		base.OnOpen();
+
+		_headerLabel.SetText(PopupRequest.HeaderText);
+		RichTextParameters textParameters = _bodyLabel.GetRichTextParameters();
+		_bodyLabel.SetText(PopupRequest.GetText(textParameters));
+
+		foreach(MonsterModel monster in PopupRequest.MonsterModels)
+		{
+			ScenarioPreviewPopupMonster monsterPreview = _monsterView.Instantiate<ScenarioPreviewPopupMonster>();
+			_monsterPreviewParent.AddChild(monsterPreview);
+			monsterPreview.Init(monster);
+			_monsters.Add(monsterPreview);
+		}
+
+		foreach(TextButton.Parameters buttonParameters in PopupRequest.ButtonParameters)
+		{
+			TextButton textButton = _textButtonScene.Instantiate<TextButton>();
+			_textButtonParent.AddChild(textButton);
+			textButton.Init(buttonParameters);
+			textButton.PressedEvent += OnButtonPressed;
+			_buttons.Add(textButton);
+		}
+	}
+
+	private void CleanUpEnemies()
+	{
+		foreach(ScenarioPreviewPopupMonster monster in _monsters)
+		{
+			monster.QueueFree();
+		}
+
+		_monsters.Clear();
+	}
+
+	protected override void OnClosed()
+	{
+		base.OnClosed();
+
+		CleanUpEnemies();
+
+		foreach(TextButton button in _buttons)
+		{
+			button.QueueFree();
+		}
+
+		_buttons.Clear();
+	}
+
+	private void OnButtonPressed()
+	{
+		Close();
+	}
+}

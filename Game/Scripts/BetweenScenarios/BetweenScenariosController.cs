@@ -243,21 +243,10 @@ public partial class BetweenScenariosController : SceneController<BetweenScenari
 			return;
 		}
 
-		AppController.Instance.PopupManager.OpenPopupOnTop(new TextPopup.Request($"Scenario {scenarioModel.ScenarioNumber}",
-			$"Start scenario {scenarioModel.ScenarioNumber}?",
-			new TextButton.Parameters("Cancel",
-				() =>
-				{
-				}
-			),
-			new TextButton.Parameters("Confirm",
-				() =>
-				{
-					StartScenarioSequence(scenarioModel).Forget();
-				},
-				TextButton.ColorType.Green
+		AppController.Instance.PopupManager.OpenPopupOnTop(new ScenarioPreviewPopup.Request(scenarioModel,
+					() => StartScenarioSequence(scenarioModel).Forget()
 			)
-		));
+		);
 	}
 
 	public void ReturnToGloomhaven()
